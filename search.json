@@ -14,6 +14,125 @@
     "text": "Headline\n\nJanitor is a toolkit for tidying data\nboth input-focused and output-focused\nexcellent balance between diligence and laziness"
   },
   {
+    "objectID": "r_training/we_heart_janitor.html#setup",
+    "href": "r_training/we_heart_janitor.html#setup",
+    "title": "We ❤️ janitor",
+    "section": "Setup",
+    "text": "Setup\n\nlibrary(janitor)\nlibrary(readxl)\n\ntest_df &lt;- as.data.frame(matrix(ncol = 6))\nnames(test_df) &lt;- c(\"firstName\", \"ábc@!*\", \"% successful (2009)\",\n                    \"REPEAT VALUE\", \"REPEAT VALUE\", \"\")\n\ntest_df |&gt;\n  clean_names(case = \"upper_lower\") |&gt;\n  select(FIRSTname)\n\n  FIRSTname\n1        NA\n\n\n\nexample column names from https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#clean_names",
+    "href": "r_training/we_heart_janitor.html#clean_names",
+    "title": "We ❤️ janitor",
+    "section": "clean_names",
+    "text": "clean_names\n\nclean_names(test_df)\n\n  first_name abc percent_successful_2009 repeat_value repeat_value_2  x\n1         NA  NA                      NA           NA             NA NA"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#clean_names-1",
+    "href": "r_training/we_heart_janitor.html#clean_names-1",
+    "title": "We ❤️ janitor",
+    "section": "clean_names",
+    "text": "clean_names\n\nclean_names(test_df, case = \"screaming_snake\")\n\n  FIRST_NAME ABC PERCENT_SUCCESSFUL_2009 REPEAT_VALUE REPEAT_VALUE_2  X\n1         NA  NA                      NA           NA             NA NA"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#clean_names-2",
+    "href": "r_training/we_heart_janitor.html#clean_names-2",
+    "title": "We ❤️ janitor",
+    "section": "clean_names",
+    "text": "clean_names\n\nclean_names(test_df, case = \"big_camel\")\n\n  FirstName Abc PercentSuccessful2009 RepeatValue RepeatValue_2  X\n1        NA  NA                    NA          NA            NA NA\n\ntest_df %&gt;%\n  # clean_names() %&gt;%\n  clean_names(prefix = \"a_prefix\")\n\n  a_prefixfirst_name a_prefixabc a_prefixpercent_successful_2009\n1                 NA          NA                              NA\n  a_prefixrepeat_value a_prefixrepeat_value_2 a_prefixx\n1                   NA                     NA        NA"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#compare_df_cols",
+    "href": "r_training/we_heart_janitor.html#compare_df_cols",
+    "title": "We ❤️ janitor",
+    "section": "compare_df_cols",
+    "text": "compare_df_cols\n\nlibrary(palmerpenguins)\n\ncompare_df_cols(penguins,penguins_raw)\n       column_name penguins penguins_raw\n1 bill_depth_mm numeric  2 bill_length_mm numeric  3 Body Mass (g)  numeric 4 body_mass_g integer  5 Clutch Completion  character 6 Comments  character 7 Culmen Depth (mm)  numeric 8 Culmen Length (mm)  numeric 9 Date Egg  Date 10 Delta 13 C (o/oo)  numeric 11 Delta 15 N (o/oo)  numeric 12 Flipper Length (mm)  numeric 13 flipper_length_mm integer  14 Individual ID  character 15 island factor  16 Island  character 17 Region  character 18 Sample Number  numeric 19 sex factor  20 Sex  character 21 species factor  22 Species  character 23 Stage  character 24 studyName  character 25 year integer"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#warnings",
+    "href": "r_training/we_heart_janitor.html#warnings",
+    "title": "We ❤️ janitor",
+    "section": "warnings",
+    "text": "warnings\n\n# openxlsx::read.xlsx(\"https://github.com/NES-DEW/KIND-training/raw/main/r_training/data/JanitorDataExample.xlsx\") |&gt;\n#   janitor::make_clean_names()\nData1 &lt;- readxl::read_excel(\"data/JanitorDataExample.xlsx\", .name_repair = make_clean_names)\n\n# Data1 &lt;- readxl::read_excel(\"r_training/data/JanitorDataExample.xlsx\", .name_repair = make_clean_names)\n\n# warnings switched off, otherwise we'd have literally hundreds of warnings here!\n\nmake_clean_names(c(\"1thing\", \"some opther thign\"))\n\n[1] \"x1thing\"           \"some_opther_thign\""
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#warnings-1",
+    "href": "r_training/we_heart_janitor.html#warnings-1",
+    "title": "We ❤️ janitor",
+    "section": "warnings",
+    "text": "warnings\n\nglimpse(Data1)\n\nRows: 503\nColumns: 7\n$ id               &lt;dbl&gt; 100507, 104088, 105279, 105459, 108894, 109204, 10962…\n$ gender           &lt;chr&gt; \"Male\", \"Male\", \"Female\", \"Male\", \"Male\", \"Male\", \"Ma…\n$ date_of_event_1  &lt;dbl&gt; 44572, 44216, 44172, 44496, 44973, 45099, 44350, 4466…\n$ date_of_event_2  &lt;dbl&gt; 44535, 44089, 45239, 43872, 45239, 44236, 44981, 4386…\n$ location         &lt;chr&gt; \"Hospital\", \"Hospital\", \"Hospital\", \"Home\", \"Home\", \"…\n$ diagnosis_code_1 &lt;chr&gt; \"T848\", \"G992\", \"J81X\", \"R55X\", \"J459\", \"K851\", \"J441…\n$ attendances      &lt;dbl&gt; 3, 2, 4, 2, 2, 4, 2, 3, 1, 3, 3, 2, 3, 4, 3, 4, 4, 4,…"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#clean_names-again",
+    "href": "r_training/we_heart_janitor.html#clean_names-again",
+    "title": "We ❤️ janitor",
+    "section": "clean_names again",
+    "text": "clean_names again\n\nData1_clean &lt;- Data1 |&gt;\n  clean_names() |&gt;\n  mutate(across(contains(\"date\"),\n         excel_numeric_to_date)) |&gt;\n  mutate(Year = lubridate::year(date_of_event_1))\n\nData1_clean\n\n# A tibble: 503 × 8\n       id gender date_of_event_1 date_of_event_2 location diagnosis_code_1\n    &lt;dbl&gt; &lt;chr&gt;  &lt;date&gt;          &lt;date&gt;          &lt;chr&gt;    &lt;chr&gt;           \n 1 100507 Male   2022-01-11      2021-12-05      Hospital T848            \n 2 104088 Male   2021-01-20      2020-09-15      Hospital G992            \n 3 105279 Female 2020-12-07      2023-11-09      Hospital J81X            \n 4 105459 Male   2021-10-27      2020-02-11      Home     R55X            \n 5 108894 Male   2023-02-16      2023-11-09      Home     J459            \n 6 109204 Male   2023-06-22      2021-02-09      Home     K851            \n 7 109624 Male   2021-06-03      2023-02-24      Home     J441            \n 8 111454 Male   2022-04-11      2020-02-07      Home     E162            \n 9 113892 Male   2020-04-26      2023-03-06      Home     I279            \n10 114110 Male   2021-04-04      2021-05-06      Hospital M798            \n# ℹ 493 more rows\n# ℹ 2 more variables: attendances &lt;dbl&gt;, Year &lt;dbl&gt;"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#get_dupes",
+    "href": "r_training/we_heart_janitor.html#get_dupes",
+    "title": "We ❤️ janitor",
+    "section": "get_dupes",
+    "text": "get_dupes\n\nData1_clean |&gt;\n  get_dupes(contains(\"date\"))\n\n# A tibble: 6 × 9\n  date_of_event_1 date_of_event_2 dupe_count     id gender location\n  &lt;date&gt;          &lt;date&gt;               &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   \n1 2021-10-09      2021-08-20               2 400760 Female Hospital\n2 2021-10-09      2021-08-20               2 400760 Female Hospital\n3 2022-04-04      2021-11-08               2 450284 Female Hospital\n4 2022-04-04      2021-11-08               2 450284 Female Hospital\n5 2023-06-29      2020-03-23               2 823894 Male   Home    \n6 2023-06-29      2020-03-23               2 823894 Male   Home    \n# ℹ 3 more variables: diagnosis_code_1 &lt;chr&gt;, attendances &lt;dbl&gt;, Year &lt;dbl&gt;"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#distinct",
+    "href": "r_training/we_heart_janitor.html#distinct",
+    "title": "We ❤️ janitor",
+    "section": "distinct",
+    "text": "distinct\n\nData1_clean_distinct &lt;- distinct(Data1_clean)\n\nData1_clean_distinct\n\n# A tibble: 500 × 8\n       id gender date_of_event_1 date_of_event_2 location diagnosis_code_1\n    &lt;dbl&gt; &lt;chr&gt;  &lt;date&gt;          &lt;date&gt;          &lt;chr&gt;    &lt;chr&gt;           \n 1 100507 Male   2022-01-11      2021-12-05      Hospital T848            \n 2 104088 Male   2021-01-20      2020-09-15      Hospital G992            \n 3 105279 Female 2020-12-07      2023-11-09      Hospital J81X            \n 4 105459 Male   2021-10-27      2020-02-11      Home     R55X            \n 5 108894 Male   2023-02-16      2023-11-09      Home     J459            \n 6 109204 Male   2023-06-22      2021-02-09      Home     K851            \n 7 109624 Male   2021-06-03      2023-02-24      Home     J441            \n 8 111454 Male   2022-04-11      2020-02-07      Home     E162            \n 9 113892 Male   2020-04-26      2023-03-06      Home     I279            \n10 114110 Male   2021-04-04      2021-05-06      Hospital M798            \n# ℹ 490 more rows\n# ℹ 2 more variables: attendances &lt;dbl&gt;, Year &lt;dbl&gt;"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#tabyl-adorn",
+    "href": "r_training/we_heart_janitor.html#tabyl-adorn",
+    "title": "We ❤️ janitor",
+    "section": "tabyl / adorn",
+    "text": "tabyl / adorn\n\nData1_clean_distinct |&gt;\n  tabyl(gender)\n\n gender   n percent valid_percent\n Female 285   0.570     0.5711423\n   Male 214   0.428     0.4288577\n   &lt;NA&gt;   1   0.002            NA\n\nData1_clean_distinct |&gt;\n  tabyl(gender, show_na = F)\n\n gender   n   percent\n Female 285 0.5711423\n   Male 214 0.4288577\n\nData1_clean_distinct |&gt;\n  tabyl(gender, location, Year, show_na = F) # excel pivot\n\n$`2020`\n gender Home Hospital\n Female   34       33\n   Male   24       25\n\n$`2021`\n gender Home Hospital\n Female   24       48\n   Male   28       22\n\n$`2022`\n gender Home Hospital\n Female   35       35\n   Male   22       30\n\n$`2023`\n gender Home Hospital\n Female   37       39\n   Male   25       38\n\nData1_clean_distinct |&gt;\n  tabyl(gender) |&gt;\n  class()\n\n[1] \"tabyl\"      \"data.frame\""
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#tabyl-adorn-1",
+    "href": "r_training/we_heart_janitor.html#tabyl-adorn-1",
+    "title": "We ❤️ janitor",
+    "section": "tabyl / adorn",
+    "text": "tabyl / adorn\n\nData1_clean_distinct |&gt;\n  tabyl(Year,gender, show_na = F) |&gt;\n  adorn_totals(\"row\") |&gt;\n  adorn_percentages(\"row\") |&gt;\n  adorn_pct_formatting() |&gt;\n  adorn_ns() |&gt;\n  adorn_title(\"combined\")\n\n Year/gender      Female        Male\n        2020 57.8%  (67) 42.2%  (49)\n        2021 59.0%  (72) 41.0%  (50)\n        2022 57.4%  (70) 42.6%  (52)\n        2023 54.7%  (76) 45.3%  (63)\n       Total 57.1% (285) 42.9% (214)"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#tabyl-adorn-2",
+    "href": "r_training/we_heart_janitor.html#tabyl-adorn-2",
+    "title": "We ❤️ janitor",
+    "section": "tabyl / adorn",
+    "text": "tabyl / adorn\n\nData1_clean_distinct |&gt;\n  tabyl(Year,gender,show_na = F) |&gt;\n  adorn_totals(\"row\") |&gt;\n  adorn_percentages(\"row\") |&gt;\n  adorn_pct_formatting() |&gt;\n  adorn_ns() |&gt;\n  # adorn_title(\"combined\") |&gt;\n  mutate(Year = paste(\"The year was\", Year))\n\n               Year      Female        Male\n  The year was 2020 57.8%  (67) 42.2%  (49)\n  The year was 2021 59.0%  (72) 41.0%  (50)\n  The year was 2022 57.4%  (70) 42.6%  (52)\n  The year was 2023 54.7%  (76) 45.3%  (63)\n The year was Total 57.1% (285) 42.9% (214)"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#tabyl-adorn-3",
+    "href": "r_training/we_heart_janitor.html#tabyl-adorn-3",
+    "title": "We ❤️ janitor",
+    "section": "tabyl / adorn",
+    "text": "tabyl / adorn\n\nData1_clean_distinct |&gt;\n  tabyl(Year,gender,show_na = F) |&gt;\n  adorn_totals(\"row\") |&gt;\n  adorn_percentages(\"row\") |&gt;\n  adorn_pct_formatting() |&gt;\n  adorn_ns(position = \"front\") |&gt;\n  adorn_title(\"combined\")\n\n Year/gender      Female        Male\n        2020  67 (57.8%)  49 (42.2%)\n        2021  72 (59.0%)  50 (41.0%)\n        2022  70 (57.4%)  52 (42.6%)\n        2023  76 (54.7%)  63 (45.3%)\n       Total 285 (57.1%) 214 (42.9%)"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#group_by-with-tabyl",
+    "href": "r_training/we_heart_janitor.html#group_by-with-tabyl",
+    "title": "We ❤️ janitor",
+    "section": "group_by with tabyl",
+    "text": "group_by with tabyl\n\nData1_clean_distinct |&gt;\n  group_by(Year,gender) |&gt;\n  summarise(Attendances = n()) |&gt;\n  filter(!is.na(Year)) |&gt;\n  pivot_wider(names_from = gender, values_from = Attendances) |&gt;\n  adorn_totals(c(\"row\",\"col\"))\n\n  Year Female Male Total\n  2020     67   49   116\n  2021     72   50   122\n  2022     70   52   122\n  2023     76   63   139\n Total    285  214   499"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#chisq.test",
+    "href": "r_training/we_heart_janitor.html#chisq.test",
+    "title": "We ❤️ janitor",
+    "section": "chisq.test",
+    "text": "chisq.test\n\nData1_clean_distinct |&gt;\n  tabyl(attendances,location,show_na = F) |&gt;\n  chisq.test()\n\n\n    Pearson's Chi-squared test\n\ndata:  tabyl(Data1_clean_distinct, attendances, location, show_na = F)\nX-squared = 1.9866, df = 3, p-value = 0.5752"
+  },
+  {
+    "objectID": "r_training/we_heart_janitor.html#chisq.test-1",
+    "href": "r_training/we_heart_janitor.html#chisq.test-1",
+    "title": "We ❤️ janitor",
+    "section": "chisq.test",
+    "text": "chisq.test\n\ntitanic &lt;- data.frame(Died  = c(122,167,528,673),\n                  Survived  = c(203,118,178,212),\n                  row.names = c(\"1st class\", \"2nd class\", \"3rd class\", \"crew\"))\n\nchisq.test(titanic)\n\n\n    Pearson's Chi-squared test\n\ndata:  titanic\nX-squared = 190.4, df = 3, p-value &lt; 2.2e-16"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "KIND training",
@@ -158,7 +277,7 @@
     "href": "r_training/dates_and_times_with_lubridate.html#couple-of-fun-intro-functions",
     "title": "Dates and times with lubridate",
     "section": "Couple of fun intro functions",
-    "text": "Couple of fun intro functions\n\ntoday()\n\n[1] \"2024-06-10\"\n\ndate_decimal(2024.37534)\n\n[1] \"2024-05-17 08:59:11 UTC\"\n\nnow()\n\n[1] \"2024-06-10 17:22:10 UTC\"\n\nnow(\"Japan\")\n\n[1] \"2024-06-11 02:22:10 JST\"\n\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\n\nThe date-time in Africa/Asmera is 2024-06-10 22:22:10"
+    "text": "Couple of fun intro functions\n\ntoday()\n\n[1] \"2024-06-11\"\n\ndate_decimal(2024.37534)\n\n[1] \"2024-05-17 08:59:11 UTC\"\n\nnow()\n\n[1] \"2024-06-11 09:58:17 UTC\"\n\nnow(\"Japan\")\n\n[1] \"2024-06-11 18:58:17 JST\"\n\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\n\nThe date-time in Indian/Chagos is 2024-06-11 04:58:17"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#parsing",
@@ -193,7 +312,7 @@
     "href": "r_training/dates_and_times_with_lubridate.html#so-you-can-make-datesdate-times.-so-what",
     "title": "Dates and times with lubridate",
     "section": "So you can make dates/date-times. So what?",
-    "text": "So you can make dates/date-times. So what?\n\ndate(now())\n\n[1] \"2024-06-10\"\n\nyear(today())\n\n[1] 2024\n\nleap_year(today())\n\n[1] TRUE\n\nquarter(today())\n\n[1] 2\n\nsemester(today())\n\n[1] 1\n\nsemester(today(), with_year = T)\n\n[1] 2024.1"
+    "text": "So you can make dates/date-times. So what?\n\ndate(now())\n\n[1] \"2024-06-11\"\n\nyear(today())\n\n[1] 2024\n\nleap_year(today())\n\n[1] TRUE\n\nquarter(today())\n\n[1] 2\n\nsemester(today())\n\n[1] 1\n\nsemester(today(), with_year = T)\n\n[1] 2024.1"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#months-and-weeks",
@@ -207,20 +326,20 @@
     "href": "r_training/dates_and_times_with_lubridate.html#days",
     "title": "Dates and times with lubridate",
     "section": "Days",
-    "text": "Days\n\nday(today())\n\n[1] 10\n\nwday(today())\n\n[1] 2\n\nqday(today())\n\n[1] 71"
+    "text": "Days\n\nday(today())\n\n[1] 11\n\nwday(today())\n\n[1] 3\n\nqday(today())\n\n[1] 72"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#hour-and-minute",
     "href": "r_training/dates_and_times_with_lubridate.html#hour-and-minute",
     "title": "Dates and times with lubridate",
     "section": "Hour and minute",
-    "text": "Hour and minute\n\nhour(now())\n\n[1] 17\n\nminute(now())\n\n[1] 22\n\nam(now())\n\n[1] FALSE\n\ndst(now()) \n\n[1] FALSE"
+    "text": "Hour and minute\n\nhour(now())\n\n[1] 9\n\nminute(now())\n\n[1] 58\n\nam(now())\n\n[1] TRUE\n\ndst(now()) \n\n[1] FALSE"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#set",
     "href": "r_training/dates_and_times_with_lubridate.html#set",
     "title": "Dates and times with lubridate",
     "section": "Set",
-    "text": "Set\n\nupdate(now(), hour = 11, minute = 0, second = 0) # nominal finish time today\n\n[1] \"2024-06-10 11:00:00 UTC\"\n\n\n\nor, more generally:\n\n\ntest_date &lt;- dmy(\"05/06/23\")\nday(test_date)\n\n[1] 5\n\nday(test_date) &lt;- 11\ntest_date\n\n[1] \"2023-06-11\""
+    "text": "Set\n\nupdate(now(), hour = 11, minute = 0, second = 0) # nominal finish time today\n\n[1] \"2024-06-11 11:00:00 UTC\"\n\n\n\nor, more generally:\n\n\ntest_date &lt;- dmy(\"05/06/23\")\nday(test_date)\n\n[1] 5\n\nday(test_date) &lt;- 11\ntest_date\n\n[1] \"2023-06-11\""
   }
 ]

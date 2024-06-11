@@ -169,6 +169,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#headline" id="toc-headline" class="nav-link active" data-scroll-target="#headline">Headline</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#clean_names" id="toc-clean_names" class="nav-link" data-scroll-target="#clean_names"><code>clean_names</code></a></li>
+  <li><a href="#clean_names-1" id="toc-clean_names-1" class="nav-link" data-scroll-target="#clean_names-1"><code>clean_names</code></a></li>
+  <li><a href="#clean_names-2" id="toc-clean_names-2" class="nav-link" data-scroll-target="#clean_names-2"><code>clean_names</code></a></li>
+  <li><a href="#compare_df_cols" id="toc-compare_df_cols" class="nav-link" data-scroll-target="#compare_df_cols"><code>compare_df_cols</code></a></li>
+  <li><a href="#warnings" id="toc-warnings" class="nav-link" data-scroll-target="#warnings"><code>warnings</code></a></li>
+  <li><a href="#warnings-1" id="toc-warnings-1" class="nav-link" data-scroll-target="#warnings-1"><code>warnings</code></a></li>
+  <li><a href="#clean_names-again" id="toc-clean_names-again" class="nav-link" data-scroll-target="#clean_names-again"><code>clean_names</code> again</a></li>
+  <li><a href="#get_dupes" id="toc-get_dupes" class="nav-link" data-scroll-target="#get_dupes"><code>get_dupes</code></a></li>
+  <li><a href="#distinct" id="toc-distinct" class="nav-link" data-scroll-target="#distinct"><code>distinct</code></a></li>
+  <li><a href="#tabyl-adorn" id="toc-tabyl-adorn" class="nav-link" data-scroll-target="#tabyl-adorn"><code>tabyl</code> / <code>adorn</code></a></li>
+  <li><a href="#tabyl-adorn-1" id="toc-tabyl-adorn-1" class="nav-link" data-scroll-target="#tabyl-adorn-1"><code>tabyl</code> / <code>adorn</code></a></li>
+  <li><a href="#tabyl-adorn-2" id="toc-tabyl-adorn-2" class="nav-link" data-scroll-target="#tabyl-adorn-2"><code>tabyl</code> / <code>adorn</code></a></li>
+  <li><a href="#tabyl-adorn-3" id="toc-tabyl-adorn-3" class="nav-link" data-scroll-target="#tabyl-adorn-3"><code>tabyl</code> / <code>adorn</code></a></li>
+  <li><a href="#group_by-with-tabyl" id="toc-group_by-with-tabyl" class="nav-link" data-scroll-target="#group_by-with-tabyl">group_by with <code>tabyl</code></a></li>
+  <li><a href="#chisq.test" id="toc-chisq.test" class="nav-link" data-scroll-target="#chisq.test"><code>chisq.test</code></a></li>
+  <li><a href="#chisq.test-1" id="toc-chisq.test-1" class="nav-link" data-scroll-target="#chisq.test-1"><code>chisq.test</code></a></li>
   </ul>
 </nav>
     </div>
@@ -225,147 +242,345 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>both input-focused and output-focused</li>
 <li>excellent balance between diligence and laziness</li>
 </ul>
-<!-- ## Setup -->
-<!-- ```{r} -->
-<!-- library(janitor) -->
-<!-- library(readxl) -->
-<!-- test_df <- as.data.frame(matrix(ncol = 6)) -->
-<!-- names(test_df) <- c("firstName", "ábc@!*", "% successful (2009)", -->
-<!--                     "REPEAT VALUE", "REPEAT VALUE", "")  -->
-<!-- test_df |> -->
-<!--   clean_names(case = "upper_lower") |> -->
-<!--   select(FIRSTname) -->
-<!-- ``` -->
-<!-- ::: {.notes} -->
-<!-- example column names from https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html -->
-<!-- ::: -->
-<!-- ## `clean_names` -->
-<!-- ```{r} -->
-<!-- clean_names(test_df)  -->
-<!-- ``` -->
-<!-- ## `clean_names` -->
-<!-- ```{r} -->
-<!-- clean_names(test_df, case = "screaming_snake")  -->
-<!-- ``` -->
-<!-- ## `clean_names` -->
-<!-- ```{r} -->
-<!-- clean_names(test_df, case = "big_camel")  -->
-<!-- test_df %>%  -->
-<!--   # clean_names() %>%  -->
-<!--   clean_names(prefix = "a_prefix") -->
-<!-- ``` -->
-<!-- ## `compare_df_cols` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- #| results: asis -->
-<!-- library(palmerpenguins) -->
-<!-- compare_df_cols(penguins,penguins_raw)  -->
-<!-- ``` -->
-<!-- ## `warnings` -->
-<!-- ```{r} -->
-<!-- #| warning: false -->
-<!-- Data1 <- readxl::read_excel(here::here("r_training/data/JanitorDataexample.xlsx"), .name_repair = make_clean_names) -->
-<!-- # warnings switched off, otherwise we'd have literally hundreds of warnings here! -->
-<!-- make_clean_names(c("1thing", "some opther thign")) -->
-<!-- ``` -->
-<!-- ## `warnings` -->
-<!-- ```{r} -->
-<!-- glimpse(Data1)  -->
-<!-- ``` -->
-<!-- ## `clean_names` again -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- Data1_clean <- Data1 |> -->
-<!--   clean_names() |>  -->
-<!--   mutate(across(contains("date"),  -->
-<!--          excel_numeric_to_date)) |> -->
-<!--   mutate(Year = lubridate::year(date_of_event_1)) -->
-<!-- Data1_clean  -->
-<!-- ``` -->
-<!-- ## `get_dupes` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- Data1_clean |> -->
-<!--   get_dupes(contains("date")) -->
-<!-- ``` -->
-<!-- ## `distinct` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- Data1_clean_distinct <- distinct(Data1_clean) -->
-<!-- Data1_clean_distinct -->
-<!-- ``` -->
-<!-- ## `tabyl` / `adorn` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- Data1_clean_distinct |> -->
-<!--   tabyl(gender)  -->
-<!-- Data1_clean_distinct |> -->
-<!--   tabyl(gender, show_na = F)  -->
-<!-- Data1_clean_distinct |> -->
-<!--   tabyl(gender, location, Year, show_na = F) # excel pivot -->
-<!-- Data1_clean_distinct |> -->
-<!--   tabyl(gender) |> -->
-<!--   class() -->
-<!-- ``` -->
-<!-- ## `tabyl` / `adorn` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- Data1_clean_distinct |> -->
-<!--   tabyl(Year,gender, show_na = F) |> -->
-<!--   adorn_totals("row") |> -->
-<!--   adorn_percentages("row") |> -->
-<!--   adorn_pct_formatting() |> -->
-<!--   adorn_ns() |> -->
-<!--   adorn_title("combined") -->
-<!-- ``` -->
-<!-- ## `tabyl` / `adorn` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- Data1_clean_distinct |> -->
-<!--   tabyl(Year,gender,show_na = F) |> -->
-<!--   adorn_totals("row") |> -->
-<!--   adorn_percentages("row") |> -->
-<!--   adorn_pct_formatting() |> -->
-<!--   adorn_ns() |> -->
-<!--   # adorn_title("combined") |> -->
-<!--   mutate(Year = paste("The year was", Year)) -->
-<!-- ``` -->
-<!-- ## `tabyl` / `adorn` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- Data1_clean_distinct |> -->
-<!--   tabyl(Year,gender,show_na = F) |> -->
-<!--   adorn_totals("row") |> -->
-<!--   adorn_percentages("row") |> -->
-<!--   adorn_pct_formatting() |> -->
-<!--   adorn_ns(position = "front") |> -->
-<!--   adorn_title("combined") -->
-<!-- ``` -->
-<!-- ## group_by with `tabyl` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- Data1_clean_distinct |> -->
-<!--   group_by(Year,gender) |> -->
-<!--   summarise(Attendances = n()) |> -->
-<!--   filter(!is.na(Year)) |> -->
-<!--   pivot_wider(names_from = gender, values_from = Attendances) |> -->
-<!--   adorn_totals(c("row","col"))  -->
-<!-- ``` -->
-<!-- ## `chisq.test` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- Data1_clean_distinct |> -->
-<!--   tabyl(attendances,location,show_na = F) |> -->
-<!--   chisq.test() -->
-<!-- ``` -->
-<!-- ## `chisq.test` -->
-<!-- ```{r} -->
-<!-- #| output-location: column -->
-<!-- titanic <- data.frame(Died  = c(122,167,528,673),  -->
-<!--                   Survived  = c(203,118,178,212),  -->
-<!--                   row.names = c("1st class", "2nd class", "3rd class", "crew")) -->
-<!-- chisq.test(titanic) -->
-<!-- ``` -->
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>test_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">6</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(test_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"firstName"</span>, <span class="st">"ábc@!*"</span>, <span class="st">"% successful (2009)"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"REPEAT VALUE"</span>, <span class="st">"REPEAT VALUE"</span>, <span class="st">""</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>test_df <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>(<span class="at">case =</span> <span class="st">"upper_lower"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(FIRSTname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  FIRSTname
+1        NA</code></pre>
+</div>
+</div>
+<div class="notes">
+<p>example column names from https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html</p>
+</div>
+</section>
+<section id="clean_names" class="level2">
+<h2 class="anchored" data-anchor-id="clean_names"><code>clean_names</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>(test_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  first_name abc percent_successful_2009 repeat_value repeat_value_2  x
+1         NA  NA                      NA           NA             NA NA</code></pre>
+</div>
+</div>
+</section>
+<section id="clean_names-1" class="level2">
+<h2 class="anchored" data-anchor-id="clean_names-1"><code>clean_names</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>(test_df, <span class="at">case =</span> <span class="st">"screaming_snake"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  FIRST_NAME ABC PERCENT_SUCCESSFUL_2009 REPEAT_VALUE REPEAT_VALUE_2  X
+1         NA  NA                      NA           NA             NA NA</code></pre>
+</div>
+</div>
+</section>
+<section id="clean_names-2" class="level2">
+<h2 class="anchored" data-anchor-id="clean_names-2"><code>clean_names</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>(test_df, <span class="at">case =</span> <span class="st">"big_camel"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  FirstName Abc PercentSuccessful2009 RepeatValue RepeatValue_2  X
+1        NA  NA                    NA          NA            NA NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>test_df <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># clean_names() %&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>(<span class="at">prefix =</span> <span class="st">"a_prefix"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  a_prefixfirst_name a_prefixabc a_prefixpercent_successful_2009
+1                 NA          NA                              NA
+  a_prefixrepeat_value a_prefixrepeat_value_2 a_prefixx
+1                   NA                     NA        NA</code></pre>
+</div>
+</div>
+</section>
+<section id="compare_df_cols" class="level2">
+<h2 class="anchored" data-anchor-id="compare_df_cols"><code>compare_df_cols</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_df_cols</span>(penguins,penguins_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>       column_name penguins penguins_raw</code></pre>
+<p>1 bill_depth_mm numeric <na> 2 bill_length_mm numeric <na> 3 Body Mass (g) <na> numeric 4 body_mass_g integer <na> 5 Clutch Completion <na> character 6 Comments <na> character 7 Culmen Depth (mm) <na> numeric 8 Culmen Length (mm) <na> numeric 9 Date Egg <na> Date 10 Delta 13 C (o/oo) <na> numeric 11 Delta 15 N (o/oo) <na> numeric 12 Flipper Length (mm) <na> numeric 13 flipper_length_mm integer <na> 14 Individual ID <na> character 15 island factor <na> 16 Island <na> character 17 Region <na> character 18 Sample Number <na> numeric 19 sex factor <na> 20 Sex <na> character 21 species factor <na> 22 Species <na> character 23 Stage <na> character 24 studyName <na> character 25 year integer <na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></p>
+</div>
+</section>
+<section id="warnings" class="level2">
+<h2 class="anchored" data-anchor-id="warnings"><code>warnings</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># openxlsx::read.xlsx("https://github.com/NES-DEW/KIND-training/raw/main/r_training/data/JanitorDataExample.xlsx") |&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   janitor::make_clean_names()</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>Data1 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">"data/JanitorDataExample.xlsx"</span>, <span class="at">.name_repair =</span> make_clean_names)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Data1 &lt;- readxl::read_excel("r_training/data/JanitorDataExample.xlsx", .name_repair = make_clean_names)</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># warnings switched off, otherwise we'd have literally hundreds of warnings here!</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">make_clean_names</span>(<span class="fu">c</span>(<span class="st">"1thing"</span>, <span class="st">"some opther thign"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x1thing"           "some_opther_thign"</code></pre>
+</div>
+</div>
+</section>
+<section id="warnings-1" class="level2">
+<h2 class="anchored" data-anchor-id="warnings-1"><code>warnings</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(Data1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 503
+Columns: 7
+$ id               &lt;dbl&gt; 100507, 104088, 105279, 105459, 108894, 109204, 10962…
+$ gender           &lt;chr&gt; "Male", "Male", "Female", "Male", "Male", "Male", "Ma…
+$ date_of_event_1  &lt;dbl&gt; 44572, 44216, 44172, 44496, 44973, 45099, 44350, 4466…
+$ date_of_event_2  &lt;dbl&gt; 44535, 44089, 45239, 43872, 45239, 44236, 44981, 4386…
+$ location         &lt;chr&gt; "Hospital", "Hospital", "Hospital", "Home", "Home", "…
+$ diagnosis_code_1 &lt;chr&gt; "T848", "G992", "J81X", "R55X", "J459", "K851", "J441…
+$ attendances      &lt;dbl&gt; 3, 2, 4, 2, 2, 4, 2, 3, 1, 3, 3, 2, 3, 4, 3, 4, 4, 4,…</code></pre>
+</div>
+</div>
+</section>
+<section id="clean_names-again" class="level2">
+<h2 class="anchored" data-anchor-id="clean_names-again"><code>clean_names</code> again</h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Data1_clean <span class="ot">&lt;-</span> Data1 <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">"date"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>         excel_numeric_to_date)) <span class="sc">|&gt;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_of_event_1))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>Data1_clean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 503 × 8
+       id gender date_of_event_1 date_of_event_2 location diagnosis_code_1
+    &lt;dbl&gt; &lt;chr&gt;  &lt;date&gt;          &lt;date&gt;          &lt;chr&gt;    &lt;chr&gt;           
+ 1 100507 Male   2022-01-11      2021-12-05      Hospital T848            
+ 2 104088 Male   2021-01-20      2020-09-15      Hospital G992            
+ 3 105279 Female 2020-12-07      2023-11-09      Hospital J81X            
+ 4 105459 Male   2021-10-27      2020-02-11      Home     R55X            
+ 5 108894 Male   2023-02-16      2023-11-09      Home     J459            
+ 6 109204 Male   2023-06-22      2021-02-09      Home     K851            
+ 7 109624 Male   2021-06-03      2023-02-24      Home     J441            
+ 8 111454 Male   2022-04-11      2020-02-07      Home     E162            
+ 9 113892 Male   2020-04-26      2023-03-06      Home     I279            
+10 114110 Male   2021-04-04      2021-05-06      Hospital M798            
+# ℹ 493 more rows
+# ℹ 2 more variables: attendances &lt;dbl&gt;, Year &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="get_dupes" class="level2">
+<h2 class="anchored" data-anchor-id="get_dupes"><code>get_dupes</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Data1_clean <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_dupes</span>(<span class="fu">contains</span>(<span class="st">"date"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  date_of_event_1 date_of_event_2 dupe_count     id gender location
+  &lt;date&gt;          &lt;date&gt;               &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   
+1 2021-10-09      2021-08-20               2 400760 Female Hospital
+2 2021-10-09      2021-08-20               2 400760 Female Hospital
+3 2022-04-04      2021-11-08               2 450284 Female Hospital
+4 2022-04-04      2021-11-08               2 450284 Female Hospital
+5 2023-06-29      2020-03-23               2 823894 Male   Home    
+6 2023-06-29      2020-03-23               2 823894 Male   Home    
+# ℹ 3 more variables: diagnosis_code_1 &lt;chr&gt;, attendances &lt;dbl&gt;, Year &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="distinct" class="level2">
+<h2 class="anchored" data-anchor-id="distinct"><code>distinct</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="ot">&lt;-</span> <span class="fu">distinct</span>(Data1_clean)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 500 × 8
+       id gender date_of_event_1 date_of_event_2 location diagnosis_code_1
+    &lt;dbl&gt; &lt;chr&gt;  &lt;date&gt;          &lt;date&gt;          &lt;chr&gt;    &lt;chr&gt;           
+ 1 100507 Male   2022-01-11      2021-12-05      Hospital T848            
+ 2 104088 Male   2021-01-20      2020-09-15      Hospital G992            
+ 3 105279 Female 2020-12-07      2023-11-09      Hospital J81X            
+ 4 105459 Male   2021-10-27      2020-02-11      Home     R55X            
+ 5 108894 Male   2023-02-16      2023-11-09      Home     J459            
+ 6 109204 Male   2023-06-22      2021-02-09      Home     K851            
+ 7 109624 Male   2021-06-03      2023-02-24      Home     J441            
+ 8 111454 Male   2022-04-11      2020-02-07      Home     E162            
+ 9 113892 Male   2020-04-26      2023-03-06      Home     I279            
+10 114110 Male   2021-04-04      2021-05-06      Hospital M798            
+# ℹ 490 more rows
+# ℹ 2 more variables: attendances &lt;dbl&gt;, Year &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="tabyl-adorn" class="level2">
+<h2 class="anchored" data-anchor-id="tabyl-adorn"><code>tabyl</code> / <code>adorn</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> gender   n percent valid_percent
+ Female 285   0.570     0.5711423
+   Male 214   0.428     0.4288577
+   &lt;NA&gt;   1   0.002            NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(gender, <span class="at">show_na =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> gender   n   percent
+ Female 285 0.5711423
+   Male 214 0.4288577</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(gender, location, Year, <span class="at">show_na =</span> F) <span class="co"># excel pivot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`2020`
+ gender Home Hospital
+ Female   34       33
+   Male   24       25
+
+$`2021`
+ gender Home Hospital
+ Female   24       48
+   Male   28       22
+
+$`2022`
+ gender Home Hospital
+ Female   35       35
+   Male   22       30
+
+$`2023`
+ gender Home Hospital
+ Female   37       39
+   Male   25       38</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(gender) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">class</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tabyl"      "data.frame"</code></pre>
+</div>
+</div>
+</section>
+<section id="tabyl-adorn-1" class="level2">
+<h2 class="anchored" data-anchor-id="tabyl-adorn-1"><code>tabyl</code> / <code>adorn</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(Year,gender, <span class="at">show_na =</span> F) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_totals</span>(<span class="st">"row"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_percentages</span>(<span class="st">"row"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>() <span class="sc">|&gt;</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_ns</span>() <span class="sc">|&gt;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_title</span>(<span class="st">"combined"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Year/gender      Female        Male
+        2020 57.8%  (67) 42.2%  (49)
+        2021 59.0%  (72) 41.0%  (50)
+        2022 57.4%  (70) 42.6%  (52)
+        2023 54.7%  (76) 45.3%  (63)
+       Total 57.1% (285) 42.9% (214)</code></pre>
+</div>
+</div>
+</section>
+<section id="tabyl-adorn-2" class="level2">
+<h2 class="anchored" data-anchor-id="tabyl-adorn-2"><code>tabyl</code> / <code>adorn</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(Year,gender,<span class="at">show_na =</span> F) <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_totals</span>(<span class="st">"row"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_percentages</span>(<span class="st">"row"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>() <span class="sc">|&gt;</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_ns</span>() <span class="sc">|&gt;</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adorn_title("combined") |&gt;</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">paste</span>(<span class="st">"The year was"</span>, Year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Year      Female        Male
+  The year was 2020 57.8%  (67) 42.2%  (49)
+  The year was 2021 59.0%  (72) 41.0%  (50)
+  The year was 2022 57.4%  (70) 42.6%  (52)
+  The year was 2023 54.7%  (76) 45.3%  (63)
+ The year was Total 57.1% (285) 42.9% (214)</code></pre>
+</div>
+</div>
+</section>
+<section id="tabyl-adorn-3" class="level2">
+<h2 class="anchored" data-anchor-id="tabyl-adorn-3"><code>tabyl</code> / <code>adorn</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(Year,gender,<span class="at">show_na =</span> F) <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_totals</span>(<span class="st">"row"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_percentages</span>(<span class="st">"row"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>() <span class="sc">|&gt;</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_ns</span>(<span class="at">position =</span> <span class="st">"front"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_title</span>(<span class="st">"combined"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Year/gender      Female        Male
+        2020  67 (57.8%)  49 (42.2%)
+        2021  72 (59.0%)  50 (41.0%)
+        2022  70 (57.4%)  52 (42.6%)
+        2023  76 (54.7%)  63 (45.3%)
+       Total 285 (57.1%) 214 (42.9%)</code></pre>
+</div>
+</div>
+</section>
+<section id="group_by-with-tabyl" class="level2">
+<h2 class="anchored" data-anchor-id="group_by-with-tabyl">group_by with <code>tabyl</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year,gender) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Attendances =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Year)) <span class="sc">|&gt;</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> gender, <span class="at">values_from =</span> Attendances) <span class="sc">|&gt;</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_totals</span>(<span class="fu">c</span>(<span class="st">"row"</span>,<span class="st">"col"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Year Female Male Total
+  2020     67   49   116
+  2021     72   50   122
+  2022     70   52   122
+  2023     76   63   139
+ Total    285  214   499</code></pre>
+</div>
+</div>
+</section>
+<section id="chisq.test" class="level2">
+<h2 class="anchored" data-anchor-id="chisq.test"><code>chisq.test</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>Data1_clean_distinct <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(attendances,location,<span class="at">show_na =</span> F) <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq.test</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  tabyl(Data1_clean_distinct, attendances, location, show_na = F)
+X-squared = 1.9866, df = 3, p-value = 0.5752</code></pre>
+</div>
+</div>
+</section>
+<section id="chisq.test-1" class="level2">
+<h2 class="anchored" data-anchor-id="chisq.test-1"><code>chisq.test</code></h2>
+<div class="cell" data-output-location="column">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Died  =</span> <span class="fu">c</span>(<span class="dv">122</span>,<span class="dv">167</span>,<span class="dv">528</span>,<span class="dv">673</span>),</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Survived  =</span> <span class="fu">c</span>(<span class="dv">203</span>,<span class="dv">118</span>,<span class="dv">178</span>,<span class="dv">212</span>),</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"1st class"</span>, <span class="st">"2nd class"</span>, <span class="st">"3rd class"</span>, <span class="st">"crew"</span>))</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  titanic
+X-squared = 190.4, df = 3, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
 
 
 </section>
