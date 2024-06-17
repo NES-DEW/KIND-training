@@ -140,32 +140,599 @@
     "text": "Why bother with…Excel?\nScope of the possible with Excel\nReferences and names in Excel\nPractical Power Pivot\nPivot tables and pivot charts"
   },
   {
-    "objectID": "rbc/2024-06-13.html",
-    "href": "rbc/2024-06-13.html",
-    "title": "R beginner’s club 2024-06-13",
+    "objectID": "bi_training/why_bother_with_power_bi.html",
+    "href": "bi_training/why_bother_with_power_bi.html",
+    "title": "Why bother with Power BI?",
     "section": "",
-    "text": "The basic recipe here is:\n\nread our Excel spreadsheets into R\ntry some simple base-R methods of comparison\nget more fancy with packages for more useful comparisons\n\n\n\nThis can be messy. readxl is probably the most straightforward place to start. Make sure a) that your Excel files aren’t open in Excel when you try to read them and b) that you’re happy and confident that your data is on the first worksheet (or you know the correct name of the sheet). You’ll almost certainly want to be working in an R project too to avoid too much messing around with file paths, getwd(), etc.\n\nlibrary(readxl) # to attach the readxl package\nb1 &lt;- read_xlsx(\"data/Book1.xlsx\") \nb2 &lt;- read_xlsx(\"data/Book2.xlsx\") # to read the files\n\n\n\n\nThe most obvious thing to try first is a check for equality. You’ll do this with a double equal sign, like this:\n\nb1 == b2\n\n      name score\n [1,] TRUE  TRUE\n [2,] TRUE  TRUE\n [3,] TRUE  TRUE\n [4,] TRUE  TRUE\n [5,] TRUE  TRUE\n [6,] TRUE  TRUE\n [7,] TRUE  TRUE\n [8,] TRUE  TRUE\n [9,] TRUE  TRUE\n[10,] TRUE  TRUE\n\n\n(single = is effectively the same as &lt;-)\nThat gives us back quite a complicated matrix of results, showing a cell-by-cell comparison of the two sets of data. This happens because R is vectorised - so when we compare two identically-shaped bits of data, R will assume that we want to do our comparison to each of the items in turn. If we just looked at the number values in our spreadsheets, which we could do by using the $ to refer to a column, we could:\n\nb1$score - b2$score\n\n [1] 0 0 0 0 0 0 0 0 0 0\n\n\nWhich I suppose is another way of checking for equality. So could also use a helper function to collapse all of those down into one:\n\nsum(b1$score - b2$score)\n\n[1] 0\n\n\nIf we just wanted a simple true/false measure for the data as a whole, we could recruit the very useful all() and any():\n\nall(b1 == b2) # to check all values are the same\n\n[1] TRUE\n\nany(b1 == b2) # to check any values are the same\n\n[1] TRUE\n\n\nYou could do something very similar using setequal():\n\nsetequal(b1, b2)\n\n[1] TRUE\n\n\n\n\n\nwaldo::compare() is a brilliant way of comparing complex data:\n\nwaldo::compare(b1, b2)\n\n✔ No differences\n\n\nIf we vandalise one of our datasets by changing one value, waldo does plenty of useful work to bring the correct parts of the data to our attention:\n\nb2[5,2] &lt;- 1\nwaldo::compare(b1, b2)\n\nold vs new\n                score\n  old[2, ]  0.2481382\n  old[3, ]  0.6444191\n  old[4, ]  0.8873743\n- old[5, ]  0.3361401\n+ new[5, ]  1.0000000\n  old[6, ]  0.1597596\n  old[7, ]  0.3928778\n  old[8, ]  0.5743370\n\n`old$score[2:8]`: 0.2 0.6 0.9 0.3 0.2 0.4 0.6\n`new$score[2:8]`: 0.2 0.6 0.9 1.0 0.2 0.4 0.6\n\n\nI suppose we could also graph our data to show changed points. One way of doing this is to plot the two sets in different colours:\n\nlibrary(ggplot2)\n\nggplot() +\n  geom_point(data = b1, aes(x = name, y = score), colour = \"red\", size = 5) +\n  geom_point(data = b2, aes(x = name, y = score), colour = \"blue\", size = 5)\n\n\n\n\n\n\n\n\nOr, possibly more elegantly, we could join our data using dplyr, then subtract one from the other, then plot the difference:\n\nlibrary(dplyr)\n\nb1 |&gt;\n  left_join(b2, by = \"name\") |&gt;\n  ggplot(aes(x = name, xend = name, y = score.y - score.x, yend = 0), colour = \"red\") +\n  geom_segment() +\n  geom_label(aes(label = name))"
+    "text": "16 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nOverall very positive, whipped through everything, did what was needed. As a person who is easily distracted, I do get a bit distracted when you reply to comments and go on tiny tangents involving programming with unfamiliar names and acronyms, but I get that the vibe overall is that you want people to be involved and commenting etc. I really appreciate these sessions as I try to get my head round new things.\nIt was a very good introduction to Power BI, and helped me understand what it was and how it could be useful in my workplace. I don’t have any experience with coding and think Power BI could be quite useful for those without coding experience. Would be keen to learn more.\nA simple and comprehensive introduction to why PBI is a good tool. It gives me a reasonable understanding of why I should look into learning PBI."
   },
   {
-    "objectID": "rbc/2024-06-13.html#how-to-compare-two-or-more-excel-spreadsheets",
-    "href": "rbc/2024-06-13.html#how-to-compare-two-or-more-excel-spreadsheets",
-    "title": "R beginner’s club 2024-06-13",
+    "objectID": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
+    "href": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
+    "title": "Why bother with Power BI?",
     "section": "",
-    "text": "The basic recipe here is:\n\nread our Excel spreadsheets into R\ntry some simple base-R methods of comparison\nget more fancy with packages for more useful comparisons\n\n\n\nThis can be messy. readxl is probably the most straightforward place to start. Make sure a) that your Excel files aren’t open in Excel when you try to read them and b) that you’re happy and confident that your data is on the first worksheet (or you know the correct name of the sheet). You’ll almost certainly want to be working in an R project too to avoid too much messing around with file paths, getwd(), etc.\n\nlibrary(readxl) # to attach the readxl package\nb1 &lt;- read_xlsx(\"data/Book1.xlsx\") \nb2 &lt;- read_xlsx(\"data/Book2.xlsx\") # to read the files\n\n\n\n\nThe most obvious thing to try first is a check for equality. You’ll do this with a double equal sign, like this:\n\nb1 == b2\n\n      name score\n [1,] TRUE  TRUE\n [2,] TRUE  TRUE\n [3,] TRUE  TRUE\n [4,] TRUE  TRUE\n [5,] TRUE  TRUE\n [6,] TRUE  TRUE\n [7,] TRUE  TRUE\n [8,] TRUE  TRUE\n [9,] TRUE  TRUE\n[10,] TRUE  TRUE\n\n\n(single = is effectively the same as &lt;-)\nThat gives us back quite a complicated matrix of results, showing a cell-by-cell comparison of the two sets of data. This happens because R is vectorised - so when we compare two identically-shaped bits of data, R will assume that we want to do our comparison to each of the items in turn. If we just looked at the number values in our spreadsheets, which we could do by using the $ to refer to a column, we could:\n\nb1$score - b2$score\n\n [1] 0 0 0 0 0 0 0 0 0 0\n\n\nWhich I suppose is another way of checking for equality. So could also use a helper function to collapse all of those down into one:\n\nsum(b1$score - b2$score)\n\n[1] 0\n\n\nIf we just wanted a simple true/false measure for the data as a whole, we could recruit the very useful all() and any():\n\nall(b1 == b2) # to check all values are the same\n\n[1] TRUE\n\nany(b1 == b2) # to check any values are the same\n\n[1] TRUE\n\n\nYou could do something very similar using setequal():\n\nsetequal(b1, b2)\n\n[1] TRUE\n\n\n\n\n\nwaldo::compare() is a brilliant way of comparing complex data:\n\nwaldo::compare(b1, b2)\n\n✔ No differences\n\n\nIf we vandalise one of our datasets by changing one value, waldo does plenty of useful work to bring the correct parts of the data to our attention:\n\nb2[5,2] &lt;- 1\nwaldo::compare(b1, b2)\n\nold vs new\n                score\n  old[2, ]  0.2481382\n  old[3, ]  0.6444191\n  old[4, ]  0.8873743\n- old[5, ]  0.3361401\n+ new[5, ]  1.0000000\n  old[6, ]  0.1597596\n  old[7, ]  0.3928778\n  old[8, ]  0.5743370\n\n`old$score[2:8]`: 0.2 0.6 0.9 0.3 0.2 0.4 0.6\n`new$score[2:8]`: 0.2 0.6 0.9 1.0 0.2 0.4 0.6\n\n\nI suppose we could also graph our data to show changed points. One way of doing this is to plot the two sets in different colours:\n\nlibrary(ggplot2)\n\nggplot() +\n  geom_point(data = b1, aes(x = name, y = score), colour = \"red\", size = 5) +\n  geom_point(data = b2, aes(x = name, y = score), colour = \"blue\", size = 5)\n\n\n\n\n\n\n\n\nOr, possibly more elegantly, we could join our data using dplyr, then subtract one from the other, then plot the difference:\n\nlibrary(dplyr)\n\nb1 |&gt;\n  left_join(b2, by = \"name\") |&gt;\n  ggplot(aes(x = name, xend = name, y = score.y - score.x, yend = 0), colour = \"red\") +\n  geom_segment() +\n  geom_label(aes(label = name))"
+    "text": "16 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nOverall very positive, whipped through everything, did what was needed. As a person who is easily distracted, I do get a bit distracted when you reply to comments and go on tiny tangents involving programming with unfamiliar names and acronyms, but I get that the vibe overall is that you want people to be involved and commenting etc. I really appreciate these sessions as I try to get my head round new things.\nIt was a very good introduction to Power BI, and helped me understand what it was and how it could be useful in my workplace. I don’t have any experience with coding and think Power BI could be quite useful for those without coding experience. Would be keen to learn more.\nA simple and comprehensive introduction to why PBI is a good tool. It gives me a reasonable understanding of why I should look into learning PBI."
   },
   {
-    "objectID": "rbc/2024-06-13.html#how-to-think-about-joins",
-    "href": "rbc/2024-06-13.html#how-to-think-about-joins",
-    "title": "R beginner’s club 2024-06-13",
-    "section": "How to think about joins?",
-    "text": "How to think about joins?\nWe did a simple join above. A join is a way of merging two datasets. Let’s demonstrate with some cut-down datasets from above. We’ll remove some of the values from our b1 set and from our b2 set:\n\nb1 &lt;- b1 |&gt;\n  slice(1:5)\n\nb1\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 kennedy  0.590\n2 victoria 0.248\n3 peter    0.644\n4 judi     0.887\n5 paul     0.336\n\n\n\nb2 &lt;- b2 |&gt;\n  slice_sample(n = 5)\n\nb2\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 kenneth  0.393\n2 peter    0.644\n3 kennedy  0.590\n4 michael  0.561\n5 victoria 0.248\n\n\nThe simplest join we could do is to bind the rows from one set onto another:\n\nb1 |&gt;\n  bind_rows(b2)\n\n# A tibble: 10 × 2\n   name     score\n   &lt;chr&gt;    &lt;dbl&gt;\n 1 kennedy  0.590\n 2 victoria 0.248\n 3 peter    0.644\n 4 judi     0.887\n 5 paul     0.336\n 6 kenneth  0.393\n 7 peter    0.644\n 8 kennedy  0.590\n 9 michael  0.561\n10 victoria 0.248\n\n\nThat just brings all the rows from b2 onto the end of b1. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join b2:\n\nb1 |&gt;\n  left_join(b2, by = \"name\")\n\n# A tibble: 5 × 3\n  name     score.x score.y\n  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;\n1 kennedy    0.590   0.590\n2 victoria   0.248   0.248\n3 peter      0.644   0.644\n4 judi       0.887  NA    \n5 paul       0.336  NA    \n\n\nYou should see that only the values from b2’s score column that have a corresponding name in b1 get populated, and everything else gets filled with NAs. Here’s a nice introduction to the different kinds of join you can do in dplyr."
+    "objectID": "bi_training/why_bother_with_power_bi.html#welcome",
+    "href": "bi_training/why_bother_with_power_bi.html#welcome",
+    "title": "Why bother with Power BI?",
+    "section": "Welcome",
+    "text": "Welcome\n\nwelcome to Why bother with Power BI?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
   },
   {
-    "objectID": "BI_main.html",
-    "href": "BI_main.html",
-    "title": "BI training",
+    "objectID": "bi_training/why_bother_with_power_bi.html#the-kind-network",
+    "href": "bi_training/why_bother_with_power_bi.html#the-kind-network",
+    "title": "Why bother with Power BI?",
+    "section": "The KIND network",
+    "text": "The KIND network\n\na social learning space for staff working with knowledge, information, and data across health, social care, and housing in Scotland\nwe offer social support, free training, mentoring, community events, …\nTeams channel / mailing list"
+  },
+  {
+    "objectID": "bi_training/why_bother_with_power_bi.html#session-outline",
+    "href": "bi_training/why_bother_with_power_bi.html#session-outline",
+    "title": "Why bother with Power BI?",
+    "section": "Session outline",
+    "text": "Session outline\n\ntwo minute overview of Power BI\nstrengths and weaknesses\nmaking Power BI work for you\nnext steps and training"
+  },
+  {
+    "objectID": "bi_training/why_bother_with_power_bi.html#a-brief-overview-of-power-bi",
+    "href": "bi_training/why_bother_with_power_bi.html#a-brief-overview-of-power-bi",
+    "title": "Why bother with Power BI?",
+    "section": "A brief overview of Power BI",
+    "text": "A brief overview of Power BI\n\nnew\nintegrates several existing Microsoft products (bits of Excel, PowerPivot, PowerQuery…)\nproduces interactive dashboards\nproprietary, closed-source, paid-for"
+  },
+  {
+    "objectID": "bi_training/why_bother_with_power_bi.html#central-idea",
+    "href": "bi_training/why_bother_with_power_bi.html#central-idea",
+    "title": "Why bother with Power BI?",
+    "section": "Central idea",
+    "text": "Central idea\n\ndata is complicated\ngood data analysis helps make services better\nbut predicting what data users will need is hard"
+  },
+  {
+    "objectID": "bi_training/why_bother_with_power_bi.html#why-are-uses-so-fussy-about-their-data",
+    "href": "bi_training/why_bother_with_power_bi.html#why-are-uses-so-fussy-about-their-data",
+    "title": "Why bother with Power BI?",
+    "section": "Why are uses so fussy about their data?",
+    "text": "Why are uses so fussy about their data?\n\ndata can be used to answer lots of different kinds of questions\n\nanswering which/when questions\nseeing effects of changes\ncomparing different areas\nlooking at services over time\n…"
+  },
+  {
+    "objectID": "bi_training/why_bother_with_power_bi.html#power-bi",
+    "href": "bi_training/why_bother_with_power_bi.html#power-bi",
+    "title": "Why bother with Power BI?",
+    "section": "Power BI",
+    "text": "Power BI\n\nlets users re-arrange their data to suit (interactive)\nprovides a standard way of accessing data from lots of sources (data hub)\nscales really well (dashboard example)"
+  },
+  {
+    "objectID": "bi_training/why_bother_with_power_bi.html#power-bi-demo",
+    "href": "bi_training/why_bother_with_power_bi.html#power-bi-demo",
+    "title": "Why bother with Power BI?",
+    "section": "Power BI demo",
+    "text": "Power BI demo\n\ntake a spreadsheet and load that data \n\n\n\npreview the data \n\n\n\nwork with the data in Power BI \n\n\n\ntidy/wrangle the data in Power Query \n ### add a map visual  \n\n\npopulate with our data \n\n\n\nadd a column graph \n\n\n\npopulate with drag and drop \n\n\n\nadd slicer \n\n\n\nslicers change our visualisations \n\n\n\nadd a numeric summary \n\n\n\npublish\nSee preview - although note that access might require permission"
+  },
+  {
+    "objectID": "bi_training/why_bother_with_power_bi.html#five-top-tips",
+    "href": "bi_training/why_bother_with_power_bi.html#five-top-tips",
+    "title": "Why bother with Power BI?",
+    "section": "Five top tips",
+    "text": "Five top tips\n\npotentially has the power to get lots of new good out of existing data\nPower BI needs tidy input data - so use Excel tables etc\ndon’t believe the no-code lies - you’ll need some DAX and Power Query M\npublishing is complicated and potentially expensive, so needs investigating before building a product\ncomplex IG picture across Scotland, so please get official guidance early"
+  },
+  {
+    "objectID": "bi_training/why_bother_with_power_bi.html#chat-queries-questions",
+    "href": "bi_training/why_bother_with_power_bi.html#chat-queries-questions",
+    "title": "Why bother with Power BI?",
+    "section": "Chat, queries, questions",
+    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate\nTraining mini-site: tinyurl.com/kindtrain"
+  },
+  {
+    "objectID": "rbc/about.html",
+    "href": "rbc/about.html",
+    "title": "About R beginner’s club",
     "section": "",
-    "text": "Why bother with…Power BI?"
+    "text": "7 previous attendees have left feedback\n86% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI wasn’t able to join for the full session but the worked example of starting to compare two datasets (simple tables from Excel) was really useful to me to observe and make notes on to try for myself. I also really appreciated that when things strayed from being ‘beginner’, Brendan you skillfully redirected so that we could keep things at the beginners level we are sometimes short of, because there a re a LOT of very clever and skilled people in our organisation - but like driving, everyone has to learn first.\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nEven my simple brain could understand the topic covered"
+  },
+  {
+    "objectID": "rbc/about.html#previous-attendees-have-said",
+    "href": "rbc/about.html#previous-attendees-have-said",
+    "title": "About R beginner’s club",
+    "section": "",
+    "text": "7 previous attendees have left feedback\n86% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI wasn’t able to join for the full session but the worked example of starting to compare two datasets (simple tables from Excel) was really useful to me to observe and make notes on to try for myself. I also really appreciated that when things strayed from being ‘beginner’, Brendan you skillfully redirected so that we could keep things at the beginners level we are sometimes short of, because there a re a LOT of very clever and skilled people in our organisation - but like driving, everyone has to learn first.\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nEven my simple brain could understand the topic covered"
+  },
+  {
+    "objectID": "rbc/about.html#about",
+    "href": "rbc/about.html#about",
+    "title": "About R beginner’s club",
+    "section": "About",
+    "text": "About\nWe run a monthly R beginner’s club on Teams. If you’re new to R, please consider yourself invited to come along for mutual support, troubleshooting, and tips for building your R skills and confidence.\nFull details and joining instructions via the KIND network Teams channel."
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html",
+    "href": "excel/pivot_tables_and_pivot_charts.html",
+    "title": "Pivot tables and pivot charts",
+    "section": "",
+    "text": "17 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI’m not always able to free up time to attend the full session, I think it would be a good idea to record and build up a library that users can revisit. Brendan is excellent at going through these lessons, making it very engaging\nEnjoyable and informative\nI am glad that I am able to attend this sessions."
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
+    "href": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
+    "title": "Pivot tables and pivot charts",
+    "section": "",
+    "text": "17 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI’m not always able to free up time to attend the full session, I think it would be a good idea to record and build up a library that users can revisit. Brendan is excellent at going through these lessons, making it very engaging\nEnjoyable and informative\nI am glad that I am able to attend this sessions."
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#welcome",
+    "href": "excel/pivot_tables_and_pivot_charts.html#welcome",
+    "title": "Pivot tables and pivot charts",
+    "section": "Welcome!",
+    "text": "Welcome!\n\nthis session is for 🌶️🌶️intermediate Excel users\nwe’ll do an initial chat and run through, followed by a practical demo\n\nyou’re welcome to stay for all or part of the session\n\nif you want to follow the practical part, you’ll need:\n\nExcel, ideally M365 Desktop\nprevious Excel experience (particularly around references, tables, and formulas)\nthe data: guidance / download page / direct / short tinyurl.com/kinddata1\n\nit also helps if you have access to the chat. You may need to add youself to the KIND Network Teams channel: tinyurl.com/kindnetwork"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#session-outline",
+    "href": "excel/pivot_tables_and_pivot_charts.html#session-outline",
+    "title": "Pivot tables and pivot charts",
+    "section": "Session outline",
+    "text": "Session outline\n\nPivot tables\nPivot charts\nSlicers\nthe session is totally informal\n\ncameras on, please\nchat/question away\ndon’t panic if things go wrong"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#why-pivot-tables",
+    "href": "excel/pivot_tables_and_pivot_charts.html#why-pivot-tables",
+    "title": "Pivot tables and pivot charts",
+    "section": "Why pivot tables?",
+    "text": "Why pivot tables?\n\nthe key summary tool in Excel\nwe often want to summarise long/complex data\ntwo key concerns:\n\nwe want to do that safely\nwe also want to do that effectively\n\npivot tables are safe and effective\n\nthey keep your analysis out of your data\nthey have lots of powerful tools built-in"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#some-data",
+    "href": "excel/pivot_tables_and_pivot_charts.html#some-data",
+    "title": "Pivot tables and pivot charts",
+    "section": "Some data",
+    "text": "Some data\n\non the 18 week referral target\nCopy the data link\nOpen the Get Data From web tool  \nPaste in the link"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#what-questions-might-we-ask-about-that-data",
+    "href": "excel/pivot_tables_and_pivot_charts.html#what-questions-might-we-ask-about-that-data",
+    "title": "Pivot tables and pivot charts",
+    "section": "What questions might we ask about that data?",
+    "text": "What questions might we ask about that data?"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#insert-a-pivot-table",
+    "href": "excel/pivot_tables_and_pivot_charts.html#insert-a-pivot-table",
+    "title": "Pivot tables and pivot charts",
+    "section": "Insert a pivot table",
+    "text": "Insert a pivot table\n\non a new sheet \nALT, N, V, T"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#adding-data-to-a-pivot-table",
+    "href": "excel/pivot_tables_and_pivot_charts.html#adding-data-to-a-pivot-table",
+    "title": "Pivot tables and pivot charts",
+    "section": "Adding data to a pivot table",
+    "text": "Adding data to a pivot table\n\n\n\n\n\n\n\nwe build pivot tables from the fields interface"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#adding-data-to-a-pivot-table-1",
+    "href": "excel/pivot_tables_and_pivot_charts.html#adding-data-to-a-pivot-table-1",
+    "title": "Pivot tables and pivot charts",
+    "section": "Adding data to a pivot table",
+    "text": "Adding data to a pivot table\n\n\n\n\n\n\n\ndrag values to fields\ndropdowns change settings"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#improving-our-pivot-table",
+    "href": "excel/pivot_tables_and_pivot_charts.html#improving-our-pivot-table",
+    "title": "Pivot tables and pivot charts",
+    "section": "Improving our pivot table",
+    "text": "Improving our pivot table\n\n\nthat gives us a simple pivot table\nwe can also add a PivotChart instantly - click on your pivot table, and press Alt + F1\n\nplay with the expansion buttons - the PivotChart should update to reflect the way that your PivotTable is currently arranged"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#pivottable-warnings",
+    "href": "excel/pivot_tables_and_pivot_charts.html#pivottable-warnings",
+    "title": "Pivot tables and pivot charts",
+    "section": "PivotTable warnings",
+    "text": "PivotTable warnings\n\nthis isn’t Excel!\nwarnings about coherence"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#pivottable-tips",
+    "href": "excel/pivot_tables_and_pivot_charts.html#pivottable-tips",
+    "title": "Pivot tables and pivot charts",
+    "section": "PivotTable tips",
+    "text": "PivotTable tips\n\n\n\n\n\n\nNote\n\n\n\n\nDouble-click any cell in a PivotTable to see the underlying data\nGroup PivotTable items using:\n\nShift + Alt + → (right arrow) to add items to a group\nShift + Alt + ← (left arrow) to ungroup\n\nAdd a new calculated field using Ctrl + Shift + = (equals)\nDelete an entire PivotTable using Ctrl + A then pressing Del"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#add-board-names",
+    "href": "excel/pivot_tables_and_pivot_charts.html#add-board-names",
+    "title": "Pivot tables and pivot charts",
+    "section": "Add board names",
+    "text": "Add board names\n\nthose codes are hard work\nlet’s make them look a little more human\nboard names data"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#years-and-months",
+    "href": "excel/pivot_tables_and_pivot_charts.html#years-and-months",
+    "title": "Pivot tables and pivot charts",
+    "section": "Years and months",
+    "text": "Years and months\n\nour Month column is a pain\nwe can turn that back into a proper date\n=date(left([@Month], 4), right([@Month], 2), 24)\nrefresh the pivot table, and update the fields"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#pivottable-pages",
+    "href": "excel/pivot_tables_and_pivot_charts.html#pivottable-pages",
+    "title": "Pivot tables and pivot charts",
+    "section": "PivotTable pages",
+    "text": "PivotTable pages\n\nwe can split out parts of a PivotTable to separate worksheets\n\n\n\n\n\n\n\nTask\n\n\n\n\nDrag the Years item to the Filters field. This should update the PivotTable so that only one year’s data is present at once\nWe can also split each year into its own worksheet: find the option in the PivotTable Analyze section of the ribbon - or via Alt, J, T, T, P"
+  },
+  {
+    "objectID": "excel/pivot_tables_and_pivot_charts.html#slicing",
+    "href": "excel/pivot_tables_and_pivot_charts.html#slicing",
+    "title": "Pivot tables and pivot charts",
+    "section": "Slicing",
+    "text": "Slicing\n\none slicer can control many PivotTables\n\n\n\n\n\n\n\nTask\n\n\n\n\nClick within one of your new annual PivotTables\nAdd a slicer from the insert menu (or ALT, N, S, F)\nSelect date to slice on\nWhen the slicer appears, right click and select “Report Connections…” and add the other annual PivotTables\nNow select a couple of months from your slicer, and see the effect on your PivotTables\n\n\n\n\nif you’re working with dates, you can also use the timeline, which works in exactly the same way. Insert with ALT, N, S, T, update the connections, and you can get fine-grained control over which date-ranges contribute to your PivotTable"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html",
+    "href": "excel/why_bother_with_excel.html",
+    "title": "Why bother with Excel?",
+    "section": "",
+    "text": "welcome to Why bother with Excel?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#welcome",
+    "href": "excel/why_bother_with_excel.html#welcome",
+    "title": "Why bother with Excel?",
+    "section": "",
+    "text": "welcome to Why bother with Excel?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#the-kind-network",
+    "href": "excel/why_bother_with_excel.html#the-kind-network",
+    "title": "Why bother with Excel?",
+    "section": "The KIND network",
+    "text": "The KIND network\n\na social learning space for staff working with knowledge, information, and data across health, social care, and housing in Scotland\nwe offer social support, free training, mentoring, community events, …\nTeams channel / mailing list"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#session-outline",
+    "href": "excel/why_bother_with_excel.html#session-outline",
+    "title": "Why bother with Excel?",
+    "section": "Session outline",
+    "text": "Session outline\n\ntwo minute overview of Excel\nstrengths and weaknesses\nmaking Excel work for you\nnext steps and training"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#a-brief-overview-of-excel",
+    "href": "excel/why_bother_with_excel.html#a-brief-overview-of-excel",
+    "title": "Why bother with Excel?",
+    "section": "A brief overview of Excel",
+    "text": "A brief overview of Excel\n\n\none of the oldest, and most widely used, pieces of desktop software\nubiquitous in business, finance, health and social care…\nproprietary, closed-source, paid-for\nmany versions"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#central-idea",
+    "href": "excel/why_bother_with_excel.html#central-idea",
+    "title": "Why bother with Excel?",
+    "section": "Central idea",
+    "text": "Central idea\n\n\npieces of data are stored in cells\n\none value, one cell\n\ncells are arranged into rows and columns\narranging data like this allows us to analyse it\ngood data analysis helps make services better"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#data-should-help",
+    "href": "excel/why_bother_with_excel.html#data-should-help",
+    "title": "Why bother with Excel?",
+    "section": "Data should help…",
+    "text": "Data should help…\n\nanswering which/when questions\nseeing effects of changes\ncomparing different areas\nlooking at services over time\n…"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#excel-uses-demo",
+    "href": "excel/why_bother_with_excel.html#excel-uses-demo",
+    "title": "Why bother with Excel?",
+    "section": "Excel uses demo",
+    "text": "Excel uses demo\n\nre-arranging data with filters and sorting\nformulas\nlookups\nsummarising"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#five-top-tips",
+    "href": "excel/why_bother_with_excel.html#five-top-tips",
+    "title": "Why bother with Excel?",
+    "section": "Five top tips",
+    "text": "Five top tips\n\nkeep data tidy (one value per cell, one row per thing, one column per measurement)\nkeep things as simple as possible - but not simpler\ndon’t tolerate lots of manual spreadsheet work\ntake care with formatting and accessibility/reuse\nbet that your spreadsheet will last longer, and travel further, than you think"
+  },
+  {
+    "objectID": "r_main.html",
+    "href": "r_main.html",
+    "title": "R training",
+    "section": "",
+    "text": "Dates and times with lubridate.\nWe (heart) janitor"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "These pages contain links and resources for our one-off training sessions. You can also find links to our main multi-session training courses via our TURAS page. All our sessions are:\n\nlive and practical/interactive. They aren’t scripted, and they prioritise Q&A, working through the material, and collective problem-solving\nfree to attend\nopen to all\naimed at members of the KIND workforce across Scotland’s health, social care, and housing sector"
+  },
+  {
+    "objectID": "about.html#about-these-pages",
+    "href": "about.html#about-these-pages",
+    "title": "About",
+    "section": "",
+    "text": "These pages contain links and resources for our one-off training sessions. You can also find links to our main multi-session training courses via our TURAS page. All our sessions are:\n\nlive and practical/interactive. They aren’t scripted, and they prioritise Q&A, working through the material, and collective problem-solving\nfree to attend\nopen to all\naimed at members of the KIND workforce across Scotland’s health, social care, and housing sector"
+  },
+  {
+    "objectID": "about.html#about-the-kind-learning-network",
+    "href": "about.html#about-the-kind-learning-network",
+    "title": "About",
+    "section": "About the KIND learning network",
+    "text": "About the KIND learning network\nThe KIND learning network is an inclusive and supportive community of practice for staff across the knowledge, information, and data workforce. It exists to further the leading role of the community in the digital transformation of health and care by supporting learning, sharing of best practice, and developing interdisciplinary collaborations."
+  },
+  {
+    "objectID": "about.html#what-does-kind-stand-for",
+    "href": "about.html#what-does-kind-stand-for",
+    "title": "About",
+    "section": "What does KIND stand for?",
+    "text": "What does KIND stand for?\nKIND = Knowledge, Information, and Data.\nThese topics roughly correspond to three main professional groups:\n\nthose who work with data and/or information\nthose working in knowledge management, research & development, and libraries\nthose working in records"
+  },
+  {
+    "objectID": "about.html#who-is-the-kind-network-for",
+    "href": "about.html#who-is-the-kind-network-for",
+    "title": "About",
+    "section": "Who is the KIND network for?",
+    "text": "Who is the KIND network for?\nThe KIND network is open to everyone, but is particularly aimed at staff from Scotland’s health, social care, and housing workforce who are interested in developing their knowledge, information, and data skills."
+  },
+  {
+    "objectID": "about.html#what-does-the-kind-network-do",
+    "href": "about.html#what-does-the-kind-network-do",
+    "title": "About",
+    "section": "What does the KIND network do?",
+    "text": "What does the KIND network do?\nThe KIND network does three main things:\n\nWe provide a range of training courses aimed at developing specialist professional skills. For example, we run Excel, Power BI, and R training courses at a range of levels. All our courses are free to access.\nWe provide a social learning space in the Teams channel, with a range of events aimed at different aspects of this area of work. For example, we run a weekly topic-based community meetup session and a mentoring scheme.\nWe work with key national stakeholders to support and champion these training and learning activities. For example, we are currently developing resources to support analysts transitioning to R.\n\nAll these activities are responsive to your needs. If you feel there’s an important area of relevant work where we are not contributing, please get in touch."
+  },
+  {
+    "objectID": "about.html#who-runsownsfunds-the-kind-network",
+    "href": "about.html#who-runsownsfunds-the-kind-network",
+    "title": "About",
+    "section": "Who runs/owns/funds the KIND network?",
+    "text": "Who runs/owns/funds the KIND network?\nThe KIND Learning Network is based at NHS Education for Scotland, as part of the Digitally Enabled Workforce programme. That’s a programme that builds foundational resources to support digital skills and leadership at all levels. You might have heard about our Professional Development Award in Technology Enabled Care programme, used the M365 Skills Hub, or been involved with the Digital Leadership Programme. This work is all funded through Scottish Government via the Digital Health and Care Portfolio Board."
+  },
+  {
+    "objectID": "about.html#why-does-the-kind-network-exist",
+    "href": "about.html#why-does-the-kind-network-exist",
+    "title": "About",
+    "section": "Why does the KIND network exist?",
+    "text": "Why does the KIND network exist?\nThis network exists to support people who work with knowledge, information, and data as they work to transform health and social care. There’s a large (and growing) workforce responsible for this work in Scotland. However, this workforce is really diverse. It’s not like e.g. nursing or other NMHAP professions where there are fixed entry and promotion criteria. Professional development is more complicated and messy than that. A good example is the lack of standardised job titles for KIND workers. We currently have something like 350 different job titles in the Teams channel. That splitting up of job families contributes to KIND workers being less visible than I think they should be. Kathleen Grey and colleagues called them “ghosts in the machine”"
+  },
+  {
+    "objectID": "about.html#where-does-kind-work-happen",
+    "href": "about.html#where-does-kind-work-happen",
+    "title": "About",
+    "section": "Where does KIND work happen?",
+    "text": "Where does KIND work happen?\nKIND work happens in many places across health and social care in Scotland. For example, you might find KIND workers in NHS Boards (national or territorial), other governmental health bodies, Local Authorities, social care care organisations, higher education, in the private sector, professional associations, or in health and social care partnerships"
+  },
+  {
+    "objectID": "about.html#help-i-have-an-unmet-query",
+    "href": "about.html#help-i-have-an-unmet-query",
+    "title": "About",
+    "section": "Help! I have an unmet query…",
+    "text": "Help! I have an unmet query…\n\nTeams channel link = Mailing list link\nFor anything, please contact Brendan Clarke (brendan.clarke2@nhs.scot)."
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "These are the currently-booked training sessions:"
+  },
+  {
+    "objectID": "schedule.html#current-schedule",
+    "href": "schedule.html#current-schedule",
+    "title": "Schedule",
+    "section": "",
+    "text": "These are the currently-booked training sessions:"
+  },
+  {
+    "objectID": "schedule.html#training-menu",
+    "href": "schedule.html#training-menu",
+    "title": "Schedule",
+    "section": "Training menu",
+    "text": "Training menu\nThese are all the stand-alone training sessions currently on offer. Please get in touch if you’d like to see something additional:"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "KIND training",
+    "section": "",
+    "text": "This is a set of training materials supporting the KIND network’s series of one-off training sessions."
+  },
+  {
+    "objectID": "index.html#how-to-use-these-materials",
+    "href": "index.html#how-to-use-these-materials",
+    "title": "KIND training",
+    "section": "How to use these materials",
+    "text": "How to use these materials\n\nthese pages contain the materials for the range of one-off training sessions provided by NHS Education for Scotland’s KIND learning network\nall our sessions are designed to be delivered live on Teams\nall these materials are creative-commons licenced, so please feel free to reuse within those conditions\nthese sessions are periodically re-run, so please get in touch if you’d find it helpful to have one or more sessions re-offered"
+  },
+  {
+    "objectID": "index.html#thanks",
+    "href": "index.html#thanks",
+    "title": "KIND training",
+    "section": "Thanks",
+    "text": "Thanks\nThese materials owe a huge debt to the many members of the KIND community who have contributed. More specifically, these pages are based on Melissa Van Bussell’s video describing, with absolute clarity, how to deploy Quarto websites to GitHub pages."
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html",
+    "href": "excel/practical_power_pivot.html",
+    "title": "Practical PowerPivot",
+    "section": "",
+    "text": "this session is 🌶🌶, so it’s designed for intermediate users with plenty of previous Excel PivotTable experience\n\nPowerPivot infrastructure varies widely, so we can’t advise on installation\n\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#welcome",
+    "href": "excel/practical_power_pivot.html#welcome",
+    "title": "Practical PowerPivot",
+    "section": "",
+    "text": "this session is 🌶🌶, so it’s designed for intermediate users with plenty of previous Excel PivotTable experience\n\nPowerPivot infrastructure varies widely, so we can’t advise on installation\n\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#session-outline",
+    "href": "excel/practical_power_pivot.html#session-outline",
+    "title": "Practical PowerPivot",
+    "section": "Session outline",
+    "text": "Session outline\n\ncheck that you have Power Pivot please!\nfind and tidy some data\nadd to Power Pivot\nplay with data in Power Pivot"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#word-of-warning",
+    "href": "excel/practical_power_pivot.html#word-of-warning",
+    "title": "Practical PowerPivot",
+    "section": "Word of warning",
+    "text": "Word of warning\n\nPower Pivot in Excel is still officially supported, but has been largely replaced by Power BI\n\nI’d be circumspect about its long-term prospects\nI’d also be cautious about starting more ambitious projects in Power Pivot - lots of glitches, few fixes"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#nutshell",
+    "href": "excel/practical_power_pivot.html#nutshell",
+    "title": "Practical PowerPivot",
+    "section": "Nutshell",
+    "text": "Nutshell\n\nPowerPivot = effectively a local SSAS\nthat means PowerPivot allows you to do fancy relational work with your data\nit can also means higher performance with large (10k rows +) data\nyet allows you to use Excel for data ingest and output"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#data",
+    "href": "excel/practical_power_pivot.html#data",
+    "title": "Practical PowerPivot",
+    "section": "Data",
+    "text": "Data\n\ndownload the Agatha Christie dataset as an Excel file\ntidying:\n\nremove filters\ncreate 4 x named tables\nstandardising titles if you’re highly conscientious"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#add-data-to-power-pivot",
+    "href": "excel/practical_power_pivot.html#add-data-to-power-pivot",
+    "title": "Practical PowerPivot",
+    "section": "Add data to Power Pivot",
+    "text": "Add data to Power Pivot\n\nfind Power Pivot\nadd to data model x 4\ndiagram view and create relationships"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#dax-intro",
+    "href": "excel/practical_power_pivot.html#dax-intro",
+    "title": "Practical PowerPivot",
+    "section": "DAX intro",
+    "text": "DAX intro\n\nsimilar to, but larger, than Excel formula language\nstructured references - so table[column]\nno referencing individual cells/random ranges\nability to write expressions that update in Pivot Tables"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#make-a-pivot-table",
+    "href": "excel/practical_power_pivot.html#make-a-pivot-table",
+    "title": "Practical PowerPivot",
+    "section": "Make a Pivot Table",
+    "text": "Make a Pivot Table\n\nthis should feel nice and familiar - with the option of bringing together several tables of data"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#make-a-new-column",
+    "href": "excel/practical_power_pivot.html#make-a-new-column",
+    "title": "Practical PowerPivot",
+    "section": "Make a new column",
+    "text": "Make a new column\n\n= all_titles[Year of first publication] - 1\nrename, return to your Pivot table, and ruin the years…"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#relationships",
+    "href": "excel/practical_power_pivot.html#relationships",
+    "title": "Practical PowerPivot",
+    "section": "Relationships",
+    "text": "Relationships\n\nyou can create relationships between different parts of your data, and exploit those relationships using DAX\nopen the diagram view, and connect the Title ID columns together"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#relationships-have-directions",
+    "href": "excel/practical_power_pivot.html#relationships-have-directions",
+    "title": "Practical PowerPivot",
+    "section": "Relationships have directions",
+    "text": "Relationships have directions\n(with thanks to Michael Robb, NHS Highland)"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#fancier-calculated-column",
+    "href": "excel/practical_power_pivot.html#fancier-calculated-column",
+    "title": "Practical PowerPivot",
+    "section": "Fancier calculated column",
+    "text": "Fancier calculated column\n(with thanks to Michael Roarty, NHS NSS)\n\nadd a series col to your all_titles data\n\n=related(novels[Series]) & related(short_stories[Series])\n\nadd a year of publication col to your short_story data\n\n=LOOKUPVALUE(ssc[Year of first publication], ssc[Title Name], short_stories[Collection])\n\nadd a rounded year\n\n= MROUND([Year of first publication], 5)"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#back-to-your-pivot-table",
+    "href": "excel/practical_power_pivot.html#back-to-your-pivot-table",
+    "title": "Practical PowerPivot",
+    "section": "Back to your pivot table",
+    "text": "Back to your pivot table"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#chat-queries-questions",
+    "href": "excel/practical_power_pivot.html#chat-queries-questions",
+    "title": "Practical PowerPivot",
+    "section": "Chat, queries, questions",
+    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html",
+    "href": "excel/scope_of_the_possible_with_excel.html",
+    "title": "Scope of the possible with Excel",
+    "section": "",
+    "text": "this session is a non-technical overview designed for service leads"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#welcome",
+    "href": "excel/scope_of_the_possible_with_excel.html#welcome",
+    "title": "Scope of the possible with Excel",
+    "section": "",
+    "text": "this session is a non-technical overview designed for service leads"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#session-outline",
+    "href": "excel/scope_of_the_possible_with_excel.html#session-outline",
+    "title": "Scope of the possible with Excel",
+    "section": "Session outline",
+    "text": "Session outline\n\nWhy Excel, and why this session?\nStrengths and weaknesses\nGreat Excel projects, dire Excel projects\nAlternatives\nSkill development"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#why-excel",
+    "href": "excel/scope_of_the_possible_with_excel.html#why-excel",
+    "title": "Scope of the possible with Excel",
+    "section": "Why Excel?",
+    "text": "Why Excel?\n\n40+ years old\ninitially developed as a finance tool\nuptake from financial areas outwards into other services\nlikely circular reasoning: “we use Excel” because “we use Excel”…"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#why-this-session",
+    "href": "excel/scope_of_the_possible_with_excel.html#why-this-session",
+    "title": "Scope of the possible with Excel",
+    "section": "Why this session?",
+    "text": "Why this session?\n\nnow includes several different tools for working with data\nmost of us only ever scratch the surface\nbut it’s really important to know roughly what’s possible - and that’s hard!"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#excel-demo",
+    "href": "excel/scope_of_the_possible_with_excel.html#excel-demo",
+    "title": "Scope of the possible with Excel",
+    "section": "Excel demo",
+    "text": "Excel demo\n\nusing open Annual inpatient/daycase data"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#strengths-and-weaknesses",
+    "href": "excel/scope_of_the_possible_with_excel.html#strengths-and-weaknesses",
+    "title": "Scope of the possible with Excel",
+    "section": "Strengths and weaknesses",
+    "text": "Strengths and weaknesses\n\ngreat for one-off data projects, but Excel sheets often have a long life…\neasy to start projects, but more involved analysis is messy\nshare-able and accessible - but many different versions of Excel, add-ins etc, mean that there is grit in the system\nyou can do almost anything in Excel, but you probably shouldn’t"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#great-excel-uses",
+    "href": "excel/scope_of_the_possible_with_excel.html#great-excel-uses",
+    "title": "Scope of the possible with Excel",
+    "section": "Great Excel uses",
+    "text": "Great Excel uses\n\nsimple, quick, one-off projects\nusing Power Query to manipulate data\nusing Excel to create/load data into Power BI"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#terrible-excel-uses",
+    "href": "excel/scope_of_the_possible_with_excel.html#terrible-excel-uses",
+    "title": "Scope of the possible with Excel",
+    "section": "Terrible Excel uses",
+    "text": "Terrible Excel uses\n\nreplacing databases (complicated, but Access/SQL)\nanything with free text (probably use R/Nvivo instead)\nanything with many editors (use Forms or Sharepoint Lists instead)\nanything with repetition and extensive manual editing (better Excel design needed)\nvery wide data (probably Excel redesign again)"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#a-cautionary-tale",
+    "href": "excel/scope_of_the_possible_with_excel.html#a-cautionary-tale",
+    "title": "Scope of the possible with Excel",
+    "section": "A cautionary tale",
+    "text": "A cautionary tale\n\nthere are staff in Scotland’s health and care sector who spend ~100% of their time manually editing Excel files\nthis is almost certainly the result of poor Excel practices\nExcel is a complex product, with several routes to achieving end goals\nand Excel can malfunction to disasterous effect"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#five-top-tips",
+    "href": "excel/scope_of_the_possible_with_excel.html#five-top-tips",
+    "title": "Scope of the possible with Excel",
+    "section": "Five top tips",
+    "text": "Five top tips\n\nkeep data tidy (one value per cell, one row per thing, one column per measurement)\nkeep things as simple as possible - but not simpler\ndon’t tolerate lots of manual spreadsheet work\ntake care with formatting and accessibility/reuse\nbet that your spreadsheet will last longer, and travel further, than you think"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#chat-queries-questions",
+    "href": "excel/scope_of_the_possible_with_excel.html#chat-queries-questions",
+    "title": "Scope of the possible with Excel",
+    "section": "Chat, queries, questions",
+    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate\nplease let me know (brendan.clarke2@nhs.scot) what would be most helpful to you and your team"
   },
   {
     "objectID": "excel/references_and_names_in_excel.html",
@@ -287,599 +854,158 @@
     "text": "You can manage those names\n\n\n\n\n\n\nTask\n\n\n\n\nfind the Name manager (or press Ctrl + F3)  \ntry renaming your av_length cell\ntry making a new named range from your three last_visit cells\ntry using the F5 Go to interface to navigate between your named cells"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html",
-    "href": "excel/scope_of_the_possible_with_excel.html",
-    "title": "Scope of the possible with Excel",
+    "objectID": "BI_main.html",
+    "href": "BI_main.html",
+    "title": "BI training",
     "section": "",
-    "text": "this session is a non-technical overview designed for service leads"
+    "text": "Scope of the possible with Power BI\nWhy bother with…Power BI?"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#welcome",
-    "href": "excel/scope_of_the_possible_with_excel.html#welcome",
-    "title": "Scope of the possible with Excel",
+    "objectID": "rbc/2024-06-13.html",
+    "href": "rbc/2024-06-13.html",
+    "title": "R beginner’s club 2024-06-13",
     "section": "",
-    "text": "this session is a non-technical overview designed for service leads"
+    "text": "The basic recipe here is:\n\nread our Excel spreadsheets into R\ntry some simple base-R methods of comparison\nget more fancy with packages for more useful comparisons\n\n\n\nThis can be messy. readxl is probably the most straightforward place to start. Make sure a) that your Excel files aren’t open in Excel when you try to read them and b) that you’re happy and confident that your data is on the first worksheet (or you know the correct name of the sheet). You’ll almost certainly want to be working in an R project too to avoid too much messing around with file paths, getwd(), etc.\n\nlibrary(readxl) # to attach the readxl package\nb1 &lt;- read_xlsx(\"data/Book1.xlsx\") \nb2 &lt;- read_xlsx(\"data/Book2.xlsx\") # to read the files\n\n\n\n\nThe most obvious thing to try first is a check for equality. You’ll do this with a double equal sign, like this:\n\nb1 == b2\n\n      name score\n [1,] TRUE  TRUE\n [2,] TRUE  TRUE\n [3,] TRUE  TRUE\n [4,] TRUE  TRUE\n [5,] TRUE  TRUE\n [6,] TRUE  TRUE\n [7,] TRUE  TRUE\n [8,] TRUE  TRUE\n [9,] TRUE  TRUE\n[10,] TRUE  TRUE\n\n\n(single = is effectively the same as &lt;-)\nThat gives us back quite a complicated matrix of results, showing a cell-by-cell comparison of the two sets of data. This happens because R is vectorised - so when we compare two identically-shaped bits of data, R will assume that we want to do our comparison to each of the items in turn. If we just looked at the number values in our spreadsheets, which we could do by using the $ to refer to a column, we could:\n\nb1$score - b2$score\n\n [1] 0 0 0 0 0 0 0 0 0 0\n\n\nWhich I suppose is another way of checking for equality. So could also use a helper function to collapse all of those down into one:\n\nsum(b1$score - b2$score)\n\n[1] 0\n\n\nIf we just wanted a simple true/false measure for the data as a whole, we could recruit the very useful all() and any():\n\nall(b1 == b2) # to check all values are the same\n\n[1] TRUE\n\nany(b1 == b2) # to check any values are the same\n\n[1] TRUE\n\n\nYou could do something very similar using setequal():\n\nsetequal(b1, b2)\n\n[1] TRUE\n\n\n\n\n\nwaldo::compare() is a brilliant way of comparing complex data:\n\nwaldo::compare(b1, b2)\n\n✔ No differences\n\n\nIf we vandalise one of our datasets by changing one value, waldo does plenty of useful work to bring the correct parts of the data to our attention:\n\nb2[5,2] &lt;- 1\nwaldo::compare(b1, b2)\n\nold vs new\n                score\n  old[2, ]  0.2481382\n  old[3, ]  0.6444191\n  old[4, ]  0.8873743\n- old[5, ]  0.3361401\n+ new[5, ]  1.0000000\n  old[6, ]  0.1597596\n  old[7, ]  0.3928778\n  old[8, ]  0.5743370\n\n`old$score[2:8]`: 0.2 0.6 0.9 0.3 0.2 0.4 0.6\n`new$score[2:8]`: 0.2 0.6 0.9 1.0 0.2 0.4 0.6\n\n\nI suppose we could also graph our data to show changed points. One way of doing this is to plot the two sets in different colours:\n\nlibrary(ggplot2)\n\nggplot() +\n  geom_point(data = b1, aes(x = name, y = score), colour = \"red\", size = 5) +\n  geom_point(data = b2, aes(x = name, y = score), colour = \"blue\", size = 5)\n\n\n\n\n\n\n\n\nOr, possibly more elegantly, we could join our data using dplyr, then subtract one from the other, then plot the difference:\n\nlibrary(dplyr)\n\nb1 |&gt;\n  left_join(b2, by = \"name\") |&gt;\n  ggplot(aes(x = name, xend = name, y = score.y - score.x, yend = 0), colour = \"red\") +\n  geom_segment() +\n  geom_label(aes(label = name))"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#session-outline",
-    "href": "excel/scope_of_the_possible_with_excel.html#session-outline",
-    "title": "Scope of the possible with Excel",
-    "section": "Session outline",
-    "text": "Session outline\n\nWhy Excel, and why this session?\nStrengths and weaknesses\nGreat Excel projects, dire Excel projects\nAlternatives\nSkill development"
-  },
-  {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#why-excel",
-    "href": "excel/scope_of_the_possible_with_excel.html#why-excel",
-    "title": "Scope of the possible with Excel",
-    "section": "Why Excel?",
-    "text": "Why Excel?\n\n40+ years old\ninitially developed as a finance tool\nuptake from financial areas outwards into other services\nlikely circular reasoning: “we use Excel” because “we use Excel”…"
-  },
-  {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#why-this-session",
-    "href": "excel/scope_of_the_possible_with_excel.html#why-this-session",
-    "title": "Scope of the possible with Excel",
-    "section": "Why this session?",
-    "text": "Why this session?\n\nnow includes several different tools for working with data\nmost of us only ever scratch the surface\nbut it’s really important to know roughly what’s possible - and that’s hard!"
-  },
-  {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#excel-demo",
-    "href": "excel/scope_of_the_possible_with_excel.html#excel-demo",
-    "title": "Scope of the possible with Excel",
-    "section": "Excel demo",
-    "text": "Excel demo\n\nusing open Annual inpatient/daycase data"
-  },
-  {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#strengths-and-weaknesses",
-    "href": "excel/scope_of_the_possible_with_excel.html#strengths-and-weaknesses",
-    "title": "Scope of the possible with Excel",
-    "section": "Strengths and weaknesses",
-    "text": "Strengths and weaknesses\n\ngreat for one-off data projects, but Excel sheets often have a long life…\neasy to start projects, but more involved analysis is messy\nshare-able and accessible - but many different versions of Excel, add-ins etc, mean that there is grit in the system\nyou can do almost anything in Excel, but you probably shouldn’t"
-  },
-  {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#great-excel-uses",
-    "href": "excel/scope_of_the_possible_with_excel.html#great-excel-uses",
-    "title": "Scope of the possible with Excel",
-    "section": "Great Excel uses",
-    "text": "Great Excel uses\n\nsimple, quick, one-off projects\nusing Power Query to manipulate data\nusing Excel to create/load data into Power BI"
-  },
-  {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#terrible-excel-uses",
-    "href": "excel/scope_of_the_possible_with_excel.html#terrible-excel-uses",
-    "title": "Scope of the possible with Excel",
-    "section": "Terrible Excel uses",
-    "text": "Terrible Excel uses\n\nreplacing databases (complicated, but Access/SQL)\nanything with free text (probably use R/Nvivo instead)\nanything with many editors (use Forms or Sharepoint Lists instead)\nanything with repetition and extensive manual editing (better Excel design needed)\nvery wide data (probably Excel redesign again)"
-  },
-  {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#a-cautionary-tale",
-    "href": "excel/scope_of_the_possible_with_excel.html#a-cautionary-tale",
-    "title": "Scope of the possible with Excel",
-    "section": "A cautionary tale",
-    "text": "A cautionary tale\n\nthere are staff in Scotland’s health and care sector who spend ~100% of their time manually editing Excel files\nthis is almost certainly the result of poor Excel practices\nExcel is a complex product, with several routes to achieving end goals\nand Excel can malfunction to disasterous effect"
-  },
-  {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#five-top-tips",
-    "href": "excel/scope_of_the_possible_with_excel.html#five-top-tips",
-    "title": "Scope of the possible with Excel",
-    "section": "Five top tips",
-    "text": "Five top tips\n\nkeep data tidy (one value per cell, one row per thing, one column per measurement)\nkeep things as simple as possible - but not simpler\ndon’t tolerate lots of manual spreadsheet work\ntake care with formatting and accessibility/reuse\nbet that your spreadsheet will last longer, and travel further, than you think"
-  },
-  {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#chat-queries-questions",
-    "href": "excel/scope_of_the_possible_with_excel.html#chat-queries-questions",
-    "title": "Scope of the possible with Excel",
-    "section": "Chat, queries, questions",
-    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate\nplease let me know (brendan.clarke2@nhs.scot) what would be most helpful to you and your team"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html",
-    "href": "excel/practical_power_pivot.html",
-    "title": "Practical PowerPivot",
+    "objectID": "rbc/2024-06-13.html#how-to-compare-two-or-more-excel-spreadsheets",
+    "href": "rbc/2024-06-13.html#how-to-compare-two-or-more-excel-spreadsheets",
+    "title": "R beginner’s club 2024-06-13",
     "section": "",
-    "text": "this session is 🌶🌶, so it’s designed for intermediate users with plenty of previous Excel PivotTable experience\n\nPowerPivot infrastructure varies widely, so we can’t advise on installation\n\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+    "text": "The basic recipe here is:\n\nread our Excel spreadsheets into R\ntry some simple base-R methods of comparison\nget more fancy with packages for more useful comparisons\n\n\n\nThis can be messy. readxl is probably the most straightforward place to start. Make sure a) that your Excel files aren’t open in Excel when you try to read them and b) that you’re happy and confident that your data is on the first worksheet (or you know the correct name of the sheet). You’ll almost certainly want to be working in an R project too to avoid too much messing around with file paths, getwd(), etc.\n\nlibrary(readxl) # to attach the readxl package\nb1 &lt;- read_xlsx(\"data/Book1.xlsx\") \nb2 &lt;- read_xlsx(\"data/Book2.xlsx\") # to read the files\n\n\n\n\nThe most obvious thing to try first is a check for equality. You’ll do this with a double equal sign, like this:\n\nb1 == b2\n\n      name score\n [1,] TRUE  TRUE\n [2,] TRUE  TRUE\n [3,] TRUE  TRUE\n [4,] TRUE  TRUE\n [5,] TRUE  TRUE\n [6,] TRUE  TRUE\n [7,] TRUE  TRUE\n [8,] TRUE  TRUE\n [9,] TRUE  TRUE\n[10,] TRUE  TRUE\n\n\n(single = is effectively the same as &lt;-)\nThat gives us back quite a complicated matrix of results, showing a cell-by-cell comparison of the two sets of data. This happens because R is vectorised - so when we compare two identically-shaped bits of data, R will assume that we want to do our comparison to each of the items in turn. If we just looked at the number values in our spreadsheets, which we could do by using the $ to refer to a column, we could:\n\nb1$score - b2$score\n\n [1] 0 0 0 0 0 0 0 0 0 0\n\n\nWhich I suppose is another way of checking for equality. So could also use a helper function to collapse all of those down into one:\n\nsum(b1$score - b2$score)\n\n[1] 0\n\n\nIf we just wanted a simple true/false measure for the data as a whole, we could recruit the very useful all() and any():\n\nall(b1 == b2) # to check all values are the same\n\n[1] TRUE\n\nany(b1 == b2) # to check any values are the same\n\n[1] TRUE\n\n\nYou could do something very similar using setequal():\n\nsetequal(b1, b2)\n\n[1] TRUE\n\n\n\n\n\nwaldo::compare() is a brilliant way of comparing complex data:\n\nwaldo::compare(b1, b2)\n\n✔ No differences\n\n\nIf we vandalise one of our datasets by changing one value, waldo does plenty of useful work to bring the correct parts of the data to our attention:\n\nb2[5,2] &lt;- 1\nwaldo::compare(b1, b2)\n\nold vs new\n                score\n  old[2, ]  0.2481382\n  old[3, ]  0.6444191\n  old[4, ]  0.8873743\n- old[5, ]  0.3361401\n+ new[5, ]  1.0000000\n  old[6, ]  0.1597596\n  old[7, ]  0.3928778\n  old[8, ]  0.5743370\n\n`old$score[2:8]`: 0.2 0.6 0.9 0.3 0.2 0.4 0.6\n`new$score[2:8]`: 0.2 0.6 0.9 1.0 0.2 0.4 0.6\n\n\nI suppose we could also graph our data to show changed points. One way of doing this is to plot the two sets in different colours:\n\nlibrary(ggplot2)\n\nggplot() +\n  geom_point(data = b1, aes(x = name, y = score), colour = \"red\", size = 5) +\n  geom_point(data = b2, aes(x = name, y = score), colour = \"blue\", size = 5)\n\n\n\n\n\n\n\n\nOr, possibly more elegantly, we could join our data using dplyr, then subtract one from the other, then plot the difference:\n\nlibrary(dplyr)\n\nb1 |&gt;\n  left_join(b2, by = \"name\") |&gt;\n  ggplot(aes(x = name, xend = name, y = score.y - score.x, yend = 0), colour = \"red\") +\n  geom_segment() +\n  geom_label(aes(label = name))"
   },
   {
-    "objectID": "excel/practical_power_pivot.html#welcome",
-    "href": "excel/practical_power_pivot.html#welcome",
-    "title": "Practical PowerPivot",
+    "objectID": "rbc/2024-06-13.html#how-to-think-about-joins",
+    "href": "rbc/2024-06-13.html#how-to-think-about-joins",
+    "title": "R beginner’s club 2024-06-13",
+    "section": "How to think about joins?",
+    "text": "How to think about joins?\nWe did a simple join above. A join is a way of merging two datasets. Let’s demonstrate with some cut-down datasets from above. We’ll remove some of the values from our b1 set and from our b2 set:\n\nb1 &lt;- b1 |&gt;\n  slice(1:5)\n\nb1\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 kennedy  0.590\n2 victoria 0.248\n3 peter    0.644\n4 judi     0.887\n5 paul     0.336\n\n\n\nb2 &lt;- b2 |&gt;\n  slice_sample(n = 5)\n\nb2\n\n# A tibble: 5 × 2\n  name    score\n  &lt;chr&gt;   &lt;dbl&gt;\n1 paul    1    \n2 peter   0.644\n3 kennedy 0.590\n4 judi    0.887\n5 michael 0.561\n\n\nThe simplest join we could do is to bind the rows from one set onto another:\n\nb1 |&gt;\n  bind_rows(b2)\n\n# A tibble: 10 × 2\n   name     score\n   &lt;chr&gt;    &lt;dbl&gt;\n 1 kennedy  0.590\n 2 victoria 0.248\n 3 peter    0.644\n 4 judi     0.887\n 5 paul     0.336\n 6 paul     1    \n 7 peter    0.644\n 8 kennedy  0.590\n 9 judi     0.887\n10 michael  0.561\n\n\nThat just brings all the rows from b2 onto the end of b1. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join b2:\n\nb1 |&gt;\n  left_join(b2, by = \"name\")\n\n# A tibble: 5 × 3\n  name     score.x score.y\n  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;\n1 kennedy    0.590   0.590\n2 victoria   0.248  NA    \n3 peter      0.644   0.644\n4 judi       0.887   0.887\n5 paul       0.336   1    \n\n\nYou should see that only the values from b2’s score column that have a corresponding name in b1 get populated, and everything else gets filled with NAs. Here’s a nice introduction to the different kinds of join you can do in dplyr."
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html",
+    "title": "Scope of the possible with Power BI",
     "section": "",
-    "text": "this session is 🌶🌶, so it’s designed for intermediate users with plenty of previous Excel PivotTable experience\n\nPowerPivot infrastructure varies widely, so we can’t advise on installation\n\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+    "text": "No feedback found for this session"
   },
   {
-    "objectID": "excel/practical_power_pivot.html#session-outline",
-    "href": "excel/practical_power_pivot.html#session-outline",
-    "title": "Practical PowerPivot",
-    "section": "Session outline",
-    "text": "Session outline\n\ncheck that you have Power Pivot please!\nfind and tidy some data\nadd to Power Pivot\nplay with data in Power Pivot"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#word-of-warning",
-    "href": "excel/practical_power_pivot.html#word-of-warning",
-    "title": "Practical PowerPivot",
-    "section": "Word of warning",
-    "text": "Word of warning\n\nPower Pivot in Excel is still officially supported, but has been largely replaced by Power BI\n\nI’d be circumspect about its long-term prospects\nI’d also be cautious about starting more ambitious projects in Power Pivot - lots of glitches, few fixes"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#nutshell",
-    "href": "excel/practical_power_pivot.html#nutshell",
-    "title": "Practical PowerPivot",
-    "section": "Nutshell",
-    "text": "Nutshell\n\nPowerPivot = effectively a local SSAS\nthat means PowerPivot allows you to do fancy relational work with your data\nit can also means higher performance with large (10k rows +) data\nyet allows you to use Excel for data ingest and output"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#data",
-    "href": "excel/practical_power_pivot.html#data",
-    "title": "Practical PowerPivot",
-    "section": "Data",
-    "text": "Data\n\ndownload the Agatha Christie dataset as an Excel file\ntidying:\n\nremove filters\ncreate 4 x named tables\nstandardising titles if you’re highly conscientious"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#add-data-to-power-pivot",
-    "href": "excel/practical_power_pivot.html#add-data-to-power-pivot",
-    "title": "Practical PowerPivot",
-    "section": "Add data to Power Pivot",
-    "text": "Add data to Power Pivot\n\nfind Power Pivot\nadd to data model x 4\ndiagram view and create relationships"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#dax-intro",
-    "href": "excel/practical_power_pivot.html#dax-intro",
-    "title": "Practical PowerPivot",
-    "section": "DAX intro",
-    "text": "DAX intro\n\nsimilar to, but larger, than Excel formula language\nstructured references - so table[column]\nno referencing individual cells/random ranges\nability to write expressions that update in Pivot Tables"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#make-a-pivot-table",
-    "href": "excel/practical_power_pivot.html#make-a-pivot-table",
-    "title": "Practical PowerPivot",
-    "section": "Make a Pivot Table",
-    "text": "Make a Pivot Table\n\nthis should feel nice and familiar - with the option of bringing together several tables of data"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#make-a-new-column",
-    "href": "excel/practical_power_pivot.html#make-a-new-column",
-    "title": "Practical PowerPivot",
-    "section": "Make a new column",
-    "text": "Make a new column\n\n= all_titles[Year of first publication] - 1\nrename, return to your Pivot table, and ruin the years…"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#relationships",
-    "href": "excel/practical_power_pivot.html#relationships",
-    "title": "Practical PowerPivot",
-    "section": "Relationships",
-    "text": "Relationships\n\nyou can create relationships between different parts of your data, and exploit those relationships using DAX\nopen the diagram view, and connect the Title ID columns together"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#relationships-have-directions",
-    "href": "excel/practical_power_pivot.html#relationships-have-directions",
-    "title": "Practical PowerPivot",
-    "section": "Relationships have directions",
-    "text": "Relationships have directions\n(with thanks to Michael Robb, NHS Highland)"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#fancier-calculated-column",
-    "href": "excel/practical_power_pivot.html#fancier-calculated-column",
-    "title": "Practical PowerPivot",
-    "section": "Fancier calculated column",
-    "text": "Fancier calculated column\n(with thanks to Michael Roarty, NHS NSS)\n\nadd a series col to your all_titles data\n\n=related(novels[Series]) & related(short_stories[Series])\n\nadd a year of publication col to your short_story data\n\n=LOOKUPVALUE(ssc[Year of first publication], ssc[Title Name], short_stories[Collection])\n\nadd a rounded year\n\n= MROUND([Year of first publication], 5)"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#back-to-your-pivot-table",
-    "href": "excel/practical_power_pivot.html#back-to-your-pivot-table",
-    "title": "Practical PowerPivot",
-    "section": "Back to your pivot table",
-    "text": "Back to your pivot table"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#chat-queries-questions",
-    "href": "excel/practical_power_pivot.html#chat-queries-questions",
-    "title": "Practical PowerPivot",
-    "section": "Chat, queries, questions",
-    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "KIND training",
-    "section": "",
-    "text": "This is a set of training materials supporting the KIND network’s series of one-off training sessions."
-  },
-  {
-    "objectID": "index.html#how-to-use-these-materials",
-    "href": "index.html#how-to-use-these-materials",
-    "title": "KIND training",
-    "section": "How to use these materials",
-    "text": "How to use these materials\n\nthese pages contain the materials for the range of one-off training sessions provided by NHS Education for Scotland’s KIND learning network\nall our sessions are designed to be delivered live on Teams\nall these materials are creative-commons licenced, so please feel free to reuse within those conditions\nthese sessions are periodically re-run, so please get in touch if you’d find it helpful to have one or more sessions re-offered"
-  },
-  {
-    "objectID": "index.html#thanks",
-    "href": "index.html#thanks",
-    "title": "KIND training",
-    "section": "Thanks",
-    "text": "Thanks\nThese materials owe a huge debt to the many members of the KIND community who have contributed. More specifically, these pages are based on Melissa Van Bussell’s video describing, with absolute clarity, how to deploy Quarto websites to GitHub pages."
-  },
-  {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Schedule",
-    "section": "",
-    "text": "These are the currently-booked training sessions:"
-  },
-  {
-    "objectID": "schedule.html#current-schedule",
-    "href": "schedule.html#current-schedule",
-    "title": "Schedule",
-    "section": "",
-    "text": "These are the currently-booked training sessions:"
-  },
-  {
-    "objectID": "schedule.html#training-menu",
-    "href": "schedule.html#training-menu",
-    "title": "Schedule",
-    "section": "Training menu",
-    "text": "Training menu\nThese are all the stand-alone training sessions currently on offer. Please get in touch if you’d like to see something additional:"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "These pages contain links and resources for our one-off training sessions. You can also find links to our main multi-session training courses via our TURAS page. All our sessions are:\n\nlive and practical/interactive. They aren’t scripted, and they prioritise Q&A, working through the material, and collective problem-solving\nfree to attend\nopen to all\naimed at members of the KIND workforce across Scotland’s health, social care, and housing sector"
-  },
-  {
-    "objectID": "about.html#about-these-pages",
-    "href": "about.html#about-these-pages",
-    "title": "About",
-    "section": "",
-    "text": "These pages contain links and resources for our one-off training sessions. You can also find links to our main multi-session training courses via our TURAS page. All our sessions are:\n\nlive and practical/interactive. They aren’t scripted, and they prioritise Q&A, working through the material, and collective problem-solving\nfree to attend\nopen to all\naimed at members of the KIND workforce across Scotland’s health, social care, and housing sector"
-  },
-  {
-    "objectID": "about.html#about-the-kind-learning-network",
-    "href": "about.html#about-the-kind-learning-network",
-    "title": "About",
-    "section": "About the KIND learning network",
-    "text": "About the KIND learning network\nThe KIND learning network is an inclusive and supportive community of practice for staff across the knowledge, information, and data workforce. It exists to further the leading role of the community in the digital transformation of health and care by supporting learning, sharing of best practice, and developing interdisciplinary collaborations."
-  },
-  {
-    "objectID": "about.html#what-does-kind-stand-for",
-    "href": "about.html#what-does-kind-stand-for",
-    "title": "About",
-    "section": "What does KIND stand for?",
-    "text": "What does KIND stand for?\nKIND = Knowledge, Information, and Data.\nThese topics roughly correspond to three main professional groups:\n\nthose who work with data and/or information\nthose working in knowledge management, research & development, and libraries\nthose working in records"
-  },
-  {
-    "objectID": "about.html#who-is-the-kind-network-for",
-    "href": "about.html#who-is-the-kind-network-for",
-    "title": "About",
-    "section": "Who is the KIND network for?",
-    "text": "Who is the KIND network for?\nThe KIND network is open to everyone, but is particularly aimed at staff from Scotland’s health, social care, and housing workforce who are interested in developing their knowledge, information, and data skills."
-  },
-  {
-    "objectID": "about.html#what-does-the-kind-network-do",
-    "href": "about.html#what-does-the-kind-network-do",
-    "title": "About",
-    "section": "What does the KIND network do?",
-    "text": "What does the KIND network do?\nThe KIND network does three main things:\n\nWe provide a range of training courses aimed at developing specialist professional skills. For example, we run Excel, Power BI, and R training courses at a range of levels. All our courses are free to access.\nWe provide a social learning space in the Teams channel, with a range of events aimed at different aspects of this area of work. For example, we run a weekly topic-based community meetup session and a mentoring scheme.\nWe work with key national stakeholders to support and champion these training and learning activities. For example, we are currently developing resources to support analysts transitioning to R.\n\nAll these activities are responsive to your needs. If you feel there’s an important area of relevant work where we are not contributing, please get in touch."
-  },
-  {
-    "objectID": "about.html#who-runsownsfunds-the-kind-network",
-    "href": "about.html#who-runsownsfunds-the-kind-network",
-    "title": "About",
-    "section": "Who runs/owns/funds the KIND network?",
-    "text": "Who runs/owns/funds the KIND network?\nThe KIND Learning Network is based at NHS Education for Scotland, as part of the Digitally Enabled Workforce programme. That’s a programme that builds foundational resources to support digital skills and leadership at all levels. You might have heard about our Professional Development Award in Technology Enabled Care programme, used the M365 Skills Hub, or been involved with the Digital Leadership Programme. This work is all funded through Scottish Government via the Digital Health and Care Portfolio Board."
-  },
-  {
-    "objectID": "about.html#why-does-the-kind-network-exist",
-    "href": "about.html#why-does-the-kind-network-exist",
-    "title": "About",
-    "section": "Why does the KIND network exist?",
-    "text": "Why does the KIND network exist?\nThis network exists to support people who work with knowledge, information, and data as they work to transform health and social care. There’s a large (and growing) workforce responsible for this work in Scotland. However, this workforce is really diverse. It’s not like e.g. nursing or other NMHAP professions where there are fixed entry and promotion criteria. Professional development is more complicated and messy than that. A good example is the lack of standardised job titles for KIND workers. We currently have something like 350 different job titles in the Teams channel. That splitting up of job families contributes to KIND workers being less visible than I think they should be. Kathleen Grey and colleagues called them “ghosts in the machine”"
-  },
-  {
-    "objectID": "about.html#where-does-kind-work-happen",
-    "href": "about.html#where-does-kind-work-happen",
-    "title": "About",
-    "section": "Where does KIND work happen?",
-    "text": "Where does KIND work happen?\nKIND work happens in many places across health and social care in Scotland. For example, you might find KIND workers in NHS Boards (national or territorial), other governmental health bodies, Local Authorities, social care care organisations, higher education, in the private sector, professional associations, or in health and social care partnerships"
-  },
-  {
-    "objectID": "about.html#help-i-have-an-unmet-query",
-    "href": "about.html#help-i-have-an-unmet-query",
-    "title": "About",
-    "section": "Help! I have an unmet query…",
-    "text": "Help! I have an unmet query…\n\nTeams channel link = Mailing list link\nFor anything, please contact Brendan Clarke (brendan.clarke2@nhs.scot)."
-  },
-  {
-    "objectID": "r_main.html",
-    "href": "r_main.html",
-    "title": "R training",
-    "section": "",
-    "text": "Dates and times with lubridate.\nWe (heart) janitor"
-  },
-  {
-    "objectID": "excel/why_bother_with_excel.html",
-    "href": "excel/why_bother_with_excel.html",
-    "title": "Why bother with Excel?",
-    "section": "",
-    "text": "welcome to Why bother with Excel?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
-  },
-  {
-    "objectID": "excel/why_bother_with_excel.html#welcome",
-    "href": "excel/why_bother_with_excel.html#welcome",
-    "title": "Why bother with Excel?",
-    "section": "",
-    "text": "welcome to Why bother with Excel?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
-  },
-  {
-    "objectID": "excel/why_bother_with_excel.html#the-kind-network",
-    "href": "excel/why_bother_with_excel.html#the-kind-network",
-    "title": "Why bother with Excel?",
-    "section": "The KIND network",
-    "text": "The KIND network\n\na social learning space for staff working with knowledge, information, and data across health, social care, and housing in Scotland\nwe offer social support, free training, mentoring, community events, …\nTeams channel / mailing list"
-  },
-  {
-    "objectID": "excel/why_bother_with_excel.html#session-outline",
-    "href": "excel/why_bother_with_excel.html#session-outline",
-    "title": "Why bother with Excel?",
-    "section": "Session outline",
-    "text": "Session outline\n\ntwo minute overview of Excel\nstrengths and weaknesses\nmaking Excel work for you\nnext steps and training"
-  },
-  {
-    "objectID": "excel/why_bother_with_excel.html#a-brief-overview-of-excel",
-    "href": "excel/why_bother_with_excel.html#a-brief-overview-of-excel",
-    "title": "Why bother with Excel?",
-    "section": "A brief overview of Excel",
-    "text": "A brief overview of Excel\n\n\none of the oldest, and most widely used, pieces of desktop software\nubiquitous in business, finance, health and social care…\nproprietary, closed-source, paid-for\nmany versions"
-  },
-  {
-    "objectID": "excel/why_bother_with_excel.html#central-idea",
-    "href": "excel/why_bother_with_excel.html#central-idea",
-    "title": "Why bother with Excel?",
-    "section": "Central idea",
-    "text": "Central idea\n\n\npieces of data are stored in cells\n\none value, one cell\n\ncells are arranged into rows and columns\narranging data like this allows us to analyse it\ngood data analysis helps make services better"
-  },
-  {
-    "objectID": "excel/why_bother_with_excel.html#data-should-help",
-    "href": "excel/why_bother_with_excel.html#data-should-help",
-    "title": "Why bother with Excel?",
-    "section": "Data should help…",
-    "text": "Data should help…\n\nanswering which/when questions\nseeing effects of changes\ncomparing different areas\nlooking at services over time\n…"
-  },
-  {
-    "objectID": "excel/why_bother_with_excel.html#excel-uses-demo",
-    "href": "excel/why_bother_with_excel.html#excel-uses-demo",
-    "title": "Why bother with Excel?",
-    "section": "Excel uses demo",
-    "text": "Excel uses demo\n\nre-arranging data with filters and sorting\nformulas\nlookups\nsummarising"
-  },
-  {
-    "objectID": "excel/why_bother_with_excel.html#five-top-tips",
-    "href": "excel/why_bother_with_excel.html#five-top-tips",
-    "title": "Why bother with Excel?",
-    "section": "Five top tips",
-    "text": "Five top tips\n\nkeep data tidy (one value per cell, one row per thing, one column per measurement)\nkeep things as simple as possible - but not simpler\ndon’t tolerate lots of manual spreadsheet work\ntake care with formatting and accessibility/reuse\nbet that your spreadsheet will last longer, and travel further, than you think"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html",
-    "href": "excel/pivot_tables_and_pivot_charts.html",
-    "title": "Pivot tables and pivot charts",
-    "section": "",
-    "text": "17 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood session, learned some useful tips\nGood stuff\nIt made me realise there were more things to pivot tables that I had used so far, e.g. turning data into a table, the report filter pages, linking tables"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
-    "href": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
-    "title": "Pivot tables and pivot charts",
-    "section": "",
-    "text": "17 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood session, learned some useful tips\nGood stuff\nIt made me realise there were more things to pivot tables that I had used so far, e.g. turning data into a table, the report filter pages, linking tables"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#welcome",
-    "href": "excel/pivot_tables_and_pivot_charts.html#welcome",
-    "title": "Pivot tables and pivot charts",
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#welcome",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#welcome",
+    "title": "Scope of the possible with Power BI",
     "section": "Welcome!",
-    "text": "Welcome!\n\nthis session is for 🌶️🌶️intermediate Excel users\nwe’ll do an initial chat and run through, followed by a practical demo\n\nyou’re welcome to stay for all or part of the session\n\nif you want to follow the practical part, you’ll need:\n\nExcel, ideally M365 Desktop\nprevious Excel experience (particularly around references, tables, and formulas)\nthe data: guidance / download page / direct / short tinyurl.com/kinddata1\n\nit also helps if you have access to the chat. You may need to add youself to the KIND Network Teams channel: tinyurl.com/kindnetwork"
+    "text": "Welcome!\n\nthis session is a non-technical overview designed for service leads\npdf version of the session slides"
   },
   {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#session-outline",
-    "href": "excel/pivot_tables_and_pivot_charts.html#session-outline",
-    "title": "Pivot tables and pivot charts",
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#session-outline",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#session-outline",
+    "title": "Scope of the possible with Power BI",
     "section": "Session outline",
-    "text": "Session outline\n\nPivot tables\nPivot charts\nSlicers\nthe session is totally informal\n\ncameras on, please\nchat/question away\ndon’t panic if things go wrong"
+    "text": "Session outline\n\nWhy Power BI, and why this session?\nPower BI demo - build a simple dashboard\nStrengths and weaknesses\n\nobvious\nless obvious\n\nAlternatives\nSkill development"
   },
   {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#why-pivot-tables",
-    "href": "excel/pivot_tables_and_pivot_charts.html#why-pivot-tables",
-    "title": "Pivot tables and pivot charts",
-    "section": "Why pivot tables?",
-    "text": "Why pivot tables?\n\nthe key summary tool in Excel\nwe often want to summarise long/complex data\ntwo key concerns:\n\nwe want to do that safely\nwe also want to do that effectively\n\npivot tables are safe and effective\n\nthey keep your analysis out of your data\nthey have lots of powerful tools built-in"
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#power-bi",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#power-bi",
+    "title": "Scope of the possible with Power BI",
+    "section": "Power BI?",
+    "text": "Power BI?\n\nnew (c.2015)\nbased on Microsoft’s SQL reporting products\n\nproprietary, closed-source, paid-for\n\nintegrates functions from several other Microsoft data products (bits of Excel, PowerPivot, PowerQuery…)\nproduces interactive dashboards"
   },
   {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#some-data",
-    "href": "excel/pivot_tables_and_pivot_charts.html#some-data",
-    "title": "Pivot tables and pivot charts",
-    "section": "Some data",
-    "text": "Some data\n\non the 18 week referral target\nCopy the data link\nOpen the Get Data From web tool  \nPaste in the link"
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#why-this-session",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#why-this-session",
+    "title": "Scope of the possible with Power BI",
+    "section": "Why this session?",
+    "text": "Why this session?\n\nthere is a lot of fluff talked about Power BI\n\ne.g. elaborate visualisations, fancy real-time data products…\n\nPower BI in general is promoted as a no-code tool\n\nthat’s just not true, as we’ll see\n\nPower BI has a sales-y focus\n\nthat conceals some of its most useful properties\n\nso Power BI, as a platform, requires some translation to the complicated reality of health and social care data\n\nand Power BI offers real strengths in managing and exploiting our data, even when the pain-points are taken into account"
   },
   {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#what-questions-might-we-ask-about-that-data",
-    "href": "excel/pivot_tables_and_pivot_charts.html#what-questions-might-we-ask-about-that-data",
-    "title": "Pivot tables and pivot charts",
-    "section": "What questions might we ask about that data?",
-    "text": "What questions might we ask about that data?"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#insert-a-pivot-table",
-    "href": "excel/pivot_tables_and_pivot_charts.html#insert-a-pivot-table",
-    "title": "Pivot tables and pivot charts",
-    "section": "Insert a pivot table",
-    "text": "Insert a pivot table\n\non a new sheet \nALT, N, V, T"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#adding-data-to-a-pivot-table",
-    "href": "excel/pivot_tables_and_pivot_charts.html#adding-data-to-a-pivot-table",
-    "title": "Pivot tables and pivot charts",
-    "section": "Adding data to a pivot table",
-    "text": "Adding data to a pivot table\n\n\n\n\n\n\n\nwe build pivot tables from the fields interface"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#adding-data-to-a-pivot-table-1",
-    "href": "excel/pivot_tables_and_pivot_charts.html#adding-data-to-a-pivot-table-1",
-    "title": "Pivot tables and pivot charts",
-    "section": "Adding data to a pivot table",
-    "text": "Adding data to a pivot table\n\n\n\n\n\n\n\ndrag values to fields\ndropdowns change settings"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#improving-our-pivot-table",
-    "href": "excel/pivot_tables_and_pivot_charts.html#improving-our-pivot-table",
-    "title": "Pivot tables and pivot charts",
-    "section": "Improving our pivot table",
-    "text": "Improving our pivot table\n\n\nthat gives us a simple pivot table\nwe can also add a PivotChart instantly - click on your pivot table, and press Alt + F1\n\nplay with the expansion buttons - the PivotChart should update to reflect the way that your PivotTable is currently arranged"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#pivottable-warnings",
-    "href": "excel/pivot_tables_and_pivot_charts.html#pivottable-warnings",
-    "title": "Pivot tables and pivot charts",
-    "section": "PivotTable warnings",
-    "text": "PivotTable warnings\n\nthis isn’t Excel!\nwarnings about coherence"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#pivottable-tips",
-    "href": "excel/pivot_tables_and_pivot_charts.html#pivottable-tips",
-    "title": "Pivot tables and pivot charts",
-    "section": "PivotTable tips",
-    "text": "PivotTable tips\n\n\n\n\n\n\nNote\n\n\n\n\nDouble-click any cell in a PivotTable to see the underlying data\nGroup PivotTable items using:\n\nShift + Alt + → (right arrow) to add items to a group\nShift + Alt + ← (left arrow) to ungroup\n\nAdd a new calculated field using Ctrl + Shift + = (equals)\nDelete an entire PivotTable using Ctrl + A then pressing Del"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#add-board-names",
-    "href": "excel/pivot_tables_and_pivot_charts.html#add-board-names",
-    "title": "Pivot tables and pivot charts",
-    "section": "Add board names",
-    "text": "Add board names\n\nthose codes are hard work\nlet’s make them look a little more human\nboard names data"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#years-and-months",
-    "href": "excel/pivot_tables_and_pivot_charts.html#years-and-months",
-    "title": "Pivot tables and pivot charts",
-    "section": "Years and months",
-    "text": "Years and months\n\nour Month column is a pain\nwe can turn that back into a proper date\n=date(left([@Month], 4), right([@Month], 2), 24)\nrefresh the pivot table, and update the fields"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#pivottable-pages",
-    "href": "excel/pivot_tables_and_pivot_charts.html#pivottable-pages",
-    "title": "Pivot tables and pivot charts",
-    "section": "PivotTable pages",
-    "text": "PivotTable pages\n\nwe can split out parts of a PivotTable to separate worksheets\n\n\n\n\n\n\n\nTask\n\n\n\n\nDrag the Years item to the Filters field. This should update the PivotTable so that only one year’s data is present at once\nWe can also split each year into its own worksheet: find the option in the PivotTable Analyze section of the ribbon - or via Alt, J, T, T, P"
-  },
-  {
-    "objectID": "excel/pivot_tables_and_pivot_charts.html#slicing",
-    "href": "excel/pivot_tables_and_pivot_charts.html#slicing",
-    "title": "Pivot tables and pivot charts",
-    "section": "Slicing",
-    "text": "Slicing\n\none slicer can control many PivotTables\n\n\n\n\n\n\n\nTask\n\n\n\n\nClick within one of your new annual PivotTables\nAdd a slicer from the insert menu (or ALT, N, S, F)\nSelect date to slice on\nWhen the slicer appears, right click and select “Report Connections…” and add the other annual PivotTables\nNow select a couple of months from your slicer, and see the effect on your PivotTables\n\n\n\n\nif you’re working with dates, you can also use the timeline, which works in exactly the same way. Insert with ALT, N, S, T, update the connections, and you can get fine-grained control over which date-ranges contribute to your PivotTable"
-  },
-  {
-    "objectID": "rbc/about.html",
-    "href": "rbc/about.html",
-    "title": "About R beginner’s club",
-    "section": "",
-    "text": "7 previous attendees have left feedback\n86% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI wasn’t able to join for the full session but the worked example of starting to compare two datasets (simple tables from Excel) was really useful to me to observe and make notes on to try for myself. I also really appreciated that when things strayed from being ‘beginner’, Brendan you skillfully redirected so that we could keep things at the beginners level we are sometimes short of, because there a re a LOT of very clever and skilled people in our organisation - but like driving, everyone has to learn first.\nI wondered if people who are completely new to R might have been a bit daunted by the speed at which we went through things? I really like the approach of asking people about the actual issues they’re facing though. I’m going to be aware of what I get stuck on to bring to future sessions. I’m really excited about this new club!\nEven my simple brain could understand the topic covered"
-  },
-  {
-    "objectID": "rbc/about.html#previous-attendees-have-said",
-    "href": "rbc/about.html#previous-attendees-have-said",
-    "title": "About R beginner’s club",
-    "section": "",
-    "text": "7 previous attendees have left feedback\n86% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI wasn’t able to join for the full session but the worked example of starting to compare two datasets (simple tables from Excel) was really useful to me to observe and make notes on to try for myself. I also really appreciated that when things strayed from being ‘beginner’, Brendan you skillfully redirected so that we could keep things at the beginners level we are sometimes short of, because there a re a LOT of very clever and skilled people in our organisation - but like driving, everyone has to learn first.\nI wondered if people who are completely new to R might have been a bit daunted by the speed at which we went through things? I really like the approach of asking people about the actual issues they’re facing though. I’m going to be aware of what I get stuck on to bring to future sessions. I’m really excited about this new club!\nEven my simple brain could understand the topic covered"
-  },
-  {
-    "objectID": "rbc/about.html#about",
-    "href": "rbc/about.html#about",
-    "title": "About R beginner’s club",
-    "section": "About",
-    "text": "About\nWe run a monthly R beginner’s club on Teams. If you’re new to R, please consider yourself invited to come along for mutual support, troubleshooting, and tips for building your R skills and confidence.\nFull details and joining instructions via the KIND network Teams channel."
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html",
-    "href": "bi_training/why_bother_with_power_bi.html",
-    "title": "Why bother with Power BI?",
-    "section": "",
-    "text": "16 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery informative and interesting as I had never heard of Power BI.\nVery Helpful. It’s in my PDP for this year to explore Power BI and how it can be implemented within NP Medicines team - We’re quite a data heavy team. The session gave a brief insight on how easy it is to produce interactive data - I’m instantly thinking of a KPI dashboard\nThis was my first experience of any of these courses and also the first time I saw Brendan. I must say I was very impressed. Brendan’s presentation style and interaction with the groups comments was a joy to watch. The session itself was very informative and got a lot of information across in only 30 minutes. Also the fact that there are so many links in the notes to follow up on is a great added bonus. I will gradually be getting my whole team signed up for this and similar courses. Many thanks to Brendan for making this information available. Mark Menzies (NHS GG&C)"
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
-    "href": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
-    "title": "Why bother with Power BI?",
-    "section": "",
-    "text": "16 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery informative and interesting as I had never heard of Power BI.\nVery Helpful. It’s in my PDP for this year to explore Power BI and how it can be implemented within NP Medicines team - We’re quite a data heavy team. The session gave a brief insight on how easy it is to produce interactive data - I’m instantly thinking of a KPI dashboard\nThis was my first experience of any of these courses and also the first time I saw Brendan. I must say I was very impressed. Brendan’s presentation style and interaction with the groups comments was a joy to watch. The session itself was very informative and got a lot of information across in only 30 minutes. Also the fact that there are so many links in the notes to follow up on is a great added bonus. I will gradually be getting my whole team signed up for this and similar courses. Many thanks to Brendan for making this information available. Mark Menzies (NHS GG&C)"
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html#welcome",
-    "href": "bi_training/why_bother_with_power_bi.html#welcome",
-    "title": "Why bother with Power BI?",
-    "section": "Welcome",
-    "text": "Welcome\n\nwelcome to Why bother with Power BI?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html#the-kind-network",
-    "href": "bi_training/why_bother_with_power_bi.html#the-kind-network",
-    "title": "Why bother with Power BI?",
-    "section": "The KIND network",
-    "text": "The KIND network\n\na social learning space for staff working with knowledge, information, and data across health, social care, and housing in Scotland\nwe offer social support, free training, mentoring, community events, …\nTeams channel / mailing list"
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html#session-outline",
-    "href": "bi_training/why_bother_with_power_bi.html#session-outline",
-    "title": "Why bother with Power BI?",
-    "section": "Session outline",
-    "text": "Session outline\n\ntwo minute overview of Power BI\nstrengths and weaknesses\nmaking Power BI work for you\nnext steps and training"
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html#a-brief-overview-of-power-bi",
-    "href": "bi_training/why_bother_with_power_bi.html#a-brief-overview-of-power-bi",
-    "title": "Why bother with Power BI?",
-    "section": "A brief overview of Power BI",
-    "text": "A brief overview of Power BI\n\nnew\nintegrates several existing Microsoft products (bits of Excel, PowerPivot, PowerQuery…)\nproduces interactive dashboards\nproprietary, closed-source, paid-for"
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html#central-idea",
-    "href": "bi_training/why_bother_with_power_bi.html#central-idea",
-    "title": "Why bother with Power BI?",
-    "section": "Central idea",
-    "text": "Central idea\n\ndata is complicated\ngood data analysis helps make services better\nbut predicting what data users will need is hard"
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html#why-are-uses-so-fussy-about-their-data",
-    "href": "bi_training/why_bother_with_power_bi.html#why-are-uses-so-fussy-about-their-data",
-    "title": "Why bother with Power BI?",
-    "section": "Why are uses so fussy about their data?",
-    "text": "Why are uses so fussy about their data?\n\ndata can be used to answer lots of different kinds of questions\n\nanswering which/when questions\nseeing effects of changes\ncomparing different areas\nlooking at services over time\n…"
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html#power-bi",
-    "href": "bi_training/why_bother_with_power_bi.html#power-bi",
-    "title": "Why bother with Power BI?",
-    "section": "Power BI",
-    "text": "Power BI\n\nlets users re-arrange their data to suit (interactive)\nprovides a standard way of accessing data from lots of sources (data hub)\nscales really well (dashboard example)"
-  },
-  {
-    "objectID": "bi_training/why_bother_with_power_bi.html#power-bi-demo",
-    "href": "bi_training/why_bother_with_power_bi.html#power-bi-demo",
-    "title": "Why bother with Power BI?",
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#power-bi-demo",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#power-bi-demo",
+    "title": "Scope of the possible with Power BI",
     "section": "Power BI demo",
-    "text": "Power BI demo\n\ntake a spreadsheet and load that data \n\n\n\npreview the data \n\n\n\nwork with the data in Power BI \n\n\n\ntidy/wrangle the data in Power Query \n ### add a map visual  \n\n\npopulate with our data \n\n\n\nadd a column graph \n\n\n\npopulate with drag and drop \n\n\n\nadd slicer \n\n\n\nslicers change our visualisations \n\n\n\nadd a numeric summary \n\n\n\npublish\nSee preview - although note that access might require permission"
+    "text": "Power BI demo\n\nusing tidied of the GP practice size dataset from April 2024\n\nGP practice size data\nDemographic data\n\n\n\n\n\nNote this data is cleaned\n\n\n\n\n\n\n\n\n\n\nName\nPracticeListSize\nPostcode\nHBName\nGPCluster\nCode\n\n\n\n\nThe Glen Medical Practice\n11490\nG67 1BJ\nNHS Lanarkshire\nCumbernauld Central\n61343\n\n\nDrs McAlpine, Walker & Pettigrew\n4319\nG11 7SY\nNHS Greater Glasgow and Clyde\nNW - A\n40277\n\n\nJedburgh Medical Practice\n6889\nTD8 6EN\nNHS Borders\nBorders east\n16032"
   },
   {
-    "objectID": "bi_training/why_bother_with_power_bi.html#five-top-tips",
-    "href": "bi_training/why_bother_with_power_bi.html#five-top-tips",
-    "title": "Why bother with Power BI?",
-    "section": "Five top tips",
-    "text": "Five top tips\n\npotentially has the power to get lots of new good out of existing data\nPower BI needs tidy input data - so use Excel tables etc\ndon’t believe the no-code lies - you’ll need some DAX and Power Query M\npublishing is complicated and potentially expensive, so needs investigating before building a product\ncomplex IG picture across Scotland, so please get official guidance early"
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#load-some-data",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#load-some-data",
+    "title": "Scope of the possible with Power BI",
+    "section": "Load some data",
+    "text": "Load some data\n\n\n\nLots of different data loading options"
   },
   {
-    "objectID": "bi_training/why_bother_with_power_bi.html#chat-queries-questions",
-    "href": "bi_training/why_bother_with_power_bi.html#chat-queries-questions",
-    "title": "Why bother with Power BI?",
-    "section": "Chat, queries, questions",
-    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate\nTraining mini-site: tinyurl.com/kindtrain"
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#preview",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#preview",
+    "title": "Scope of the possible with Power BI",
+    "section": "Preview",
+    "text": "Preview\n\n\n\nFriendly tools for previewing data"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#add-to-a-map",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#add-to-a-map",
+    "title": "Scope of the possible with Power BI",
+    "section": "Add to a map",
+    "text": "Add to a map\n\n\n\nClever use of commercial postcode data"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#add-interactions",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#add-interactions",
+    "title": "Scope of the possible with Power BI",
+    "section": "Add interactions",
+    "text": "Add interactions\n\n\n\nVisualisations are interactive"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#add-more-visuals",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#add-more-visuals",
+    "title": "Scope of the possible with Power BI",
+    "section": "Add more visuals",
+    "text": "Add more visuals\n\n\n\n30-odd built in, hundreds of free additional visuals, thousands of (often dodgy) commercial add-ins"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#add-more-data",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#add-more-data",
+    "title": "Scope of the possible with Power BI",
+    "section": "Add more data",
+    "text": "Add more data\n\n\n\nTotally different data, but harmonised process for loading"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#re-shape-that-data",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#re-shape-that-data",
+    "title": "Scope of the possible with Power BI",
+    "section": "Re-shape that data",
+    "text": "Re-shape that data\n\n\n\nNeatly-integrated PowerQuery, gives loads of scope for tidying and fixing data"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#data-modelling-tools",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#data-modelling-tools",
+    "title": "Scope of the possible with Power BI",
+    "section": "Data modelling tools",
+    "text": "Data modelling tools\n\n\n\nFull suite of relational tools for the more ambitious projects"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#pre-packed-visuals",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#pre-packed-visuals",
+    "title": "Scope of the possible with Power BI",
+    "section": "Pre-packed visuals",
+    "text": "Pre-packed visuals\n\n\n\nMicrosoft’s Tornado chart"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#demographics",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#demographics",
+    "title": "Scope of the possible with Power BI",
+    "section": "Demographics",
+    "text": "Demographics\n\n\n\nThese can be cross filtered to give national/board/practice level insights"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#strengths",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#strengths",
+    "title": "Scope of the possible with Power BI",
+    "section": "Strengths",
+    "text": "Strengths\n\nby far the easiest way of producing interactive data products\ngreat tools for tidying data\ngood for iterative projects\ndata hubbing / self-service data\nscaling\npotential to manage complex and sensitive data on existing infrastructure"
+  },
+  {
+    "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#weaknesses",
+    "href": "bi_training/scope_of_the_possible_with_power_bi.html#weaknesses",
+    "title": "Scope of the possible with Power BI",
+    "section": "Weaknesses",
+    "text": "Weaknesses\n\nreally needs clean and tidy data\npublication can be complicated and expensive\nsteepening pain curve. Easy to start projects, but more involved analysis is messy\ncomplex IG landscape\nmessy skills development journey"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html",
@@ -935,7 +1061,7 @@
     "href": "r_training/dates_and_times_with_lubridate.html#couple-of-fun-intro-functions",
     "title": "Dates and times with lubridate",
     "section": "Couple of fun intro functions",
-    "text": "Couple of fun intro functions\n\ntoday()\n\n[1] \"2024-06-14\"\n\ndate_decimal(2024.37534)\n\n[1] \"2024-05-17 08:59:11 UTC\"\n\nnow()\n\n[1] \"2024-06-14 15:58:37 UTC\"\n\nnow(\"Japan\")\n\n[1] \"2024-06-15 00:58:37 JST\"\n\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\n\nThe date-time in Asia/Harbin is 2024-06-15 03:58:37"
+    "text": "Couple of fun intro functions\n\ntoday()\n\n[1] \"2024-06-17\"\n\ndate_decimal(2024.37534)\n\n[1] \"2024-05-17 08:59:11 UTC\"\n\nnow()\n\n[1] \"2024-06-17 11:25:25 UTC\"\n\nnow(\"Japan\")\n\n[1] \"2024-06-17 20:25:25 JST\"\n\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\n\nThe date-time in Africa/Mbabane is 2024-06-17 14:25:25"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#parsing",
@@ -970,34 +1096,34 @@
     "href": "r_training/dates_and_times_with_lubridate.html#so-you-can-make-datesdate-times.-so-what",
     "title": "Dates and times with lubridate",
     "section": "So you can make dates/date-times. So what?",
-    "text": "So you can make dates/date-times. So what?\n\ndate(now())\n\n[1] \"2024-06-14\"\n\nyear(today())\n\n[1] 2024\n\nleap_year(today())\n\n[1] TRUE\n\nquarter(today())\n\n[1] 2\n\nsemester(today())\n\n[1] 1\n\nsemester(today(), with_year = T)\n\n[1] 2024.1"
+    "text": "So you can make dates/date-times. So what?\n\ndate(now())\n\n[1] \"2024-06-17\"\n\nyear(today())\n\n[1] 2024\n\nleap_year(today())\n\n[1] TRUE\n\nquarter(today())\n\n[1] 2\n\nsemester(today())\n\n[1] 1\n\nsemester(today(), with_year = T)\n\n[1] 2024.1"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#months-and-weeks",
     "href": "r_training/dates_and_times_with_lubridate.html#months-and-weeks",
     "title": "Dates and times with lubridate",
     "section": "Months and weeks",
-    "text": "Months and weeks\n\nmonth(today())\n\n[1] 6\n\nmonth(today(), label = T)\n\n[1] Jun\n12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec\n\nweek(today())\n\n[1] 24\n\nepiweek(today()) # special ways of counting weeks. See  https://en.wikipedia.org/wiki/ISO_week_date and https://www.cmmcp.org/mosquito-surveillance-data/pages/epi-week-calendars-2008-2024\n\n[1] 24"
+    "text": "Months and weeks\n\nmonth(today())\n\n[1] 6\n\nmonth(today(), label = T)\n\n[1] Jun\n12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec\n\nweek(today())\n\n[1] 25\n\nepiweek(today()) # special ways of counting weeks. See  https://en.wikipedia.org/wiki/ISO_week_date and https://www.cmmcp.org/mosquito-surveillance-data/pages/epi-week-calendars-2008-2024\n\n[1] 25"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#days",
     "href": "r_training/dates_and_times_with_lubridate.html#days",
     "title": "Dates and times with lubridate",
     "section": "Days",
-    "text": "Days\n\nday(today())\n\n[1] 14\n\nwday(today())\n\n[1] 6\n\nqday(today())\n\n[1] 75"
+    "text": "Days\n\nday(today())\n\n[1] 17\n\nwday(today())\n\n[1] 2\n\nqday(today())\n\n[1] 78"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#hour-and-minute",
     "href": "r_training/dates_and_times_with_lubridate.html#hour-and-minute",
     "title": "Dates and times with lubridate",
     "section": "Hour and minute",
-    "text": "Hour and minute\n\nhour(now())\n\n[1] 15\n\nminute(now())\n\n[1] 58\n\nam(now())\n\n[1] FALSE\n\ndst(now()) \n\n[1] FALSE"
+    "text": "Hour and minute\n\nhour(now())\n\n[1] 11\n\nminute(now())\n\n[1] 25\n\nam(now())\n\n[1] TRUE\n\ndst(now()) \n\n[1] FALSE"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#set",
     "href": "r_training/dates_and_times_with_lubridate.html#set",
     "title": "Dates and times with lubridate",
     "section": "Set",
-    "text": "Set\n\nupdate(now(), hour = 11, minute = 0, second = 0) # nominal finish time today\n\n[1] \"2024-06-14 11:00:00 UTC\"\n\n\n\nor, more generally:\n\n\ntest_date &lt;- dmy(\"05/06/23\")\nday(test_date)\n\n[1] 5\n\nday(test_date) &lt;- 11\ntest_date\n\n[1] \"2023-06-11\""
+    "text": "Set\n\nupdate(now(), hour = 11, minute = 0, second = 0) # nominal finish time today\n\n[1] \"2024-06-17 11:00:00 UTC\"\n\n\n\nor, more generally:\n\n\ntest_date &lt;- dmy(\"05/06/23\")\nday(test_date)\n\n[1] 5\n\nday(test_date) &lt;- 11\ntest_date\n\n[1] \"2023-06-11\""
   }
 ]
