@@ -19,7 +19,6 @@ library(tidyverse)
 
 -   this session is a **non-technical overview** designed for service leads
 
-
 ## Session outline
 
 -   Why R, and why this session?
@@ -40,21 +39,21 @@ library(tidyverse)
 ## Why this session?
 
 -   R can be confusing
-    - it's code-based, and most of us don't have much code experience
-    - it's used for some inherently complicated tasks
-    - it's a big product with lots of add-ons and oddities
-- But R is probably the best general-purpose toolbox we have for data work at present
-    - big user base in health and social care
-    - focus on health and care-like applications
-    - not *that* hard to learn
-    - extensible and flexible
-    - capable of enterprise-y, fancy uses
+    -   it's code-based, and most of us don't have much code experience
+    -   it's used for some inherently complicated tasks
+    -   it's a big product with lots of add-ons and oddities
+-   But R is probably the best general-purpose toolbox we have for data work at present
+    -   big user base in health and social care
+    -   focus on health and care-like applications
+    -   not *that* hard to learn
+    -   extensible and flexible
+    -   capable of enterprise-y, fancy uses
 
 ## R demo
 
-+ this is about showing what's possible, and give you a flavour of how R works
-+ we won't explain code in detail during this session
-+ using [live open data](https://www.opendata.nhs.scot/dataset/weekly-accident-and-emergency-activity-and-waiting-times) </br> ![https://www.opendata.nhs.scot/dataset/weekly-accident-and-emergency-activity-and-waiting-times](images/clipboard-776150275.png)
+-   this is about showing what's possible, and give you a flavour of how R works
+-   we won't explain code in detail during this session
+-   using [live open data](https://www.opendata.nhs.scot/dataset/weekly-accident-and-emergency-activity-and-waiting-times) </br> ![https://www.opendata.nhs.scot/dataset/weekly-accident-and-emergency-activity-and-waiting-times](images/clipboard-776150275.png)
 
 ## Load that data
 
@@ -68,7 +67,6 @@ ae_activity <- read_csv("data/weekly_ae_activity_20240609.csv")
 names(ae_activity) <- c("date", "country", "hb", "loc", "type", "attend", "n_within", "n_4", "perc_4", "n_8", "perc_8", "n_12", "perc_12")
 ```
 
-
 ## Preview
 
 ```{r}
@@ -80,6 +78,7 @@ ae_activity |>
 ```
 
 ## Removing data
+
 ```{r}
 ae_activity <- ae_activity |>
     select(!c(country, contains("perc_")))
@@ -95,6 +94,7 @@ ae_activity |>
 ```
 
 ## Tidying data
+
 ```{r}
 ae_activity <- ae_activity |>
     mutate(date = ymd(date))
@@ -109,10 +109,9 @@ ae_activity |>
 
 ```
 
-
 ## Subset data
-+ we'll take a random selection of 5 health boards to keep things tidy
 
+-   we'll take a random selection of 5 health boards to keep things tidy
 
 ```{r}
 #| echo: false
@@ -122,7 +121,6 @@ boards <- ae_activity |>
     pull()
 
 ```
-
 
 ```{r}
 ae_activity <- ae_activity |>
@@ -139,6 +137,7 @@ ae_activity |>
 ```
 
 ## Basic plots
+
 ```{r}
 ae_activity |>
     ggplot() +
@@ -147,6 +146,7 @@ ae_activity |>
 ```
 
 ## Joining data
+
 ```{r}
 ae_activity |>
     left_join(read_csv("data/boards_data.csv"), by = c("hb" = "HB")) |>
@@ -156,9 +156,10 @@ ae_activity |>
 ```
 
 ## and again...
+
 ```{r}
 #| include: false
-
+#| eval: false
 loc_dat <- read_csv("data/postcodes.csv")
 
 postcodes <- loc_dat |>
@@ -184,6 +185,7 @@ ae_activity_loc |>
 ## Add to a map
 
 ```{r}
+#| eval: false
 ae_activity_loc |>
     leaflet::leaflet() |>
     leaflet::addTiles() |>
@@ -191,10 +193,12 @@ ae_activity_loc |>
 
 ```
 
+![](images/clipboard-4119151148.png)
 
 ## Then make that map more useful
 
 ```{r}
+#| eval: false
 ae_activity_loc |>
     group_by(HospitalName) |>
     summarise(attend = sum(attend), n_within = sum(n_within), longitude = min(longitude), latitude = min(latitude)) |>
@@ -204,21 +208,23 @@ ae_activity_loc |>
     leaflet::addMarkers(~longitude, ~latitude, label = ~rate)
 ```
 
+
+![](images/clipboard-4119151148.png)
+
 ## Then add to reports, dashboards...
 
 ## Strengths
 
 -   enormous scope and flexibility
 -   a force-multiplier for fancier data work
-    - helps collaboration within teams, between teams, between orgs
-    - reproducible analytics
-    - modular approaches to large projects
+    -   helps collaboration within teams, between teams, between orgs
+    -   reproducible analytics
+    -   modular approaches to large projects
 -   decreasing pain curve: the fancier the project, the better
-
 
 ## Weaknesses
 
 -   harder to learn than competitors
-- very patchy expertise across H+SC Scotland
+-   very patchy expertise across H+SC Scotland
 -   complex IG landscape
 -   messy skills development journey
