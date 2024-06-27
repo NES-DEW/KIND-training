@@ -1,0 +1,243 @@
+---
+title: "We ❤️ janitor"
+author: 
+  - id: 1
+    name: Susanna Kirk
+    email: Susanna.Kirk@nhs.scot
+    affiliations: NHS Fife
+  - id: 2
+    name: Brendan Clarke
+    email: brendan.clarke2@nhs.scot
+    affiliations: NHS Education for Scotland
+execute: 
+  echo: true
+output: markdown+
+output-location: column
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+## Headline
+
++ Janitor is a toolkit for tidying data
++ both input-focused and output-focused
++ excellent balance between diligence and laziness
+
+## Setup
+```{r}
+library(janitor)
+library(readxl)
+
+test_df <- as.data.frame(matrix(ncol = 6))
+names(test_df) <- c("firstName", "ábc@!*", "% successful (2009)",
+                    "REPEAT VALUE", "REPEAT VALUE", "")
+
+test_df |>
+  clean_names(case = "upper_lower") |>
+  select(FIRSTname)
+
+
+
+```
+
+::: {.notes}
+example column names from https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html
+:::
+
+
+## `clean_names`
+
+```{r}
+
+clean_names(test_df)
+```
+
+## `clean_names`
+
+```{r}
+clean_names(test_df, case = "screaming_snake")
+```
+
+## `clean_names`
+
+```{r}
+clean_names(test_df, case = "big_camel")
+
+test_df %>%
+  # clean_names() %>%
+  clean_names(prefix = "a_prefix")
+
+```
+
+## `compare_df_cols`
+
+```{r}
+#| output-location: column
+#| results: asis
+
+library(palmerpenguins)
+
+compare_df_cols(penguins,penguins_raw)
+
+
+```
+
+## `warnings`
+
+```{r}
+#| warning: false
+
+# openxlsx::read.xlsx("https://github.com/NES-DEW/KIND-training/raw/main/r_training/data/JanitorDataExample.xlsx") |>
+#   janitor::make_clean_names()
+Data1 <- readxl::read_excel("data/JanitorDataExample.xlsx", .name_repair = make_clean_names)
+
+# Data1 <- readxl::read_excel("r_training/data/JanitorDataExample.xlsx", .name_repair = make_clean_names)
+
+# warnings switched off, otherwise we'd have literally hundreds of warnings here!
+
+make_clean_names(c("1thing", "some opther thign"))
+
+```
+
+## `warnings`
+```{r}
+glimpse(Data1)
+```
+
+
+## `clean_names` again
+
+```{r}
+#| output-location: column
+
+Data1_clean <- Data1 |>
+  clean_names() |>
+  mutate(across(contains("date"),
+         excel_numeric_to_date)) |>
+  mutate(Year = lubridate::year(date_of_event_1))
+
+Data1_clean
+```
+
+## `get_dupes`
+
+```{r}
+#| output-location: column
+Data1_clean |>
+  get_dupes(contains("date"))
+
+```
+
+## `distinct`
+
+```{r}
+#| output-location: column
+
+Data1_clean_distinct <- distinct(Data1_clean)
+
+Data1_clean_distinct
+```
+
+## `tabyl` / `adorn`
+
+```{r}
+#| output-location: column
+
+Data1_clean_distinct |>
+  tabyl(gender)
+
+Data1_clean_distinct |>
+  tabyl(gender, show_na = F)
+
+Data1_clean_distinct |>
+  tabyl(gender, location, Year, show_na = F) # excel pivot
+
+
+Data1_clean_distinct |>
+  tabyl(gender) |>
+  class()
+
+
+
+```
+
+## `tabyl` / `adorn`
+
+```{r}
+#| output-location: column
+
+Data1_clean_distinct |>
+  tabyl(Year,gender, show_na = F) |>
+  adorn_totals("row") |>
+  adorn_percentages("row") |>
+  adorn_pct_formatting() |>
+  adorn_ns() |>
+  adorn_title("combined")
+```
+
+## `tabyl` / `adorn`
+
+```{r}
+#| output-location: column
+
+Data1_clean_distinct |>
+  tabyl(Year,gender,show_na = F) |>
+  adorn_totals("row") |>
+  adorn_percentages("row") |>
+  adorn_pct_formatting() |>
+  adorn_ns() |>
+  # adorn_title("combined") |>
+  mutate(Year = paste("The year was", Year))
+```
+
+## `tabyl` / `adorn`
+
+```{r}
+#| output-location: column
+
+Data1_clean_distinct |>
+  tabyl(Year,gender,show_na = F) |>
+  adorn_totals("row") |>
+  adorn_percentages("row") |>
+  adorn_pct_formatting() |>
+  adorn_ns(position = "front") |>
+  adorn_title("combined")
+```
+
+## group_by with `tabyl`
+
+```{r}
+#| output-location: column
+Data1_clean_distinct |>
+  group_by(Year,gender) |>
+  summarise(Attendances = n()) |>
+  filter(!is.na(Year)) |>
+  pivot_wider(names_from = gender, values_from = Attendances) |>
+  adorn_totals(c("row","col"))
+
+```
+
+
+## `chisq.test`
+
+```{r}
+#| output-location: column
+Data1_clean_distinct |>
+  tabyl(attendances,location,show_na = F) |>
+  chisq.test()
+```
+
+## `chisq.test`
+
+```{r}
+#| output-location: column
+
+titanic <- data.frame(Died  = c(122,167,528,673),
+                  Survived  = c(203,118,178,212),
+                  row.names = c("1st class", "2nd class", "3rd class", "crew"))
+
+chisq.test(titanic)
+```

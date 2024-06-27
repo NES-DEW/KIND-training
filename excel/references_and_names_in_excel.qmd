@@ -1,0 +1,145 @@
+---
+title: "References and names in Excel"
+---
+
+## Welcome!
+
++ this session is for 🌶 Excel beginners
++ we'll do an initial chat and run through, followed by a practical demo
+    + you're welcome to stay for all or part of the session
++ if you want to follow the practical part, you'll need Excel of some kind
++ if you can't access the chat, you might need to join our Teams channel: **tinyurl.com/kindnetwork**
+
+## Session outline
+
+-   this is a beginners session about references and names in Excel
+-   this is social learning (cameras, contribute, calm)
+- we'll run through the basics of references and names, and then move into a practical demo
+
+## Some sample data
+
+| user   | DoB        | visit_date | service     |
+|--------|------------|------------|-------------|
+| Steve  | 12/11/1984 | 26/04/2024 | podiatry    |
+| Emma   | 05/06/1999 | 24/05/2024 | respiratory |
+| Bhavin | 11/04/1976 | 23/04/2024 | dietetics   |
+
+## References
+
+-   Excel sheets are made up of cells
+-   cells are arranged in rows and columns
+    -   columns have letters - like `C`
+    -   rows have numbers - like `3`
+-   references are the 'address' of a particular cell - like `C3`
+    -   you can 'point' at a cell by using its reference
+
+## Finding a reference
+
+-   from the **name box**: </br> ![](images/clipboard-1746127255.png)
+-   or work out from the column and row labels
+    - always column letter, then row number
+    - **C3**, not **3C**
+
+## Using a reference
+
+- we can write a formula that copies the value from C3 into another cell
+- formulas start with an `=`
+- so we'll use `= C3` to get Emma's visit date (or whatever value you referenced)
+
+## References in formulas
+
+-   we use references to allow us to pass data around our spreadsheet
+-   an example: how long ago was the service visit?
+-  calculate the number of days since the last visit with `= C3 - TODAY()`
+
+## References move
+- by default, Excel references are **relative**
+- when you move a reference, the cell that reference points to also moves </br> ![](images/clipboard-754991469.png){width="200"}
+- it is possible to 'fix' references
+    - we call these **absolute** references
+    - the `$` fixes a reference, so `$C$3` is absolute
+    
+## You can name things
+- almost everything in Excel can be named
+- the easy way to start with that is using the **name box**
+- names can replace references in formulas
+- this is valuable when things get more complicated
+
+## You can use and manage names
+- via the **Name manager** (`Ctrl` + `F3`)
+- **Go to** (`F5`)
+
+# Practical
+
+## Using a reference
+
+-   we can write a formula that copies the value from C3 into another cell
+
+. . .
+
+::: {.callout-tip appearance="default" icon="true"}
+
+-   go to an empty cell, type `= C3`, and press `Enter/⏎`
+- that cell should now have Emma's visit date (or whatever value you referenced)
+:::
+
+
+## References in formulas
+
+-   how long ago was the service visit?
+
+. . .
+
+::: {.callout-tip appearance="default" icon="true"}
+## Task
+
+-   add a new column called last_visit
+-   in cell `E2`, add the following formula: `= TODAY() - C2`
+    -   that calculates the number of days since the last visit
+    -   you may need to correct the formatting </br> ![](images/clipboard-2200716982.png){height="200"}
+- then copy/fill down
+
+:::
+
+## References move
+
+::: {.callout-tip appearance="default" icon="true"}
+## Task
++ try copying your new block of last_visit cells around your sheet
++ their value should change
++ now try clicking those cells to see where the updated reference points to </br> ![](images/clipboard-754991469.png)
+:::
+
+## Absolute references
+::: {.callout-tip appearance="default" icon="true"}
+## Task
++ delete your copied blocks of cells from the last step
++ now update your references by adding `$` before the letter and number
+    + so `C2` becomes `$C$2`
+    + you might prefer to press `F4` instead
++ now copy and paste those blocks of cells again. What's different this time?
++ please delete those new blocks of cells when you're finished
+
+:::
+
+## You can name things
+::: {.callout-tip appearance="default" icon="true"}
+
+## Task
++ let's average the last_visit column
++ in a new cell (`G2` perhaps?) add this formula:
+    + `=AVERAGE(E2, E3, E4)`
++ now name that new cell `av_length` and try using it in a formula
+  + `= INT(av_length)` would round that to the nearest day
+  + `= E2 / av_length` would give you the percentage of average
+
+:::
+
+## You can manage those names
+::: {.callout-tip appearance="default" icon="true"}
+## Task
++ find the **Name manager** (or press `Ctrl` + `F3`) </br> ![](images/clipboard-3382288451.png)
++ try renaming your `av_length` cell
++ try making a new named **range** from your three `last_visit` cells
++ try using the `F5` Go to interface to navigate between your named cells
+:::

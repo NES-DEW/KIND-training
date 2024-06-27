@@ -1,0 +1,126 @@
+---
+title: "Scope of the possible with Power BI"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+author:
+    name: Brendan Clarke
+    email: brendan.clarke2@nhs.scot
+    affiliations: NHS Education for Scotland
+date: "2024-06-17"
+execute: 
+  echo: false
+output-location: column
+---
+
+```{r}
+#| results: asis
+
+source(here::here("R/feed_block.R"))
+feed_block("Scope of the possible with Power BI")
+
+```
+
+## Welcome!
+
+-   this session is a **non-technical overview** designed for service leads
+- <i class="far fa-file-pdf"></i>[pdf version of the session slides]("data/scope_of_the_possible_with_power_bi.pdf")
+
+## Session outline
+
+-   Why Power BI, and why this session?
+-   Power BI demo - build a simple dashboard
+-   Strengths and weaknesses
+    -   obvious
+    -   less obvious
+-   Alternatives
+-   Skill development
+
+## Power BI?
+
+-   new (c.2015)
+-   based on Microsoft's SQL reporting products
+    -   proprietary, closed-source, paid-for
+-   integrates functions from several other Microsoft data products (bits of Excel, PowerPivot, PowerQuery…)
+-   produces interactive dashboards
+
+## Why this session?
+
+-   there is a lot of fluff talked about Power BI
+    -   e.g. elaborate visualisations, fancy real-time data products...
+-   Power BI in general is promoted as a no-code tool
+    -   that's just not true, as we'll see
+-   Power BI has a sales-y focus
+    -   that conceals some of its most useful properties
+-   so Power BI, as a platform, requires some translation to the complicated reality of health and social care data
+    -   and Power BI offers real strengths in managing and exploiting our data, even when the pain-points are taken into account
+
+## Power BI demo
+
+-   using tidied of the [GP practice size dataset](https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes) from April 2024
+    - [GP practice size data]("data/apr_2024_clean.xlsx")
+     - [Demographic data]("data/3 - demographics.csv")
+  
+```{r}
+readxl::read_xlsx("data/apr_2024_clean.xlsx") |>
+    dplyr::slice_sample(n = 3) |>
+    knitr::kable(caption = "Note this data is cleaned")
+```
+
+
+## Load some data
+
+![Lots of different data loading options](images/clipboard-1095239384.png)
+
+## Preview
+
+![Friendly tools for previewing data](images/clipboard-570198799.png)
+
+## Add to a map
+
+![Clever use of commercial postcode data](images/clipboard-1608638999.png)
+
+## Add interactions
+
+![Visualisations are interactive](images/clipboard-1372596463.png)
+
+## Add more visuals
+
+![30-odd built in, hundreds of free additional visuals, thousands of (often dodgy) commercial add-ins](images/clipboard-2549253369.png)
+
+## Add more data
+
+![Totally different data, but harmonised process for loading](images/clipboard-2157605622.png)
+
+## Re-shape that data
+
+![Neatly-integrated PowerQuery, gives loads of scope for tidying and fixing data](images/clipboard-256142195.png)
+
+## Data modelling tools
+
+![Full suite of relational tools for the more ambitious projects](images/clipboard-1503081705.png)
+
+## Pre-packed visuals
+
+![Microsoft's Tornado chart](images/clipboard-3368145622.png)
+
+## Demographics
+
+![These can be cross filtered to give national/board/practice level insights](images/clipboard-3099396019.png)
+
+## Strengths
+
+-   by far the easiest way of producing interactive data products
+-   great tools for tidying data
+- good for iterative projects
+-   data hubbing / self-service data
+-   scaling
+-   potential to manage complex and sensitive data on existing infrastructure
+
+## Weaknesses
+
+-   really needs clean and tidy data
+-   publication can be complicated and expensive
+-   steepening pain curve. Easy to start projects, but more involved analysis is messy
+-   complex IG landscape
+-   messy skills development journey

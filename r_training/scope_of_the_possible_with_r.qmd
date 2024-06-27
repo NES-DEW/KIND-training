@@ -1,0 +1,224 @@
+---
+title: "Scope of the possible with R"
+execute:
+    echo: true
+---
+
+[Slides for this session](src/scope_of_the_possible_with_r.html) / [.pdf slides for this session](src/scope_of_the_possible_with_r.pdf)
+
+```{r}
+#| results: asis
+#| echo: false
+
+source(here::here("R/feed_block.R"))
+feed_block("Scope of the possible with R")
+library(tidyverse)
+```
+
+## Welcome
+
+-   this session is a **non-technical overview** designed for service leads
+
+
+## Session outline
+
+-   Why R, and why this session?
+-   R demo - take some data, load, tidy, analyse
+-   Strengths and weaknesses
+    -   obvious
+    -   less obvious
+-   Alternatives
+-   Skill development
+
+## R
+
+-   free and open-source
+-   multi-platform
+-   large user base
+-   prominent in health, industry, biosciences
+
+## Why this session?
+
+-   R can be confusing
+    - it's code-based, and most of us don't have much code experience
+    - it's used for some inherently complicated tasks
+    - it's a big product with lots of add-ons and oddities
+- But R is probably the best general-purpose toolbox we have for data work at present
+    - big user base in health and social care
+    - focus on health and care-like applications
+    - not *that* hard to learn
+    - extensible and flexible
+    - capable of enterprise-y, fancy uses
+
+## R demo
+
++ this is about showing what's possible, and give you a flavour of how R works
++ we won't explain code in detail during this session
++ using [live open data](https://www.opendata.nhs.scot/dataset/weekly-accident-and-emergency-activity-and-waiting-times) </br> ![https://www.opendata.nhs.scot/dataset/weekly-accident-and-emergency-activity-and-waiting-times](images/clipboard-776150275.png)
+
+## Load that data
+
+```{r}
+ae_activity <- read_csv("data/weekly_ae_activity_20240609.csv")
+```
+
+## One small bit of cheating: renaming
+
+```{r}
+names(ae_activity) <- c("date", "country", "hb", "loc", "type", "attend", "n_within", "n_4", "perc_4", "n_8", "perc_8", "n_12", "perc_12")
+```
+
+
+## Preview
+
+```{r}
+#| echo: false
+ae_activity |>
+    slice_sample(n = 5) |>
+    knitr::kable(caption = "Preview of data")
+
+```
+
+## Removing data
+```{r}
+ae_activity <- ae_activity |>
+    select(!c(country, contains("perc_")))
+
+```
+
+```{r}
+#| echo: false
+ae_activity |>
+    slice_sample(n = 5) |>
+    knitr::kable(caption = "Preview of data")
+
+```
+
+## Tidying data
+```{r}
+ae_activity <- ae_activity |>
+    mutate(date = ymd(date))
+
+```
+
+```{r}
+#| echo: false
+ae_activity |>
+    slice_sample(n = 5) |>
+    knitr::kable(caption = "Preview of data")
+
+```
+
+
+## Subset data
++ we'll take a random selection of 5 health boards to keep things tidy
+
+
+```{r}
+#| echo: false
+boards <- ae_activity |>
+    distinct(hb) |>
+    slice_sample(n = 5) |>
+    pull()
+
+```
+
+
+```{r}
+ae_activity <- ae_activity |>
+    filter(hb %in% boards)
+
+```
+
+```{r}
+#| echo: false
+ae_activity |>
+    slice_sample(n = 5) |>
+    knitr::kable(caption = "Preview of data")
+
+```
+
+## Basic plots
+```{r}
+ae_activity |>
+    ggplot() +
+    geom_line(aes(x = date, y = attend, colour = hb, group = loc)) 
+
+```
+
+## Joining data
+```{r}
+ae_activity |>
+    left_join(read_csv("data/boards_data.csv"), by = c("hb" = "HB")) |>
+    select(!any_of(c("_id", "HB", "HBDateEnacted", "HBDateArchived", "Country"))) |>
+    ggplot() +
+    geom_line(aes(x = date, y = attend, colour = HBName, group = loc))
+```
+
+## and again...
+```{r}
+#| include: false
+
+loc_dat <- read_csv("data/postcodes.csv")
+
+postcodes <- loc_dat |>
+    pull(Postcode) |>
+    unique() 
+
+loc_dat_long <- map(postcodes, PostcodesioR::postcode_lookup) |>
+    purrr::list_rbind() |>
+    select(postcode, longitude, latitude)
+
+ae_activity_loc <- loc_dat_long |>
+    left_join(loc_dat, by = c("postcode" = "Postcode")) |>
+    filter(!is.na(HospitalName)) |>
+    select(!c(`_id`, contains("address"), HealthBoard, HSCP, CouncilArea, IntermediateZone, DataZone)) |>
+    left_join(ae_activity, by = c("HospitalCode" = "loc")) |>
+    filter(!is.na(date))
+
+ae_activity_loc |>
+    write_rds("data/ae_activity_loc.rds")
+
+```
+
+## Add to a map
+
+```{r}
+ae_activity_loc |>
+    leaflet::leaflet() |>
+    leaflet::addTiles() |>
+    leaflet::addMarkers(~longitude, ~latitude, label = ~HospitalName)
+
+```
+
+
+## Then make that map more useful
+
+```{r}
+ae_activity_loc |>
+    group_by(HospitalName) |>
+    summarise(attend = sum(attend), n_within = sum(n_within), longitude = min(longitude), latitude = min(latitude)) |>
+    mutate(rate = paste(HospitalName, "averages", scales::percent(round(n_within / attend, 1)))) |>
+    leaflet::leaflet() |>
+    leaflet::addTiles() |>
+    leaflet::addMarkers(~longitude, ~latitude, label = ~rate)
+```
+
+## Then add to reports, dashboards...
+
+## Strengths
+
+-   enormous scope and flexibility
+-   a force-multiplier for fancier data work
+    - helps collaboration within teams, between teams, between orgs
+    - reproducible analytics
+    - modular approaches to large projects
+-   decreasing pain curve: the fancier the project, the better
+
+
+## Weaknesses
+
+-   harder to learn than competitors
+- very patchy expertise across H+SC Scotland
+-   complex IG landscape
+-   messy skills development journey

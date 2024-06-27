@@ -1,0 +1,57 @@
+project:
+  type: website
+  render:
+    - "*.qmd"
+    - "!archive/"
+
+date: last-modified
+  
+website:
+  title: "KIND training pages"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - href: excel_main.qmd
+        text: Excel
+      - href: r_main.qmd
+        text: R
+      - text: R beginner's club
+        menu: 
+          - href: rbc/about.qmd
+            text: About RBC
+          - href: rbc/2024-06-13.qmd
+            text: 2024-06-13
+      - href: BI_main.qmd
+        text: Power BI
+      - href: skills_main.qmd
+        text: Skills
+      - href: schedule.qmd
+        text: Training schedule
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            href: https://github.com/NES-DEW/KIND-training
+          - text: Report a Bug
+            href: https://github.com/NES-DEW/KIND-training/issues
+
+format:
+  html:
+    theme: 
+      light: cosmo
+      dark: superhero
+    css: styles.css
+    toc: true
+    mermaid: 
+      theme: dark
+    
+margin-footer: |
+  <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
+execute:
+  echo: false
+  warning: false
+  messages: false
+  freeze: auto
+  output: asis

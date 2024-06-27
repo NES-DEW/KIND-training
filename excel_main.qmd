@@ -1,0 +1,39 @@
+---
+title: "Excel training"
+execute: 
+  freeze: false
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+
+source(here::here("R/bullet_list.R"))
+source(here::here("R/training_sessions.R"))
+
+cat("## Excel training schedule")
+```
+
+```{r}
+training_sessions("Excel") 
+```
+
+```{r}
+cat("## Excel session materials  \n")
+
+sesh <- c("Excel first steps", 
+          "Why bother with…Excel?",
+"Scope of the possible with Excel", 
+"References and names in Excel",
+"Practical Power Pivot",
+"Pivot tables and pivot charts",
+"Tidy data in Excel") 
+
+paste0("[", sesh, "](excel/", snakecase::to_snake_case(sesh), ".qmd)") |>
+  bullet_list()
+  
+
+```
+
+

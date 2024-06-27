@@ -1,0 +1,34 @@
+---
+title: "R training"
+execute: 
+  freeze: false
+---
+
+
+```{r}
+library(tidyverse)
+
+source(here::here("R/bullet_list.R"))
+
+source(here::here("R/training_sessions.R"))
+
+cat("## R training schedule")
+```
+
+```{r}
+training_sessions("R") 
+```
+
+```{r}
+cat("## R training sessions  \n")
+
+read_csv(here::here("data/KIND_training_sessions.csv")) |>
+  filter(str_detect(`Platform / area`, "R")) |>
+  filter(str_detect(Title, "lubridate|functions|janitor|possible")) |>
+  select(Title) |>
+  mutate(fn = paste0("[", Title, "](r_training/", snakecase::to_snake_case(Title), ".qmd)")) |>
+  pull(fn) |>
+  bullet_list()
+
+
+```

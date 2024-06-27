@@ -1,0 +1,96 @@
+---
+title: "Practical PowerPivot"
+author:
+    name: Brendan Clarke
+    email: brendan.clarke2@nhs.scot
+    affiliations: NHS Education for Scotland
+date: "2024-06-06"
+execute: 
+  echo: true
+output: markdown+
+output-location: column
+---
+
+## Welcome
+
+-   this session is [🌶🌶]{style="color:red;"}, so it's designed for intermediate users with plenty of previous Excel PivotTable experience
+    -   [PowerPivot infrastructure varies widely](https://support.microsoft.com/en-gb/office/where-is-power-pivot-aa64e217-4b6e-410b-8337-20b87e1c2a4b), so we can't advise on installation
+-   if you can't access the chat, you might need to join our Teams channel: **tinyurl.com/kindnetwork**
+
+## Session outline
+
+-   check that you have Power Pivot please!
+-   find and tidy some data
+-   add to Power Pivot
+-   play with data in Power Pivot
+
+## Word of warning
+
+-   Power Pivot in Excel is still officially supported, but has been largely replaced by Power BI
+    -   I'd be circumspect about its long-term prospects
+    -   I'd also be cautious about starting more ambitious projects in Power Pivot - lots of glitches, few fixes
+
+## Nutshell
+
+-   PowerPivot = effectively a [local SSAS](https://learn.microsoft.com/en-us/analysis-services/ssas-overview?view=asallproducts-allversions)
+-   that means PowerPivot allows you to do fancy relational work with your data
+-   it *can* also means higher performance with large (10k rows +) data
+-   yet allows you to use Excel for data ingest and output
+
+## Data
+
+-   download the [Agatha Christie dataset](https://docs.google.com/spreadsheets/d/1A8ZRe5KLLAllhT31pCzke4j5qAPqeMKf0jYgyJXcoPs/edit#gid=564606948) as an Excel file
+-   tidying:
+    -   remove filters
+    -   create 4 x named tables
+    -   standardising titles if you're highly conscientious
+
+## Add data to Power Pivot
+
+-   find Power Pivot
+-   add to data model x 4
+-   diagram view and create relationships
+
+## DAX intro
+
+-   similar to, but larger, than Excel formula language
+-   structured references - so `table[column]`
+-   no referencing individual cells/random ranges
+-   ability to write expressions that update in Pivot Tables
+
+## Make a Pivot Table
+
+-   this should feel nice and familiar - with the option of bringing together several tables of data</br> ![](images/clipboard-3398167195.png){height="300px"}![](images/clipboard-1733713359.png){height="300px"}
+
+## Make a new column
+
+-   `= all_titles[Year of first publication] - 1`
+-   rename, return to your Pivot table, and ruin the years...
+
+## Relationships
+
+-   you can create relationships between different parts of your data, and exploit those relationships using DAX
+-   open the diagram view, and connect the `Title ID` columns together</br>![](images/clipboard-4256752901.png){height="400px"}
+
+## Relationships have directions
+
+(with thanks to Michael Robb, NHS Highland)
+
+![](images/clipboard-823580961.png)
+
+## Fancier calculated column
+(with thanks to Michael Roarty, NHS NSS)
+
+-   add a series col to your all_titles data
+    -   `=related(novels[Series]) & related(short_stories[Series])`
+-   add a year of publication col to your short_story data
+    -   `=LOOKUPVALUE(ssc[Year of first publication], ssc[Title Name], short_stories[Collection])`
+-   add a rounded year
+    -   `= MROUND([Year of first publication], 5)`
+
+## Back to your pivot table
+
+## Chat, queries, questions
+
+-   Teams channel: **tinyurl.com/kindnetwork**
+-   weekly email update: **tinyurl.com/kindupdate**

@@ -1,0 +1,219 @@
+---
+title: "Dates and times with lubridate"
+author:
+    name: Brendan Clarke
+    email: brendan.clarke2@nhs.scot
+    affiliations: NHS Education for Scotland
+execute: 
+  echo: true
+output: markdown+
+output-location: column
+---
+
+# Slides
+
+[Slides](Dates and Times with Lubridate.pdf)
+
+# Session content
+
+## Word of warning
+
+-   dates and times are hard everywhere
+-   R is no exception
+-   this session is a beginner's guide to [lubridate](https://cran.r-project.org/web/packages/lubridate/index.html)
+    -   not the only way of dealing with dates
+    -   not always the best
+    -   on balance the most consistent, and least quirky tools for dates
+
+## This session
+
+-   beginner-friendly
+-   focus on core parsing, get/set, and rounding functions
+-   lots on dates, a bit of date-times, no times
+
+
+
+### Resources
+
+```{r}
+
+library(lubridate)
+```
+
+-   [Lubridate cheatsheet](https://rstudio.github.io/cheatsheets/html/lubridate.html)
+-   [R4DS 2e chapter on dates and times](https://r4ds.hadley.nz/datetimes)
+-   [quick primer on ISO8601](https://en.wikipedia.org/wiki/ISO_8601)
+
+## R dates
+
+-   **days** since 1970-01-01
+
+
+
+```{r}
+as_date(0)
+```
+
+## R dates
+
+```{r}
+as_date(19860)
+as_date(1:5)
+class(as_date(0))
+```
+
+# R date-times
+
+-   **seconds** since 1970-01-01 00:00:00 UTC
+
+
+
+```{r}
+as_datetime(0)
+as_datetime(1715935369)
+as_datetime(0:5)
+class(as_datetime(0))
+
+```
+
+## Famously...
+
+```{r}
+as_datetime(2 ^ 31-1) # 32 bit signed int
+```
+
+## Parsing dates is important
+
+-   most functions that accept dates (like ggplot) will mis-behave if you feed them date-shaped-words
+    -   e.g. alphabetically-ordered dates
+-   we also want to be able to calculate with dates
+
+## Couple of fun intro functions
+
+```{r}
+today()
+date_decimal(2024.37534)
+now()
+now("Japan")
+
+random_zone <- sample(OlsonNames(), 1)
+cat(paste("The date-time in", random_zone, "is", now(sample(OlsonNames(), 1))))
+
+
+```
+
+## Parsing
+
+-   `as_date()` is fine assuming you have your date as a number of days
+-   but usually, we'll need to **parse** our dates
+
+
+
+```{r}
+as_date(45429) # excel-format 1900 date
+as_date(45429 - 25569) # dirty but effective
+as_date(45429, origin = "1899-12-30") # better
+```
+
+## Parsing
+
+-   more often, we'll be taking human-readable dates and parsing them
+-   that's a pain, because there are loads of inconsistent ways of representing dates
+-   worse, lots of dates are ambiguous (5/6/24 and 6/5/24 might refer to the same day)
+
+
+
+```{r}
+date_input <- c("17/5/24", "2024-05-17", "Friday 17th May 2024", "17*May*24", "5/17/2024" )
+
+as_date(date_input) # as_date expects ISO-8601ish dates
+# one correct, two silently incorrent, two NAs
+
+```
+
+## parse_date_time
+
+```{r}
+
+parse_date_time(date_input, orders = "ymd")
+parse_date_time(date_input, orders = c("dmy", "ymd", "dmy", "dmy", "mdy"))
+```
+
+## dmy and co
+
+-   you can also use the orders (like dmy) as standalone parsing functions:
+
+
+
+```{r}
+dmy(date_input[c(1,3,4)])
+ymd_hms("2024-05/17 9-05-01")
+```
+
+## So you can make dates/date-times. So what?
+
+```{r}
+date(now())
+
+year(today())
+leap_year(today())
+
+quarter(today())
+semester(today())
+semester(today(), with_year = T)
+```
+
+## Months and weeks
+
+```{r}
+month(today())
+month(today(), label = T)
+week(today())
+epiweek(today()) # special ways of counting weeks. See  https://en.wikipedia.org/wiki/ISO_week_date and https://www.cmmcp.org/mosquito-surveillance-data/pages/epi-week-calendars-2008-2024
+```
+
+## Days
+
+```{r}
+day(today())
+wday(today())
+qday(today())
+```
+
+## Hour and minute
+
+```{r}
+hour(now())
+minute(now())
+am(now())
+dst(now()) 
+```
+
+## Set
+
+```{r}
+
+update(now(), hour = 11, minute = 0, second = 0) # nominal finish time today
+```
+
+
+
+-   or, more generally:
+
+
+
+```{r}
+test_date <- dmy("05/06/23")
+day(test_date)
+day(test_date) <- 11
+test_date
+```
+
+# Round
+
+```{r}
+floor_date(today(), unit = "week")
+round_date(today(), unit = "week")
+ceiling_date(today(), unit = "month")
+rollback(today()) # last day of previous month
+```

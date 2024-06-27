@@ -1,0 +1,162 @@
+---
+title: "Pivot tables and pivot charts"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+author:
+    name: Brendan Clarke
+    email: brendan.clarke2@nhs.scot
+    affiliations: NHS Education for Scotland
+date: "2024-06-13"
+execute: 
+  echo: false
+output-location: column
+---
+
+```{r}
+#| results: asis
+
+source(here::here("R/feed_block.R"))
+feed_block("Pivot tables and pivot charts")
+
+```
+
+## Welcome!
+
++ this session is for 🌶️🌶️intermediate Excel users
++ we'll do an initial chat and run through, followed by a practical demo
+    + you're welcome to stay for all or part of the session
++ if you want to follow the practical part, you'll need:
+    + Excel, ideally M365 Desktop
+    + previous Excel experience (particularly around references, tables, and formulas)
+    + the data: [guidance](https://publichealthscotland.scot/publications/nhs-waiting-times-18-weeks-referral-to-treatment/nhs-waiting-times-18-weeks-referral-to-treatment-quarter-ending-31-december-2023/) / [download page](https://www.opendata.nhs.scot/dataset/18-weeks-referral-to-treatment) / [direct](https://www.opendata.nhs.scot/dataset/aa8b22e8-8a02-484d-a6c8-0a0154a6249d/resource/f2598c24-bf00-4171-b7ef-a469bbacbf6c/download/open_data_18_weeks_rtt.csv) / short **tinyurl.com/kinddata1**
++ it also helps if you have access to the chat. You may need to add youself to the KIND Network Teams channel: **tinyurl.com/kindnetwork**
+
+
+## Session outline
+
++ Pivot tables
++ Pivot charts
++ Slicers
++ the session is totally informal
+  + cameras on, please
+  + chat/question away
+  + don't panic if things go wrong
+
+## Why pivot tables?
+
+-   **the** key summary tool in Excel
+-   we often want to summarise long/complex data
+-   two key concerns:
+    -   we want to do that safely
+    -   we also want to do that effectively
+-   pivot tables are safe and effective
+    -   they keep your analysis out of your data
+    -   they have lots of powerful tools built-in
+
+## Some data
+
+1.  on the [18 week referral target](https://opendata.scot/datasets/public+health+scotland-18+weeks+referral+to+treatment/)
+2.  Copy the [data link](https://www.opendata.nhs.scot/dataset/aa8b22e8-8a02-484d-a6c8-0a0154a6249d/resource/f2598c24-bf00-4171-b7ef-a469bbacbf6c/download/open_data_18_weeks_rtt.csv)
+3.  Open the **Get Data From web** tool </br> ![](images/clipboard-1578174090.png)
+4.  Paste in the link </br> ![](images/clipboard-1582667377.png)
+
+## What questions might we ask about that data?
+
+## Insert a pivot table
+
+-   on a new sheet</br> ![](images/clipboard-1899219137.png)
+-   `ALT`, `N`, `V`, `T`
+
+## Adding data to a pivot table
+
+::: columns
+::: {.column width="30%"}
+![](images/pt_cols.png){height="500"}
+:::
+
+::: {.column width="5%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="65%"}
+-   we build pivot tables from the fields interface
+:::
+:::
+
+## Adding data to a pivot table
+
+::: columns
+::: {.column width="30%"}
+![](images/pt_cols_p.png){height="500"}
+:::
+
+::: {.column width="5%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="65%"}
+-   drag values to fields
+-   dropdowns change settings
+:::
+:::
+
+## Improving our pivot table
+
+![](images/clipboard-1128103846.png){height="300"}
+
+-   that gives us a simple pivot table
+-   we can also add a PivotChart instantly - click on your pivot table, and press `Alt + F1`
+    -   play with the expansion buttons - the PivotChart should update to reflect the way that your PivotTable is currently arranged
+
+## PivotTable warnings
+
+-   this isn't Excel!
+-   warnings about coherence
+
+## PivotTable tips
+
+::: callout-note
+-   Double-click any cell in a PivotTable to see the underlying data
+-   Group PivotTable items using:
+    -   `Shift` + `Alt` + `→` (right arrow) to add items to a group
+    -   `Shift` + `Alt` + `←` (left arrow) to ungroup
+-   Add a new calculated field using `Ctrl` + `Shift` + `=` (equals)
+-   Delete an entire PivotTable using `Ctrl + A` then pressing `Del`
+:::
+
+## Add board names
+
+-   those codes are hard work
+-   let's make them [look a little more human](https://www.opendata.nhs.scot/dataset/geography-codes-and-labels/resource/652ff726-e676-4a20-abda-435b98dd7bdc)
+-   [board names data](https://www.opendata.nhs.scot/datastore/dump/652ff726-e676-4a20-abda-435b98dd7bdc?bom=True)
+
+## Years and months
+
+-   our Month column is a pain
+-   we can turn that back into a proper date
+-   `=date(left([@Month], 4), right([@Month], 2), 24)`
+-   refresh the pivot table, and update the fields
+
+## PivotTable pages
+
+-   we can split out parts of a PivotTable to separate worksheets
+
+::: {.callout-tip title="Task"}
+1.  Drag the Years item to the *Filters* field. This should update the PivotTable so that only one year's data is present at once
+2.  We can also split each year into its own worksheet: find the option in the PivotTable Analyze section of the ribbon - or via `Alt`, `J`, `T`, `T`, `P` </br>![](images/05_jttp.png)
+:::
+
+## Slicing
+
+-   one slicer can control many PivotTables
+
+::: {.callout-tip title="Task"}
+1.  Click within one of your new annual PivotTables
+2.  Add a slicer from the insert menu (or `ALT`, `N`, `S`, `F`)
+3.  Select date to slice on
+4.  When the slicer appears, right click and select "Report Connections..." and add the other annual PivotTables
+5.  Now select a couple of months from your slicer, and see the effect on your PivotTables
+:::
+
+-   if you're working with dates, you can also use the timeline, which works in exactly the same way. Insert with `ALT`, `N`, `S`, `T`, update the connections, and you can get fine-grained control over which date-ranges contribute to your PivotTable
