@@ -39,7 +39,7 @@
     "href": "rbc/2024-06-13.html#how-to-think-about-joins",
     "title": "R beginner’s club 2024-06-13",
     "section": "How to think about joins?",
-    "text": "How to think about joins?\nWe did a simple join above. A join is a way of merging two datasets. Let’s demonstrate with some cut-down datasets from above. We’ll remove some of the values from our b1 set and from our b2 set:\n\nb1 &lt;- b1 |&gt;\n  slice(1:5)\n\nb1\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 kennedy  0.590\n2 victoria 0.248\n3 peter    0.644\n4 judi     0.887\n5 paul     0.336\n\n\n\nb2 &lt;- b2 |&gt;\n  slice_sample(n = 5)\n\nb2\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 jennifer 0.160\n2 alupha   0.574\n3 victoria 0.248\n4 paul     1    \n5 judi     0.887\n\n\nThe simplest join we could do is to bind the rows from one set onto another:\n\nb1 |&gt;\n  bind_rows(b2)\n\n# A tibble: 10 × 2\n   name     score\n   &lt;chr&gt;    &lt;dbl&gt;\n 1 kennedy  0.590\n 2 victoria 0.248\n 3 peter    0.644\n 4 judi     0.887\n 5 paul     0.336\n 6 jennifer 0.160\n 7 alupha   0.574\n 8 victoria 0.248\n 9 paul     1    \n10 judi     0.887\n\n\nThat just brings all the rows from b2 onto the end of b1. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join b2:\n\nb1 |&gt;\n  left_join(b2, by = \"name\")\n\n# A tibble: 5 × 3\n  name     score.x score.y\n  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;\n1 kennedy    0.590  NA    \n2 victoria   0.248   0.248\n3 peter      0.644  NA    \n4 judi       0.887   0.887\n5 paul       0.336   1    \n\n\nYou should see that only the values from b2’s score column that have a corresponding name in b1 get populated, and everything else gets filled with NAs. Here’s a nice introduction to the different kinds of join you can do in dplyr."
+    "text": "How to think about joins?\nWe did a simple join above. A join is a way of merging two datasets. Let’s demonstrate with some cut-down datasets from above. We’ll remove some of the values from our b1 set and from our b2 set:\n\nb1 &lt;- b1 |&gt;\n  slice(1:5)\n\nb1\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 kennedy  0.590\n2 victoria 0.248\n3 peter    0.644\n4 judi     0.887\n5 paul     0.336\n\n\n\nb2 &lt;- b2 |&gt;\n  slice_sample(n = 5)\n\nb2\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 victoria 0.248\n2 kenneth  0.393\n3 alupha   0.574\n4 judi     0.887\n5 kennedy  0.590\n\n\nThe simplest join we could do is to bind the rows from one set onto another:\n\nb1 |&gt;\n  bind_rows(b2)\n\n# A tibble: 10 × 2\n   name     score\n   &lt;chr&gt;    &lt;dbl&gt;\n 1 kennedy  0.590\n 2 victoria 0.248\n 3 peter    0.644\n 4 judi     0.887\n 5 paul     0.336\n 6 victoria 0.248\n 7 kenneth  0.393\n 8 alupha   0.574\n 9 judi     0.887\n10 kennedy  0.590\n\n\nThat just brings all the rows from b2 onto the end of b1. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join b2:\n\nb1 |&gt;\n  left_join(b2, by = \"name\")\n\n# A tibble: 5 × 3\n  name     score.x score.y\n  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;\n1 kennedy    0.590   0.590\n2 victoria   0.248   0.248\n3 peter      0.644  NA    \n4 judi       0.887   0.887\n5 paul       0.336  NA    \n\n\nYou should see that only the values from b2’s score column that have a corresponding name in b1 get populated, and everything else gets filled with NAs. Here’s a nice introduction to the different kinds of join you can do in dplyr."
   },
   {
     "objectID": "r_training/we_heart_janitor.html",
@@ -228,7 +228,7 @@
     "href": "r_training/dates_and_times_with_lubridate.html#couple-of-fun-intro-functions",
     "title": "Dates and times with lubridate",
     "section": "Couple of fun intro functions",
-    "text": "Couple of fun intro functions\n\ntoday()\n\n[1] \"2024-06-21\"\n\ndate_decimal(2024.37534)\n\n[1] \"2024-05-17 08:59:11 UTC\"\n\nnow()\n\n[1] \"2024-06-21 14:49:19 BST\"\n\nnow(\"Japan\")\n\n[1] \"2024-06-21 22:49:19 JST\"\n\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\n\nThe date-time in Asia/Tel_Aviv is 2024-06-21 21:49:20.074582"
+    "text": "Couple of fun intro functions\n\ntoday()\n\n[1] \"2024-06-28\"\n\ndate_decimal(2024.37534)\n\n[1] \"2024-05-17 08:59:11 UTC\"\n\nnow()\n\n[1] \"2024-06-28 10:11:44 UTC\"\n\nnow(\"Japan\")\n\n[1] \"2024-06-28 19:11:44 JST\"\n\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\n\nThe date-time in Atlantic/Canary is 2024-06-28 11:11:44"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#parsing",
@@ -263,35 +263,35 @@
     "href": "r_training/dates_and_times_with_lubridate.html#so-you-can-make-datesdate-times.-so-what",
     "title": "Dates and times with lubridate",
     "section": "So you can make dates/date-times. So what?",
-    "text": "So you can make dates/date-times. So what?\n\ndate(now())\n\n[1] \"2024-06-21\"\n\nyear(today())\n\n[1] 2024\n\nleap_year(today())\n\n[1] TRUE\n\nquarter(today())\n\n[1] 2\n\nsemester(today())\n\n[1] 1\n\nsemester(today(), with_year = T)\n\n[1] 2024.1"
+    "text": "So you can make dates/date-times. So what?\n\ndate(now())\n\n[1] \"2024-06-28\"\n\nyear(today())\n\n[1] 2024\n\nleap_year(today())\n\n[1] TRUE\n\nquarter(today())\n\n[1] 2\n\nsemester(today())\n\n[1] 1\n\nsemester(today(), with_year = T)\n\n[1] 2024.1"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#months-and-weeks",
     "href": "r_training/dates_and_times_with_lubridate.html#months-and-weeks",
     "title": "Dates and times with lubridate",
     "section": "Months and weeks",
-    "text": "Months and weeks\n\nmonth(today())\n\n[1] 6\n\nmonth(today(), label = T)\n\n[1] Jun\n12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec\n\nweek(today())\n\n[1] 25\n\nepiweek(today()) # special ways of counting weeks. See  https://en.wikipedia.org/wiki/ISO_week_date and https://www.cmmcp.org/mosquito-surveillance-data/pages/epi-week-calendars-2008-2024\n\n[1] 25"
+    "text": "Months and weeks\n\nmonth(today())\n\n[1] 6\n\nmonth(today(), label = T)\n\n[1] Jun\n12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec\n\nweek(today())\n\n[1] 26\n\nepiweek(today()) # special ways of counting weeks. See  https://en.wikipedia.org/wiki/ISO_week_date and https://www.cmmcp.org/mosquito-surveillance-data/pages/epi-week-calendars-2008-2024\n\n[1] 26"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#days",
     "href": "r_training/dates_and_times_with_lubridate.html#days",
     "title": "Dates and times with lubridate",
     "section": "Days",
-    "text": "Days\n\nday(today())\n\n[1] 21\n\nwday(today())\n\n[1] 6\n\nqday(today())\n\n[1] 82"
+    "text": "Days\n\nday(today())\n\n[1] 28\n\nwday(today())\n\n[1] 6\n\nqday(today())\n\n[1] 89"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#hour-and-minute",
     "href": "r_training/dates_and_times_with_lubridate.html#hour-and-minute",
     "title": "Dates and times with lubridate",
     "section": "Hour and minute",
-    "text": "Hour and minute\n\nhour(now())\n\n[1] 14\n\nminute(now())\n\n[1] 49\n\nam(now())\n\n[1] FALSE\n\ndst(now()) \n\n[1] TRUE"
+    "text": "Hour and minute\n\nhour(now())\n\n[1] 10\n\nminute(now())\n\n[1] 11\n\nam(now())\n\n[1] TRUE\n\ndst(now()) \n\n[1] FALSE"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#set",
     "href": "r_training/dates_and_times_with_lubridate.html#set",
     "title": "Dates and times with lubridate",
     "section": "Set",
-    "text": "Set\n\nupdate(now(), hour = 11, minute = 0, second = 0) # nominal finish time today\n\n[1] \"2024-06-21 11:00:00 BST\"\n\n\n\nor, more generally:\n\n\ntest_date &lt;- dmy(\"05/06/23\")\nday(test_date)\n\n[1] 5\n\nday(test_date) &lt;- 11\ntest_date\n\n[1] \"2023-06-11\""
+    "text": "Set\n\nupdate(now(), hour = 11, minute = 0, second = 0) # nominal finish time today\n\n[1] \"2024-06-28 11:00:00 UTC\"\n\n\n\nor, more generally:\n\n\ntest_date &lt;- dmy(\"05/06/23\")\nday(test_date)\n\n[1] 5\n\nday(test_date) &lt;- 11\ntest_date\n\n[1] \"2023-06-11\""
   },
   {
     "objectID": "index.html",
@@ -585,14 +585,14 @@
     "href": "excel/excel_first_steps.html",
     "title": "Excel first steps",
     "section": "",
-    "text": "11 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery helpful, and included useful tips such as the underscore instead of spaces between words in column headings.\nExcellent for beginners\nUseful introduction to inputting data into Excel, especially found learning about how to add and edit tables useful.\n\n\n\n\nslides / pdf slides for this session"
+    "text": "11 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery informative, well presented, easy to understand.\ngreat wee refresher even if you already use excel to insert data\nVery helpful, and included useful tips such as the underscore instead of spaces between words in column headings.\n\n\n\n\nslides / pdf slides for this session"
   },
   {
     "objectID": "excel/excel_first_steps.html#previous-attendees-have-said",
     "href": "excel/excel_first_steps.html#previous-attendees-have-said",
     "title": "Excel first steps",
     "section": "",
-    "text": "11 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery helpful, and included useful tips such as the underscore instead of spaces between words in column headings.\nExcellent for beginners\nUseful introduction to inputting data into Excel, especially found learning about how to add and edit tables useful.\n\n\n\n\nslides / pdf slides for this session"
+    "text": "11 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery informative, well presented, easy to understand.\ngreat wee refresher even if you already use excel to insert data\nVery helpful, and included useful tips such as the underscore instead of spaces between words in column headings.\n\n\n\n\nslides / pdf slides for this session"
   },
   {
     "objectID": "excel/excel_first_steps.html#welcome",
@@ -753,14 +753,14 @@
     "href": "bi_training/scope_of_the_possible_with_power_bi.html",
     "title": "Scope of the possible with Power BI",
     "section": "",
-    "text": "17 previous attendees have left feedback\n88% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood session, currently using power BI with a suite of dashboards built. Issues regarding IG would be really beneficial to discuss at length perhaps in a different session.\nFab intro into what Power BI can be used for. Brendan explained everything really well.\nIt was great to get a more detailed look at what the possible limitations are when considering Power BI"
+    "text": "17 previous attendees have left feedback\n88% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nLove how the sessions focus on the practical ways in which to show data in a meaningful way to colleagues.\nWas interested in whether Power BI might be a useful way to provide access to our ‘siloed’ data to management. The answer is yes, if only NHS restrictions would allow us to use Power BI 😂\nGood journey describing how to obtain data and map accordingly with various visuals."
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#previous-attendees-have-said",
     "href": "bi_training/scope_of_the_possible_with_power_bi.html#previous-attendees-have-said",
     "title": "Scope of the possible with Power BI",
     "section": "",
-    "text": "17 previous attendees have left feedback\n88% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood session, currently using power BI with a suite of dashboards built. Issues regarding IG would be really beneficial to discuss at length perhaps in a different session.\nFab intro into what Power BI can be used for. Brendan explained everything really well.\nIt was great to get a more detailed look at what the possible limitations are when considering Power BI"
+    "text": "17 previous attendees have left feedback\n88% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nLove how the sessions focus on the practical ways in which to show data in a meaningful way to colleagues.\nWas interested in whether Power BI might be a useful way to provide access to our ‘siloed’ data to management. The answer is yes, if only NHS restrictions would allow us to use Power BI 😂\nGood journey describing how to obtain data and map accordingly with various visuals."
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#welcome",
@@ -795,7 +795,7 @@
     "href": "bi_training/scope_of_the_possible_with_power_bi.html#power-bi-demo",
     "title": "Scope of the possible with Power BI",
     "section": "Power BI demo",
-    "text": "Power BI demo\n\nusing tidied of the GP practice size dataset from April 2024\n\nGP practice size data\nDemographic data\n\n\n\n\n\nNote this data is cleaned\n\n\n\n\n\n\n\n\n\n\nName\nPracticeListSize\nPostcode\nHBName\nGPCluster\nCode\n\n\n\n\nPark Road Practice\n5892\nKY11 2SE\nNHS Fife\nSouth West Fife\n21760\n\n\nGallowhill Medical Centre\n1797\nML9 1EX\nNHS Lanarkshire\nLarkhall/Stonehouse\n63512\n\n\nDunvegan Medical Practice\n1803\nIV55 8GU\nNHS Highland\nNHSH (North) Skye & Lochalsh\n55535"
+    "text": "Power BI demo\n\nusing tidied of the GP practice size dataset from April 2024\n\nGP practice size data\nDemographic data\n\n\n\n\n\nNote this data is cleaned\n\n\n\n\n\n\n\n\n\n\nName\nPracticeListSize\nPostcode\nHBName\nGPCluster\nCode\n\n\n\n\nGraeme Medical Centre\n5482\nFK2 7HR\nNHS Forth Valley\nFalkirk Town\n25309\n\n\nDr A MacGregor & Dr N Hallum\n1169\nPA21 2BE\nNHS Highland\nHighland Subset 5\n84773\n\n\nDalry Medical Practice\n6054\nKA24 4AF\nNHS Ayrshire and Arran\nGarnock Valley Cluster\n80217"
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#load-some-data",
@@ -886,14 +886,14 @@
     "href": "BI_main.html",
     "title": "BI training",
     "section": "",
-    "text": "Session\nDate\nArea\nLevel\n\n\n\n\nMeasures in power BI\n14:00-15:30 Fri 28th June 2024\nPower BI\n🌶🌶\n\n: intermediate-level\n\n\nDAX vs Power Query M\n15:00-16:00 Wed 31st July 2024\nPower BI\n🌶\n\n:beginner-level"
+    "text": "Session\nDate\nArea\nLevel\n\n\n\n\nDAX vs Power Query M\n15:00-16:00 Wed 31st July 2024\nPower BI\n🌶\n\n:beginner-level"
   },
   {
     "objectID": "BI_main.html#power-bi-training-schedule",
     "href": "BI_main.html#power-bi-training-schedule",
     "title": "BI training",
     "section": "",
-    "text": "Session\nDate\nArea\nLevel\n\n\n\n\nMeasures in power BI\n14:00-15:30 Fri 28th June 2024\nPower BI\n🌶🌶\n\n: intermediate-level\n\n\nDAX vs Power Query M\n15:00-16:00 Wed 31st July 2024\nPower BI\n🌶\n\n:beginner-level"
+    "text": "Session\nDate\nArea\nLevel\n\n\n\n\nDAX vs Power Query M\n15:00-16:00 Wed 31st July 2024\nPower BI\n🌶\n\n:beginner-level"
   },
   {
     "objectID": "BI_main.html#power-bi-session-materials",
@@ -977,14 +977,14 @@
     "href": "bi_training/why_bother_with_power_bi.html",
     "title": "Why bother with Power BI?",
     "section": "",
-    "text": "20 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery informative and interesting as I had never heard of Power BI.\nIt was a very good introduction to Power BI, and helped me understand what it was and how it could be useful in my workplace. I don’t have any experience with coding and think Power BI could be quite useful for those without coding experience. Would be keen to learn more.\nGave an insight of advancement in tech that hopefully Procurement can use the same principle with products and logistics using the clinical model"
+    "text": "20 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nOverall very positive, whipped through everything, did what was needed. As a person who is easily distracted, I do get a bit distracted when you reply to comments and go on tiny tangents involving programming with unfamiliar names and acronyms, but I get that the vibe overall is that you want people to be involved and commenting etc. I really appreciate these sessions as I try to get my head round new things.\nIt provided a snap-shot of the capabilities of Power BI and if I wanted to learn more, to join in the structured sessions.\nA good demonstration of the abilities of PowerBI to present modern business intelligence type analytics. Would be really good if it was aimed at users, or the demand-side of analytics."
   },
   {
     "objectID": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
     "href": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
     "title": "Why bother with Power BI?",
     "section": "",
-    "text": "20 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery informative and interesting as I had never heard of Power BI.\nIt was a very good introduction to Power BI, and helped me understand what it was and how it could be useful in my workplace. I don’t have any experience with coding and think Power BI could be quite useful for those without coding experience. Would be keen to learn more.\nGave an insight of advancement in tech that hopefully Procurement can use the same principle with products and logistics using the clinical model"
+    "text": "20 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nOverall very positive, whipped through everything, did what was needed. As a person who is easily distracted, I do get a bit distracted when you reply to comments and go on tiny tangents involving programming with unfamiliar names and acronyms, but I get that the vibe overall is that you want people to be involved and commenting etc. I really appreciate these sessions as I try to get my head round new things.\nIt provided a snap-shot of the capabilities of Power BI and if I wanted to learn more, to join in the structured sessions.\nA good demonstration of the abilities of PowerBI to present modern business intelligence type analytics. Would be really good if it was aimed at users, or the demand-side of analytics."
   },
   {
     "objectID": "bi_training/why_bother_with_power_bi.html#welcome",
@@ -1061,14 +1061,14 @@
     "href": "excel/pivot_tables_and_pivot_charts.html",
     "title": "Pivot tables and pivot charts",
     "section": "",
-    "text": "21 previous attendees have left feedback\n95% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nWell presented and lots of little tips to expand my skills using excel\nGreat having example data provided so to follow along, content is pitched in a way that I don’t feel out of my depth.\nI’m Excel self-taught out of necessity and probably like a lot of NHS staff. I found the session helpful in validating that I was in fact using pivot tables correctly. I didn’t know about slicers or about uploading data from the web and both of those hacks will become daily use for me. The session gave me confidence in my own ability which can be a rare feeling and even let me think that I might now be an ‘advanced user’. I’ve no notes on the session content, I found it hit the mark and was straightforward to follow. Really great to use a PHS dataset too as they’re the ones I think a lot of people would pull data from."
+    "text": "21 previous attendees have left feedback\n95% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI found it very helpful as I have just started using pivot tables. I found it quite daunting using pivot tables before but now feel more comfortable and confident about using them\nWell presented and lots of little tips to expand my skills using excel\nExcellent, mix of theory and practical application. A shared learning experience. Thank you, Brendan."
   },
   {
     "objectID": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
     "href": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
     "title": "Pivot tables and pivot charts",
     "section": "",
-    "text": "21 previous attendees have left feedback\n95% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nWell presented and lots of little tips to expand my skills using excel\nGreat having example data provided so to follow along, content is pitched in a way that I don’t feel out of my depth.\nI’m Excel self-taught out of necessity and probably like a lot of NHS staff. I found the session helpful in validating that I was in fact using pivot tables correctly. I didn’t know about slicers or about uploading data from the web and both of those hacks will become daily use for me. The session gave me confidence in my own ability which can be a rare feeling and even let me think that I might now be an ‘advanced user’. I’ve no notes on the session content, I found it hit the mark and was straightforward to follow. Really great to use a PHS dataset too as they’re the ones I think a lot of people would pull data from."
+    "text": "21 previous attendees have left feedback\n95% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI found it very helpful as I have just started using pivot tables. I found it quite daunting using pivot tables before but now feel more comfortable and confident about using them\nWell presented and lots of little tips to expand my skills using excel\nExcellent, mix of theory and practical application. A shared learning experience. Thank you, Brendan."
   },
   {
     "objectID": "excel/pivot_tables_and_pivot_charts.html#welcome",
@@ -1285,7 +1285,14 @@
     "href": "excel/tidy_data_in_excel.html",
     "title": "Tidy data in Excel",
     "section": "",
-    "text": "No feedback found for this session"
+    "text": "7 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThis session was so helpful. Brilliant hints and tips, pitched at just the right level for me and get loads out of them.\nfound the session interesting, there is always something that you can learn from these sessions\nGreat! Thanks."
+  },
+  {
+    "objectID": "excel/tidy_data_in_excel.html#previous-attendees-have-said",
+    "href": "excel/tidy_data_in_excel.html#previous-attendees-have-said",
+    "title": "Tidy data in Excel",
+    "section": "",
+    "text": "7 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThis session was so helpful. Brilliant hints and tips, pitched at just the right level for me and get loads out of them.\nfound the session interesting, there is always something that you can learn from these sessions\nGreat! Thanks."
   },
   {
     "objectID": "excel/tidy_data_in_excel.html#welcome",
@@ -1474,14 +1481,14 @@
     "href": "excel_main.html",
     "title": "Excel training",
     "section": "",
-    "text": "Session\nDate\nArea\nLevel\n\n\n\n\nTidy data in Excel\n09:30-10:30 Fri 28th June 2024\nExcel\n🌶\n\n:beginner-level\n\n\nExcel tables\n10:00-10:30 Mon 1st July 2024\nExcel\n🌶\n\n:beginner-level\n\n\nFormulas in Excel\n15:00-16:00 Wed 3rd July 2024\nExcel\n🌶\n\n:beginner-level\n\n\nLambda formulas in Excel\n13:00-13:30 Mon 15th July 2024\nExcel\n🌶🌶\n\n: intermediate-level\n\n\nLookups in Excel\n13:00-14:30 Thu 1st August 2024\nExcel\n🌶🌶\n\n: intermediate-level\n\n\nRelative, absolute, mixed, structured, and R1C1 references in Excel\n15:00-16:00 Thu 8th August 2024\nExcel\n🌶🌶\n\n: intermediate-level"
+    "text": "Session\nDate\nArea\nLevel\n\n\n\n\nExcel tables\n10:00-10:30 Mon 1st July 2024\nExcel\n🌶\n\n:beginner-level\n\n\nFormulas in Excel\n15:00-16:00 Wed 3rd July 2024\nExcel\n🌶\n\n:beginner-level\n\n\nLambda formulas in Excel\n13:00-13:30 Mon 15th July 2024\nExcel\n🌶🌶\n\n: intermediate-level\n\n\nLookups in Excel\n13:00-14:30 Thu 1st August 2024\nExcel\n🌶🌶\n\n: intermediate-level\n\n\nRelative, absolute, mixed, structured, and R1C1 references in Excel\n15:00-16:00 Thu 8th August 2024\nExcel\n🌶🌶\n\n: intermediate-level"
   },
   {
     "objectID": "excel_main.html#excel-training-schedule",
     "href": "excel_main.html#excel-training-schedule",
     "title": "Excel training",
     "section": "",
-    "text": "Session\nDate\nArea\nLevel\n\n\n\n\nTidy data in Excel\n09:30-10:30 Fri 28th June 2024\nExcel\n🌶\n\n:beginner-level\n\n\nExcel tables\n10:00-10:30 Mon 1st July 2024\nExcel\n🌶\n\n:beginner-level\n\n\nFormulas in Excel\n15:00-16:00 Wed 3rd July 2024\nExcel\n🌶\n\n:beginner-level\n\n\nLambda formulas in Excel\n13:00-13:30 Mon 15th July 2024\nExcel\n🌶🌶\n\n: intermediate-level\n\n\nLookups in Excel\n13:00-14:30 Thu 1st August 2024\nExcel\n🌶🌶\n\n: intermediate-level\n\n\nRelative, absolute, mixed, structured, and R1C1 references in Excel\n15:00-16:00 Thu 8th August 2024\nExcel\n🌶🌶\n\n: intermediate-level"
+    "text": "Session\nDate\nArea\nLevel\n\n\n\n\nExcel tables\n10:00-10:30 Mon 1st July 2024\nExcel\n🌶\n\n:beginner-level\n\n\nFormulas in Excel\n15:00-16:00 Wed 3rd July 2024\nExcel\n🌶\n\n:beginner-level\n\n\nLambda formulas in Excel\n13:00-13:30 Mon 15th July 2024\nExcel\n🌶🌶\n\n: intermediate-level\n\n\nLookups in Excel\n13:00-14:30 Thu 1st August 2024\nExcel\n🌶🌶\n\n: intermediate-level\n\n\nRelative, absolute, mixed, structured, and R1C1 references in Excel\n15:00-16:00 Thu 8th August 2024\nExcel\n🌶🌶\n\n: intermediate-level"
   },
   {
     "objectID": "excel_main.html#excel-session-materials",
@@ -1572,28 +1579,28 @@
     "href": "r_training/scope_of_the_possible_with_r.html#preview",
     "title": "Scope of the possible with R",
     "section": "Preview",
-    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn_within\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n\n20150517\nS92000003\nS08000020\nN411H\nEmergency Department\n458\n436\n22\n95.2\n1\n0.2\n1\n0.2\n\n\n20181209\nS92000003\nS08000017\nY144H\nEmergency Department\n232\n211\n21\n90.9\n5\n2.2\n0\n0.0\n\n\n20151206\nS92000003\nS08000024\nS319H\nEmergency Department\n913\n896\n17\n98.1\n1\n0.1\n0\n0.0\n\n\n20190106\nS92000003\nS08000031\nC418H\nEmergency Department\n1254\n1079\n175\n86.0\n30\n2.4\n0\n0.0\n\n\n20220501\nS92000003\nS08000015\nA111H\nEmergency Department\n1175\n792\n383\n67.4\n195\n16.6\n123\n10.5"
+    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn_within\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n\n20210124\nS92000003\nS08000031\nG107H\nEmergency Department\n1129\n936\n193\n82.9\n21\n1.9\n2\n0.2\n\n\n20230108\nS92000003\nS08000017\nY144H\nEmergency Department\n252\n202\n50\n80.2\n14\n5.6\n1\n0.4\n\n\n20201011\nS92000003\nS08000030\nT101H\nEmergency Department\n885\n839\n46\n94.8\n2\n0.2\n0\n0.0\n\n\n20230924\nS92000003\nS08000022\nH103H\nEmergency Department\n193\n160\n33\n82.9\n6\n3.1\n1\n0.5\n\n\n20230716\nS92000003\nS08000030\nT202H\nEmergency Department\n415\n388\n27\n93.5\n1\n0.2\n0\n0.0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "href": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "title": "Scope of the possible with R",
     "section": "Removing data",
-    "text": "Removing data\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n20170108\nS08000019\nV217H\nEmergency Department\n1225\n1117\n108\n1\n0\n\n\n20180325\nS08000024\nS319H\nEmergency Department\n990\n932\n58\n0\n0\n\n\n20230108\nS08000028\nW107H\nEmergency Department\n106\n103\n3\n0\n0\n\n\n20220724\nS08000030\nT101H\nEmergency Department\n1139\n1042\n97\n4\n1\n\n\n20160403\nS08000015\nA111H\nEmergency Department\n1612\n1443\n169\n27\n8"
+    "text": "Removing data\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n20210214\nS08000032\nL106H\nEmergency Department\n883\n788\n95\n12\n4\n\n\n20170827\nS08000030\nT101H\nEmergency Department\n1024\n997\n27\n0\n0\n\n\n20230205\nS08000022\nH212H\nEmergency Department\n127\n113\n14\n2\n0\n\n\n20170910\nS08000026\nZ102H\nEmergency Department\n160\n152\n8\n0\n0\n\n\n20160612\nS08000017\nY146H\nEmergency Department\n752\n723\n29\n0\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "href": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "title": "Scope of the possible with R",
     "section": "Tidying data",
-    "text": "Tidying data\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2022-08-14\nS08000028\nW107H\nEmergency Department\n130\n130\n0\n0\n0\n\n\n2015-04-12\nS08000031\nG306H\nEmergency Department\n1175\n1017\n158\n21\n1\n\n\n2016-03-13\nS08000022\nH103H\nEmergency Department\n129\n126\n3\n0\n0\n\n\n2020-06-21\nS08000029\nF704H\nEmergency Department\n1055\n1015\n40\n1\n0\n\n\n2018-12-23\nS08000022\nH202H\nEmergency Department\n639\n581\n58\n11\n0"
+    "text": "Tidying data\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2020-09-20\nS08000025\nR103H\nEmergency Department\n113\n112\n1\n0\n0\n\n\n2019-07-14\nS08000019\nV217H\nEmergency Department\n1280\n1240\n40\n2\n1\n\n\n2018-07-01\nS08000015\nA111H\nEmergency Department\n1494\n1473\n21\n2\n0\n\n\n2020-08-23\nS08000031\nG405H\nEmergency Department\n1668\n1549\n119\n3\n0\n\n\n2015-07-12\nS08000017\nY146H\nEmergency Department\n646\n633\n13\n0\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "href": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "title": "Scope of the possible with R",
     "section": "Subset data",
-    "text": "Subset data\n\nwe’ll take a random selection of 5 health boards to keep things tidy\n\nae_activity &lt;- ae_activity |&gt;\n    filter(hb %in% boards)\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2019-06-02\nS08000022\nH212H\nEmergency Department\n206\n198\n8\n0\n0\n\n\n2017-03-05\nS08000022\nH212H\nEmergency Department\n140\n136\n4\n0\n0\n\n\n2015-07-05\nS08000022\nH103H\nEmergency Department\n118\n114\n4\n1\n0\n\n\n2021-05-09\nS08000020\nN411H\nEmergency Department\n474\n418\n56\n1\n0\n\n\n2019-09-29\nS08000022\nH202H\nEmergency Department\n790\n723\n67\n3\n0"
+    "text": "Subset data\n\nwe’ll take a random selection of 5 health boards to keep things tidy\n\nae_activity &lt;- ae_activity |&gt;\n    filter(hb %in% boards)\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2021-03-07\nS08000028\nW107H\nEmergency Department\n41\n39\n2\n0\n0\n\n\n2017-01-15\nS08000017\nY146H\nEmergency Department\n619\n561\n58\n12\n4\n\n\n2022-10-23\nS08000028\nW107H\nEmergency Department\n119\n111\n8\n0\n0\n\n\n2017-01-01\nS08000029\nF704H\nEmergency Department\n1207\n1096\n111\n4\n0\n\n\n2016-01-31\nS08000017\nY146H\nEmergency Department\n666\n602\n64\n1\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#basic-plots",
@@ -1663,7 +1670,7 @@
     "href": "r_training/writing_functions_in_r.html#previous-attendees-have-said",
     "title": "Writing functions in R",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n16 previous attendees have left feedback\n88% said that this session was pitched correctly\n94% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery well prepared, the session is very useful.\nInteresting content and enough tips and tricks to delight both beginners and intermediate prospective function writers.\nI had some knowledge of functions but it was fun to build on that by following along the session.\n\n\n\n\nslides / pdf slides for this session"
+    "text": "Previous attendees have said…\n\n17 previous attendees have left feedback\n88% said that this session was pitched correctly\n94% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery well prepared, the session is very useful.\nGreat session thanks - some reminders in there, and also some new things for me, great mix\nFor me it was a good refresher as I have written functions in R, but there were some useful shortcuts I did not know about, and the explanation of the … was useful.\n\n\n\n\nslides / pdf slides for this session"
   },
   {
     "objectID": "r_training/writing_functions_in_r.html#welcome",
@@ -1719,7 +1726,7 @@
     "href": "r_training/writing_functions_in_r.html#vectorised-functions",
     "title": "Writing functions in R",
     "section": "Vectorised functions",
-    "text": "Vectorised functions\n\nmost functions in R are vectorised\n\n\nround(c(1.2, 3.2, 5.4, 2.7), 0)\n\n[1] 1 3 5 3\n\n\n\nthat means that mostly, our functions will end up vectorised without us doing any work at all\n\n\ndiv_seven_n_round &lt;- function(nums){\n  round(nums / 7, 0)\n}\n\nnumbers &lt;- rnorm(4, 5, 50)\n\nnumbers\n\n[1]  66.2281584 -50.9134454  -0.2668708   8.7007428\n\ndiv_seven_n_round(numbers)\n\n[1]  9 -7  0  1\n\n\n\nbut there are a few cases where that can fail: most famously, using if/else\n\n\nis_even &lt;- function(n){\n  \n  if(n %% 2){\n  paste(n, \"is odd\")\n} else {\n  paste(n, \"is even\")\n}\n  \n}\nis_even(9)\n\n[1] \"9 is odd\"\n\nis_even(10)\n\n[1] \"10 is even\"\n\ntry(is_even(9:10))\n\nError in if (n%%2) { : the condition has length &gt; 1"
+    "text": "Vectorised functions\n\nmost functions in R are vectorised\n\n\nround(c(1.2, 3.2, 5.4, 2.7), 0)\n\n[1] 1 3 5 3\n\n\n\nthat means that mostly, our functions will end up vectorised without us doing any work at all\n\n\ndiv_seven_n_round &lt;- function(nums){\n  round(nums / 7, 0)\n}\n\nnumbers &lt;- rnorm(4, 5, 50)\n\nnumbers\n\n[1] -84.51007  40.56153  87.63239  87.80054\n\ndiv_seven_n_round(numbers)\n\n[1] -12   6  13  13\n\n\n\nbut there are a few cases where that can fail: most famously, using if/else\n\n\nis_even &lt;- function(n){\n  \n  if(n %% 2){\n  paste(n, \"is odd\")\n} else {\n  paste(n, \"is even\")\n}\n  \n}\nis_even(9)\n\n[1] \"9 is odd\"\n\nis_even(10)\n\n[1] \"10 is even\"\n\ntry(is_even(9:10))\n\nError in if (n%%2) { : the condition has length &gt; 1"
   },
   {
     "objectID": "r_training/writing_functions_in_r.html#three-solutions",
@@ -1733,7 +1740,7 @@
     "href": "r_training/writing_functions_in_r.html#section",
     "title": "Writing functions in R",
     "section": "{{}}",
-    "text": "{{}}\n\nWhat’s the problem?\n\nmtcars |&gt;\n  dplyr::summarise(average = round(mean(hp)))\n\n  average\n1     147\n\n\nso\n\ncarmo &lt;- function(column){\n  mtcars |&gt;\n    dplyr::summarise(average = round(mean(column)))\n  }\n\n\nbut…\n\n\ntry(carmo(hp))\n\nError in dplyr::summarise(mtcars, average = round(mean(column))) : \n  ℹ In argument: `average = round(mean(column))`.\nCaused by error:\n! object 'hp' not found\n\n\n\nobject ‘hp’ not found\n\n\nwe get used to R (and particularly tidyverse) helping us with some sugar when selecting column by their names\n\nmtcars$hp / mtcars |&gt; select(hp)\neffectively, we’re just able to specify hp like an object, and R figures out the scope etc for us\n\nthat misfires inside functions. R isn’t sure where to look for an object called hp\n\n\n\nEnter {{}}\n\ncarmo_woo &lt;- function(column){\n  mtcars |&gt;\n    dplyr::summarise(average = round(mean({{column}})))\n}\n\ncarmo_woo(hp)\n\n  average\n1     147\n\n\n\nfor 95% of purposes, take {{}} as a purely empirical fix\nbut, if you’re very enthusiastic:\n\n{{}} defuses and injects the column name\nequivalent to !!enquo(var)"
+    "text": "{{}}\n\nWhat’s the problem?\n\nmtcars |&gt;\n  dplyr::summarise(average = round(mean(hp)))\n\n  average\n1     147\n\n\nso\n\ncarmo &lt;- function(column){\n  mtcars |&gt;\n    dplyr::summarise(average = round(mean(column)))\n  }\n\n\nbut…\n\n\ntry(carmo(hp))\n\nError in dplyr::summarise(mtcars, average = round(mean(column))) : \n  ℹ In argument: `average = round(mean(column))`.\nCaused by error in `mean()`:\n! object 'hp' not found\n\n\n\nobject ‘hp’ not found\n\n\nwe get used to R (and particularly tidyverse) helping us with some sugar when selecting column by their names\n\nmtcars$hp / mtcars |&gt; select(hp)\neffectively, we’re just able to specify hp like an object, and R figures out the scope etc for us\n\nthat misfires inside functions. R isn’t sure where to look for an object called hp\n\n\n\nEnter {{}}\n\ncarmo_woo &lt;- function(column){\n  mtcars |&gt;\n    dplyr::summarise(average = round(mean({{column}})))\n}\n\ncarmo_woo(hp)\n\n  average\n1     147\n\n\n\nfor 95% of purposes, take {{}} as a purely empirical fix\nbut, if you’re very enthusiastic:\n\n{{}} defuses and injects the column name\nequivalent to !!enquo(var)"
   },
   {
     "objectID": "r_training/writing_functions_in_r.html#section-1",
@@ -1754,14 +1761,14 @@
     "href": "rbc/about.html",
     "title": "About R beginner’s club",
     "section": "",
-    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nThey’re very informative and honest in that Brendan will specify scenarios of best use and any limitations. I find some of the sessions a bit rushed but I think that might be more about my ability and comprehension.\nI wondered if people who are completely new to R might have been a bit daunted by the speed at which we went through things? I really like the approach of asking people about the actual issues they’re facing though. I’m going to be aware of what I get stuck on to bring to future sessions. I’m really excited about this new club!"
+    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nEven my simple brain could understand the topic covered\nI wasn’t able to join for the full session but the worked example of starting to compare two datasets (simple tables from Excel) was really useful to me to observe and make notes on to try for myself. I also really appreciated that when things strayed from being ‘beginner’, Brendan you skillfully redirected so that we could keep things at the beginners level we are sometimes short of, because there a re a LOT of very clever and skilled people in our organisation - but like driving, everyone has to learn first.\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!"
   },
   {
     "objectID": "rbc/about.html#previous-attendees-have-said",
     "href": "rbc/about.html#previous-attendees-have-said",
     "title": "About R beginner’s club",
     "section": "",
-    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nThey’re very informative and honest in that Brendan will specify scenarios of best use and any limitations. I find some of the sessions a bit rushed but I think that might be more about my ability and comprehension.\nI wondered if people who are completely new to R might have been a bit daunted by the speed at which we went through things? I really like the approach of asking people about the actual issues they’re facing though. I’m going to be aware of what I get stuck on to bring to future sessions. I’m really excited about this new club!"
+    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nEven my simple brain could understand the topic covered\nI wasn’t able to join for the full session but the worked example of starting to compare two datasets (simple tables from Excel) was really useful to me to observe and make notes on to try for myself. I also really appreciated that when things strayed from being ‘beginner’, Brendan you skillfully redirected so that we could keep things at the beginners level we are sometimes short of, because there a re a LOT of very clever and skilled people in our organisation - but like driving, everyone has to learn first.\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!"
   },
   {
     "objectID": "rbc/about.html#about",
