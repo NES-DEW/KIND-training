@@ -1,0 +1,86 @@
+---
+title: "Measures in Power BI"
+---
+
+
+```{r}
+#| results: asis
+
+source(here::here("R/feed_block.R"))
+feed_block("Measures in Power BI")
+
+```
+
+[slides](src/measures_in_power_bi.html) / [.pdf slides](src/measures_in_power_bi.pdf) / [.pbix](data/ae_weeks_start.pbix) / [.xlsx](data/excel_measures.xlsx) for this session
+
+
+## Welcome
+
++ this session is for 🌶🌶 intermediate users
++ this session can be followed practically - you'll need Power BI desktop ([plus the sample file](https://github.com/NES-DEW/KIND-training/raw/main/bi_training/data/ae_weeks_start.pbix)) to do that
+
+## Session outline
+
++ DAX
++ measures
+  + Excel measures
+  + measures vs calculated columns
++ basic measures for data summary
++ more complex measures for re-filtering
+
+## DAX
+
++ **d**ata **a**nalysis e**x**pressions
++ based on Excel formula language
++ been in use for about 15 years, initially in Excel
+
+## Let's try one in Excel
+
++ [sample Excel](https://github.com/NES-DEW/KIND-training/raw/main/bi_training/data/excel_measures.xlsx)
++ PivotTable plus data model needed
++ Measures live in tables
++ written in DAX: `=CONCATENATEX(VALUES(Table134[Fluid spilled on patients]), Table134[Fluid spilled on patients], ",")`
+
+## Into Power BI
+
++ [sample file](https://github.com/NES-DEW/KIND-training/raw/main/bi_training/data/ae_weeks_start.pbix)
++ confusingly, we find DAX in two different places...
+
+## Calculated columns
+
++ Let's calculate an average
++ `aver_att = AVERAGE(ae_activity[att])`
+
+## Measures
+
++ dynamically recalculate depending on filter context
+  + so need to live on a card
++ so same DAX = different result
++ `aver_att_meas = AVERAGE(ae_activity[att])`
+
+## Basic functions for measures
+
++ `SUM`, `AVERAGE`, `COUNT`, `MAX`
++ measure-in-measure
++ `&` and `ROUND`
+
+## More interesting measures: filter
+
++ `count_12 = COUNTROWS(FILTER(ae_activity, ae_activity[over12] > 20))`
++ `FILTER` allows us to look at how parts of our data change
+
+## More interesting measures: calculate
+
++ `count_12_calc = CALCULATE(COUNT([att]), ae_activity[over12] > 20)`
++ `CALCULATE` changes the default filter context
+
+## More interesting measures: keepfilters
+
++ `count_12_calc_kf = CALCULATE(COUNT([att]), KEEPFILTERS(ae_activity[over12] > 20))`
++ `KEEPFILTERS` pokes the default filter context through into a `CALCULATE`
+
+## Resources
+
++ [Definitive Guide to DAX](https://www.waterstones.com/book/definitive-guide-to-dax-the/marco-russo/alberto-ferrari/9781509306978)
++ [SQLBI CALCULATE](https://www.youtube.com/watch?v=HxZLkmpY6BA)
++ [SQLBI KEEPFILTERS](https://www.youtube.com/watch?v=Cj6rI0fRCaQ)
