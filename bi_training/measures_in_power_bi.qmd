@@ -1,4 +1,6 @@
 ---
+author: "Brendan Clarke, NHS Education for Scotland, [brendan.clarke2@nhs.scot](mailto:brendan.clarke2@nhs.scot)"
+date: "2024-06-28"
 title: "Measures in Power BI"
 ---
 
@@ -11,13 +13,24 @@ feed_block("Measures in Power BI")
 
 ```
 
-[slides](src/measures_in_power_bi.html) / [.pdf slides](src/measures_in_power_bi.pdf) / [.pbix](data/ae_weeks_start.pbix) / [.xlsx](data/excel_measures.xlsx) for this session
 
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Session materials
++ [all materials {{< iconify ph:file-zip size=2x >}}](src/measures_in_power_bi.zip)
++ slides [{{< iconify ph:file-html size=2x >}} html](src/measures_in_power_bi.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/measures_in_power_bi.pdf)
++ sample files [{{< iconify simple-icons:powerbi size=2x >}} .pbix](data/ae_weeks_start.pbix) / + [{{< iconify ph:file-xls size=2x >}}.xlsx](data/excel_measures.xlsx)
+:::
 
 ## Welcome
 
 + this session is for 🌶🌶 intermediate users
 + this session can be followed practically - you'll need Power BI desktop ([plus the sample file](https://github.com/NES-DEW/KIND-training/raw/main/bi_training/data/ae_weeks_start.pbix)) to do that
+
+
+
+```{r}
+```
+
 
 ## Session outline
 
@@ -58,11 +71,16 @@ feed_block("Measures in Power BI")
 + so same DAX = different result
 + `aver_att_meas = AVERAGE(ae_activity[att])`
 
+
 ## Basic functions for measures
 
 + `SUM`, `AVERAGE`, `COUNT`, `MAX`
 + measure-in-measure
 + `&` and `ROUND`
+
+## Row-wise operations
++ `SUMX`
++ `CONCATENATEX` (from Excel example)
 
 ## More interesting measures: filter
 
@@ -79,8 +97,9 @@ feed_block("Measures in Power BI")
 + `count_12_calc_kf = CALCULATE(COUNT([att]), KEEPFILTERS(ae_activity[over12] > 20))`
 + `KEEPFILTERS` pokes the default filter context through into a `CALCULATE`
 
-## Resources
+
 
 + [Definitive Guide to DAX](https://www.waterstones.com/book/definitive-guide-to-dax-the/marco-russo/alberto-ferrari/9781509306978)
 + [SQLBI CALCULATE](https://www.youtube.com/watch?v=HxZLkmpY6BA)
 + [SQLBI KEEPFILTERS](https://www.youtube.com/watch?v=Cj6rI0fRCaQ)
+

@@ -1,13 +1,34 @@
 ---
 title: "Skills training"
+execute: 
+  freeze: false
 ---
 
 ```{r}
-library(tidyverse)
+library(readr)
+library(dplyr)
+library(stringr)
 
-# tr_types <- dat |>
-#   pull(`Platform / area`) |>
-#   unique()
+source(here::here("R/bullet_list.R"))
+source(here::here("R/training_sessions.R"))
 
+cat("## Skills training schedule")
 ```
 
+```{r}
+training_sessions("AI/ML") 
+training_sessions("Skills") 
+training_sessions("Data") 
+```
+
+```{r}
+cat("## Skills session materials  \n")
+
+sesh <- c("An introduction to AI (...and why you might avoid that term)") 
+
+paste0("[", sesh, "](skills
+       /", snakecase::to_snake_case(sesh), ".qmd)") |>
+  bullet_list()
+  
+
+```
