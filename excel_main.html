@@ -31,6 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -69,9 +71,67 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -172,7 +232,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#excel-session-materials" id="toc-excel-session-materials" class="nav-link" data-scroll-target="#excel-session-materials">Excel session materials</a></li>
   </ul>
 </nav>
-    <div class="quarto-margin-footer"><div class="margin-footer-item">
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(13)</span></div><div class="category" data-category="beginner">beginner <span class="quarto-category-count">(5)</span></div><div class="category" data-category="excel">excel <span class="quarto-category-count">(13)</span></div><div class="category" data-category="intermediate">intermediate <span class="quarto-category-count">(6)</span></div><div class="category" data-category="overview">overview <span class="quarto-category-count">(2)</span></div></div><div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
 </p>
@@ -224,6 +284,14 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1720012218893?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Excel formatting</a></td>
+<td style="text-align: left;">15:00-16:00 Wed 10th July 2024</td>
+<td style="text-align: left;">Excel</td>
+<td style="text-align: left;"><red'>🌶
+
+:<strong>beginner-level</strong></red'></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1716564380021?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Lambda formulas in Excel</a></td>
 <td style="text-align: left;">13:00-13:30 Mon 15th July 2024</td>
 <td style="text-align: left;">Excel</td>
@@ -231,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 
 : <strong>intermediate-level</strong></red'></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1716564935233?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Lookups in Excel</a></td>
 <td style="text-align: left;">13:00-14:30 Thu 1st August 2024</td>
 <td style="text-align: left;">Excel</td>
@@ -239,7 +307,7 @@ ul.task-list li input[type="checkbox"] {
 
 : <strong>intermediate-level</strong></red'></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1718976786664?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Relative, absolute, mixed, structured, and R1C1 references in Excel</a></td>
 <td style="text-align: left;">15:00-16:00 Thu 8th August 2024</td>
 <td style="text-align: left;">Excel</td>
@@ -254,22 +322,191 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="excel-session-materials" class="level2">
 <h2 class="anchored" data-anchor-id="excel-session-materials">Excel session materials</h2>
-<ul>
-<li><a href="./excel/excel_first_steps.html">Excel first steps</a></li>
-<li><a href="./excel/why_bother_with_excel.html">Why bother with…Excel?</a></li>
-<li><a href="./excel/scope_of_the_possible_with_excel.html">Scope of the possible with Excel</a></li>
-<li><a href="./excel/references_and_names_in_excel.html">References and names in Excel</a></li>
-<li><a href="./excel/practical_power_pivot.html">Practical Power Pivot</a></li>
-<li><a href="./excel/pivot_tables_and_pivot_charts.html">Pivot tables and pivot charts</a></li>
-<li><a href="./excel/tidy_data_in_excel.html">Tidy data in Excel</a></li>
-<li><a href="./excel/excel_tables.html">Excel tables</a></li>
-<li><a href="./excel/excel_formulas.html">Excel formulas</a></li>
-</ul>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+       <option value="" disabled="" selected="" hidden="">Order By</option>
+       <option value="index" data-direction="asc">Default</option>
+         <option value="listing-title-sort" data-direction="asc">
+          Title
+        </option>
+     </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
+</th>
+<th>
+Categories
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-categories="excel,beginner" data-listing-date-sort="1720014350000" data-listing-file-modified-sort="1720014350528" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="724" data-listing-title-sort="Excel first steps" data-listing-filename-sort="excel_first_steps.qmd">
+<td>
+<span class="listing-image"><p class="card-img-top"><img src="excel/images/mermaid-diagram-2024-06-20-124115.png" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
+</td>
+<td>
+<a href="./excel/excel_first_steps.html" class="title listing-title">Excel first steps</a>
+</td>
+<td>
+<span class="listing-categories">excel, beginner</span>
+</td>
+</tr>
+<tr data-index="1" data-categories="excel,beginner" data-listing-date-sort="1719964800000" data-listing-file-modified-sort="1720014350528" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="726" data-listing-title-sort="Excel formulas" data-listing-filename-sort="excel_formulas.qmd">
+<td>
+<span class="listing-image"><p class="card-img-top"><img src="excel/images/clipboard-1882650124.png" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
+</td>
+<td>
+<a href="./excel/excel_formulas.html" class="title listing-title">Excel formulas</a>
+</td>
+<td>
+<span class="listing-categories">excel, beginner</span>
+</td>
+</tr>
+<tr data-index="2" data-categories="excel,beginner" data-listing-date-sort="1719792000000" data-listing-file-modified-sort="1720014350528" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="885" data-listing-title-sort="Excel tables" data-listing-filename-sort="excel_tables.qmd">
+<td>
+<span class="listing-image"><p class="card-img-top"><img src="excel/images/clipboard-3911010684.png" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
+</td>
+<td>
+<a href="./excel/excel_tables.html" class="title listing-title">Excel tables</a>
+</td>
+<td>
+<span class="listing-categories">excel, beginner</span>
+</td>
+</tr>
+<tr data-index="3" data-categories="excel,intermediate" data-listing-date-sort="1721001600000" data-listing-file-modified-sort="1720014350536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="14" data-listing-title-sort="Lambda formulas in Excel" data-listing-filename-sort="lambda_formulas_in_excel.qmd">
+<td>
+<span class="listing-image"><div class="listing-item-img-placeholder card-img-top" style="height: 40px;">&nbsp;</div></span>
+</td>
+<td>
+<a href="./excel/lambda_formulas_in_excel.html" class="title listing-title">Lambda formulas in Excel</a>
+</td>
+<td>
+<span class="listing-categories">excel, intermediate</span>
+</td>
+</tr>
+<tr data-index="4" data-categories="excel,intermediate" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1720014350536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="13" data-listing-title-sort="Lookups in Excel" data-listing-filename-sort="lookups_in_excel.qmd">
+<td>
+<span class="listing-image"><div class="listing-item-img-placeholder card-img-top" style="height: 40px;">&nbsp;</div></span>
+</td>
+<td>
+<a href="./excel/lookups_in_excel.html" class="title listing-title">Lookups in Excel</a>
+</td>
+<td>
+<span class="listing-categories">excel, intermediate</span>
+</td>
+</tr>
+<tr data-index="5" data-categories="excel,intermediate" data-listing-date-sort="1718236800000" data-listing-file-modified-sort="1720014350536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="745" data-listing-title-sort="Pivot tables and pivot charts" data-listing-filename-sort="pivot_tables_and_pivot_charts.qmd">
+<td>
+<span class="listing-image"><p class="card-img-top"><img src="excel/images/clipboard-1578174090.png" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
+</td>
+<td>
+<a href="./excel/pivot_tables_and_pivot_charts.html" class="title listing-title">Pivot tables and pivot charts</a>
+</td>
+<td>
+<span class="listing-categories">excel, intermediate</span>
+</td>
+</tr>
+<tr data-index="6" data-categories="excel,intermediate" data-listing-date-sort="1721174400000" data-listing-file-modified-sort="1720014350536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="13" data-listing-title-sort="PowerQuery - a practical introduction" data-listing-filename-sort="power_query_a_practical_introduction.qmd">
+<td>
+<span class="listing-image"><div class="listing-item-img-placeholder card-img-top" style="height: 40px;">&nbsp;</div></span>
+</td>
+<td>
+<a href="./excel/power_query_a_practical_introduction.html" class="title listing-title">PowerQuery - a practical introduction</a>
+</td>
+<td>
+<span class="listing-categories">excel, intermediate</span>
+</td>
+</tr>
+<tr data-index="7" data-categories="excel,intermediate" data-listing-date-sort="1717632000000" data-listing-file-modified-sort="1720014350536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="482" data-listing-title-sort="Practical PowerPivot" data-listing-filename-sort="practical_power_pivot.qmd">
+<td>
+<span class="listing-image"><p class="card-img-top"><img src="excel/images/clipboard-3398167195.png" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
+</td>
+<td>
+<a href="./excel/practical_power_pivot.html" class="title listing-title">Practical PowerPivot</a>
+</td>
+<td>
+<span class="listing-categories">excel, intermediate</span>
+</td>
+</tr>
+<tr data-index="8" data-categories="excel,beginner" data-listing-date-sort="1720014350000" data-listing-file-modified-sort="1720014350536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="805" data-listing-title-sort="References and names in Excel" data-listing-filename-sort="references_and_names_in_excel.qmd">
+<td>
+<span class="listing-image"><p class="card-img-top"><img src="excel/images/clipboard-1746127255.png" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
+</td>
+<td>
+<a href="./excel/references_and_names_in_excel.html" class="title listing-title">References and names in Excel</a>
+</td>
+<td>
+<span class="listing-categories">excel, beginner</span>
+</td>
+</tr>
+<tr data-index="9" data-categories="excel,intermediate" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1720014350536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="13" data-listing-title-sort="Relative, absolute, mixed, and structured references" data-listing-filename-sort="relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.qmd">
+<td>
+<span class="listing-image"><div class="listing-item-img-placeholder card-img-top" style="height: 40px;">&nbsp;</div></span>
+</td>
+<td>
+<a href="./excel/relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.html" class="title listing-title">Relative, absolute, mixed, and structured references</a>
+</td>
+<td>
+<span class="listing-categories">excel, intermediate</span>
+</td>
+</tr>
+<tr data-index="10" data-categories="excel,overview" data-listing-date-sort="1717632000000" data-listing-file-modified-sort="1720014350536" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="396" data-listing-title-sort="Scope of the possible with Excel" data-listing-filename-sort="scope_of_the_possible_with_excel.qmd">
+<td>
+<span class="listing-image"><div class="listing-item-img-placeholder card-img-top" style="height: 40px;">&nbsp;</div></span>
+</td>
+<td>
+<a href="./excel/scope_of_the_possible_with_excel.html" class="title listing-title">Scope of the possible with Excel</a>
+</td>
+<td>
+<span class="listing-categories">excel, overview</span>
+</td>
+</tr>
+<tr data-index="11" data-categories="excel,beginner" data-listing-date-sort="1720014350000" data-listing-file-modified-sort="1720014350580" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1449" data-listing-title-sort="Tidy data in Excel" data-listing-filename-sort="tidy_data_in_excel.qmd">
+<td>
+<span class="listing-image"><p class="card-img-top"><img src="excel/images/clipboard-3911010684.png" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
+</td>
+<td>
+<a href="./excel/tidy_data_in_excel.html" class="title listing-title">Tidy data in Excel</a>
+</td>
+<td>
+<span class="listing-categories">excel, beginner</span>
+</td>
+</tr>
+<tr data-index="12" data-categories="excel,overview" data-listing-date-sort="1717632000000" data-listing-file-modified-sort="1720014350580" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="272" data-listing-title-sort="Why bother with Excel?" data-listing-filename-sort="why_bother_with_excel.qmd">
+<td>
+<span class="listing-image"><p class="card-img-top"><img src="excel/images/clipboard-965547330.png" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
+</td>
+<td>
+<a href="./excel/why_bother_with_excel.html" class="title listing-title">Why bother with Excel?</a>
+</td>
+<td>
+<span class="listing-categories">excel, overview</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
