@@ -1,0 +1,128 @@
+---
+author: "Brendan Clarke, NHS Education for Scotland, [brendan.clarke2@nhs.scot](mailto:brendan.clarke2@nhs.scot)"
+date: "2024-07-03"
+title: "Formulas in Excel"
+---
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Session materials
++ [all materials {{< iconify ph:file-zip size=2x >}}](src/excel_formulas.zip)
++ slides [{{< iconify ph:file-html size=2x >}} html](src/excel_formulas.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/excel_formulas.pdf)
++ sample file [{{< iconify ph:file-xls size=2x >}}.xlsx](src/excel_formulas.xlsx)
+:::
+
+
+-   this session is 🌶 - aimed at Excel beginners
+-   you'll need any version of Excel to follow along
+-   you can find session materials at **tinyurl.com/kindtrp**
+
+
+
+
+```{r}
+```
+
+## Where does this fit in?
+
+![KIND Excel beginner skill tree](images/clipboard-1882650124.png)
+
+-   for this session, you'll need to be familiar with the Excel basics (getting around in Excel, opening/saving/closing files)
+-   you'll also need to be familiar with A1 referencing, values, and tables
+-   we're going to avoid talking about formatting as much as possible today
+
+## Session outline
+
+-   values and formulas
+-   simple functions
+-   references in formulas
+
+## Values and formulas
+
+-   cells in Excel contain either values, or formulas
+-   we'll start with some data derived from [NRS 2022 population estimates](https://www.nrscotland.gov.uk/files//statistics/population-estimates/mid-22/mid-year-pop-est-22-data.xlsx)
+-   make sure [you have the sample data](src/excel_formulas.xlsx) available
+
+## Values
+
+![Example value, showing identical cell contents and formula bar contents](images/clipboard-3551345224.png)
+
+-   when you enter some data in a cell, we call that a **value**
+-   values look the same in their cell as in the formula bar
+
+## Formulas
+
+-   we can also make a value using a formula
+-   Excel evaluates/calculates the formula, then displays the result as a value
+-   in an empty cell, try entering `= 2 + 2`
+
+
+![Example formula, showing different cell contents and formula bar contents](images/clipboard-3551345224b.png)
+
+## Example formulas
+
+-   we can do ordinary arithmetic in formulas `/`, `*`, `-`, `+`...
+-   you can also try `&` which joins values
+    -   `= "This number is " & 5`
+
+## Functions
+
+-   But most formulas use functions, which are like the verbs of Excel
+-   Try `= SUM(2, 2)`
+
+## Adding functions
+
+-   you can type functions in by name (as above)
+
+-   you can also add from the `Formulas` area of the ribbon </br>![add from the Formulas area of the ribbon](images/clipboard-4177249094.png)
+
+-   or you can use the $fx$ button by the formula bar </br>![use the fx button by the formula bar](images/clipboard-2091819162.png)
+
+## Function arguments
+
+-   adding a function by $fx$ or the menu brings up the **Function Arguments** interface </br>![Function Arguments interface](images/clipboard-2410234964.png)
+
+-   This is a helpful builder for more complicated functions
+
+## What are arguments?
+
++   **arguments** are the values we supply to a function 
+    
+    + in `=SUM(2,3)`, the arguments are `2` and `3`
++   we separate arguments with a comma `,`
++   we need to be sure we're supplying the right arguments in the right order (this gets described as the **syntax** of a function)
++   we also, while we're on the jargon, say that functions **return** a value so `= SUM(4,3)` will return `7`
+
+## Useful simple functions
+
+-   in the same way as `=SUM()`, you can try:
+    -   `AVERAGE`
+    -   `MIN` and `MAX`
+    -   `SUBSTITUTE`
+    -   `CEILING`
+    -   `TODAY`
+    -   `ROUND`
+
+## References in formulas
+
+-   mostly, you won't add values directly into your formulas
+-   instead, you'll bring them in from another part of your spreadsheet
+-   can you use `SUM()` to make a total `Male` + `Female` column in the supplied data?
+    -   add a header in cell `G2`
+    -   if needed, extend the table to include your new column
+    -   in `G3`, enter the formula `= SUM(C3, D3)`
+    -   then copy down the rows by double-clicking the green fill handle ![green fill handle](images/clipboard-4213326820.png)
+
+## Practice
+
+-   calculate what percentage of your total population is under 16
+- estimate the population density
+- find an average area for each council area
+
+## Troubleshooting functions
+
+-   `#NAME?` = "I don't recognise that function name"
+-   `#VALUE!` = "Your syntax has gone wrong - usually in the wrong order"
+-   `#REF!` = "I don't recognise that reference"
+-   `#DIV/0!` = "You've divided by zero"
+
+
