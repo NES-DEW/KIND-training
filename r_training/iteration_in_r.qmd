@@ -1,0 +1,160 @@
+---
+title: Iteration in R
+date: 2024-07-05
+execute: 
+  echo: true
+  eval: true
+  output: true
+categories: [R, intermediate]
+---
+
+
+```{r}
+#| echo: false
+#| output: asis
+#| eval: true
+
+source(here::here("R/feed_block.R"))
+feed_block("Iteration in R")
+
+```
+
+## Welcome
+-   this is an 🌶🌶 intermediate-level practical session designed for those with prior R experience
+
+
+## Session outline
+- what's a loop?
+- basic examples
+
+## General loop syntax
+
+We can write a bit of code, and execute it repeatedly. Usually, we'll do this by creating a vector - like `c(1,2,3,4)` - and looping over that vector. We'd do that by writing the following code:
+
+```{r}
+#| eval: false
+for (variable in vector) {
+  # some bit of code
+}
+```
+
+## Simple examples
+```{r}
+
+for (i in 1:4) {
+  print("hello world!")
+}
+
+for (i in LETTERS[5:10]) {
+  print(i)
+}
+
+for (i in 4:1) {
+  print(i)
+}
+```
+
+## Collecting output
+
+Loops work best when you collect their output by indexing. So we start off by making an empty output vector of the right size, then assigning into that vector within our loop using indexing:
+
+```{r}
+len <- 1:4
+
+output <- vector("character", length(len))
+
+for (i in len) {
+  output[i] <- paste("the number is", i)
+}
+
+output
+```
+
+It's also possible to collect output into a data.frame or similar
+
+```{r}
+df_output <- data.frame(num = vector("numeric", length(len)))
+
+for (i in 1:4) {
+  df_output$num[i] <- i
+}
+
+df_output |>
+  knitr::kable()
+```
+
+## Benchmarking and appending output
+
+You should avoid appending output. It's inefficient owing to R's [copy-on-modify](https://adv-r.hadley.nz/names-values.html#copy-on-modify) behaviour. We'll set up a couple of loops in a function, and use `microbenchmark` to compare what happens with `append` (which uses `c()` to append its output) with `pre-allocate`, which indexes into a vector of the proper length.
+
+
+```{r}
+library(ggplot2)
+library(microbenchmark)
+
+show_diff <- function(len){
+  output <- vector("numeric", 0)
+  output2 <- vector("numeric", len)
+
+bench <- microbenchmark(append = {
+  for (i in 1:len) {
+    output <- c(output, i)
+                    }
+                                  },
+
+pre_allocate = {
+  for (i in 1:len) {
+    output2[i] <- i
+                    }
+                }
+, times = 20)
+
+autoplot(bench) +
+  ggtitle(paste0("Loop from 1:", len))
+}
+
+```
+
+
+The difference isn't that much when dealing with small loops:
+
+```{r}
+show_diff(10)
+```
+
+But huge differences result very quickly as the loop length increases:
+
+```{r}
+show_diff(100)
+```
+
+```{r}
+show_diff(500)
+```
+## `seq_along`
+
+The last tool we'll look at is `seq_along`. This function helps make iterable vectors from other R objects. Say you had a tibble/df that you wanted to iterate over to average each column. You could manually figure out the number of columns, then iterate on that calculation:
+
+```{r}
+output <- vector("numeric", length(mtcars))
+
+for(i in 1:length(output)){
+  output[i] <- mean(mtcars[,i], na.rm=T)
+}
+
+output
+```
+
+But, you could alternatively use `seq_along` to generate a neat integer vector to iterate over:
+
+```{r}
+output <- vector("numeric", length(mtcars))
+
+for(i in seq_along(mtcars)){
+  output[i] <- mean(mtcars[,i], na.rm=T)
+}
+
+output
+
+```
+

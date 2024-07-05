@@ -2,6 +2,12 @@
 title: "R training"
 execute: 
   freeze: false
+listing:
+  contents:
+    - "r_training/*.qmd"
+  type: table
+  categories: true
+  fields: [image, title, categories]
 ---
 
 
@@ -19,16 +25,5 @@ cat("## R training schedule")
 training_sessions("R") 
 ```
 
-```{r}
-cat("## R training sessions  \n")
+## R session materials
 
-read_csv(here::here("data/KIND_training_sessions.csv")) |>
-  filter(str_detect(`Platform / area`, "R")) |>
-  filter(str_detect(Title, "lubridate|functions|janitor|possible")) |>
-  select(Title) |>
-  mutate(fn = paste0("[", Title, "](r_training/", snakecase::to_snake_case(Title), ".qmd)")) |>
-  pull(fn) |>
-  bullet_list()
-
-
-```

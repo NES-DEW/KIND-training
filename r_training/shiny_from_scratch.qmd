@@ -1,0 +1,139 @@
+---
+title: Shiny from scratch
+date: 2024-07-03
+execute: 
+  echo: true
+  eval: false
+output: "markup"
+categories: [R, intermediate]
+---
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Session materials
++ [sample Shiny script {{< iconify mdi:language-r size=2x >}}](src/app.R)
+
+:::
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| eval: true
+
+source(here::here("R/feed_block.R"))
+feed_block("Shiny from scratch")
+
+```
+
+## Welcome
+
+-   this is an 🌶🌶 intermediate-level practical session designed for those with prior R experience, but who are new to Shiny
+-   it's definitely meant to be a taster session, rather than a comprehensive introduction
+
+## Session outline
+
+-   what's the point of Shiny?
+-   resources
+-   `"hello world!"`
+-   adding R code
+-   capturing user input
+-   thinking about reactivity
+
+## What's the point of Shiny?
+
+-   a way of publishing interactive R code
+-   here's [a minimal Shiny dashboard](https://l8865y-brendan-clarke.shinyapps.io/shiny_from_scratch/) which we'll build in this session
+
+## Resources
+
+-   you'll need:
+    -   R 4.0+ and Rstudio/posit.cloud/Posit workbench/VSCode
+    -   the `shiny` and `reactlog` packages
+    -   the [Shiny cheatsheet](https://shiny.posit.co/r/articles/start/cheatsheet/) (essential)
+    -   [Mastering Shiny](https://mastering-shiny.org/) (optional)
+
+## Boilerplate Shiny code
+
+-   start a new R script in an empty project
+-   save as `app.R` (conventional, but helpful)
+-   start typing `shiny`, and select the `shinyapp` snippet to insert the boilerplate Shiny code </br> ![boilerplate Shiny code](images/clipboard-3563940101.png)
+
+## 3 sections
+
+-   `ui`, where you'll build your user interface
+-   `server`, where you'll put the bulk of your R code
+-   `shinyApp`, which collects the `ui` and `server`, and runs your Shiny server
+
+## `"hello world!"`
+
+-   now add `"hello world!"` in the `ui`</br>![add "hello world!" in the ui](images/clipboard-4221183305.png)
+-   `Ctrl` + `Shift` + `Enter` to run your code - or use the run app button ![run app button](images/clipboard-229560138.png)
+-   that should start your Shiny app - and you should see "hello world!" in the viewer pane ![](images/clipboard-1464337300.png)
+-   Press stop ![](images/clipboard-20538929.png) - or hit `Esc` to stop your app. You'll need to stop and restart to see changes.
+
+## adding R code
+
+-   now we'll add some simple R code to our `server`. That's going to do something simple with mtcars:
+
+```{r}
+#| eval: true
+mtcars |>
+  dplyr::group_by(cyl) |>
+  dplyr::summarise(mpg = round(mean(mpg), 2))
+```
+
+## `renderTable`, `output$`, and `tableOutput`
+
+-   we'll need to do three things to include this code, and its output, in Shiny
+
+1.  wrap our mtcars code in the `renderTable` function in `server`
+1.  assign that `renderTable` to a variable called `output$my_table`
+1.  finally, replace your `"hello world!"` in the `ui` with `tableOutput("my_table")` 
+
+Your code should now read:
+
+```{r}
+#| eval: false
+library(shiny)
+
+ui <- fluidPage(
+  tableOutput("my_table")
+)
+
+server <- function(input, output, session) {
+  output$my_table <- renderTable(mtcars |>
+                dplyr::group_by(cyl) |>
+                dplyr::summarise(mpg = round(mean(mpg), 2)))
+}
+
+shinyApp(ui, server)
+```
+
+Run it (`Ctrl` + `Shift` + `Enter`) and you should see a table of mtcars data in the viewer pane: </br> ![table of mtcars data in the viewer pane](images/clipboard-1764561615.png)
+
+## What's going on with `renderX` etc?
+
++ there are pairs of functions on the [Shiny cheatsheet](https://shiny.posit.co/r/articles/start/cheatsheet/). Each output type has its own `renderX` function, which you use in the `server` to wrap other kinds of output. So `renderPlot` collects `plot`/`ggplot` output etc.
+
++ once your output has been rendered, you then save it into a list variable called `output`. Each bit of output needs its own variable name - like `output$my_table`
+
++ finally, and again from the [Shiny cheatsheet](https://shiny.posit.co/r/articles/start/cheatsheet/), you extract your data inside the UI from the `output$` variable by using an `XOutput` function that corresponds to your `renderX`
+  
+  
+## capturing user input
+
++ we need to add three elements to capture user input:
+
+1. add an input widget - like `radioButtons()` above your `tableOutput` in the UI. You'll need to comma-splice that - all your UI contents gets joined with commas
+1. then add an input ID to that input widget `  radioButtons("my_input", "Which gear to show?", sort(unique(mtcars$gear)))`
+1. finally, you connect your user input into your code using `input$my_input`
+
+```{r}
+#| eval: false
+
+server <- function(input, output, session) {
+  output$my_table <- renderTable(mtcars |>
+                dplyr::filter(gear == input$my_input) |>
+                  ...
+```
+

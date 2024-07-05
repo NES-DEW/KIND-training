@@ -11,8 +11,8 @@ author:
     affiliations: NHS Education for Scotland
 execute: 
   echo: true
-output: markdown+
-output-location: column
+  output: true
+categories: [R, intermediate]
 ---
 
 ```{r}
@@ -43,31 +43,18 @@ test_df |>
 
 ```
 
-::: {.notes}
-example column names from https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html
-:::
-
-
 ## `clean_names`
 
-```{r}
+`clean_names` allows you to convert ugly column names into standardised, syntactic names. You can also specfiy the case, or bulk-tweak the names.
 
+```{r}
 clean_names(test_df)
-```
 
-## `clean_names`
-
-```{r}
 clean_names(test_df, case = "screaming_snake")
-```
 
-## `clean_names`
-
-```{r}
 clean_names(test_df, case = "big_camel")
 
 test_df %>%
-  # clean_names() %>%
   clean_names(prefix = "a_prefix")
 
 ```
@@ -75,14 +62,9 @@ test_df %>%
 ## `compare_df_cols`
 
 ```{r}
-#| output-location: column
-#| results: asis
-
 library(palmerpenguins)
 
 compare_df_cols(penguins,penguins_raw)
-
-
 ```
 
 ## `warnings`
@@ -90,20 +72,12 @@ compare_df_cols(penguins,penguins_raw)
 ```{r}
 #| warning: false
 
-# openxlsx::read.xlsx("https://github.com/NES-DEW/KIND-training/raw/main/r_training/data/JanitorDataExample.xlsx") |>
-#   janitor::make_clean_names()
 Data1 <- readxl::read_excel("data/JanitorDataExample.xlsx", .name_repair = make_clean_names)
-
-# Data1 <- readxl::read_excel("r_training/data/JanitorDataExample.xlsx", .name_repair = make_clean_names)
 
 # warnings switched off, otherwise we'd have literally hundreds of warnings here!
 
 make_clean_names(c("1thing", "some opther thign"))
 
-```
-
-## `warnings`
-```{r}
 glimpse(Data1)
 ```
 
@@ -111,8 +85,6 @@ glimpse(Data1)
 ## `clean_names` again
 
 ```{r}
-#| output-location: column
-
 Data1_clean <- Data1 |>
   clean_names() |>
   mutate(across(contains("date"),
@@ -125,7 +97,7 @@ Data1_clean
 ## `get_dupes`
 
 ```{r}
-#| output-location: column
+
 Data1_clean |>
   get_dupes(contains("date"))
 
@@ -134,8 +106,6 @@ Data1_clean |>
 ## `distinct`
 
 ```{r}
-#| output-location: column
-
 Data1_clean_distinct <- distinct(Data1_clean)
 
 Data1_clean_distinct
@@ -160,15 +130,6 @@ Data1_clean_distinct |>
   tabyl(gender) |>
   class()
 
-
-
-```
-
-## `tabyl` / `adorn`
-
-```{r}
-#| output-location: column
-
 Data1_clean_distinct |>
   tabyl(Year,gender, show_na = F) |>
   adorn_totals("row") |>
@@ -176,12 +137,6 @@ Data1_clean_distinct |>
   adorn_pct_formatting() |>
   adorn_ns() |>
   adorn_title("combined")
-```
-
-## `tabyl` / `adorn`
-
-```{r}
-#| output-location: column
 
 Data1_clean_distinct |>
   tabyl(Year,gender,show_na = F) |>
@@ -191,12 +146,6 @@ Data1_clean_distinct |>
   adorn_ns() |>
   # adorn_title("combined") |>
   mutate(Year = paste("The year was", Year))
-```
-
-## `tabyl` / `adorn`
-
-```{r}
-#| output-location: column
 
 Data1_clean_distinct |>
   tabyl(Year,gender,show_na = F) |>
@@ -210,7 +159,7 @@ Data1_clean_distinct |>
 ## group_by with `tabyl`
 
 ```{r}
-#| output-location: column
+
 Data1_clean_distinct |>
   group_by(Year,gender) |>
   summarise(Attendances = n()) |>
@@ -224,7 +173,6 @@ Data1_clean_distinct |>
 ## `chisq.test`
 
 ```{r}
-#| output-location: column
 Data1_clean_distinct |>
   tabyl(attendances,location,show_na = F) |>
   chisq.test()
@@ -233,8 +181,6 @@ Data1_clean_distinct |>
 ## `chisq.test`
 
 ```{r}
-#| output-location: column
-
 titanic <- data.frame(Died  = c(122,167,528,673),
                   Survived  = c(203,118,178,212),
                   row.names = c("1st class", "2nd class", "3rd class", "crew"))
