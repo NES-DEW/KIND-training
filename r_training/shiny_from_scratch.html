@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-07-05">
+<meta name="dcterms.date" content="2024-07-03">
 
-<title>R training – KIND training pages</title>
+<title>Shiny from scratch – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,29 +21,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,67 +104,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-image','listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -143,7 +116,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">KIND training pages</span>
     </a>
   </div>
@@ -154,19 +127,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./excel_main.html"> 
+    <a class="nav-link" href="../excel_main.html"> 
 <span class="menu-text">Excel</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./r_main.html" aria-current="page"> 
+    <a class="nav-link" href="../r_main.html"> 
 <span class="menu-text">R</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -175,25 +148,25 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-r-beginners-club">    
         <li>
-    <a class="dropdown-item" href="./rbc/about.html">
+    <a class="dropdown-item" href="../rbc/about.html">
  <span class="dropdown-text">About RBC</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./rbc/2024-06-13.html">
+    <a class="dropdown-item" href="../rbc/2024-06-13.html">
  <span class="dropdown-text">2024-06-13</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./BI_main.html"> 
+    <a class="nav-link" href="../BI_main.html"> 
 <span class="menu-text">Power BI</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./skills_main.html"> 
+    <a class="nav-link" href="../skills_main.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./schedule.html"> 
+    <a class="nav-link" href="../schedule.html"> 
 <span class="menu-text">Training schedule</span></a>
   </li>  
 </ul>
@@ -228,11 +201,21 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-training-schedule" id="toc-r-training-schedule" class="nav-link active" data-scroll-target="#r-training-schedule">R training schedule</a></li>
-  <li><a href="#r-session-materials" id="toc-r-session-materials" class="nav-link" data-scroll-target="#r-session-materials">R session materials</a></li>
+  <li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#whats-the-point-of-shiny" id="toc-whats-the-point-of-shiny" class="nav-link" data-scroll-target="#whats-the-point-of-shiny">What’s the point of Shiny?</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#boilerplate-shiny-code" id="toc-boilerplate-shiny-code" class="nav-link" data-scroll-target="#boilerplate-shiny-code">Boilerplate Shiny code</a></li>
+  <li><a href="#sections" id="toc-sections" class="nav-link" data-scroll-target="#sections">3 sections</a></li>
+  <li><a href="#hello-world" id="toc-hello-world" class="nav-link" data-scroll-target="#hello-world"><code>"hello world!"</code></a></li>
+  <li><a href="#adding-r-code" id="toc-adding-r-code" class="nav-link" data-scroll-target="#adding-r-code">adding R code</a></li>
+  <li><a href="#rendertable-output-and-tableoutput" id="toc-rendertable-output-and-tableoutput" class="nav-link" data-scroll-target="#rendertable-output-and-tableoutput"><code>renderTable</code>, <code>output$</code>, and <code>tableOutput</code></a></li>
+  <li><a href="#whats-going-on-with-renderx-etc" id="toc-whats-going-on-with-renderx-etc" class="nav-link" data-scroll-target="#whats-going-on-with-renderx-etc">What’s going on with <code>renderX</code> etc?</a></li>
+  <li><a href="#capturing-user-input" id="toc-capturing-user-input" class="nav-link" data-scroll-target="#capturing-user-input">capturing user input</a></li>
   </ul>
 </nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(6)</span></div><div class="category" data-category="beginner">beginner <span class="quarto-category-count">(1)</span></div><div class="category" data-category="intermediate">intermediate <span class="quarto-category-count">(4)</span></div><div class="category" data-category="overview">overview <span class="quarto-category-count">(1)</span></div></div><div class="quarto-margin-footer"><div class="margin-footer-item">
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
 </p>
@@ -242,8 +225,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R training</h1>
-</div>
+<h1 class="title">Shiny from scratch</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">intermediate</div>
+  </div>
+  </div>
 
 
 
@@ -253,7 +240,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 5, 2024</p>
+      <p class="date">July 3, 2024</p>
     </div>
   </div>
   
@@ -265,179 +252,187 @@ window.Quarto = {
 </header>
 
 
-<section id="r-training-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="r-training-schedule">R training schedule</h2>
-<table class="caption-top table" data-quarto-postprocess="true">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Session</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Date</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Area</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Level</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1718975906539?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Parameterised Rmarkdown and Quarto</a></td>
-<td style="text-align: left;">15:00-16:00 Mon 15th July 2024</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶🌶
-
-: <strong>intermediate-level</strong></red'></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1716564645112?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Getting more out of dplyr</a></td>
-<td style="text-align: left;">10:30-12:00 Wed 17th July 2024</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶🌶
-
-: <strong>intermediate-level</strong></red'></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1718976090789?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">The purrrr package in R</a></td>
-<td style="text-align: left;">15:00-16:30 Mon 29th July 2024</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶🌶
-
-: <strong>intermediate-level</strong></red'></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1718725608312?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Testing R code</a></td>
-<td style="text-align: left;">15:00-16:30 Wed 7th August 2024</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶🌶
-
-: <strong>intermediate-level</strong></red'></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1719319086946?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Flexdashboard</a></td>
-<td style="text-align: left;">13:00-14:30 Thu 15th August 2024</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶🌶
-
-: <strong>intermediate-level</strong></red'></td>
-</tr>
-</tbody>
-</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Session materials
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="src/app.R">sample Shiny script <iconify-icon inline="" icon="mdi:language-r" style="font-size: 2em;" aria-label="Icon language-r from mdi Iconify.design set." title="Icon language-r from mdi Iconify.design set."></iconify-icon></a></li>
+</ul>
+</div>
+</div>
+</div>
+<section id="previous-attendees-have-said" class="level2">
+<h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
+<ul>
+<li>6 previous attendees have left feedback</li>
+<li>100% said that this session was pitched correctly</li>
+<li>100% would recommend this session to a colleague</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Three random comments from previous attendees
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Great intro session to Shiny, which made me want to learn more!</li>
+<li>Great starter course for Shiny</li>
+<li>Very nice introduction to the basics of Shiny!</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="welcome" class="level2">
+<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
+<ul>
+<li>this is an 🌶🌶 intermediate-level practical session designed for those with prior R experience, but who are new to Shiny</li>
+<li>it’s definitely meant to be a taster session, rather than a comprehensive introduction</li>
+</ul>
+</section>
+<section id="session-outline" class="level2">
+<h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+<ul>
+<li>what’s the point of Shiny?</li>
+<li>resources</li>
+<li><code>"hello world!"</code></li>
+<li>adding R code</li>
+<li>capturing user input</li>
+<li>thinking about reactivity</li>
+</ul>
+</section>
+<section id="whats-the-point-of-shiny" class="level2">
+<h2 class="anchored" data-anchor-id="whats-the-point-of-shiny">What’s the point of Shiny?</h2>
+<ul>
+<li>a way of publishing interactive R code</li>
+<li>here’s <a href="https://l8865y-brendan-clarke.shinyapps.io/shiny_from_scratch/">a minimal Shiny dashboard</a> which we’ll build in this session</li>
+</ul>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li>you’ll need:
+<ul>
+<li>R 4.0+ and Rstudio/posit.cloud/Posit workbench/VSCode</li>
+<li>the <code>shiny</code> and <code>reactlog</code> packages</li>
+<li>the <a href="https://shiny.posit.co/r/articles/start/cheatsheet/">Shiny cheatsheet</a> (essential)</li>
+<li><a href="https://mastering-shiny.org/">Mastering Shiny</a> (optional)</li>
+</ul></li>
+</ul>
+</section>
+<section id="boilerplate-shiny-code" class="level2">
+<h2 class="anchored" data-anchor-id="boilerplate-shiny-code">Boilerplate Shiny code</h2>
+<ul>
+<li>start a new R script in an empty project</li>
+<li>save as <code>app.R</code> (conventional, but helpful)</li>
+<li>start typing <code>shiny</code>, and select the <code>shinyapp</code> snippet to insert the boilerplate Shiny code <br> <img src="images/clipboard-3563940101.png" class="img-fluid" alt="boilerplate Shiny code"></li>
+</ul>
+</section>
+<section id="sections" class="level2">
+<h2 class="anchored" data-anchor-id="sections">3 sections</h2>
+<ul>
+<li><code>ui</code>, where you’ll build your user interface</li>
+<li><code>server</code>, where you’ll put the bulk of your R code</li>
+<li><code>shinyApp</code>, which collects the <code>ui</code> and <code>server</code>, and runs your Shiny server</li>
+</ul>
+</section>
+<section id="hello-world" class="level2">
+<h2 class="anchored" data-anchor-id="hello-world"><code>"hello world!"</code></h2>
+<ul>
+<li>now add <code>"hello world!"</code> in the <code>ui</code><br><img src="images/clipboard-4221183305.png" class="img-fluid" alt="add “hello world!” in the ui"></li>
+<li><code>Ctrl</code> + <code>Shift</code> + <code>Enter</code> to run your code - or use the run app button <img src="images/clipboard-229560138.png" class="img-fluid" alt="run app button"></li>
+<li>that should start your Shiny app - and you should see “hello world!” in the viewer pane <img src="images/clipboard-1464337300.png" class="img-fluid"></li>
+<li>Press stop <img src="images/clipboard-20538929.png" class="img-fluid"> - or hit <code>Esc</code> to stop your app. You’ll need to stop and restart to see changes.</li>
+</ul>
+</section>
+<section id="adding-r-code" class="level2">
+<h2 class="anchored" data-anchor-id="adding-r-code">adding R code</h2>
+<ul>
+<li>now we’ll add some simple R code to our <code>server</code>. That’s going to do something simple with mtcars:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mpg =</span> <span class="fu">round</span>(<span class="fu">mean</span>(mpg), <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+    cyl   mpg
+  &lt;dbl&gt; &lt;dbl&gt;
+1     4  26.7
+2     6  19.7
+3     8  15.1</code></pre>
+</div>
+</div>
+</section>
+<section id="rendertable-output-and-tableoutput" class="level2">
+<h2 class="anchored" data-anchor-id="rendertable-output-and-tableoutput"><code>renderTable</code>, <code>output$</code>, and <code>tableOutput</code></h2>
+<ul>
+<li>we’ll need to do three things to include this code, and its output, in Shiny</li>
+</ul>
+<ol type="1">
+<li>wrap our mtcars code in the <code>renderTable</code> function in <code>server</code></li>
+<li>assign that <code>renderTable</code> to a variable called <code>output$my_table</code></li>
+<li>finally, replace your <code>"hello world!"</code> in the <code>ui</code> with <code>tableOutput("my_table")</code></li>
+</ol>
+<p>Your code should now read:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tableOutput</span>(<span class="st">"my_table"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>my_table <span class="ot">&lt;-</span> <span class="fu">renderTable</span>(mtcars <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                dplyr<span class="sc">::</span><span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mpg =</span> <span class="fu">round</span>(<span class="fu">mean</span>(mpg), <span class="dv">2</span>)))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Run it (<code>Ctrl</code> + <code>Shift</code> + <code>Enter</code>) and you should see a table of mtcars data in the viewer pane: <br> <img src="images/clipboard-1764561615.png" class="img-fluid" alt="table of mtcars data in the viewer pane"></p>
+</section>
+<section id="whats-going-on-with-renderx-etc" class="level2">
+<h2 class="anchored" data-anchor-id="whats-going-on-with-renderx-etc">What’s going on with <code>renderX</code> etc?</h2>
+<ul>
+<li><p>there are pairs of functions on the <a href="https://shiny.posit.co/r/articles/start/cheatsheet/">Shiny cheatsheet</a>. Each output type has its own <code>renderX</code> function, which you use in the <code>server</code> to wrap other kinds of output. So <code>renderPlot</code> collects <code>plot</code>/<code>ggplot</code> output etc.</p></li>
+<li><p>once your output has been rendered, you then save it into a list variable called <code>output</code>. Each bit of output needs its own variable name - like <code>output$my_table</code></p></li>
+<li><p>finally, and again from the <a href="https://shiny.posit.co/r/articles/start/cheatsheet/">Shiny cheatsheet</a>, you extract your data inside the UI from the <code>output$</code> variable by using an <code>XOutput</code> function that corresponds to your <code>renderX</code></p></li>
+</ul>
+</section>
+<section id="capturing-user-input" class="level2">
+<h2 class="anchored" data-anchor-id="capturing-user-input">capturing user input</h2>
+<ul>
+<li>we need to add three elements to capture user input:</li>
+</ul>
+<ol type="1">
+<li>add an input widget - like <code>radioButtons()</code> above your <code>tableOutput</code> in the UI. You’ll need to comma-splice that - all your UI contents gets joined with commas</li>
+<li>then add an input ID to that input widget <code>radioButtons("my_input", "Which gear to show?", sort(unique(mtcars$gear)))</code></li>
+<li>finally, you connect your user input into your code using <code>input$my_input</code></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>my_table <span class="ot">&lt;-</span> <span class="fu">renderTable</span>(mtcars <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                dplyr<span class="sc">::</span><span class="fu">filter</span>(gear <span class="sc">==</span> input<span class="sc">$</span>my_input) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                  ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
-<section id="r-session-materials" class="level2">
-<h2 class="anchored" data-anchor-id="r-session-materials">R session materials</h2>
 
-
-
-</section>
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title-sort" data-direction="asc">
-          Title
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-</th>
-<th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
-</th>
-<th>
-Categories
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-categories="R,beginner" data-listing-date-sort="1720191059000" data-listing-file-modified-sort="1720191059756" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="411" data-listing-title-sort="Dates and times with lubridate" data-listing-filename-sort="dates_and_times_with_lubridate.qmd">
-<td>
-<span class="listing-image"><div class="listing-item-img-placeholder card-img-top" style="height: 40px;">&nbsp;</div></span>
-</td>
-<td>
-<a href="./r_training/dates_and_times_with_lubridate.html" class="title listing-title">Dates and times with lubridate</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner</span>
-</td>
-</tr>
-<tr data-index="1" data-categories="R,intermediate" data-listing-date-sort="1720137600000" data-listing-file-modified-sort="1720191059760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="474" data-listing-title-sort="Iteration in R" data-listing-filename-sort="iteration_in_r.qmd">
-<td>
-<span class="listing-image"><p class="card-img-top"><img src="r_training/iteration_in_r_files/figure-html/unnamed-chunk-7-1.png" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
-</td>
-<td>
-<a href="./r_training/iteration_in_r.html" class="title listing-title">Iteration in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="2" data-categories="R,overview" data-listing-date-sort="1720191059000" data-listing-file-modified-sort="1720191059760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="784" data-listing-title-sort="Scope of the possible with R" data-listing-filename-sort="scope_of_the_possible_with_r.qmd">
-<td>
-<span class="listing-image"><p class="card-img-top"><img src="r_training/images/clipboard-776150275.png" alt="https://www.opendata.nhs.scot/dataset/weekly-accident-and-emergency-activity-and-waiting-times" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
-</td>
-<td>
-<a href="./r_training/scope_of_the_possible_with_r.html" class="title listing-title">Scope of the possible with R</a>
-</td>
-<td>
-<span class="listing-categories">R, overview</span>
-</td>
-</tr>
-<tr data-index="3" data-categories="R,intermediate" data-listing-date-sort="1719964800000" data-listing-file-modified-sort="1720191059760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="710" data-listing-title-sort="Shiny from scratch" data-listing-filename-sort="shiny_from_scratch.qmd">
-<td>
-<span class="listing-image"><p class="card-img-top"><img src="r_training/images/clipboard-3563940101.png" alt="boilerplate Shiny code" style="height: 40px;"  class="thumbnail-image card-img"/></p></span>
-</td>
-<td>
-<a href="./r_training/shiny_from_scratch.html" class="title listing-title">Shiny from scratch</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="4" data-categories="R,intermediate" data-listing-date-sort="1720191059000" data-listing-file-modified-sort="1720191059784" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="338" data-listing-title-sort="We ❤️ janitor" data-listing-filename-sort="we_heart_janitor.qmd">
-<td>
-<span class="listing-image"><div class="listing-item-img-placeholder card-img-top" style="height: 40px;">&nbsp;</div></span>
-</td>
-<td>
-<a href="./r_training/we_heart_janitor.html" class="title listing-title">We ❤️ janitor</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="5" data-categories="R,intermediate" data-listing-date-sort="1718668800000" data-listing-file-modified-sort="1720191059784" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="512" data-listing-title-sort="Writing functions in R" data-listing-filename-sort="writing_functions_in_r.qmd">
-<td>
-<span class="listing-image"><div class="listing-item-img-placeholder card-img-top" style="height: 40px;">&nbsp;</div></span>
-</td>
-<td>
-<a href="./r_training/writing_functions_in_r.html" class="title listing-title">Writing functions in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
