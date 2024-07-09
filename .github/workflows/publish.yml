@@ -45,7 +45,7 @@ jobs:
             envname = "r-reticulate",
             python = Sys.which("python"), # placed on PATH by the setup-python action
             packages = c(
-              "numpy", "any-other-python-packages-you-want-go-here"
+              "numpy", "pandas", "matplotlib"
             )
           )
 
@@ -53,8 +53,6 @@ jobs:
                      Sys.getenv("GITHUB_ENV"))
 
       - uses: r-lib/actions/check-r-package@v2
-      
-      
           
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
