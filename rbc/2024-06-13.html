@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.53">
+<meta name="generator" content="quarto-1.5.54">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-07-05">
+<meta name="dcterms.date" content="2024-07-09">
 
 <title>R beginner’s club 2024-06-13 – KIND training pages</title>
 <style>
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 5, 2024</p>
+      <p class="date">July 9, 2024</p>
     </div>
   </div>
   
@@ -401,13 +401,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>b2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
-  name     score
-  &lt;chr&gt;    &lt;dbl&gt;
-1 paul     1    
-2 michael  0.561
-3 jennifer 0.160
-4 alupha   0.574
-5 judi     0.887</code></pre>
+  name    score
+  &lt;chr&gt;   &lt;dbl&gt;
+1 peter   0.644
+2 alupha  0.574
+3 judi    0.887
+4 linsey  0.971
+5 michael 0.561</code></pre>
 </div>
 </div>
 <p>The simplest join we could do is to bind the rows from one set onto another:</p>
@@ -423,11 +423,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  3 peter    0.644
  4 judi     0.887
  5 paul     0.336
- 6 paul     1    
- 7 michael  0.561
- 8 jennifer 0.160
- 9 alupha   0.574
-10 judi     0.887</code></pre>
+ 6 peter    0.644
+ 7 alupha   0.574
+ 8 judi     0.887
+ 9 linsey   0.971
+10 michael  0.561</code></pre>
 </div>
 </div>
 <p>That just brings all the rows from <code>b2</code> onto the end of <code>b1</code>. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join <code>b2</code>:</p>
@@ -440,9 +440,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
 1 kennedy    0.590  NA    
 2 victoria   0.248  NA    
-3 peter      0.644  NA    
+3 peter      0.644   0.644
 4 judi       0.887   0.887
-5 paul       0.336   1    </code></pre>
+5 paul       0.336  NA    </code></pre>
 </div>
 </div>
 <p>You should see that only the values from <code>b2</code>’s score column that have a corresponding name in <code>b1</code> get populated, and everything else gets filled with NAs. Here’s a <a href="https://lindsaydbrin.github.io/CREATE_R_Workshop/Lesson_-_dplyr_join.html">nice introduction to the different kinds of join you can do in dplyr</a>.</p>
