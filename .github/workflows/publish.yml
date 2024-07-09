@@ -26,7 +26,12 @@ jobs:
         uses: r-lib/actions/setup-renv@v2
         with:
           cache-version: 1
-
+          
+      - - name: Install Miniconda
+        run: |
+          Rscript -e "remotes::install_github('rstudio/reticulate')"
+          Rscript -e "reticulate::install_miniconda()"
+          
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
