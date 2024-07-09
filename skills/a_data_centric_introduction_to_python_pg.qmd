@@ -1,0 +1,331 @@
+---
+title: A Data-Centric Introduction to Python
+execute: 
+  echo: true
+  output: true
+editor_options: 
+  chunk_output_type: console
+---
+
+A note on this mixed R/Python Quarto file: the text and Python sections were written in a Jupyter notebook, then converted into a Quarto document by:
+
+```{verbatim}
+quarto convert a_data_centric_introduction_to_python.ipynb
+```
+
+R sections, and the tabsets were added, and the document was then knitted using R Quarto in Rstudio by attaching the @@reticulate package:
+
+```{r}
+#| echo: true
+library(reticulate)
+```
+
+# A data-centric introduction to Python
+
+This is a friendly beginner session introducing users to Python. It's health-and-social-care opinionated, assumes no previous Python knowledge, and will have lots of scope for practical demonstrations. Given that lots of users in the KIND network will have some prior experience of R, we'll introduce some key Python features by comparison with R
+
+# Session structure
+
++ a brief general-purpose chat for intro to the language
++ how to read and write Python (jupyter/VS Code/Posit workbench/positron)
++ a side-note about Excel Python
++ Python for R developers - a practical demonstration
+
+## Python introduction
++ ["Python is a high-level, general-purpose programming language."](https://en.wikipedia.org/wiki/Python_(programming_language))
++ massive user-base
++ highly extensible and flexible ($10^5$ modules)    
++ the [second-best language for everything](https://www.youtube.com/watch?v=OkuGfa3zcL8)
++ multi-paradigm (oop, structured, ...)
+
+# Reading and writing Python
++ you'll need:
+    + Python, [currently at 3.12](https://docs.python.org/release/3.12.4/)
+    + (almost certainly) something to manage modules - like [pip](https://pypi.org/project/pip/) or [conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
+    + (almost certainly) an integrated development environment. Loads of options:
+        + practical demo of [Jupyter labs](https://jupyter.org/)
+        + non-free use in [posit.cloud](https://posit.cloud)
+        + Rstudio via [reticulate](https://cran.r-project.org/web/packages/reticulate/index.html) / Jupyter
+        + [VSCode](https://code.visualstudio.com/), which is pretty well industry standard for the wider Python ecosystem
+        + [positron](https://github.com/posit-dev/positron), which is the new kid for data-flavoured Python work
+
+## Excel Python
+
++ Python is coming to Excel, apparently...
+    + roll-out slower than expected
++ gives an alternative to VBA etc
++ code gets executed in the cloud, so no infrastructure faff...
+    + but a potential information governance headache
++ on the offchance that you have it available, `=PY()` is the key function
+    + see ["hello world!"-type walkthrough](https://support.microsoft.com/en-gb/office/get-started-with-python-in-excel-a33fbcbe-065b-41d3-82cf-23d05397f53d)
+
+## Python for R people
+
+You're welcome to follow along using the free basic Python set-up at [W3schools](https://www.w3schools.com/python/trypython.asp?filename=demo_default)
+
++ "hello world!"
++ indents vs brackets
++ Rmarkdown vs Jupyter
++ packages vs modules - for data from csv comparison
++ basic work with tabular data - for methods
++ vector/tibble/list vs list/tuple/dict/set - for vectorisation vs list comps
++ pandas for tabular data
++ plotting comparison
+
+## "hello world!"
+
+Initially, there's very little to choose between R and Python, and everything is likely to feel very familiar..
+
+::: {.panel-tabset}
+
+### Python
+
+
+```{python}
+print("hello world!")
+
+1 + 2
+
+hw = "hello " + "world" + "!"
+hw
+```
+
+
+### R
+
+```{r}
+"hello world"
+
+1 + 2
+
+hw <- paste("hello", "world", "!")
+hw
+
+```
+
+
+:::
+
+
+## indents
++ a first big difference: indents *matter* in Python
++ they're non-optional with proper syntactic function
+    + broadly correspond to curly brackets in R
+
+::: {.panel-tabset}
+### Python
+
+```{python}
+word = "care"
+
+if word == "care":
+    print("I have found someone from care")
+else:
+    print("No, I haven't found anyone from care")
+```
+
+### R
+
+```{r}
+word <- "care"
+
+if (word == "care") {
+  print("I have found someone from care")
+} else {
+  print("No, I haven't found anyone from care")
+}
+
+```
+
+:::
+
+
+## Rmarkdown/Quarto vs Jupyter
++ Jupyter provides interactive code- and markdown editing. Compare to the render/knit-based workflow of qmd/Rmd
++ web-based, so perhaps more like posit.cloud / workbench than Rstudio
++ comparatively harder to edit .ipynb files than .Rmd/.qmd in other tools
+
+## packages vs modules
+We'll have a play with [pandas](https://pandas.pydata.org/docs/reference/api/pandas.Index.html) - one of the main modules for working with tabular data
+
+
+
+::: {.panel-tabset}
+### Python
+
+```{python}
+botw_dat = "https://raw.githubusercontent.com/NES-DEW/KIND-community-standards/main/data/KIND_book_of_the_week.csv"
+
+import pandas
+botw = pandas.read_csv(botw_dat)
+
+# one minor bit of cheating - we'll coerce the Year column to numeric
+botw = botw.replace("1979 (1935)", 1979)
+botw["Year"] = pandas.to_numeric(botw["Year"])
+```
+
+But we also have a lot of options for loading modules. We can alias, most usefully to give us short names for commonly-used functions:
+
+
+```{python}
+import pandas as pd
+botw = pd.read_csv(botw_dat)
+```
+
+We could even load an individual function from a module:
+```{python}
+from pandas import read_csv as read_csv
+botw = read_csv(botw_dat)
+```
+
+### R
+
+:::
+
+## Fun with tabular data
++ doing some basic playing with our tabular data shows methods - like a local version of a functions
++ both [`shape`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html) and [`index`](https://pandas.pydata.org/docs/reference/api/pandas.Index.html) are methods that we've imported from pandas. They'll only work in pandas objects, which we'll talk about more below.
+
+::: {.panel-tabset}
+### Python
+
+```{python}
+botw.shape # shape is a method
+len(botw.index) # as is index
+botw.shape[0] # Python is 0-indexed
+```
+
+### R
+
+:::
+
+
+## Data types
+
+::: {.panel-tabset}
+### Python
+
++ there are four basic data types - list/tuple/dict/set
++ this can be an area of pain for some learners
+
+```{python}
+numbers_list = [1,2,3,4,5] # changeable
+numbers_tuple = (1,2,3,4,5) # unchangeable
+numbers_dict = {"one":1, "two":2, "three":3} # changeable (now), no duplicates
+numbers_set = {1,2,3,4,5} # unchangeable, no duplicates
+```
+
+```{python}
+# Modify in place semantics
+numbers_list.reverse()
+```
+
+### R
+
+:::
+
+## No vectorisation!
+You'll need to use loops, or (much nicer) list comprehension
+
+## Loops
+
+::: {.panel-tabset}
+### Python
+
+```{python}
+double_numbers_loop = []
+
+for n in numbers_list:
+    double_numbers_loop.append(n * 2)
+
+double_numbers_loop
+```
+
+## List comprehension
+Like a lovely lightweight loop syntax
+
+```{python}
+double_numbers_list =  [n*2 for n in numbers_list]
+double_numbers_list
+
+# and, more fancy...
+double_even_numbers_list =  [n*2 for n in numbers_list if (n%2 == 0) ]
+double_even_numbers_list
+```
+
+### R
+
+:::
+
+## Tabular data basics
+
+::: {.panel-tabset}
+### Python
+
++ we'll do a quick overview of pandas, based on [their excellent 10 minute overview](https://pandas.pydata.org/docs/user_guide/10min.html)
++ our `botw` object is a DataFrame, which is based on a dict
+    + like tibbles, DataFrames can contain columns of different types
+
+
+```{python}
+botw.head()
+```
+
+```{python}
+botw.index # effectively rows
+botw.columns
+```
+
+```{python}
+botw.describe()
+```
+
+```{python}
+botw.sort_values("Year")
+```
+
+```{python}
+botw["Date"] # selecting a column and creating a series
+botw[2:4] # subsetting by index using a slice and returning a DataFrame
+botw[["Date"]] # subsetting columns
+botw.loc[4] # subsetting by index using a slice and returning a series
+botw.loc[4, ["Author", "Year"]]
+```
+
+```{python}
+botw[botw["Year"] > 2010].sort_values("Year")
+
+botw[botw["Author"].isin(["Katrine Marçal", "Caroline Criado Perez"])]
+
+botw.dropna() # removes any missing
+
+botw["Title"].str.lower()
+
+botw["Date"] = pd.to_datetime(botw["Date"],format='%d/%m/%Y')
+
+botw.groupby(pd.DatetimeIndex(botw['Date']).month)[["Year"]].mean() # average year of publication by month of botw
+```
+
+### R
+
+:::
+ 
+## Plots
+
+::: {.panel-tabset}
+### Python
+
+
+Using [matplotlib](https://matplotlib.org/3.1.1/index.html)
+
+```{python}
+import matplotlib.pyplot as plt
+
+plt.hist(botw["Year"], bins = 5)
+
+plt.title("The KIND network BotW is biased towards newer books")
+```
+
+### R
+
+:::
