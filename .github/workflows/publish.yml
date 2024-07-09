@@ -22,11 +22,6 @@ jobs:
         with:
           r-version: '4.2.0'
       
-      - name: Install R Dependencies
-        uses: r-lib/actions/setup-renv@v2
-        with:
-          cache-version: 1
-          
       - name: reticulate check
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -53,6 +48,11 @@ jobs:
                      Sys.getenv("GITHUB_ENV"))
 
       - uses: r-lib/actions/check-r-package@v2
+      
+      - name: Install R Dependencies
+        uses: r-lib/actions/setup-renv@v2
+        with:
+          cache-version: 1
           
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
