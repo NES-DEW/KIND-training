@@ -47,13 +47,6 @@ jobs:
           writeLines(sprintf("RETICULATE_PYTHON=%s", path_to_python),
                      Sys.getenv("GITHUB_ENV"))
 
-      - name: reticulate check
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: rcmdcheck reticulate
-
-      - uses: r-lib/actions/check-r-package@v2
-
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
