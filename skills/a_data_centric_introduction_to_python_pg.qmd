@@ -21,7 +21,10 @@ library(reticulate)
 
 ```{r}
 #| echo: false
-use_virtualenv("r-reticulate", required = TRUE)
+
+if(.Platform$OS.type != "Windows") {
+  reticulate::use_virtualenv("r-reticulate", required = TRUE)
+} 
 ```
 
 
