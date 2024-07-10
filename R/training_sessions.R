@@ -6,10 +6,10 @@ training_sessions <- function(tr_type = "all", start_date = "today", end_date = 
   sesh <- readr::read_csv("data/KIND_training_sessions.csv")
   
   schedule <- readr::read_csv("data/training_schedule.csv")
-  if (tr_type != "all") {
+  if (paste(tr_type, collapse = " ") != "all") {
     
     poss_sesh <- sesh |>
-      dplyr::filter(`Platform / area` == tr_type) |>
+      dplyr::filter(`Platform / area` %in% tr_type) |>
       pull(Title)
     
     schedule <- schedule |>
@@ -59,4 +59,4 @@ training_sessions <- function(tr_type = "all", start_date = "today", end_date = 
   }
 
 }
-training_sessions()
+# training_sessions()
