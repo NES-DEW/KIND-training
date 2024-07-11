@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-07-10">
+<meta name="dcterms.date" content="2024-07-11">
 
 <title>A Data-Centric Introduction to Python – KIND training pages</title>
 <style>
@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -239,13 +259,12 @@ window.Quarto = {
   <li><a href="#excel-python" id="toc-excel-python" class="nav-link" data-scroll-target="#excel-python">Excel Python</a></li>
   <li><a href="#python-for-r-people" id="toc-python-for-r-people" class="nav-link" data-scroll-target="#python-for-r-people">Python for R people</a></li>
   <li><a href="#hello-world" id="toc-hello-world" class="nav-link" data-scroll-target="#hello-world">“hello world!”</a></li>
-  <li><a href="#indents" id="toc-indents" class="nav-link" data-scroll-target="#indents">indents</a></li>
+  <li><a href="#indents" id="toc-indents" class="nav-link" data-scroll-target="#indents">Indents</a></li>
   <li><a href="#rmarkdownquarto-vs-jupyter" id="toc-rmarkdownquarto-vs-jupyter" class="nav-link" data-scroll-target="#rmarkdownquarto-vs-jupyter">Rmarkdown/Quarto vs Jupyter</a></li>
-  <li><a href="#packages-vs-modules" id="toc-packages-vs-modules" class="nav-link" data-scroll-target="#packages-vs-modules">packages vs modules</a></li>
+  <li><a href="#packages-vs-modules" id="toc-packages-vs-modules" class="nav-link" data-scroll-target="#packages-vs-modules">Packages vs modules</a></li>
   <li><a href="#fun-with-tabular-data" id="toc-fun-with-tabular-data" class="nav-link" data-scroll-target="#fun-with-tabular-data">Fun with tabular data</a></li>
   <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types">Data types</a></li>
-  <li><a href="#no-vectorisation" id="toc-no-vectorisation" class="nav-link" data-scroll-target="#no-vectorisation">No vectorisation!</a></li>
-  <li><a href="#loops" id="toc-loops" class="nav-link" data-scroll-target="#loops">Loops</a></li>
+  <li><a href="#loops-list-comprehensions-and-vectorization" id="toc-loops-list-comprehensions-and-vectorization" class="nav-link" data-scroll-target="#loops-list-comprehensions-and-vectorization">Loops, list comprehensions, and vectorization</a></li>
   <li><a href="#tabular-data-basics" id="toc-tabular-data-basics" class="nav-link" data-scroll-target="#tabular-data-basics">Tabular data basics</a></li>
   <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots">Plots</a></li>
   </ul></li>
@@ -272,7 +291,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 10, 2024</p>
+      <p class="date">July 11, 2024</p>
     </div>
   </div>
   
@@ -285,10 +304,10 @@ window.Quarto = {
 
 
 <p>A note on this mixed R/Python Quarto file: the text and Python sections were written in a Jupyter notebook, then converted into a Quarto document by:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>quarto convert a_data_centric_introduction_to_python.ipynb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>R sections, and the tabsets were added, and the document was then knitted using R Quarto in Rstudio by attaching the @<span class="citation" data-cites="reticulate">@reticulate</span> package:</p>
+<p><code>quarto convert a_data_centric_introduction_to_python.ipynb</code></p>
+<p>R sections, and the tabsets were added, and the document was then knitted using R Quarto in Rstudio by attaching the reticulate <span class="citation" data-cites="reticulate">(<a href="#ref-reticulate" role="doc-biblioref">Ushey, Allaire, and Tang 2024</a>)</span> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="a-data-centric-introduction-to-python" class="level1">
 <h1>A data-centric introduction to Python</h1>
@@ -371,16 +390,16 @@ window.Quarto = {
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"hello world!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"hello world!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>hello world!</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hw <span class="op">=</span> <span class="st">"hello "</span> <span class="op">+</span> <span class="st">"world"</span> <span class="op">+</span> <span class="st">"!"</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>hw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>hw <span class="op">=</span> <span class="st">"hello "</span> <span class="op">+</span> <span class="st">"world"</span> <span class="op">+</span> <span class="st">"!"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>hw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'hello world!'</code></pre>
 </div>
@@ -388,16 +407,16 @@ window.Quarto = {
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="st">"hello world"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">"hello world"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "hello world"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>hw <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"hello"</span>, <span class="st">"world"</span>, <span class="st">"!"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>hw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>hw <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"hello"</span>, <span class="st">"world"</span>, <span class="st">"!"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>hw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "hello world !"</code></pre>
 </div>
@@ -407,7 +426,7 @@ window.Quarto = {
 </div>
 </section>
 <section id="indents" class="level2">
-<h2 class="anchored" data-anchor-id="indents">indents</h2>
+<h2 class="anchored" data-anchor-id="indents">Indents</h2>
 <ul>
 <li>a first big difference: indents <em>matter</em> in Python</li>
 <li>they’re non-optional with proper syntactic function
@@ -420,12 +439,12 @@ window.Quarto = {
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>word <span class="op">=</span> <span class="st">"care"</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> word <span class="op">==</span> <span class="st">"care"</span>:</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I have found someone from care"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No, I haven't found anyone from care"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>word <span class="op">=</span> <span class="st">"care"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> word <span class="op">==</span> <span class="st">"care"</span>:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I have found someone from care"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No, I haven't found anyone from care"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>I have found someone from care</code></pre>
 </div>
@@ -433,13 +452,13 @@ window.Quarto = {
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>word <span class="ot">&lt;-</span> <span class="st">"care"</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (word <span class="sc">==</span> <span class="st">"care"</span>) {</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"I have found someone from care"</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"No, I haven't found anyone from care"</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>word <span class="ot">&lt;-</span> <span class="st">"care"</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (word <span class="sc">==</span> <span class="st">"care"</span>) {</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"I have found someone from care"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"No, I haven't found anyone from care"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "I have found someone from care"</code></pre>
 </div>
@@ -457,66 +476,93 @@ window.Quarto = {
 </ul>
 </section>
 <section id="packages-vs-modules" class="level2">
-<h2 class="anchored" data-anchor-id="packages-vs-modules">packages vs modules</h2>
-<p>We’ll have a play with <a href="https://pandas.pydata.org/docs/reference/api/pandas.Index.html">pandas</a> - one of the main modules for working with tabular data</p>
+<h2 class="anchored" data-anchor-id="packages-vs-modules">Packages vs modules</h2>
+<p>We’ll load the <a href="https://pandas.pydata.org/docs/reference/api/pandas.Index.html">pandas</a> module in Python, and the readr package in R <span class="citation" data-cites="readr">(<a href="#ref-readr" role="doc-biblioref">Wickham, Hester, and Bryan 2024</a>)</span> to compare and contrast loading external functions. We’ll use those to read some sample data (the KIND book of the week dataset).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">R</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>botw_dat <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/NES-DEW/KIND-community-standards/main/data/KIND_book_of_the_week.csv"</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> pandas.read_csv(botw_dat)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># one minor bit of cheating - we'll coerce the Year column to numeric</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> botw.replace(<span class="st">"1979 (1935)"</span>, <span class="dv">1979</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Year"</span>] <span class="op">=</span> pandas.to_numeric(botw[<span class="st">"Year"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>botw_dat <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/NES-DEW/KIND-community-standards/main/data/KIND_book_of_the_week.csv"</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> pandas.read_csv(botw_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>But we also have a lot of options for loading modules. We can alias, most usefully to give us short names for commonly-used functions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> pd.read_csv(botw_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> pd.read_csv(botw_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We could even load an individual function from a module:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas <span class="im">import</span> read_csv <span class="im">as</span> read_csv</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> read_csv(botw_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas <span class="im">import</span> read_csv <span class="im">as</span> read_csv</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> read_csv(botw_dat)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># one minor bit of cheating - we'll coerce the Year column to numeric</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> botw.replace(<span class="st">"1979 (1935)"</span>, <span class="dv">1979</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Year"</span>] <span class="op">=</span> pandas.to_numeric(botw[<span class="st">"Year"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-
+<p>There are comparatively fewer options for package loading in R. You’d traditionally attach a whole package using <code>library</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>botw_dat <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/NES-DEW/KIND-community-standards/main/data/KIND_book_of_the_week.csv"</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>botw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(botw_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can load individual functions by namespacing via <code>::</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>botw <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(botw_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It is also possible, although non-standard, to alias individual functions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>steve <span class="ot">&lt;-</span> readr<span class="sc">::</span>read_csv</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>botw <span class="ot">&lt;-</span> <span class="fu">steve</span>(botw_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </div>
 </div>
 </section>
 <section id="fun-with-tabular-data" class="level2">
 <h2 class="anchored" data-anchor-id="fun-with-tabular-data">Fun with tabular data</h2>
-<ul>
-<li>doing some basic playing with our tabular data shows methods - like a local version of a functions</li>
-<li>both <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"><code>shape</code></a> and <a href="https://pandas.pydata.org/docs/reference/api/pandas.Index.html"><code>index</code></a> are methods that we’ve imported from pandas. They’ll only work in pandas objects, which we’ll talk about more below.</li>
-</ul>
+<p>Doing some basic playing with our tabular data shows that Python uses methods - like a local version of a functions that are specific to certain types of object. While methods <a href="https://stat.ethz.ch/R-manual/R-devel/library/methods/html/Methods_Details.html">can be used in R</a>, in practice most R code relies on functions.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">R</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>Both <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"><code>shape</code></a> and <a href="https://pandas.pydata.org/docs/reference/api/pandas.Index.html"><code>index</code></a> are methods that we’ve imported from pandas. They’ll only work in pandas objects, which we’ll talk about more below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>botw.shape <span class="co"># shape is a method</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>botw.shape <span class="co"># shape is a method</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(15, 8)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(botw.index) <span class="co"># as is index</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(botw.index) <span class="co"># as is index</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>15</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>botw.shape[<span class="dv">0</span>] <span class="co"># Python is 0-indexed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>botw.shape[<span class="dv">0</span>] <span class="co"># Python is 0-indexed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>15</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(botw) <span class="co"># dim is a function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15  8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(botw) <span class="co"># as is nrow</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(botw)[<span class="dv">1</span>] <span class="co"># Python is 1-indexed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -528,43 +574,93 @@ window.Quarto = {
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <ul>
-<li>there are four basic data types - list/tuple/dict/set</li>
-<li>this can be an area of pain for some learners</li>
+<li>there are four basic data types in Python</li>
+<li>list</li>
+<li>tuple</li>
+<li>dict</li>
+<li>set</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>numbers_list <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>] <span class="co"># changeable</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>numbers_tuple <span class="op">=</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># unchangeable</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>numbers_dict <span class="op">=</span> {<span class="st">"one"</span>:<span class="dv">1</span>, <span class="st">"two"</span>:<span class="dv">2</span>, <span class="st">"three"</span>:<span class="dv">3</span>} <span class="co"># changeable (now), no duplicates</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>numbers_set <span class="op">=</span> {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>} <span class="co"># unchangeable, no duplicates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>numbers_list <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>] <span class="co"># changeable</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>numbers_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1, 2, 3, 4, 5]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>numbers_tuple <span class="op">=</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># unchangeable</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>numbers_tuple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(1, 2, 3, 4, 5)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>numbers_dict <span class="op">=</span> {<span class="st">"one"</span>:<span class="dv">1</span>, <span class="st">"two"</span>:<span class="dv">2</span>, <span class="st">"three"</span>:<span class="dv">3</span>} <span class="co"># changeable (now), no duplicates</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>numbers_dict</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'one': 1, 'two': 2, 'three': 3}</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>numbers_set <span class="op">=</span> {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>} <span class="co"># unchangeable, no duplicates</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>numbers_set</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{1, 2, 3, 4, 5}</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify in place semantics</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>numbers_list.reverse()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify in place semantics</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>numbers_list.reverse()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<ul>
+<li>R has <a href="http://adv-r.had.co.nz/Data-structures.html">several basic data types</a>, but in practice only three are commonly encountered. These are the vector, the data frame, and the list (confusing!):</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>numbers_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>numbers_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>numbers_dataframe <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">nums =</span> numbers_vector)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>numbers_dataframe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  nums
+1    1
+2    2
+3    3
+4    4
+5    5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>numbers_list <span class="ot">&lt;-</span> <span class="fu">list</span>(numbers_vector, numbers_dataframe)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>numbers_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1 2 3 4 5
 
+[[2]]
+  nums
+1    1
+2    2
+3    3
+4    4
+5    5</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 </section>
-<section id="no-vectorisation" class="level2">
-<h2 class="anchored" data-anchor-id="no-vectorisation">No vectorisation!</h2>
-<p>You’ll need to use loops, or (much nicer) list comprehension</p>
-</section>
-<section id="loops" class="level2">
-<h2 class="anchored" data-anchor-id="loops">Loops</h2>
+<section id="loops-list-comprehensions-and-vectorization" class="level2">
+<h2 class="anchored" data-anchor-id="loops-list-comprehensions-and-vectorization">Loops, list comprehensions, and vectorization</h2>
+<p>There are various methods for repeatedly running code. We’ll demonstrate a couple of simple methods here. Note that both Python and R have rich and powerful functional programming tools available (like <code>map</code>), but we’ll park those for now.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">R</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<p>You’ll need to use loops, or (much nicer) list comprehension in Python. There’s no exact counterpart of R’s vectorized functions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>double_numbers_loop <span class="op">=</span> []</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> numbers_list:</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    double_numbers_loop.append(n <span class="op">*</span> <span class="dv">2</span>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>double_numbers_loop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>double_numbers_loop <span class="op">=</span> []</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> numbers_list:</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    double_numbers_loop.append(n <span class="op">*</span> <span class="dv">2</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>double_numbers_loop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[10, 8, 6, 4, 2]</code></pre>
 </div>
@@ -573,14 +669,14 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="list-comprehension">List comprehension</h2>
 <p>Like a lovely lightweight loop syntax</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>double_numbers_list <span class="op">=</span>  [n<span class="op">*</span><span class="dv">2</span> <span class="cf">for</span> n <span class="kw">in</span> numbers_list]</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>double_numbers_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>double_numbers_list <span class="op">=</span>  [n<span class="op">*</span><span class="dv">2</span> <span class="cf">for</span> n <span class="kw">in</span> numbers_list]</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>double_numbers_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[10, 8, 6, 4, 2]</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and, more fancy...</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>double_even_numbers_list <span class="op">=</span>  [n<span class="op">*</span><span class="dv">2</span> <span class="cf">for</span> n <span class="kw">in</span> numbers_list <span class="cf">if</span> (n<span class="op">%</span><span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>) ]</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>double_even_numbers_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and, more fancy...</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>double_even_numbers_list <span class="op">=</span>  [n<span class="op">*</span><span class="dv">2</span> <span class="cf">for</span> n <span class="kw">in</span> numbers_list <span class="cf">if</span> (n<span class="op">%</span><span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>) ]</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>double_even_numbers_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[8, 4]</code></pre>
 </div>
@@ -588,7 +684,23 @@ window.Quarto = {
 </section>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-
+<p>By and large, R is at its best with vectorized functions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>double_numbers_vector <span class="ot">&lt;-</span> numbers_vector <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>double_numbers_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  4  6  8 10</code></pre>
+</div>
+</div>
+<p>Loops are possible too</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>double_numbers_loop <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"numeric"</span>, <span class="at">length =</span> <span class="fu">length</span>(numbers_vector))</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> numbers_vector) {</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  double_numbers_loop[i] <span class="ot">&lt;-</span> i <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>R has <a href="https://stackoverflow.com/questions/15759117/what-exactly-is-copy-on-modify-semantics-in-r-and-where-is-the-canonical-source">copy-on-modify semantics</a>, and so care needs to be taken to avoid writing poorly-performing loops. That means that loops are used comparatively rarely in R.</p>
 </div>
 </div>
 </div>
@@ -607,7 +719,19 @@ window.Quarto = {
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>botw.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>botw.dtypes <span class="co"># find out what we're dealing with</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Date                object
+Author              object
+Year                 int64
+Title               object
+ISBN                 int64
+Worldcat            object
+KnowledgeNetwork    object
+Description         object
+dtype: object</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>botw.head() <span class="co"># shows first few rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Date  ...                                        Description
 0  06/03/2024  ...  The Code Book: The Secret History of Codes and...
@@ -618,35 +742,29 @@ window.Quarto = {
 
 [5 rows x 8 columns]</code></pre>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>botw.index <span class="co"># effectively rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>botw.index <span class="co"># effectively counts rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>RangeIndex(start=0, stop=15, step=1)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>botw.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>botw.columns <span class="co"># gives column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Index(['Date', 'Author', 'Year', 'Title', 'ISBN', 'Worldcat',
        'KnowledgeNetwork', 'Description'],
       dtype='object')</code></pre>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>botw.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>botw.describe() <span class="co"># simple summary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>               ISBN
-count  1.500000e+01
-mean   9.781178e+12
-std    6.665700e+08
-min    9.780140e+12
-25%    9.780577e+12
-50%    9.781473e+12
-75%    9.781813e+12
-max    9.781857e+12</code></pre>
+<pre><code>              Year          ISBN
+count    15.000000  1.500000e+01
+mean   2005.733333  9.781178e+12
+std      12.144762  6.665700e+08
+min    1979.000000  9.780140e+12
+25%    2000.000000  9.780577e+12
+50%    2010.000000  9.781473e+12
+75%    2016.000000  9.781813e+12
+max    2019.000000  9.781857e+12</code></pre>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>botw.sort_values(<span class="st">"Year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>botw.sort_values(<span class="st">"Year"</span>) <span class="co"># sorting by column values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Date  ...                                        Description
 9   29/05/2024  ...  If last week's book was a paean to the use of ...
@@ -661,15 +779,13 @@ max    9.781857e+12</code></pre>
 11  12/06/2024  ...  While the word [agnotology](https://simple.wik...
 3   27/03/2024  ...                                                NaN
 4   24/04/2024  ...  We're looking at regular expressions in the co...
-8   22/05/2024  ...  A love-letter to the power of domain knowledge...
 14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...
+8   22/05/2024  ...  A love-letter to the power of domain knowledge...
 5   01/05/2024  ...  Anyone who works with data knows that our data...
 
 [15 rows x 8 columns]</code></pre>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Date"</span>] <span class="co"># selecting a column and creating a series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Date"</span>] <span class="co"># selecting a column and creating a series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0     06/03/2024
 1     13/03/2024
@@ -688,15 +804,15 @@ max    9.781857e+12</code></pre>
 14    03/07/2024
 Name: Date, dtype: object</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="dv">2</span>:<span class="dv">4</span>] <span class="co"># subsetting by index using a slice and returning a DataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="dv">2</span>:<span class="dv">4</span>] <span class="co"># subsetting by index using a slice and returning a DataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         Date          Author  ... KnowledgeNetwork Description
-2  20/03/2024   David Oldroyd  ...              NaN         NaN
-3  27/03/2024  Katrine Marçal  ...              NaN         NaN
+<pre><code>         Date          Author  ...  KnowledgeNetwork Description
+2  20/03/2024   David Oldroyd  ...               NaN         NaN
+3  27/03/2024  Katrine Marçal  ...               NaN         NaN
 
 [2 rows x 8 columns]</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>botw[[<span class="st">"Date"</span>]] <span class="co"># subsetting columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>botw[[<span class="st">"Date"</span>]] <span class="co"># subsetting entire columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Date
 0   06/03/2024
@@ -715,7 +831,7 @@ Name: Date, dtype: object</code></pre>
 13  26/06/2024
 14  03/07/2024</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>botw.loc[<span class="dv">4</span>] <span class="co"># subsetting by index using a slice and returning a series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>botw.loc[<span class="dv">4</span>] <span class="co"># subsetting by index using a slice and returning a series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Date                                                       24/04/2024
 Author                                                       Tom Lean
@@ -727,17 +843,26 @@ KnowledgeNetwork                                                  NaN
 Description         We're looking at regular expressions in the co...
 Name: 4, dtype: object</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>botw.loc[<span class="dv">4</span>, [<span class="st">"Author"</span>, <span class="st">"Year"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>botw.loc[<span class="dv">4</span>, [<span class="st">"Author"</span>, <span class="st">"Year"</span>]] <span class="co"># subsetting by index and columns and returning a DataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Author    Tom Lean
 Year          2016
 Name: 4, dtype: object</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>botw[botw[<span class="st">"Year"</span>] <span class="op">&gt;</span> <span class="dv">2010</span>].sort_values(<span class="st">"Year"</span>) <span class="co"># subsetting by years, and sorting</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Date  ...                                        Description
+1   13/03/2024  ...  Here's a book of the week suggestion following...
+11  12/06/2024  ...  While the word [agnotology](https://simple.wik...
+4   24/04/2024  ...  We're looking at regular expressions in the co...
+3   27/03/2024  ...                                                NaN
+14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...
+8   22/05/2024  ...  A love-letter to the power of domain knowledge...
+5   01/05/2024  ...  Anyone who works with data knows that our data...
+
+[7 rows x 8 columns]</code></pre>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># botw[botw["Year"] &gt; 2010].sort_values("Year")</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>botw[botw[<span class="st">"Author"</span>].isin([<span class="st">"Katrine Marçal"</span>, <span class="st">"Caroline Criado Perez"</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>botw[botw[<span class="st">"Author"</span>].isin([<span class="st">"Katrine Marçal"</span>, <span class="st">"Caroline Criado Perez"</span>])] <span class="co"># finding matching values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Date  ...                                        Description
 3  27/03/2024  ...                                                NaN
@@ -745,7 +870,7 @@ Name: 4, dtype: object</code></pre>
 
 [2 rows x 8 columns]</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>botw.dropna() <span class="co"># removes any missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>botw.dropna() <span class="co"># removes any missing values in the whole DataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Date  ...                                        Description
 11  12/06/2024  ...  While the word [agnotology](https://simple.wik...
@@ -753,7 +878,7 @@ Name: 4, dtype: object</code></pre>
 
 [2 rows x 8 columns]</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Title"</span>].<span class="bu">str</span>.lower()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Title"</span>].<span class="bu">str</span>.lower() <span class="co"># returning the title column as a lower-case series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0                                         the code book
 1                                    ghost in the wires
@@ -772,14 +897,228 @@ Name: 4, dtype: object</code></pre>
 14                                how emotions are made
 Name: Title, dtype: object</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Date"</span>] <span class="op">=</span> pd.to_datetime(botw[<span class="st">"Date"</span>],<span class="bu">format</span><span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st">/%m/%Y'</span>)</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="co"># botw.groupby(pd.DatetimeIndex(botw['Date']).month)[["Year"]].count() # average year of publication by month of botw</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Date"</span>] <span class="op">=</span> pandas.to_datetime(botw[<span class="st">"Date"</span>],<span class="bu">format</span><span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st">/%m/%Y'</span>) <span class="co"># fixing publication dates</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>botw.groupby(pd.DatetimeIndex(botw[<span class="st">'Date'</span>]).month)[[<span class="st">"Year"</span>]].mean(<span class="st">"Year"</span>) <span class="co"># average year of publication by month of botw</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Year
+Date        
+3     2003.0
+4     2016.0
+5     2004.4
+6     2004.5
+7     2018.0</code></pre>
+</div>
 </div>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># we'll need dplyr for this work</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(botw) <span class="co"># shows data types etc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [15 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Date            : chr [1:15] "06/03/2024" "13/03/2024" "20/03/2024" "27/03/2024" ...
+ $ Author          : chr [1:15] "Simon Singh" "Kevin Mitnick" "David Oldroyd" "Katrine Marçal" ...
+ $ Year            : chr [1:15] "1999" "2011" "1986" "2016" ...
+ $ Title           : chr [1:15] "The Code Book" "Ghost in the Wires" "The Arch of Knowledge" "Who Cooked Adam Smith's Dinner" ...
+ $ ISBN            : num [1:15] 9.78e+12 9.78e+12 9.78e+12 9.78e+12 9.78e+12 ...
+ $ Worldcat        : chr [1:15] "https://search.worldcat.org/title/59579840" "https://search.worldcat.org/title/773175688" "https://search.worldcat.org/title/12663957" "https://search.worldcat.org/title/933444501" ...
+ $ KnowledgeNetwork: chr [1:15] NA NA NA NA ...
+ $ Description     : chr [1:15] "The Code Book: The Secret History of Codes and Code-Breaking a book by . (bookshop.org) (to buy online but supp"| __truncated__ "Here's a book of the week suggestion following on from the codes theme from last time. It's the autobiography o"| __truncated__ NA NA ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Date = col_character(),
+  ..   Author = col_character(),
+  ..   Year = col_character(),
+  ..   Title = col_character(),
+  ..   ISBN = col_double(),
+  ..   Worldcat = col_character(),
+  ..   KnowledgeNetwork = col_character(),
+  ..   Description = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(botw) <span class="co"># shows first few rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description
+  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+1 06/03/2024 Simon Si… 1999  The … 9.78e12 https:/… &lt;NA&gt;             The Code B…
+2 13/03/2024 Kevin Mi… 2011  Ghos… 9.78e12 https:/… &lt;NA&gt;             Here's a b…
+3 20/03/2024 David Ol… 1986  The … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       
+4 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       
+5 24/04/2024 Tom Lean  2016  Elec… 9.78e12 https:/… &lt;NA&gt;             We're look…
+6 01/05/2024 Caroline… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             Anyone who…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(botw) <span class="co"># counts rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(botw) <span class="co"># column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Date"             "Author"           "Year"             "Title"           
+[5] "ISBN"             "Worldcat"         "KnowledgeNetwork" "Description"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(botw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Date              Author              Year              Title          
+ Length:15          Length:15          Length:15          Length:15         
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+      ISBN             Worldcat         KnowledgeNetwork   Description       
+ Min.   :9.780e+12   Length:15          Length:15          Length:15         
+ 1st Qu.:9.781e+12   Class :character   Class :character   Class :character  
+ Median :9.781e+12   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :9.781e+12                                                           
+ 3rd Qu.:9.782e+12                                                           
+ Max.   :9.782e+12                                                           </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>botw <span class="sc">|&gt;</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Year) <span class="co"># native pipe operator in R. Piped code in Python requires modules</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 8
+   Date       Author   Year  Title    ISBN Worldcat KnowledgeNetwork Description
+   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+ 1 29/05/2024 Ludwig … 1979… Gene… 9.78e12 https:/… &lt;NA&gt;             "If last w…
+ 2 20/03/2024 David O… 1986  The … 9.78e12 https:/… &lt;NA&gt;              &lt;NA&gt;      
+ 3 08/05/2024 Stephen… 1996  The … 9.78e12 https:/… &lt;NA&gt;             "After the…
+ 4 06/03/2024 Simon S… 1999  The … 9.78e12 https:/… &lt;NA&gt;             "The Code …
+ 5 19/06/2024 Andrew … 2001  Harv… 9.78e12 https:/… &lt;NA&gt;             "Last week…
+ 6 26/06/2024 Trent D… 2001  Dark… 9.78e12 https:/… &lt;NA&gt;             "We're sti…
+ 7 05/06/2024 Andrew … 2004  In t… 9.78e12 https:/… &lt;NA&gt;             "It's now …
+ 8 15/05/2024 Kathryn… 2010  Bein… 9.78e12 https:/… &lt;NA&gt;             "If I was …
+ 9 13/03/2024 Kevin M… 2011  Ghos… 9.78e12 https:/… &lt;NA&gt;             "Here's a …
+10 12/06/2024 Naomi O… 2012  Merc… 9.78e12 https:/… https://nhs.pri… "While the…
+11 27/03/2024 Katrine… 2016  Who … 9.78e12 https:/… &lt;NA&gt;              &lt;NA&gt;      
+12 24/04/2024 Tom Lean 2016  Elec… 9.78e12 https:/… &lt;NA&gt;             "We're loo…
+13 22/05/2024 John Ca… 2018  Bad … 9.78e12 https:/… &lt;NA&gt;             "A love-le…
+14 03/07/2024 Lisa Fe… 2018  How … 9.78e12 https:/… https://nhs.pri… "This week…
+15 01/05/2024 Carolin… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             "Anyone wh…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>botw<span class="sc">$</span>Date <span class="co"># selecting a column as a vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "06/03/2024" "13/03/2024" "20/03/2024" "27/03/2024" "24/04/2024"
+ [6] "01/05/2024" "08/05/2024" "15/05/2024" "22/05/2024" "29/05/2024"
+[11] "05/06/2024" "12/06/2024" "19/06/2024" "26/06/2024" "03/07/2024"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>botw <span class="sc">|&gt;</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>) <span class="co"># subsetting by index using slice and returning a tibble Note different indexing behaviour</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 8
+  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description
+  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+1 20/03/2024 David Ol… 1986  The … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       
+2 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>botw <span class="sc">|&gt;</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Date) <span class="co"># subsetting entire columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 1
+   Date      
+   &lt;chr&gt;     
+ 1 06/03/2024
+ 2 13/03/2024
+ 3 20/03/2024
+ 4 27/03/2024
+ 5 24/04/2024
+ 6 01/05/2024
+ 7 08/05/2024
+ 8 15/05/2024
+ 9 22/05/2024
+10 29/05/2024
+11 05/06/2024
+12 12/06/2024
+13 19/06/2024
+14 26/06/2024
+15 03/07/2024</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(botw[<span class="dv">5</span>,]) <span class="co"># subsetting by index and coercing to a vector. This is pretty non-idiomatic in R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "24/04/2024"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+[2] "Tom Lean"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+[3] "2016"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+[4] "Electronic Dreams: How 1980s Britain Learned to Love the Computer"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+[5] "9781472918338"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+[6] "https://search.worldcat.org/title/907966036"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+[7] NA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+[8] "We're looking at regular expressions in the community meetup today. Regex, as the wikipedia page suggests, have been around for ages - positively archaeological in computing terms. So for the book of the week this week, I wanted to show off one of the most interesting bits of social history I've read: Tom Lean's Electronic Dreams. Lots of the history of computing is either primarily about the technical details, or is a broadly nostalgic look at obsolete tech. This book doesn't do either of those, instead spending its time giving a concise account of how personal computing worked as a social phenomenon. For example, how did people start getting paid to write computer games? What happened when the BBC got involved in personal computing? What happened to the various promises of digital revolutions as a replacement for manufacturing industries."</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="dv">5</span>,] <span class="sc">|&gt;</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Author, Year) <span class="co"># subsetting by index and columns and returning a tibble</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  Author   Year 
+  &lt;chr&gt;    &lt;chr&gt;
+1 Tom Lean 2016 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>botw <span class="sc">|&gt;</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">&gt;</span> <span class="dv">2010</span>) <span class="sc">|&gt;</span></span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Year) <span class="co"># subsetting by filtering years, then sorting using dplyr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 8
+  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description
+  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+1 13/03/2024 Kevin Mi… 2011  Ghos… 9.78e12 https:/… &lt;NA&gt;             "Here's a …
+2 12/06/2024 Naomi Or… 2012  Merc… 9.78e12 https:/… https://nhs.pri… "While the…
+3 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;              &lt;NA&gt;      
+4 24/04/2024 Tom Lean  2016  Elec… 9.78e12 https:/… &lt;NA&gt;             "We're loo…
+5 22/05/2024 John Car… 2018  Bad … 9.78e12 https:/… &lt;NA&gt;             "A love-le…
+6 03/07/2024 Lisa Fel… 2018  How … 9.78e12 https:/… https://nhs.pri… "This week…
+7 01/05/2024 Caroline… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             "Anyone wh…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="fu">which</span>(botw<span class="sc">$</span>Author <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Katrine Marçal"</span>, <span class="st">"Caroline Criado Perez"</span>)),] <span class="co"># finding matching values using base R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 8
+  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description
+  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+1 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       
+2 01/05/2024 Caroline… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             Anyone who…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>botw <span class="sc">|&gt;</span></span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>() <span class="co"># removes any missing values in the whole tibble</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 8
+  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description
+  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+1 12/06/2024 Naomi Or… 2012  Merc… 9.78e12 https:/… https://nhs.pri… While the …
+2 03/07/2024 Lisa Fel… 2018  How … 9.78e12 https:/… https://nhs.pri… This week'…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>botw<span class="sc">$</span>Title <span class="sc">|&gt;</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tolower</span>() <span class="co"># returning the title column as a lower-case vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "the code book"                                                                      
+ [2] "ghost in the wires"                                                                 
+ [3] "the arch of knowledge"                                                              
+ [4] "who cooked adam smith's dinner"                                                     
+ [5] "electronic dreams: how 1980s britain learned to love the computer"                  
+ [6] "invisible women: exposing data bias in a world designed for men"                    
+ [7] "the mismeasure of man (2nd ed)"                                                     
+ [8] "being wrong: adventures in the margin of error"                                     
+ [9] "bad blood: secrets and lies in a silicon valley startup"                            
+[10] "genesis and development of a scientific fact"                                       
+[11] "in the beginning was the worm : finding the secrets of life in a tiny hermaphrodite"
+[12] "merchants of doubt"                                                                 
+[13] "harvey's heart: the discovery of blood circulation"                                 
+[14] "dark remedy: the impact of thalidomide and its revival as a vital medicine"         
+[15] "how emotions are made"                                                              </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>botw <span class="sc">|&gt;</span></span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(Date)) <span class="sc">|&gt;</span> <span class="co"># fixing publication dates</span></span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">month =</span> lubridate<span class="sc">::</span><span class="fu">floor_date</span>(Date, <span class="at">unit =</span> <span class="st">"month"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_year =</span> <span class="fu">mean</span>(<span class="fu">as.numeric</span>(Year), <span class="at">na.rm =</span> T)) <span class="co"># average year of publication by month of botw</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  month      mean_year
+  &lt;date&gt;         &lt;dbl&gt;
+1 2024-03-01     2003 
+2 2024-04-01     2016 
+3 2024-05-01     2011.
+4 2024-06-01     2004.
+5 2024-07-01     2018 </code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -792,31 +1131,55 @@ Name: Title, dtype: object</code></pre>
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <p>Using <a href="https://matplotlib.org/3.1.1/index.html">matplotlib</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>plt.hist(botw[<span class="st">"Year"</span>], bins <span class="op">=</span> <span class="dv">5</span>)</span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"The KIND network BotW is biased towards newer books"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>plt.hist(botw[<span class="st">"Year"</span>], bins <span class="op">=</span> [<span class="dv">1970</span>, <span class="dv">1980</span>, <span class="dv">1990</span>, <span class="dv">2000</span>, <span class="dv">2010</span>, <span class="dv">2020</span>])</span>
+<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"The KIND network BotW is biased towards newer books"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="a_data_centric_introduction_to_python_pg_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="a_data_centric_introduction_to_python_pg_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a>botw <span class="sc">|&gt;</span></span>
+<span id="cb125-4"><a href="#cb125-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> readr<span class="sc">::</span><span class="fu">parse_number</span>(Year)) <span class="sc">|&gt;</span></span>
+<span id="cb125-5"><a href="#cb125-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb125-6"><a href="#cb125-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year), <span class="at">fill=</span><span class="st">"#1F77B4"</span>, <span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">center =</span> <span class="dv">1985</span>) <span class="sc">+</span></span>
+<span id="cb125-7"><a href="#cb125-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"The KIND network BotW is biased towards newer books"</span>) <span class="sc">+</span></span>
+<span id="cb125-8"><a href="#cb125-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="a_data_centric_introduction_to_python_pg_files/figure-html/unnamed-chunk-25-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-reticulate" class="csl-entry" role="listitem">
+Ushey, Kevin, JJ Allaire, and Yuan Tang. 2024. <span>“Reticulate: Interface to ’Python’.”</span> <a href="https://CRAN.R-project.org/package=reticulate">https://CRAN.R-project.org/package=reticulate</a>.
+</div>
+<div id="ref-readr" class="csl-entry" role="listitem">
+Wickham, Hadley, Jim Hester, and Jennifer Bryan. 2024. <span>“Readr: Read Rectangular Text Data.”</span> <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
