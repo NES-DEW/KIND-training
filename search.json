@@ -109,7 +109,7 @@
     "href": "r_training/writing_functions_in_r.html#previous-attendees-have-said",
     "title": "Writing functions in R",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n17 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "Previous attendees have said…\n\n17 previous attendees have left feedback\n88% said that this session was pitched correctly\n94% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery helpful and easy to follow\nA really interactive and fun way to learn about using functions with something new for everyone\nReally useful course"
   },
   {
     "objectID": "r_training/writing_functions_in_r.html#welcome",
@@ -165,7 +165,7 @@
     "href": "r_training/writing_functions_in_r.html#vectorised-functions",
     "title": "Writing functions in R",
     "section": "Vectorised functions",
-    "text": "Vectorised functions\n\nmost functions in R are vectorised\n\n\nround(c(1.2, 3.2, 5.4, 2.7), 0)\n\n[1] 1 3 5 3\n\n\n\nthat means that mostly, our functions will end up vectorised without us doing any work at all\n\n\ndiv_seven_n_round &lt;- function(nums){\n  round(nums / 7, 0)\n}\n\nnumbers &lt;- rnorm(4, 5, 50)\n\nnumbers\n\n[1]  32.40153  25.30060 -13.58266  45.51947\n\ndiv_seven_n_round(numbers)\n\n[1]  5  4 -2  7\n\n\n\nbut there are a few cases where that can fail: most famously, using if/else\n\n\nis_even &lt;- function(n){\n  \n  if(n %% 2){\n  paste(n, \"is odd\")\n} else {\n  paste(n, \"is even\")\n}\n  \n}\nis_even(9)\n\n[1] \"9 is odd\"\n\nis_even(10)\n\n[1] \"10 is even\"\n\ntry(is_even(9:10))\n\nError in if (n%%2) { : the condition has length &gt; 1"
+    "text": "Vectorised functions\n\nmost functions in R are vectorised\n\n\nround(c(1.2, 3.2, 5.4, 2.7), 0)\n\n[1] 1 3 5 3\n\n\n\nthat means that mostly, our functions will end up vectorised without us doing any work at all\n\n\ndiv_seven_n_round &lt;- function(nums){\n  round(nums / 7, 0)\n}\n\nnumbers &lt;- rnorm(4, 5, 50)\n\nnumbers\n\n[1]  89.388554 -26.771171   5.001329 -12.468080\n\ndiv_seven_n_round(numbers)\n\n[1] 13 -4  1 -2\n\n\n\nbut there are a few cases where that can fail: most famously, using if/else\n\n\nis_even &lt;- function(n){\n  \n  if(n %% 2){\n  paste(n, \"is odd\")\n} else {\n  paste(n, \"is even\")\n}\n  \n}\nis_even(9)\n\n[1] \"9 is odd\"\n\nis_even(10)\n\n[1] \"10 is even\"\n\ntry(is_even(9:10))\n\nError in if (n%%2) { : the condition has length &gt; 1"
   },
   {
     "objectID": "r_training/writing_functions_in_r.html#three-solutions",
@@ -179,7 +179,7 @@
     "href": "r_training/writing_functions_in_r.html#section",
     "title": "Writing functions in R",
     "section": "{{}}",
-    "text": "{{}}\n\nWhat’s the problem?\n\nmtcars |&gt;\n  dplyr::summarise(average = round(mean(hp)))\n\n  average\n1     147\n\n\nso\n\ncarmo &lt;- function(column){\n  mtcars |&gt;\n    dplyr::summarise(average = round(mean(column)))\n  }\n\n\nbut…\n\n\ntry(carmo(hp))\n\nError in dplyr::summarise(mtcars, average = round(mean(column))) : \n  ℹ In argument: `average = round(mean(column))`.\nCaused by error in `mean()`:\n! object 'hp' not found\n\n\n\nobject ‘hp’ not found\n\n\nwe get used to R (and particularly tidyverse) helping us with some sugar when selecting column by their names\n\nmtcars$hp / mtcars |&gt; select(hp)\neffectively, we’re just able to specify hp like an object, and R figures out the scope etc for us\n\nthat misfires inside functions. R isn’t sure where to look for an object called hp\n\n\n\nEnter {{}}\n\ncarmo_woo &lt;- function(column){\n  mtcars |&gt;\n    dplyr::summarise(average = round(mean({{column}})))\n}\n\ncarmo_woo(hp)\n\n  average\n1     147\n\n\n\nfor 95% of purposes, take {{}} as a purely empirical fix\nbut, if you’re very enthusiastic:\n\n{{}} defuses and injects the column name\nequivalent to !!enquo(var)"
+    "text": "{{}}\n\nWhat’s the problem?\n\nmtcars |&gt;\n  dplyr::summarise(average = round(mean(hp)))\n\n  average\n1     147\n\n\nso\n\ncarmo &lt;- function(column){\n  mtcars |&gt;\n    dplyr::summarise(average = round(mean(column)))\n  }\n\n\nbut…\n\n\ntry(carmo(hp))\n\nError in dplyr::summarise(mtcars, average = round(mean(column))) : \n  ℹ In argument: `average = round(mean(column))`.\nCaused by error:\n! object 'hp' not found\n\n\n\nobject ‘hp’ not found\n\n\nwe get used to R (and particularly tidyverse) helping us with some sugar when selecting column by their names\n\nmtcars$hp / mtcars |&gt; select(hp)\neffectively, we’re just able to specify hp like an object, and R figures out the scope etc for us\n\nthat misfires inside functions. R isn’t sure where to look for an object called hp\n\n\n\nEnter {{}}\n\ncarmo_woo &lt;- function(column){\n  mtcars |&gt;\n    dplyr::summarise(average = round(mean({{column}})))\n}\n\ncarmo_woo(hp)\n\n  average\n1     147\n\n\n\nfor 95% of purposes, take {{}} as a purely empirical fix\nbut, if you’re very enthusiastic:\n\n{{}} defuses and injects the column name\nequivalent to !!enquo(var)"
   },
   {
     "objectID": "r_training/writing_functions_in_r.html#section-1",
@@ -214,21 +214,21 @@
     "href": "rbc/2024-06-13.html#how-to-think-about-joins",
     "title": "R beginner’s club 2024-06-13",
     "section": "How to think about joins?",
-    "text": "How to think about joins?\nWe did a simple join above. A join is a way of merging two datasets. Let’s demonstrate with some cut-down datasets from above. We’ll remove some of the values from our b1 set and from our b2 set:\n\nb1 &lt;- b1 |&gt;\n  slice(1:5)\n\nb1\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 kennedy  0.590\n2 victoria 0.248\n3 peter    0.644\n4 judi     0.887\n5 paul     0.336\n\n\n\nb2 &lt;- b2 |&gt;\n  slice_sample(n = 5)\n\nb2\n\n# A tibble: 5 × 2\n  name    score\n  &lt;chr&gt;   &lt;dbl&gt;\n1 linsey  0.971\n2 alupha  0.574\n3 michael 0.561\n4 kennedy 0.590\n5 judi    0.887\n\n\nThe simplest join we could do is to bind the rows from one set onto another:\n\nb1 |&gt;\n  bind_rows(b2)\n\n# A tibble: 10 × 2\n   name     score\n   &lt;chr&gt;    &lt;dbl&gt;\n 1 kennedy  0.590\n 2 victoria 0.248\n 3 peter    0.644\n 4 judi     0.887\n 5 paul     0.336\n 6 linsey   0.971\n 7 alupha   0.574\n 8 michael  0.561\n 9 kennedy  0.590\n10 judi     0.887\n\n\nThat just brings all the rows from b2 onto the end of b1. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join b2:\n\nb1 |&gt;\n  left_join(b2, by = \"name\")\n\n# A tibble: 5 × 3\n  name     score.x score.y\n  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;\n1 kennedy    0.590   0.590\n2 victoria   0.248  NA    \n3 peter      0.644  NA    \n4 judi       0.887   0.887\n5 paul       0.336  NA    \n\n\nYou should see that only the values from b2’s score column that have a corresponding name in b1 get populated, and everything else gets filled with NAs. Here’s a nice introduction to the different kinds of join you can do in dplyr."
+    "text": "How to think about joins?\nWe did a simple join above. A join is a way of merging two datasets. Let’s demonstrate with some cut-down datasets from above. We’ll remove some of the values from our b1 set and from our b2 set:\n\nb1 &lt;- b1 |&gt;\n  slice(1:5)\n\nb1\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 kennedy  0.590\n2 victoria 0.248\n3 peter    0.644\n4 judi     0.887\n5 paul     0.336\n\n\n\nb2 &lt;- b2 |&gt;\n  slice_sample(n = 5)\n\nb2\n\n# A tibble: 5 × 2\n  name    score\n  &lt;chr&gt;   &lt;dbl&gt;\n1 paul    1    \n2 alupha  0.574\n3 michael 0.561\n4 kenneth 0.393\n5 judi    0.887\n\n\nThe simplest join we could do is to bind the rows from one set onto another:\n\nb1 |&gt;\n  bind_rows(b2)\n\n# A tibble: 10 × 2\n   name     score\n   &lt;chr&gt;    &lt;dbl&gt;\n 1 kennedy  0.590\n 2 victoria 0.248\n 3 peter    0.644\n 4 judi     0.887\n 5 paul     0.336\n 6 paul     1    \n 7 alupha   0.574\n 8 michael  0.561\n 9 kenneth  0.393\n10 judi     0.887\n\n\nThat just brings all the rows from b2 onto the end of b1. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join b2:\n\nb1 |&gt;\n  left_join(b2, by = \"name\")\n\n# A tibble: 5 × 3\n  name     score.x score.y\n  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;\n1 kennedy    0.590  NA    \n2 victoria   0.248  NA    \n3 peter      0.644  NA    \n4 judi       0.887   0.887\n5 paul       0.336   1    \n\n\nYou should see that only the values from b2’s score column that have a corresponding name in b1 get populated, and everything else gets filled with NAs. Here’s a nice introduction to the different kinds of join you can do in dplyr."
   },
   {
     "objectID": "r_training/iteration_in_r.html",
     "href": "r_training/iteration_in_r.html",
     "title": "Iteration in R",
     "section": "",
-    "text": "9 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n89% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nExcellent introduction to iteration - easy to follow along during the session\ngood introduction to loops - could maybe have had some more complex examples\nGreat to reinforce knowledge and always pick up a few tips and tricks along the way."
   },
   {
     "objectID": "r_training/iteration_in_r.html#previous-attendees-have-said",
     "href": "r_training/iteration_in_r.html#previous-attendees-have-said",
     "title": "Iteration in R",
     "section": "",
-    "text": "9 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n89% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nExcellent introduction to iteration - easy to follow along during the session\ngood introduction to loops - could maybe have had some more complex examples\nGreat to reinforce knowledge and always pick up a few tips and tricks along the way."
   },
   {
     "objectID": "r_training/iteration_in_r.html#welcome",
@@ -305,14 +305,14 @@
     "href": "bi_training/scope_of_the_possible_with_power_bi.html",
     "title": "Scope of the possible with Power BI",
     "section": "",
-    "text": "17 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "17 previous attendees have left feedback\n88% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nLove how the sessions focus on the practical ways in which to show data in a meaningful way to colleagues.\nIt was great to get a more detailed look at what the possible limitations are when considering Power BI\nGood journey describing how to obtain data and map accordingly with various visuals."
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#previous-attendees-have-said",
     "href": "bi_training/scope_of_the_possible_with_power_bi.html#previous-attendees-have-said",
     "title": "Scope of the possible with Power BI",
     "section": "",
-    "text": "17 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "17 previous attendees have left feedback\n88% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nLove how the sessions focus on the practical ways in which to show data in a meaningful way to colleagues.\nIt was great to get a more detailed look at what the possible limitations are when considering Power BI\nGood journey describing how to obtain data and map accordingly with various visuals."
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#welcome",
@@ -347,7 +347,7 @@
     "href": "bi_training/scope_of_the_possible_with_power_bi.html#power-bi-demo",
     "title": "Scope of the possible with Power BI",
     "section": "Power BI demo",
-    "text": "Power BI demo\n\nusing tidied of the GP practice size dataset from April 2024\n\nGP practice size data\nDemographic data\n\n\n\nNote this data is cleaned\n\n\n\n\n\n\n\n\n\n\nName\nPracticeListSize\nPostcode\nHBName\nGPCluster\nCode\n\n\n\n\nTay Court Surgery\n10588\nDD1 1PF\nNHS Tayside\nDundee 4\n11058\n\n\nKingspark Surgery\n5159\nG44 4JE\nNHS Greater Glasgow and Clyde\nS - Blue\n49770\n\n\nEastfield Medical Practice\n6432\nEH26 8EZ\nNHS Lothian\nMidlothian\n77036"
+    "text": "Power BI demo\n\nusing tidied of the GP practice size dataset from April 2024\n\nGP practice size data\nDemographic data\n\n\n\nNote this data is cleaned\n\n\n\n\n\n\n\n\n\n\nName\nPracticeListSize\nPostcode\nHBName\nGPCluster\nCode\n\n\n\n\nCharlotte Medical Practice\n9325\nDG2 9BH\nNHS Dumfries and Galloway\nDumfries & Upper Nithsdale\n18305\n\n\nCanisbay & Castletown Joint Medical Practice\n2791\nKW14 8TY\nNHS Highland\nNHSH (North) Caithness\n55080\n\n\nBluewing Medical Practice\n6191\nG81 1BS\nNHS Greater Glasgow and Clyde\nClydebank\n40262"
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#load-some-data",
@@ -459,14 +459,14 @@
     "href": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html",
     "title": "An introduction to AI (…and why you might avoid that term)",
     "section": "",
-    "text": "18 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
+    "text": "18 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery nice introduction and exciting start for staff to familiarise ourselves with AI concepts.\nAs a clinician who is interested in data, AI and so on, I learned a lot and enjoyed the whole session.\nThe side discussions are always an exciting and valuable part of the informal training sessions - even the ones which are only tenuously linked. The content could have been offered as a slide deck … but it is the side discussions which add substantial value (and interest) beyond anything which could simply be trawled from the internet\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
   },
   {
     "objectID": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html#previous-attendees-have-said",
     "href": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html#previous-attendees-have-said",
     "title": "An introduction to AI (…and why you might avoid that term)",
     "section": "",
-    "text": "18 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
+    "text": "18 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery nice introduction and exciting start for staff to familiarise ourselves with AI concepts.\nAs a clinician who is interested in data, AI and so on, I learned a lot and enjoyed the whole session.\nThe side discussions are always an exciting and valuable part of the informal training sessions - even the ones which are only tenuously linked. The content could have been offered as a slide deck … but it is the side discussions which add substantial value (and interest) beyond anything which could simply be trawled from the internet\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
   },
   {
     "objectID": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html#welcome",
@@ -683,14 +683,14 @@
     "href": "excel/tidy_data_in_excel.html",
     "title": "Tidy data in Excel",
     "section": "",
-    "text": "19 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "19 previous attendees have left feedback\n100% said that this session was pitched correctly\n95% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nEnjoyed this today - learned a few new tips’n’tricks! There’s alwasy somehting you pickup even when you think you know the topic. - ‘Text to columns’ skip column functionality - Data Validation Use Case and Circles - Excel ‘Float’ menu keyboard interaction\nExcellent, I will be attending more sessions. Brendan is a good trainer!\nGood session picked up some really good tips. Sometime presenter goes a bit fast for those following and trying to replicate actions being taken in spreadsheet"
   },
   {
     "objectID": "excel/tidy_data_in_excel.html#previous-attendees-have-said",
     "href": "excel/tidy_data_in_excel.html#previous-attendees-have-said",
     "title": "Tidy data in Excel",
     "section": "",
-    "text": "19 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "19 previous attendees have left feedback\n100% said that this session was pitched correctly\n95% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nEnjoyed this today - learned a few new tips’n’tricks! There’s alwasy somehting you pickup even when you think you know the topic. - ‘Text to columns’ skip column functionality - Data Validation Use Case and Circles - Excel ‘Float’ menu keyboard interaction\nExcellent, I will be attending more sessions. Brendan is a good trainer!\nGood session picked up some really good tips. Sometime presenter goes a bit fast for those following and trying to replicate actions being taken in spreadsheet"
   },
   {
     "objectID": "excel/tidy_data_in_excel.html#welcome",
@@ -879,7 +879,14 @@
     "href": "excel/lambda_formulas_in_excel.html",
     "title": "Lambda formulas in Excel",
     "section": "",
-    "text": "Session materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf\nNo feedback found for this session"
+    "text": "Session materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
+  },
+  {
+    "objectID": "excel/lambda_formulas_in_excel.html#previous-attendees-have-said",
+    "href": "excel/lambda_formulas_in_excel.html#previous-attendees-have-said",
+    "title": "Lambda formulas in Excel",
+    "section": "Previous attendees have said…",
+    "text": "Previous attendees have said…\n\n20 previous attendees have left feedback\n95% said that this session was pitched correctly\n95% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery helpful to learn some new formulas! And not too much info, kept it simple and that helps.\nA really good introduction into the use of lambda formulas in Excel\nReally interesting, I didn’t know that it was possible to make your own formulae"
   },
   {
     "objectID": "excel/lambda_formulas_in_excel.html#welcome",
@@ -956,7 +963,7 @@
     "href": "excel/excel_formulas.html#previous-attendees-have-said",
     "title": "Excel formulas",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n19 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\nthis session is 🌶 - aimed at Excel beginners\nyou’ll need any version of Excel to follow along\nyou can find session materials at tinyurl.com/kindtrp"
+    "text": "Previous attendees have said…\n\n13 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThese are just brilliant, a version of which I write at the end of every session. Go to them, just go. If you’re not sure whether to go. Just go.\nReally useful for going over basic concepts that I haven’t studied in a long time. So it was great for relearning the basic building blocks of how Excel works. Appropriate level for beginners session.\nReally good beginner session\n\n\n\n\nthis session is 🌶 - aimed at Excel beginners\nyou’ll need any version of Excel to follow along\nyou can find session materials at tinyurl.com/kindtrp"
   },
   {
     "objectID": "excel/excel_formulas.html#where-does-this-fit-in",
@@ -1061,14 +1068,14 @@
     "href": "excel/excel_first_steps.html",
     "title": "Excel first steps",
     "section": "",
-    "text": "12 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\nslides / pdf slides for this session"
+    "text": "11 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery helpful, and included useful tips such as the underscore instead of spaces between words in column headings.\nVery informative, well presented, easy to understand.\nReally good, interactive session. Even though I use excel daily I still picked up new “tricks” and good practice. Don’t underestimate how many people don’t have the most basic and fundamental building blocks for excel. Thank you.\n\n\n\n\nslides / pdf slides for this session"
   },
   {
     "objectID": "excel/excel_first_steps.html#previous-attendees-have-said",
     "href": "excel/excel_first_steps.html#previous-attendees-have-said",
     "title": "Excel first steps",
     "section": "",
-    "text": "12 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\nslides / pdf slides for this session"
+    "text": "11 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery helpful, and included useful tips such as the underscore instead of spaces between words in column headings.\nVery informative, well presented, easy to understand.\nReally good, interactive session. Even though I use excel daily I still picked up new “tricks” and good practice. Don’t underestimate how many people don’t have the most basic and fundamental building blocks for excel. Thank you.\n\n\n\n\nslides / pdf slides for this session"
   },
   {
     "objectID": "excel/excel_first_steps.html#welcome",
@@ -1719,7 +1726,7 @@
     "href": "excel/excel_formatting.html#previous-attendees-have-said",
     "title": "Excel formatting",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n28 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nAbout right\nAbout right\nAbout right\n\n\n\n\nthis session is 🌶 - aimed at Excel beginners\nyou’ll need Excel of some sort to follow along"
+    "text": "Previous attendees have said…\n\n28 previous attendees have left feedback\n100% said that this session was pitched correctly\n96% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nvery helpful advice\nAs a beginner and someone who has done the very basics I learned things I wasn’t aware of at this first session I am definitely going to attend other sessions thank you!\nSession ok in bits, whilst trying to find correct buttons to click on you would be onto the next subject\n\n\n\n\nthis session is 🌶 - aimed at Excel beginners\nyou’ll need Excel of some sort to follow along"
   },
   {
     "objectID": "excel/excel_formatting.html#where-does-this-fit-in",
@@ -1866,14 +1873,14 @@
     "href": "excel/excel_tables.html",
     "title": "Excel tables",
     "section": "",
-    "text": "20 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
+    "text": "20 previous attendees have left feedback\n85% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery well presented and engaging\nReally useful, I have been using excel for many years and I am self taught so really good to get some nuggets that I may have missed along the way and I now understand how important tables are! Off to change all my excel sheets to tables :)\nGreat thans so much really usefull\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
   },
   {
     "objectID": "excel/excel_tables.html#previous-attendees-have-said",
     "href": "excel/excel_tables.html#previous-attendees-have-said",
     "title": "Excel tables",
     "section": "",
-    "text": "20 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
+    "text": "20 previous attendees have left feedback\n85% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery well presented and engaging\nReally useful, I have been using excel for many years and I am self taught so really good to get some nuggets that I may have missed along the way and I now understand how important tables are! Off to change all my excel sheets to tables :)\nGreat thans so much really usefull\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
   },
   {
     "objectID": "excel/excel_tables.html#welcome",
@@ -1985,14 +1992,14 @@
     "href": "excel/pivot_tables_and_pivot_charts.html",
     "title": "Pivot tables and pivot charts",
     "section": "",
-    "text": "21 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "21 previous attendees have left feedback\n95% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood session, learned some useful tips\nSeemed rushed - make the sessions longer perhaps or breakdown into more manageable chunks. Session order seems strange i.e. beginner sessions after intermediate - perhaps that’s an issue of when I found out about the KIND Network.\nEnjoyable and informative"
   },
   {
     "objectID": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
     "href": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
     "title": "Pivot tables and pivot charts",
     "section": "",
-    "text": "21 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "21 previous attendees have left feedback\n95% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood session, learned some useful tips\nSeemed rushed - make the sessions longer perhaps or breakdown into more manageable chunks. Session order seems strange i.e. beginner sessions after intermediate - perhaps that’s an issue of when I found out about the KIND Network.\nEnjoyable and informative"
   },
   {
     "objectID": "excel/pivot_tables_and_pivot_charts.html#welcome",
@@ -2125,14 +2132,14 @@
     "href": "rbc/about.html",
     "title": "About R beginner’s club",
     "section": "",
-    "text": "9 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nThe session was really helpful and helped point me in the right direction for a project I am working on.\nI wondered if people who are completely new to R might have been a bit daunted by the speed at which we went through things? I really like the approach of asking people about the actual issues they’re facing though. I’m going to be aware of what I get stuck on to bring to future sessions. I’m really excited about this new club!"
   },
   {
     "objectID": "rbc/about.html#previous-attendees-have-said",
     "href": "rbc/about.html#previous-attendees-have-said",
     "title": "About R beginner’s club",
     "section": "",
-    "text": "9 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nThe session was really helpful and helped point me in the right direction for a project I am working on.\nI wondered if people who are completely new to R might have been a bit daunted by the speed at which we went through things? I really like the approach of asking people about the actual issues they’re facing though. I’m going to be aware of what I get stuck on to bring to future sessions. I’m really excited about this new club!"
   },
   {
     "objectID": "rbc/about.html#about",
@@ -2167,14 +2174,14 @@
     "href": "bi_training/measures_in_power_bi.html",
     "title": "Measures in Power BI",
     "section": "",
-    "text": "3 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf\nsample files  .pbix / + .xlsx"
+    "text": "3 previous attendees have left feedback\n67% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI liked the link to the excel formula context, it helps my confidence to know I am building on my knowledge rather than learning something totally new\nGreat session and good explanation of keep filters and when to use, thank you.\ngood intro to measures - possibly could have had some more complex examples for an intermediate course\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf\nsample files  .pbix / + .xlsx"
   },
   {
     "objectID": "bi_training/measures_in_power_bi.html#previous-attendees-have-said",
     "href": "bi_training/measures_in_power_bi.html#previous-attendees-have-said",
     "title": "Measures in Power BI",
     "section": "",
-    "text": "3 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf\nsample files  .pbix / + .xlsx"
+    "text": "3 previous attendees have left feedback\n67% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI liked the link to the excel formula context, it helps my confidence to know I am building on my knowledge rather than learning something totally new\nGreat session and good explanation of keep filters and when to use, thank you.\ngood intro to measures - possibly could have had some more complex examples for an intermediate course\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf\nsample files  .pbix / + .xlsx"
   },
   {
     "objectID": "bi_training/measures_in_power_bi.html#welcome",
@@ -2265,14 +2272,14 @@
     "href": "bi_training/why_bother_with_power_bi.html",
     "title": "Why bother with Power BI?",
     "section": "",
-    "text": "20 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "20 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nBrendan was great, very clear and informative. Session was as described and what I was expecting\nVery informative and interesting as I had never heard of Power BI.\nThis was my first experience of any of these courses and also the first time I saw Brendan. I must say I was very impressed. Brendan’s presentation style and interaction with the groups comments was a joy to watch. The session itself was very informative and got a lot of information across in only 30 minutes. Also the fact that there are so many links in the notes to follow up on is a great added bonus. I will gradually be getting my whole team signed up for this and similar courses. Many thanks to Brendan for making this information available. Mark Menzies (NHS GG&C)"
   },
   {
     "objectID": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
     "href": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
     "title": "Why bother with Power BI?",
     "section": "",
-    "text": "20 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "20 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nBrendan was great, very clear and informative. Session was as described and what I was expecting\nVery informative and interesting as I had never heard of Power BI.\nThis was my first experience of any of these courses and also the first time I saw Brendan. I must say I was very impressed. Brendan’s presentation style and interaction with the groups comments was a joy to watch. The session itself was very informative and got a lot of information across in only 30 minutes. Also the fact that there are so many links in the notes to follow up on is a great added bonus. I will gradually be getting my whole team signed up for this and similar courses. Many thanks to Brendan for making this information available. Mark Menzies (NHS GG&C)"
   },
   {
     "objectID": "bi_training/why_bother_with_power_bi.html#welcome",
@@ -2356,7 +2363,7 @@
     "href": "r_training/shiny_from_scratch.html#previous-attendees-have-said",
     "title": "Shiny from scratch",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n9 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees"
+    "text": "Previous attendees have said…\n\n9 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGreat starter course for Shiny\nGreat introduction to the basics - didn’t know where to start with Shiny, and now I do!\nIt was great and well paced. Easy to follow along and code."
   },
   {
     "objectID": "r_training/shiny_from_scratch.html#welcome",
@@ -2580,7 +2587,7 @@
     "href": "r_training/dates_and_times_with_lubridate.html#couple-of-fun-intro-functions",
     "title": "Dates and times with lubridate",
     "section": "Couple of fun intro functions",
-    "text": "Couple of fun intro functions\ntoday()\n[1] “2024-07-15”\ndate_decimal(2024.37534)\n[1] “2024-05-17 08:59:11 UTC”\nnow()\n[1] “2024-07-15 12:46:41 UTC”\nnow(\"Japan\")\n[1] “2024-07-15 21:46:41 JST”\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\nThe date-time in Europe/Lisbon is 2024-07-15 08:46:41"
+    "text": "Couple of fun intro functions\ntoday()\n[1] “2024-07-10”\ndate_decimal(2024.37534)\n[1] “2024-05-17 08:59:11 UTC”\nnow()\n[1] “2024-07-10 13:00:46 BST”\nnow(\"Japan\")\n[1] “2024-07-10 21:00:46 JST”\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\nThe date-time in Pacific/Noumea is 2024-07-10 14:00:46.625533"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#parsing",
@@ -2615,35 +2622,35 @@
     "href": "r_training/dates_and_times_with_lubridate.html#so-you-can-make-datesdate-times.-so-what",
     "title": "Dates and times with lubridate",
     "section": "So you can make dates/date-times. So what?",
-    "text": "So you can make dates/date-times. So what?\ndate(now())\n[1] “2024-07-15”\nyear(today())\n[1] 2024\nleap_year(today())\n[1] TRUE\nquarter(today())\n[1] 3\nsemester(today())\n[1] 2\nsemester(today(), with_year = T)\n[1] 2024.2"
+    "text": "So you can make dates/date-times. So what?\ndate(now())\n[1] “2024-07-10”\nyear(today())\n[1] 2024\nleap_year(today())\n[1] TRUE\nquarter(today())\n[1] 3\nsemester(today())\n[1] 2\nsemester(today(), with_year = T)\n[1] 2024.2"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#months-and-weeks",
     "href": "r_training/dates_and_times_with_lubridate.html#months-and-weeks",
     "title": "Dates and times with lubridate",
     "section": "Months and weeks",
-    "text": "Months and weeks\nmonth(today())\n[1] 7\nmonth(today(), label = T)\n[1] Jul 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; … &lt; Dec\nweek(today())\n[1] 29\nepiweek(today()) # special ways of counting weeks. See  https://en.wikipedia.org/wiki/ISO_week_date and https://www.cmmcp.org/mosquito-surveillance-data/pages/epi-week-calendars-2008-2024\n[1] 29"
+    "text": "Months and weeks\nmonth(today())\n[1] 7\nmonth(today(), label = T)\n[1] Jul 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; … &lt; Dec\nweek(today())\n[1] 28\nepiweek(today()) # special ways of counting weeks. See  https://en.wikipedia.org/wiki/ISO_week_date and https://www.cmmcp.org/mosquito-surveillance-data/pages/epi-week-calendars-2008-2024\n[1] 28"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#days",
     "href": "r_training/dates_and_times_with_lubridate.html#days",
     "title": "Dates and times with lubridate",
     "section": "Days",
-    "text": "Days\nday(today())\n[1] 15\nwday(today())\n[1] 2\nqday(today())\n[1] 15"
+    "text": "Days\nday(today())\n[1] 10\nwday(today())\n[1] 4\nqday(today())\n[1] 10"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#hour-and-minute",
     "href": "r_training/dates_and_times_with_lubridate.html#hour-and-minute",
     "title": "Dates and times with lubridate",
     "section": "Hour and minute",
-    "text": "Hour and minute\nhour(now())\n[1] 12\nminute(now())\n[1] 46\nam(now())\n[1] FALSE\ndst(now()) \n[1] FALSE"
+    "text": "Hour and minute\nhour(now())\n[1] 13\nminute(now())\n[1] 0\nam(now())\n[1] FALSE\ndst(now()) \n[1] TRUE"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#set",
     "href": "r_training/dates_and_times_with_lubridate.html#set",
     "title": "Dates and times with lubridate",
     "section": "Set",
-    "text": "Set\nupdate(now(), hour = 11, minute = 0, second = 0) # nominal finish time today\n[1] “2024-07-15 11:00:00 UTC”\n\nor, more generally:\n\ntest_date &lt;- dmy(\"05/06/23\")\nday(test_date)\n[1] 5\nday(test_date) &lt;- 11\ntest_date\n[1] “2023-06-11”"
+    "text": "Set\nupdate(now(), hour = 11, minute = 0, second = 0) # nominal finish time today\n[1] “2024-07-10 11:00:00 BST”\n\nor, more generally:\n\ntest_date &lt;- dmy(\"05/06/23\")\nday(test_date)\n[1] 5\nday(test_date) &lt;- 11\ntest_date\n[1] “2023-06-11”"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html",
@@ -2706,28 +2713,28 @@
     "href": "r_training/scope_of_the_possible_with_r.html#preview",
     "title": "Scope of the possible with R",
     "section": "Preview",
-    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn_within\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n\n20160619\nS92000003\nS08000024\nS314H\nEmergency Department\n2230\n2094\n136\n93.9\n20\n0.9\n1\n0.0\n\n\n20160424\nS92000003\nS08000032\nL302H\nEmergency Department\n1402\n1334\n68\n95.1\n1\n0.1\n0\n0.0\n\n\n20230903\nS92000003\nS08000017\nY144H\nEmergency Department\n290\n253\n37\n87.2\n4\n1.4\n2\n0.7\n\n\n20150607\nS92000003\nS08000024\nS308H\nEmergency Department\n1090\n1035\n55\n95.0\n2\n0.2\n0\n0.0\n\n\n20170730\nS92000003\nS08000022\nH103H\nEmergency Department\n158\n157\n1\n99.4\n0\n0.0\n0\n0.0"
+    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn_within\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n\n20160131\nS92000003\nS08000020\nN101H\nEmergency Department\n1036\n982\n54\n94.8\n3\n0.3\n0\n0.0\n\n\n20221023\nS92000003\nS08000031\nC313H\nEmergency Department\n517\n396\n121\n76.6\n31\n6.0\n13\n2.5\n\n\n20171119\nS92000003\nS08000022\nH103H\nEmergency Department\n128\n124\n4\n96.9\n0\n0.0\n0\n0.0\n\n\n20180610\nS92000003\nS08000032\nL308H\nEmergency Department\n1530\n1369\n161\n89.5\n8\n0.5\n0\n0.0\n\n\n20181111\nS92000003\nS08000031\nG405H\nEmergency Department\n1958\n1581\n377\n80.7\n40\n2.0\n0\n0.0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "href": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "title": "Scope of the possible with R",
     "section": "Removing data",
-    "text": "Removing data\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n20161113\nS08000025\nR103H\nEmergency Department\n108\n108\n0\n0\n0\n\n\n20170219\nS08000020\nN101H\nEmergency Department\n1049\n961\n88\n1\n0\n\n\n20170521\nS08000032\nL106H\nEmergency Department\n1331\n1267\n64\n4\n0\n\n\n20210613\nS08000015\nA210H\nEmergency Department\n718\n605\n113\n35\n10\n\n\n20200419\nS08000024\nS314H\nEmergency Department\n1263\n1210\n53\n1\n0"
+    "text": "Removing data\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n20191117\nS08000020\nN411H\nEmergency Department\n485\n453\n32\n2\n0\n\n\n20201115\nS08000017\nY146H\nEmergency Department\n535\n499\n36\n0\n0\n\n\n20240121\nS08000030\nT202H\nEmergency Department\n405\n388\n17\n0\n0\n\n\n20211219\nS08000032\nL308H\nEmergency Department\n1239\n765\n474\n133\n21\n\n\n20180617\nS08000024\nS314H\nEmergency Department\n2250\n1788\n462\n36\n5"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "href": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "title": "Scope of the possible with R",
     "section": "Tidying data",
-    "text": "Tidying data\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2021-08-08\nS08000032\nL106H\nEmergency Department\n1311\n937\n374\n43\n5\n\n\n2017-01-22\nS08000015\nA111H\nEmergency Department\n1208\n1142\n66\n6\n0\n\n\n2018-12-09\nS08000020\nN121H\nEmergency Department\n313\n310\n3\n0\n0\n\n\n2019-03-03\nS08000032\nL302H\nEmergency Department\n1282\n1235\n47\n0\n0\n\n\n2018-08-05\nS08000030\nT202H\nEmergency Department\n507\n494\n13\n1\n0"
+    "text": "Tidying data\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2019-06-09\nS08000016\nB120H\nEmergency Department\n655\n621\n34\n1\n0\n\n\n2020-05-24\nS08000031\nG107H\nEmergency Department\n1049\n998\n51\n2\n0\n\n\n2023-04-23\nS08000029\nF704H\nEmergency Department\n1239\n771\n468\n153\n57\n\n\n2021-01-17\nS08000028\nW107H\nEmergency Department\n57\n56\n1\n0\n0\n\n\n2020-05-10\nS08000020\nN121H\nEmergency Department\n149\n143\n6\n1\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "href": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "title": "Scope of the possible with R",
     "section": "Subset data",
-    "text": "Subset data\n\nwe’ll take a random selection of 5 health boards to keep things tidy\n\nae_activity &lt;- ae_activity |&gt;\n    filter(hb %in% boards)\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2022-03-06\nS08000031\nG513H\nEmergency Department\n1370\n1338\n32\n0\n0\n\n\n2015-11-01\nS08000031\nG405H\nEmergency Department\n1674\n1440\n234\n20\n0\n\n\n2016-12-11\nS08000028\nW107H\nEmergency Department\n134\n134\n0\n0\n0\n\n\n2017-08-20\nS08000022\nH212H\nEmergency Department\n200\n192\n8\n0\n0\n\n\n2017-09-24\nS08000022\nC121H\nEmergency Department\n155\n154\n1\n0\n0"
+    "text": "Subset data\n\nwe’ll take a random selection of 5 health boards to keep things tidy\n\nae_activity &lt;- ae_activity |&gt;\n    filter(hb %in% boards)\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2015-04-05\nS08000025\nR103H\nEmergency Department\n84\n82\n2\n0\n0\n\n\n2019-10-06\nS08000025\nR103H\nEmergency Department\n149\n142\n7\n0\n0\n\n\n2017-04-16\nS08000022\nH103H\nEmergency Department\n131\n126\n5\n1\n0\n\n\n2018-09-09\nS08000032\nL308H\nEmergency Department\n1422\n1295\n127\n5\n1\n\n\n2016-04-24\nS08000022\nH103H\nEmergency Department\n140\n134\n6\n0\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#basic-plots",
