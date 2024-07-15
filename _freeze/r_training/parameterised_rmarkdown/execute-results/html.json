@@ -1,0 +1,15 @@
+{
+  "hash": "112304b638a192b6a5aa7a5a833ee5ec",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Parameterised Rmarkdown\ndate: 2024-07-15\nexecute: \n  echo: true\n  eval: false\n  freeze: auto\noutput: \"markup\"\ncategories: [R, intermediate]\n---\n\nNo feedback found for this session\n\n\n## Welcome\n\n-   this is an 🌶🌶 intermediate-level practical session designed for those with prior R experience, but who are new to Shiny\n-   it's definitely meant to be a taster session, rather than a comprehensive introduction\n-   you' need R of some sort to follow along\n    -   you'll also need Quarto for the Quarto-specific part\n\n## Session outline\n\n-   what are parameters?\n-   starting with an Rmarkdown\n-   knitting from the `knit` button\n-   knitting from `rmarkdown::render` with options\n-   knitting from functions\n-   functional programming params\n-   Quarto params\n-   a word about [targets](https://docs.ropensci.org/targets/)\n\n## Resources\n\n-   you'll need R 4.0+ and Rstudio/posit.cloud/Posit workbench/VSCode and packages\n-   you'll also need Quarto installed, which can be a battle in the server-based flavours of Posit\n\n## Boilerplate Rmarkdown\n\nStart with a hello-world Rmarkdown document:\n\n\n\n````{.md}\n---\ntitle: \"A default title\"\ndate: \"2024-07-15\"\noutput: html_document\n---\n\n```{r}\n\"hello world\"\n```\n````\n\n\nThat should be knit-able from the knit button ![knit button](images/clipboard-1650697445.png). But you should also be able to knit using the following R code:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nrmarkdown::render(\"Rmarkdown.Rmd\")\n```\n:::\n\n\nAnd you can start specifying options inside `render`. For instance, to change the output filename, you can specify the `output_file`:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nrmarkdown::render(\"Rmarkdown.Rmd\", \n                  output_file = \"Rmarkdown_plain.html\")\n```\n:::\n\n\nWe'll need to tweak our rmarkdown for the next step. So we'll add params to the header, and to the R code:\n\n\n\n````{.md}\n---\ntitle: \"A default title\"\ndate: \"2024-07-15\"\noutput: html_document\nparams:\n  name: \"Bruce\"\n---\n\n```{r}\npaste(\"hello\", params$name)\n```\n````\n\n\nIf we render that new Rmarkdown, we should see those params appearing in our R code:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nrmarkdown::render(\"src/rmd/02_rmd.Rmd\") # horrible filenames, sorry\n```\n:::\n\n\n![](images/clipboard-2975323876.png). But now add a call to params:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nrmarkdown::render(\"src/rmd/02_rmd.Rmd\", params = list(name = \"Clara\"))\n```\n:::\n\n\n![](images/clipboard-3783454474.png)\n\nhttps://docs.ropensci.org/targets/\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
