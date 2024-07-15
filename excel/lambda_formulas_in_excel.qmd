@@ -6,5 +6,91 @@ execute:
   freeze: auto
 categories: [excel, intermediate]
 ---
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Session materials
++ [all materials {{< iconify ph:file-zip size=2x >}}](src/lambda_formulas_in_excel.zip)
++ slides [{{< iconify ph:file-html size=2x >}} html](src/lambda_formulas_in_excel.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/lambda_formulas_in_excel.pdf)
+:::
 
-This is a placeholder page for the lambda formula training coming during July 2024
+```{r}
+#| results: asis
+
+source(here::here("R/feed_block.R"))
+feed_block("Lambda formulas in Excel")
+
+```
+
+## Welcome
+
+-   🌶🌶 this session is for intermediate Excel users
+-   you'll need M365 Excel (either web or desktop) to follow along
+    -   earlier versions of Excel don't have the `LAMBDA` function that we'll need
+    -   you'll also need to be pretty fluent with formulas, and know a bit about naming things in Excel
+
+## Session outline
+
+-   this session is based on our [Excel skill-builder](https://learn.nes.nhs.scot/71690) course
+-   quick introduction to lambda formulas
+-   `LAMBDA()`
+-   two practical examples
+-   use-cases, and tips for applications
+
+## Introduction
+
+-   lambda formulas are a way of repeating complicated Excel formulas safely
+-   fairly new - M365 Excel only
+-   odd, rather than hard to implement
+
+## `LAMBDA`
+
+![Microsoft's summary of LAMBDA](https://support.content.office.net/en-us/media/627806f0-40f4-4a27-86d1-4ef77a86331c.png)</br>
+
+1.  take an existing formula
+2.  work out what the inputs are - usually, which cells are referenced
+3.  add one parameter per input
+4.  do a calculation with those parameters
+5.  name and save that formula
+
+## Making a lambda function (setup)
+
+-   put some random numbers in `A3` and `B3`
+-   we could calculate `A3` \* `B3` directly
+-   but imagine we want to convert `= A3 * B3` to a lambda
+
+## Making a lambda function
+
+-   start with the lambda outline in `D3`
+    -   `= LAMBDA()`
+-   next, add **test values in a second set of brackets**
+    -   `= LAMBDA()(A3, B3)`
+-   we now invent parameter names (like variable names) for each of those values, and add them
+    -   `= LAMBDA(n_1, n_2, )(A3, B3)`
+-   then add the formula that we want to replicate
+    -   `= LAMBDA(n_1, n_2, n_1 * n_2)(A3, B3)`
+
+## Saving a lambda function
+
+-   once you've tested and checked your lambda with a range of test values, copy your lambda formula (without the test values in the second brackets)
+-   then open the name manager (`Ctrl` + `F3`)
+-   create a new name, then name your lambda definition using the **New Name** interface
+-   paste your lambda into the **Refers to:** section
+    -   omit the test values - so just `= LAMBDA(n_1, n_2, n_1 * n_2)`
+-   test your new lambda function
+
+## Lambda functions
+
+-   a real-ish example: converting [CHI](https://en.wikipedia.org/wiki/National_Health_Service_Central_Register) to DoB
+-   put an example CHI into G2 (like `1610790854`)
+-   you can use the following 😱 formula: `=DATE(IF(RIGHT(LEFT(G2, 6), 2) > RIGHT(YEAR(TODAY()), 2), 19, 20) & RIGHT(LEFT(G2, 6), 2), MID(LEFT(G2, 6), 3, 2), LEFT(LEFT(G2, 6), 2))`
+-   that's a horrifying thing to paste about, so we can make this into a lambda
+-   test version `=LAMBDA(chi, DATE(IF(RIGHT(LEFT(chi, 6), 2) > RIGHT(YEAR(TODAY()), 2), 19, 20)&RIGHT(LEFT(chi, 6), 2), MID(LEFT(chi, 6), 3, 2), LEFT(LEFT(chi, 6), 2)))(G2)`
+-   name manager then to `CHI_TO_DOB`
+
+## Use-cases, and tips for applications
+
+-   making workbooks less complicated
+    -   names and lambda formulas are a strong combo
+-   standardising (and user-proofing) complex formulas
+-   lambdas are local, so you need to think laterally to re-use them
+    -   make a new blank sheet, and right-click the sheet tab
+    -   `Move or Copy...` to new book </br>![](images/clipboard-251116894.png){height="200px"}
