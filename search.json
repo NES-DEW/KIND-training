@@ -165,7 +165,7 @@
     "href": "r_training/writing_functions_in_r.html#vectorised-functions",
     "title": "Writing functions in R",
     "section": "Vectorised functions",
-    "text": "Vectorised functions\n\nmost functions in R are vectorised\n\n\nround(c(1.2, 3.2, 5.4, 2.7), 0)\n\n[1] 1 3 5 3\n\n\n\nthat means that mostly, our functions will end up vectorised without us doing any work at all\n\n\ndiv_seven_n_round &lt;- function(nums){\n  round(nums / 7, 0)\n}\n\nnumbers &lt;- rnorm(4, 5, 50)\n\nnumbers\n\n[1] -1.933660  9.408023 10.723510 62.800209\n\ndiv_seven_n_round(numbers)\n\n[1] 0 1 2 9\n\n\n\nbut there are a few cases where that can fail: most famously, using if/else\n\n\nis_even &lt;- function(n){\n  \n  if(n %% 2){\n  paste(n, \"is odd\")\n} else {\n  paste(n, \"is even\")\n}\n  \n}\nis_even(9)\n\n[1] \"9 is odd\"\n\nis_even(10)\n\n[1] \"10 is even\"\n\ntry(is_even(9:10))\n\nError in if (n%%2) { : the condition has length &gt; 1"
+    "text": "Vectorised functions\n\nmost functions in R are vectorised\n\n\nround(c(1.2, 3.2, 5.4, 2.7), 0)\n\n[1] 1 3 5 3\n\n\n\nthat means that mostly, our functions will end up vectorised without us doing any work at all\n\n\ndiv_seven_n_round &lt;- function(nums){\n  round(nums / 7, 0)\n}\n\nnumbers &lt;- rnorm(4, 5, 50)\n\nnumbers\n\n[1]  32.40153  25.30060 -13.58266  45.51947\n\ndiv_seven_n_round(numbers)\n\n[1]  5  4 -2  7\n\n\n\nbut there are a few cases where that can fail: most famously, using if/else\n\n\nis_even &lt;- function(n){\n  \n  if(n %% 2){\n  paste(n, \"is odd\")\n} else {\n  paste(n, \"is even\")\n}\n  \n}\nis_even(9)\n\n[1] \"9 is odd\"\n\nis_even(10)\n\n[1] \"10 is even\"\n\ntry(is_even(9:10))\n\nError in if (n%%2) { : the condition has length &gt; 1"
   },
   {
     "objectID": "r_training/writing_functions_in_r.html#three-solutions",
@@ -214,7 +214,7 @@
     "href": "rbc/2024-06-13.html#how-to-think-about-joins",
     "title": "R beginner’s club 2024-06-13",
     "section": "How to think about joins?",
-    "text": "How to think about joins?\nWe did a simple join above. A join is a way of merging two datasets. Let’s demonstrate with some cut-down datasets from above. We’ll remove some of the values from our b1 set and from our b2 set:\n\nb1 &lt;- b1 |&gt;\n  slice(1:5)\n\nb1\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 kennedy  0.590\n2 victoria 0.248\n3 peter    0.644\n4 judi     0.887\n5 paul     0.336\n\n\n\nb2 &lt;- b2 |&gt;\n  slice_sample(n = 5)\n\nb2\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 alupha   0.574\n2 linsey   0.971\n3 michael  0.561\n4 jennifer 0.160\n5 paul     1    \n\n\nThe simplest join we could do is to bind the rows from one set onto another:\n\nb1 |&gt;\n  bind_rows(b2)\n\n# A tibble: 10 × 2\n   name     score\n   &lt;chr&gt;    &lt;dbl&gt;\n 1 kennedy  0.590\n 2 victoria 0.248\n 3 peter    0.644\n 4 judi     0.887\n 5 paul     0.336\n 6 alupha   0.574\n 7 linsey   0.971\n 8 michael  0.561\n 9 jennifer 0.160\n10 paul     1    \n\n\nThat just brings all the rows from b2 onto the end of b1. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join b2:\n\nb1 |&gt;\n  left_join(b2, by = \"name\")\n\n# A tibble: 5 × 3\n  name     score.x score.y\n  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;\n1 kennedy    0.590      NA\n2 victoria   0.248      NA\n3 peter      0.644      NA\n4 judi       0.887      NA\n5 paul       0.336       1\n\n\nYou should see that only the values from b2’s score column that have a corresponding name in b1 get populated, and everything else gets filled with NAs. Here’s a nice introduction to the different kinds of join you can do in dplyr."
+    "text": "How to think about joins?\nWe did a simple join above. A join is a way of merging two datasets. Let’s demonstrate with some cut-down datasets from above. We’ll remove some of the values from our b1 set and from our b2 set:\n\nb1 &lt;- b1 |&gt;\n  slice(1:5)\n\nb1\n\n# A tibble: 5 × 2\n  name     score\n  &lt;chr&gt;    &lt;dbl&gt;\n1 kennedy  0.590\n2 victoria 0.248\n3 peter    0.644\n4 judi     0.887\n5 paul     0.336\n\n\n\nb2 &lt;- b2 |&gt;\n  slice_sample(n = 5)\n\nb2\n\n# A tibble: 5 × 2\n  name    score\n  &lt;chr&gt;   &lt;dbl&gt;\n1 linsey  0.971\n2 alupha  0.574\n3 michael 0.561\n4 kennedy 0.590\n5 judi    0.887\n\n\nThe simplest join we could do is to bind the rows from one set onto another:\n\nb1 |&gt;\n  bind_rows(b2)\n\n# A tibble: 10 × 2\n   name     score\n   &lt;chr&gt;    &lt;dbl&gt;\n 1 kennedy  0.590\n 2 victoria 0.248\n 3 peter    0.644\n 4 judi     0.887\n 5 paul     0.336\n 6 linsey   0.971\n 7 alupha   0.574\n 8 michael  0.561\n 9 kennedy  0.590\n10 judi     0.887\n\n\nThat just brings all the rows from b2 onto the end of b1. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join b2:\n\nb1 |&gt;\n  left_join(b2, by = \"name\")\n\n# A tibble: 5 × 3\n  name     score.x score.y\n  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;\n1 kennedy    0.590   0.590\n2 victoria   0.248  NA    \n3 peter      0.644  NA    \n4 judi       0.887   0.887\n5 paul       0.336  NA    \n\n\nYou should see that only the values from b2’s score column that have a corresponding name in b1 get populated, and everything else gets filled with NAs. Here’s a nice introduction to the different kinds of join you can do in dplyr."
   },
   {
     "objectID": "r_training/iteration_in_r.html",
@@ -347,7 +347,7 @@
     "href": "bi_training/scope_of_the_possible_with_power_bi.html#power-bi-demo",
     "title": "Scope of the possible with Power BI",
     "section": "Power BI demo",
-    "text": "Power BI demo\n\nusing tidied of the GP practice size dataset from April 2024\n\nGP practice size data\nDemographic data\n\n\n\nNote this data is cleaned\n\n\n\n\n\n\n\n\n\n\nName\nPracticeListSize\nPostcode\nHBName\nGPCluster\nCode\n\n\n\n\nPenicuik Medical Practice\n11732\nEH26 8LF\nNHS Lothian\nMidlothian\n77111\n\n\nOrchard Medical Centre\n12923\nML1 3JX\nNHS Lanarkshire\nMotherwell\n62609\n\n\nRegency Medical Practice\n3134\nG41 1NX\nNHS Greater Glasgow and Clyde\nS - Lilac\n49676"
+    "text": "Power BI demo\n\nusing tidied of the GP practice size dataset from April 2024\n\nGP practice size data\nDemographic data\n\n\n\nNote this data is cleaned\n\n\n\n\n\n\n\n\n\n\nName\nPracticeListSize\nPostcode\nHBName\nGPCluster\nCode\n\n\n\n\nTay Court Surgery\n10588\nDD1 1PF\nNHS Tayside\nDundee 4\n11058\n\n\nKingspark Surgery\n5159\nG44 4JE\nNHS Greater Glasgow and Clyde\nS - Blue\n49770\n\n\nEastfield Medical Practice\n6432\nEH26 8EZ\nNHS Lothian\nMidlothian\n77036"
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#load-some-data",
@@ -956,7 +956,7 @@
     "href": "excel/excel_formulas.html#previous-attendees-have-said",
     "title": "Excel formulas",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n18 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\nthis session is 🌶 - aimed at Excel beginners\nyou’ll need any version of Excel to follow along\nyou can find session materials at tinyurl.com/kindtrp"
+    "text": "Previous attendees have said…\n\n19 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\n### Three random comments from previous attendees\n\n\n\n\n\n\n\nthis session is 🌶 - aimed at Excel beginners\nyou’ll need any version of Excel to follow along\nyou can find session materials at tinyurl.com/kindtrp"
   },
   {
     "objectID": "excel/excel_formulas.html#where-does-this-fit-in",
@@ -1719,7 +1719,7 @@
     "href": "excel/excel_formatting.html#previous-attendees-have-said",
     "title": "Excel formatting",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n14 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nAbout right\nAbout right\nAbout right\n\n\n\n\nthis session is 🌶 - aimed at Excel beginners\nyou’ll need Excel of some sort to follow along"
+    "text": "Previous attendees have said…\n\n28 previous attendees have left feedback\n0% said that this session was pitched correctly\n0% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nAbout right\nAbout right\nAbout right\n\n\n\n\nthis session is 🌶 - aimed at Excel beginners\nyou’ll need Excel of some sort to follow along"
   },
   {
     "objectID": "excel/excel_formatting.html#where-does-this-fit-in",
@@ -2580,7 +2580,7 @@
     "href": "r_training/dates_and_times_with_lubridate.html#couple-of-fun-intro-functions",
     "title": "Dates and times with lubridate",
     "section": "Couple of fun intro functions",
-    "text": "Couple of fun intro functions\ntoday()\n[1] “2024-07-15”\ndate_decimal(2024.37534)\n[1] “2024-05-17 08:59:11 UTC”\nnow()\n[1] “2024-07-15 07:51:52 UTC”\nnow(\"Japan\")\n[1] “2024-07-15 16:51:52 JST”\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\nThe date-time in America/Port_of_Spain is 2024-07-15 01:51:52"
+    "text": "Couple of fun intro functions\ntoday()\n[1] “2024-07-15”\ndate_decimal(2024.37534)\n[1] “2024-05-17 08:59:11 UTC”\nnow()\n[1] “2024-07-15 12:46:41 UTC”\nnow(\"Japan\")\n[1] “2024-07-15 21:46:41 JST”\nrandom_zone &lt;- sample(OlsonNames(), 1)\ncat(paste(\"The date-time in\", random_zone, \"is\", now(sample(OlsonNames(), 1))))\nThe date-time in Europe/Lisbon is 2024-07-15 08:46:41"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#parsing",
@@ -2636,7 +2636,7 @@
     "href": "r_training/dates_and_times_with_lubridate.html#hour-and-minute",
     "title": "Dates and times with lubridate",
     "section": "Hour and minute",
-    "text": "Hour and minute\nhour(now())\n[1] 7\nminute(now())\n[1] 51\nam(now())\n[1] TRUE\ndst(now()) \n[1] FALSE"
+    "text": "Hour and minute\nhour(now())\n[1] 12\nminute(now())\n[1] 46\nam(now())\n[1] FALSE\ndst(now()) \n[1] FALSE"
   },
   {
     "objectID": "r_training/dates_and_times_with_lubridate.html#set",
@@ -2706,28 +2706,28 @@
     "href": "r_training/scope_of_the_possible_with_r.html#preview",
     "title": "Scope of the possible with R",
     "section": "Preview",
-    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn_within\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n\n20240526\nS92000003\nS08000024\nS319H\nEmergency Department\n1020\n931\n89\n91.3\n2\n0.2\n0\n0.0\n\n\n20170312\nS92000003\nS08000019\nV217H\nEmergency Department\n1253\n1218\n35\n97.2\n0\n0.0\n0\n0.0\n\n\n20220814\nS92000003\nS08000015\nA210H\nEmergency Department\n663\n499\n164\n75.3\n80\n12.1\n45\n6.8\n\n\n20221218\nS92000003\nS08000022\nH202H\nEmergency Department\n729\n523\n206\n71.7\n51\n7.0\n12\n1.6\n\n\n20220911\nS92000003\nS08000031\nC313H\nEmergency Department\n599\n431\n168\n72.0\n37\n6.2\n10\n1.7"
+    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn_within\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n\n20160619\nS92000003\nS08000024\nS314H\nEmergency Department\n2230\n2094\n136\n93.9\n20\n0.9\n1\n0.0\n\n\n20160424\nS92000003\nS08000032\nL302H\nEmergency Department\n1402\n1334\n68\n95.1\n1\n0.1\n0\n0.0\n\n\n20230903\nS92000003\nS08000017\nY144H\nEmergency Department\n290\n253\n37\n87.2\n4\n1.4\n2\n0.7\n\n\n20150607\nS92000003\nS08000024\nS308H\nEmergency Department\n1090\n1035\n55\n95.0\n2\n0.2\n0\n0.0\n\n\n20170730\nS92000003\nS08000022\nH103H\nEmergency Department\n158\n157\n1\n99.4\n0\n0.0\n0\n0.0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "href": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "title": "Scope of the possible with R",
     "section": "Removing data",
-    "text": "Removing data\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n20230312\nS08000017\nY146H\nEmergency Department\n614\n474\n140\n22\n5\n\n\n20180114\nS08000022\nH202H\nEmergency Department\n562\n541\n21\n1\n0\n\n\n20231210\nS08000032\nL106H\nEmergency Department\n1214\n608\n606\n258\n98\n\n\n20180902\nS08000017\nY144H\nEmergency Department\n268\n252\n16\n0\n0\n\n\n20180923\nS08000031\nC313H\nEmergency Department\n612\n569\n43\n2\n0"
+    "text": "Removing data\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n20161113\nS08000025\nR103H\nEmergency Department\n108\n108\n0\n0\n0\n\n\n20170219\nS08000020\nN101H\nEmergency Department\n1049\n961\n88\n1\n0\n\n\n20170521\nS08000032\nL106H\nEmergency Department\n1331\n1267\n64\n4\n0\n\n\n20210613\nS08000015\nA210H\nEmergency Department\n718\n605\n113\n35\n10\n\n\n20200419\nS08000024\nS314H\nEmergency Department\n1263\n1210\n53\n1\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "href": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "title": "Scope of the possible with R",
     "section": "Tidying data",
-    "text": "Tidying data\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2017-09-24\nS08000031\nC418H\nEmergency Department\n1274\n1141\n133\n8\n0\n\n\n2017-06-04\nS08000020\nN121H\nEmergency Department\n377\n373\n4\n0\n0\n\n\n2022-05-08\nS08000022\nH202H\nEmergency Department\n735\n551\n184\n47\n9\n\n\n2021-01-10\nS08000022\nC121H\nEmergency Department\n92\n90\n2\n0\n0\n\n\n2020-03-08\nS08000016\nB120H\nEmergency Department\n563\n463\n100\n27\n12"
+    "text": "Tidying data\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2021-08-08\nS08000032\nL106H\nEmergency Department\n1311\n937\n374\n43\n5\n\n\n2017-01-22\nS08000015\nA111H\nEmergency Department\n1208\n1142\n66\n6\n0\n\n\n2018-12-09\nS08000020\nN121H\nEmergency Department\n313\n310\n3\n0\n0\n\n\n2019-03-03\nS08000032\nL302H\nEmergency Department\n1282\n1235\n47\n0\n0\n\n\n2018-08-05\nS08000030\nT202H\nEmergency Department\n507\n494\n13\n1\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "href": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "title": "Scope of the possible with R",
     "section": "Subset data",
-    "text": "Subset data\n\nwe’ll take a random selection of 5 health boards to keep things tidy\n\nae_activity &lt;- ae_activity |&gt;\n    filter(hb %in% boards)\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2022-01-16\nS08000025\nR103H\nEmergency Department\n89\n80\n9\n0\n0\n\n\n2022-04-10\nS08000025\nR103H\nEmergency Department\n86\n82\n4\n0\n0\n\n\n2019-12-01\nS08000022\nH212H\nEmergency Department\n160\n146\n14\n0\n0\n\n\n2020-02-09\nS08000022\nH212H\nEmergency Department\n157\n152\n5\n0\n0\n\n\n2019-04-14\nS08000020\nN101H\nEmergency Department\n1111\n991\n120\n6\n0"
+    "text": "Subset data\n\nwe’ll take a random selection of 5 health boards to keep things tidy\n\nae_activity &lt;- ae_activity |&gt;\n    filter(hb %in% boards)\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2022-03-06\nS08000031\nG513H\nEmergency Department\n1370\n1338\n32\n0\n0\n\n\n2015-11-01\nS08000031\nG405H\nEmergency Department\n1674\n1440\n234\n20\n0\n\n\n2016-12-11\nS08000028\nW107H\nEmergency Department\n134\n134\n0\n0\n0\n\n\n2017-08-20\nS08000022\nH212H\nEmergency Department\n200\n192\n8\n0\n0\n\n\n2017-09-24\nS08000022\nC121H\nEmergency Department\n155\n154\n1\n0\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#basic-plots",
