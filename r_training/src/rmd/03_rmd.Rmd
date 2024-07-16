@@ -3,7 +3,13 @@ title: "Rmarkdown with params"
 output: html_document
 params:
   name: "Bruce" # added a param with a default value
+  showcode: TRUE
 ---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = params$showcode) # setting all chunk options to the value of showcode
+```
+
 
 ```{r, results='asis'}
 cat(paste("Hello", params$name)) # use that param in the body of the document

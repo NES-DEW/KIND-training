@@ -81,10 +81,27 @@ feed_block("Lambda Excel formulas in Excel")
 
 -   a real-ish example: converting [CHI](https://en.wikipedia.org/wiki/National_Health_Service_Central_Register) to DoB
 -   put an example CHI into G2 (like `1610790854`)
--   you can use the following 😱 formula: `=DATE(IF(RIGHT(LEFT(G2, 6), 2) > RIGHT(YEAR(TODAY()), 2), 19, 20) & RIGHT(LEFT(G2, 6), 2), MID(LEFT(G2, 6), 3, 2), LEFT(LEFT(G2, 6), 2))`
--   that's a horrifying thing to paste about, so we can make this into a lambda
--   test version `=LAMBDA(chi, DATE(IF(RIGHT(LEFT(chi, 6), 2) > RIGHT(YEAR(TODAY()), 2), 19, 20)&RIGHT(LEFT(chi, 6), 2), MID(LEFT(chi, 6), 3, 2), LEFT(LEFT(chi, 6), 2)))(G2)`
--   name manager then to `CHI_TO_DOB`
+-   you can use the following 😱 formula:
+
+```{verbatim}
+#| echo: true
+
+=DATE(IF(RIGHT(LEFT(G2, 6), 2) > RIGHT(YEAR(TODAY()), 2), 19, 20) & RIGHT(LEFT(G2, 6), 2), MID(LEFT(G2, 6), 3, 2), LEFT(LEFT(G2, 6), 2))
+
+```
+
+
+-   that's a horrifying thing to paste about, so we can make this into a lambda:
+
+```{verbatim}
+#| echo: true
+
+=LAMBDA(chi, DATE(IF(RIGHT(LEFT(chi, 6), 2) > RIGHT(YEAR(TODAY()), 2), 19, 20)&RIGHT(LEFT(chi, 6), 2), MID(LEFT(chi, 6), 3, 2), LEFT(LEFT(chi, 6), 2)))(G2)
+
+```
+
+-   then save as `CHI_TO_DOB` via the name manager
+
 
 ## Use-cases, and tips for applications
 

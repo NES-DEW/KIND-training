@@ -1,0 +1,363 @@
+---
+title: Parameterised Rmarkdown
+date: 2024-07-15
+execute: 
+  echo: true
+  eval: false
+  freeze: auto
+output: "markup"
+categories: [R, intermediate]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| eval: true
+
+source(here::here("R/feed_block.R"))
+feed_block("Parameterised Rmarkdown")
+
+# knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+# tinytex::reinstall_tinytex(repository = "illinois")
+# tinytex::tlmgr_install('pdfcrop')
+
+```
+
+## Welcome
+
+-   this is an 🌶🌶 intermediate-level practical session designed for those with prior R experience, but who are new to Shiny
+-   it's definitely meant to be a taster session, rather than a comprehensive introduction
+-   you' need R of some sort to follow along
+    -   you'll also need Quarto for the Quarto-specific part
+
+## Session outline
+
+- ways of knitting
+- interesting things to try
+    - show/hide code
+    - choose params interactively
+    - knit from a function
+    - use purrr (and possibly targets) to do this at scale
+    - try this with Quarto
+
+## Resources
+
+-   you'll need R 4.0+ and Rstudio/posit.cloud/Posit workbench/VSCode and packages
+-   you'll also need Quarto installed, which can be a battle in the server-based flavours of Posit
+
+## Ways of knitting
+
+We'll need to start with a hello-world Rmarkdown document. That should be knit-able from the knit button ![knit button](images/clipboard-1650697445.png). But you should also be able to knit using `rmarkdown::render()` to produce some output. Together, those three elements look like this:
+
+::: panel-tabset
+### Rmarkdown
+
+```{embed, file = "src/rmd/01_rmd.Rmd"}
+```
+
+### Render code
+
+```{r}
+rmarkdown::render("01_rmd.Rmd")
+```
+
+### Output
+
+```{r, echo=FALSE}
+
+# rmarkdown::render("r_training/src/rmd/01_rmd.Rmd") |>
+#   renderthis::to_png("r_training/images/01_rmd.png")
+
+```
+
+![](images/01_rmd.png)
+:::
+
+This gets more interesting when you start specifying options inside `render`. A basic example of this would be to change the output filename by adding `output_file`:
+
+```{r}
+rmarkdown::render("Rmarkdown.Rmd", 
+                  output_file = "Rmarkdown_plain.html")
+```
+
+We could also change our output format. By default, rmarkdown docs get rendered to whatever is specified in the header. That's HTML in our case, but we could fiddle that to give us .pdf output:
+
+```{r}
+rmarkdown::render("Rmarkdown.Rmd", 
+                  output_file = "Rmarkdown_plain.pdf",
+                  output_format = pdf_document)
+```
+
+Note that we're still producing the same output each time, albeit with different filenames and in different formats. The next part is to add **params**, which will enable us to change the content. We need to make two changes to our Rmd first:
+
+::: panel-tabset
+### Rmarkdown
+
+We add params in the header, and some code (`params$name`) to access their values in the body of our Rmarkdown document:
+
+```{embed, file = "src/rmd/02_rmd.Rmd"}
+```
+
+### Render code
+
+```{r}
+rmarkdown::render("02_rmd.Rmd")
+```
+
+### Output
+
+```{r, echo = FALSE}
+
+# rmarkdown::render("r_training/src/rmd/02_rmd.Rmd") |>
+#   renderthis::to_png("r_training/images/02_rmd.png")
+
+```
+
+![](images/02_rmd.png)
+:::
+
+We can now add some params in our render code to produce a different output. Note that, as we set defaults in the Rmarkdown header, these params are optional. But if we do include params in our render call, they will over-ride the defaults:
+
+::: panel-tabset
+### Rmarkdown
+
+Same Rmarkdown:
+
+```{embed, file = "src/rmd/02_rmd.Rmd"}
+```
+
+### Render code
+
+```{r}
+rmarkdown::render("02_rmd.Rmd",
+                  params = list(name = "Steve")) # new param
+```
+
+### Output
+
+```{r, echo = FALSE}
+
+# rmarkdown::render("r_training/src/rmd/02_rmd.Rmd", 
+#                   output_file = "02_rmd_steve.html",
+#                   params = list(name = "Steve")) |>
+#   renderthis::to_png("r_training/images/02_rmd_steve.png")
+
+```
+
+![](images/02_rmd_steve.png)
+:::
+
+## Interesting things to do with params: show/hide code
+
+::: panel-tabset
+### Rmarkdown
+
+Add an extra param to the Rmarkdown, and link it to the chunk options:
+
+```{embed, file = "src/rmd/03_rmd.Rmd"}
+```
+
+### Render code
+
+```{r}
+rmarkdown::render("03_rmd.Rmd",
+                  params = list(showcode = FALSE)) # new param
+```
+
+### Output
+
+```{r, echo = FALSE}
+
+# rmarkdown::render("r_training/src/rmd/03_rmd.Rmd",
+#                   output_file = "03_rmd_nocode.html",
+#                   params = list(showcode = FALSE)) |>
+#   renderthis::to_png("r_training/images/03_rmd_nocode.png")
+
+```
+
+![](images/03_rmd_nocode.png)
+:::
+
+## Interesting things to do with params: choose params interactively
+
+::: panel-tabset
+### Rmarkdown
+
+With the same Rmd, we can run params interactively via a mini-Shiny app:
+
+```{embed, file = "src/rmd/03_rmd.Rmd"}
+```
+
+### Render code
+
+You can also access this via the knit menu: ![](images/clipboard-386029477.png)
+
+```{r, eval=F}
+rmarkdown::render("03_rmd.Rmd", params = "ask") # interactive parameter choice
+```
+
+Interactive parameter chooser: </br>![](images/clipboard-1496409770.png){height="200"}
+
+### Output
+
+```{r, echo = FALSE}
+
+# rmarkdown::render("r_training/src/rmd/03_rmd.Rmd",
+#                   output_file = "03_rmd_interactive.html",
+#                   params = list(showcode = FALSE)) |>
+#   renderthis::to_png("r_training/images/03_rmd_interactive.png")
+
+```
+
+![](images/03_rmd_interactive.png)
+:::
+
+
+## Interesting things to do with params: knit from a function
+
+::: panel-tabset
+### Rmarkdown
+
+We'll use the same Rmd for this:
+
+```{embed, file = "src/rmd/03_rmd.Rmd"}
+```
+
+### Render code
+
+We build a function to call `rmarkdown::render()` with the right options:
+
+```{r, eval=F}
+make_mark <- function(input_name, show_code = TRUE, format = "html"){
+
+  rmarkdown::render("03_rmd.Rmd",
+                    output_file = paste0("03_rmd_", input_name, ".", format),
+                    params = list(name = input_name, 
+                                  showcode = show_code))
+}
+
+make_mark(input_name = "Nat")
+make_mark(input_name = "Mel", format = "pdf")
+make_mark(input_name = "Sue", show_code = FALSE, format = "html")
+
+```
+
+### Output
+
+```{r, echo = FALSE}
+
+# make_mark <- function(input_name, show_code = TRUE, format_type = "html"){
+#   
+#   rmarkdown::render("r_training/src/rmd/03_rmd.Rmd",
+#                     output_file = paste0("03_rmd_", input_name, ".", format_type),
+#                     output_format = paste0(format_type, "_document"),
+#                     params = list(name = input_name, 
+#                                   showcode = show_code))
+# }
+# 
+# make_mark(input_name = "Nat")
+# make_mark(input_name = "Mel", format = "pdf")
+# make_mark(input_name = "Sue", show_code = FALSE, format = "html")
+
+# rmarkdown::render("r_training/src/rmd/03_rmd.Rmd",
+#                   output_file = "03_rmd_interactive.html",
+#                   params = list(showcode = FALSE)) |>
+# renderthis::to_png("r_training/src/rmd/03_rmd_Nat.pdf", "r_training/images/03_rmd_Nat_pdf.png")
+# renderthis::to_png("r_training/src/rmd/03_rmd_Mel.pdf", "r_training/images/03_rmd_Mel_pdf.png")
+# renderthis::to_png("r_training/src/rmd/03_rmd_Sue.html", "r_training/images/03_rmd_Sue_html.png")
+
+```
+
+![](images/03_rmd_Nat_pdf.png)
+
+and
+
+![](images/03_rmd_Mel_pdf.png)
+
+and
+
+![](images/03_rmd_Sue_html.png)
+
+:::
+
+## Interesting things to do with params: purrr from that function
+
+::: panel-tabset
+### Rmarkdown
+
+Same Rmd again:
+
+```{embed, file = "src/rmd/03_rmd.Rmd"}
+```
+
+### Render code
+
+We'll now call our `make_mark` function using purrr. `dplyr::expand_grid()` helps set all the correct combinations up for us:
+
+```{r, eval=F}
+
+input_name = c("Angela", "Gloria", "Audre", "bell")
+format = c("pdf", "html")
+
+tidyr::expand_grid(input_name, format) |>
+  purrr::pwalk(make_mark2) 
+```
+
+### Output
+
+
+![Angela HTML](images/03_rmd_Angela.png)
+
+and
+
+![Angela .pdf](images/03_rmd_Angela_pdf.png)
+
+and
+
+![Audr](images/03_rmd_Audre.png)
+
+and
+
+![](images/03_rmd_Audre_pdf.png)
+
+
+...and so on and so on.
+:::
+
+Using functional programming can lead to massive and complicated results quickly. You should probably investigate the [targets package](https://docs.ropensci.org/targets/) if you're looking to apply this at scale.
+
+## Interesting things to do with params: use in Quarto
+
+This parameterised approach is also applicable to Quarto.
+
+
+
+::: panel-tabset
+### Quarto
+
+Basically the same as our Rmd with a different render function:
+
+```{embed, file = "src/rmd/01_qmd.qmd"}
+```
+
+### Render code
+
+```{r, eval=F}
+quarto::quarto_render("01_qmd.qmd") # different render function
+
+
+quarto::quarto_render("01_qmd.qmd", 
+                      execute_params = list(name = "Emma")) # same way of setting params
+
+```
+
+### Output
+
+![](images/01_qmd_plain.png)
+
+and
+
+![](images/01_qmd_emma.png)
+:::
