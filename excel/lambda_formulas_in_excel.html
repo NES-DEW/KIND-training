@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -253,9 +287,9 @@ Three random comments from previous attendees
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Very helpful to learn some new formulas! And not too much info, kept it simple and that helps.</li>
-<li>A really good introduction into the use of lambda formulas in Excel</li>
-<li>Really interesting, I didn’t know that it was possible to make your own formulae</li>
+<li>very useful</li>
+<li>This could really transform excel tables to be much more readable! Thanks so much!</li>
+<li>Extremely useful bite-size session on simplifying your formulas</li>
 </ul>
 </div>
 </div>
@@ -347,10 +381,15 @@ Three random comments from previous attendees
 <ul>
 <li>a real-ish example: converting <a href="https://en.wikipedia.org/wiki/National_Health_Service_Central_Register">CHI</a> to DoB</li>
 <li>put an example CHI into G2 (like <code>1610790854</code>)</li>
-<li>you can use the following 😱 formula: <code>=DATE(IF(RIGHT(LEFT(G2, 6), 2) &gt; RIGHT(YEAR(TODAY()), 2), 19, 20) &amp; RIGHT(LEFT(G2, 6), 2), MID(LEFT(G2, 6), 3, 2), LEFT(LEFT(G2, 6), 2))</code></li>
-<li>that’s a horrifying thing to paste about, so we can make this into a lambda</li>
-<li>test version <code>=LAMBDA(chi, DATE(IF(RIGHT(LEFT(chi, 6), 2) &gt; RIGHT(YEAR(TODAY()), 2), 19, 20)&amp;RIGHT(LEFT(chi, 6), 2), MID(LEFT(chi, 6), 3, 2), LEFT(LEFT(chi, 6), 2)))(G2)</code></li>
-<li>name manager then to <code>CHI_TO_DOB</code></li>
+<li>you can use the following 😱 formula:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>=DATE(IF(RIGHT(LEFT(G2, 6), 2) &gt; RIGHT(YEAR(TODAY()), 2), 19, 20) &amp; RIGHT(LEFT(G2, 6), 2), MID(LEFT(G2, 6), 3, 2), LEFT(LEFT(G2, 6), 2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>that’s a horrifying thing to paste about, so we can make this into a lambda:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>=LAMBDA(chi, DATE(IF(RIGHT(LEFT(chi, 6), 2) &gt; RIGHT(YEAR(TODAY()), 2), 19, 20)&amp;RIGHT(LEFT(chi, 6), 2), MID(LEFT(chi, 6), 3, 2), LEFT(LEFT(chi, 6), 2)))(G2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>then save as <code>CHI_TO_DOB</code> via the name manager</li>
 </ul>
 </section>
 <section id="use-cases-and-tips-for-applications" class="level2">
