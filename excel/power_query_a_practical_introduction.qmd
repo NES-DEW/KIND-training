@@ -1,0 +1,142 @@
+---
+title: "PowerQuery - a practical introduction"
+date: "2024-07-17"
+execute: 
+  echo: true
+  freeze: auto
+categories: [excel, intermediate]
+---
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [all materials {{< iconify ph:file-zip size=2x >}}](src/powerquery_intro.zip)
+-   slides [{{< iconify ph:file-html size=2x >}} html](src/powerquery_intro.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/powerquery_intro.pdf)
+:::
+
+```{r}
+#| results: asis
+#| echo: false
+source(here::here("R/feed_block.R"))
+feed_block("PowerQuery - a practical introduction")
+
+```
+
+## Welcome
+
+-   🌶 this session is a beginner-level introduction to PowerQuery
+-   you'll either Excel desktop (\>2007) or Power BI desktop
+-   you'll also need to have basic competency in Excel or Power BI
+-   this session is based on our [Power BI for Beginners](https://learn.nes.nhs.scot/70921) course
+-   but PowerQuery isn't specific to Power BI - it's brilliant for Excel too
+
+## Session outline
+
+-   what is PowerQuery, and why might you use it?
+-   getting data into PowerQuery
+-   basic data wrangling
+-   joins (merges)
+-   pivots
+
+## What is PowerQuery?
+
+-   Microsoft call it a ["data transformation and data preparation engine"](https://learn.microsoft.com/en-us/power-query/power-query-what-is-power-query)
+-   it's been around since 2010, initially in Excel, and then in both Excel and Power BI
+-   uses code ([M Formula language](https://en.wikipedia.org/wiki/Power_Query)) but has GUI tools for most tasks
+
+## How I think of PowerQuery
+
+-   the right way to load any real data into Excel
+
+## Why might you use it?
+
+-   powerful
+-   easy, to start with at least...
+-   allows you to standardise data loading from different sources
+-   allows you to repeat data loading
+
+## Getting data into PowerQuery
+
+::: panel-tabset
+### Excel
+
+1.  Open Excel and create a new, blank, workbook
+2.  `Data` \> `Get & Transform Data` </br> ![Get & Transform Data](images/clipboard-2636372440.png)
+3.  Pick `From Web` and supply the following URL - `https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv`
+4.  From the preview, select `Transform data` to open PowerQuery
+
+### Power BI
+
+1.  Open Power BI and start a new report
+2.  Select `Get data` \> `From Web` button in the ribbon ![Get data from web](images/clipboard-2012149707.png){height="200"}
+3.  Supply the following URL - `https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv` </br>![supply a URL](images/clipboard-1484642386.png)
+4.  From the preview, select `Transform data` to open PowerQuery </br> ![Select Transform data to open PowerQuery](images/clipboard-4163607856.png)
+5.  If you've already got some data in your report that you'd like to transform, use `Tranform data` in the ribbon to open PowerQuery: </br> ![Tranform data in the ribbon](images/clipboard-1924567552.png)
+:::
+
+-   this is historical data about scurvy testing from the [medicaldata r package](https://cran.r-project.org/web/packages/medicaldata/index.html)
+
+## Preview your Data
+
+![make sure to click Transform data](images/clipboard-2984247945.png) </br> (make sure to click `Transform data`)
+
+## First view of PowerQuery
+
+![First view of PowerQuery](images/clipboard-1738142120.png)
+
+-   Queries (= datasets) on the left
+-   ribbon menu at the top
+-   Query settings (= the changes you'll make to your data) on the right
+-   Excel-ish data preview in the middle
+
+## Basic data wrangling
+
+-   right click the `study_id` column and select `Remove`
+    -   the column will disappear
+    -   but you'll also gain a step in your Applied Steps field </br>![](images/clipboard-1788638263.png)
+-   you can edit this step
+    -   if you're code-confident, you can edit the formula to read `= Table.RemoveColumns(#"Changed Type",{"study_id", "treatment"})` to also remove the treatment column
+    -   and you can remove the step using the X next to the step name ![](images/clipboard-3939638955.png)
+-   you should also try renaming and reordering your columns in the same way
+-   once you've had a play, please remove the steps until you're left with the data you started with (so delete back to "Changed Type")
+
+## Replacing values
+
+-   we can also work with individual values
+-   our values are a number, then an underscore, then a word
+-   we can `Split column` at the underscore
+-   we could also replace the odd underscores in the treatment column
+
+## Reshaping data
+
+-   we could go column by column here splitting, but an easier approach would be to re-shape the data
+-   select the first three columns, and select `Unpivot Other Columns` </br>![](images/clipboard-1884864280.png)
+-   then split, change type, and generally tidy up
+
+## Add columns
+
+Our treatment and dosing columns are annoying. Let's make a new, joined, column for them:
+
+-   select `Custom Column`</br>![Custom Column](images/clipboard-1596515682.png)
+-   you can click the gearwheel next to the step if you'd like to go back and tweak
+
+## Close and load / Close and Apply sends your data back to Excel/Power BI
+
+![](images/clipboard-2525392040.png)
+
+## Getting more fancy: a bigger dataset
+
+-   please load the [Health and Care Experience survey results from 2023-4](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2024/05/health-and-care-experience-survey-2023-to-2024-results-by-geography/documents/health-and-care-experience-survey-2023-to-2024-geographical-data/health-and-care-experience-survey-2023-to-2024-geographical-data/govscot%3Adocument/Health%2Band%2BCare%2BExperience%2BSurvey%2B2023%2Bto%2B2024%2B-tables%2Bof%2Bresults%2Bby%2Bgeography.xlsx)</br> ![](images/clipboard-738553132.png)
+-   or [alternative local version](https://github.com/NES-DEW/KIND-training/raw/main/excel/src/HACE_2023-4.xlsx)
+-   please load both the proper datasets (and ignore the background)</br> ![Load both the proper datasets](images/clipboard-4050914485.png){height="200"}
+
+## A challenge
+
+Can you find the number of responses to each question for your local NHS board? You should be able to re-work this data to give something like: ![](images/clipboard-3334683078.png)
+
+### Some hints
+
+-   filtering works like Excel, but is destructive
+-   unpivoting, doing something to all the rows, then re-pivoting is a great way to work across lots of columns
+-   you can join structurally similar datasets using `Append Queries as New`</br>![Append Queries as New](images/clipboard-3061387544.png)
+-   you can deduplicate entire datasets by selecting all the columns and using `Remove Rows` \> `Remove Duplicates`
