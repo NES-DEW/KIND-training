@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2024-07-17">
 
-<title>Excel training – KIND training pages</title>
+<title>PowerQuery - a practical introduction – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,26 +24,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,67 +70,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -143,7 +82,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">KIND training pages</span>
     </a>
   </div>
@@ -154,19 +93,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./excel_main.html" aria-current="page"> 
+    <a class="nav-link" href="../excel_main.html"> 
 <span class="menu-text">Excel</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./r_main.html"> 
+    <a class="nav-link" href="../r_main.html"> 
 <span class="menu-text">R</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -175,25 +114,25 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-r-beginners-club">    
         <li>
-    <a class="dropdown-item" href="./rbc/about.html">
+    <a class="dropdown-item" href="../rbc/about.html">
  <span class="dropdown-text">About RBC</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./rbc/2024-06-13.html">
+    <a class="dropdown-item" href="../rbc/2024-06-13.html">
  <span class="dropdown-text">2024-06-13</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./BI_main.html"> 
+    <a class="nav-link" href="../BI_main.html"> 
 <span class="menu-text">Power BI</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./skills_main.html"> 
+    <a class="nav-link" href="../skills_main.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./schedule.html"> 
+    <a class="nav-link" href="../schedule.html"> 
 <span class="menu-text">Training schedule</span></a>
   </li>  
 </ul>
@@ -228,11 +167,27 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#excel-training-schedule" id="toc-excel-training-schedule" class="nav-link active" data-scroll-target="#excel-training-schedule">Excel training schedule</a></li>
-  <li><a href="#excel-session-materials" id="toc-excel-session-materials" class="nav-link" data-scroll-target="#excel-session-materials">Excel session materials</a></li>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#what-is-powerquery" id="toc-what-is-powerquery" class="nav-link" data-scroll-target="#what-is-powerquery">What is PowerQuery?</a></li>
+  <li><a href="#how-i-think-of-powerquery" id="toc-how-i-think-of-powerquery" class="nav-link" data-scroll-target="#how-i-think-of-powerquery">How I think of PowerQuery</a></li>
+  <li><a href="#why-might-you-use-it" id="toc-why-might-you-use-it" class="nav-link" data-scroll-target="#why-might-you-use-it">Why might you use it?</a></li>
+  <li><a href="#getting-data-into-powerquery" id="toc-getting-data-into-powerquery" class="nav-link" data-scroll-target="#getting-data-into-powerquery">Getting data into PowerQuery</a></li>
+  <li><a href="#preview-your-data" id="toc-preview-your-data" class="nav-link" data-scroll-target="#preview-your-data">Preview your Data</a></li>
+  <li><a href="#first-view-of-powerquery" id="toc-first-view-of-powerquery" class="nav-link" data-scroll-target="#first-view-of-powerquery">First view of PowerQuery</a></li>
+  <li><a href="#basic-data-wrangling" id="toc-basic-data-wrangling" class="nav-link" data-scroll-target="#basic-data-wrangling">Basic data wrangling</a></li>
+  <li><a href="#replacing-values" id="toc-replacing-values" class="nav-link" data-scroll-target="#replacing-values">Replacing values</a></li>
+  <li><a href="#reshaping-data" id="toc-reshaping-data" class="nav-link" data-scroll-target="#reshaping-data">Reshaping data</a></li>
+  <li><a href="#add-columns" id="toc-add-columns" class="nav-link" data-scroll-target="#add-columns">Add columns</a></li>
+  <li><a href="#close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi" id="toc-close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi" class="nav-link" data-scroll-target="#close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi">Close and load / Close and Apply sends your data back to Excel/Power BI</a></li>
+  <li><a href="#getting-more-fancy-a-bigger-dataset" id="toc-getting-more-fancy-a-bigger-dataset" class="nav-link" data-scroll-target="#getting-more-fancy-a-bigger-dataset">Getting more fancy: a bigger dataset</a></li>
+  <li><a href="#a-challenge" id="toc-a-challenge" class="nav-link" data-scroll-target="#a-challenge">A challenge</a>
+  <ul class="collapse">
+  <li><a href="#some-hints" id="toc-some-hints" class="nav-link" data-scroll-target="#some-hints">Some hints</a></li>
+  </ul></li>
   </ul>
 </nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(14)</span></div><div class="category" data-category="beginner">beginner <span class="quarto-category-count">(6)</span></div><div class="category" data-category="excel">excel <span class="quarto-category-count">(14)</span></div><div class="category" data-category="intermediate">intermediate <span class="quarto-category-count">(6)</span></div><div class="category" data-category="overview">overview <span class="quarto-category-count">(2)</span></div></div><div class="quarto-margin-footer"><div class="margin-footer-item">
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
 </p>
@@ -242,8 +197,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Excel training</h1>
-</div>
+<h1 class="title">PowerQuery - a practical introduction</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">excel</div>
+    <div class="quarto-category">intermediate</div>
+  </div>
+  </div>
 
 
 
@@ -265,203 +224,187 @@ window.Quarto = {
 </header>
 
 
-<section id="excel-training-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="excel-training-schedule">Excel training schedule</h2>
-<table class="caption-top table" data-quarto-postprocess="true">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Session</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Date</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Area</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Level</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Calendar invite</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1716564935233?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Lookups in Excel</a></td>
-<td style="text-align: left;">13:00-14:30 Thu 1st August 2024</td>
-<td style="text-align: left;">Excel</td>
-<td style="text-align: left;"><red'>🌶🌶
-
-: <strong>intermediate-level</strong></red'></td>
-<td style="text-align: left;"><a href="www/lookups_in_excel.ics">📅 .ics</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><a href="https://teams.microsoft.com/l/meetup-join/19%3ab03b2fd777e440eaa255ba67569762b5%40thread.tacv2/1718976786664?context=%7b%22Tid%22%3a%2210efe0bd-a030-4bca-809c-b5e6745e499a%22%2c%22Oid%22%3a%225d92fd7e-56b9-4892-ab77-84ad75c260a0%22%7d">Relative, absolute, mixed, structured, and R1C1 references in Excel</a></td>
-<td style="text-align: left;">15:00-16:00 Thu 8th August 2024</td>
-<td style="text-align: left;">Excel</td>
-<td style="text-align: left;"><red'>🌶🌶
-
-: <strong>intermediate-level</strong></red'></td>
-<td style="text-align: left;"><a href="www/relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.ics">📅 .ics</a></td>
-</tr>
-</tbody>
-</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Session materials
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="src/powerquery_intro.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
+<li>slides <a href="src/powerquery_intro.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/powerquery_intro.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a></li>
+</ul>
+</div>
+</div>
+</div>
+<p>No feedback found for this session</p>
+<section id="welcome" class="level2">
+<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
+<ul>
+<li>🌶 this session is a beginner-level introduction to PowerQuery</li>
+<li>you’ll either Excel desktop (&gt;2007) or Power BI desktop</li>
+<li>you’ll also need to have basic competency in Excel or Power BI</li>
+<li>this session is based on our <a href="https://learn.nes.nhs.scot/70921">Power BI for Beginners</a> course</li>
+<li>but PowerQuery isn’t specific to Power BI - it’s brilliant for Excel too</li>
+</ul>
+</section>
+<section id="session-outline" class="level2">
+<h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+<ul>
+<li>what is PowerQuery, and why might you use it?</li>
+<li>getting data into PowerQuery</li>
+<li>basic data wrangling</li>
+<li>joins (merges)</li>
+<li>pivots</li>
+</ul>
+</section>
+<section id="what-is-powerquery" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-powerquery">What is PowerQuery?</h2>
+<ul>
+<li>Microsoft call it a <a href="https://learn.microsoft.com/en-us/power-query/power-query-what-is-power-query">“data transformation and data preparation engine”</a></li>
+<li>it’s been around since 2010, initially in Excel, and then in both Excel and Power BI</li>
+<li>uses code (<a href="https://en.wikipedia.org/wiki/Power_Query">M Formula language</a>) but has GUI tools for most tasks</li>
+</ul>
+</section>
+<section id="how-i-think-of-powerquery" class="level2">
+<h2 class="anchored" data-anchor-id="how-i-think-of-powerquery">How I think of PowerQuery</h2>
+<ul>
+<li>the right way to load any real data into Excel</li>
+</ul>
+</section>
+<section id="why-might-you-use-it" class="level2">
+<h2 class="anchored" data-anchor-id="why-might-you-use-it">Why might you use it?</h2>
+<ul>
+<li>powerful</li>
+<li>easy, to start with at least…</li>
+<li>allows you to standardise data loading from different sources</li>
+<li>allows you to repeat data loading</li>
+</ul>
+</section>
+<section id="getting-data-into-powerquery" class="level2">
+<h2 class="anchored" data-anchor-id="getting-data-into-powerquery">Getting data into PowerQuery</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Excel</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Power BI</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ol type="1">
+<li>Open Excel and create a new, blank, workbook</li>
+<li><code>Data</code> &gt; <code>Get &amp; Transform Data</code> <br> <img src="images/clipboard-2636372440.png" class="img-fluid" alt="Get &amp; Transform Data"></li>
+<li>Pick <code>From Web</code> and supply the following URL - <code>https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv</code></li>
+<li>From the preview, select <code>Transform data</code> to open PowerQuery</li>
+</ol>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ol type="1">
+<li>Open Power BI and start a new report</li>
+<li>Select <code>Get data</code> &gt; <code>From Web</code> button in the ribbon <img src="images/clipboard-2012149707.png" height="200" alt="Get data from web"></li>
+<li>Supply the following URL - <code>https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv</code> <br><img src="images/clipboard-1484642386.png" class="img-fluid" alt="supply a URL"></li>
+<li>From the preview, select <code>Transform data</code> to open PowerQuery <br> <img src="images/clipboard-4163607856.png" class="img-fluid" alt="Select Transform data to open PowerQuery"></li>
+<li>If you’ve already got some data in your report that you’d like to transform, use <code>Tranform data</code> in the ribbon to open PowerQuery: <br> <img src="images/clipboard-1924567552.png" class="img-fluid" alt="Tranform data in the ribbon"></li>
+</ol>
+</div>
+</div>
+</div>
+<ul>
+<li>this is historical data about scurvy testing from the <a href="https://cran.r-project.org/web/packages/medicaldata/index.html">medicaldata r package</a></li>
+</ul>
+</section>
+<section id="preview-your-data" class="level2">
+<h2 class="anchored" data-anchor-id="preview-your-data">Preview your Data</h2>
+<p><img src="images/clipboard-2984247945.png" class="img-fluid" alt="make sure to click Transform data"> <br> (make sure to click <code>Transform data</code>)</p>
+</section>
+<section id="first-view-of-powerquery" class="level2">
+<h2 class="anchored" data-anchor-id="first-view-of-powerquery">First view of PowerQuery</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1738142120.png" class="img-fluid figure-img"></p>
+<figcaption>First view of PowerQuery</figcaption>
+</figure>
+</div>
+<ul>
+<li>Queries (= datasets) on the left</li>
+<li>ribbon menu at the top</li>
+<li>Query settings (= the changes you’ll make to your data) on the right</li>
+<li>Excel-ish data preview in the middle</li>
+</ul>
+</section>
+<section id="basic-data-wrangling" class="level2">
+<h2 class="anchored" data-anchor-id="basic-data-wrangling">Basic data wrangling</h2>
+<ul>
+<li>right click the <code>study_id</code> column and select <code>Remove</code>
+<ul>
+<li>the column will disappear</li>
+<li>but you’ll also gain a step in your Applied Steps field <br><img src="images/clipboard-1788638263.png" class="img-fluid"></li>
+</ul></li>
+<li>you can edit this step
+<ul>
+<li>if you’re code-confident, you can edit the formula to read <code>= Table.RemoveColumns(#"Changed Type",{"study_id", "treatment"})</code> to also remove the treatment column</li>
+<li>and you can remove the step using the X next to the step name <img src="images/clipboard-3939638955.png" class="img-fluid"></li>
+</ul></li>
+<li>you should also try renaming and reordering your columns in the same way</li>
+<li>once you’ve had a play, please remove the steps until you’re left with the data you started with (so delete back to “Changed Type”)</li>
+</ul>
+</section>
+<section id="replacing-values" class="level2">
+<h2 class="anchored" data-anchor-id="replacing-values">Replacing values</h2>
+<ul>
+<li>we can also work with individual values</li>
+<li>our values are a number, then an underscore, then a word</li>
+<li>we can <code>Split column</code> at the underscore</li>
+<li>we could also replace the odd underscores in the treatment column</li>
+</ul>
+</section>
+<section id="reshaping-data" class="level2">
+<h2 class="anchored" data-anchor-id="reshaping-data">Reshaping data</h2>
+<ul>
+<li>we could go column by column here splitting, but an easier approach would be to re-shape the data</li>
+<li>select the first three columns, and select <code>Unpivot Other Columns</code> <br><img src="images/clipboard-1884864280.png" class="img-fluid"></li>
+<li>then split, change type, and generally tidy up</li>
+</ul>
+</section>
+<section id="add-columns" class="level2">
+<h2 class="anchored" data-anchor-id="add-columns">Add columns</h2>
+<p>Our treatment and dosing columns are annoying. Let’s make a new, joined, column for them:</p>
+<ul>
+<li>select <code>Custom Column</code><br><img src="images/clipboard-1596515682.png" class="img-fluid" alt="Custom Column"></li>
+<li>you can click the gearwheel next to the step if you’d like to go back and tweak</li>
+</ul>
+</section>
+<section id="close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi" class="level2">
+<h2 class="anchored" data-anchor-id="close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi">Close and load / Close and Apply sends your data back to Excel/Power BI</h2>
+<p><img src="images/clipboard-2525392040.png" class="img-fluid"></p>
+</section>
+<section id="getting-more-fancy-a-bigger-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="getting-more-fancy-a-bigger-dataset">Getting more fancy: a bigger dataset</h2>
+<ul>
+<li>please load the <a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2024/05/health-and-care-experience-survey-2023-to-2024-results-by-geography/documents/health-and-care-experience-survey-2023-to-2024-geographical-data/health-and-care-experience-survey-2023-to-2024-geographical-data/govscot%3Adocument/Health%2Band%2BCare%2BExperience%2BSurvey%2B2023%2Bto%2B2024%2B-tables%2Bof%2Bresults%2Bby%2Bgeography.xlsx">Health and Care Experience survey results from 2023-4</a><br> <img src="images/clipboard-738553132.png" class="img-fluid"></li>
+<li>or <a href="https://github.com/NES-DEW/KIND-training/raw/main/excel/src/HACE_2023-4.xlsx">alternative local version</a></li>
+<li>please load both the proper datasets (and ignore the background)<br> <img src="images/clipboard-4050914485.png" height="200" alt="Load both the proper datasets"></li>
+</ul>
+</section>
+<section id="a-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="a-challenge">A challenge</h2>
+<p>Can you find the number of responses to each question for your local NHS board? You should be able to re-work this data to give something like: <img src="images/clipboard-3334683078.png" class="img-fluid"></p>
+<section id="some-hints" class="level3">
+<h3 class="anchored" data-anchor-id="some-hints">Some hints</h3>
+<ul>
+<li>filtering works like Excel, but is destructive</li>
+<li>unpivoting, doing something to all the rows, then re-pivoting is a great way to work across lots of columns</li>
+<li>you can join structurally similar datasets using <code>Append Queries as New</code><br><img src="images/clipboard-3061387544.png" class="img-fluid" alt="Append Queries as New"></li>
+<li>you can deduplicate entire datasets by selecting all the columns and using <code>Remove Rows</code> &gt; <code>Remove Duplicates</code></li>
+</ul>
 
 
 </section>
-<section id="excel-session-materials" class="level2">
-<h2 class="anchored" data-anchor-id="excel-session-materials">Excel session materials</h2>
-
-
-
 </section>
 
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title-sort" data-direction="asc">
-          Title
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
-</th>
-<th>
-Categories
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-categories="excel,beginner" data-listing-date-sort="1721222670000" data-listing-file-modified-sort="1721222670744" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="724" data-listing-title-sort="Excel first steps" data-listing-filename-sort="excel_first_steps.qmd">
-<td>
-<a href="./excel/excel_first_steps.html" class="title listing-title">Excel first steps</a>
-</td>
-<td>
-<span class="listing-categories">excel, beginner</span>
-</td>
-</tr>
-<tr data-index="1" data-categories="excel,beginner" data-listing-date-sort="1720569600000" data-listing-file-modified-sort="1721222670744" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1121" data-listing-title-sort="Excel formatting" data-listing-filename-sort="excel_formatting.qmd">
-<td>
-<a href="./excel/excel_formatting.html" class="title listing-title">Excel formatting</a>
-</td>
-<td>
-<span class="listing-categories">excel, beginner</span>
-</td>
-</tr>
-<tr data-index="2" data-categories="excel,beginner" data-listing-date-sort="1719964800000" data-listing-file-modified-sort="1721222670744" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="731" data-listing-title-sort="Excel formulas" data-listing-filename-sort="excel_formulas.qmd">
-<td>
-<a href="./excel/excel_formulas.html" class="title listing-title">Excel formulas</a>
-</td>
-<td>
-<span class="listing-categories">excel, beginner</span>
-</td>
-</tr>
-<tr data-index="3" data-categories="excel,beginner" data-listing-date-sort="1719792000000" data-listing-file-modified-sort="1721222670744" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="885" data-listing-title-sort="Excel tables" data-listing-filename-sort="excel_tables.qmd">
-<td>
-<a href="./excel/excel_tables.html" class="title listing-title">Excel tables</a>
-</td>
-<td>
-<span class="listing-categories">excel, beginner</span>
-</td>
-</tr>
-<tr data-index="4" data-categories="excel,intermediate" data-listing-date-sort="1721001600000" data-listing-file-modified-sort="1721222670756" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="601" data-listing-title-sort="Lambda formulas in Excel" data-listing-filename-sort="lambda_formulas_in_excel.qmd">
-<td>
-<a href="./excel/lambda_formulas_in_excel.html" class="title listing-title">Lambda formulas in Excel</a>
-</td>
-<td>
-<span class="listing-categories">excel, intermediate</span>
-</td>
-</tr>
-<tr data-index="5" data-categories="excel,intermediate" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1721222670760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="13" data-listing-title-sort="Lookups in Excel" data-listing-filename-sort="lookups_in_excel.qmd">
-<td>
-<a href="./excel/lookups_in_excel.html" class="title listing-title">Lookups in Excel</a>
-</td>
-<td>
-<span class="listing-categories">excel, intermediate</span>
-</td>
-</tr>
-<tr data-index="6" data-categories="excel,intermediate" data-listing-date-sort="1718236800000" data-listing-file-modified-sort="1721222670760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="745" data-listing-title-sort="Pivot tables and pivot charts" data-listing-filename-sort="pivot_tables_and_pivot_charts.qmd">
-<td>
-<a href="./excel/pivot_tables_and_pivot_charts.html" class="title listing-title">Pivot tables and pivot charts</a>
-</td>
-<td>
-<span class="listing-categories">excel, intermediate</span>
-</td>
-</tr>
-<tr data-index="7" data-categories="excel,intermediate" data-listing-date-sort="1721174400000" data-listing-file-modified-sort="1721222670760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="859" data-listing-title-sort="PowerQuery - a practical introduction" data-listing-filename-sort="power_query_a_practical_introduction.qmd">
-<td>
-<a href="./excel/power_query_a_practical_introduction.html" class="title listing-title">PowerQuery - a practical introduction</a>
-</td>
-<td>
-<span class="listing-categories">excel, intermediate</span>
-</td>
-</tr>
-<tr data-index="8" data-categories="excel,intermediate" data-listing-date-sort="1717632000000" data-listing-file-modified-sort="1721222670760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="482" data-listing-title-sort="Practical PowerPivot" data-listing-filename-sort="practical_power_pivot.qmd">
-<td>
-<a href="./excel/practical_power_pivot.html" class="title listing-title">Practical PowerPivot</a>
-</td>
-<td>
-<span class="listing-categories">excel, intermediate</span>
-</td>
-</tr>
-<tr data-index="9" data-categories="excel,beginner" data-listing-date-sort="1721222670000" data-listing-file-modified-sort="1721222670760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="805" data-listing-title-sort="References and names in Excel" data-listing-filename-sort="references_and_names_in_excel.qmd">
-<td>
-<a href="./excel/references_and_names_in_excel.html" class="title listing-title">References and names in Excel</a>
-</td>
-<td>
-<span class="listing-categories">excel, beginner</span>
-</td>
-</tr>
-<tr data-index="10" data-categories="excel,intermediate" data-listing-date-sort="1722470400000" data-listing-file-modified-sort="1721222670760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="13" data-listing-title-sort="Relative, absolute, mixed, and structured references" data-listing-filename-sort="relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.qmd">
-<td>
-<a href="./excel/relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.html" class="title listing-title">Relative, absolute, mixed, and structured references</a>
-</td>
-<td>
-<span class="listing-categories">excel, intermediate</span>
-</td>
-</tr>
-<tr data-index="11" data-categories="excel,overview" data-listing-date-sort="1717632000000" data-listing-file-modified-sort="1721222670760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="396" data-listing-title-sort="Scope of the possible with Excel" data-listing-filename-sort="scope_of_the_possible_with_excel.qmd">
-<td>
-<a href="./excel/scope_of_the_possible_with_excel.html" class="title listing-title">Scope of the possible with Excel</a>
-</td>
-<td>
-<span class="listing-categories">excel, overview</span>
-</td>
-</tr>
-<tr data-index="12" data-categories="excel,beginner" data-listing-date-sort="1721222670000" data-listing-file-modified-sort="1721222670888" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1449" data-listing-title-sort="Tidy data in Excel" data-listing-filename-sort="tidy_data_in_excel.qmd">
-<td>
-<a href="./excel/tidy_data_in_excel.html" class="title listing-title">Tidy data in Excel</a>
-</td>
-<td>
-<span class="listing-categories">excel, beginner</span>
-</td>
-</tr>
-<tr data-index="13" data-categories="excel,overview" data-listing-date-sort="1717632000000" data-listing-file-modified-sort="1721222670888" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="272" data-listing-title-sort="Why bother with Excel?" data-listing-filename-sort="why_bother_with_excel.qmd">
-<td>
-<a href="./excel/why_bother_with_excel.html" class="title listing-title">Why bother with Excel?</a>
-</td>
-<td>
-<span class="listing-categories">excel, overview</span>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
