@@ -24,9 +24,9 @@ jobs:
           
       - name: bang head on renv
         run: |
-          install.packages("renv")
-          renv::activate()
-          renv::restore()
+          Rscript -e "install.packages('renv')"
+          Rscript -e "renv::activate()"
+          Rscript -e "renv::restore()"
       
       - name: Setup python
         uses: actions/setup-python@v4
