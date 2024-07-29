@@ -21,7 +21,6 @@ categories: [R, overview]
 
 source(here::here("R/feed_block.R"))
 feed_block("Scope of the possible with R")
-library(tidyverse)
 ```
 
 ## Welcome
@@ -67,6 +66,7 @@ library(tidyverse)
 ## Load that data
 
 ```{r}
+library(readr)
 ae_activity <- read_csv("data/weekly_ae_activity_20240609.csv")
 ```
 
@@ -80,6 +80,7 @@ names(ae_activity) <- c("date", "country", "hb", "loc", "type", "attend", "n_wit
 
 ```{r}
 #| echo: false
+library(dplyr)
 ae_activity |>
     slice_sample(n = 5) |>
     knitr::kable(caption = "Preview of data")
@@ -106,7 +107,7 @@ ae_activity |>
 
 ```{r}
 ae_activity <- ae_activity |>
-    mutate(date = ymd(date))
+    mutate(date = lubridate::ymd(date))
 
 ```
 
@@ -148,6 +149,7 @@ ae_activity |>
 ## Basic plots
 
 ```{r}
+library(ggplot2)
 ae_activity |>
     ggplot() +
     geom_line(aes(x = date, y = attend, colour = hb, group = loc)) 

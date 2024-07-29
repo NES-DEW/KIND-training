@@ -16,10 +16,6 @@ execute:
 categories: [R, intermediate]
 ---
 
-```{r}
-library(tidyverse)
-```
-
 
 ## Headline
 
@@ -31,6 +27,7 @@ library(tidyverse)
 ```{r}
 library(janitor)
 library(readxl)
+library(dplyr)
 
 test_df <- as.data.frame(matrix(ncol = 6))
 names(test_df) <- c("firstName", "ábc@!*", "% successful (2009)",
@@ -39,9 +36,6 @@ names(test_df) <- c("firstName", "ábc@!*", "% successful (2009)",
 test_df |>
   clean_names(case = "upper_lower") |>
   select(FIRSTname)
-
-
-
 ```
 
 ## `clean_names`
@@ -126,7 +120,6 @@ Data1_clean_distinct |>
 Data1_clean_distinct |>
   tabyl(gender, location, Year, show_na = F) # excel pivot
 
-
 Data1_clean_distinct |>
   tabyl(gender) |>
   class()
@@ -165,7 +158,7 @@ Data1_clean_distinct |>
   group_by(Year,gender) |>
   summarise(Attendances = n()) |>
   filter(!is.na(Year)) |>
-  pivot_wider(names_from = gender, values_from = Attendances) |>
+  tidyr::pivot_wider(names_from = gender, values_from = Attendances) |>
   adorn_totals(c("row","col"))
 
 ```

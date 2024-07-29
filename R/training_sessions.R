@@ -10,7 +10,7 @@ training_sessions <- function(tr_type = "all", start_date = "today", end_date = 
     
     poss_sesh <- sesh |>
       dplyr::filter(`Platform / area` %in% tr_type) |>
-      pull(Title)
+      dplyr::pull(Title)
     
     schedule <- schedule |>
       dplyr::filter(`session title` %in% poss_sesh)

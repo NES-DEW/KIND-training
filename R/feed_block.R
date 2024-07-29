@@ -2,15 +2,13 @@ feed_block <- function(title){
   source(here::here("R/bullet_list.R"))
 
   dat <- readxl::read_excel(here::here("data/KIND_training_feedback.xlsx")) |>
-  # janitor::clean_names() |>
-  #   dplyr::select(!dplyr::starts_with("x")) |>
+
   dplyr::filter(stringr::str_detect(session_title, title))
   
   if (nrow(dat) == 0) {
     return(cat("No feedback found for this session"))
   } else {
-    # names(dat)[3:5] <- c("recommend", "describe", "sentence")
-    
+
     rite <- scales::percent((sum(dat$describe == "About right", na.rm = T) / nrow(dat)))
     rec <- scales::percent((sum(dat$recommend == "Yes", na.rm = T) / nrow(dat)))
     
