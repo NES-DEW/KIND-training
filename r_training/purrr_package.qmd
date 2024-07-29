@@ -1,0 +1,264 @@
+---
+title: "The purrr package in R"
+date: "2024-07-29"
+execute: 
+  echo: true
+  eval: true
+  freeze: auto
+output: "markup"
+categories: [R, intermediate]
+---
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [all materials {{< iconify ph:file-zip size=2x >}}](src/purrr_package.zip)
+-   slides [{{< iconify ph:file-html size=2x >}} html](src/purrr_package.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/purrr_package.pdf)
+:::
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| eval: true
+
+source(here::here("R/feed_block.R"))
+feed_block("The purrr package in R")
+
+```
+
+
+## Welcome
+
+-   this session is for 🌶🌶 intermediate users
+-   you'll need R + Rstudio / Posit Workbench / posit.cloud to follow along
+
+## Session outline
+
+-   a digression about Linnaeus
+-   functionals
+-   base-R functional programming
+-   `map` and `walk`
+-   `map2` and `pmap`
+-   niceties and add-ons
+
+## A digression about Linnaeus
+
+::: columns
+::: {.column width="40%"}
+![[1758 edition of the Systema Naturae](https://www.biodiversitylibrary.org/item/10277)](images/clipboard-4148155250.png){height="400"}
+
+
+:::
+
+::: {.column width="60%"}
++ used an existing system of binomial classification
++ *Homo sapiens*
+    + *Homo* = generic name, which applies to similar species
+    + *sapiens* = specific name, for that species and that species only
++ *Pan troglodytes* and *Pan paniscus* = two similar species in a genus
++ *Elephas maximus* and *Loxodonta africana* = two similar species in different genera
+
+
+
+:::
+
+:::
+
+## Functionals
+
+Here are some numbers:
+
+```{r}
+n1 <- 7:9
+```
+
+
+
+Let's find their average. We'd usually do this by passing those numbers to a function:
+
+```{r}
+mean(n1)
+```
+
+But in R, interestingly, we can also do this the other way round by passing a function name:
+
+```{r}
+my_num_f <- function(funct = mean) funct(n1)
+my_num_f(mean)
+my_num_f(sum)
+```
+
+We'd describe this as a [functional](https://adv-r.hadley.nz/functionals.html). It's fun, but a bit messy and annoying (e.g. how to change the numbers you're averaging??).
+
+## Functional programming in base R
+
+Say we've got a function we want to apply:
+
+```{r}
+round_root <- function(n) round(n ^ 0.5, 1)
+```
+
+There are several ways of applying functions to stuff in base R. 
++ we could use a loop: that's another session
++ we could just exploit the vectorised nature of most functions in R
+```{r}
+round_root(n1)
+```
+
++ or we could use some of the `apply` family of functions, like `lapply` and `sapply`:
+
+```{r}
+lapply(n1, round_root) # returns a list
+sapply(n1, round_root) # simplifies that list to a vector
+
+```
+
+There's no real reason to use these functions when things are this simple, but when our applications become more complicated...
+
+```{r}
+n2 <- 11:13
+
+lapply(list(n1, n2), round_root)
+sapply(list(n1, n2), round_root) # oddball output
+lapply(list(n1, n2[1:2]), round_root) # quirky
+
+```
+
+## purrr
+
++ [purrr](https://cran.r-project.org/web/packages/purrr/index.html) is a functional programming toolkit
++ main advantage = **consistency**
++ [very useful cheatsheet](https://rstudio.github.io/cheatsheets/html/purrr.html)
+
+## `map`
+
+`map` is our purrr [type specimen](https://en.wikipedia.org/wiki/Type_(biology))
+
+```{r}
+library(purrr)
+map(n1, round_root)
+```
+
+Pleasingly, `map` will handle all kinds of odd inputs without fuss:
+
+```{r}
+map(c(n1, n2), round_root)
+map(dplyr::tibble(n1 = n1, n2 = n2), round_root)
+map(rbind(n1, n2), round_root) 
+```
+
+`map` will always return a list - that's because, no matter what the output, you can always cram it into a list. If you want different output, you can have it. You just need to find the right *species*:
+
+```{r}
+map_vec(n1, round_root)
+try(map_int(n1, round_root)) # surly and strict
+```
+
+```{r}
+round_root_int <- function(n) as.integer(n ^ 0.5)
+map_int(n1, round_root_int) 
+```
+
+```{r}
+round_root_lgl <- function(n) as.integer(n ^ 0.5) %% 2 == 0
+map_lgl(n1, round_root_lgl)
+```
+
+## anonymous functions
+
+If you're comfortable with the new anonymous function syntax, you can build an anonymous function in place:
+
+```{r}
+map_lgl(1:4, \(x) x %% 2 == 0)
+```
+
+
+## `walk`
+
+`walk` is intended for code where the side-effect is the point: graphs, pipes, and Rmarkdown especially. Otherwise, it's as `map`:
+
+```{r}
+walk(n1, round_root) # wtf?
+round_root_print <- function(n) print(n ^ 0.5)
+walk(n1, round_root_print) 
+```
+
+```{r}
+round_root_cat <- function(n) cat(n ^ 0.5, "  \n")
+walk(n1, round_root_cat)
+```
+
+
+## `map2` 
+
+`map2` is for 2-argument functions:
+
+```{r}
+map2_int(n1, n2, `+`) # the best terrible way of adding I know
+round_root_places <- function(n, dp = 1) round(n ^ 0.5, dp)
+round_root_places(n1, 0)
+map2(n1, 0, round_root_places)
+```
+
+## Beware of recycling rules
+
+You'll be unable to use `map2` if your inputs are different lengths:
+
+```{r}
+try(map2(1:3, 0:3, round_root_places))
+```
+
+This makes `expand.grid` valuable if you're looking to try out all the combinations of two vectors, for example.
+
+```{r}
+dat <- expand.grid(nums = 1:3, dplaces = 0:3) 
+
+map2(dat$nums, dat$dplaces, round_root_places)
+```
+
+Or (probably more usefully) this could be done inside `dplyr::mutate` to add to a tibble:
+
+```{r}
+#| results: asis
+expand.grid(nums = n1, dplaces = 0:3) |>
+  dplyr::as_tibble() |>
+  dplyr::mutate(rr = map2_vec(nums, dplaces, round_root_places)) |>
+  knitr::kable()
+```
+
+## `pmap`
+
+`pmap` is for n argument functions.
+
+```{r}
+round_roots_places <- function(n, root = 2, places = 1) round(n ^ 1/root, places)
+
+round_roots_places(n1, root = 4, places = 2) # use named arguments to avoid misery
+
+pmap(list(n = n1, root = 4, places = 2), round_roots_places)
+
+```
+
+## Niceties and addons
+
+`imap` allows you to work with indicies, and `list_c` converts simple lists back to vectors:
+
+```{r}
+imap(list("a", "b", "c"), \(x, y) paste0(y, ": ", x)) |> # index map where y is the name or index
+  list_c()
+```
+
+If your function returns a tibble, you can use `list_rbind` or `list_cbind` to row- or column-bind the results into a tibble:
+
+```{r}
+#| results: asis
+map(n1, \(x) dplyr::tibble("Val" = x, "sq_val" = x^2)) |>
+  list_rbind() |>
+  knitr::kable()
+```
+
+## Resources
+
+- [functionals chapter in Advanced R](https://adv-r.hadley.nz/functionals.html)
+- [purrr cheatsheet](https://rstudio.github.io/cheatsheets/html/purrr.html)
