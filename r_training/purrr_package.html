@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-06-18">
+<meta name="dcterms.date" content="2024-07-29">
 
-<title>Writing functions in R – KIND training pages</title>
+<title>The purrr package in R – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -201,27 +201,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link" data-scroll-target="#welcome">Welcome!</a></li>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
   <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#why-functions" id="toc-why-functions" class="nav-link" data-scroll-target="#why-functions">Why functions?</a></li>
-  <li><a href="#basic-syntax" id="toc-basic-syntax" class="nav-link" data-scroll-target="#basic-syntax">Basic syntax</a></li>
-  <li><a href="#adding-arguments" id="toc-adding-arguments" class="nav-link" data-scroll-target="#adding-arguments">Adding arguments</a></li>
-  <li><a href="#another-argument" id="toc-another-argument" class="nav-link" data-scroll-target="#another-argument">Another argument</a></li>
-  <li><a href="#defaults" id="toc-defaults" class="nav-link" data-scroll-target="#defaults">Defaults</a></li>
-  <li><a href="#vectorised-functions" id="toc-vectorised-functions" class="nav-link" data-scroll-target="#vectorised-functions">Vectorised functions</a></li>
-  <li><a href="#three-solutions" id="toc-three-solutions" class="nav-link" data-scroll-target="#three-solutions">Three solutions</a>
-  <ul class="collapse">
-  <li><a href="#vectorize-with-vectorize" id="toc-vectorize-with-vectorize" class="nav-link" data-scroll-target="#vectorize-with-vectorize">vectorize with <code>Vectorize</code></a></li>
-  <li><a href="#apply" id="toc-apply" class="nav-link" data-scroll-target="#apply">apply</a></li>
-  <li><a href="#refactor" id="toc-refactor" class="nav-link" data-scroll-target="#refactor">refactor</a></li>
-  </ul></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><code>{{}}</code></a>
-  <ul class="collapse">
-  <li><a href="#whats-the-problem" id="toc-whats-the-problem" class="nav-link" data-scroll-target="#whats-the-problem">What’s the problem?</a></li>
-  <li><a href="#enter" id="toc-enter" class="nav-link" data-scroll-target="#enter">Enter <code>{{}}</code></a></li>
-  </ul></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">…</a></li>
+  <li><a href="#a-digression-about-linnaeus" id="toc-a-digression-about-linnaeus" class="nav-link" data-scroll-target="#a-digression-about-linnaeus">A digression about Linnaeus</a></li>
+  <li><a href="#functionals" id="toc-functionals" class="nav-link" data-scroll-target="#functionals">Functionals</a></li>
+  <li><a href="#functional-programming-in-base-r" id="toc-functional-programming-in-base-r" class="nav-link" data-scroll-target="#functional-programming-in-base-r">Functional programming in base R</a></li>
+  <li><a href="#purrr" id="toc-purrr" class="nav-link" data-scroll-target="#purrr">purrr</a></li>
+  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map"><code>map</code></a></li>
+  <li><a href="#anonymous-functions" id="toc-anonymous-functions" class="nav-link" data-scroll-target="#anonymous-functions">anonymous functions</a></li>
+  <li><a href="#walk" id="toc-walk" class="nav-link" data-scroll-target="#walk"><code>walk</code></a></li>
+  <li><a href="#map2" id="toc-map2" class="nav-link" data-scroll-target="#map2"><code>map2</code></a></li>
+  <li><a href="#beware-of-recycling-rules" id="toc-beware-of-recycling-rules" class="nav-link" data-scroll-target="#beware-of-recycling-rules">Beware of recycling rules</a></li>
+  <li><a href="#pmap" id="toc-pmap" class="nav-link" data-scroll-target="#pmap"><code>pmap</code></a></li>
+  <li><a href="#niceties-and-addons" id="toc-niceties-and-addons" class="nav-link" data-scroll-target="#niceties-and-addons">Niceties and addons</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
@@ -235,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Writing functions in R</h1>
+<h1 class="title">The purrr package in R</h1>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">intermediate</div>
@@ -250,7 +242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 18, 2024</p>
+      <p class="date">July 29, 2024</p>
     </div>
   </div>
   
@@ -275,335 +267,502 @@ Session materials
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
-<li><a href="src/writing_functions_in_r.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
-<li>slides <a href="src/writing_functions_in_r_sl.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/writing_functions_in_r_sl.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a></li>
+<li><a href="src/purrr_package.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
+<li>slides <a href="src/purrr_package.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/purrr_package.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a></li>
 </ul>
 </div>
 </div>
 </div>
-<section id="previous-attendees-have-said" class="level2">
-<h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
-<ul>
-<li>17 previous attendees have left feedback</li>
-<li>88% said that this session was pitched correctly</li>
-<li>100% would recommend this session to a colleague</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Three random comments from previous attendees
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>A really interactive and fun way to learn about using functions with something new for everyone</li>
-<li>Really useful course</li>
-<li>good and interactive session in friendly learning atmosphere, worthwhile!! thank you</li>
-</ul>
-</div>
-</div>
-</section>
+<p>No feedback found for this session</p>
 <section id="welcome" class="level2">
-<h2 class="anchored" data-anchor-id="welcome">Welcome!</h2>
+<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
 <ul>
-<li>this session is an 🌶🌶 <strong>intermediate practical</strong> designed for those with some R experience</li>
+<li>this session is for 🌶🌶 intermediate users</li>
+<li>you’ll need R + Rstudio / Posit Workbench / posit.cloud to follow along</li>
 </ul>
 </section>
 <section id="session-outline" class="level2">
 <h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
 <ul>
-<li>why functions?</li>
-<li>basic syntax</li>
-<li>adding arguments</li>
-<li>vectorised functions</li>
-<li>the mystery of the paired brackets</li>
-<li>…</li>
+<li>a digression about Linnaeus</li>
+<li>functionals</li>
+<li>base-R functional programming</li>
+<li><code>map</code> and <code>walk</code></li>
+<li><code>map2</code> and <code>pmap</code></li>
+<li>niceties and add-ons</li>
 </ul>
 </section>
-<section id="why-functions" class="level2">
-<h2 class="anchored" data-anchor-id="why-functions">Why functions?</h2>
-<ul>
-<li>most beginners write repetitious code</li>
-<li>repetitious code is hard to maintain</li>
-<li>functions give you an easy way of repeating chunks of code</li>
-</ul>
-</section>
-<section id="basic-syntax" class="level2">
-<h2 class="anchored" data-anchor-id="basic-syntax">Basic syntax</h2>
-<ul>
-<li>think of this as a way of repeating yourself</li>
-<li>in time-honoured fashion…</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>hi_wrld <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"hello world"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hi_wrld</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "hello world"</code></pre>
+<section id="a-digression-about-linnaeus" class="level2">
+<h2 class="anchored" data-anchor-id="a-digression-about-linnaeus">A digression about Linnaeus</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4148155250.png" height="400" class="figure-img"></p>
+<figcaption><a href="https://www.biodiversitylibrary.org/item/10277">1758 edition of the Systema Naturae</a></figcaption>
+</figure>
 </div>
-</div>
-</section>
-<section id="adding-arguments" class="level2">
-<h2 class="anchored" data-anchor-id="adding-arguments">Adding arguments</h2>
+</div><div class="column" style="width:60%;">
 <ul>
-<li>most of the time, you’ll want to add <strong>arguments</strong> to your function
+<li>used an existing system of binomial classification</li>
+<li><em>Homo sapiens</em>
 <ul>
-<li>add a variable name inside the round bracket of <code>function</code></li>
-<li>use that variable name in your function body</li>
+<li><em>Homo</em> = generic name, which applies to similar species</li>
+<li><em>sapiens</em> = specific name, for that species and that species only</li>
 </ul></li>
+<li><em>Pan troglodytes</em> and <em>Pan paniscus</em> = two similar species in a genus</li>
+<li><em>Elephas maximus</em> and <em>Loxodonta africana</em> = two similar species in different genera</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hi_wrld_n <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">"hello world"</span>, n))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hi_wrld_n</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "hello world" "hello world" "hello world" "hello world"</code></pre>
 </div>
 </div>
 </section>
-<section id="another-argument" class="level2">
-<h2 class="anchored" data-anchor-id="another-argument">Another argument</h2>
-<ul>
-<li>you can add another argument</li>
-<li>either position or name can be used in the function call</li>
-</ul>
+<section id="functionals" class="level2">
+<h2 class="anchored" data-anchor-id="functionals">Functionals</h2>
+<p>Here are some numbers:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hi_name_n <span class="ot">&lt;-</span> <span class="cf">function</span>(name, n){</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="fu">paste</span>(<span class="st">"hello"</span>, name) , n)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hi_name_n</span>(<span class="st">"sue"</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s find their average. We’d usually do this by passing those numbers to a function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(n1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "hello sue" "hello sue" "hello sue" "hello sue"</code></pre>
+<pre><code>[1] 8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hi_name_n</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">name =</span> <span class="st">"tango"</span>) <span class="co"># evil but legal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>But in R, interestingly, we can also do this the other way round by passing a function name:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_num_f <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">funct =</span> mean) <span class="fu">funct</span>(n1)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">my_num_f</span>(mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "hello tango" "hello tango" "hello tango"</code></pre>
+<pre><code>[1] 8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">my_num_f</span>(sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 24</code></pre>
 </div>
 </div>
+<p>We’d describe this as a <a href="https://adv-r.hadley.nz/functionals.html">functional</a>. It’s fun, but a bit messy and annoying (e.g.&nbsp;how to change the numbers you’re averaging??).</p>
 </section>
-<section id="defaults" class="level2">
-<h2 class="anchored" data-anchor-id="defaults">Defaults</h2>
+<section id="functional-programming-in-base-r" class="level2">
+<h2 class="anchored" data-anchor-id="functional-programming-in-base-r">Functional programming in base R</h2>
+<p>Say we’ve got a function we want to apply:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>hi_name_n_def <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">name =</span> <span class="st">"janelle"</span>){</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="fu">paste</span>(<span class="st">"hello"</span>, name) , n)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hi_name_n_def</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "hello janelle" "hello janelle" "hello janelle" "hello janelle"</code></pre>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>round_root <span class="ot">&lt;-</span> <span class="cf">function</span>(n) <span class="fu">round</span>(n <span class="sc">^</span> <span class="fl">0.5</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hi_name_n_def</span>(<span class="at">n =</span> <span class="dv">2</span>, <span class="at">name =</span> <span class="st">"bruce"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "hello bruce" "hello bruce"</code></pre>
-</div>
-</div>
-</section>
-<section id="vectorised-functions" class="level2">
-<h2 class="anchored" data-anchor-id="vectorised-functions">Vectorised functions</h2>
-<ul>
-<li>most functions in R are <a href="https://bookdown.org/rdpeng/rprogdatascience/vectorized-operations.html">vectorised</a></li>
-</ul>
+<p>There are several ways of applying functions to stuff in base R. + we could use a loop: that’s another session + we could just exploit the vectorised nature of most functions in R</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="fl">1.2</span>, <span class="fl">3.2</span>, <span class="fl">5.4</span>, <span class="fl">2.7</span>), <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round_root</span>(n1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 3 5 3</code></pre>
+<pre><code>[1] 2.6 2.8 3.0</code></pre>
 </div>
 </div>
 <ul>
-<li>that means that mostly, our functions will end up vectorised without us doing any work at all</li>
+<li>or we could use some of the <code>apply</code> family of functions, like <code>lapply</code> and <code>sapply</code>:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>div_seven_n_round <span class="ot">&lt;-</span> <span class="cf">function</span>(nums){</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(nums <span class="sc">/</span> <span class="dv">7</span>, <span class="dv">0</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">50</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>numbers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  30.152155 -15.775803 -32.093146  -2.456701</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">div_seven_n_round</span>(numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  4 -2 -5  0</code></pre>
-</div>
-</div>
-<ul>
-<li><strong>but</strong> there are a few cases where that can fail: most famously, using <code>if</code>/<code>else</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>is_even <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(n <span class="sc">%%</span> <span class="dv">2</span>){</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(n, <span class="st">"is odd"</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(n, <span class="st">"is even"</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even</span>(<span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "9 is odd"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "10 is even"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">is_even</span>(<span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error in if (n%%2) { : the condition has length &gt; 1</code></pre>
-</div>
-</div>
-</section>
-<section id="three-solutions" class="level2">
-<h2 class="anchored" data-anchor-id="three-solutions">Three solutions</h2>
-<section id="vectorize-with-vectorize" class="level3">
-<h3 class="anchored" data-anchor-id="vectorize-with-vectorize">vectorize with <code>Vectorize</code></h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>is_even_v <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(is_even)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even_v</span>(<span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "9 is odd"   "10 is even"</code></pre>
-</div>
-</div>
-</section>
-<section id="apply" class="level3">
-<h3 class="anchored" data-anchor-id="apply">apply</h3>
-<ul>
-<li>apply with <code>lapply</code> / <code>purrr::map</code> with <code>Vectorize</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>, is_even)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(n1, round_root) <span class="co"># returns a list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] "9 is odd"
+[1] 2.6
 
 [[2]]
-[1] "10 is even"</code></pre>
+[1] 2.8
+
+[[3]]
+[1] 3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map</span>(<span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>, is_even)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(n1, round_root) <span class="co"># simplifies that list to a vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.6 2.8 3.0</code></pre>
+</div>
+</div>
+<p>There’s no real reason to use these functions when things are this simple, but when our applications become more complicated…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">13</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">list</span>(n1, n2), round_root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] "9 is odd"
+[1] 2.6 2.8 3.0
 
 [[2]]
-[1] "10 is even"</code></pre>
+[1] 3.3 3.5 3.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(<span class="fu">list</span>(n1, n2), round_root) <span class="co"># oddball output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]  2.6  3.3
+[2,]  2.8  3.5
+[3,]  3.0  3.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">list</span>(n1, n2[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), round_root) <span class="co"># quirky</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 2.6 2.8 3.0
+
+[[2]]
+[1] 3.3 3.5</code></pre>
 </div>
 </div>
 </section>
-<section id="refactor" class="level3">
-<h3 class="anchored" data-anchor-id="refactor">refactor</h3>
+<section id="purrr" class="level2">
+<h2 class="anchored" data-anchor-id="purrr">purrr</h2>
 <ul>
-<li>refactor to avoid scalar functions</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>is_even_rf <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(n <span class="sc">%%</span> <span class="dv">2</span>, <span class="fu">paste</span>(n, <span class="st">"is odd"</span>), <span class="fu">paste</span>(n, <span class="st">"is even"</span>))</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">is_even_rf</span>(<span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "9 is odd"   "10 is even"</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"><code>{{}}</code></h2>
-<section id="whats-the-problem" class="level3">
-<h3 class="anchored" data-anchor-id="whats-the-problem">What’s the problem?</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">round</span>(<span class="fu">mean</span>(hp)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  average
-1     147</code></pre>
-</div>
-</div>
-<p>so</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>carmo <span class="ot">&lt;-</span> <span class="cf">function</span>(column){</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  mtcars <span class="sc">|&gt;</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">round</span>(<span class="fu">mean</span>(column)))</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>but…</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">carmo</span>(hp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error in dplyr::summarise(mtcars, average = round(mean(column))) : 
-  ℹ In argument: `average = round(mean(column))`.
-Caused by error in `mean()`:
-! object 'hp' not found</code></pre>
-</div>
-</div>
-<blockquote class="blockquote">
-<p>object ‘hp’ not found</p>
-</blockquote>
-<ul>
-<li>we get used to R (and particularly tidyverse) helping us with some sugar when selecting column by their names
-<ul>
-<li><code>mtcars$hp</code> / <code>mtcars |&gt; select(hp)</code></li>
-<li>effectively, we’re just able to specify <code>hp</code> like an object, and R figures out the scope etc for us</li>
-</ul></li>
-<li>that misfires inside functions. R isn’t sure where to look for an object called <code>hp</code></li>
+<li><a href="https://cran.r-project.org/web/packages/purrr/index.html">purrr</a> is a functional programming toolkit</li>
+<li>main advantage = <strong>consistency</strong></li>
+<li><a href="https://rstudio.github.io/cheatsheets/html/purrr.html">very useful cheatsheet</a></li>
 </ul>
 </section>
-<section id="enter" class="level3">
-<h3 class="anchored" data-anchor-id="enter">Enter <code>{{}}</code></h3>
+<section id="map" class="level2">
+<h2 class="anchored" data-anchor-id="map"><code>map</code></h2>
+<p><code>map</code> is our purrr <a href="https://en.wikipedia.org/wiki/Type_(biology)">type specimen</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>carmo_woo <span class="ot">&lt;-</span> <span class="cf">function</span>(column){</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  mtcars <span class="sc">|&gt;</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">round</span>(<span class="fu">mean</span>({{column}})))</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">carmo_woo</span>(hp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(n1, round_root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  average
-1     147</code></pre>
+<pre><code>[[1]]
+[1] 2.6
+
+[[2]]
+[1] 2.8
+
+[[3]]
+[1] 3</code></pre>
 </div>
 </div>
-<ul>
-<li>for 95% of purposes, take <code>{{}}</code> as a purely empirical fix</li>
-<li>but, if you’re very enthusiastic:
-<ul>
-<li><code>{{}}</code> <a href="https://rlang.r-lib.org/reference/topic-metaprogramming.html">defuses and injects</a> the column name</li>
-<li>equivalent to <code>!!enquo(var)</code></li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1">…</h2>
-<ul>
-<li>pass arbitrary arguments into/through a function with …</li>
-</ul>
+<p>Pleasingly, <code>map</code> will handle all kinds of odd inputs without fuss:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>dotty <span class="ot">&lt;-</span> <span class="cf">function</span>(n, ...){</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="fu">paste</span>(..., <span class="at">collapse =</span> <span class="st">""</span>), n)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dotty</span>(<span class="dv">4</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="fu">c</span>(n1, n2), round_root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "abcde" "abcde" "abcde" "abcde"</code></pre>
+<pre><code>[[1]]
+[1] 2.6
+
+[[2]]
+[1] 2.8
+
+[[3]]
+[1] 3
+
+[[4]]
+[1] 3.3
+
+[[5]]
+[1] 3.5
+
+[[6]]
+[1] 3.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(dplyr<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">n1 =</span> n1, <span class="at">n2 =</span> n2), round_root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$n1
+[1] 2.6 2.8 3.0
+
+$n2
+[1] 3.3 3.5 3.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="fu">rbind</span>(n1, n2), round_root) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 2.6
+
+[[2]]
+[1] 3.3
+
+[[3]]
+[1] 2.8
+
+[[4]]
+[1] 3.5
+
+[[5]]
+[1] 3
+
+[[6]]
+[1] 3.6</code></pre>
 </div>
 </div>
+<p><code>map</code> will always return a list - that’s because, no matter what the output, you can always cram it into a list. If you want different output, you can have it. You just need to find the right <em>species</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map_vec</span>(n1, round_root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.6 2.8 3.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">map_int</span>(n1, round_root)) <span class="co"># surly and strict</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in map_int(n1, round_root) : ℹ In index: 1.
+Caused by error:
+! Can't coerce from a number to an integer.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>round_root_int <span class="ot">&lt;-</span> <span class="cf">function</span>(n) <span class="fu">as.integer</span>(n <span class="sc">^</span> <span class="fl">0.5</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map_int</span>(n1, round_root_int) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 2 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>round_root_lgl <span class="ot">&lt;-</span> <span class="cf">function</span>(n) <span class="fu">as.integer</span>(n <span class="sc">^</span> <span class="fl">0.5</span>) <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map_lgl</span>(n1, round_root_lgl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="anonymous-functions" class="level2">
+<h2 class="anchored" data-anchor-id="anonymous-functions">anonymous functions</h2>
+<p>If you’re comfortable with the new anonymous function syntax, you can build an anonymous function in place:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map_lgl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, \(x) x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE  TRUE FALSE  TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="walk" class="level2">
+<h2 class="anchored" data-anchor-id="walk"><code>walk</code></h2>
+<p><code>walk</code> is intended for code where the side-effect is the point: graphs, pipes, and Rmarkdown especially. Otherwise, it’s as <code>map</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">walk</span>(n1, round_root) <span class="co"># wtf?</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>round_root_print <span class="ot">&lt;-</span> <span class="cf">function</span>(n) <span class="fu">print</span>(n <span class="sc">^</span> <span class="fl">0.5</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">walk</span>(n1, round_root_print) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.645751
+[1] 2.828427
+[1] 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>round_root_cat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) <span class="fu">cat</span>(n <span class="sc">^</span> <span class="fl">0.5</span>, <span class="st">"  </span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">walk</span>(n1, round_root_cat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2.645751   
+2.828427   
+3   </code></pre>
+</div>
+</div>
+</section>
+<section id="map2" class="level2">
+<h2 class="anchored" data-anchor-id="map2"><code>map2</code></h2>
+<p><code>map2</code> is for 2-argument functions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map2_int</span>(n1, n2, <span class="st">`</span><span class="at">+</span><span class="st">`</span>) <span class="co"># the best terrible way of adding I know</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18 20 22</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>round_root_places <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">dp =</span> <span class="dv">1</span>) <span class="fu">round</span>(n <span class="sc">^</span> <span class="fl">0.5</span>, dp)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round_root_places</span>(n1, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 3 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(n1, <span class="dv">0</span>, round_root_places)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 3
+
+[[2]]
+[1] 3
+
+[[3]]
+[1] 3</code></pre>
+</div>
+</div>
+</section>
+<section id="beware-of-recycling-rules" class="level2">
+<h2 class="anchored" data-anchor-id="beware-of-recycling-rules">Beware of recycling rules</h2>
+<p>You’ll be unable to use <code>map2</code> if your inputs are different lengths:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">map2</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, round_root_places))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in map2(1:3, 0:3, round_root_places) : 
+  Can't recycle `.x` (size 3) to match `.y` (size 4).</code></pre>
+</div>
+</div>
+<p>This makes <code>expand.grid</code> valuable if you’re looking to try out all the combinations of two vectors, for example.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">nums =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">dplaces =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>) </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(dat<span class="sc">$</span>nums, dat<span class="sc">$</span>dplaces, round_root_places)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1
+
+[[2]]
+[1] 1
+
+[[3]]
+[1] 2
+
+[[4]]
+[1] 1
+
+[[5]]
+[1] 1.4
+
+[[6]]
+[1] 1.7
+
+[[7]]
+[1] 1
+
+[[8]]
+[1] 1.41
+
+[[9]]
+[1] 1.73
+
+[[10]]
+[1] 1
+
+[[11]]
+[1] 1.414
+
+[[12]]
+[1] 1.732</code></pre>
+</div>
+</div>
+<p>Or (probably more usefully) this could be done inside <code>dplyr::mutate</code> to add to a tibble:</p>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expand.grid</span>(<span class="at">nums =</span> n1, <span class="at">dplaces =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">rr =</span> <span class="fu">map2_vec</span>(nums, dplaces, round_root_places)) <span class="sc">|&gt;</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">nums</th>
+<th style="text-align: right;">dplaces</th>
+<th style="text-align: right;">rr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.600</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.800</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.650</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.830</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2.646</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2.828</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3.000</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pmap" class="level2">
+<h2 class="anchored" data-anchor-id="pmap"><code>pmap</code></h2>
+<p><code>pmap</code> is for n argument functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>round_roots_places <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">root =</span> <span class="dv">2</span>, <span class="at">places =</span> <span class="dv">1</span>) <span class="fu">round</span>(n <span class="sc">^</span> <span class="dv">1</span><span class="sc">/</span>root, places)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round_roots_places</span>(n1, <span class="at">root =</span> <span class="dv">4</span>, <span class="at">places =</span> <span class="dv">2</span>) <span class="co"># use named arguments to avoid misery</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.75 2.00 2.25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap</span>(<span class="fu">list</span>(<span class="at">n =</span> n1, <span class="at">root =</span> <span class="dv">4</span>, <span class="at">places =</span> <span class="dv">2</span>), round_roots_places)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1.75
+
+[[2]]
+[1] 2
+
+[[3]]
+[1] 2.25</code></pre>
+</div>
+</div>
+</section>
+<section id="niceties-and-addons" class="level2">
+<h2 class="anchored" data-anchor-id="niceties-and-addons">Niceties and addons</h2>
+<p><code>imap</code> allows you to work with indicies, and <code>list_c</code> converts simple lists back to vectors:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">imap</span>(<span class="fu">list</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), \(x, y) <span class="fu">paste0</span>(y, <span class="st">": "</span>, x)) <span class="sc">|&gt;</span> <span class="co"># index map where y is the name or index</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1: a" "2: b" "3: c"</code></pre>
+</div>
+</div>
+<p>If your function returns a tibble, you can use <code>list_rbind</code> or <code>list_cbind</code> to row- or column-bind the results into a tibble:</p>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(n1, \(x) dplyr<span class="sc">::</span><span class="fu">tibble</span>(<span class="st">"Val"</span> <span class="ot">=</span> x, <span class="st">"sq_val"</span> <span class="ot">=</span> x<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Val</th>
+<th style="text-align: right;">sq_val</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">81</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">Resources</h2>
 <ul>
-<li><strong>best = home made!</strong> Refactor something simple in your code today.</li>
-<li>hard to beat the treatment of functions in <a href="https://r4ds.hadley.nz/functions">R4DS</a></li>
-<li>the <a href="https://rlang.r-lib.org/reference/topic-data-mask.html">Rlang page on data masking</a> is surprisingly sane for such a complicated area</li>
+<li><a href="https://adv-r.hadley.nz/functionals.html">functionals chapter in Advanced R</a></li>
+<li><a href="https://rstudio.github.io/cheatsheets/html/purrr.html">purrr cheatsheet</a></li>
 </ul>
 
 
