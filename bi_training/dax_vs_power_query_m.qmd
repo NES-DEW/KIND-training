@@ -1,1 +1,142 @@
-## heres the thing
+---
+title: "DAX vs PowerQuery M"
+date: "2024-07-31"
+execute: 
+  echo: false
+  freeze: auto
+categories: [Power BI, beginner]
+---
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [all materials {{< iconify ph:file-zip size=2x >}}](src/dax_vs_pqm.zip)
+-   slides [{{< iconify ph:file-html size=2x >}} html](src/dax_vs_pqm.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/dax_vs_pqm.pdf)
++ sample files [{{< iconify simple-icons:powerbi size=2x >}} .pbix](data/ae_weeks_start.pbix) / [{{< iconify ph:file-xls size=2x >}}.xlsx](data/dax-pqm.xlsx)
+:::
+
+```{r}
+#| results: asis
+#| echo: false
+source(here::here("R/feed_block.R"))
+feed_block("DAX vs Power Query M")
+
+```
+
+## Welcome
+
+-   🌶 this session is for Power BI beginners
+-   you'll need Power BI Desktop and [this sample dashboard](https://github.com/NES-DEW/KIND-training/raw/main/bi_training/data/ae_weeks_start.pbix) to follow along
+
+
+## Session outline
+
+-   about DAX and PQM
+    -   DAX and PQM vs Excel formulas
+-   distinctive features
+    -   query steps (PQM)
+    -   filter context (DAX)
+-   applications and best practice
+-   feedback and resources
+
+## Setup
+
+-   Power BI desktop
+-   download and open [this sample dashboard](https://github.com/NES-DEW/KIND-training/raw/main/bi_training/data/ae_weeks_start.pbix)
+    -   three datasets, brought in from the web with PowerQuery
+    -   several calculated columns
+
+## About DAX and PQM
+
+-   found in Excel and Power BI (and in Microsoft's SQL products)
+-   DAX (Data Analysis Expressions)
+    -   Excel: PowerPivot
+    -   Power BI: Measures and calculated columns
+-   PQM (Power Query M)
+    -   Excel: PowerQuery and various `Get Data` tools
+    -   PowerBI: various data loading tools and `Tranform data`
+
+## Different applications
+
+-   DAX = summarising/analysing data
+-   PQM = loading/transforming data
+
+## DAX vs Excel
+
+-   there are plenty of apparent similarities with Excel
+    -   broadly, functional approach
+    -   similar/identical function names
+    -   similar syntax in some places
+-   calculate a column `overall = SUM(ae_activity[over4])` in DAX
+    -   like Excel, this sums the entire `over4` column, rather than each row </br> ![sums the entire over4 column](images/clipboard-528769158.png)
+
+## PQM vs Excel
+
+-   PQ really looks like Excel
+    -   familiar tools - renaming/removing columns, filtering
+    -   evolved tools - like `Split Column`
+-   PQM is much less like Excel formula language than DAX
+
+## Appearances mislead
+
+-   try adding another column to the Excel formula, and to the DAX
+    -   e.g. `overall = SUM(ae_activity[over4], ae_activity[over12]))`
+    -   ✔️ Excel is perfectly fine with this
+    -   ❌ but DAX's `SUM` function falls over
+-   for PQM, totally different approach required to Excel
+
+## Input in DAX
+
+-   DAX takes structured references to columns and tables (no `A3`)
+    -   `overall = SUM(ae_activity[over4])` sums all the values in the over4 column
+    -   `table[column]` - so this is the `over4` column in the `ae_activity` table
+
+## Input in PQM
+
+-   PQM works on **query steps**, with the **#step name** (and columns/tables) as input
+    -   `= List.Sum(#"Filtered Rows"[over4])` would sum all the values in the over4 column </br> ![sum all the values in the over4 column](images/clipboard-1782980858.png)
+    -   takes the `#Filtered Rows`query step, and sums its `over4` column
+    -   that new query step will be called `#Calculated Sum` (but we could edit that)
+-   this is unusual, but gives PQM users a tweak-able history of their data transformation with undo/redo
+-   try looking at the advanced editor in PQM to see what PQM really looks like </br> ![advanced editor view of PQM](images/clipboard-989890971.png)
+
+## Filter context
+
+-   there is considerable overlap between DAX and PQM
+    -   example: DAX's calculated columns replicates functionality in PQM (and Excel)
+-   to show the DAX-specific part of the story, we'll need to make a measure
+-   measures are responsive summaries of our data - when a user twiddles the dashboard, they'll change
+    -   or, *measures respond to the filter context*
+
+## Make a measure
+
+-   take your calculated column DAX and make a measure using exactly the same code
+    -   `overall_m = SUM(ae_activity[over4])`
+        -   same code as the calculated column
+        -   different filter context
+-   then put `overall` and `overall_m` into a table, and play with the filters: </br> ![different results for the calculated column and the measure](images/clipboard-417490134.png)
+
+## More on the filter context
+
+-   different functions interpret the context differently: `SUM` vs `SUMX`
+    -   `SUMX` evaluates some expression for each row in the context: `overall_x = SUMX(ae_activity, ae_activity[over4] + ae_activity[over8])` </br> ![`SUMX` evaluates some expression for each row in the context](images/clipboard-193493353.png)
+-   `CALCULATE` as a function specifically for fooling with the filter context in a more detailed way
+    -   `overall_borders = CALCULATE(SUM(ae_activity[over4]), ae_activity[board] = "NHS Borders")` to restrict to just NHS Borders </br> ![restrict to just NHS Borders](images/clipboard-1383498018.png)
+
+## Applications and best practice
+
+-   there's lots of overlap, and so you can work to suit your preferences
+    -   e.g. not clear whether creating calculated columns is better in DAX or PQM
+-   DAX is great when:
+    - you need your data to respond to the user
+    - you need to create lots of calculated values
+-   PQM is great when:
+    - you need to transform/clean your data
+    - you need to repeatedly load some data
+    - you need to undo/redo
+
+## Resources
+
+-   DAX: [Russo and Ferrari 2019 *The Definitive Guide to DAX*](https://www.sqlbi.com/books/the-definitive-guide-to-dax-2nd-edition/)
+
+-   PQM: [Microsoft's function reference](https://learn.microsoft.com/en-us/powerquery-m/power-query-m-function-reference) is useful, but their [intro pages](https://learn.microsoft.com/en-us/powerquery-m/m-spec-introduction) are confusing and hard to recommend
+
