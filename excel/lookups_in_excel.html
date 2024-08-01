@@ -42,6 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -162,7 +163,34 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#introducing-lookups" id="toc-introducing-lookups" class="nav-link" data-scroll-target="#introducing-lookups">Introducing lookups</a></li>
+  <li><a href="#index-and-match" id="toc-index-and-match" class="nav-link" data-scroll-target="#index-and-match"><code>INDEX()</code> and <code>MATCH()</code></a>
+  <ul class="collapse">
+  <li><a href="#index" id="toc-index" class="nav-link" data-scroll-target="#index"><code>INDEX()</code></a></li>
+  <li><a href="#match" id="toc-match" class="nav-link" data-scroll-target="#match"><code>MATCH()</code></a></li>
+  <li><a href="#match-1" id="toc-match-1" class="nav-link" data-scroll-target="#match-1"><code>MATCH()</code></a></li>
+  <li><a href="#index-match" id="toc-index-match" class="nav-link" data-scroll-target="#index-match"><code>INDEX()</code> + <code>MATCH()</code></a></li>
+  </ul></li>
+  <li><a href="#vlookup" id="toc-vlookup" class="nav-link" data-scroll-target="#vlookup"><code>VLOOKUP()</code></a></li>
+  <li><a href="#xlookup" id="toc-xlookup" class="nav-link" data-scroll-target="#xlookup"><code>XLOOKUP()</code></a>
+  <ul class="collapse">
+  <li><a href="#returning-several-cells-with-xlookup" id="toc-returning-several-cells-with-xlookup" class="nav-link" data-scroll-target="#returning-several-cells-with-xlookup">Returning several cells with <code>XLOOKUP()</code></a></li>
+  <li><a href="#fighting-with-tables" id="toc-fighting-with-tables" class="nav-link" data-scroll-target="#fighting-with-tables">Fighting with tables</a></li>
+  </ul></li>
+  <li><a href="#partial-text-matching" id="toc-partial-text-matching" class="nav-link" data-scroll-target="#partial-text-matching">Partial text matching</a>
+  <ul class="collapse">
+  <li><a href="#xlookup-with-match_mode-2-wildcard" id="toc-xlookup-with-match_mode-2-wildcard" class="nav-link" data-scroll-target="#xlookup-with-match_mode-2-wildcard"><code>XLOOKUP()</code> with <code>match_mode = 2</code> + wildcard</a></li>
+  <li><a href="#vlookup-with-range_lookup-false-wildcards" id="toc-vlookup-with-range_lookup-false-wildcards" class="nav-link" data-scroll-target="#vlookup-with-range_lookup-false-wildcards"><code>VLOOKUP()</code> with <code>range_lookup = FALSE</code> + wildcards</a></li>
+  <li><a href="#match-with-match_type-0-wildcards" id="toc-match-with-match_type-0-wildcards" class="nav-link" data-scroll-target="#match-with-match_type-0-wildcards"><code>MATCH()</code> with <code>match_type = 0</code> + wildcards</a></li>
+  </ul></li>
+  </ul>
+</nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
@@ -200,9 +228,380 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is a placeholder page for the lookups training coming during August 2024</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Session materials
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="src/lookups_in_excel.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
+<li>slides <a href="src/lookups_in_excel.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/lookups_in_excel.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a></li>
+<li>sample file <a href="src/lookups_in_excel.xlsx"><iconify-icon inline="" icon="ph:file-xls" style="font-size: 2em;" aria-label="Icon file-xls from ph Iconify.design set." title="Icon file-xls from ph Iconify.design set."></iconify-icon>.xlsx</a></li>
+</ul>
+</div>
+</div>
+</div>
+<p>No feedback found for this session</p>
+<section id="welcome" class="level2">
+<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
+<ul>
+<li>🌶🌶 this session is designed for intermediate Excel users</li>
+<li>you’ll need Excel M365 Desktop and <a href="src/lookups_in_excel.xlsx">this sample Excel workbook</a> to follow along, and you’ll need to be comfortable working with tables, references, and formulas to get the most out of the session</li>
+<li>this session is part of our <a href="https://learn.nes.nhs.scot/71690">Excel Skills course</a>, which is a five-session live-on-Teams training programme designed to build your Excel skills to help you work more effectively in Excel</li>
+</ul>
+</section>
+<section id="session-outline" class="level2">
+<h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+<ul>
+<li>introduction to lookups</li>
+<li>three methods for lookups
+<ul>
+<li><code>INDEX()</code> + <code>MATCH()</code></li>
+<li><code>VLOOKUP()</code></li>
+<li><code>XLOOKUP()</code></li>
+</ul></li>
+<li>partial matching</li>
+</ul>
+</section>
+<section id="introducing-lookups" class="level2">
+<h2 class="anchored" data-anchor-id="introducing-lookups">Introducing lookups</h2>
+<p>What does a lookup do? Imagine that you have a table like this:<br><img src="images/im_names.png" class="img-fluid"></p>
+<p>A lookup would let us find someone’s age from their name by:</p>
+<ol type="1">
+<li>taking that name from somewhere</li>
+<li>finding out what row of the table that name is found in</li>
+<li>and then returning the age from that row</li>
+</ol>
+</section>
+<section id="index-and-match" class="level2">
+<h2 class="anchored" data-anchor-id="index-and-match"><code>INDEX()</code> and <code>MATCH()</code></h2>
+<ul>
+<li><code>MATCH()</code> takes a value, and finds what row it occurs in</li>
+<li><code>INDEX()</code> takes a row, and returns a value from it</li>
+<li>older way of doing lookups
+<ul>
+<li>think <em>timeless classic</em> rather than <em>old banger</em></li>
+</ul></li>
+<li>simple and flexible</li>
+<li>great way to understand and practice the logic of lookups</li>
+</ul>
+<section id="index" class="level3">
+<h3 class="anchored" data-anchor-id="index"><code>INDEX()</code></h3>
+<ul>
+<li><code>INDEX()</code> retrieves data from cells. You supply two arguments:
+<ul>
+<li>an array (range) of cells</li>
+<li>a row number</li>
+</ul></li>
+<li><code>INDEX(A1:A10, 3)</code> gives you the third row of the range A1:A10</li>
+<li>general syntax: <code>INDEX(array, row_num, [column_num])</code>
+<ul>
+<li><code>array</code> is the range we want to look in</li>
+<li><code>row_num</code> and the optional <code>column_num</code> is the number of the row (± column) that you want</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Find the <code>INDEX</code> worksheet of the <a href="src/lookups_in_excel.xlsx">sample workbook</a></li>
+<li>We have a one-column table containing names in <code>A2:A11</code></li>
+<li>Use <code>INDEX()</code> to find the value in the third row</li>
+</ol>
+</div>
+</div>
+<p><img src="images/03_index3.png" height="250"></p>
+</section>
+<section id="match" class="level3">
+<h3 class="anchored" data-anchor-id="match"><code>MATCH()</code></h3>
+<ul>
+<li><code>MATCH()</code> retrieves the row number of a cell. You supply two arguments:
+<ul>
+<li>a lookup value</li>
+<li>an array of cells</li>
+</ul></li>
+<li><code>MATCH(lookup_value, lookup_array, [match_type])</code></li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>the optional <code>match_type</code> argument is deathly important:</li>
+<li><strong>1 (or omitted)</strong> finds the largest value that is less than or equal to the lookup</li>
+<li><strong>0</strong> finds the first value that is exactly equal to the lookup</li>
+<li><strong>-1</strong> finds the smallest value that is greater than or equal to the lookup</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="match-1" class="level3">
+<h3 class="anchored" data-anchor-id="match-1"><code>MATCH()</code></h3>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Go to the <code>MATCH</code> worksheet</li>
+<li>We have (the same) one-column table of names in <code>A2:A11</code></li>
+<li>Use <code>MATCH()</code> to find the row containing “Broward” - being careful to set <strong>match_type</strong> appropriately</li>
+</ol>
+</div>
+</div>
+<p><img src="images/03_match.png" height="250"></p>
+</section>
+<section id="index-match" class="level3">
+<h3 class="anchored" data-anchor-id="index-match"><code>INDEX()</code> + <code>MATCH()</code></h3>
+<ul>
+<li><p>given that match gives us the row number, and index takes a row number and returns a value, we can link them up nicely <br><img src="images/03_indemat.png" class="img-fluid"></p></li>
+<li><p>first search through our data to find a <code>MATCH()</code>ing row</p></li>
+<li><p>then use <code>INDEX()</code> to retrieve some other column from that row</p></li>
+<li><p>the general syntax will be <code>=INDEX(range, MATCH("Name", range, 0))</code></p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Go to the <code>INDEX + MATCH (1)</code> worksheet</li>
+<li>We have a two column table, and we want a user to be able to supply a number in <code>E2</code>, and receive the appropriate word in <code>E3</code></li>
+<li>First, write an appropriate <code>MATCH()</code> formula to find the row matching the input</li>
+<li>Next, write an <code>INDEX()</code> to take that <code>MATCH()</code> value and return the appropriate word</li>
+<li>Finally, try joining both formulas together in one to give an <code>INDEX()</code> + <code>MATCH()</code></li>
+</ol>
+</div>
+</div>
+<p><img src="images/03_indma.png" height="200"></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Go to the <code>INDEX + MATCH (2)</code> worksheet. We have several formulas about Eunika. Can you fix them to give the correct result?</li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="vlookup" class="level2">
+<h2 class="anchored" data-anchor-id="vlookup"><code>VLOOKUP()</code></h2>
+<ul>
+<li>while <code>INDEX()</code> and <code>MATCH()</code> is great, it does produce some nasty-looking formulas</li>
+<li><code>VLOOKUP()</code> was introduces as a neater alternative - roughly <code>INDEX()</code> + <code>MATCH()</code> in one</li>
+<li><code>VLOOKUP</code> returns along rows, allowing us to look up a value in one column, and returns a corresponding value from another column</li>
+<li>that sounds ideal, but beware: <code>VLOOKUP()</code> is <strong>much</strong> more quirky and unreliable than <code>INDEX()</code> + <code>MATCH()</code></li>
+<li>here’s the syntax for <code>VLOOKUP()</code>:
+<ul>
+<li><code>VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])</code>
+<ul>
+<li><code>lookup_value</code> is what we want to look up</li>
+<li><code>table_array</code> is the table that we’re looking up in</li>
+<li><code>col_index_num</code> is the number of the column that we want to return from</li>
+<li><code>range_lookup</code> allows either approximate matching (the default) or exact matching (by specifying FALSE)
+<ul>
+<li>The major source of oddity. Make sure you <a href="https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8-93a18ad188a1">check the manual</a> before doing anything serious with <code>VLOOKUP()</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Go to the <code>VLOOKUP</code> worksheet</li>
+<li>There are two requests for lookups. Can you populate them with appropriate <code>VLOOKUP()</code> formulas?</li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><code>VLOOKUP()</code> generally requires the lookup value to <a href="https://support.microsoft.com/en-gb/office/how-to-correct-a-n-a-error-in-the-vlookup-function-e037d763-ffc3-4fae-a909-89c482d389b2">appear in the left-most column of your range</a></li>
+<li>as the second part of the task shows, this requirement can manifest in lots of odd ways</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="xlookup" class="level2">
+<h2 class="anchored" data-anchor-id="xlookup"><code>XLOOKUP()</code></h2>
+<ul>
+<li>semi-new (any versions after Excel 2019)</li>
+<li>similar to <code>INDEX()</code> + <code>MATCH()</code>. Major differences:
+<ul>
+<li>it <strong>spills</strong>, so ideal for returning unpredictable quantities of cells</li>
+<li>provides exact matching by default</li>
+</ul></li>
+<li>the basic syntax is: <code>= XLOOKUP(lookup_value, lookup_array, return_array)</code></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Go to the <code>XLOOKUP (1)</code> worksheet</li>
+<li>There are two requests for lookups. Can you populate them with appropriate XLOOKUP() formulas?</li>
+</ol>
+</div>
+</div>
+<section id="returning-several-cells-with-xlookup" class="level3">
+<h3 class="anchored" data-anchor-id="returning-several-cells-with-xlookup">Returning several cells with <code>XLOOKUP()</code></h3>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Go to the <code>XLOOKUP (2)</code> worksheet</li>
+<li>Set up an <code>XLOOKUP()</code> supplying a range of columns as the <code>return_array</code> value</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="fighting-with-tables" class="level3">
+<h3 class="anchored" data-anchor-id="fighting-with-tables">Fighting with tables</h3>
+<ul>
+<li>note that returning several cells into a table often causes errors</li>
+<li>you may need to work with a range instead if planning to use <code>XLOOKUP()</code> to return an unpredictable amount of data</li>
+</ul>
+</section>
+</section>
+<section id="partial-text-matching" class="level2">
+<h2 class="anchored" data-anchor-id="partial-text-matching">Partial text matching</h2>
+<ul>
+<li>Excel is not brilliant for partial text matching</li>
+<li>there are a number of commercial add-ins and VBA-based solutions
+<ul>
+<li>those come with risks</li>
+<li>we’ll concentrate on base-Excel here</li>
+</ul></li>
+<li>three main options:</li>
+</ul>
+<ol type="1">
+<li><code>XLOOKUP()</code> with <code>match_mode = 2</code> + wildcard</li>
+<li><code>VLOOKUP()</code> with <code>range_lookup = FALSE</code> + wildcards</li>
+<li><code>MATCH()</code> with <code>match_type = 0</code> + wildcards</li>
+</ol>
+<section id="xlookup-with-match_mode-2-wildcard" class="level3">
+<h3 class="anchored" data-anchor-id="xlookup-with-match_mode-2-wildcard"><code>XLOOKUP()</code> with <code>match_mode = 2</code> + wildcard</h3>
+<ul>
+<li><code>XLOOKUP()</code> allows partial matching via the “<code>*</code>” wildcard</li>
+<li>add “<code>*</code>” to the end of the partial string you want to match</li>
+<li>however, please be aware that:</li>
+</ul>
+<ol type="1">
+<li>this will only reliably match sub-strings at the start of strings
+<ol type="1">
+<li>(so “<code>ow*</code>” will match “<code>owl</code>” but not “<code>towel</code>”)</li>
+<li>adding extra wildcards interacted unpredictably with <code>match_mode</code> in testing</li>
+</ol></li>
+</ol>
+<ul>
+<li><code>=XLOOKUP("*substring*", search col, return col, ,2)</code></li>
+</ul>
+</section>
+<section id="vlookup-with-range_lookup-false-wildcards" class="level3">
+<h3 class="anchored" data-anchor-id="vlookup-with-range_lookup-false-wildcards"><code>VLOOKUP()</code> with <code>range_lookup = FALSE</code> + wildcards</h3>
+<ul>
+<li>as with <code>XLOOKUP</code>, adding “<code>*</code>” allows wildcard matching</li>
+<li>but you can do better with the <strong>wildcard sandwich</strong>: <code>"*substring*"</code>
+<ul>
+<li>or, if you’re bringing in a reference <code>"*" &amp; cell_ref &amp; "*"</code></li>
+</ul></li>
+<li>ensure you set the (confusingly named) <code>range_lookup</code> argument to <code>FALSE</code> to allow approximate matching</li>
+<li><code>VLOOKUP("*substring*", table, column, FALSE)</code></li>
+</ul>
+</section>
+<section id="match-with-match_type-0-wildcards" class="level3">
+<h3 class="anchored" data-anchor-id="match-with-match_type-0-wildcards"><code>MATCH()</code> with <code>match_type = 0</code> + wildcards</h3>
+<ul>
+<li>same wildcard sandwich strategy, with the flexibility of <code>INDEX()</code> + <code>MATCH()</code></li>
+<li>my preferred solution, largely because the other options are harder to debug</li>
+<li><code>=INDEX(array, MATCH("*substring*", array, 0))</code></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Go to the <code>Partial matching</code> worksheet</li>
+<li>Try implementing these three ways of partial matching</li>
+</ol>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
