@@ -60,7 +60,7 @@
     "href": "skills/a_data_centric_introduction_to_python_pg.html#fun-with-tabular-data",
     "title": "A Data-Centric Introduction to Python",
     "section": "Fun with tabular data",
-    "text": "Fun with tabular data\nDoing some basic playing with our tabular data shows that Python uses methods - like a local version of a functions that are specific to certain types of object. While methods can be used in R, in practice most R code relies on functions.\n\nPythonR\n\n\nBoth shape and index are methods that we’ve imported from pandas. They’ll only work in pandas objects, which we’ll talk about more below.\n\nbotw.shape # shape is a method\n\n(17, 8)\n\nlen(botw.index) # as is index\n\n17\n\nbotw.shape[0] # Python is 0-indexed\n\n17\n\n\n\n\n\ndim(botw) # dim is a function\n\n[1] 17  8\n\nnrow(botw) # as is nrow\n\n[1] 17\n\ndim(botw)[1] # Python is 1-indexed\n\n[1] 17"
+    "text": "Fun with tabular data\nDoing some basic playing with our tabular data shows that Python uses methods - like a local version of a functions that are specific to certain types of object. While methods can be used in R, in practice most R code relies on functions.\n\nPythonR\n\n\nBoth shape and index are methods that we’ve imported from pandas. They’ll only work in pandas objects, which we’ll talk about more below.\n\nbotw.shape # shape is a method\n\n(18, 8)\n\nlen(botw.index) # as is index\n\n18\n\nbotw.shape[0] # Python is 0-indexed\n\n18\n\n\n\n\n\ndim(botw) # dim is a function\n\n[1] 18  8\n\nnrow(botw) # as is nrow\n\n[1] 18\n\ndim(botw)[1] # Python is 1-indexed\n\n[1] 18"
   },
   {
     "objectID": "skills/a_data_centric_introduction_to_python_pg.html#data-types",
@@ -88,7 +88,7 @@
     "href": "skills/a_data_centric_introduction_to_python_pg.html#tabular-data-basics",
     "title": "A Data-Centric Introduction to Python",
     "section": "Tabular data basics",
-    "text": "Tabular data basics\n\nPythonR\n\n\n\nwe’ll do a quick overview of pandas, based on their excellent 10 minute overview\nour botw object is a DataFrame, which is based on a dict\n\nlike tibbles, DataFrames can contain columns of different types\n\n\n\nbotw.dtypes # find out what we're dealing with\n\nDate                object\nAuthor              object\nYear                 int64\nTitle               object\nISBN                 int64\nWorldcat            object\nKnowledgeNetwork    object\nDescription         object\ndtype: object\n\nbotw.head() # shows first few rows\n\n         Date  ...                                        Description\n0  06/03/2024  ...  The Code Book: The Secret History of Codes and...\n1  13/03/2024  ...  Here's a book of the week suggestion following...\n2  20/03/2024  ...                                                NaN\n3  27/03/2024  ...                                                NaN\n4  24/04/2024  ...  We're looking at regular expressions in the co...\n\n[5 rows x 8 columns]\n\nbotw.index # effectively counts rows\n\nRangeIndex(start=0, stop=17, step=1)\n\nbotw.columns # gives column names\n\nIndex(['Date', 'Author', 'Year', 'Title', 'ISBN', 'Worldcat',\n       'KnowledgeNetwork', 'Description'],\n      dtype='object')\n\nbotw.describe() # simple summary\n\n              Year          ISBN\ncount    17.000000  1.700000e+01\nmean   2005.764706  9.781170e+12\nstd      11.557083  6.465649e+08\nmin    1979.000000  9.780140e+12\n25%    2000.000000  9.780632e+12\n50%    2010.000000  9.781473e+12\n75%    2016.000000  9.781785e+12\nmax    2019.000000  9.781857e+12\n\nbotw.sort_values(\"Year\") # sorting by column values\n\n          Date  ...                                        Description\n9   29/05/2024  ...  If last week's book was a paean to the use of ...\n2   20/03/2024  ...                                                NaN\n6   08/05/2024  ...  After the discussion last week about the troub...\n0   06/03/2024  ...  The Code Book: The Secret History of Codes and...\n15  10/07/2024  ...  There are a lot of statistics textbooks out th...\n12  19/06/2024  ...  Last week's recommendation about agnotology sp...\n13  26/06/2024  ...  We're still on a mini-exploration of manufactu...\n10  05/06/2024  ...  It's now close to twenty years old, and deals ...\n7   15/05/2024  ...  If I was posh enough to have a Latin motto, it...\n1   13/03/2024  ...  Here's a book of the week suggestion following...\n11  12/06/2024  ...  While the word [agnotology](https://simple.wik...\n16  17/07/2024  ...  This book suggestion comes from a conversation...\n4   24/04/2024  ...  We're looking at regular expressions in the co...\n3   27/03/2024  ...                                                NaN\n14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...\n8   22/05/2024  ...  A love-letter to the power of domain knowledge...\n5   01/05/2024  ...  Anyone who works with data knows that our data...\n\n[17 rows x 8 columns]\n\nbotw[\"Date\"] # selecting a column and creating a series\n\n0     06/03/2024\n1     13/03/2024\n2     20/03/2024\n3     27/03/2024\n4     24/04/2024\n5     01/05/2024\n6     08/05/2024\n7     15/05/2024\n8     22/05/2024\n9     29/05/2024\n10    05/06/2024\n11    12/06/2024\n12    19/06/2024\n13    26/06/2024\n14    03/07/2024\n15    10/07/2024\n16    17/07/2024\nName: Date, dtype: object\n\nbotw[2:4] # subsetting by index using a slice and returning a DataFrame\n\n         Date          Author  ...  KnowledgeNetwork Description\n2  20/03/2024   David Oldroyd  ...               NaN         NaN\n3  27/03/2024  Katrine Marçal  ...               NaN         NaN\n\n[2 rows x 8 columns]\n\nbotw[[\"Date\"]] # subsetting entire columns\n\n          Date\n0   06/03/2024\n1   13/03/2024\n2   20/03/2024\n3   27/03/2024\n4   24/04/2024\n5   01/05/2024\n6   08/05/2024\n7   15/05/2024\n8   22/05/2024\n9   29/05/2024\n10  05/06/2024\n11  12/06/2024\n12  19/06/2024\n13  26/06/2024\n14  03/07/2024\n15  10/07/2024\n16  17/07/2024\n\nbotw.loc[4] # subsetting by index using a slice and returning a series\n\nDate                                                       24/04/2024\nAuthor                                                       Tom Lean\nYear                                                             2016\nTitle               Electronic Dreams: How 1980s Britain Learned t...\nISBN                                                    9781472918338\nWorldcat                  https://search.worldcat.org/title/907966036\nKnowledgeNetwork                                                  NaN\nDescription         We're looking at regular expressions in the co...\nName: 4, dtype: object\n\nbotw.loc[4, [\"Author\", \"Year\"]] # subsetting by index and columns and returning a DataFrame\n\nAuthor    Tom Lean\nYear          2016\nName: 4, dtype: object\n\nbotw[botw[\"Year\"] &gt; 2010].sort_values(\"Year\") # subsetting by years, and sorting\n\n          Date  ...                                        Description\n1   13/03/2024  ...  Here's a book of the week suggestion following...\n11  12/06/2024  ...  While the word [agnotology](https://simple.wik...\n16  17/07/2024  ...  This book suggestion comes from a conversation...\n3   27/03/2024  ...                                                NaN\n4   24/04/2024  ...  We're looking at regular expressions in the co...\n8   22/05/2024  ...  A love-letter to the power of domain knowledge...\n14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...\n5   01/05/2024  ...  Anyone who works with data knows that our data...\n\n[8 rows x 8 columns]\n\nbotw[botw[\"Author\"].isin([\"Katrine Marçal\", \"Caroline Criado Perez\"])] # finding matching values\n\n         Date  ...                                        Description\n3  27/03/2024  ...                                                NaN\n5  01/05/2024  ...  Anyone who works with data knows that our data...\n\n[2 rows x 8 columns]\n\nbotw.dropna() # removes any missing values in the whole DataFrame\n\n          Date  ...                                        Description\n11  12/06/2024  ...  While the word [agnotology](https://simple.wik...\n14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...\n15  10/07/2024  ...  There are a lot of statistics textbooks out th...\n\n[3 rows x 8 columns]\n\nbotw[\"Title\"].str.lower() # returning the title column as a lower-case series\n\n0                                         the code book\n1                                    ghost in the wires\n2                                 the arch of knowledge\n3                        who cooked adam smith's dinner\n4     electronic dreams: how 1980s britain learned t...\n5     invisible women: exposing data bias in a world...\n6                        the mismeasure of man (2nd ed)\n7        being wrong: adventures in the margin of error\n8     bad blood: secrets and lies in a silicon valle...\n9          genesis and development of a scientific fact\n10    in the beginning was the worm : finding the se...\n11                                   merchants of doubt\n12    harvey's heart: the discovery of blood circula...\n13    dark remedy: the impact of thalidomide and its...\n14                                how emotions are made\n15                       medical statistics at a glance\n16                               the half-life of facts\nName: Title, dtype: object\n\nbotw[\"Date\"] = pandas.to_datetime(botw[\"Date\"],format='%d/%m/%Y') # fixing publication dates\nbotw.groupby(pd.DatetimeIndex(botw['Date']).month)[[\"Year\"]].mean(\"Year\") # average year of publication by month of botw\n\n        Year\nDate        \n3     2003.0\n4     2016.0\n5     2004.4\n6     2004.5\n7     2010.0\n\n\n\n\n\nlibrary(dplyr) # we'll need dplyr for this work\nstr(botw) # shows data types etc\n\nspc_tbl_ [17 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ Date            : chr [1:17] \"06/03/2024\" \"13/03/2024\" \"20/03/2024\" \"27/03/2024\" ...\n $ Author          : chr [1:17] \"Simon Singh\" \"Kevin Mitnick\" \"David Oldroyd\" \"Katrine Marçal\" ...\n $ Year            : chr [1:17] \"1999\" \"2011\" \"1986\" \"2016\" ...\n $ Title           : chr [1:17] \"The Code Book\" \"Ghost in the Wires\" \"The Arch of Knowledge\" \"Who Cooked Adam Smith's Dinner\" ...\n $ ISBN            : num [1:17] 9.78e+12 9.78e+12 9.78e+12 9.78e+12 9.78e+12 ...\n $ Worldcat        : chr [1:17] \"https://search.worldcat.org/title/59579840\" \"https://search.worldcat.org/title/773175688\" \"https://search.worldcat.org/title/12663957\" \"https://search.worldcat.org/title/933444501\" ...\n $ KnowledgeNetwork: chr [1:17] NA NA NA NA ...\n $ Description     : chr [1:17] \"The Code Book: The Secret History of Codes and Code-Breaking a book by . (bookshop.org) (to buy online but supp\"| __truncated__ \"Here's a book of the week suggestion following on from the codes theme from last time. It's the autobiography o\"| __truncated__ NA NA ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   Date = col_character(),\n  ..   Author = col_character(),\n  ..   Year = col_character(),\n  ..   Title = col_character(),\n  ..   ISBN = col_double(),\n  ..   Worldcat = col_character(),\n  ..   KnowledgeNetwork = col_character(),\n  ..   Description = col_character()\n  .. )\n - attr(*, \"problems\")=&lt;externalptr&gt; \n\nhead(botw) # shows first few rows\n\n# A tibble: 6 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 06/03/2024 Simon Si… 1999  The … 9.78e12 https:/… &lt;NA&gt;             The Code B…\n2 13/03/2024 Kevin Mi… 2011  Ghos… 9.78e12 https:/… &lt;NA&gt;             Here's a b…\n3 20/03/2024 David Ol… 1986  The … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n4 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n5 24/04/2024 Tom Lean  2016  Elec… 9.78e12 https:/… &lt;NA&gt;             We're look…\n6 01/05/2024 Caroline… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             Anyone who…\n\nnrow(botw) # counts rows\n\n[1] 17\n\nnames(botw) # column names\n\n[1] \"Date\"             \"Author\"           \"Year\"             \"Title\"           \n[5] \"ISBN\"             \"Worldcat\"         \"KnowledgeNetwork\" \"Description\"     \n\nsummary(botw)\n\n     Date              Author              Year              Title          \n Length:17          Length:17          Length:17          Length:17         \n Class :character   Class :character   Class :character   Class :character  \n Mode  :character   Mode  :character   Mode  :character   Mode  :character  \n                                                                            \n                                                                            \n                                                                            \n      ISBN             Worldcat         KnowledgeNetwork   Description       \n Min.   :9.780e+12   Length:17          Length:17          Length:17         \n 1st Qu.:9.781e+12   Class :character   Class :character   Class :character  \n Median :9.781e+12   Mode  :character   Mode  :character   Mode  :character  \n Mean   :9.781e+12                                                           \n 3rd Qu.:9.782e+12                                                           \n Max.   :9.782e+12                                                           \n\nbotw |&gt;\n  arrange(Year) # native pipe operator in R. Piped code in Python requires modules\n\n# A tibble: 17 × 8\n   Date       Author   Year  Title    ISBN Worldcat KnowledgeNetwork Description\n   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n 1 29/05/2024 Ludwig … 1979… Gene… 9.78e12 https:/… &lt;NA&gt;             \"If last w…\n 2 20/03/2024 David O… 1986  The … 9.78e12 https:/… &lt;NA&gt;              &lt;NA&gt;      \n 3 08/05/2024 Stephen… 1996  The … 9.78e12 https:/… &lt;NA&gt;             \"After the…\n 4 06/03/2024 Simon S… 1999  The … 9.78e12 https:/… &lt;NA&gt;             \"The Code …\n 5 10/07/2024 Aviva P… 2000  Medi… 9.78e12 https:/… https://nhs.pri… \"There are…\n 6 19/06/2024 Andrew … 2001  Harv… 9.78e12 https:/… &lt;NA&gt;             \"Last week…\n 7 26/06/2024 Trent D… 2001  Dark… 9.78e12 https:/… &lt;NA&gt;             \"We're sti…\n 8 05/06/2024 Andrew … 2004  In t… 9.78e12 https:/… &lt;NA&gt;             \"It's now …\n 9 15/05/2024 Kathryn… 2010  Bein… 9.78e12 https:/… &lt;NA&gt;             \"If I was …\n10 13/03/2024 Kevin M… 2011  Ghos… 9.78e12 https:/… &lt;NA&gt;             \"Here's a …\n11 12/06/2024 Naomi O… 2012  Merc… 9.78e12 https:/… https://nhs.pri… \"While the…\n12 17/07/2024 Samuel … 2012  The … 9.78e12 https:/… &lt;NA&gt;             \"This book…\n13 27/03/2024 Katrine… 2016  Who … 9.78e12 https:/… &lt;NA&gt;              &lt;NA&gt;      \n14 24/04/2024 Tom Lean 2016  Elec… 9.78e12 https:/… &lt;NA&gt;             \"We're loo…\n15 22/05/2024 John Ca… 2018  Bad … 9.78e12 https:/… &lt;NA&gt;             \"A love-le…\n16 03/07/2024 Lisa Fe… 2018  How … 9.78e12 https:/… https://nhs.pri… \"This week…\n17 01/05/2024 Carolin… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             \"Anyone wh…\n\nbotw$Date # selecting a column as a vector\n\n [1] \"06/03/2024\" \"13/03/2024\" \"20/03/2024\" \"27/03/2024\" \"24/04/2024\"\n [6] \"01/05/2024\" \"08/05/2024\" \"15/05/2024\" \"22/05/2024\" \"29/05/2024\"\n[11] \"05/06/2024\" \"12/06/2024\" \"19/06/2024\" \"26/06/2024\" \"03/07/2024\"\n[16] \"10/07/2024\" \"17/07/2024\"\n\nbotw |&gt;\n  slice(3:4) # subsetting by index using slice and returning a tibble Note different indexing behaviour\n\n# A tibble: 2 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 20/03/2024 David Ol… 1986  The … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n2 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n\nbotw |&gt;\n  select(Date) # subsetting entire columns\n\n# A tibble: 17 × 1\n   Date      \n   &lt;chr&gt;     \n 1 06/03/2024\n 2 13/03/2024\n 3 20/03/2024\n 4 27/03/2024\n 5 24/04/2024\n 6 01/05/2024\n 7 08/05/2024\n 8 15/05/2024\n 9 22/05/2024\n10 29/05/2024\n11 05/06/2024\n12 12/06/2024\n13 19/06/2024\n14 26/06/2024\n15 03/07/2024\n16 10/07/2024\n17 17/07/2024\n\nas.character(botw[5,]) # subsetting by index and coercing to a vector. This is pretty non-idiomatic in R\n\n[1] \"24/04/2024\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          \n[2] \"Tom Lean\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            \n[3] \"2016\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                \n[4] \"Electronic Dreams: How 1980s Britain Learned to Love the Computer\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   \n[5] \"9781472918338\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       \n[6] \"https://search.worldcat.org/title/907966036\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         \n[7] NA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \n[8] \"We're looking at regular expressions in the community meetup today. Regex, as the wikipedia page suggests, have been around for ages - positively archaeological in computing terms. So for the book of the week this week, I wanted to show off one of the most interesting bits of social history I've read: Tom Lean's Electronic Dreams. Lots of the history of computing is either primarily about the technical details, or is a broadly nostalgic look at obsolete tech. This book doesn't do either of those, instead spending its time giving a concise account of how personal computing worked as a social phenomenon. For example, how did people start getting paid to write computer games? What happened when the BBC got involved in personal computing? What happened to the various promises of digital revolutions as a replacement for manufacturing industries.\"\n\nbotw[5,] |&gt;\n  select(Author, Year) # subsetting by index and columns and returning a tibble\n\n# A tibble: 1 × 2\n  Author   Year \n  &lt;chr&gt;    &lt;chr&gt;\n1 Tom Lean 2016 \n\nbotw |&gt;\n  filter(Year &gt; 2010) |&gt;\n  arrange(Year) # subsetting by filtering years, then sorting using dplyr\n\n# A tibble: 8 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 13/03/2024 Kevin Mi… 2011  Ghos… 9.78e12 https:/… &lt;NA&gt;             \"Here's a …\n2 12/06/2024 Naomi Or… 2012  Merc… 9.78e12 https:/… https://nhs.pri… \"While the…\n3 17/07/2024 Samuel A… 2012  The … 9.78e12 https:/… &lt;NA&gt;             \"This book…\n4 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;              &lt;NA&gt;      \n5 24/04/2024 Tom Lean  2016  Elec… 9.78e12 https:/… &lt;NA&gt;             \"We're loo…\n6 22/05/2024 John Car… 2018  Bad … 9.78e12 https:/… &lt;NA&gt;             \"A love-le…\n7 03/07/2024 Lisa Fel… 2018  How … 9.78e12 https:/… https://nhs.pri… \"This week…\n8 01/05/2024 Caroline… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             \"Anyone wh…\n\nbotw[which(botw$Author %in% c(\"Katrine Marçal\", \"Caroline Criado Perez\")),] # finding matching values using base R\n\n# A tibble: 2 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n2 01/05/2024 Caroline… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             Anyone who…\n\nbotw |&gt;\n  tidyr::drop_na() # removes any missing values in the whole tibble\n\n# A tibble: 3 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 12/06/2024 Naomi Or… 2012  Merc… 9.78e12 https:/… https://nhs.pri… While the …\n2 03/07/2024 Lisa Fel… 2018  How … 9.78e12 https:/… https://nhs.pri… This week'…\n3 10/07/2024 Aviva Pe… 2000  Medi… 9.78e12 https:/… https://nhs.pri… There are …\n\nbotw$Title |&gt;\n  tolower() # returning the title column as a lower-case vector\n\n [1] \"the code book\"                                                                      \n [2] \"ghost in the wires\"                                                                 \n [3] \"the arch of knowledge\"                                                              \n [4] \"who cooked adam smith's dinner\"                                                     \n [5] \"electronic dreams: how 1980s britain learned to love the computer\"                  \n [6] \"invisible women: exposing data bias in a world designed for men\"                    \n [7] \"the mismeasure of man (2nd ed)\"                                                     \n [8] \"being wrong: adventures in the margin of error\"                                     \n [9] \"bad blood: secrets and lies in a silicon valley startup\"                            \n[10] \"genesis and development of a scientific fact\"                                       \n[11] \"in the beginning was the worm : finding the secrets of life in a tiny hermaphrodite\"\n[12] \"merchants of doubt\"                                                                 \n[13] \"harvey's heart: the discovery of blood circulation\"                                 \n[14] \"dark remedy: the impact of thalidomide and its revival as a vital medicine\"         \n[15] \"how emotions are made\"                                                              \n[16] \"medical statistics at a glance\"                                                     \n[17] \"the half-life of facts\"                                                             \n\nbotw |&gt;\n  mutate(Date = lubridate::dmy(Date)) |&gt; # fixing publication dates\n  group_by(month = lubridate::floor_date(Date, unit = \"month\")) |&gt;\n  summarise(mean_year = mean(as.numeric(Year), na.rm = T)) # average year of publication by month of botw\n\n# A tibble: 5 × 2\n  month      mean_year\n  &lt;date&gt;         &lt;dbl&gt;\n1 2024-03-01     2003 \n2 2024-04-01     2016 \n3 2024-05-01     2011.\n4 2024-06-01     2004.\n5 2024-07-01     2010"
+    "text": "Tabular data basics\n\nPythonR\n\n\n\nwe’ll do a quick overview of pandas, based on their excellent 10 minute overview\nour botw object is a DataFrame, which is based on a dict\n\nlike tibbles, DataFrames can contain columns of different types\n\n\n\nbotw.dtypes # find out what we're dealing with\n\nDate                object\nAuthor              object\nYear                 int64\nTitle               object\nISBN                 int64\nWorldcat            object\nKnowledgeNetwork    object\nDescription         object\ndtype: object\n\nbotw.head() # shows first few rows\n\n         Date  ...                                        Description\n0  06/03/2024  ...  The Code Book: The Secret History of Codes and...\n1  13/03/2024  ...  Here's a book of the week suggestion following...\n2  20/03/2024  ...                                                NaN\n3  27/03/2024  ...                                                NaN\n4  24/04/2024  ...  We're looking at regular expressions in the co...\n\n[5 rows x 8 columns]\n\nbotw.index # effectively counts rows\n\nRangeIndex(start=0, stop=18, step=1)\n\nbotw.columns # gives column names\n\nIndex(['Date', 'Author', 'Year', 'Title', 'ISBN', 'Worldcat',\n       'KnowledgeNetwork', 'Description'],\n      dtype='object')\n\nbotw.describe() # simple summary\n\n              Year          ISBN\ncount    18.000000  1.800000e+01\nmean   2006.333333  9.781119e+12\nstd      11.468627  6.643813e+08\nmin    1979.000000  9.780140e+12\n25%    2000.250000  9.780470e+12\n50%    2010.500000  9.781441e+12\n75%    2016.000000  9.781736e+12\nmax    2019.000000  9.781857e+12\n\nbotw.sort_values(\"Year\") # sorting by column values\n\n          Date  ...                                        Description\n9   29/05/2024  ...  If last week's book was a paean to the use of ...\n2   20/03/2024  ...                                                NaN\n6   08/05/2024  ...  After the discussion last week about the troub...\n0   06/03/2024  ...  The Code Book: The Secret History of Codes and...\n15  10/07/2024  ...  There are a lot of statistics textbooks out th...\n12  19/06/2024  ...  Last week's recommendation about agnotology sp...\n13  26/06/2024  ...  We're still on a mini-exploration of manufactu...\n10  05/06/2024  ...  It's now close to twenty years old, and deals ...\n7   15/05/2024  ...  If I was posh enough to have a Latin motto, it...\n1   13/03/2024  ...  Here's a book of the week suggestion following...\n11  12/06/2024  ...  While the word [agnotology](https://simple.wik...\n16  17/07/2024  ...  This book suggestion comes from a conversation...\n4   24/04/2024  ...  We're looking at regular expressions in the co...\n3   27/03/2024  ...                                                NaN\n17  02/08/2024  ...  If you've ever been stunned by an unexpectedly...\n8   22/05/2024  ...  A love-letter to the power of domain knowledge...\n14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...\n5   01/05/2024  ...  Anyone who works with data knows that our data...\n\n[18 rows x 8 columns]\n\nbotw[\"Date\"] # selecting a column and creating a series\n\n0     06/03/2024\n1     13/03/2024\n2     20/03/2024\n3     27/03/2024\n4     24/04/2024\n5     01/05/2024\n6     08/05/2024\n7     15/05/2024\n8     22/05/2024\n9     29/05/2024\n10    05/06/2024\n11    12/06/2024\n12    19/06/2024\n13    26/06/2024\n14    03/07/2024\n15    10/07/2024\n16    17/07/2024\n17    02/08/2024\nName: Date, dtype: object\n\nbotw[2:4] # subsetting by index using a slice and returning a DataFrame\n\n         Date          Author  ...  KnowledgeNetwork Description\n2  20/03/2024   David Oldroyd  ...               NaN         NaN\n3  27/03/2024  Katrine Marçal  ...               NaN         NaN\n\n[2 rows x 8 columns]\n\nbotw[[\"Date\"]] # subsetting entire columns\n\n          Date\n0   06/03/2024\n1   13/03/2024\n2   20/03/2024\n3   27/03/2024\n4   24/04/2024\n5   01/05/2024\n6   08/05/2024\n7   15/05/2024\n8   22/05/2024\n9   29/05/2024\n10  05/06/2024\n11  12/06/2024\n12  19/06/2024\n13  26/06/2024\n14  03/07/2024\n15  10/07/2024\n16  17/07/2024\n17  02/08/2024\n\nbotw.loc[4] # subsetting by index using a slice and returning a series\n\nDate                                                       24/04/2024\nAuthor                                                       Tom Lean\nYear                                                             2016\nTitle               Electronic Dreams: How 1980s Britain Learned t...\nISBN                                                    9781472918338\nWorldcat                  https://search.worldcat.org/title/907966036\nKnowledgeNetwork                                                  NaN\nDescription         We're looking at regular expressions in the co...\nName: 4, dtype: object\n\nbotw.loc[4, [\"Author\", \"Year\"]] # subsetting by index and columns and returning a DataFrame\n\nAuthor    Tom Lean\nYear          2016\nName: 4, dtype: object\n\nbotw[botw[\"Year\"] &gt; 2010].sort_values(\"Year\") # subsetting by years, and sorting\n\n          Date  ...                                        Description\n1   13/03/2024  ...  Here's a book of the week suggestion following...\n11  12/06/2024  ...  While the word [agnotology](https://simple.wik...\n16  17/07/2024  ...  This book suggestion comes from a conversation...\n3   27/03/2024  ...                                                NaN\n4   24/04/2024  ...  We're looking at regular expressions in the co...\n17  02/08/2024  ...  If you've ever been stunned by an unexpectedly...\n14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...\n8   22/05/2024  ...  A love-letter to the power of domain knowledge...\n5   01/05/2024  ...  Anyone who works with data knows that our data...\n\n[9 rows x 8 columns]\n\nbotw[botw[\"Author\"].isin([\"Katrine Marçal\", \"Caroline Criado Perez\"])] # finding matching values\n\n         Date  ...                                        Description\n3  27/03/2024  ...                                                NaN\n5  01/05/2024  ...  Anyone who works with data knows that our data...\n\n[2 rows x 8 columns]\n\nbotw.dropna() # removes any missing values in the whole DataFrame\n\n          Date  ...                                        Description\n11  12/06/2024  ...  While the word [agnotology](https://simple.wik...\n14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...\n15  10/07/2024  ...  There are a lot of statistics textbooks out th...\n17  02/08/2024  ...  If you've ever been stunned by an unexpectedly...\n\n[4 rows x 8 columns]\n\nbotw[\"Title\"].str.lower() # returning the title column as a lower-case series\n\n0                                         the code book\n1                                    ghost in the wires\n2                                 the arch of knowledge\n3                        who cooked adam smith's dinner\n4     electronic dreams: how 1980s britain learned t...\n5     invisible women: exposing data bias in a world...\n6                        the mismeasure of man (2nd ed)\n7        being wrong: adventures in the margin of error\n8     bad blood: secrets and lies in a silicon valle...\n9          genesis and development of a scientific fact\n10    in the beginning was the worm : finding the se...\n11                                   merchants of doubt\n12    harvey's heart: the discovery of blood circula...\n13    dark remedy: the impact of thalidomide and its...\n14                                how emotions are made\n15                       medical statistics at a glance\n16                               the half-life of facts\n17                          weapons of math destruction\nName: Title, dtype: object\n\nbotw[\"Date\"] = pandas.to_datetime(botw[\"Date\"],format='%d/%m/%Y') # fixing publication dates\nbotw.groupby(pd.DatetimeIndex(botw['Date']).month)[[\"Year\"]].mean(\"Year\") # average year of publication by month of botw\n\n        Year\nDate        \n3     2003.0\n4     2016.0\n5     2004.4\n6     2004.5\n7     2010.0\n8     2016.0\n\n\n\n\n\nlibrary(dplyr) # we'll need dplyr for this work\nstr(botw) # shows data types etc\n\nspc_tbl_ [18 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ Date            : chr [1:18] \"06/03/2024\" \"13/03/2024\" \"20/03/2024\" \"27/03/2024\" ...\n $ Author          : chr [1:18] \"Simon Singh\" \"Kevin Mitnick\" \"David Oldroyd\" \"Katrine Marçal\" ...\n $ Year            : chr [1:18] \"1999\" \"2011\" \"1986\" \"2016\" ...\n $ Title           : chr [1:18] \"The Code Book\" \"Ghost in the Wires\" \"The Arch of Knowledge\" \"Who Cooked Adam Smith's Dinner\" ...\n $ ISBN            : num [1:18] 9.78e+12 9.78e+12 9.78e+12 9.78e+12 9.78e+12 ...\n $ Worldcat        : chr [1:18] \"https://search.worldcat.org/title/59579840\" \"https://search.worldcat.org/title/773175688\" \"https://search.worldcat.org/title/12663957\" \"https://search.worldcat.org/title/933444501\" ...\n $ KnowledgeNetwork: chr [1:18] NA NA NA NA ...\n $ Description     : chr [1:18] \"The Code Book: The Secret History of Codes and Code-Breaking a book by . (bookshop.org) (to buy online but supp\"| __truncated__ \"Here's a book of the week suggestion following on from the codes theme from last time. It's the autobiography o\"| __truncated__ NA NA ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   Date = col_character(),\n  ..   Author = col_character(),\n  ..   Year = col_character(),\n  ..   Title = col_character(),\n  ..   ISBN = col_double(),\n  ..   Worldcat = col_character(),\n  ..   KnowledgeNetwork = col_character(),\n  ..   Description = col_character()\n  .. )\n - attr(*, \"problems\")=&lt;externalptr&gt; \n\nhead(botw) # shows first few rows\n\n# A tibble: 6 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 06/03/2024 Simon Si… 1999  The … 9.78e12 https:/… &lt;NA&gt;             The Code B…\n2 13/03/2024 Kevin Mi… 2011  Ghos… 9.78e12 https:/… &lt;NA&gt;             Here's a b…\n3 20/03/2024 David Ol… 1986  The … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n4 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n5 24/04/2024 Tom Lean  2016  Elec… 9.78e12 https:/… &lt;NA&gt;             We're look…\n6 01/05/2024 Caroline… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             Anyone who…\n\nnrow(botw) # counts rows\n\n[1] 18\n\nnames(botw) # column names\n\n[1] \"Date\"             \"Author\"           \"Year\"             \"Title\"           \n[5] \"ISBN\"             \"Worldcat\"         \"KnowledgeNetwork\" \"Description\"     \n\nsummary(botw)\n\n     Date              Author              Year              Title          \n Length:18          Length:18          Length:18          Length:18         \n Class :character   Class :character   Class :character   Class :character  \n Mode  :character   Mode  :character   Mode  :character   Mode  :character  \n                                                                            \n                                                                            \n                                                                            \n      ISBN             Worldcat         KnowledgeNetwork   Description       \n Min.   :9.780e+12   Length:18          Length:18          Length:18         \n 1st Qu.:9.780e+12   Class :character   Class :character   Class :character  \n Median :9.781e+12   Mode  :character   Mode  :character   Mode  :character  \n Mean   :9.781e+12                                                           \n 3rd Qu.:9.782e+12                                                           \n Max.   :9.782e+12                                                           \n\nbotw |&gt;\n  arrange(Year) # native pipe operator in R. Piped code in Python requires modules\n\n# A tibble: 18 × 8\n   Date       Author   Year  Title    ISBN Worldcat KnowledgeNetwork Description\n   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n 1 29/05/2024 Ludwig … 1979… Gene… 9.78e12 https:/… &lt;NA&gt;             \"If last w…\n 2 20/03/2024 David O… 1986  The … 9.78e12 https:/… &lt;NA&gt;              &lt;NA&gt;      \n 3 08/05/2024 Stephen… 1996  The … 9.78e12 https:/… &lt;NA&gt;             \"After the…\n 4 06/03/2024 Simon S… 1999  The … 9.78e12 https:/… &lt;NA&gt;             \"The Code …\n 5 10/07/2024 Aviva P… 2000  Medi… 9.78e12 https:/… https://nhs.pri… \"There are…\n 6 19/06/2024 Andrew … 2001  Harv… 9.78e12 https:/… &lt;NA&gt;             \"Last week…\n 7 26/06/2024 Trent D… 2001  Dark… 9.78e12 https:/… &lt;NA&gt;             \"We're sti…\n 8 05/06/2024 Andrew … 2004  In t… 9.78e12 https:/… &lt;NA&gt;             \"It's now …\n 9 15/05/2024 Kathryn… 2010  Bein… 9.78e12 https:/… &lt;NA&gt;             \"If I was …\n10 13/03/2024 Kevin M… 2011  Ghos… 9.78e12 https:/… &lt;NA&gt;             \"Here's a …\n11 12/06/2024 Naomi O… 2012  Merc… 9.78e12 https:/… https://nhs.pri… \"While the…\n12 17/07/2024 Samuel … 2012  The … 9.78e12 https:/… &lt;NA&gt;             \"This book…\n13 27/03/2024 Katrine… 2016  Who … 9.78e12 https:/… &lt;NA&gt;              &lt;NA&gt;      \n14 24/04/2024 Tom Lean 2016  Elec… 9.78e12 https:/… &lt;NA&gt;             \"We're loo…\n15 02/08/2024 Cathy O… 2016  Weap… 9.78e12 https:/… https://nhs.pri… \"If you've…\n16 22/05/2024 John Ca… 2018  Bad … 9.78e12 https:/… &lt;NA&gt;             \"A love-le…\n17 03/07/2024 Lisa Fe… 2018  How … 9.78e12 https:/… https://nhs.pri… \"This week…\n18 01/05/2024 Carolin… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             \"Anyone wh…\n\nbotw$Date # selecting a column as a vector\n\n [1] \"06/03/2024\" \"13/03/2024\" \"20/03/2024\" \"27/03/2024\" \"24/04/2024\"\n [6] \"01/05/2024\" \"08/05/2024\" \"15/05/2024\" \"22/05/2024\" \"29/05/2024\"\n[11] \"05/06/2024\" \"12/06/2024\" \"19/06/2024\" \"26/06/2024\" \"03/07/2024\"\n[16] \"10/07/2024\" \"17/07/2024\" \"02/08/2024\"\n\nbotw |&gt;\n  slice(3:4) # subsetting by index using slice and returning a tibble Note different indexing behaviour\n\n# A tibble: 2 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 20/03/2024 David Ol… 1986  The … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n2 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n\nbotw |&gt;\n  select(Date) # subsetting entire columns\n\n# A tibble: 18 × 1\n   Date      \n   &lt;chr&gt;     \n 1 06/03/2024\n 2 13/03/2024\n 3 20/03/2024\n 4 27/03/2024\n 5 24/04/2024\n 6 01/05/2024\n 7 08/05/2024\n 8 15/05/2024\n 9 22/05/2024\n10 29/05/2024\n11 05/06/2024\n12 12/06/2024\n13 19/06/2024\n14 26/06/2024\n15 03/07/2024\n16 10/07/2024\n17 17/07/2024\n18 02/08/2024\n\nas.character(botw[5,]) # subsetting by index and coercing to a vector. This is pretty non-idiomatic in R\n\n[1] \"24/04/2024\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          \n[2] \"Tom Lean\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            \n[3] \"2016\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                \n[4] \"Electronic Dreams: How 1980s Britain Learned to Love the Computer\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   \n[5] \"9781472918338\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       \n[6] \"https://search.worldcat.org/title/907966036\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         \n[7] NA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \n[8] \"We're looking at regular expressions in the community meetup today. Regex, as the wikipedia page suggests, have been around for ages - positively archaeological in computing terms. So for the book of the week this week, I wanted to show off one of the most interesting bits of social history I've read: Tom Lean's Electronic Dreams. Lots of the history of computing is either primarily about the technical details, or is a broadly nostalgic look at obsolete tech. This book doesn't do either of those, instead spending its time giving a concise account of how personal computing worked as a social phenomenon. For example, how did people start getting paid to write computer games? What happened when the BBC got involved in personal computing? What happened to the various promises of digital revolutions as a replacement for manufacturing industries.\"\n\nbotw[5,] |&gt;\n  select(Author, Year) # subsetting by index and columns and returning a tibble\n\n# A tibble: 1 × 2\n  Author   Year \n  &lt;chr&gt;    &lt;chr&gt;\n1 Tom Lean 2016 \n\nbotw |&gt;\n  filter(Year &gt; 2010) |&gt;\n  arrange(Year) # subsetting by filtering years, then sorting using dplyr\n\n# A tibble: 9 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 13/03/2024 Kevin Mi… 2011  Ghos… 9.78e12 https:/… &lt;NA&gt;             \"Here's a …\n2 12/06/2024 Naomi Or… 2012  Merc… 9.78e12 https:/… https://nhs.pri… \"While the…\n3 17/07/2024 Samuel A… 2012  The … 9.78e12 https:/… &lt;NA&gt;             \"This book…\n4 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;              &lt;NA&gt;      \n5 24/04/2024 Tom Lean  2016  Elec… 9.78e12 https:/… &lt;NA&gt;             \"We're loo…\n6 02/08/2024 Cathy O'… 2016  Weap… 9.78e12 https:/… https://nhs.pri… \"If you've…\n7 22/05/2024 John Car… 2018  Bad … 9.78e12 https:/… &lt;NA&gt;             \"A love-le…\n8 03/07/2024 Lisa Fel… 2018  How … 9.78e12 https:/… https://nhs.pri… \"This week…\n9 01/05/2024 Caroline… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             \"Anyone wh…\n\nbotw[which(botw$Author %in% c(\"Katrine Marçal\", \"Caroline Criado Perez\")),] # finding matching values using base R\n\n# A tibble: 2 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 27/03/2024 Katrine … 2016  Who … 9.78e12 https:/… &lt;NA&gt;             &lt;NA&gt;       \n2 01/05/2024 Caroline… 2019  Invi… 9.78e12 https:/… &lt;NA&gt;             Anyone who…\n\nbotw |&gt;\n  tidyr::drop_na() # removes any missing values in the whole tibble\n\n# A tibble: 4 × 8\n  Date       Author    Year  Title    ISBN Worldcat KnowledgeNetwork Description\n  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      \n1 12/06/2024 Naomi Or… 2012  Merc… 9.78e12 https:/… https://nhs.pri… While the …\n2 03/07/2024 Lisa Fel… 2018  How … 9.78e12 https:/… https://nhs.pri… This week'…\n3 10/07/2024 Aviva Pe… 2000  Medi… 9.78e12 https:/… https://nhs.pri… There are …\n4 02/08/2024 Cathy O'… 2016  Weap… 9.78e12 https:/… https://nhs.pri… If you've …\n\nbotw$Title |&gt;\n  tolower() # returning the title column as a lower-case vector\n\n [1] \"the code book\"                                                                      \n [2] \"ghost in the wires\"                                                                 \n [3] \"the arch of knowledge\"                                                              \n [4] \"who cooked adam smith's dinner\"                                                     \n [5] \"electronic dreams: how 1980s britain learned to love the computer\"                  \n [6] \"invisible women: exposing data bias in a world designed for men\"                    \n [7] \"the mismeasure of man (2nd ed)\"                                                     \n [8] \"being wrong: adventures in the margin of error\"                                     \n [9] \"bad blood: secrets and lies in a silicon valley startup\"                            \n[10] \"genesis and development of a scientific fact\"                                       \n[11] \"in the beginning was the worm : finding the secrets of life in a tiny hermaphrodite\"\n[12] \"merchants of doubt\"                                                                 \n[13] \"harvey's heart: the discovery of blood circulation\"                                 \n[14] \"dark remedy: the impact of thalidomide and its revival as a vital medicine\"         \n[15] \"how emotions are made\"                                                              \n[16] \"medical statistics at a glance\"                                                     \n[17] \"the half-life of facts\"                                                             \n[18] \"weapons of math destruction\"                                                        \n\nbotw |&gt;\n  mutate(Date = lubridate::dmy(Date)) |&gt; # fixing publication dates\n  group_by(month = lubridate::floor_date(Date, unit = \"month\")) |&gt;\n  summarise(mean_year = mean(as.numeric(Year), na.rm = T)) # average year of publication by month of botw\n\n# A tibble: 6 × 2\n  month      mean_year\n  &lt;date&gt;         &lt;dbl&gt;\n1 2024-03-01     2003 \n2 2024-04-01     2016 \n3 2024-05-01     2011.\n4 2024-06-01     2004.\n5 2024-07-01     2010 \n6 2024-08-01     2016"
   },
   {
     "objectID": "skills/a_data_centric_introduction_to_python_pg.html#plots",
@@ -438,7 +438,14 @@
     "href": "excel/lookups_in_excel.html",
     "title": "Lookups in Excel",
     "section": "",
-    "text": "Session materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf\nsample file .xlsx\nNo feedback found for this session"
+    "text": "Session materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf\nsample file .xlsx / completed sample file .xlsx"
+  },
+  {
+    "objectID": "excel/lookups_in_excel.html#previous-attendees-have-said",
+    "href": "excel/lookups_in_excel.html#previous-attendees-have-said",
+    "title": "Lookups in Excel",
+    "section": "Previous attendees have said…",
+    "text": "Previous attendees have said…\n\n16 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nEncouraging and no question is a stupid question, thank you\nInteresting, packed with exciting info and good tips.\nReally useful session and strengthened my understanding of what previously I’d been guessing!"
   },
   {
     "objectID": "excel/lookups_in_excel.html#welcome",
@@ -592,14 +599,14 @@
     "href": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html",
     "title": "An introduction to AI (…and why you might avoid that term)",
     "section": "",
-    "text": "19 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA good broad introduction to the different systems at play and understanding the terminology\nThought it was a good intro but would be interesting to look at the main differences between “old AI” and new generative AI, The session you did looking at expert systems was good - are these classed as AI? When I was younger they were but now seems to refer mainly to generative AI so interesting to look at some of the history/hype vs the reality and the fact that most of the new AI is black box, so you can’t trace the algorithm back to why it made a particular descision in the way that you could in an expert system. This makes reviewing the Ai’s decisions a much harder task..\nthe essentials were there, whatever the care and social health focus; some of the information tidied up a few thoughts I had about AI\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
+    "text": "19 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThe side discussions are always an exciting and valuable part of the informal training sessions - even the ones which are only tenuously linked. The content could have been offered as a slide deck … but it is the side discussions which add substantial value (and interest) beyond anything which could simply be trawled from the internet\nReally helpful overview which prompted lots of discussion in the chat.\nThought it was a good intro but would be interesting to look at the main differences between “old AI” and new generative AI, The session you did looking at expert systems was good - are these classed as AI? When I was younger they were but now seems to refer mainly to generative AI so interesting to look at some of the history/hype vs the reality and the fact that most of the new AI is black box, so you can’t trace the algorithm back to why it made a particular descision in the way that you could in an expert system. This makes reviewing the Ai’s decisions a much harder task..\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
   },
   {
     "objectID": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html#previous-attendees-have-said",
     "href": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html#previous-attendees-have-said",
     "title": "An introduction to AI (…and why you might avoid that term)",
     "section": "",
-    "text": "19 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA good broad introduction to the different systems at play and understanding the terminology\nThought it was a good intro but would be interesting to look at the main differences between “old AI” and new generative AI, The session you did looking at expert systems was good - are these classed as AI? When I was younger they were but now seems to refer mainly to generative AI so interesting to look at some of the history/hype vs the reality and the fact that most of the new AI is black box, so you can’t trace the algorithm back to why it made a particular descision in the way that you could in an expert system. This makes reviewing the Ai’s decisions a much harder task..\nthe essentials were there, whatever the care and social health focus; some of the information tidied up a few thoughts I had about AI\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
+    "text": "19 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThe side discussions are always an exciting and valuable part of the informal training sessions - even the ones which are only tenuously linked. The content could have been offered as a slide deck … but it is the side discussions which add substantial value (and interest) beyond anything which could simply be trawled from the internet\nReally helpful overview which prompted lots of discussion in the chat.\nThought it was a good intro but would be interesting to look at the main differences between “old AI” and new generative AI, The session you did looking at expert systems was good - are these classed as AI? When I was younger they were but now seems to refer mainly to generative AI so interesting to look at some of the history/hype vs the reality and the fact that most of the new AI is black box, so you can’t trace the algorithm back to why it made a particular descision in the way that you could in an expert system. This makes reviewing the Ai’s decisions a much harder task..\n\n\n\n\n\n\n\n\n\nSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
   },
   {
     "objectID": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html#welcome",
@@ -1477,179 +1484,109 @@
     "text": "Help! I have an unmet query…\n\nTeams channel link = Mailing list link\nFor anything, please contact Brendan Clarke (brendan.clarke2@nhs.scot)."
   },
   {
-    "objectID": "excel/why_bother_with_excel.html",
-    "href": "excel/why_bother_with_excel.html",
-    "title": "Why bother with Excel?",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "KIND training",
     "section": "",
-    "text": "welcome to Why bother with Excel?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+    "text": "This is a set of training materials supporting the KIND network’s series of one-off training sessions."
   },
   {
-    "objectID": "excel/why_bother_with_excel.html#welcome",
-    "href": "excel/why_bother_with_excel.html#welcome",
-    "title": "Why bother with Excel?",
+    "objectID": "index.html#how-to-use-these-materials",
+    "href": "index.html#how-to-use-these-materials",
+    "title": "KIND training",
+    "section": "How to use these materials",
+    "text": "How to use these materials\n\nthese pages contain the materials for the range of one-off training sessions provided by NHS Education for Scotland’s KIND learning network\nall our sessions are designed to be delivered live on Teams\nall these materials are creative-commons licensed, so please feel free to reuse within those conditions\nthese sessions are periodically re-run, so please get in touch if you’d find it helpful to have one or more sessions re-offered"
+  },
+  {
+    "objectID": "index.html#thanks",
+    "href": "index.html#thanks",
+    "title": "KIND training",
+    "section": "Thanks",
+    "text": "Thanks\nThese materials owe a huge debt to the many members of the KIND community who have contributed. More specifically, these pages are based on Melissa Van Bussell’s video describing, with absolute clarity, how to deploy Quarto websites to GitHub pages."
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html",
+    "href": "excel/scope_of_the_possible_with_excel.html",
+    "title": "Scope of the possible with Excel",
     "section": "",
-    "text": "welcome to Why bother with Excel?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+    "text": "this session is a non-technical overview designed for service leads"
   },
   {
-    "objectID": "excel/why_bother_with_excel.html#the-kind-network",
-    "href": "excel/why_bother_with_excel.html#the-kind-network",
-    "title": "Why bother with Excel?",
-    "section": "The KIND network",
-    "text": "The KIND network\n\na social learning space for staff working with knowledge, information, and data across health, social care, and housing in Scotland\nwe offer social support, free training, mentoring, community events, …\nTeams channel / mailing list"
+    "objectID": "excel/scope_of_the_possible_with_excel.html#welcome",
+    "href": "excel/scope_of_the_possible_with_excel.html#welcome",
+    "title": "Scope of the possible with Excel",
+    "section": "",
+    "text": "this session is a non-technical overview designed for service leads"
   },
   {
-    "objectID": "excel/why_bother_with_excel.html#session-outline",
-    "href": "excel/why_bother_with_excel.html#session-outline",
-    "title": "Why bother with Excel?",
+    "objectID": "excel/scope_of_the_possible_with_excel.html#session-outline",
+    "href": "excel/scope_of_the_possible_with_excel.html#session-outline",
+    "title": "Scope of the possible with Excel",
     "section": "Session outline",
-    "text": "Session outline\n\ntwo minute overview of Excel\nstrengths and weaknesses\nmaking Excel work for you\nnext steps and training"
+    "text": "Session outline\n\nWhy Excel, and why this session?\nStrengths and weaknesses\nGreat Excel projects, dire Excel projects\nAlternatives\nSkill development"
   },
   {
-    "objectID": "excel/why_bother_with_excel.html#a-brief-overview-of-excel",
-    "href": "excel/why_bother_with_excel.html#a-brief-overview-of-excel",
-    "title": "Why bother with Excel?",
-    "section": "A brief overview of Excel",
-    "text": "A brief overview of Excel\n\n\none of the oldest, and most widely used, pieces of desktop software\nubiquitous in business, finance, health and social care…\nproprietary, closed-source, paid-for\nmany versions"
+    "objectID": "excel/scope_of_the_possible_with_excel.html#why-excel",
+    "href": "excel/scope_of_the_possible_with_excel.html#why-excel",
+    "title": "Scope of the possible with Excel",
+    "section": "Why Excel?",
+    "text": "Why Excel?\n\n40+ years old\ninitially developed as a finance tool\nuptake from financial areas outwards into other services\nlikely circular reasoning: “we use Excel” because “we use Excel”…"
   },
   {
-    "objectID": "excel/why_bother_with_excel.html#central-idea",
-    "href": "excel/why_bother_with_excel.html#central-idea",
-    "title": "Why bother with Excel?",
-    "section": "Central idea",
-    "text": "Central idea\n\n\npieces of data are stored in cells\n\none value, one cell\n\ncells are arranged into rows and columns\narranging data like this allows us to analyse it\ngood data analysis helps make services better"
+    "objectID": "excel/scope_of_the_possible_with_excel.html#why-this-session",
+    "href": "excel/scope_of_the_possible_with_excel.html#why-this-session",
+    "title": "Scope of the possible with Excel",
+    "section": "Why this session?",
+    "text": "Why this session?\n\nnow includes several different tools for working with data\nmost of us only ever scratch the surface\nbut it’s really important to know roughly what’s possible - and that’s hard!"
   },
   {
-    "objectID": "excel/why_bother_with_excel.html#data-should-help",
-    "href": "excel/why_bother_with_excel.html#data-should-help",
-    "title": "Why bother with Excel?",
-    "section": "Data should help…",
-    "text": "Data should help…\n\nanswering which/when questions\nseeing effects of changes\ncomparing different areas\nlooking at services over time\n…"
+    "objectID": "excel/scope_of_the_possible_with_excel.html#excel-demo",
+    "href": "excel/scope_of_the_possible_with_excel.html#excel-demo",
+    "title": "Scope of the possible with Excel",
+    "section": "Excel demo",
+    "text": "Excel demo\n\nusing open Annual inpatient/daycase data"
   },
   {
-    "objectID": "excel/why_bother_with_excel.html#excel-uses-demo",
-    "href": "excel/why_bother_with_excel.html#excel-uses-demo",
-    "title": "Why bother with Excel?",
-    "section": "Excel uses demo",
-    "text": "Excel uses demo\n\nre-arranging data with filters and sorting\nformulas\nlookups\nsummarising"
+    "objectID": "excel/scope_of_the_possible_with_excel.html#strengths-and-weaknesses",
+    "href": "excel/scope_of_the_possible_with_excel.html#strengths-and-weaknesses",
+    "title": "Scope of the possible with Excel",
+    "section": "Strengths and weaknesses",
+    "text": "Strengths and weaknesses\n\ngreat for one-off data projects, but Excel sheets often have a long life…\neasy to start projects, but more involved analysis is messy\nshare-able and accessible - but many different versions of Excel, add-ins etc, mean that there is grit in the system\nyou can do almost anything in Excel, but you probably shouldn’t"
   },
   {
-    "objectID": "excel/why_bother_with_excel.html#five-top-tips",
-    "href": "excel/why_bother_with_excel.html#five-top-tips",
-    "title": "Why bother with Excel?",
+    "objectID": "excel/scope_of_the_possible_with_excel.html#great-excel-uses",
+    "href": "excel/scope_of_the_possible_with_excel.html#great-excel-uses",
+    "title": "Scope of the possible with Excel",
+    "section": "Great Excel uses",
+    "text": "Great Excel uses\n\nsimple, quick, one-off projects\nusing Power Query to manipulate data\nusing Excel to create/load data into Power BI"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#terrible-excel-uses",
+    "href": "excel/scope_of_the_possible_with_excel.html#terrible-excel-uses",
+    "title": "Scope of the possible with Excel",
+    "section": "Terrible Excel uses",
+    "text": "Terrible Excel uses\n\nreplacing databases (complicated, but Access/SQL)\nanything with free text (probably use R/Nvivo instead)\nanything with many editors (use Forms or Sharepoint Lists instead)\nanything with repetition and extensive manual editing (better Excel design needed)\nvery wide data (probably Excel redesign again)"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#a-cautionary-tale",
+    "href": "excel/scope_of_the_possible_with_excel.html#a-cautionary-tale",
+    "title": "Scope of the possible with Excel",
+    "section": "A cautionary tale",
+    "text": "A cautionary tale\n\nthere are staff in Scotland’s health and care sector who spend ~100% of their time manually editing Excel files\nthis is almost certainly the result of poor Excel practices\nExcel is a complex product, with several routes to achieving end goals\nand Excel can malfunction to disasterous effect"
+  },
+  {
+    "objectID": "excel/scope_of_the_possible_with_excel.html#five-top-tips",
+    "href": "excel/scope_of_the_possible_with_excel.html#five-top-tips",
+    "title": "Scope of the possible with Excel",
     "section": "Five top tips",
     "text": "Five top tips\n\nkeep data tidy (one value per cell, one row per thing, one column per measurement)\nkeep things as simple as possible - but not simpler\ndon’t tolerate lots of manual spreadsheet work\ntake care with formatting and accessibility/reuse\nbet that your spreadsheet will last longer, and travel further, than you think"
   },
   {
-    "objectID": "excel/relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.html",
-    "href": "excel/relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.html",
-    "title": "Relative, absolute, mixed, and structured references",
-    "section": "",
-    "text": "This is a placeholder page for the referencing training coming during August 2024"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html",
-    "href": "excel/practical_power_pivot.html",
-    "title": "Practical PowerPivot",
-    "section": "",
-    "text": "this session is 🌶🌶, so it’s designed for intermediate users with plenty of previous Excel PivotTable experience\n\nPowerPivot infrastructure varies widely, so we can’t advise on installation\n\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#welcome",
-    "href": "excel/practical_power_pivot.html#welcome",
-    "title": "Practical PowerPivot",
-    "section": "",
-    "text": "this session is 🌶🌶, so it’s designed for intermediate users with plenty of previous Excel PivotTable experience\n\nPowerPivot infrastructure varies widely, so we can’t advise on installation\n\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#session-outline",
-    "href": "excel/practical_power_pivot.html#session-outline",
-    "title": "Practical PowerPivot",
-    "section": "Session outline",
-    "text": "Session outline\n\ncheck that you have Power Pivot please!\nfind and tidy some data\nadd to Power Pivot\nplay with data in Power Pivot"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#word-of-warning",
-    "href": "excel/practical_power_pivot.html#word-of-warning",
-    "title": "Practical PowerPivot",
-    "section": "Word of warning",
-    "text": "Word of warning\n\nPower Pivot in Excel is still officially supported, but has been largely replaced by Power BI\n\nI’d be circumspect about its long-term prospects\nI’d also be cautious about starting more ambitious projects in Power Pivot - lots of glitches, few fixes"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#nutshell",
-    "href": "excel/practical_power_pivot.html#nutshell",
-    "title": "Practical PowerPivot",
-    "section": "Nutshell",
-    "text": "Nutshell\n\nPowerPivot = effectively a local SSAS\nthat means PowerPivot allows you to do fancy relational work with your data\nit can also means higher performance with large (10k rows +) data\nyet allows you to use Excel for data ingest and output"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#data",
-    "href": "excel/practical_power_pivot.html#data",
-    "title": "Practical PowerPivot",
-    "section": "Data",
-    "text": "Data\n\ndownload the Agatha Christie dataset as an Excel file\ntidying:\n\nremove filters\ncreate 4 x named tables\nstandardising titles if you’re highly conscientious"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#add-data-to-power-pivot",
-    "href": "excel/practical_power_pivot.html#add-data-to-power-pivot",
-    "title": "Practical PowerPivot",
-    "section": "Add data to Power Pivot",
-    "text": "Add data to Power Pivot\n\nfind Power Pivot\nadd to data model x 4\ndiagram view and create relationships"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#dax-intro",
-    "href": "excel/practical_power_pivot.html#dax-intro",
-    "title": "Practical PowerPivot",
-    "section": "DAX intro",
-    "text": "DAX intro\n\nsimilar to, but larger, than Excel formula language\nstructured references - so table[column]\nno referencing individual cells/random ranges\nability to write expressions that update in Pivot Tables"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#make-a-pivot-table",
-    "href": "excel/practical_power_pivot.html#make-a-pivot-table",
-    "title": "Practical PowerPivot",
-    "section": "Make a Pivot Table",
-    "text": "Make a Pivot Table\n\nthis should feel nice and familiar - with the option of bringing together several tables of data"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#make-a-new-column",
-    "href": "excel/practical_power_pivot.html#make-a-new-column",
-    "title": "Practical PowerPivot",
-    "section": "Make a new column",
-    "text": "Make a new column\n\n= all_titles[Year of first publication] - 1\nrename, return to your Pivot table, and ruin the years…"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#relationships",
-    "href": "excel/practical_power_pivot.html#relationships",
-    "title": "Practical PowerPivot",
-    "section": "Relationships",
-    "text": "Relationships\n\nyou can create relationships between different parts of your data, and exploit those relationships using DAX\nopen the diagram view, and connect the Title ID columns together"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#relationships-have-directions",
-    "href": "excel/practical_power_pivot.html#relationships-have-directions",
-    "title": "Practical PowerPivot",
-    "section": "Relationships have directions",
-    "text": "Relationships have directions\n(with thanks to Michael Robb, NHS Highland)"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#fancier-calculated-column",
-    "href": "excel/practical_power_pivot.html#fancier-calculated-column",
-    "title": "Practical PowerPivot",
-    "section": "Fancier calculated column",
-    "text": "Fancier calculated column\n(with thanks to Michael Roarty, NHS NSS)\n\nadd a series col to your all_titles data\n\n=related(novels[Series]) & related(short_stories[Series])\n\nadd a year of publication col to your short_story data\n\n=LOOKUPVALUE(ssc[Year of first publication], ssc[Title Name], short_stories[Collection])\n\nadd a rounded year\n\n= MROUND([Year of first publication], 5)"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#back-to-your-pivot-table",
-    "href": "excel/practical_power_pivot.html#back-to-your-pivot-table",
-    "title": "Practical PowerPivot",
-    "section": "Back to your pivot table",
-    "text": "Back to your pivot table"
-  },
-  {
-    "objectID": "excel/practical_power_pivot.html#chat-queries-questions",
-    "href": "excel/practical_power_pivot.html#chat-queries-questions",
-    "title": "Practical PowerPivot",
+    "objectID": "excel/scope_of_the_possible_with_excel.html#chat-queries-questions",
+    "href": "excel/scope_of_the_possible_with_excel.html#chat-queries-questions",
+    "title": "Scope of the possible with Excel",
     "section": "Chat, queries, questions",
-    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate"
+    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate\nplease let me know (brendan.clarke2@nhs.scot) what would be most helpful to you and your team"
   },
   {
     "objectID": "excel/references_and_names_in_excel.html",
@@ -1771,109 +1708,242 @@
     "text": "You can manage those names\n\n\n\n\n\n\nTask\n\n\n\n\nfind the Name manager (or press Ctrl + F3)  \ntry renaming your av_length cell\ntry making a new named range from your three last_visit cells\ntry using the F5 Go to interface to navigate between your named cells"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html",
-    "href": "excel/scope_of_the_possible_with_excel.html",
-    "title": "Scope of the possible with Excel",
+    "objectID": "excel/practical_power_pivot.html",
+    "href": "excel/practical_power_pivot.html",
+    "title": "Practical PowerPivot",
     "section": "",
-    "text": "this session is a non-technical overview designed for service leads"
+    "text": "this session is 🌶🌶, so it’s designed for intermediate users with plenty of previous Excel PivotTable experience\n\nPowerPivot infrastructure varies widely, so we can’t advise on installation\n\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#welcome",
-    "href": "excel/scope_of_the_possible_with_excel.html#welcome",
-    "title": "Scope of the possible with Excel",
+    "objectID": "excel/practical_power_pivot.html#welcome",
+    "href": "excel/practical_power_pivot.html#welcome",
+    "title": "Practical PowerPivot",
     "section": "",
-    "text": "this session is a non-technical overview designed for service leads"
+    "text": "this session is 🌶🌶, so it’s designed for intermediate users with plenty of previous Excel PivotTable experience\n\nPowerPivot infrastructure varies widely, so we can’t advise on installation\n\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#session-outline",
-    "href": "excel/scope_of_the_possible_with_excel.html#session-outline",
-    "title": "Scope of the possible with Excel",
+    "objectID": "excel/practical_power_pivot.html#session-outline",
+    "href": "excel/practical_power_pivot.html#session-outline",
+    "title": "Practical PowerPivot",
     "section": "Session outline",
-    "text": "Session outline\n\nWhy Excel, and why this session?\nStrengths and weaknesses\nGreat Excel projects, dire Excel projects\nAlternatives\nSkill development"
+    "text": "Session outline\n\ncheck that you have Power Pivot please!\nfind and tidy some data\nadd to Power Pivot\nplay with data in Power Pivot"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#why-excel",
-    "href": "excel/scope_of_the_possible_with_excel.html#why-excel",
-    "title": "Scope of the possible with Excel",
-    "section": "Why Excel?",
-    "text": "Why Excel?\n\n40+ years old\ninitially developed as a finance tool\nuptake from financial areas outwards into other services\nlikely circular reasoning: “we use Excel” because “we use Excel”…"
+    "objectID": "excel/practical_power_pivot.html#word-of-warning",
+    "href": "excel/practical_power_pivot.html#word-of-warning",
+    "title": "Practical PowerPivot",
+    "section": "Word of warning",
+    "text": "Word of warning\n\nPower Pivot in Excel is still officially supported, but has been largely replaced by Power BI\n\nI’d be circumspect about its long-term prospects\nI’d also be cautious about starting more ambitious projects in Power Pivot - lots of glitches, few fixes"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#why-this-session",
-    "href": "excel/scope_of_the_possible_with_excel.html#why-this-session",
-    "title": "Scope of the possible with Excel",
-    "section": "Why this session?",
-    "text": "Why this session?\n\nnow includes several different tools for working with data\nmost of us only ever scratch the surface\nbut it’s really important to know roughly what’s possible - and that’s hard!"
+    "objectID": "excel/practical_power_pivot.html#nutshell",
+    "href": "excel/practical_power_pivot.html#nutshell",
+    "title": "Practical PowerPivot",
+    "section": "Nutshell",
+    "text": "Nutshell\n\nPowerPivot = effectively a local SSAS\nthat means PowerPivot allows you to do fancy relational work with your data\nit can also means higher performance with large (10k rows +) data\nyet allows you to use Excel for data ingest and output"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#excel-demo",
-    "href": "excel/scope_of_the_possible_with_excel.html#excel-demo",
-    "title": "Scope of the possible with Excel",
-    "section": "Excel demo",
-    "text": "Excel demo\n\nusing open Annual inpatient/daycase data"
+    "objectID": "excel/practical_power_pivot.html#data",
+    "href": "excel/practical_power_pivot.html#data",
+    "title": "Practical PowerPivot",
+    "section": "Data",
+    "text": "Data\n\ndownload the Agatha Christie dataset as an Excel file\ntidying:\n\nremove filters\ncreate 4 x named tables\nstandardising titles if you’re highly conscientious"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#strengths-and-weaknesses",
-    "href": "excel/scope_of_the_possible_with_excel.html#strengths-and-weaknesses",
-    "title": "Scope of the possible with Excel",
-    "section": "Strengths and weaknesses",
-    "text": "Strengths and weaknesses\n\ngreat for one-off data projects, but Excel sheets often have a long life…\neasy to start projects, but more involved analysis is messy\nshare-able and accessible - but many different versions of Excel, add-ins etc, mean that there is grit in the system\nyou can do almost anything in Excel, but you probably shouldn’t"
+    "objectID": "excel/practical_power_pivot.html#add-data-to-power-pivot",
+    "href": "excel/practical_power_pivot.html#add-data-to-power-pivot",
+    "title": "Practical PowerPivot",
+    "section": "Add data to Power Pivot",
+    "text": "Add data to Power Pivot\n\nfind Power Pivot\nadd to data model x 4\ndiagram view and create relationships"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#great-excel-uses",
-    "href": "excel/scope_of_the_possible_with_excel.html#great-excel-uses",
-    "title": "Scope of the possible with Excel",
-    "section": "Great Excel uses",
-    "text": "Great Excel uses\n\nsimple, quick, one-off projects\nusing Power Query to manipulate data\nusing Excel to create/load data into Power BI"
+    "objectID": "excel/practical_power_pivot.html#dax-intro",
+    "href": "excel/practical_power_pivot.html#dax-intro",
+    "title": "Practical PowerPivot",
+    "section": "DAX intro",
+    "text": "DAX intro\n\nsimilar to, but larger, than Excel formula language\nstructured references - so table[column]\nno referencing individual cells/random ranges\nability to write expressions that update in Pivot Tables"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#terrible-excel-uses",
-    "href": "excel/scope_of_the_possible_with_excel.html#terrible-excel-uses",
-    "title": "Scope of the possible with Excel",
-    "section": "Terrible Excel uses",
-    "text": "Terrible Excel uses\n\nreplacing databases (complicated, but Access/SQL)\nanything with free text (probably use R/Nvivo instead)\nanything with many editors (use Forms or Sharepoint Lists instead)\nanything with repetition and extensive manual editing (better Excel design needed)\nvery wide data (probably Excel redesign again)"
+    "objectID": "excel/practical_power_pivot.html#make-a-pivot-table",
+    "href": "excel/practical_power_pivot.html#make-a-pivot-table",
+    "title": "Practical PowerPivot",
+    "section": "Make a Pivot Table",
+    "text": "Make a Pivot Table\n\nthis should feel nice and familiar - with the option of bringing together several tables of data"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#a-cautionary-tale",
-    "href": "excel/scope_of_the_possible_with_excel.html#a-cautionary-tale",
-    "title": "Scope of the possible with Excel",
-    "section": "A cautionary tale",
-    "text": "A cautionary tale\n\nthere are staff in Scotland’s health and care sector who spend ~100% of their time manually editing Excel files\nthis is almost certainly the result of poor Excel practices\nExcel is a complex product, with several routes to achieving end goals\nand Excel can malfunction to disasterous effect"
+    "objectID": "excel/practical_power_pivot.html#make-a-new-column",
+    "href": "excel/practical_power_pivot.html#make-a-new-column",
+    "title": "Practical PowerPivot",
+    "section": "Make a new column",
+    "text": "Make a new column\n\n= all_titles[Year of first publication] - 1\nrename, return to your Pivot table, and ruin the years…"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#five-top-tips",
-    "href": "excel/scope_of_the_possible_with_excel.html#five-top-tips",
-    "title": "Scope of the possible with Excel",
+    "objectID": "excel/practical_power_pivot.html#relationships",
+    "href": "excel/practical_power_pivot.html#relationships",
+    "title": "Practical PowerPivot",
+    "section": "Relationships",
+    "text": "Relationships\n\nyou can create relationships between different parts of your data, and exploit those relationships using DAX\nopen the diagram view, and connect the Title ID columns together"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#relationships-have-directions",
+    "href": "excel/practical_power_pivot.html#relationships-have-directions",
+    "title": "Practical PowerPivot",
+    "section": "Relationships have directions",
+    "text": "Relationships have directions\n(with thanks to Michael Robb, NHS Highland)"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#fancier-calculated-column",
+    "href": "excel/practical_power_pivot.html#fancier-calculated-column",
+    "title": "Practical PowerPivot",
+    "section": "Fancier calculated column",
+    "text": "Fancier calculated column\n(with thanks to Michael Roarty, NHS NSS)\n\nadd a series col to your all_titles data\n\n=related(novels[Series]) & related(short_stories[Series])\n\nadd a year of publication col to your short_story data\n\n=LOOKUPVALUE(ssc[Year of first publication], ssc[Title Name], short_stories[Collection])\n\nadd a rounded year\n\n= MROUND([Year of first publication], 5)"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#back-to-your-pivot-table",
+    "href": "excel/practical_power_pivot.html#back-to-your-pivot-table",
+    "title": "Practical PowerPivot",
+    "section": "Back to your pivot table",
+    "text": "Back to your pivot table"
+  },
+  {
+    "objectID": "excel/practical_power_pivot.html#chat-queries-questions",
+    "href": "excel/practical_power_pivot.html#chat-queries-questions",
+    "title": "Practical PowerPivot",
+    "section": "Chat, queries, questions",
+    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate"
+  },
+  {
+    "objectID": "excel/relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.html",
+    "href": "excel/relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.html",
+    "title": "Relative, absolute, mixed, and structured references",
+    "section": "",
+    "text": "This is a placeholder page for the referencing training coming during August 2024"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html",
+    "href": "excel/why_bother_with_excel.html",
+    "title": "Why bother with Excel?",
+    "section": "",
+    "text": "welcome to Why bother with Excel?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#welcome",
+    "href": "excel/why_bother_with_excel.html#welcome",
+    "title": "Why bother with Excel?",
+    "section": "",
+    "text": "welcome to Why bother with Excel?\nthis session is 🥬 - a non-technical introduction for pre-beginners\nif you can’t access the chat, you might need to join our Teams channel: tinyurl.com/kindnetwork"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#the-kind-network",
+    "href": "excel/why_bother_with_excel.html#the-kind-network",
+    "title": "Why bother with Excel?",
+    "section": "The KIND network",
+    "text": "The KIND network\n\na social learning space for staff working with knowledge, information, and data across health, social care, and housing in Scotland\nwe offer social support, free training, mentoring, community events, …\nTeams channel / mailing list"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#session-outline",
+    "href": "excel/why_bother_with_excel.html#session-outline",
+    "title": "Why bother with Excel?",
+    "section": "Session outline",
+    "text": "Session outline\n\ntwo minute overview of Excel\nstrengths and weaknesses\nmaking Excel work for you\nnext steps and training"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#a-brief-overview-of-excel",
+    "href": "excel/why_bother_with_excel.html#a-brief-overview-of-excel",
+    "title": "Why bother with Excel?",
+    "section": "A brief overview of Excel",
+    "text": "A brief overview of Excel\n\n\none of the oldest, and most widely used, pieces of desktop software\nubiquitous in business, finance, health and social care…\nproprietary, closed-source, paid-for\nmany versions"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#central-idea",
+    "href": "excel/why_bother_with_excel.html#central-idea",
+    "title": "Why bother with Excel?",
+    "section": "Central idea",
+    "text": "Central idea\n\n\npieces of data are stored in cells\n\none value, one cell\n\ncells are arranged into rows and columns\narranging data like this allows us to analyse it\ngood data analysis helps make services better"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#data-should-help",
+    "href": "excel/why_bother_with_excel.html#data-should-help",
+    "title": "Why bother with Excel?",
+    "section": "Data should help…",
+    "text": "Data should help…\n\nanswering which/when questions\nseeing effects of changes\ncomparing different areas\nlooking at services over time\n…"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#excel-uses-demo",
+    "href": "excel/why_bother_with_excel.html#excel-uses-demo",
+    "title": "Why bother with Excel?",
+    "section": "Excel uses demo",
+    "text": "Excel uses demo\n\nre-arranging data with filters and sorting\nformulas\nlookups\nsummarising"
+  },
+  {
+    "objectID": "excel/why_bother_with_excel.html#five-top-tips",
+    "href": "excel/why_bother_with_excel.html#five-top-tips",
+    "title": "Why bother with Excel?",
     "section": "Five top tips",
     "text": "Five top tips\n\nkeep data tidy (one value per cell, one row per thing, one column per measurement)\nkeep things as simple as possible - but not simpler\ndon’t tolerate lots of manual spreadsheet work\ntake care with formatting and accessibility/reuse\nbet that your spreadsheet will last longer, and travel further, than you think"
   },
   {
-    "objectID": "excel/scope_of_the_possible_with_excel.html#chat-queries-questions",
-    "href": "excel/scope_of_the_possible_with_excel.html#chat-queries-questions",
-    "title": "Scope of the possible with Excel",
-    "section": "Chat, queries, questions",
-    "text": "Chat, queries, questions\n\nTeams channel: tinyurl.com/kindnetwork\nweekly email update: tinyurl.com/kindupdate\nplease let me know (brendan.clarke2@nhs.scot) what would be most helpful to you and your team"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "KIND training",
+    "objectID": "skills/presenting.html",
+    "href": "skills/presenting.html",
+    "title": "Presenting",
     "section": "",
-    "text": "This is a set of training materials supporting the KIND network’s series of one-off training sessions."
+    "text": "Please note\n\n\n\n\n\n\nyou will need to do a little bit of presenting during the session\n\n\n\n\n\nit’s a beginner’s session, so it’s aimed at people:\n\nwho don’t do much presenting, or who have never presented before\nor who have had negative experiences of presenting\nor would like to improve their presentation skills, but don’t know where to start\n\nit’s practical, so we’ll do a mixture of strategy and practice during the session"
   },
   {
-    "objectID": "index.html#how-to-use-these-materials",
-    "href": "index.html#how-to-use-these-materials",
-    "title": "KIND training",
-    "section": "How to use these materials",
-    "text": "How to use these materials\n\nthese pages contain the materials for the range of one-off training sessions provided by NHS Education for Scotland’s KIND learning network\nall our sessions are designed to be delivered live on Teams\nall these materials are creative-commons licensed, so please feel free to reuse within those conditions\nthese sessions are periodically re-run, so please get in touch if you’d find it helpful to have one or more sessions re-offered"
+    "objectID": "skills/presenting.html#who-is-this-session-for",
+    "href": "skills/presenting.html#who-is-this-session-for",
+    "title": "Presenting",
+    "section": "",
+    "text": "Please note\n\n\n\n\n\n\nyou will need to do a little bit of presenting during the session\n\n\n\n\n\nit’s a beginner’s session, so it’s aimed at people:\n\nwho don’t do much presenting, or who have never presented before\nor who have had negative experiences of presenting\nor would like to improve their presentation skills, but don’t know where to start\n\nit’s practical, so we’ll do a mixture of strategy and practice during the session"
   },
   {
-    "objectID": "index.html#thanks",
-    "href": "index.html#thanks",
-    "title": "KIND training",
-    "section": "Thanks",
-    "text": "Thanks\nThese materials owe a huge debt to the many members of the KIND community who have contributed. More specifically, these pages are based on Melissa Van Bussell’s video describing, with absolute clarity, how to deploy Quarto websites to GitHub pages."
+    "objectID": "skills/presenting.html#session-outline",
+    "href": "skills/presenting.html#session-outline",
+    "title": "Presenting",
+    "section": "Session outline",
+    "text": "Session outline\n\nwhy think about presentation skills?\na minimal set of advice\nan opportunity to practice\nadditional advice, questions, and chatter"
+  },
+  {
+    "objectID": "skills/presenting.html#a-note-about-trust",
+    "href": "skills/presenting.html#a-note-about-trust",
+    "title": "Presenting",
+    "section": "A note about trust",
+    "text": "A note about trust\n\nmost of us find presenting hard\nin this session, please be gentle:\n\ndon’t mock or undermine\ndon’t play devil’s advocate\ngive people time\n\nexpressly, don’t record any of this session in any way"
+  },
+  {
+    "objectID": "skills/presenting.html#why-think-about-presentation-skills",
+    "href": "skills/presenting.html#why-think-about-presentation-skills",
+    "title": "Presenting",
+    "section": "Why think about presentation skills?",
+    "text": "Why think about presentation skills?\n\npossibly the ultimate in transferable skills\nmost people are terrible at presenting\n\npresenting differs from listening in non-obvious ways\n\nbut you can improve easily and cheaply"
+  },
+  {
+    "objectID": "skills/presenting.html#a-minimal-set-of-advice",
+    "href": "skills/presenting.html#a-minimal-set-of-advice",
+    "title": "Presenting",
+    "section": "A minimal set of advice",
+    "text": "A minimal set of advice\n\nBe simple\nBe keen\nBe human"
+  },
+  {
+    "objectID": "skills/presenting.html#be-simple",
+    "href": "skills/presenting.html#be-simple",
+    "title": "Presenting",
+    "section": "Be simple",
+    "text": "Be simple\n\nif in doubt, take it out\n\n\nWhy be simple?\n\nthe asymmetry of presentation:\n\nyou’ll know much more than your audience\nso you’ll worry about details, not basics\nbut your audience will need the basics, not the details\n\nsimple = clear\n\n\n\nHow to be simple?\n\napply a hierarchy\nrecursive planning\nuse your constraints\n\n\n\nThe hiearchy\n\nyou’ll need a single sentence that sums up your presentation\n\neverything else comes from this\n\nideally you’ll have it in mind before you start\n\nbut it often changes\n\nthis is non-negotiable, and much harder than it looks\n\n\n\nTask: make a sentence\n\nyou’re going to present something you did this week at work\ncan you sum it up in one sentence?\n\nthat’s your win of the week sentence too\n\nseveral example prompts\n\n“What’s most important?”\n“What’s most interesting?”\n“what needs fixing?”\n…\n\n\n\n\nRecursive planning\n\nyou now need 3-5 points that:\n\nsupport/explain/make up your main point\neach point should be a simple sentence\n\nthen repeat: 3-5 points for each point, and so on\n\nyou should almost certainly stop one layer of detail before you think you’ve said enough\n\n\n\n\nTask: support your sentence\n\n“I managed to fix my booking system”\n\n“booking clinic slots was done manually”\n“that was slow and error-prone”\n“I used PowerAutomate + very strong language to automate it”\n“I had to learn to use Apply to Each to get that to work”\n“I am now thinking about automating my other clinic bookings”\n\n\n\n\nConstraints\n\ntake your plan, and chop it down to size by considering:\n\nhow long do you have to speak, exactly?\n\none point every two minutes is pretty good going\n\nhow long do you have to prepare?\n\nsee below…\n\nwho are your audience?\n\nthe less closely they’re related to your work, the less material you’re going to cover\n\nhow big is the audience?\n\nbigger = messier = less detail\n\n\n\n\n\nTech\n\nit’s hard to give general advice, but think carefully about your specific tech\ntech often malfunctions during presentations, so you might have a backup (e.g. what to do if you can’t show your slides?)\nyou’ll also be more likely to make mistakes with the tech when speaking"
+  },
+  {
+    "objectID": "skills/presenting.html#be-keen",
+    "href": "skills/presenting.html#be-keen",
+    "title": "Presenting",
+    "section": "Be keen",
+    "text": "Be keen\n\nenthusiasm for your work, for your audience, and for what you’re presenting about is the easiest way to come off as knowledgeable and interesting\nplenty of preparation helps\nbut for most of us this is scary\nfake it with socially-approved cheating!\n\nexcited vs scared\nsmile, eye contact, and a bit of hand gesturing\nbuild yourself a few lines to say at the start. Introductions work well. Don’t be afraid of being blunt!\ngive yourself a sentence in and out of each slide/section\nbuild yourself some go-tos if you get stuck or the tech explodes\n\n\n\nPractice time!\n\nwe’ll work in pairs\nyou’ve got a sentence, and 3-5 supporting bits\nwe’re going to get you to present for two minutes only, no visual aids - just chat\nwe’ll pause here to let everyone put their sentences in order\nthen into pairs:\n\none minute to find your feet\ntwo minutes presenting\none minute of gentle, constructive, and positive feedback\nthen swap\n\n\n\n\nPrep time\n\nif you’re new at this, or it’s important, I would budget a huge amount of time to prepare\n\none hour preparation per minute of speaking (seriously)\n\nthis time isn’t for doing the work you’re presenting\n\nit’s just for planning the presentation\n\nbeware procrastination by optimization (especially making slides before you’ve decided what you’re going to say)\n\n\n\nSlides\n\nrecursive plan + pictures = slides\nfewer than 20 words per slide\nusual advice is 2 minutes per slide\nput your details at the start and end"
+  },
+  {
+    "objectID": "skills/presenting.html#be-human",
+    "href": "skills/presenting.html#be-human",
+    "title": "Presenting",
+    "section": "Be human",
+    "text": "Be human\n\ndon’t try and cover everything\nabsolutely leave time for Q+A (and ideally a bit of random chat) at the end\ndon’t apologise, but do admit when things go wrong\n\nthere’s asymmetry here too: your clunker will look like a mini-hitch to the audience\n\n\n\nMake it easy for yourself"
   },
   {
     "objectID": "BI_main.html",
@@ -2636,14 +2706,14 @@
     "href": "rbc/about.html",
     "title": "About R beginner’s club",
     "section": "",
-    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nReally interesting first session. I’ve done some basic R training last year but have not had time to really get stuck into it properly and use it but this was a gentle reminder session that I’ve not forgotten everything that I was taught. Phew! Now I need to make time to start using it and transferring all out current processing of data from SPSS to R\nI wasn’t able to join for the full session but the worked example of starting to compare two datasets (simple tables from Excel) was really useful to me to observe and make notes on to try for myself. I also really appreciated that when things strayed from being ‘beginner’, Brendan you skillfully redirected so that we could keep things at the beginners level we are sometimes short of, because there a re a LOT of very clever and skilled people in our organisation - but like driving, everyone has to learn first."
+    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThey’re very informative and honest in that Brendan will specify scenarios of best use and any limitations. I find some of the sessions a bit rushed but I think that might be more about my ability and comprehension.\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nIt was good to join a training session that was covering the basics. As a relatively new R user, I sometimes don’t fully understand everything in the more advanced sessions."
   },
   {
     "objectID": "rbc/about.html#previous-attendees-have-said",
     "href": "rbc/about.html#previous-attendees-have-said",
     "title": "About R beginner’s club",
     "section": "",
-    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nReally interesting first session. I’ve done some basic R training last year but have not had time to really get stuck into it properly and use it but this was a gentle reminder session that I’ve not forgotten everything that I was taught. Phew! Now I need to make time to start using it and transferring all out current processing of data from SPSS to R\nI wasn’t able to join for the full session but the worked example of starting to compare two datasets (simple tables from Excel) was really useful to me to observe and make notes on to try for myself. I also really appreciated that when things strayed from being ‘beginner’, Brendan you skillfully redirected so that we could keep things at the beginners level we are sometimes short of, because there a re a LOT of very clever and skilled people in our organisation - but like driving, everyone has to learn first."
+    "text": "9 previous attendees have left feedback\n89% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThey’re very informative and honest in that Brendan will specify scenarios of best use and any limitations. I find some of the sessions a bit rushed but I think that might be more about my ability and comprehension.\nAn open and helpful community session. I find it great as a beginner to bring things that confuse me into the open and get some experienced users’ teachings, tips and tricks!\nIt was good to join a training session that was covering the basics. As a relatively new R user, I sometimes don’t fully understand everything in the more advanced sessions."
   },
   {
     "objectID": "rbc/about.html#about",
@@ -2657,21 +2727,21 @@
     "href": "skills_main.html",
     "title": "Skills training",
     "section": "",
-    "text": "Session\nDate\nArea\nLevel\nCalendar invite\n\n\n\n\nPresenting\n09:30-10:30 Fri 2nd August 2024\nSkills\n🌶\n\n:beginner-level\n📅 .ics\n\n\nReferencing\n15:00-16:00 Mon 5th August 2024\nSkills\n🌶🌶\n\n: intermediate-level\n📅 .ics\n\n\nPower automate for health and care\n13:00-14:00 Thu 8th August 2024\nData\n🌶\n\n:beginner-level\n📅 .ics\n\n\nNeural nets made ridiculously simple\n13:00-14:00 Mon 12th August 2024\nAI/ML\n🌶\n\n:beginner-level\n📅 .ics"
+    "text": "Session\nDate\nArea\nLevel\nCalendar invite\n\n\n\n\nReferencing\n15:00-16:00 Mon 5th August 2024\nSkills\n🌶🌶\n\n: intermediate-level\n📅 .ics\n\n\nPower automate for health and care\n13:00-14:00 Thu 8th August 2024\nData\n🌶\n\n:beginner-level\n📅 .ics\n\n\nNeural nets made ridiculously simple\n13:00-14:00 Mon 12th August 2024\nAI/ML\n🌶\n\n:beginner-level\n📅 .ics"
   },
   {
     "objectID": "skills_main.html#skills-training-schedule",
     "href": "skills_main.html#skills-training-schedule",
     "title": "Skills training",
     "section": "",
-    "text": "Session\nDate\nArea\nLevel\nCalendar invite\n\n\n\n\nPresenting\n09:30-10:30 Fri 2nd August 2024\nSkills\n🌶\n\n:beginner-level\n📅 .ics\n\n\nReferencing\n15:00-16:00 Mon 5th August 2024\nSkills\n🌶🌶\n\n: intermediate-level\n📅 .ics\n\n\nPower automate for health and care\n13:00-14:00 Thu 8th August 2024\nData\n🌶\n\n:beginner-level\n📅 .ics\n\n\nNeural nets made ridiculously simple\n13:00-14:00 Mon 12th August 2024\nAI/ML\n🌶\n\n:beginner-level\n📅 .ics"
+    "text": "Session\nDate\nArea\nLevel\nCalendar invite\n\n\n\n\nReferencing\n15:00-16:00 Mon 5th August 2024\nSkills\n🌶🌶\n\n: intermediate-level\n📅 .ics\n\n\nPower automate for health and care\n13:00-14:00 Thu 8th August 2024\nData\n🌶\n\n:beginner-level\n📅 .ics\n\n\nNeural nets made ridiculously simple\n13:00-14:00 Mon 12th August 2024\nAI/ML\n🌶\n\n:beginner-level\n📅 .ics"
   },
   {
     "objectID": "skills_main.html#skills-session-materials",
     "href": "skills_main.html#skills-session-materials",
     "title": "Skills training",
     "section": "Skills session materials",
-    "text": "Skills session materials\n\nAn introduction to AI (…and why you might avoid that term)\nA Data-Centric Introduction to Python"
+    "text": "Skills session materials"
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html",
@@ -3273,7 +3343,14 @@
     "href": "r_training/purrr_package.html",
     "title": "The purrr package in R",
     "section": "",
-    "text": "Session materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf\nNo feedback found for this session"
+    "text": "Session materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf"
+  },
+  {
+    "objectID": "r_training/purrr_package.html#previous-attendees-have-said",
+    "href": "r_training/purrr_package.html#previous-attendees-have-said",
+    "title": "The purrr package in R",
+    "section": "Previous attendees have said…",
+    "text": "Previous attendees have said…\n\n7 previous attendees have left feedback\n100% said that this session was pitched correctly\n100% would recommend this session to a colleague\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nExcellent session for those looking to develop R skills - was purrr-fect!\nWould have maybe been more useful to see it used in relation not only to vectors but dataframes too, as often that’s what we use. Otherwise, excellent session and gave ample time to working through participant questions\nReally clear explanation of the map functions in purrr. Would have liked a less abstract example(s) to play with though."
   },
   {
     "objectID": "r_training/purrr_package.html#welcome",
