@@ -1,10 +1,169 @@
 ---
 title: "Relative, absolute, mixed, and structured references"
-date: "2024-08-01"
+date: "2024-08-08"
 execute: 
   echo: true
   freeze: auto
 categories: [excel, intermediate]
 ---
 
-This is a placeholder page for the referencing training coming during August 2024
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [all materials {{< iconify ph:file-zip size=2x >}}](src/excel_references.zip)
+-   slides [{{< iconify ph:file-html size=2x >}} html](src/excel_references.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/excel_references.pdf)
++ exercises [{{< iconify ph:file-xls size=2x >}}.xlsx](src/excel_references.xlsx) / completed exercises [{{< iconify ph:file-xls size=2x >}}.xlsx](src/excel_references_completed.xlsx)
+:::
+
+```{r}
+#| results: asis
+#| echo: false
+source(here::here("R/feed_block.R"))
+feed_block("Relative, absolute, mixed, structured, and R1C1 references in Excel")
+
+```
+
+
+## Welcome
+
++ this session is for 🌶🌶 intermediate Excel users
++ you' need Excel of some sort to follow along
++ you'll also need the [exercise workbook](src/excel_references.xlsx)
++ if you can't access the chat, you might need to join our Teams channel: [tinyurl.com/kindnetwork](https://teams.microsoft.com/l/team/19%3AQZ7-PbFVcziG2piHLt1_ifey3I2cwFL0yBuTSS8vVao1%40thread.tacv2/conversations?groupId=106d08f3-9026-40e2-b3c7-87cd87304d58&tenantId=10efe0bd-a030-4bca-809c-b5e6745e499a)
++ you can find session materials at [tinyurl.com/kindtrp](https://nes-dew.github.io/KIND-training/)
+
+## Session outline
++ this is an intermediate-level review of referencing techniques in Excel
++ it's a technical session, so we'll concentrate on the how of referencing
++ A1 references
+    + relative
+    + absolute
+    + mixed
++ structured references
++ R1C1
+
+## A1 references
+
++ A1 references are the standard way that references are made in Excel
++ A1 references are usually made up of a letter and a number (like **A2**, **B56**, ...)
+    + the letter stands for the column a cell is in
+    + the number stands for the row
++ we can use those references in formulas
+  + `=A1` will copy the values from A1 into the current cell
++ you can also use the `range operator` (`:`) to select several values - like `A1:A3`
+
+::: {.callout-tip title="Task"}
+1. using A1 references, can you populate the first three rows of the summary table in the `A1 referencing` sheet? </br>![](images/ref_task.png)
+    a. Start date
+    b. End date
+    c. First duty manager
+1. you might need to switch off **Calculated Columns** from the floatie </br>![](images/01_stop_calc.png)
+:::
+
+### Absolute vs relative references
+
++ by default, A1 references are **relative**
+  + if the formula moves, the reference will change
+
+::: {.callout-tip title="Task"}
+1. try copy/pasting your three summary values:
+    1. a few columns across
+    1. a few rows down
+1. what happens to your values?
+:::
+
+![The effect of moving our summary cells down the sheet](images/refs.png){height="200"}
+
++ as you've seen, relative references can cause problems
++ you can change relative references to absolute (=fixed) references using `$`
+  + `$A$1` refers to A1 **no matter what**
+    + use this if you absolutely always want to refer to the same cell
+
+::: {.callout-tip title="Task"}
+1. update your relative references in the summary table to absolute references by adding `$` before both the column letter, and the row number
+:::
+
+::: {.callout-note}
++ if you click in the formula bar, `F4` toggles absolute/relative
+:::
+
+### Mixed references
+
++ `$A1` will be absolute in the column, but relative in the rows
++ `A$1` will be relative in the row, but absolute in the column
++ take care with these - they're pretty confusing (and we'll look at a much better way of doing the same thing below)
+
+
+## Structured referencing
++ most objects in Excel can be named - including cells, tables, and ranges
++ structured referencing is a special case
+    + `Table[Column]` syntax
+    + shared across Power BI, PowerQuery...
+
+
+
+::: {.callout-tip title="Task"}
+1. please switch to the `Structured referencing` sheet
+1. sum up each of the three service columns in the summary table
+- `=SUM(SR_table[service_a])` / `=SUM(SR_table[service_b])` / `=SUM(SR_table[service_c])`
+:::    
+    
+### Implicit intersection
++ you can convert a structured reference to a column to refer to a single value
++ that's done using the [**implicit intersection** operator](https://support.microsoft.com/en-gb/office/implicit-intersection-operator-ce3be07b-0101-4450-a24e-c1c999be2b34) `[@col]`
+    + (if you're using an older version of Excel, you might also see this written as `[@[Service_duration]]`)
++ if you pick reference locations with the mouse, this is how Excel will render your references
+
+
+
+::: {.callout-tip title="Task"}
+1. please try populating the `daily_total` by summing with implicit intersection
+- `=SUM(SR_table[@[service_a]:[service_c]])`
+:::   
+
+## R1C1
++ R1C1 gives an alternative way of referring to cells
++ slightly more complicated, but more precise, and less confusing
++ largely encountered in VBA, but available and helpful in standard Excel
+
+::: {.callout-tip title="Task"}
+1. Switch to the `R1C1 referencing` sheet
+1. switch to inspect formulas (`Ctrl` + backtick)
+1. Have a look at the formula in the `First name` column
+1. Now switch your workbook to R1C1 by `File` > `Options` > `Formulas` > `R1C1 reference style` </br>![](images/04_r1c1.png)
+:::
+
++ column letters (A, B, C,…) are replaced by numbers
++ row numbers remain as row numbers
+    + R1C1 = A1
+    + R2C8 = H2
+
+
+
+::: {.callout-tip title="Task"}
+1. Have another look at the formula in the `First name` column - it should be much easier to conclude that this is the same formula in every row
+:::
+
+### Types of R1C1 referencing
+
++ three kinds of R1C1 reference:
+    + absolute reference  = specify a row and column number (`R2C2`)
+    + relative reference by adding a numeric offset in square brackets (`R2C[-6]`)
+    + implicit intersection-like "give me this row's column 2" by using a bare R/C (`RC2`)
++ a much nicer way of doing mixed referencing
+
+
+
+::: {.callout-tip title="Task"}
+1. in R16C4, please populate the four rows of the `Age` column in the summary table using R1C1
+:::
+
+
+### Why bother with R1C1?
++ R1C1 adds a bit of complexity to simple formulas
+  + but it makes complicated formulas (and repeated formulas) **much** easier to understand
+  + this is a big help when working with more complex Excel documents - particularly if you're debugging something that's gone wrong
++ R1C1 gives the same formulas for the same work across different columns
+  + we have to work this out by hand with A1 referencing - the row number would be different each time
+  + this helps us understand quickly when and where a formula is repeated
++ (apparently) R1C1 is faster with very complex sheets
