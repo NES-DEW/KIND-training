@@ -72,77 +72,13 @@ feed_block("Neural Networks made ridiculously simple")
 
 Here's a simple representation of a node, implemented in code, that we might find in a neural network:
 
-```{r}
-#| fig-height: 3
-
-one_node <- c('Input', 'Output')
-
-DiagrammeR::grViz("digraph G2 {
-  graph [layout=neato overlap = true]
-
-  n2 [pos='0.5,1!' label = '@@1' shape = plaintext fontcolor=SlateGrey]
-  n1 [pos='2.5,1!' label='Node' style=radial fontcolor=SlateGrey fillcolor = mistyrose color=white]
-  n3 [pos='4.5,1!' label = '@@2' shape = plaintext fontcolor=SlateGrey]
-
-  n2 -> n1 [color = SlateGrey]
-  n1 -> n3 [color = SlateGrey]
-
-}
-
-[1]: one_node[1]
-[2]: one_node[2]
-
-")
-
-
-```
+![](images/net1.png)
 
 ## Machines: activation functions
 
 Here are some example input:output pairs for our node:
 
-```{r}
-#| fig-height: 0.75
-
-one_node <- c("Input = F", "Output = T")
-DiagrammeR::grViz("digraph G2 {
-  graph [layout=neato overlap = true]
-
-  n2 [pos='0.5,1!' label = '@@1' shape = plaintext fontcolor=SlateGrey]
-  n1 [pos='2.5,1!' label='Node' style=radial fontcolor=SlateGrey fillcolor = mistyrose color=white]
-  n3 [pos='4.5,1!' label = '@@2' shape = plaintext fontcolor=SlateGrey]
-
-  n2 -> n1 [color = SlateGrey]
-  n1 -> n3 [color = SlateGrey]
-
-}
-
-[1]: one_node[1]
-[2]: one_node[2]
-
-")
-
-cat("  \n")
-
-one_node <- c("Input = T", "Output = F")
-DiagrammeR::grViz("digraph G2 {
-  graph [layout=neato overlap = true]
-
-  n2 [pos='0.5,1!' label = '@@1' shape = plaintext fontcolor=SlateGrey]
-  n1 [pos='2.5,1!' label='Node' style=radial fontcolor=SlateGrey fillcolor = mistyrose color=white]
-  n3 [pos='4.5,1!' label = '@@2' shape = plaintext fontcolor=SlateGrey]
-
-  n2 -> n1 [color = SlateGrey]
-  n1 -> n3 [color = SlateGrey]
-
-}
-
-[1]: one_node[1]
-[2]: one_node[2]
-
-")
-
-```
+![](images/net2.png)
 
 -   there are lots of possible activation functions
 -   a simple one: `NOT`
@@ -164,28 +100,7 @@ node(TRUE)
 
 ## Machines: networks of nodes
 
-```{r}
-DiagrammeR::grViz("digraph G1 {
-  graph [layout=neato overlap = true]     
-  I0 [pos='0.5,3.25!' shape=plaintext label='Input layer' fontsize=20 fontcolor=SlateGrey]
-  I1 [pos='1,1!'  style=radial fillcolor = mistyrose color=white fontcolor=SlateGrey]  
-  I7 [pos='0,1!'  shape=plaintext label='Input' fontcolor=SlateGrey]
-  H0 [pos='3,3.25!' shape=plaintext label='Hidden layer' fontsize=20 fontcolor=SlateGrey]
-  H1 [pos='3,2.5!' style=radial fillcolor = azure color=white fontcolor=SlateGrey]     
-  H2 [pos='3,1!'    style=radial fillcolor = azure color=white fontcolor=SlateGrey]
-  H3 [pos='3,-0.5!' style=radial fillcolor = azure color=white fontcolor=SlateGrey]
-  O0 [pos='5.5,3.25!' shape=plaintext label='Output layer' fontsize=20 fontcolor=SlateGrey]
-  O1 [pos='5,1!'  style=radial  fillcolor = honeydew color=white fontcolor=SlateGrey]
-  O7 [pos='6,1!' shape=plaintext label='Output' fontcolor=SlateGrey]
-
-  I7 -> I1 [color = SlateGrey]
-  I1 -> H1 [color = SlateGrey]
-  I1 -> {H2 H3} [color = SlateGrey]
-  {H1 H2 H3} -> O1 [color = SlateGrey]
-  O1 -> O7 [color = SlateGrey]
-  
-}")
-```
+![](images/net3.png)
 
 ## Machines: networks of nodes
 
@@ -215,57 +130,7 @@ A user supplies some input. That input is fed into an input node(s), which proce
 
 . . .
 
-```{r}
-#| fig-cap: 'A more complex feed-forward neural network'
-
-DiagrammeR::grViz("digraph G2 {
-  graph [rankdir = LR splines=false] 
-
-  
-  {node [style=radial fontcolor=SlateGrey fillcolor = mistyrose color=white]
-  I1; I2; I3; I4; I5} 
-  
-  {node [style=radial fontcolor=SlateGrey fillcolor = azure color=white];
-  H1a, H1b, H1c, H1d, H1e} 
-  
-  {node [style=radial fontcolor=SlateGrey fillcolor = azure color=white];
-  H2a, H2b, H2c, H2d, H2e} 
-  
-  {node [style=radial fontcolor=SlateGrey fillcolor = honeydew color=white];
-  O1, O2, O3, O4, O5} 
-  
-  l0 [shape=plaintext, label='Input layer' fontcolor = SlateGrey];
-  l1 [shape=plaintext, label='Hidden layer 1' fontcolor = SlateGrey];
-  l2 [shape=plaintext, label='Hidden layer 2' fontcolor = SlateGrey];
-  l3 [shape=plaintext, label='Output layer' fontcolor = SlateGrey];
-  
-  {rank=same; l0; I1}
-  {rank=same; l1; H1a}
-  {rank=same; l2; H2a}
-  {rank=same; l3; O1};
-  
-  {
-  rank=same;
-  I1->I2->I3->I4->I5 [color=white];
-  }
-  {
-  rank=same;
-  H1a->H1b->H1c->H1d->H1e [color=white];
-  }
-  {
-  rank=same;
-  H2a->H2b->H2c->H2d->H2e [color=white];
-  }
-  {
-  rank=same;
-  O1->O2->O3->O4->O5 [color=white];
-  }
-  
-  {I1, I2, I3, I4, I5} -> {H1a, H1b, H1c, H1d, H1e} [color = SlateGrey arrowsize=0.3]
-  {H1a, H1b, H1c, H1d, H1e} -> {H2a, H2b, H2c, H2d, H2e} [color = SlateGrey arrowsize=0.3]
-  {H2a, H2b, H2c, H2d, H2e} -> {O1, O2, O3, O4, O5} [color = SlateGrey arrowsize=0.3]
-}")
-```
+![](images/net4.png)
 
 
 ## Different activation functions
