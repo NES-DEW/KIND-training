@@ -58,5 +58,7 @@ training_sessions <- function(tr_type = "all", start_date = "today", end_date = 
       kableExtra::kbl(escape = FALSE)
   }
 
+  
+  
 }
 # training_sessions()
