@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2024-08-19">
 
-<title>R beginner’s club 2024-06-13 – KIND training pages</title>
+<title>Tableau for Beginners (session 2) – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,6 +42,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -204,13 +171,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-to-compare-two-or-more-excel-spreadsheets" id="toc-how-to-compare-two-or-more-excel-spreadsheets" class="nav-link active" data-scroll-target="#how-to-compare-two-or-more-excel-spreadsheets">How to compare two (or more) Excel spreadsheets?</a>
-  <ul class="collapse">
-  <li><a href="#reading-in-excel-files" id="toc-reading-in-excel-files" class="nav-link" data-scroll-target="#reading-in-excel-files">Reading in Excel files</a></li>
-  <li><a href="#basic-comparisons" id="toc-basic-comparisons" class="nav-link" data-scroll-target="#basic-comparisons">Basic comparisons</a></li>
-  <li><a href="#more-interesting-comparisons" id="toc-more-interesting-comparisons" class="nav-link" data-scroll-target="#more-interesting-comparisons">More interesting comparisons</a></li>
-  </ul></li>
-  <li><a href="#how-to-think-about-joins" id="toc-how-to-think-about-joins" class="nav-link" data-scroll-target="#how-to-think-about-joins">How to think about joins?</a></li>
+  <li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#session-files" id="toc-session-files" class="nav-link" data-scroll-target="#session-files">Session files</a></li>
+  <li><a href="#todays-visualisations" id="toc-todays-visualisations" class="nav-link" data-scroll-target="#todays-visualisations">Today’s visualisations</a></li>
+  <li><a href="#the-goal-for-this-week" id="toc-the-goal-for-this-week" class="nav-link" data-scroll-target="#the-goal-for-this-week">The goal for this week</a></li>
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data loading</a></li>
+  <li><a href="#service-use-data-weekend_sh" id="toc-service-use-data-weekend_sh" class="nav-link" data-scroll-target="#service-use-data-weekend_sh">Service use data (weekend_sh)</a></li>
+  <li><a href="#measure-value" id="toc-measure-value" class="nav-link" data-scroll-target="#measure-value"><code>Measure Value</code></a></li>
+  <li><a href="#add-a-filter" id="toc-add-a-filter" class="nav-link" data-scroll-target="#add-a-filter">Add a filter</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#a-digression-icons-dimensions-and-measures" id="toc-a-digression-icons-dimensions-and-measures" class="nav-link" data-scroll-target="#a-digression-icons-dimensions-and-measures">A digression: icons, dimensions and measures</a></li>
+  <li><a href="#numeric-summaries" id="toc-numeric-summaries" class="nav-link" data-scroll-target="#numeric-summaries">Numeric summaries</a></li>
+  <li><a href="#putting-everything-together" id="toc-putting-everything-together" class="nav-link" data-scroll-target="#putting-everything-together">Putting everything together</a></li>
+  <li><a href="#gp-practice-size" id="toc-gp-practice-size" class="nav-link" data-scroll-target="#gp-practice-size">GP practice size</a></li>
+  <li><a href="#why-not-add-both-datasets-at-once" id="toc-why-not-add-both-datasets-at-once" class="nav-link" data-scroll-target="#why-not-add-both-datasets-at-once">Why not add both datasets at once?</a></li>
+  <li><a href="#adding-a-column-graph-of-practice-sizes" id="toc-adding-a-column-graph-of-practice-sizes" class="nav-link" data-scroll-target="#adding-a-column-graph-of-practice-sizes">Adding a column graph of practice sizes</a></li>
+  <li><a href="#homework-tasks" id="toc-homework-tasks" class="nav-link" data-scroll-target="#homework-tasks">Homework tasks</a></li>
   </ul>
 </nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -223,8 +199,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R beginner’s club 2024-06-13</h1>
-</div>
+<h1 class="title">Tableau for Beginners (session 2)</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Tableau</div>
+    <div class="quarto-category">beginner</div>
+  </div>
+  </div>
 
 
 
@@ -246,210 +226,298 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="how-to-compare-two-or-more-excel-spreadsheets" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-compare-two-or-more-excel-spreadsheets">How to compare two (or more) Excel spreadsheets?</h2>
-<p>The basic recipe here is:</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>This is currently a <strong>draft</strong> version of the materials for this training session, and so may contain minor errors and inaccuracies.</p>
+</div>
+</div>
+</div>
+<!-- ::: {.callout-note collapse="false" appearance="default" icon="true"} -->
+<!-- ## Session materials -->
+<!-- -   [all materials for the entire course ](src/TfB.zip) -->
+<!-- -   session slides [ html](src/TfB_s02.html) / [ pdf](src/TfB_s02.pdf) -->
+<!-- -  [session data file ](xdata/s02_data.xlsx) -->
+<!-- ::: -->
+<section id="session-outline" class="level2">
+<h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+<p><strong>Visualisation overload!</strong></p>
+<ul>
+<li>we’re going to build several visualisations</li>
+<li>we’ll use some tidied data for this - today is all about using data to do interesting things</li>
+<li>next time, we’ll get into the data wrangling needed to sort that data out</li>
+</ul>
+</section>
+<section id="session-files" class="level2">
+<h2 class="anchored" data-anchor-id="session-files">Session files</h2>
+<ul>
+<li>two Excel workbooks
+<ul>
+<li><code>s02_service_data.xlsx</code></li>
+<li><code>s02_gp_data.xlsx</code></li>
+</ul></li>
+<li><a href="https://public.tableau.com/app/profile/brendan.clarke4139/viz/KIND_Tableau_for_beginners_s02/Dashboard2">link to completed dashboard</a></li>
+</ul>
+</section>
+<section id="todays-visualisations" class="level2">
+<h2 class="anchored" data-anchor-id="todays-visualisations">Today’s visualisations</h2>
+<ul>
+<li>line graphs</li>
+<li>filtering tools</li>
+<li>numeric summaries of data</li>
+<li>maps</li>
+<li>column charts</li>
+</ul>
+</section>
+<section id="the-goal-for-this-week" class="level2">
+<h2 class="anchored" data-anchor-id="the-goal-for-this-week">The goal for this week</h2>
+<p><img src="images/clipboard-677538538.png" height="400" alt="Filterable time-series dashboard"> <img src="images/clipboard-241969368.png" height="400" alt="Interactive map plus column graph"></p>
+</section>
+<section id="data-loading" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading">Data loading</h2>
+<ul>
+<li>this is a repeat of last week</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
-<li>read our Excel spreadsheets into R</li>
-<li>try some simple base-R methods of comparison</li>
-<li>get more fancy with packages for more useful comparisons</li>
+<li>go to https://public.tableau.com/app/</li>
+<li>select <code>Web Authoring</code> from the <code>Create</code> menu <br> <img src="images/clipboard-2012383762.png" class="img-fluid" alt="Web Authoring"></li>
+<li>from the <code>Data</code> menu, select <code>New Data Source</code><br> <img src="images/clipboard-2895623694.png" class="img-fluid" alt="Select `New Data Source"></li>
+<li>drag and drop (or use the upload button) to add the <code>s02_weekend_data.xlsx</code> file</li>
+<li>drag the <code>weekend_sh</code> sheet into the data model</li>
 </ol>
-<section id="reading-in-excel-files" class="level3">
-<h3 class="anchored" data-anchor-id="reading-in-excel-files">Reading in Excel files</h3>
-<p>This can be messy. <code>readxl</code> is probably the most straightforward place to start. Make sure a) that your Excel files aren’t open in Excel when you try to read them and b) that you’re happy and confident that your data is on the first worksheet (or you know the correct name of the sheet). You’ll almost certainly want to be working in an R project too to avoid too much messing around with file paths, <code>getwd()</code>, etc.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># to attach the readxl package</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/Book1.xlsx"</span>) </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/Book2.xlsx"</span>) <span class="co"># to read the files</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="basic-comparisons" class="level3">
-<h3 class="anchored" data-anchor-id="basic-comparisons">Basic comparisons</h3>
-<p>The most obvious thing to try first is a check for equality. You’ll do this with a <strong>double</strong> equal sign, like this:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>b1 <span class="sc">==</span> b2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      name score
- [1,] TRUE  TRUE
- [2,] TRUE  TRUE
- [3,] TRUE  TRUE
- [4,] TRUE  TRUE
- [5,] TRUE  TRUE
- [6,] TRUE  TRUE
- [7,] TRUE  TRUE
- [8,] TRUE  TRUE
- [9,] TRUE  TRUE
-[10,] TRUE  TRUE</code></pre>
-</div>
-</div>
-<p>(single <code>=</code> is effectively the same as <code>&lt;-</code>)</p>
-<p>That gives us back quite a complicated matrix of results, showing a cell-by-cell comparison of the two sets of data. This happens because R is <em>vectorised</em> - so when we compare two identically-shaped bits of data, R will assume that we want to do our comparison to each of the items in turn. If we just looked at the number values in our spreadsheets, which we could do by using the <code>$</code> to refer to a column, we could:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>b1<span class="sc">$</span>score <span class="sc">-</span> b2<span class="sc">$</span>score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 0 0 0 0 0 0 0 0 0 0</code></pre>
-</div>
-</div>
-<p>Which I suppose is another way of checking for equality. So could also use a helper function to collapse all of those down into one:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(b1<span class="sc">$</span>score <span class="sc">-</span> b2<span class="sc">$</span>score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
-<p>If we just wanted a simple true/false measure for the data as a whole, we could recruit the very useful <code>all()</code> and <code>any()</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(b1 <span class="sc">==</span> b2) <span class="co"># to check all values are the same</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(b1 <span class="sc">==</span> b2) <span class="co"># to check any values are the same</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-</div>
-<p>You could do something very similar using <code>setequal()</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setequal</span>(b1, b2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 </section>
-<section id="more-interesting-comparisons" class="level3">
-<h3 class="anchored" data-anchor-id="more-interesting-comparisons">More interesting comparisons</h3>
-<p><code>waldo::compare()</code> is a brilliant way of comparing complex data:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>waldo<span class="sc">::</span><span class="fu">compare</span>(b1, b2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>✔ No differences</code></pre>
+<section id="service-use-data-weekend_sh" class="level2">
+<h2 class="anchored" data-anchor-id="service-use-data-weekend_sh">Service use data (weekend_sh)</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
 </div>
 </div>
-<p>If we vandalise one of our datasets by changing one value, waldo does plenty of useful work to bring the correct parts of the data to our attention:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>b2[<span class="dv">5</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>waldo<span class="sc">::</span><span class="fu">compare</span>(b1, b2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>old vs new
-                score
-  old[2, ]  0.2481382
-  old[3, ]  0.6444191
-  old[4, ]  0.8873743
-- old[5, ]  0.3361401
-+ new[5, ]  1.0000000
-  old[6, ]  0.1597596
-  old[7, ]  0.3928778
-  old[8, ]  0.5743370
-
-`old$score[2:8]`: 0.2 0.6 0.9 0.3 0.2 0.4 0.6
-`new$score[2:8]`: 0.2 0.6 0.9 1.0 0.2 0.4 0.6</code></pre>
+<div class="callout-body-container callout-body">
+<ul>
+<li>add a worksheet <br> <img src="images/clipboard-146543695.png" class="img-fluid" alt="add a worksheet"></li>
+<li>go to that worksheet, and make a time-series graph from our data by dragging the <code>Date</code> and the <code>Measure values</code> fields to the shelf, and ensuring that data is set to <code>Exact date</code>:<br> <img src="images/clipboard-3683763482.png" class="img-fluid" alt="make a time-series graph"></li>
+<li>you might also switch off the values to avoid clutter <br><img src="images/clipboard-1426303361.png" class="img-fluid" alt="switch off the values"></li>
+</ul>
 </div>
 </div>
-<p>I suppose we could also graph our data to show changed points. One way of doing this is to plot the two sets in different colours:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> b1, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> score), <span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> b2, <span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> score), <span class="at">colour =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="2024-06-13_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+</section>
+<section id="measure-value" class="level2">
+<h2 class="anchored" data-anchor-id="measure-value"><code>Measure Value</code></h2>
+<ul>
+<li><code>Measure Values</code> are a default calculated field derived from your data. You can think of it as containing all your numeric values
+<ul>
+<li>you’ll see that you can edit what appears in your graph - and do please remove the <code>CNT(weekend_sh)</code>, which is just counting values <br> <img src="images/clipboard-1265910281.png" class="img-fluid" alt="Remove the CNT(weekend_sh) field"></li>
+</ul></li>
+<li>there’s also a <code>Measure Names</code> field which collects together all your measure names (like Excel column names)
+<ul>
+<li>when we add <code>Measure Values</code> to our graph, the <code>Measure Names</code> appear in the <code>Filters</code> area</li>
+</ul></li>
+</ul>
+</section>
+<section id="add-a-filter" class="level2">
+<h2 class="anchored" data-anchor-id="add-a-filter">Add a filter</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>drag the <code>Date</code> table into the <code>Filters</code> area. You’ll be asked to choose a way of filtering that data: select <code>Range of Dates</code> <br> <img src="images/clipboard-3399177496.png" class="img-fluid" alt="select Range of Dates in the filter"></li>
+<li>that will produce a filter preview: <br> <img src="images/clipboard-465195638.png" class="img-fluid" alt="filter preview"></li>
+<li>add it to your graph by selecting <code>Show filter</code> <br> <img src="images/clipboard-3877947789.png" class="img-fluid" alt="Select Show filter"></li>
+<li>now repeat for the <code>Weekend</code> table</li>
+</ol>
 </div>
-<p>Or, possibly more elegantly, we could join our data using dplyr, then subtract one from the other, then plot the difference:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="sc">|&gt;</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(b2, <span class="at">by =</span> <span class="st">"name"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">xend =</span> name, <span class="at">y =</span> score.y <span class="sc">-</span> score.x, <span class="at">yend =</span> <span class="dv">0</span>), <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>() <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="2024-06-13_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+</div>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+</section>
+<section id="a-digression-icons-dimensions-and-measures" class="level2">
+<h2 class="anchored" data-anchor-id="a-digression-icons-dimensions-and-measures">A digression: icons, dimensions and measures</h2>
+<ul>
+<li>you might have noticed that your fields have coloured icons: <br> <img src="images/clipboard-2119629222.png" class="img-fluid" alt="Field icons">
+<ul>
+<li><a href="https://howto.mt.gov/_docs/Visual-Cues-and-Icons-in-Tableau-Desktop.pdf">each type of icon represents a data type</a> (like text, numeric, etc)</li>
+<li>the colours group those types into <a href="https://en.wikipedia.org/wiki/Continuous_or_discrete_variable">continuous/discrete</a>: <a href="https://help.tableau.com/current/pro/desktop/en-us/datafields_typesandroles.htm">blue = discrete data, green = continuous data</a></li>
+</ul></li>
+<li>But there’s also a Tableau-specific pair of terms in play here: <code>Dimensions</code> and <code>Measures</code>
+<ul>
+<li>Dimensions are (usually) qualitative categories used to control the level of detail shown - like our <code>Measure Names</code></li>
+<li>Measures are quantitative values, which make up the values shown on our visualisations - like our <code>Site B</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="numeric-summaries" class="level2">
+<h2 class="anchored" data-anchor-id="numeric-summaries">Numeric summaries</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>start a new worksheet <br> <img src="images/clipboard-1595951328.png" class="img-fluid" alt="new worksheet"></li>
+<li>our dimension for the summary will be <code>Weekend</code> - drag that to the <code>Columns</code> shelf</li>
+<li>our measure for the summary will be our several site columns - so (as before) add the <code>Measure Names</code> to the <code>Rows</code> shelf, and then the <code>Measure Values</code> to the <code>Text</code> mark <br> <img src="images/clipboard-1696844195.png" class="img-fluid" alt="Add the measure to the shelf"></li>
+<li>do minor surgery:
+<ol type="1">
+<li>remove the count of weekend days <br> <img src="images/clipboard-4183793738.png" height="250" alt="remove weekend days count"></li>
+<li>produce an average <br> <img src="images/clipboard-1883554598.png" height="250" alt="produce an average"></li>
+<li>format the numbers appropriately <br> <img src="images/clipboard-3829922989.png" height="250" alt="format numbers"></li>
+<li>improve the worksheet title <br> <img src="images/clipboard-4051646655.png" height="100" alt="change the worksheet title"></li>
+</ol></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="putting-everything-together" class="level2">
+<h2 class="anchored" data-anchor-id="putting-everything-together">Putting everything together</h2>
+<ul>
+<li>we’ll use a dashboard to assemble the plot, and the summary table</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>create a new dashboard from the row at the bottom of the screen</li>
+<li>double-click your Sheet 1 to add the graph <br> <img src="images/clipboard-1099244408.png" height="300" alt="Add Sheet 1 to the dashboard"></li>
+<li>you can then drag your Sheet 2 into the blank space under the filters to add your summary table <br> <img src="images/clipboard-253376484.png" class="img-fluid" alt="Add Sheet 2 to the dashboard"></li>
+<li>you might also take the chance to rename your graph (and the dashboard as a whole) to something less drab: <br> <img src="images/clipboard-3731669259.png" class="img-fluid" alt="Rename as appropriate"></li>
+<li>finally, hit publish and check your dashboard online in your profile <br> <br> <img src="images/clipboard-800923394.png" height="300" alt="published dashboard"></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="gp-practice-size" class="level2">
+<h2 class="anchored" data-anchor-id="gp-practice-size">GP practice size</h2>
+<ul>
+<li>this dashboard shows Scotland’s GP practices</li>
+<li>it’s based on the <a href="https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes">GP Practice Contact Details and List Sizes</a> dataset published by Public Health Scotland</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>select <code>New Data Source</code> from the menu <br> <img src="images/clipboard-4291647825.png" class="img-fluid" alt="Select New Data Source"></li>
+<li>add <code>s02_gp_data.xlsx</code> to your data and start a new worksheet</li>
+<li>drag the <code>Latitude</code> and <code>Longutude</code> fields to the column/row shelf. Avoid the <code>Latitude (generated)</code> and <code>Longitude (generated)</code> fields - they won’t work properly</li>
+<li>now drag the size <code>List Size</code> measure to the <code>Size</code> part of <code>Marks</code><br> <img src="images/clipboard-2984179153.png" class="img-fluid" alt="Drag list size to the size area">
+<ol type="1">
+<li>You might want to twiddle the <code>Mark Size</code> option to make sure your practices appear at the right scale <br> <img src="images/clipboard-4203975396.png" class="img-fluid" alt="Adjust mark size options"></li>
+</ol></li>
+<li>drag the <code>HB Name</code> dimension to the <code>Colour</code> part of <code>Marks</code></li>
+<li>finally, drag the <code>Name</code> field to the <code>Detail</code> part of <code>Marks</code></li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+About postcodes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Note that Tableau Public doesn’t play nicely with UK postcodes. It will recognise them, but they won’t plot properly on a map. British postcodes, properly speaking, don’t describe a location at all. Instead, they’re just code numbers for different buildings. Here, we estimate the position of each postcode by taking an average of the location of each building to which it refers. That’s known as a centroid, and this data contains latitude and longitude data for each postcode centroid, which is produced using the <a href="https://cran.r-project.org/web/packages/PostcodesioR/index.html">PostcodesioR R package</a>.</p>
 </div>
 </div>
 </div>
 </section>
+<section id="why-not-add-both-datasets-at-once" class="level2">
+<h2 class="anchored" data-anchor-id="why-not-add-both-datasets-at-once">Why not add both datasets at once?</h2>
+<ul>
+<li>if you add several datasets in one go, Tableau will automatically try to create relationships between them, and (in Tableau Public at least) it doesn’t seem possible to avoid this happening</li>
+<li>in this case, we definitely don’t want this to happen. Our made-up service data, and our real GP data, don’t share anything in common</li>
+<li>so adding a new data source once we’ve already done some work on the data is a hack-y way of giving you two independent data sources without pain</li>
+</ul>
 </section>
-<section id="how-to-think-about-joins" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-think-about-joins">How to think about joins?</h2>
-<p>We did a simple join above. A join is a way of merging two datasets. Let’s demonstrate with some cut-down datasets from above. We’ll remove some of the values from our <code>b1</code> set and from our <code>b2</code> set:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> b1 <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>b1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
-  name     score
-  &lt;chr&gt;    &lt;dbl&gt;
-1 kennedy  0.590
-2 victoria 0.248
-3 peter    0.644
-4 judi     0.887
-5 paul     0.336</code></pre>
+<section id="adding-a-column-graph-of-practice-sizes" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-column-graph-of-practice-sizes">Adding a column graph of practice sizes</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> b2 <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>b2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
-  name     score
-  &lt;chr&gt;    &lt;dbl&gt;
-1 michael  0.561
-2 paul     1    
-3 jennifer 0.160
-4 alupha   0.574
-5 kennedy  0.590</code></pre>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>as usual, make a new sheet</li>
+<li>add:
+<ol type="1">
+<li>the <code>Name</code> field to the <code>Columns</code> shelf</li>
+<li><code>List Size</code> to <code>Rows</code></li>
+<li><code>HB Name</code> to <code>Colour</code> <br> <img src="images/clipboard-1178230394.png" height="250" alt="drag HB Name to Colour"></li>
+</ol></li>
+<li>then adjust the <code>Sort</code> option in <code>Name</code> to arrange your practices in descending order of size <br> <img src="images/clipboard-126464586.png" height="250" alt="Find the Sort option"><img src="images/clipboard-839002550.png" height="250" alt="Sort by field value"></li>
+<li>you might also like to filter the <code>Name</code> field to just show the largest 50 practices <br><img src="images/clipboard-1166627108.png" class="img-fluid" alt="Filter to largest 50 practices"></li>
+<li>Finally, add both this worksheet and your map to a new dashboard page</li>
+</ol>
 </div>
 </div>
-<p>The simplest join we could do is to bind the rows from one set onto another:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>b1 <span class="sc">|&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(b2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 2
-   name     score
-   &lt;chr&gt;    &lt;dbl&gt;
- 1 kennedy  0.590
- 2 victoria 0.248
- 3 peter    0.644
- 4 judi     0.887
- 5 paul     0.336
- 6 michael  0.561
- 7 paul     1    
- 8 jennifer 0.160
- 9 alupha   0.574
-10 kennedy  0.590</code></pre>
-</div>
-</div>
-<p>That just brings all the rows from <code>b2</code> onto the end of <code>b1</code>. Unlike binding, though, in a join we usually want to only include some of our values. So let’s now left-join <code>b2</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>b1 <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(b2, <span class="at">by =</span> <span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
-  name     score.x score.y
-  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-1 kennedy    0.590   0.590
-2 victoria   0.248  NA    
-3 peter      0.644  NA    
-4 judi       0.887  NA    
-5 paul       0.336   1    </code></pre>
-</div>
-</div>
-<p>You should see that only the values from <code>b2</code>’s score column that have a corresponding name in <code>b1</code> get populated, and everything else gets filled with NAs. Here’s a <a href="https://lindsaydbrin.github.io/CREATE_R_Workshop/Lesson_-_dplyr_join.html">nice introduction to the different kinds of join you can do in dplyr</a>.</p>
+</section>
+<section id="homework-tasks" class="level2">
+<h2 class="anchored" data-anchor-id="homework-tasks">Homework tasks</h2>
+<ol type="1">
+<li>Is there any relationship between practice size and SIMD2020 deprivation scores in the GP data? How could you show that relationship in a visual?</li>
+<li>Is there any month-to-month or seasonal change in the weekend service use data? How could you show that relationship in a visual?</li>
+</ol>
 
 
 </section>
