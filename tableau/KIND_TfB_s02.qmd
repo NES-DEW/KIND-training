@@ -1,0 +1,171 @@
+---
+title: "Tableau for Beginners (session 2)"
+categories: [Tableau, beginner]
+---
+
+::: {.callout-warning collapse="false" appearance="default" icon="true"}
+## Warning
+This is currently a **draft** version of the materials for this training session, and so may contain minor errors and inaccuracies.
+:::
+
+<!-- ::: {.callout-note collapse="false" appearance="default" icon="true"} -->
+<!-- ## Session materials -->
+
+<!-- -   [all materials for the entire course {{< iconify ph:file-zip size=2x >}}](src/TfB.zip) -->
+<!-- -   session slides [{{< iconify ph:file-html size=2x >}} html](src/TfB_s02.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/TfB_s02.pdf) -->
+<!-- -  [session data file {{< iconify ph:file-xls size=2x >}}](xdata/s02_data.xlsx) -->
+<!-- ::: -->
+
+
+```{r}
+# #| echo: false
+# #| results: asis
+# #| eval: true
+
+# source(here::here("R/feed_block.R"))
+# feed_block("Tableau for Beginners (session 2)")
+```
+
+## Session outline
+
+**Visualisation overload!**
+
+-   we're going to build several visualisations
+-   we'll use some tidied data for this - today is all about using data to do interesting things
+-   next time, we'll get into the data wrangling needed to sort that data out
+
+## Session files
+
+-   two Excel workbooks
+    -   `s02_service_data.xlsx`
+    -   `s02_gp_data.xlsx`
+-   [link to completed dashboard](https://public.tableau.com/app/profile/brendan.clarke4139/viz/KIND_Tableau_for_beginners_s02/Dashboard2)
+
+## Today's visualisations
+
+-   line graphs
+-   filtering tools
+-   numeric summaries of data
+-   maps
+-   column charts
+
+## The goal for this week
+
+![Filterable time-series dashboard](images/clipboard-677538538.png){height="400"} ![Interactive map plus column graph](images/clipboard-241969368.png){height="400"}
+
+## Data loading
+
+-   this is a repeat of last week
+
+::: {.callout-tip title="Task"}
+1.  go to https://public.tableau.com/app/
+2.  select `Web Authoring` from the `Create` menu </br> ![Web Authoring](images/clipboard-2012383762.png)
+3.  from the `Data` menu, select `New Data Source`</br> ![Select \`New Data Source](images/clipboard-2895623694.png)
+4.  drag and drop (or use the upload button) to add the `s02_weekend_data.xlsx` file
+5.  drag the `weekend_sh` sheet into the data model
+:::
+
+## Service use data (weekend_sh)
+
+::: {.callout-tip title="Task"}
+-   add a worksheet </br> ![add a worksheet](images/clipboard-146543695.png)
+-   go to that worksheet, and make a time-series graph from our data by dragging the `Date` and the `Measure values` fields to the shelf, and ensuring that data is set to `Exact date`:</br> ![make a time-series graph](images/clipboard-3683763482.png)
+-   you might also switch off the values to avoid clutter </br>![switch off the values](images/clipboard-1426303361.png)
+:::
+
+## `Measure Value`
+
+-   `Measure Values` are a default calculated field derived from your data. You can think of it as containing all your numeric values
+    -   you'll see that you can edit what appears in your graph - and do please remove the `CNT(weekend_sh)`, which is just counting values </br> ![Remove the CNT(weekend_sh) field](images/clipboard-1265910281.png)
+-   there's also a `Measure Names` field which collects together all your measure names (like Excel column names)
+    -   when we add `Measure Values` to our graph, the `Measure Names` appear in the `Filters` area
+
+## Add a filter
+
+::: {.callout-tip title="Task"}
+1.  drag the `Date` table into the `Filters` area. You'll be asked to choose a way of filtering that data: select `Range of Dates` </br> ![select Range of Dates in the filter](images/clipboard-3399177496.png)
+2.  that will produce a filter preview: </br> ![filter preview](images/clipboard-465195638.png)
+3.  add it to your graph by selecting `Show filter` </br> ![Select Show filter](images/clipboard-3877947789.png)
+4.  now repeat for the `Weekend` table
+:::
+
+## 
+
+## A digression: icons, dimensions and measures
+
+-   you might have noticed that your fields have coloured icons: </br> ![Field icons](images/clipboard-2119629222.png)
+    -   [each type of icon represents a data type](https://howto.mt.gov/_docs/Visual-Cues-and-Icons-in-Tableau-Desktop.pdf) (like text, numeric, etc)
+    -   the colours group those types into [continuous/discrete](https://en.wikipedia.org/wiki/Continuous_or_discrete_variable): [blue = discrete data, green = continuous data](https://help.tableau.com/current/pro/desktop/en-us/datafields_typesandroles.htm)
+-   But there's also a Tableau-specific pair of terms in play here: `Dimensions` and `Measures`
+    -   Dimensions are (usually) qualitative categories used to control the level of detail shown - like our `Measure Names`
+    -   Measures are quantitative values, which make up the values shown on our visualisations - like our `Site B`
+
+## Numeric summaries
+
+::: {.callout-tip title="Task"}
+1.  start a new worksheet </br> ![new worksheet](images/clipboard-1595951328.png)
+2.  our dimension for the summary will be `Weekend` - drag that to the `Columns` shelf
+3.  our measure for the summary will be our several site columns - so (as before) add the `Measure Names` to the `Rows` shelf, and then the `Measure Values` to the `Text` mark </br> ![Add the measure to the shelf](images/clipboard-1696844195.png)
+4.  do minor surgery:
+    1.  remove the count of weekend days </br> ![remove weekend days count](images/clipboard-4183793738.png){height="250"}
+    2.  produce an average </br> ![produce an average](images/clipboard-1883554598.png){height="250"}
+    3.  format the numbers appropriately </br> ![format numbers](images/clipboard-3829922989.png){height="250"}
+    4.  improve the worksheet title </br> ![change the worksheet title](images/clipboard-4051646655.png){height="100"}
+:::
+
+## Putting everything together
+
+-   we'll use a dashboard to assemble the plot, and the summary table
+
+::: {.callout-tip title="Task"}
+1.  create a new dashboard from the row at the bottom of the screen
+2.  double-click your Sheet 1 to add the graph </br> ![Add Sheet 1 to the dashboard](images/clipboard-1099244408.png){height="300"}
+3.  you can then drag your Sheet 2 into the blank space under the filters to add your summary table </br> ![Add Sheet 2 to the dashboard](images/clipboard-253376484.png)
+4.  you might also take the chance to rename your graph (and the dashboard as a whole) to something less drab: </br> ![Rename as appropriate](images/clipboard-3731669259.png)
+5.  finally, hit publish and check your dashboard online in your profile </br> </br> ![published dashboard](images/clipboard-800923394.png){height="300"}
+:::
+
+## GP practice size
+
+-   this dashboard shows Scotland's GP practices
+-   it's based on the [GP Practice Contact Details and List Sizes](https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes) dataset published by Public Health Scotland
+
+::: {.callout-tip title="Task"}
+1.  select `New Data Source` from the menu </br> ![Select New Data Source](images/clipboard-4291647825.png)
+2.  add `s02_gp_data.xlsx` to your data and start a new worksheet
+3.  drag the `Latitude` and `Longutude` fields to the column/row shelf. Avoid the `Latitude (generated)` and `Longitude (generated)` fields - they won't work properly
+4.  now drag the size `List Size` measure to the `Size` part of `Marks`</br> ![Drag list size to the size area](images/clipboard-2984179153.png)
+    1. You might want to twiddle the `Mark Size` option to make sure your practices appear at the right scale </br> ![Adjust mark size options](images/clipboard-4203975396.png)
+5.  drag the `HB Name` dimension to the `Colour` part of `Marks`
+6.  finally, drag the `Name` field to the `Detail` part of `Marks`
+:::
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## About postcodes
+
+Note that Tableau Public doesn't play nicely with UK postcodes. It will recognise them, but they won't plot properly on a map. British postcodes, properly speaking, don't describe a location at all. Instead, they're just code numbers for different buildings. Here, we estimate the position of each postcode by taking an average of the location of each building to which it refers. That's known as a centroid, and this data contains latitude and longitude data for each postcode centroid, which is produced using the [PostcodesioR R package](https://cran.r-project.org/web/packages/PostcodesioR/index.html). 
+:::
+
+## Why not add both datasets at once?
+
+-   if you add several datasets in one go, Tableau will automatically try to create relationships between them, and (in Tableau Public at least) it doesn't seem possible to avoid this happening
+-   in this case, we definitely don't want this to happen. Our made-up service data, and our real GP data, don't share anything in common
+-   so adding a new data source once we've already done some work on the data is a hack-y way of giving you two independent data sources without pain
+
+## Adding a column graph of practice sizes
+
+::: {.callout-tip title="Task"}
+1.  as usual, make a new sheet
+2.  add:
+    1.  the `Name` field to the `Columns` shelf
+    2.  `List Size` to `Rows`
+    3.  `HB Name` to `Colour` </br> ![drag HB Name to Colour](images/clipboard-1178230394.png){height="250"}
+3.  then adjust the `Sort` option in `Name` to arrange your practices in descending order of size </br> ![Find the Sort option](images/clipboard-126464586.png){height="250"}![Sort by field value](images/clipboard-839002550.png){height="250"}
+4.  you might also like to filter the `Name` field to just show the largest 50 practices </br>![Filter to largest 50 practices](images/clipboard-1166627108.png)
+5.  Finally, add both this worksheet and your map to a new dashboard page
+:::
+
+## Homework tasks
+
+1.  Is there any relationship between practice size and SIMD2020 deprivation scores in the GP data? How could you show that relationship in a visual?
+2.  Is there any month-to-month or seasonal change in the weekend service use data? How could you show that relationship in a visual?
