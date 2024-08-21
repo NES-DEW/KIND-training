@@ -1,0 +1,131 @@
+---
+title: "Tableau for Beginners (session 3)"
+categories: [Tableau, beginner]
+---
+
+::: {.callout-warning collapse="false" appearance="default" icon="true"}
+## Warning
+
+This is currently a **draft** version of the materials for this training session, and so may contain minor errors and inaccuracies.
+:::
+
+<!-- ::: {.callout-note collapse="false" appearance="default" icon="true"} -->
+
+<!-- ## Session materials -->
+
+<!-- -   [all materials for the entire course {{< iconify ph:file-zip size=2x >}}](src/TfB.zip) -->
+
+<!-- -   session slides [{{< iconify ph:file-html size=2x >}} html](src/TfB_s02.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/TfB_s02.pdf) -->
+
+<!-- -  [session data file {{< iconify ph:file-xls size=2x >}}](xdata/s02_data.xlsx) -->
+
+<!-- ::: -->
+
+```{r}
+# #| echo: false
+# #| results: asis
+# #| eval: true
+
+# source(here::here("R/feed_block.R"))
+# feed_block("Tableau for Beginners (session 2)")
+```
+
+## Session outline
+
++ today's session is all about **data wrangling** 
++ we'll take the raw data files used to produce the data we used last week 
++ we'll import them into Tableau and organize them 
++ then we'll tidy them up as needed 
++ we'll aim to re-create the GP practice map from last week as a final objective
+
+## Session files
+
+-   four .csv files
+    -   [`1 - practices.csv`](data/1%20-%20practices.csv) from [PHS's opendata portal](https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes)
+    -   [`2 - boards.csv`](data/2%20-%20boards.csv) rom [PHS's opendata portal](https://www.opendata.nhs.scot/dataset/geography-codes-and-labels/resource/652ff726-e676-4a20-abda-435b98dd7bdc)
+    -   [`3 - demographics.csv`](data/3%20-%20demographics.csv) from [PHS's opendata portal](https://www.opendata.nhs.scot/dataset/gp-practice-populations)
+    -   [`4 - postcodes.csv`](data/4%20-%20postcodes.csv) from the [Scottish Postcode Directory](https://www.nrscotland.gov.uk/statistics-and-data/geography/our-products/scottish-postcode-directory/2024-1) - although note that the supplied file is a small subset of this larger directory
+-   [link to completed dashboard](https://public.tableau.com/app/profile/brendan.clarke4139/viz/KIND_Tableau_for_beginners_s03/Dashboard1)
+
+## Getting started
+
+::: {.callout-tip title="Task"}
+1.  go to https://public.tableau.com/app/
+2.  select `Web Authoring` from the `Create` menu </br> ![Web Authoring](images/clipboard-2012383762.png)
+3.  from the `Data` menu, select `New Data Source`</br> ![Select \`New Data Source](images/clipboard-2895623694.png)
+4.  drag and drop (or use the upload button) to add the `1 - practices.csv` file
+5.  repeat to add the other three files
+:::
+
+## Add each files to the data model
+
+::: {.callout-tip title="Task"}
+1.  now double-click each of your data files to add them to the data model </br> ![add each data file to the data model](images/clipboard-2155528049.png)
+2.  Tableau should guess the relationships in your data, and show these relationships by unbroken lines
+3.  but one of these won't work properly ![potentially broken relationship](images/clipboard-4213178062.png)
+4.  link the two `Practice Code` fields together to relate these parts of the data![build a relationship between practice code fields](images/clipboard-492594219.png)
+5.  you should end up with four data sources, all related together ![four related data sources](images/clipboard-4239179204.png)
+:::
+
+## Trying out our data
+
+::: {.callout-tip title="Task"}
+1.  create a new worksheet ![create a new worksheet](images/clipboard-1803076775.png)
+2.  re-create the map:
+    1.  `Latitude` to `Rows` - and ensure you set this as a dimensionc![set latitude as a dimension](images/clipboard-3075191469.png)
+    2.  `Longitude` to `Columns` - again, dimension
+    3.  `GP Practice Name` to `Detail`
+    4.  `HB Name` to `Colour`
+:::
+
+## Demographics
+
+::: {.callout-tip title="Task"}
+1.  demographics has lots of cols
+2.  unlike the example in session 2, we don't have a `Measure Values` item to play with
+3.  go back to the data, which is hard to work with
+4.  hide all the QFs</br>![](images/clipboard-17110285.png)
+5.  now pivot the data </br>![](images/clipboard-4195439175.png)
+6.  it'll take some time to perform the extract, but once you've returned to your worksheet, you should now be able to plot the demographics </br>![but it really might take some time](images/clipboard-2244394601.png)
+:::
+
+## Going an easier way
+
+-   we recommend using Excel and PowerQuery (or other tools) to pivot your data if possible
+-   if you don't have this available, you can find a pre-pivoted dataset in the training materials (`3b - demographics_p.csv`)
+
+::: {.callout-tip title="Task"}
+1.  Open your dataset (`3 - demographics.csv`) with Excel
+1.  convert the data to a table by selecting somewhere within it, and pressing `Ctrl+T`</br>![Convert to a table](images/clipboard-2129820514.png)
+1.  then select `Data >> From Table / Range` to open PowerQuery </br>![Open PowerQuery](images/clipboard-629733057.png)
+1.  Use the **Remove columns** tool to remove the **id**, **Date**, **HSPC**, and **HB** columns </br>![Remove unneeded columns](images/clipboard-1838804629.png)
+:::
+
+## Re-shaping data
+
+::: {.callout-tip title="Task"}
+1.  Select the **PracticeCode** and **Sex** columns, then select **Unpivot Other Columns**</br>![unpivot other columns](images/pivot_1.png){height="350px"}
+:::
+
+-   That should give us our data in long form: </br> ![Long form data](images/pivot_2.png)
+-   we can now remove unwanted values by filtering </br>![Remove values by filtering](images/pivot_3.png){height="300px"}
+
+::: {.callout-tip title="Task"}
+1.  From the **Attribute** column, please remove the **QF** rows,
+2.  From the **Attribute** column, please remove the **AllAges** rows
+3.  From the **Sex** column, please remove the **All** rows
+:::
+
+## Transforming values
+
+-   the last type of reshaping to show off is about transforming values
+
+::: {.callout-tip title="Task"}
+1.  Split the **Attribute** column by **Digit to Non-digit**</br>![Split the attribute column](images/pivot_4.png){height="150px"}
+2.  replace values in the new **Attribute.1** column to remove the "Ages"
+3.  then in **Attribute.2**, two replacements to remove the "to"s and replace the "plus" with **99**
+4.  then rename the columns to **age_upper** and **age_lower**
+5.  finally, change the data type to **whole number** for each of those new columns
+:::
+
+## Homework tasks
