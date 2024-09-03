@@ -1,0 +1,185 @@
+---
+title: "R from scratch"
+date: 2024-09-03
+execute: 
+  echo: true
+  eval: true
+  freeze: auto
+  output: "markup"
+categories: [R, beginner]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| eval: true
+
+source(here::here("R/feed_block.R"))
+feed_block("R from scratch")
+
+```
+
+# Getting started
+
+-   you'll need some kind of R setup for this training
+    -   if you already have some type of R installation available (PHS workbench, Rstudio desktop etc) please feel free to use that
+    -   otherwise, create a free account on [posit.cloud](https://posit.cloud/ "https://posit.cloud/")
+-   Then confirm that you're able to log-in to that account using the device and the network connection that you're going to be using during the training session. Of note, some board VPNs (PHS, Lothian, couple of others) seem to cause trouble, and it can take a bit of time to work out fixes and workarounds.
+-   Once logged in, please attempt a 2 minute test (below) so that we can be sure everything will be in working order before the first training session:
+
+:::{.callout-note collapse=true appearance='default' icon=true}
+## Testing your Posit Cloud
+1. sign in to your account at <https://posit.cloud/>
+1. create a New RStudio Project from the big blue button</br> ![create a New RStudio Project](images/clipboard-1870431838.png)
+1. after 30 seconds or so you should have a new R project open in front of you</br>![new R project](images/clipboard-3686794244.png)
+1. in the console - the bottom-left part of the window with all the text in - please type `demo(image)` at the `>` prompt and press enter
+1. keep pressing enter until you see graphs start appearing (2-3 times should do it)</br>![demo plots](images/clipboard-984098222.png)
+:::
+
+
+# Session 1: "hello world"
+
+## hello world
+
+-   R has a terminal where you can write code, and R will run it for you and show you the results
+-   we'll start with a string, which is how we keep words in R code (single or double quotes, your choice)
+-   type a string in the terminal
+
+```{r}
+"hello world"
+```
+</br> !["hello world" in the terminal](images/clipboard-1008380297.png)
+
+-   but we usually write R in script files
+-   start a new R script</br>![New R script](images/clipboard-4056129341.png)
+-   now press `Ctrl` + `Enter` to run your script
+
+```{r}
+"hello world"
+```
+
+-   (for the coders, R has implicit print)
+
+```{r}
+# variable
+# assignment operator
+hw <- "hello world"
+hw
+```
+
+```{r}
+# R is case sensitive
+# R runs from top to bottom - you can't use an object until you've made it
+try(HW) # a way of running broken code and capturing the error messages it provokes
+HW <- "HELLO WORLD"
+HW
+```
+
+## functions
+
+```{r}
+# print function
+# variables persist
+print(hw)
+```
+
+```{r}
+#| eval: false
+
+# help for all functions
+?print
+```
+
+```{r}
+# look at the help and try to make substr work to pull out "hello"
+# arguments
+substr(hw, 1, 5)
+```
+
+```{r}
+# return value
+# assign out of functions
+hi <- substr(hw, 1, 5)
+```
+
+```{r}
+# vectors
+# combine
+c(hw, hw)
+length(c(hw, hw))
+```
+
+```{r}
+# most functions are vectorised
+substr(c(hw, hw), 1, 5)
+hh <- substr(c(hw, hw), 1, 5)
+```
+
+```{r}
+# especially nice for maths stuff
+# logic
+c(4,3,7,55) * 2
+c(4,3,7,55) > 10
+```
+
+```{r}
+# indexing
+# range operator
+hh[1]
+c("this", "is", "another", "indexing", "example")[3]
+c("this", "is", "another", "indexing", "example")[3:4]
+```
+
+```{r}
+#length
+# typeof
+length(hh)
+typeof(hh)
+```
+
+## data types and classes
+
+```{r}
+# vectors
+# homogenous - only one kind of thing per vector
+typeof("this is a string")
+typeof(1L)
+typeof(1)
+typeof(TRUE)
+```
+
+```{r}
+# factors - the odd one
+# mainly a way of storing categorical data, especially when you need it in non-alphabetical order
+factor(c("thing", "string", "wing", "bling")) # alphabetical
+ing_things <- factor(c("thing", "string", "wing", "bling"), levels = c("wing", "bling", "string", "thing")) # alphabetical
+ing_things
+ing_things[2]
+```
+
+```{r}
+# the list = a vector of vectors
+# ragged - can store different kinds of values together
+list(hh, hi, hw, ing_things)
+
+# names
+named_list <- list("hw" = hh, 
+                   "hi" = hi, 
+                   "hw" = hw, 
+                   "silly_name" = ing_things)
+named_list
+```
+
+```{r}
+# different indexing required for lists
+class(named_list[4]) #gets you a smaller list
+
+# two easy ways of getting vectors out of lists
+named_list$silly_name
+named_list[[4]]
+
+# and you can flatten a list into a vector
+unlist(named_list)
+```
