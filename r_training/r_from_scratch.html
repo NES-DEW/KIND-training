@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-08-08">
+<meta name="dcterms.date" content="2024-09-03">
 
-<title>Power Automate for health and care – KIND training pages</title>
+<title>R from scratch – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -42,7 +76,6 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -156,16 +189,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#a-word-of-warning" id="toc-a-word-of-warning" class="nav-link" data-scroll-target="#a-word-of-warning">A word of warning</a></li>
-  <li><a href="#quick-introduction-to-power-automate" id="toc-quick-introduction-to-power-automate" class="nav-link" data-scroll-target="#quick-introduction-to-power-automate">Quick introduction to Power Automate</a></li>
-  <li><a href="#scope-of-the-possible" id="toc-scope-of-the-possible" class="nav-link" data-scroll-target="#scope-of-the-possible">Scope of the possible</a></li>
-  <li><a href="#this-session-honest-application-focused-introduction" id="toc-this-session-honest-application-focused-introduction" class="nav-link" data-scroll-target="#this-session-honest-application-focused-introduction">This session = honest, application-focused, introduction</a></li>
-  <li><a href="#subset-an-excel-file" id="toc-subset-an-excel-file" class="nav-link" data-scroll-target="#subset-an-excel-file">Subset an Excel file</a></li>
-  <li><a href="#microsoft-forms-to-teams" id="toc-microsoft-forms-to-teams" class="nav-link" data-scroll-target="#microsoft-forms-to-teams">Microsoft Forms to Teams</a></li>
-  <li><a href="#excel-workbook-to-mailing-list" id="toc-excel-workbook-to-mailing-list" class="nav-link" data-scroll-target="#excel-workbook-to-mailing-list">Excel workbook to mailing list</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
+  <li><a href="#session-1-hello-world" id="toc-session-1-hello-world" class="nav-link" data-scroll-target="#session-1-hello-world">Session 1: “hello world”</a>
+  <ul class="collapse">
+  <li><a href="#hello-world" id="toc-hello-world" class="nav-link" data-scroll-target="#hello-world">hello world</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">functions</a></li>
+  <li><a href="#data-types-and-classes" id="toc-data-types-and-classes" class="nav-link" data-scroll-target="#data-types-and-classes">data types and classes</a></li>
+  </ul></li>
   </ul>
 </nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -178,9 +208,9 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Power Automate for health and care</h1>
+<h1 class="title">R from scratch</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">skills</div>
+    <div class="quarto-category">R</div>
     <div class="quarto-category">beginner</div>
   </div>
   </div>
@@ -193,7 +223,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 8, 2024</p>
+      <p class="date">September 3, 2024</p>
     </div>
   </div>
   
@@ -205,175 +235,292 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="previous-attendees-have-said" class="level2">
-<h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
+<p>No feedback found for this session</p>
+<section id="getting-started" class="level1">
+<h1>Getting started</h1>
 <ul>
-<li>8 previous attendees have left feedback</li>
-<li>100% would recommend this session to a colleague</li>
-<li>88% said that this session was pitched correctly:</li>
+<li>you’ll need some kind of R setup for this training
+<ul>
+<li>if you already have some type of R installation available (PHS workbench, Rstudio desktop etc) please feel free to use that</li>
+<li>otherwise, create a free account on <a href="https://posit.cloud/" title="https://posit.cloud/">posit.cloud</a></li>
+</ul></li>
+<li>Then confirm that you’re able to log-in to that account using the device and the network connection that you’re going to be using during the training session. Of note, some board VPNs (PHS, Lothian, couple of others) seem to cause trouble, and it can take a bit of time to work out fixes and workarounds.</li>
+<li>Once logged in, please attempt a 2 minute test (below) so that we can be sure everything will be in working order before the first training session:</li>
 </ul>
-<p><img src="power_automate_for_health_care_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Three random comments from previous attendees
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Thought the training was very interesting, and excellent to see how Power Automate can be used to simplify the workload. Would be keen on more training in this and the coding part as it’s not something that I understand.</li>
-<li>Excellent as ever</li>
-<li>Ambitious trying to cover 3 flows in an hour given the issues of different H&amp;SC audience system permissions but you did it!</li>
-</ul>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Session materials
+Testing your Posit Cloud
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<ul>
-<li><a href="src/power_automate.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
-<li>slides <a href="src/power_automate.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/power_automate.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<ul>
-<li>this session is 🌶 - for beginners</li>
-</ul>
-</section>
-<section id="session-outline" class="level2">
-<h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
-<ul>
-<li>a warning</li>
-<li>an introduction</li>
-<li>scope of the possible</li>
-<li>three example tasks</li>
-<li>free play</li>
-</ul>
-</section>
-<section id="a-word-of-warning" class="level2">
-<h2 class="anchored" data-anchor-id="a-word-of-warning">A word of warning</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Do not use Power Automate for anything unless you’re absolutely sure that your organisational policies permit it</p>
-</div>
-</div>
-</div>
-<ul>
-<li>many boards and orgs have serious information governance and information security objections to Power Automate
-<ul>
-<li>automation tools are an excellent way to break your data</li>
-<li>they’re also an excellent way to compromise its integrity/security</li>
-<li>especially true if you’re thinking about automating processes with sensitive information</li>
-<li>if in any doubt, speak to your IG/Caldicott/information security colleagues before setting to work</li>
-</ul></li>
-</ul>
-</section>
-<section id="quick-introduction-to-power-automate" class="level2">
-<h2 class="anchored" data-anchor-id="quick-introduction-to-power-automate">Quick introduction to Power Automate</h2>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Microsoft_Power_Automate">Power Automate</a> is a set of low-code automation tools</li>
-<li>allows users to automate tasks</li>
-<li>lots of options
-<ul>
-<li><a href="https:://www.powerautomate.com">web</a> and <a href="https://learn.microsoft.com/en-us/power-automate/desktop-flows/install">desktop versions</a></li>
-<li>several <a href="https://www.microsoft.com/en-us/power-platform/products/power-automate/#Pricing">different subscription levels</a></li>
-<li>hundreds of add-ons</li>
-</ul></li>
-</ul>
-</section>
-<section id="scope-of-the-possible" class="level2">
-<h2 class="anchored" data-anchor-id="scope-of-the-possible">Scope of the possible</h2>
-<ul>
-<li>Power Automate is an extremely useful tool for H&amp;SC</li>
-<li>but you should be aware of some complicating factors for people like us:
-<ul>
-<li><a href="https://make.powerautomate.com/environments/Default-10efe0bd-a030-4bca-809c-b5e6745e499a/templates">massive and confusing</a> range of different templates and use-cases, often with a business-focus</li>
-<li>a thick layer of promotional AI talk over everything at present (late 2024)</li>
-<li>unexpected cost/IG barriers to using parts of the platform</li>
-<li>glitchy, and often requiring more coding skills than you might expect</li>
-<li><a href="https://learn.microsoft.com/en-us/power-automate/">generally shockingly poor documentation</a></li>
-</ul></li>
-</ul>
-</section>
-<section id="this-session-honest-application-focused-introduction" class="level2">
-<h2 class="anchored" data-anchor-id="this-session-honest-application-focused-introduction">This session = honest, application-focused, introduction</h2>
-<ul>
-<li>we’ll build three example flows that will:
 <ol type="1">
-<li>take an Excel workbook, extract some parts of it, and save as a new Excel file</li>
-<li>turn a response to Microsoft Forms into a Teams post</li>
-<li>turn an Excel workbook into a simple mailing list</li>
-</ol></li>
-</ul>
+<li>sign in to your account at <a href="https://posit.cloud/" class="uri">https://posit.cloud/</a></li>
+<li>create a New RStudio Project from the big blue button<br> <img src="images/clipboard-1870431838.png" class="img-fluid" alt="create a New RStudio Project"></li>
+<li>after 30 seconds or so you should have a new R project open in front of you<br><img src="images/clipboard-3686794244.png" class="img-fluid" alt="new R project"></li>
+<li>in the console - the bottom-left part of the window with all the text in - please type <code>demo(image)</code> at the <code>&gt;</code> prompt and press enter</li>
+<li>keep pressing enter until you see graphs start appearing (2-3 times should do it)<br><img src="images/clipboard-984098222.png" class="img-fluid" alt="demo plots"></li>
+</ol>
+</div>
+</div>
+</div>
 </section>
-<section id="subset-an-excel-file" class="level2">
-<h2 class="anchored" data-anchor-id="subset-an-excel-file">Subset an Excel file</h2>
+<section id="session-1-hello-world" class="level1">
+<h1>Session 1: “hello world”</h1>
+<section id="hello-world" class="level2">
+<h2 class="anchored" data-anchor-id="hello-world">hello world</h2>
 <ul>
-<li>you’ll need a sample data file - I used <a href="https://opendata.scot/datasets/falkirk+council-council+asset+register+-+falkirk/">this open data about council assets from Falkirk</a></li>
-<li>I coverted the data to a table, then saved the workbook to OneDrive</li>
-<li><code>New flow &gt; Instant cloud flow</code> <br><img src="images/clipboard-1863368884.png" class="img-fluid" alt="Instant cloud flow"></li>
-<li><code>Manually trigger a flow</code> <br><img src="images/clipboard-2098982554.png" class="img-fluid" alt="Manually trigger a flow"></li>
-<li>Add a step <br><img src="images/clipboard-186036160.png" class="img-fluid" alt="Add a step"></li>
-<li><code>Excel online &gt; List rows present in a table</code> and populate<br> <img src="images/clipboard-523258398.png" class="img-fluid" alt="List rows present in a table"></li>
-<li>there are several ways we could subset the data<br> <img src="images/clipboard-909526396.png" class="img-fluid" alt="subset the data"></li>
-<li>we’ll demonstrate by taking the first 20 rows<br> <img src="images/clipboard-3113671612.png" class="img-fluid" alt="take the first 20 rows"></li>
-<li><code>Create csv table</code> <br> <img src="images/clipboard-1492307871.png" class="img-fluid" alt="Create csv table"></li>
-<li><code>Create file</code> <br><img src="images/clipboard-3364586860.png" class="img-fluid" alt="Create file"><br>
-</li>
+<li>R has a terminal where you can write code, and R will run it for you and show you the results</li>
+<li>we’ll start with a string, which is how we keep words in R code (single or double quotes, your choice)</li>
+<li>type a string in the terminal</li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">"hello world"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello world"</code></pre>
+</div>
+</div>
+<p><br> <img src="images/clipboard-1008380297.png" class="img-fluid" alt="“hello world” in the terminal"></p>
+<ul>
+<li>but we usually write R in script files</li>
+<li>start a new R script<br><img src="images/clipboard-4056129341.png" class="img-fluid" alt="New R script"></li>
+<li>now press <code>Ctrl</code> + <code>Enter</code> to run your script</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="st">"hello world"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello world"</code></pre>
+</div>
+</div>
+<ul>
+<li>(for the coders, R has implicit print)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># variable</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># assignment operator</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>hw <span class="ot">&lt;-</span> <span class="st">"hello world"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>hw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello world"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R is case sensitive</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># R runs from top to bottom - you can't use an object until you've made it</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(HW) <span class="co"># a way of running broken code and capturing the error messages it provokes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in eval(expr, envir, enclos) : object 'HW' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>HW <span class="ot">&lt;-</span> <span class="st">"HELLO WORLD"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>HW</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "HELLO WORLD"</code></pre>
+</div>
+</div>
 </section>
-<section id="microsoft-forms-to-teams" class="level2">
-<h2 class="anchored" data-anchor-id="microsoft-forms-to-teams">Microsoft Forms to Teams</h2>
-<ul>
-<li>here’s an overview<br><img src="images/clipboard-3171169259.png" class="img-fluid"></li>
-<li>create a simple form (ours is at <a href="https://forms.office.com/e/8Zds2aTS5c" class="uri">https://forms.office.com/e/8Zds2aTS5c</a>)<br><img src="images/clipboard-2678316851.png" class="img-fluid" alt="create a simple form"></li>
-<li>grab the form id <br><img src="images/clipboard-3599278669.png" class="img-fluid" alt="grab the form id"></li>
-<li>create an <code>Build an automated cloud flow</code> - <br><img src="images/clipboard-3500499466.png" class="img-fluid" alt="Build an automated cloud flow"></li>
-<li>Enter your form ID <br><img src="images/clipboard-977889460.png" class="img-fluid" alt="Enter your form ID">(veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMU9LWURaUUhUT0xYOUtNQVY1UFpURTQ1Vi4u)</li>
-<li><code>Get response details</code> <br><img src="images/clipboard-1023983558.png" class="img-fluid" alt="Get response details"></li>
-<li>Populate with the form and step details <br><img src="images/clipboard-3695518768.png" class="img-fluid" alt="Populate with the form and step details"></li>
-<li><code>Post message in a chat or channel</code> <br><img src="images/clipboard-3431396843.png" class="img-fluid" alt="Post message in a chat or channel"></li>
-</ul>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">functions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print function</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># variables persist</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(hw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello world"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># help for all functions</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>?print</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># look at the help and try to make substr work to pull out "hello"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># arguments</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">substr</span>(hw, <span class="dv">1</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return value</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># assign out of functions</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>hi <span class="ot">&lt;-</span> <span class="fu">substr</span>(hw, <span class="dv">1</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vectors</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># combine</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(hw, hw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello world" "hello world"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">c</span>(hw, hw))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># most functions are vectorised</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">substr</span>(<span class="fu">c</span>(hw, hw), <span class="dv">1</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello" "hello"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>hh <span class="ot">&lt;-</span> <span class="fu">substr</span>(<span class="fu">c</span>(hw, hw), <span class="dv">1</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especially nice for maths stuff</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># logic</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">7</span>,<span class="dv">55</span>) <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]   8   6  14 110</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">7</span>,<span class="dv">55</span>) <span class="sc">&gt;</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># indexing</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># range operator</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>hh[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"this"</span>, <span class="st">"is"</span>, <span class="st">"another"</span>, <span class="st">"indexing"</span>, <span class="st">"example"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "another"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"this"</span>, <span class="st">"is"</span>, <span class="st">"another"</span>, <span class="st">"indexing"</span>, <span class="st">"example"</span>)[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "another"  "indexing"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#length</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># typeof</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(hh)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(hh)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
 </section>
-<section id="excel-workbook-to-mailing-list" class="level2">
-<h2 class="anchored" data-anchor-id="excel-workbook-to-mailing-list">Excel workbook to mailing list</h2>
-<ul>
-<li>here’s an overview <br><img src="images/clipboard-985184515.png" class="img-fluid" alt="overview"></li>
-<li>start with a simple .xlsx. Again, that will need to be on Sharepoint or Onedrive <br><img src="images/clipboard-719218061.png" class="img-fluid" alt="start with a simple .xlsx"></li>
-<li><code>List rows present in a table</code> <br><img src="images/clipboard-2050216422.png" class="img-fluid" alt="Add a List rows present in a table"></li>
-<li><code>Apply to each</code> <br><img src="images/clipboard-1086607329.png" class="img-fluid" alt="Apply to each"></li>
-<li><code>Send an email notification (V3)</code> nested inside the <code>Apply to each</code><br><img src="images/clipboard-708934752.png" class="img-fluid" alt="Nest your email notification inside an apply to each"></li>
-<li>add the expression <code>items('For_each')?['email']</code> <img src="images/clipboard-4251490288.png" class="img-fluid" alt="add the expression items('For_each')?['email']"></li>
-<li>enjoy the result<br><img src="images/clipboard-1453222920.png" class="img-fluid" alt="Many emails result"></li>
-</ul>
+<section id="data-types-and-classes" class="level2">
+<h2 class="anchored" data-anchor-id="data-types-and-classes">data types and classes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vectors</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># homogenous - only one kind of thing per vector</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="st">"this is a string"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">1</span>L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "double"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># factors - the odd one</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mainly a way of storing categorical data, especially when you need it in non-alphabetical order</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"thing"</span>, <span class="st">"string"</span>, <span class="st">"wing"</span>, <span class="st">"bling"</span>)) <span class="co"># alphabetical</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] thing  string wing   bling 
+Levels: bling string thing wing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>ing_things <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"thing"</span>, <span class="st">"string"</span>, <span class="st">"wing"</span>, <span class="st">"bling"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"wing"</span>, <span class="st">"bling"</span>, <span class="st">"string"</span>, <span class="st">"thing"</span>)) <span class="co"># alphabetical</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>ing_things</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] thing  string wing   bling 
+Levels: wing bling string thing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>ing_things[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] string
+Levels: wing bling string thing</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the list = a vector of vectors</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ragged - can store different kinds of values together</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(hh, hi, hw, ing_things)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "hello" "hello"
+
+[[2]]
+[1] "hello"
+
+[[3]]
+[1] "hello world"
+
+[[4]]
+[1] thing  string wing   bling 
+Levels: wing bling string thing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># names</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>named_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"hw"</span> <span class="ot">=</span> hh, </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"hi"</span> <span class="ot">=</span> hi, </span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"hw"</span> <span class="ot">=</span> hw, </span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"silly_name"</span> <span class="ot">=</span> ing_things)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>named_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$hw
+[1] "hello" "hello"
+
+$hi
+[1] "hello"
+
+$hw
+[1] "hello world"
+
+$silly_name
+[1] thing  string wing   bling 
+Levels: wing bling string thing</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># different indexing required for lists</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(named_list[<span class="dv">4</span>]) <span class="co">#gets you a smaller list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># two easy ways of getting vectors out of lists</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>named_list<span class="sc">$</span>silly_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] thing  string wing   bling 
+Levels: wing bling string thing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>named_list[[<span class="dv">4</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] thing  string wing   bling 
+Levels: wing bling string thing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and you can flatten a list into a vector</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(named_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          hw1           hw2            hi            hw   silly_name1 
+      "hello"       "hello"       "hello" "hello world"           "4" 
+  silly_name2   silly_name3   silly_name4 
+          "3"           "1"           "2" </code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
