@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-08-08">
+<meta name="dcterms.date" content="2024-06-03">
 
-<title>Power Automate for health and care – KIND training pages</title>
+<title>Why bother with R? – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -42,7 +96,6 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -156,16 +209,37 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#a-word-of-warning" id="toc-a-word-of-warning" class="nav-link" data-scroll-target="#a-word-of-warning">A word of warning</a></li>
-  <li><a href="#quick-introduction-to-power-automate" id="toc-quick-introduction-to-power-automate" class="nav-link" data-scroll-target="#quick-introduction-to-power-automate">Quick introduction to Power Automate</a></li>
-  <li><a href="#scope-of-the-possible" id="toc-scope-of-the-possible" class="nav-link" data-scroll-target="#scope-of-the-possible">Scope of the possible</a></li>
-  <li><a href="#this-session-honest-application-focused-introduction" id="toc-this-session-honest-application-focused-introduction" class="nav-link" data-scroll-target="#this-session-honest-application-focused-introduction">This session = honest, application-focused, introduction</a></li>
-  <li><a href="#subset-an-excel-file" id="toc-subset-an-excel-file" class="nav-link" data-scroll-target="#subset-an-excel-file">Subset an Excel file</a></li>
-  <li><a href="#microsoft-forms-to-teams" id="toc-microsoft-forms-to-teams" class="nav-link" data-scroll-target="#microsoft-forms-to-teams">Microsoft Forms to Teams</a></li>
-  <li><a href="#excel-workbook-to-mailing-list" id="toc-excel-workbook-to-mailing-list" class="nav-link" data-scroll-target="#excel-workbook-to-mailing-list">Excel workbook to mailing list</a></li>
+  <li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#a-brief-overview-of-r" id="toc-a-brief-overview-of-r" class="nav-link" data-scroll-target="#a-brief-overview-of-r">A brief overview of R</a>
+  <ul class="collapse">
+  <li><a href="#who-owns-r" id="toc-who-owns-r" class="nav-link" data-scroll-target="#who-owns-r">Who owns R?</a></li>
+  <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture">Architecture</a></li>
+  <li><a href="#a-brief-history-of-r" id="toc-a-brief-history-of-r" class="nav-link" data-scroll-target="#a-brief-history-of-r">A brief history of R</a></li>
+  </ul></li>
+  <li><a href="#use-cases" id="toc-use-cases" class="nav-link" data-scroll-target="#use-cases">Use cases</a>
+  <ul class="collapse">
+  <li><a href="#statistical-testing" id="toc-statistical-testing" class="nav-link" data-scroll-target="#statistical-testing">Statistical testing</a></li>
+  <li><a href="#prisma-2020-flow-diagrams" id="toc-prisma-2020-flow-diagrams" class="nav-link" data-scroll-target="#prisma-2020-flow-diagrams">PRISMA 2020 flow diagrams</a></li>
+  <li><a href="#mapping" id="toc-mapping" class="nav-link" data-scroll-target="#mapping">Mapping</a></li>
+  <li><a href="#posters" id="toc-posters" class="nav-link" data-scroll-target="#posters">Posters</a></li>
+  <li><a href="#natural-language-processing-wordclouds" id="toc-natural-language-processing-wordclouds" class="nav-link" data-scroll-target="#natural-language-processing-wordclouds">Natural language processing / wordclouds</a></li>
+  </ul></li>
+  <li><a href="#uses" id="toc-uses" class="nav-link" data-scroll-target="#uses">Uses</a>
+  <ul class="collapse">
+  <li><a href="#who-is-using-it" id="toc-who-is-using-it" class="nav-link" data-scroll-target="#who-is-using-it">Who is using it?</a></li>
+  <li><a href="#why-are-they-using-it" id="toc-why-are-they-using-it" class="nav-link" data-scroll-target="#why-are-they-using-it">Why are they using it?</a></li>
+  <li><a href="#simplifying-analysis" id="toc-simplifying-analysis" class="nav-link" data-scroll-target="#simplifying-analysis">Simplifying analysis</a></li>
+  </ul></li>
+  <li><a href="#r-and-not-r" id="toc-r-and-not-r" class="nav-link" data-scroll-target="#r-and-not-r">R and not-R</a></li>
+  <li><a href="#pain-curves" id="toc-pain-curves" class="nav-link" data-scroll-target="#pain-curves">Pain curves</a></li>
+  <li><a href="#r-code-in-practice" id="toc-r-code-in-practice" class="nav-link" data-scroll-target="#r-code-in-practice">R code in practice</a>
+  <ul class="collapse">
+  <li><a href="#where-are-the-poisonous-bits-of-books" id="toc-where-are-the-poisonous-bits-of-books" class="nav-link" data-scroll-target="#where-are-the-poisonous-bits-of-books">Where are the poisonous bits of books?</a></li>
+  <li><a href="#when-were-poisonous-books-a-thing" id="toc-when-were-poisonous-books-a-thing" class="nav-link" data-scroll-target="#when-were-poisonous-books-a-thing">When were poisonous books a thing?</a></li>
+  <li><a href="#where-were-poisonous-books-a-thing" id="toc-where-were-poisonous-books-a-thing" class="nav-link" data-scroll-target="#where-were-poisonous-books-a-thing">Where were poisonous books a thing?</a></li>
+  </ul></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  <li><a href="#r-beginners-club" id="toc-r-beginners-club" class="nav-link" data-scroll-target="#r-beginners-club">R beginners club</a></li>
   </ul>
 </nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -178,10 +252,11 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Power Automate for health and care</h1>
+<h1 class="title">Why bother with R?</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">skills</div>
+    <div class="quarto-category">R</div>
     <div class="quarto-category">beginner</div>
+    <div class="quarto-category">pre-beginner</div>
   </div>
   </div>
 
@@ -193,7 +268,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 8, 2024</p>
+      <p class="date">June 3, 2024</p>
     </div>
   </div>
   
@@ -205,177 +280,435 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="previous-attendees-have-said" class="level2">
-<h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
-<ul>
-<li>8 previous attendees have left feedback</li>
-<li>88% said that this session was pitched correctly</li>
-<li>100% would recommend this session to a colleague</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Three random comments from previous attendees
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Too quick, no time to test out learning, see details of where to click and do things.</li>
-<li>Thought the training was very interesting, and excellent to see how Power Automate can be used to simplify the workload. Would be keen on more training in this and the coding part as it’s not something that I understand.</li>
-<li>Great starting point!</li>
-</ul>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Session materials
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<ul>
-<li><a href="src/power_automate.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
-<li>slides <a href="src/power_automate.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/power_automate.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<ul>
-<li>this session is 🌶 - for beginners</li>
-</ul>
-</section>
 <section id="session-outline" class="level2">
 <h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
 <ul>
-<li>a warning</li>
-<li>an introduction</li>
-<li>scope of the possible</li>
-<li>three example tasks</li>
-<li>free play</li>
+<li>this session is 🥬 - a non-technical introduction for pre-beginners</li>
+<li>two minute overview of R</li>
+<li>one minute history of R</li>
+<li>five use cases in H&amp;SC</li>
+<li>R code and practice and a bit of R vs not-R</li>
+<li>next steps and training</li>
 </ul>
 </section>
-<section id="a-word-of-warning" class="level2">
-<h2 class="anchored" data-anchor-id="a-word-of-warning">A word of warning</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Do not use Power Automate for anything unless you’re absolutely sure that your organisational policies permit it</p>
-</div>
-</div>
-</div>
+<section id="a-brief-overview-of-r" class="level2">
+<h2 class="anchored" data-anchor-id="a-brief-overview-of-r">A brief overview of R</h2>
+<blockquote class="blockquote">
+<p>R is a free software environment for statistical computing and graphics (<a href="https://www.r-project.org/about.html">r-project.org</a>)</p>
+</blockquote>
 <ul>
-<li>many boards and orgs have serious information governance and information security objections to Power Automate
+<li>free and open-source</li>
+<li>multiplatform</li>
+<li>large user base</li>
+<li>prominent in health, industry, biosciences</li>
+</ul>
+<section id="who-owns-r" class="level3">
+<h3 class="anchored" data-anchor-id="who-owns-r">Who owns R?</h3>
 <ul>
-<li>automation tools are an excellent way to break your data</li>
-<li>they’re also an excellent way to compromise its integrity/security</li>
-<li>especially true if you’re thinking about automating processes with sensitive information</li>
-<li>if in any doubt, speak to your IG/Caldicott/information security colleagues before setting to work</li>
+<li><a href="https://www.r-project.org/foundation/">R Foundation</a>
+<ul>
+<li>Maintains <a href="https://cran.r-project.org/mirrors.html">CRAN</a></li>
+<li>Links with <a href="https://www.fsf.org/">FSF</a></li>
 </ul></li>
 </ul>
 </section>
-<section id="quick-introduction-to-power-automate" class="level2">
-<h2 class="anchored" data-anchor-id="quick-introduction-to-power-automate">Quick introduction to Power Automate</h2>
+<section id="architecture" class="level3">
+<h3 class="anchored" data-anchor-id="architecture">Architecture</h3>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Microsoft_Power_Automate">Power Automate</a> is a set of low-code automation tools</li>
-<li>allows users to automate tasks</li>
-<li>lots of options
+<li>R is modular</li>
+<li><a href="https://cran.r-project.org/web/packages/">20 thousand + packages</a></li>
+<li>Enormous <a href="https://cran.r-project.org/web/packages/available_packages_by_date.html">scope of applications</a></li>
+<li>Design questions often hinge on finding the right package</li>
+<li>e.g.&nbsp;this presentation was created in R Quarto using <a href="https://quarto.org/docs/presentations/revealjs/">Revealjs</a></li>
+<li>So there’s a good reason that R can be confusing: it’s not one thing, but many</li>
+</ul>
+</section>
+<section id="a-brief-history-of-r" class="level3">
+<h3 class="anchored" data-anchor-id="a-brief-history-of-r">A brief history of R</h3>
 <ul>
-<li><a href="https:://www.powerautomate.com">web</a> and <a href="https://learn.microsoft.com/en-us/power-automate/desktop-flows/install">desktop versions</a></li>
-<li>several <a href="https://www.microsoft.com/en-us/power-platform/products/power-automate/#Pricing">different subscription levels</a></li>
-<li>hundreds of add-ons</li>
+<li><p>it starts with the <a href="https://en.wikipedia.org/wiki/S_(programming_language)">S</a> programming language</p>
+<blockquote class="blockquote">
+<p>Aimed: to “turn ideas into software, quickly and faithfully” <span class="citation" data-cites="chambers1998">(<a href="#ref-chambers1998" role="doc-biblioref">Chambers 1998</a>)</span></p>
+</blockquote></li>
+<li><p>Robert Gentleman and Ross Ihaka <span class="citation" data-cites="ihaka1998r">(<a href="#ref-ihaka1998r" role="doc-biblioref">Ihaka 1998</a>)</span></p>
+<ul>
+<li>Interest in extending the tools available in <a href="https://en.wikipedia.org/wiki/S_(programming_language)">S</a></li>
+<li>Early transition to free software model</li>
+<li>1997 “core group”</li>
 </ul></li>
 </ul>
 </section>
-<section id="scope-of-the-possible" class="level2">
-<h2 class="anchored" data-anchor-id="scope-of-the-possible">Scope of the possible</h2>
+</section>
+<section id="use-cases" class="level2">
+<h2 class="anchored" data-anchor-id="use-cases">Use cases</h2>
+<section id="statistical-testing" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-testing">Statistical testing</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">college</th>
+<th style="text-align: left;">finrela</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">degree</td>
+<td style="text-align: left;">below average</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">no degree</td>
+<td style="text-align: left;">below average</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">degree</td>
+<td style="text-align: left;">below average</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq_test</span>(gss, college <span class="sc">~</span> finrela) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">chisq_df</th>
+<th style="text-align: right;">p_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">30.68252</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1.08e-05</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>chi-squared test of independence using <span class="citation" data-cites="infer">(<a href="#ref-infer" role="doc-biblioref">Couch et al. 2021</a>)</span></p>
+</section>
+<section id="prisma-2020-flow-diagrams" class="level3">
+<h3 class="anchored" data-anchor-id="prisma-2020-flow-diagrams">PRISMA 2020 flow diagrams</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3433967081.png" class="img-fluid figure-img"></p>
+<figcaption>PRISMA flow diagram</figcaption>
+</figure>
+</div>
+<p>PRISMA flow diagram using PRISMA2020 <span class="citation" data-cites="PRISMA2020">(<a href="#ref-PRISMA2020" role="doc-biblioref">Haddaway, Pritchard, and McGuinness 2021</a>)</span></p>
+</section>
+<section id="mapping" class="level3">
+<h3 class="anchored" data-anchor-id="mapping">Mapping</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1120687975.png" class="img-fluid figure-img"></p>
+<figcaption>Choropleth map using geojsonio</figcaption>
+</figure>
+</div>
+<p>Choropleth map using <a href="https://cran.r-project.org/web/packages/geojsonio/index.html">geojsonio</a></p>
+</section>
+<section id="posters" class="level3">
+<h3 class="anchored" data-anchor-id="posters">Posters</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4046306589.png" class="img-fluid figure-img"></p>
+<figcaption>Conference poster using posterdown</figcaption>
+</figure>
+</div>
+<p>Conference poster using posterdown <span class="citation" data-cites="posterdown">(<a href="#ref-posterdown" role="doc-biblioref">Thorne 2019</a>)</span>, waffle <span class="citation" data-cites="waffle">(<a href="#ref-waffle" role="doc-biblioref">Rudis and Gandy 2017</a>)</span>, and ggalluvial <span class="citation" data-cites="ggalluvial">(<a href="#ref-ggalluvial" role="doc-biblioref">Brunson and Read 2020</a>)</span></p>
+</section>
+<section id="natural-language-processing-wordclouds" class="level3">
+<h3 class="anchored" data-anchor-id="natural-language-processing-wordclouds">Natural language processing / wordclouds</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3781022281.png" class="img-fluid figure-img"></p>
+<figcaption>Sentiment analysis with wordcloud</figcaption>
+</figure>
+</div>
+<p>Sentiment analysis with wordcloud using tidytext <span class="citation" data-cites="tidytext">(<a href="#ref-tidytext" role="doc-biblioref">Silge and Robinson 2016</a>)</span>, <a href="https://github.com/trinker/lexicon">lexicon</a>, <a href="https://github.com/trinker/sentimentr">sentimentr</a>, and <a href="https://cran.r-project.org/web/packages/wordcloud/index.html">wordcloud</a></p>
+</section>
+</section>
+<section id="uses" class="level2">
+<h2 class="anchored" data-anchor-id="uses">Uses</h2>
+<section id="who-is-using-it" class="level3">
+<h3 class="anchored" data-anchor-id="who-is-using-it">Who is using it?</h3>
 <ul>
-<li>Power Automate is an extremely useful tool for H&amp;SC</li>
-<li>but you should be aware of some complicating factors for people like us:
+<li>PHS</li>
+<li>widely across SG</li>
+<li>sporadically used across NHSS boards</li>
+</ul>
+</section>
+<section id="why-are-they-using-it" class="level3">
+<h3 class="anchored" data-anchor-id="why-are-they-using-it">Why are they using it?</h3>
 <ul>
-<li><a href="https://make.powerautomate.com/environments/Default-10efe0bd-a030-4bca-809c-b5e6745e499a/templates">massive and confusing</a> range of different templates and use-cases, often with a business-focus</li>
-<li>a thick layer of promotional AI talk over everything at present (late 2024)</li>
-<li>unexpected cost/IG barriers to using parts of the platform</li>
-<li>glitchy, and often requiring more coding skills than you might expect</li>
-<li><a href="https://learn.microsoft.com/en-us/power-automate/">generally shockingly poor documentation</a></li>
+<li>to replace troublesome systems
+<ul>
+<li>SPSS and other propriatary systems (licencing costs)</li>
+<li>replacing end-of-life systems (Access e.g.)</li>
+</ul></li>
+<li>to harmonise analysis across a team (common analysis platform)</li>
+<li>SG committment to open-source code under <a href="https://www.gov.scot/publications/digital-scotland-service-standard/pages/11--make-new-source-code-open/">DSSS</a></li>
+</ul>
+</section>
+<section id="simplifying-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="simplifying-analysis">Simplifying analysis</h3>
+<p>(looking at you, Excel…)</p>
+<ul>
+<li>R separates data from analysis</li>
+<li>“there’s a package for…”</li>
+<li>reproducible analysis</li>
+<li>collaboration</li>
+<li>XmR charts in Excel and in R are a useful object lesson…</li>
+</ul>
+<section id="xmr-charts-in-excel-front" class="level4">
+<h4 class="anchored" data-anchor-id="xmr-charts-in-excel-front">XmR charts in Excel (front)</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1441622568.png" class="img-fluid figure-img"></p>
+<figcaption>XmR charts (front)</figcaption>
+</figure>
+</div>
+</section>
+<section id="xmr-charts-in-excel-back" class="level4">
+<h4 class="anchored" data-anchor-id="xmr-charts-in-excel-back">XmR charts in Excel (back)</h4>
+<p><img src="images/clipboard-3971449425.png" class="img-fluid" alt="XmR charts (back)">XmR charts (R)</p>
+</section>
+<section id="xmr-charts-in-r" class="level4">
+<h4 class="anchored" data-anchor-id="xmr-charts-in-r">XmR charts in R</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NHSRplotthedots)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/spc/spc2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">date =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ptd_spc</span>(members, date, <span class="at">target=</span><span class="dv">50</span>, <span class="at">fix_after_n_points=</span><span class="dv">20</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="why_bother_with_R_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="r-and-not-r" class="level2">
+<h2 class="anchored" data-anchor-id="r-and-not-r">R and not-R</h2>
+<ul>
+<li>Excel - pain curve…</li>
+<li>Power BI - dashboard, data, built-in to M365 licences</li>
+<li>Tableau - specialist, cost</li>
+<li>Python</li>
+<li>(hundreds of proprietary data analysis platforms)</li>
+</ul>
+</section>
+<section id="pain-curves" class="level2">
+<h2 class="anchored" data-anchor-id="pain-curves">Pain curves</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="why_bother_with_R_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="why_bother_with_R_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="r-code-in-practice" class="level2">
+<h2 class="anchored" data-anchor-id="r-code-in-practice">R code in practice</h2>
+<ul>
+<li>really interesting data on <a href="https://docs.google.com/spreadsheets/d/1KJNYbdFh058-yDEI61IjfVmFWb_qhSZ1/edit#gid=1917687209">poisonous books</a> (via <a href="https://www.data-is-plural.com/">Data is Plural</a>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the downloaded data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>books <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/ArsenicalBooks_CSVtoshare_2024-05-04.xlsx - EmeraldGreenBooks.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">as.numeric</span>(Date)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>we’ve got data about 266 books</li>
+<li>the oldest book in the set is from 1797, and the youngest from 1892</li>
+</ul>
+<section id="where-are-the-poisonous-bits-of-books" class="level3">
+<h3 class="anchored" data-anchor-id="where-are-the-poisonous-bits-of-books">Where are the poisonous bits of books?</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>books <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="st">`</span><span class="at">Arsenical Material</span><span class="st">`</span>, <span class="at">sort =</span> T) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Arsenical Material</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">bookcloth</td>
+<td style="text-align: right;">130</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paper cover</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">decorative green onlay</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">textblock edges</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paper covering</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paper over boards</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paper spine label</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="when-were-poisonous-books-a-thing" class="level3">
+<h3 class="anchored" data-anchor-id="when-were-poisonous-books-a-thing">When were poisonous books a thing?</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>books <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> Date), <span class="at">binwidth =</span> <span class="dv">10</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="why_bother_with_R_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="where-were-poisonous-books-a-thing" class="level3">
+<h3 class="anchored" data-anchor-id="where-were-poisonous-books-a-thing">Where were poisonous books a thing?</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>books <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">separate</span>(Imprint, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"City"</span>, <span class="st">"Publisher"</span>), <span class="at">sep =</span> <span class="st">": "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(City) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(n, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">City</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">London</td>
+<td style="text-align: right;">69</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Boston</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Edinburgh</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Philadelphia</td>
+<td style="text-align: right;">16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<ul>
+<li>self-paced
+<ul>
+<li><a href="https://swirlstats.com/">Swirl</a></li>
+<li><a href="https://r4ds.hadley.nz//"><strong>R4DS</strong></a> <span class="citation" data-cites="R4DS">(<a href="#ref-R4DS" role="doc-biblioref">Wickham and Grolemund 2017</a>)</span></li>
+<li>write/fail/<a href="https://stackoverflow.com/questions/tagged/r">stackoverflow</a> cycle</li>
+<li><a href="https://public-health-scotland.github.io/knowledge-base/">PHS Data Science Knowledge Base</a></li>
+</ul></li>
+<li>KIND Learning Network training
+<ul>
+<li>introductory R and Rmarkdown - <a href="https://github.com/bclarke-nes/Introductory-R-and-Rmarkdown">code</a>/<a href="https://learn.nes.nhs.scot/62249">info</a></li>
+<li>intermediate R - <a href="https://github.com/bclarke-nes/Intermediate-R">code</a>/<a href="https://learn.nes.nhs.scot/64644">info</a></li>
 </ul></li>
 </ul>
 </section>
-<section id="this-session-honest-application-focused-introduction" class="level2">
-<h2 class="anchored" data-anchor-id="this-session-honest-application-focused-introduction">This session = honest, application-focused, introduction</h2>
+<section id="r-beginners-club" class="level2">
+<h2 class="anchored" data-anchor-id="r-beginners-club">R beginners club</h2>
 <ul>
-<li>we’ll build three example flows that will:
-<ol type="1">
-<li>take an Excel workbook, extract some parts of it, and save as a new Excel file</li>
-<li>turn a response to Microsoft Forms into a Teams post</li>
-<li>turn an Excel workbook into a simple mailing list</li>
-</ol></li>
+<li>social learning on Teams to get you started in R</li>
+<li>see <a href="https://nes-dew.github.io/KIND-community-standards/rbc/about.html">schedule and materials on our community pages</a></li>
+<li>all welcome and aimed at complete R beginners</li>
 </ul>
-</section>
-<section id="subset-an-excel-file" class="level2">
-<h2 class="anchored" data-anchor-id="subset-an-excel-file">Subset an Excel file</h2>
-<ul>
-<li>you’ll need a sample data file - I used <a href="https://opendata.scot/datasets/falkirk+council-council+asset+register+-+falkirk/">this open data about council assets from Falkirk</a></li>
-<li>I coverted the data to a table, then saved the workbook to OneDrive</li>
-<li><code>New flow &gt; Instant cloud flow</code> <br><img src="images/clipboard-1863368884.png" class="img-fluid" alt="Instant cloud flow"></li>
-<li><code>Manually trigger a flow</code> <br><img src="images/clipboard-2098982554.png" class="img-fluid" alt="Manually trigger a flow"></li>
-<li>Add a step <br><img src="images/clipboard-186036160.png" class="img-fluid" alt="Add a step"></li>
-<li><code>Excel online &gt; List rows present in a table</code> and populate<br> <img src="images/clipboard-523258398.png" class="img-fluid" alt="List rows present in a table"></li>
-<li>there are several ways we could subset the data<br> <img src="images/clipboard-909526396.png" class="img-fluid" alt="subset the data"></li>
-<li>we’ll demonstrate by taking the first 20 rows<br> <img src="images/clipboard-3113671612.png" class="img-fluid" alt="take the first 20 rows"></li>
-<li><code>Create csv table</code> <br> <img src="images/clipboard-1492307871.png" class="img-fluid" alt="Create csv table"></li>
-<li><code>Create file</code> <br><img src="images/clipboard-3364586860.png" class="img-fluid" alt="Create file"><br>
-</li>
-</ul>
-</section>
-<section id="microsoft-forms-to-teams" class="level2">
-<h2 class="anchored" data-anchor-id="microsoft-forms-to-teams">Microsoft Forms to Teams</h2>
-<ul>
-<li>here’s an overview<br><img src="images/clipboard-3171169259.png" class="img-fluid"></li>
-<li>create a simple form (ours is at <a href="https://forms.office.com/e/8Zds2aTS5c" class="uri">https://forms.office.com/e/8Zds2aTS5c</a>)<br><img src="images/clipboard-2678316851.png" class="img-fluid" alt="create a simple form"></li>
-<li>grab the form id <br><img src="images/clipboard-3599278669.png" class="img-fluid" alt="grab the form id"></li>
-<li>create an <code>Build an automated cloud flow</code> - <br><img src="images/clipboard-3500499466.png" class="img-fluid" alt="Build an automated cloud flow"></li>
-<li>Enter your form ID <br><img src="images/clipboard-977889460.png" class="img-fluid" alt="Enter your form ID">(veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMU9LWURaUUhUT0xYOUtNQVY1UFpURTQ1Vi4u)</li>
-<li><code>Get response details</code> <br><img src="images/clipboard-1023983558.png" class="img-fluid" alt="Get response details"></li>
-<li>Populate with the form and step details <br><img src="images/clipboard-3695518768.png" class="img-fluid" alt="Populate with the form and step details"></li>
-<li><code>Post message in a chat or channel</code> <br><img src="images/clipboard-3431396843.png" class="img-fluid" alt="Post message in a chat or channel"></li>
-</ul>
-</section>
-<section id="excel-workbook-to-mailing-list" class="level2">
-<h2 class="anchored" data-anchor-id="excel-workbook-to-mailing-list">Excel workbook to mailing list</h2>
-<ul>
-<li>here’s an overview <br><img src="images/clipboard-985184515.png" class="img-fluid" alt="overview"></li>
-<li>start with a simple .xlsx. Again, that will need to be on Sharepoint or Onedrive <br><img src="images/clipboard-719218061.png" class="img-fluid" alt="start with a simple .xlsx"></li>
-<li><code>List rows present in a table</code> <br><img src="images/clipboard-2050216422.png" class="img-fluid" alt="Add a List rows present in a table"></li>
-<li><code>Apply to each</code> <br><img src="images/clipboard-1086607329.png" class="img-fluid" alt="Apply to each"></li>
-<li><code>Send an email notification (V3)</code> nested inside the <code>Apply to each</code><br><img src="images/clipboard-708934752.png" class="img-fluid" alt="Nest your email notification inside an apply to each"></li>
-<li>add the expression <code>items('For_each')?['email']</code> <img src="images/clipboard-4251490288.png" class="img-fluid" alt="add the expression items('For_each')?['email']"></li>
-<li>enjoy the result<br><img src="images/clipboard-1453222920.png" class="img-fluid" alt="Many emails result"></li>
-</ul>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-ggalluvial" class="csl-entry" role="listitem">
+Brunson, Jason Cory, and Quentin D. Read. 2020. <span>“Ggalluvial: Alluvial Plots in ’Ggplot2’.”</span> <a href="http://corybrunson.github.io/ggalluvial/">http://corybrunson.github.io/ggalluvial/</a>.
+</div>
+<div id="ref-chambers1998" class="csl-entry" role="listitem">
+Chambers, John M. 1998. <em>Programming with Data: A Guide to the <span>S</span> Language</em>. Berlin: Springer-Verlag.
+</div>
+<div id="ref-infer" class="csl-entry" role="listitem">
+Couch, Simon P., Andrew P. Bray, Chester Ismay, Evgeni Chasnovski, Benjamin S. Baumer, and Mine Çetinkaya-Rundel. 2021. <span>“<span></span>Infer<span></span>: An <span></span>r<span></span> Package for Tidyverse-Friendly Statistical Inference”</span> 6: 3661. <a href="https://doi.org/10.21105/joss.03661">https://doi.org/10.21105/joss.03661</a>.
+</div>
+<div id="ref-PRISMA2020" class="csl-entry" role="listitem">
+Haddaway, Neal R, Chris C Pritchard, and Luke A McGuinness. 2021. <span>“PRISMA2020: <span>R</span> Package and ShinyApp for Producing PRISMA 2020 Compliant Flow Diagrams (Version 0.0.2).”</span> <a href="https://doi.org/10.5281/zenodo.5082518">https://doi.org/10.5281/zenodo.5082518</a>.
+</div>
+<div id="ref-ihaka1998r" class="csl-entry" role="listitem">
+Ihaka, Ross. 1998. <span>“R: Past and Future History.”</span> <em>Computing Science and Statistics</em> 392396. <a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/Interface98.pdf">https://www.stat.auckland.ac.nz/~ihaka/downloads/Interface98.pdf</a>.
+</div>
+<div id="ref-waffle" class="csl-entry" role="listitem">
+Rudis, Bob, and Dave Gandy. 2017. <span>“Waffle: Create Waffle Chart Visualizations in <span>R</span>.”</span> <a href="https://CRAN.R-project.org/package=waffle">https://CRAN.R-project.org/package=waffle</a>.
+</div>
+<div id="ref-tidytext" class="csl-entry" role="listitem">
+Silge, Julia, and David Robinson. 2016. <span>“Tidytext: Text Mining and Analysis Using Tidy Data Principles in <span>R</span>”</span> 1. <a href="https://doi.org/10.21105/joss.00037">https://doi.org/10.21105/joss.00037</a>.
+</div>
+<div id="ref-posterdown" class="csl-entry" role="listitem">
+Thorne, W. Brent. 2019. <span>“Posterdown: An <span>R</span> Package Built to Generate Reproducible Conference Posters for the Academic and Professional World Where Powerpoint and Pages Just Won’t Cut It.”</span> <a href="https://github.com/brentthorne/posterdown">https://github.com/brentthorne/posterdown</a>.
+</div>
+<div id="ref-R4DS" class="csl-entry" role="listitem">
+Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for Data Science : Import, Tidy, Transform, Visualize, and Model Data</em>. First edition. Sebastopol, CA: O’Reilly Media.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

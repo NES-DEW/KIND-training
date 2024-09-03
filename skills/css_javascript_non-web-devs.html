@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-08-08">
+<meta name="dcterms.date" content="2023-10-26">
 
-<title>Power Automate for health and care – KIND training pages</title>
+<title>CSS and Javascript for non-web developers – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -42,7 +76,6 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -156,16 +189,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#a-word-of-warning" id="toc-a-word-of-warning" class="nav-link" data-scroll-target="#a-word-of-warning">A word of warning</a></li>
-  <li><a href="#quick-introduction-to-power-automate" id="toc-quick-introduction-to-power-automate" class="nav-link" data-scroll-target="#quick-introduction-to-power-automate">Quick introduction to Power Automate</a></li>
-  <li><a href="#scope-of-the-possible" id="toc-scope-of-the-possible" class="nav-link" data-scroll-target="#scope-of-the-possible">Scope of the possible</a></li>
-  <li><a href="#this-session-honest-application-focused-introduction" id="toc-this-session-honest-application-focused-introduction" class="nav-link" data-scroll-target="#this-session-honest-application-focused-introduction">This session = honest, application-focused, introduction</a></li>
-  <li><a href="#subset-an-excel-file" id="toc-subset-an-excel-file" class="nav-link" data-scroll-target="#subset-an-excel-file">Subset an Excel file</a></li>
-  <li><a href="#microsoft-forms-to-teams" id="toc-microsoft-forms-to-teams" class="nav-link" data-scroll-target="#microsoft-forms-to-teams">Microsoft Forms to Teams</a></li>
-  <li><a href="#excel-workbook-to-mailing-list" id="toc-excel-workbook-to-mailing-list" class="nav-link" data-scroll-target="#excel-workbook-to-mailing-list">Excel workbook to mailing list</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#usual-words-of-warning" id="toc-usual-words-of-warning" class="nav-link" data-scroll-target="#usual-words-of-warning">Usual words of warning</a></li>
+  <li><a href="#a-view-from-web-1.0" id="toc-a-view-from-web-1.0" class="nav-link" data-scroll-target="#a-view-from-web-1.0">A view from web 1.0</a></li>
+  <li><a href="#web-1.0-to-whatever-weve-got-now" id="toc-web-1.0-to-whatever-weve-got-now" class="nav-link" data-scroll-target="#web-1.0-to-whatever-weve-got-now">Web 1.0 to whatever we’ve got now</a></li>
+  <li><a href="#a-view-from-web-1.0-1" id="toc-a-view-from-web-1.0-1" class="nav-link" data-scroll-target="#a-view-from-web-1.0-1">A view from web 1.0</a></li>
+  <li><a href="#the-stars-look-very-different-etc-etc" id="toc-the-stars-look-very-different-etc-etc" class="nav-link" data-scroll-target="#the-stars-look-very-different-etc-etc">The stars look very different, etc, etc</a></li>
+  <li><a href="#wheres-the-style-coming-from" id="toc-wheres-the-style-coming-from" class="nav-link" data-scroll-target="#wheres-the-style-coming-from">Where’s the style coming from</a></li>
+  <li><a href="#minifying" id="toc-minifying" class="nav-link" data-scroll-target="#minifying">Minifying</a></li>
+  <li><a href="#unminifying" id="toc-unminifying" class="nav-link" data-scroll-target="#unminifying">Unminifying</a></li>
+  <li><a href="#so-why-so-complicated" id="toc-so-why-so-complicated" class="nav-link" data-scroll-target="#so-why-so-complicated">So why so complicated?</a></li>
+  <li><a href="#lets-have-a-play-with-something-simpler" id="toc-lets-have-a-play-with-something-simpler" class="nav-link" data-scroll-target="#lets-have-a-play-with-something-simpler">Let’s have a play with something simpler</a></li>
+  <li><a href="#elements" id="toc-elements" class="nav-link" data-scroll-target="#elements">Elements?</a></li>
+  <li><a href="#style" id="toc-style" class="nav-link" data-scroll-target="#style">Style?</a></li>
+  <li><a href="#lack-of-style" id="toc-lack-of-style" class="nav-link" data-scroll-target="#lack-of-style">Lack of style</a></li>
+  <li><a href="#why-does-this-help" id="toc-why-does-this-help" class="nav-link" data-scroll-target="#why-does-this-help">Why does this help?</a></li>
+  <li><a href="#an-application-inline-styling" id="toc-an-application-inline-styling" class="nav-link" data-scroll-target="#an-application-inline-styling">An application: inline styling</a></li>
+  <li><a href="#an-application-linked-css" id="toc-an-application-linked-css" class="nav-link" data-scroll-target="#an-application-linked-css">An application: linked CSS</a></li>
+  <li><a href="#five-minutes-of-javascript" id="toc-five-minutes-of-javascript" class="nav-link" data-scroll-target="#five-minutes-of-javascript">Five minutes of Javascript</a></li>
+  <li><a href="#js-in-shiny" id="toc-js-in-shiny" class="nav-link" data-scroll-target="#js-in-shiny">JS in Shiny</a></li>
+  <li><a href="#custom-bi-visualisations" id="toc-custom-bi-visualisations" class="nav-link" data-scroll-target="#custom-bi-visualisations">Custom BI visualisations</a></li>
+  <li><a href="#final" id="toc-final" class="nav-link" data-scroll-target="#final">Final</a></li>
   </ul>
 </nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -178,10 +222,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Power Automate for health and care</h1>
+<h1 class="title">CSS and Javascript for non-web developers</h1>
   <div class="quarto-categories">
     <div class="quarto-category">skills</div>
     <div class="quarto-category">beginner</div>
+    <div class="quarto-category">CSS</div>
+    <div class="quarto-category">Javascript</div>
   </div>
   </div>
 
@@ -193,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 8, 2024</p>
+      <p class="date">October 26, 2023</p>
     </div>
   </div>
   
@@ -205,171 +251,288 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="previous-attendees-have-said" class="level2">
-<h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <ul>
-<li>8 previous attendees have left feedback</li>
-<li>88% said that this session was pitched correctly</li>
-<li>100% would recommend this session to a colleague</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Three random comments from previous attendees
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<li>CSS and Javascript are central topics for web developers</li>
+<li>As web tech dominates analytic tech, they’re increasingly of interest to analysts and other knowledge workers
 <ul>
-<li>Too quick, no time to test out learning, see details of where to click and do things.</li>
-<li>Thought the training was very interesting, and excellent to see how Power Automate can be used to simplify the workload. Would be keen on more training in this and the coding part as it’s not something that I understand.</li>
-<li>Great starting point!</li>
-</ul>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Session materials
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
+<li>e.g.&nbsp;basically everything is built on browsers (esp.&nbsp;Chromium)</li>
+</ul></li>
+<li>specific examples here are mainly R-ish
 <ul>
-<li><a href="src/power_automate.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
-<li>slides <a href="src/power_automate.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/power_automate.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<li>theme-ing Shiny, Rmarkdown, and similar</li>
+<li>building custom Power BI visuals</li>
+</ul></li>
+<li>the take-aways are generic
 <ul>
-<li>this session is 🌶 - for beginners</li>
-</ul>
-</section>
-<section id="session-outline" class="level2">
-<h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
-<ul>
-<li>a warning</li>
-<li>an introduction</li>
-<li>scope of the possible</li>
-<li>three example tasks</li>
-<li>free play</li>
-</ul>
-</section>
-<section id="a-word-of-warning" class="level2">
-<h2 class="anchored" data-anchor-id="a-word-of-warning">A word of warning</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Do not use Power Automate for anything unless you’re absolutely sure that your organisational policies permit it</p>
-</div>
-</div>
-</div>
-<ul>
-<li>many boards and orgs have serious information governance and information security objections to Power Automate
-<ul>
-<li>automation tools are an excellent way to break your data</li>
-<li>they’re also an excellent way to compromise its integrity/security</li>
-<li>especially true if you’re thinking about automating processes with sensitive information</li>
-<li>if in any doubt, speak to your IG/Caldicott/information security colleagues before setting to work</li>
+<li>it’s useful to separate <strong>content</strong> and <strong>style</strong> and <strong>scripting</strong></li>
 </ul></li>
 </ul>
 </section>
-<section id="quick-introduction-to-power-automate" class="level2">
-<h2 class="anchored" data-anchor-id="quick-introduction-to-power-automate">Quick introduction to Power Automate</h2>
+<section id="usual-words-of-warning" class="level2">
+<h2 class="anchored" data-anchor-id="usual-words-of-warning">Usual words of warning</h2>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Microsoft_Power_Automate">Power Automate</a> is a set of low-code automation tools</li>
-<li>allows users to automate tasks</li>
-<li>lots of options
+<li>No claims about expertise here
 <ul>
-<li><a href="https:://www.powerautomate.com">web</a> and <a href="https://learn.microsoft.com/en-us/power-automate/desktop-flows/install">desktop versions</a></li>
-<li>several <a href="https://www.microsoft.com/en-us/power-platform/products/power-automate/#Pricing">different subscription levels</a></li>
-<li>hundreds of add-ons</li>
+<li>this is a beginner’s session by a beginner <br><img src="images/11hrs.png" class="img-fluid"></li>
+<li>definitely no stupid questions in this context</li>
+</ul></li>
+<li>it’s also an overview, rather than anything more in-depth
+<ul>
+<li>I wouldn’t expect to be that confident around CSS after just this session</li>
+<li>… but it’s a start</li>
 </ul></li>
 </ul>
 </section>
-<section id="scope-of-the-possible" class="level2">
-<h2 class="anchored" data-anchor-id="scope-of-the-possible">Scope of the possible</h2>
+<section id="a-view-from-web-1.0" class="level2">
+<h2 class="anchored" data-anchor-id="a-view-from-web-1.0">A view from web 1.0</h2>
+<p><a href="https://oldweb.today/?browser=ns4-mac#19991001/http://nasa.gov">Join me in the year 1998</a></p>
+</section>
+<section id="web-1.0-to-whatever-weve-got-now" class="level2">
+<h2 class="anchored" data-anchor-id="web-1.0-to-whatever-weve-got-now">Web 1.0 to whatever we’ve got now</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><img src="images/nasa_1998.png" class="img-fluid"> <a href="view-source:https://web.archive.org/web/19981202170636/http://www.nasa.gov/">source</a></p>
+</div><div class="column" style="width:10%;">
+<!-- empty column to create gap -->
+</div><div class="column" style="width:45%;">
+<p><img src="images/nasa_2023.png" class="img-fluid"></p>
+<p><a href="view-source:https://www.nasa.gov/">source</a></p>
+</div>
+</div>
+</section>
+<section id="a-view-from-web-1.0-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-view-from-web-1.0-1">A view from web 1.0</h2>
 <ul>
-<li>Power Automate is an extremely useful tool for H&amp;SC</li>
-<li>but you should be aware of some complicating factors for people like us:
+<li>written in HTML</li>
+<li>mixture of content and style and scripting</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">font</span><span class="ot"> face</span><span class="op">=</span><span class="st">"Helvetica, Arial"</span><span class="ot"> size</span><span class="op">=</span><span class="st">"2"</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">font</span><span class="ot"> color</span><span class="op">=</span><span class="st">"#000000"</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  "NASA is deeply committed to spreading the unique knowledge that flows from its aeronautics and space research...."</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">font</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">font</span><span class="dt">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="the-stars-look-very-different-etc-etc" class="level2">
+<h2 class="anchored" data-anchor-id="the-stars-look-very-different-etc-etc">The stars look very different, etc, etc</h2>
 <ul>
-<li><a href="https://make.powerautomate.com/environments/Default-10efe0bd-a030-4bca-809c-b5e6745e499a/templates">massive and confusing</a> range of different templates and use-cases, often with a business-focus</li>
-<li>a thick layer of promotional AI talk over everything at present (late 2024)</li>
-<li>unexpected cost/IG barriers to using parts of the platform</li>
-<li>glitchy, and often requiring more coding skills than you might expect</li>
-<li><a href="https://learn.microsoft.com/en-us/power-automate/">generally shockingly poor documentation</a></li>
+<li>the 2023 version is still written in HTML</li>
+<li>much longer (10x)</li>
+<li>but no style information</li>
+<li>and plenty of <a href="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js">linked javascript</a></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"margin-bottom-2"</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">h3</span><span class="ot"> class</span><span class="op">=</span><span class="st">"heading-16 line-height-md"</span><span class="dt">&gt;</span>NASA Kennedy Ready for Artemis II Moon Mission Ground Systems Testing<span class="dt">&lt;/</span><span class="kw">h3</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="wheres-the-style-coming-from" class="level2">
+<h2 class="anchored" data-anchor-id="wheres-the-style-coming-from">Where’s the style coming from</h2>
+<ul>
+<li><a href="https://www.nasa.gov/_static/??-eJyFjEEOwjAMBD+EccshKgfUt7ipWyIcp6qTRvyeiF64cVrtzmqwbuCTZtaMXkILiAU2KWtQw2J1Nlh2ilzT/jo7TiXIjJbfwnb1Zhf8keQnRzZUMsLGcJU0kYDS8ffKR1u/xjE+encfbq7rBvcB5IY8Bg==">this atrocity</a></li>
+<li>linked from the HTML page</li>
+<li>gives styling info for all the elements included on the page</li>
+</ul>
+</section>
+<section id="minifying" class="level2">
+<h2 class="anchored" data-anchor-id="minifying">Minifying</h2>
+<ul>
+<li>CSS (and JavaScript) are downloaded by the browser</li>
+<li>the larger the code, the slower the site</li>
+<li>this <a href="https://httparchive.org/reports/state-of-the-web">is a huge problem</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Minification_(programming)">minifying</a> is common - reducing the size of the code improves performance</li>
+</ul>
+</section>
+<section id="unminifying" class="level2">
+<h2 class="anchored" data-anchor-id="unminifying">Unminifying</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.bg-carbon-black</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#000</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">.bg-spacesuit-white</span> {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#fff</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">.bg-nasa-red</span> {</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#f64137</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<style type="text/css">
+.bg-carbon-black {
+  background-color: #000;
+}
+
+.bg-spacesuit-white {
+  background-color: #fff;
+}
+
+.bg-nasa-red {
+  background-color: #f64137;
+}
+</style>
+</div>
+<ul>
+<li><strong>selector</strong> (what <a href="https://www.w3schools.com/css/css_selectors.asp">does this style apply to?</a>)</li>
+<li><strong>declaration</strong> (which <a href="https://www.w3schools.com/css/css_colors.asp">properties and which values?</a>)</li>
+<li>look at <a href="src/nasa_css_demin">nasa_css_demin.css</a></li>
+</ul>
+</section>
+<section id="so-why-so-complicated" class="level2">
+<h2 class="anchored" data-anchor-id="so-why-so-complicated">So why so complicated?</h2>
+<ul>
+<li>there are lots of things that can be styled with CSS
+<ul>
+<li>that makes things potentially complicated</li>
+<li>but it also means that styling can be both precise and <em>very</em> radical</li>
+</ul></li>
+<li>from <a href="https://csszengarden.com/99/">bare text</a> to something <a href="https://csszengarden.com/">really nice</a></li>
+<li>growing ambitions from <a href="https://csszengarden.com/100/">c.2000-ish</a> / <a href="https://csszengarden.com/115/">and a bit later</a></li>
+<li><a href="https://csszengarden.com/219/">mad impressive CSS</a></li>
+</ul>
+</section>
+<section id="lets-have-a-play-with-something-simpler" class="level2">
+<h2 class="anchored" data-anchor-id="lets-have-a-play-with-something-simpler">Let’s have a play with something simpler</h2>
+<ul>
+<li><a href="https://www.w3schools.com/css/tryit.asp?filename=trycss_default">W3 Schools</a></li>
+</ul>
+</section>
+<section id="elements" class="level2">
+<h2 class="anchored" data-anchor-id="elements">Elements?</h2>
+<ul>
+<li><code>&lt;h3 class="heading-16 line-height-md"&gt;</code>
+<ul>
+<li><strong>name</strong> = <code>h3</code></li>
+<li><strong>class</strong> = <code>heading-16 line-height-md</code></li>
 </ul></li>
 </ul>
 </section>
-<section id="this-session-honest-application-focused-introduction" class="level2">
-<h2 class="anchored" data-anchor-id="this-session-honest-application-focused-introduction">This session = honest, application-focused, introduction</h2>
+<section id="style" class="level2">
+<h2 class="anchored" data-anchor-id="style">Style?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>h3 {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">hotpink</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">right</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">.key-word</span>{</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">color</span><span class="ch">:</span> <span class="cn">red</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">text-shadow</span><span class="ch">:</span> <span class="dv">2</span><span class="dt">px</span> <span class="dv">2</span><span class="dt">px</span> <span class="cn">#558abb</span><span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">.glossary</span>{</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">white</span><span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">color</span><span class="ch">:</span> <span class="cn">blue</span><span class="op">;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">font-size</span><span class="ch">:</span> <span class="dv">150</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="lack-of-style" class="level2">
+<h2 class="anchored" data-anchor-id="lack-of-style">Lack of style</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.horrid</span> {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">animation</span><span class="ch">:</span> <span class="dv">blinker 0.1</span><span class="dt">s</span> <span class="dv">linear</span> <span class="dv">infinite</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">@keyframes</span> blinker {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">50%</span> {</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">opacity</span><span class="ch">:</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="why-does-this-help" class="level2">
+<h2 class="anchored" data-anchor-id="why-does-this-help">Why does this help?</h2>
 <ul>
-<li>we’ll build three example flows that will:
-<ol type="1">
-<li>take an Excel workbook, extract some parts of it, and save as a new Excel file</li>
-<li>turn a response to Microsoft Forms into a Teams post</li>
-<li>turn an Excel workbook into a simple mailing list</li>
-</ol></li>
+<li>the dream of the <a href="https://en.wikipedia.org/wiki/Semantic_Web">semantic web</a></li>
+<li>CSS = cascading style sheets
+<ul>
+<li>granular control over styling</li>
+</ul></li>
+<li>strategy for managing complexity
+<ul>
+<li>break out all the styling information into one place</li>
+<li>get it away from the content</li>
+</ul></li>
 </ul>
 </section>
-<section id="subset-an-excel-file" class="level2">
-<h2 class="anchored" data-anchor-id="subset-an-excel-file">Subset an Excel file</h2>
+<section id="an-application-inline-styling" class="level2">
+<h2 class="anchored" data-anchor-id="an-application-inline-styling">An application: inline styling</h2>
 <ul>
-<li>you’ll need a sample data file - I used <a href="https://opendata.scot/datasets/falkirk+council-council+asset+register+-+falkirk/">this open data about council assets from Falkirk</a></li>
-<li>I coverted the data to a table, then saved the workbook to OneDrive</li>
-<li><code>New flow &gt; Instant cloud flow</code> <br><img src="images/clipboard-1863368884.png" class="img-fluid" alt="Instant cloud flow"></li>
-<li><code>Manually trigger a flow</code> <br><img src="images/clipboard-2098982554.png" class="img-fluid" alt="Manually trigger a flow"></li>
-<li>Add a step <br><img src="images/clipboard-186036160.png" class="img-fluid" alt="Add a step"></li>
-<li><code>Excel online &gt; List rows present in a table</code> and populate<br> <img src="images/clipboard-523258398.png" class="img-fluid" alt="List rows present in a table"></li>
-<li>there are several ways we could subset the data<br> <img src="images/clipboard-909526396.png" class="img-fluid" alt="subset the data"></li>
-<li>we’ll demonstrate by taking the first 20 rows<br> <img src="images/clipboard-3113671612.png" class="img-fluid" alt="take the first 20 rows"></li>
-<li><code>Create csv table</code> <br> <img src="images/clipboard-1492307871.png" class="img-fluid" alt="Create csv table"></li>
-<li><code>Create file</code> <br><img src="images/clipboard-3364586860.png" class="img-fluid" alt="Create file"><br>
-</li>
+<li>I’ll style this text with some css</li>
+<li>I’ll <span style="color: red"> style this text with some css</span></li>
+</ul>
+#| echo: true
+I'll <span style="color: red"> style this text with some css</span>
+</section>
+<section id="an-application-linked-css" class="level2">
+<h2 class="anchored" data-anchor-id="an-application-linked-css">An application: linked CSS</h2>
+<ul>
+<li>we could link a CSS file via the yaml header of this page</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">revealjs</span><span class="kw">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">default</span><span class="kw">,</span><span class="at"> custom.scss</span><span class="kw">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>we could style a single element with inline CSS</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.reveal</span> <span class="fu">.slide-logo</span> {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">height</span><span class="ch">:</span> <span class="dv">85</span><span class="dt">px</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">width</span><span class="ch">:</span> <span class="dv">300</span><span class="dt">px</span><span class="at">!important</span><span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">max-width</span><span class="ch">:</span> <span class="bu">unset</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">max-height</span><span class="ch">:</span> <span class="bu">unset</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>and we can add to that single styling</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.reveal</span> h2 {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">red</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="five-minutes-of-javascript" class="level2">
+<h2 class="anchored" data-anchor-id="five-minutes-of-javascript">Five minutes of Javascript</h2>
+<ul>
+<li>scripting language</li>
+<li>excellent integration with HTML and CSS</li>
+<li>really powerful integration with Rmarkdown via <code>htmltools</code></li>
 </ul>
 </section>
-<section id="microsoft-forms-to-teams" class="level2">
-<h2 class="anchored" data-anchor-id="microsoft-forms-to-teams">Microsoft Forms to Teams</h2>
+<section id="js-in-shiny" class="level2">
+<h2 class="anchored" data-anchor-id="js-in-shiny">JS in Shiny</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">button</span>(<span class="fu">HTML</span>(<span class="st">"document.write('Hello World');"</span>)),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(<span class="at">src =</span> <span class="st">"my_script.js"</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">includeScript</span>(<span class="at">path =</span> <span class="st">"my_script3.js"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="custom-bi-visualisations" class="level2">
+<h2 class="anchored" data-anchor-id="custom-bi-visualisations">Custom BI visualisations</h2>
 <ul>
-<li>here’s an overview<br><img src="images/clipboard-3171169259.png" class="img-fluid"></li>
-<li>create a simple form (ours is at <a href="https://forms.office.com/e/8Zds2aTS5c" class="uri">https://forms.office.com/e/8Zds2aTS5c</a>)<br><img src="images/clipboard-2678316851.png" class="img-fluid" alt="create a simple form"></li>
-<li>grab the form id <br><img src="images/clipboard-3599278669.png" class="img-fluid" alt="grab the form id"></li>
-<li>create an <code>Build an automated cloud flow</code> - <br><img src="images/clipboard-3500499466.png" class="img-fluid" alt="Build an automated cloud flow"></li>
-<li>Enter your form ID <br><img src="images/clipboard-977889460.png" class="img-fluid" alt="Enter your form ID">(veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMU9LWURaUUhUT0xYOUtNQVY1UFpURTQ1Vi4u)</li>
-<li><code>Get response details</code> <br><img src="images/clipboard-1023983558.png" class="img-fluid" alt="Get response details"></li>
-<li>Populate with the form and step details <br><img src="images/clipboard-3695518768.png" class="img-fluid" alt="Populate with the form and step details"></li>
-<li><code>Post message in a chat or channel</code> <br><img src="images/clipboard-3431396843.png" class="img-fluid" alt="Post message in a chat or channel"></li>
+<li><a href="https://learn.microsoft.com/en-gb/power-bi/developer/visuals/develop-circle-card#add-visual-elements-and-text">nice walkthrough</a></li>
 </ul>
 </section>
-<section id="excel-workbook-to-mailing-list" class="level2">
-<h2 class="anchored" data-anchor-id="excel-workbook-to-mailing-list">Excel workbook to mailing list</h2>
+<section id="final" class="level2">
+<h2 class="anchored" data-anchor-id="final">Final</h2>
 <ul>
-<li>here’s an overview <br><img src="images/clipboard-985184515.png" class="img-fluid" alt="overview"></li>
-<li>start with a simple .xlsx. Again, that will need to be on Sharepoint or Onedrive <br><img src="images/clipboard-719218061.png" class="img-fluid" alt="start with a simple .xlsx"></li>
-<li><code>List rows present in a table</code> <br><img src="images/clipboard-2050216422.png" class="img-fluid" alt="Add a List rows present in a table"></li>
-<li><code>Apply to each</code> <br><img src="images/clipboard-1086607329.png" class="img-fluid" alt="Apply to each"></li>
-<li><code>Send an email notification (V3)</code> nested inside the <code>Apply to each</code><br><img src="images/clipboard-708934752.png" class="img-fluid" alt="Nest your email notification inside an apply to each"></li>
-<li>add the expression <code>items('For_each')?['email']</code> <img src="images/clipboard-4251490288.png" class="img-fluid" alt="add the expression items('For_each')?['email']"></li>
-<li>enjoy the result<br><img src="images/clipboard-1453222920.png" class="img-fluid" alt="Many emails result"></li>
+<li><strong>content</strong> and <strong>style</strong> and <strong>scripting</strong></li>
 </ul>
 
 
