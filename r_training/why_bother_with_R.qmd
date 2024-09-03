@@ -1,0 +1,267 @@
+---
+title: Why bother with R?
+date: 2024-06-03
+execute: 
+  echo: true
+  eval: true
+  freeze: auto
+  output: "markup"
+categories: [R, beginner, pre-beginner]
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib
+---
+
+## Session outline
+
+-   this session is 🥬 - a non-technical introduction for pre-beginners
+-   two minute overview of R
+-   one minute history of R
+-   five use cases in H&SC
+-   R code and practice and a bit of R vs not-R
+-   next steps and training
+
+## A brief overview of R
+
+> R is a free software environment for statistical computing and graphics ([r-project.org](https://www.r-project.org/about.html))
+
+-   free and open-source
+-   multiplatform
+-   large user base
+-   prominent in health, industry, biosciences
+
+### Who owns R?
+
+-   [R Foundation](https://www.r-project.org/foundation/)
+    -   Maintains [CRAN](https://cran.r-project.org/mirrors.html)
+    -   Links with [FSF](https://www.fsf.org/)
+
+### Architecture
+
+-   R is modular
+-   [20 thousand + packages](https://cran.r-project.org/web/packages/)
+-   Enormous [scope of applications](https://cran.r-project.org/web/packages/available_packages_by_date.html)
+-   Design questions often hinge on finding the right package
+-   e.g. this presentation was created in R Quarto using [Revealjs](https://quarto.org/docs/presentations/revealjs/)
+-   So there's a good reason that R can be confusing: it's not one thing, but many
+
+### A brief history of R
+
+-   it starts with the [S](https://en.wikipedia.org/wiki/S_(programming_language)) programming language
+
+    > Aimed: to "turn ideas into software, quickly and faithfully" [@chambers1998]
+
+-   Robert Gentleman and Ross Ihaka [@ihaka1998r]
+    -   Interest in extending the tools available in [S](https://en.wikipedia.org/wiki/S_(programming_language))
+    -   Early transition to free software model
+    -   1997 "core group"
+
+## Use cases
+
+### Statistical testing
+
+```{r}
+#| echo: false
+library(dplyr)
+library(infer)
+gss |>
+  slice(1:3) |>
+  select(college, finrela) |>
+  knitr::kable()
+```
+
+```{r}
+library(infer)
+chisq_test(gss, college ~ finrela) |>
+  knitr::kable()
+```
+
+chi-squared test of independence using [@infer]
+
+### PRISMA 2020 flow diagrams
+
+```{r}
+#| eval: false
+#| echo: false
+#absolutely needs read.csv rather than read_csv
+read.csv("data/PRISMA_data.csv") %>%
+  PRISMA_data() %>%
+  PRISMA_flowdiagram(., 
+                   fontsize = 14,
+                          title_colour = "AquaMarine",
+                           greybox_colour = "MistyRose",
+                           interactive = FALSE,
+                           previous = TRUE,
+                           other = FALSE,
+                           side_boxes = FALSE)
+
+```
+
+![PRISMA flow diagram](images/clipboard-3433967081.png)
+
+PRISMA flow diagram using PRISMA2020 [@PRISMA2020]
+
+### Mapping
+
+![Choropleth map using geojsonio](images/clipboard-1120687975.png)
+
+Choropleth map using [geojsonio](https://cran.r-project.org/web/packages/geojsonio/index.html)
+
+### Posters
+
+![Conference poster using posterdown](images/clipboard-4046306589.png)
+
+Conference poster using posterdown [@posterdown], waffle [@waffle], and ggalluvial [@ggalluvial]
+
+### Natural language processing / wordclouds
+
+![Sentiment analysis with wordcloud](images/clipboard-3781022281.png)
+
+Sentiment analysis with wordcloud using tidytext [@tidytext], [lexicon](https://github.com/trinker/lexicon), [sentimentr](https://github.com/trinker/sentimentr), and [wordcloud](https://cran.r-project.org/web/packages/wordcloud/index.html)
+
+## Uses
+
+### Who is using it?
+
+-   PHS
+-   widely across SG
+-   sporadically used across NHSS boards
+
+### Why are they using it?
+
+-   to replace troublesome systems
+    -   SPSS and other propriatary systems (licencing costs)
+    -   replacing end-of-life systems (Access e.g.)
+-   to harmonise analysis across a team (common analysis platform)
+-   SG committment to open-source code under [DSSS](https://www.gov.scot/publications/digital-scotland-service-standard/pages/11--make-new-source-code-open/)
+
+### Simplifying analysis
+
+(looking at you, Excel...)
+
+-   R separates data from analysis
+-   "there's a package for..."
+-   reproducible analysis
+-   collaboration
+- XmR charts in Excel and in R are a useful object lesson...
+
+#### XmR charts in Excel (front)
+
+![XmR charts (front)](images/clipboard-1441622568.png)
+
+#### XmR charts in Excel (back)
+
+![XmR charts (back)](images/clipboard-3971449425.png)XmR charts (R)
+
+#### XmR charts in R
+
+```{r}
+#| echo: true
+#| cache: true
+library(NHSRplotthedots)
+
+readr::read_csv("data/spc/spc2.csv") |>
+    mutate(date = lubridate::dmy(date)) |>
+    ptd_spc(members, date, target=50, fix_after_n_points=20) 
+
+```
+
+## R and not-R
+
+-   Excel - pain curve...
+-   Power BI - dashboard, data, built-in to M365 licences
+-   Tableau - specialist, cost
+-   Python
+-   (hundreds of proprietary data analysis platforms)
+
+## Pain curves 
+
+```{r}
+#| echo: false
+library(ggplot2)
+pain_curves <- ggplot() +
+  xlim(0L, 10L) +
+  geom_function(fun= ~.x^2, n = 10000, color = "lightgreen", linewidth = 2) +
+  geom_text(aes(x = 9, y=100), color = "lightgreen", label = "Excel", size = 12) +
+  xlab("Experience") +
+  ylab("Pain") + 
+   theme(axis.ticks = element_blank(),
+        axis.text = element_blank()) 
+```
+
+```{r}
+#| echo: false
+pain_curves
+```
+
+
+```{r}
+#| echo: false
+pain_curves + geom_function(
+  fun = ~ 100 - 10 * .x,
+  n = 10000,
+  linewidth = 2
+) +
+  geom_text(aes(x = 1, y = 100),
+            label = "R",
+            size = 12)
+
+```
+
+## R code in practice
+
+-   really interesting data on [poisonous books](https://docs.google.com/spreadsheets/d/1KJNYbdFh058-yDEI61IjfVmFWb_qhSZ1/edit#gid=1917687209) (via [Data is Plural](https://www.data-is-plural.com/))
+
+```{r}
+# load the downloaded data
+books <- readr::read_csv("data/ArsenicalBooks_CSVtoshare_2024-05-04.xlsx - EmeraldGreenBooks.csv") |>
+  mutate(Date = as.numeric(Date)) 
+
+```
+
+-   we've got data about `r nrow(books)` books
+-   the oldest book in the set is from `r min(books$Date, na.rm = T)`, and the youngest from `r max(books$Date, na.rm = T)`
+
+### Where are the poisonous bits of books?
+
+```{r}
+books |>
+  count(`Arsenical Material`, sort = T) |>
+  slice(1:7) |>
+  knitr::kable() 
+```
+
+### When were poisonous books a thing?
+
+```{r}
+books |>
+  ggplot() +
+  geom_histogram(aes(x = Date), binwidth = 10) 
+```
+
+### Where were poisonous books a thing?
+
+```{r}
+books |>
+  tidyr::separate(Imprint, into = c("City", "Publisher"), sep = ": ") |>
+  count(City) |>
+  slice_max(n, n = 5) |>
+  knitr::kable() 
+```
+
+## Next steps
+
+-   self-paced
+    -   [Swirl](https://swirlstats.com/)
+    -   [**R4DS**](https://r4ds.hadley.nz//) [@R4DS]
+    -   write/fail/[stackoverflow](https://stackoverflow.com/questions/tagged/r) cycle
+    -   [PHS Data Science Knowledge Base](https://public-health-scotland.github.io/knowledge-base/)
+-   KIND Learning Network training
+    -   introductory R and Rmarkdown - [code](https://github.com/bclarke-nes/Introductory-R-and-Rmarkdown)/[info](https://learn.nes.nhs.scot/62249)
+    -   intermediate R - [code](https://github.com/bclarke-nes/Intermediate-R)/[info](https://learn.nes.nhs.scot/64644)
+
+## R beginners club
+
+-   social learning on Teams to get you started in R
+-   see [schedule and materials on our community pages](https://nes-dew.github.io/KIND-community-standards/rbc/about.html)
+-   all welcome and aimed at complete R beginners

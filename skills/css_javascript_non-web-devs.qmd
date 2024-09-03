@@ -1,0 +1,272 @@
+---
+title: CSS and Javascript for non-web developers
+date: 2023-10-26
+execute: 
+  echo: true
+  eval: true
+  freeze: auto
+  output: "markup"
+categories: [skills, beginner, CSS, Javascript]
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib
+---
+
+
+## Overview
+
++ CSS and Javascript are central topics for web developers
++ As web tech dominates analytic tech, they're increasingly of interest to analysts and other knowledge workers
+    + e.g. basically everything is built on browsers (esp. Chromium)
++ specific examples here are mainly R-ish
+    + theme-ing Shiny, Rmarkdown, and similar
+    + building custom Power BI visuals
++ the take-aways are generic
+    + it's useful to separate **content** and **style** and **scripting**
+
+## Usual words of warning
+
++ No claims about expertise here 
+    + this is a beginner's session by a beginner </br>![](images/11hrs.png)
+    + definitely no stupid questions in this context
++ it's also an overview, rather than anything more in-depth
+  + I wouldn't expect to be that confident around CSS after just this session
+  + ... but it's a start
+
+## A view from web 1.0
+[Join me in the year 1998](https://oldweb.today/?browser=ns4-mac#19991001/http://nasa.gov)
+
+## Web 1.0 to whatever we've got now
+
+:::: {.columns}
+
+::: {.column width="45%"}
+![](images/nasa_1998.png)
+<a href="view-source:https://web.archive.org/web/19981202170636/http://www.nasa.gov/">source</a>
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+![](images/nasa_2023.png)
+
+<a href="view-source:https://www.nasa.gov/">source</a>
+:::
+
+::::
+
+## A view from web 1.0
+
++ written in HTML
++ mixture of content and style and scripting
+
+```{html}
+#| echo: true
+<font face="Helvetica, Arial" size="2">
+  <font color="#000000">
+  "NASA is deeply committed to spreading the unique knowledge that flows from its aeronautics and space research...."
+  </font>
+</font>
+```
+
+
+
+## The stars look very different, etc, etc
+
++ the 2023 version is still written in HTML
++ much longer (10x)
++ but no style information
++ and plenty of [linked javascript](https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js)
+
+```{html}
+#| echo: true
+
+<div class="margin-bottom-2">
+  <h3 class="heading-16 line-height-md">NASA Kennedy Ready for Artemis II Moon Mission Ground Systems Testing</h3>
+</div>
+  
+```
+
+## Where's the style coming from
+
++ [this atrocity](https://www.nasa.gov/_static/??-eJyFjEEOwjAMBD+EccshKgfUt7ipWyIcp6qTRvyeiF64cVrtzmqwbuCTZtaMXkILiAU2KWtQw2J1Nlh2ilzT/jo7TiXIjJbfwnb1Zhf8keQnRzZUMsLGcJU0kYDS8ffKR1u/xjE+encfbq7rBvcB5IY8Bg==)
++ linked from the HTML page
++ gives styling info for all the elements included on the page
+
+## Minifying
+
++ CSS (and JavaScript) are downloaded by the browser
++ the larger the code, the slower the site
++ this [is a huge problem](https://httparchive.org/reports/state-of-the-web)
++ [minifying](https://en.wikipedia.org/wiki/Minification_(programming)) is common - reducing the size of the code improves performance
+
+## Unminifying
+
+```{css}
+#| echo: true
+.bg-carbon-black {
+  background-color: #000;
+}
+
+.bg-spacesuit-white {
+  background-color: #fff;
+}
+
+.bg-nasa-red {
+  background-color: #f64137;
+}
+```
+
++ **selector** (what [does this style apply to?](https://www.w3schools.com/css/css_selectors.asp))
++ **declaration** (which [properties and which values?](https://www.w3schools.com/css/css_colors.asp))
++ look at [nasa_css_demin.css](src/nasa_css_demin)
+
+## So why so complicated?
+
++ there are lots of things that can be styled with CSS
+    + that makes things potentially complicated
+    + but it also means that styling can be both precise and *very* radical
++ from [bare text](https://csszengarden.com/99/) to something [really nice](https://csszengarden.com/)
++ growing ambitions from [c.2000-ish](https://csszengarden.com/100/) / [and a bit later](https://csszengarden.com/115/)
++ [mad impressive CSS](https://csszengarden.com/219/)
+
+## Let's have a play with something simpler
+
++ [W3 Schools](https://www.w3schools.com/css/tryit.asp?filename=trycss_default)
+
+## Elements?
++ `<h3 class="heading-16 line-height-md">`
+    + **name** = `h3`
+    + **class** = `heading-16 line-height-md`
+
+
+## Style?
+
+```{css}
+#| echo: true
+#| eval: false
+
+h3 {
+  color: hotpink;
+  text-align: right;
+}
+
+.key-word{
+	color: red;
+    text-shadow: 2px 2px #558abb;
+    }
+    
+.glossary{
+	background-color: white;
+	color: blue;
+    font-size: 150%;
+    }
+    
+```
+
+## Lack of style
+
+```{css}
+#| echo: true
+#| eval: false
+
+.horrid {
+	animation: blinker 0.1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+```
+
+
+## Why does this help?
++ the dream of the [semantic web](https://en.wikipedia.org/wiki/Semantic_Web)
++ CSS = cascading style sheets
+    + granular control over styling
++ strategy for managing complexity
+    + break out all the styling information into one place
+    + get it away from the content
+
+
+## An application: inline styling
+
++ I'll style this text with some css
++ I'll <span style = "color: red"> style this text with some css</span>
+
+```{=html}
+#| echo: true
+I'll <span style = "color: red"> style this text with some css</span>
+```
+
+## An application: linked CSS
+
++ we could link a CSS file via the yaml header of this page
+
+```{yaml}
+#| echo: true
+format:
+    revealjs:
+        theme: [default, custom.scss]
+```
+
++ we could style a single element with inline CSS
+
+```{css}
+#| echo: true
+#| eval: false
+.reveal .slide-logo {
+        height: 85px !important;
+        width: 300px!important;
+        max-width: unset !important;
+        max-height: unset !important;
+      }
+```
+
++ and we can add to that single styling
+
+
+```{css}
+#| echo: true
+#| eval: false
+.reveal h2 {
+  color: red;
+}
+```
+
+## Five minutes of Javascript
+
++ scripting language
++ excellent integration with HTML and CSS
++ really powerful integration with Rmarkdown via `htmltools`
+
+## JS in Shiny
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(shiny)
+ui <- fluidPage(
+    tags$button(HTML("document.write('Hello World');")),
+    tags$script(src = "my_script.js"),
+    includeScript(path = "my_script3.js")
+    
+)
+server <- function(input, output, session) {
+}
+shinyApp(ui, server)
+```
+
+## Custom BI visualisations
+
++ [nice walkthrough](https://learn.microsoft.com/en-gb/power-bi/developer/visuals/develop-circle-card#add-visual-elements-and-text)
+
+## Final
+
++ **content** and **style** and **scripting**
