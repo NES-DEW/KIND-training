@@ -1,6 +1,7 @@
 feed_block <- function(title){
   source(here::here("R/bullet_list.R"))
-
+  library(ggplot2)
+  
   dat <- readxl::read_excel(here::here("data/KIND_training_feedback.xlsx")) |>
     dplyr::filter(stringr::str_detect(session_title, title))
   
@@ -8,18 +9,31 @@ feed_block <- function(title){
   
   results <- dat |>
     dplyr::mutate(describe = stringr::str_trim(stringr::str_remove_all(describe, "/.*$"))) |>
-    dplyr::count(describe) 
+    dplyr::count(describe)
   
-  plot <- tibble::tibble(
-    describe = vars
-  ) |> 
-    dplyr::left_join(results) |>
-    dplyr::mutate(n = tidyr::replace_na(n, 0), 
-           describe = factor(describe, levels = vars)) |>
-    ggplot2::ggplot() +
-    ggplot2::geom_col(ggplot2::aes(x = factor(describe), y = n), fill = "steelblue") +
-    ggplot2::geom_label(ggplot2::aes(label = describe, x = describe, y = max(n)/2), size = 3) +
-    ggplot2::theme_void()
+  pitcho <- results |>
+    dplyr::mutate(score = dplyr::case_when(describe == "About right" ~ 0,
+                                           describe == "Too easy" ~ -1,
+                                           describe == "Too hard" ~ 1)) |>
+    dplyr::mutate(blarn = (n * score)/sum(n)) |>
+    dplyr::pull(blarn) |>
+    sum(na.rm = T)
+  
+  plot <- tibble::tibble(xmin = -1, xmax = 1, ymin=0, ymax=.5) |>
+    ggplot() +
+    ggpattern::geom_rect_pattern(aes(xmin = xmin,
+                                     xmax = xmax,
+                                     ymin = ymin,
+                                     ymax = ymax,
+                                     pattern_fill = "#ffffcc",
+                                     pattern_fill2 = "#253494"),
+                                 pattern = "gradient",
+                                 pattern_orientation = "horizontal") +
+    geom_vline(aes(xintercept = pitcho), colour = "#fd8d3c", linewidth = 4) +
+    geom_label(aes(x = -.5, y = .25, label = "← Too easy")) +
+  geom_label(aes(x = .5, y = .25, label = "Too hard →")) +
+    ylim(-0.01,.51) +
+    theme_void()
   
   if (nrow(dat) == 0) {
     return(cat("No feedback found for this session"))
@@ -28,16 +42,17 @@ feed_block <- function(title){
     rite <- scales::percent((sum(dat$describe == "About right", na.rm = T) / nrow(dat)))
     rec <- scales::percent((sum(dat$recommend == "Yes", na.rm = T) / nrow(dat)))
     
-    cat("  \n## Previous attendees have said...  \n")
-    
     vec <- c(paste0(nrow(dat), " previous attendees have left feedback"),
              paste0(rec, " would recommend this session to a colleague"),
-             paste0(rite, " said that this session was pitched correctly:  \n"))
+             paste0(rite, " said that this session was pitched correctly  \n"))
+    
+    cat("  \n## Previous attendees have said...  \n")
+    cat("  \n")
     
     bullet_list(vec)
-    
+
+    cat("  \n")
     print(plot)
-    
     cat("  \n")
     cat("  \n")
     cat(":::{.callout-note}")
