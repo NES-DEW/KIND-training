@@ -21,10 +21,10 @@ feed_block <- function(title){
   
   plot <- tibble::tibble(xmin = -1, xmax = 1, ymin=0, ymax=.5) |>
     ggplot() +
-    geom_rect_pattern(aes(xmin = xmin,
+    geom_rect(aes(xmin = xmin,
                                      xmax = xmax,
                                      ymin = ymin,
-                                     ymax = ymax)) +
+                                     ymax = ymax), fill = "#78afed") +
     geom_vline(aes(xintercept = pitcho), colour = "#fd8d3c", linewidth = 4) +
     geom_label(aes(x = -.5, y = .25, label = "← Too easy")) +
   geom_label(aes(x = .5, y = .25, label = "Too hard →")) +
