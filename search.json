@@ -186,7 +186,7 @@
     "href": "r_training/testing.html#previous-attendees-have-said",
     "title": "Testing R code",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n4 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nvery well pitched and comprehensive session\nWhile intermediate, this was a great introduction to testing R code and providing plenty of things to think about and go try out\nuseful for ideas for implementing better testing in my code. As always, I susally pick up other things unrelated to the session that end up being more useful than the intended content. e.g. package installation/loading - I seem to be doing this all wrong!"
+    "text": "Previous attendees have said…\n\n4 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nWhile intermediate, this was a great introduction to testing R code and providing plenty of things to think about and go try out\nI think it was difficult for me to understand how to apply this to my code.\nvery well pitched and comprehensive session"
   },
   {
     "objectID": "r_training/testing.html#welcome",
@@ -228,14 +228,14 @@
     "href": "r_training/testing.html#testthat",
     "title": "Testing R code",
     "section": "testthat",
-    "text": "testthat\n\nUnit testing = automated, standardised, testing\nthe best place to start is with testthat:\n\n\nlibrary(testthat)\n\n\nhelpful man pages\nnice vignette\nmore ambitious guide to ad hoc testing with testthat\n\n\nFirst steps with testthat\n\nbuilt for R package developers\nbut readily usable for non-package people\n\n\ntest_that(\"multiplication works\", {\n  expect_equal(2 * 2, 4)\n})\n\nTest passed 🥇\n\n\n\n\nFunctions and testthat\n\ntestthat works best when you’re testing functions\nfunctions in R are easy:\n\n\nfunction_name &lt;- function(arg1 = default1, arg2 = default2){\n     arg1 * arg2 # using our argument names\n}\n\nor include the body inline for simple functions:\n\nfunction_name &lt;- function(arg1 = default1, arg2 = default2) arg1 * arg2\n\n\n\nTransform your code into functions\n\nmulto &lt;- function(n1, n2){\n  n1 * n2\n}\n\n\n\nTest your function\n\nthen test. We think that multo(2,2) should equal 4, so we use:\n\ntest_that() to set up our test environment\nexpect_equal() inside the test environment to check for equality\n\n\n\n# then run as a test\n\ntest_that(\"multo works with 2 and 2\", {\n    expect_equal(multo(2, 2), 4)\n})\n\nTest passed 🎉\n\n\n\n\nRaise your expectations\n\nwe can add more expectations\n\n\ntest_that(\"multo works in general\", {\n    expect_equal(multo(2, 2), 4)\n    expect_identical(multo(2,0.01), 0.02)\n    expect_type(multo(0,2), \"double\")\n    expect_length(multo(9,2), 1)\n    expect_gte(multo(4,4), 15)\n})\n\nTest passed 😀\n\n\n\n\nEqual and identical\n\nbeware the floating point error\n\n\n3 - 2.9\n\n[1] 0.1\n\n3 - 2.9 == 0.1\n\n[1] FALSE\n\n\n\nhappily, there’s a sufficiently sloppy way of checking equality:\n\n\ntest_that(\"pedants corner\", {\n  expect_equal(multo(2, 0.01), 0.020000001)\n  expect_identical(multo(2, 0.01), 0.02)\n})\n\nTest passed 🎊"
+    "text": "testthat\n\nUnit testing = automated, standardised, testing\nthe best place to start is with testthat:\n\n\nlibrary(testthat)\n\n\nhelpful man pages\nnice vignette\nmore ambitious guide to ad hoc testing with testthat\n\n\nFirst steps with testthat\n\nbuilt for R package developers\nbut readily usable for non-package people\n\n\ntest_that(\"multiplication works\", {\n  expect_equal(2 * 2, 4)\n})\n\nTest passed 🥳\n\n\n\n\nFunctions and testthat\n\ntestthat works best when you’re testing functions\nfunctions in R are easy:\n\n\nfunction_name &lt;- function(arg1 = default1, arg2 = default2){\n     arg1 * arg2 # using our argument names\n}\n\nor include the body inline for simple functions:\n\nfunction_name &lt;- function(arg1 = default1, arg2 = default2) arg1 * arg2\n\n\n\nTransform your code into functions\n\nmulto &lt;- function(n1, n2){\n  n1 * n2\n}\n\n\n\nTest your function\n\nthen test. We think that multo(2,2) should equal 4, so we use:\n\ntest_that() to set up our test environment\nexpect_equal() inside the test environment to check for equality\n\n\n\n# then run as a test\n\ntest_that(\"multo works with 2 and 2\", {\n    expect_equal(multo(2, 2), 4)\n})\n\nTest passed 🎊\n\n\n\n\nRaise your expectations\n\nwe can add more expectations\n\n\ntest_that(\"multo works in general\", {\n    expect_equal(multo(2, 2), 4)\n    expect_identical(multo(2,0.01), 0.02)\n    expect_type(multo(0,2), \"double\")\n    expect_length(multo(9,2), 1)\n    expect_gte(multo(4,4), 15)\n})\n\nTest passed 🎊\n\n\n\n\nEqual and identical\n\nbeware the floating point error\n\n\n3 - 2.9\n\n[1] 0.1\n\n3 - 2.9 == 0.1\n\n[1] FALSE\n\n\n\nhappily, there’s a sufficiently sloppy way of checking equality:\n\n\ntest_that(\"pedants corner\", {\n  expect_equal(multo(2, 0.01), 0.020000001)\n  expect_identical(multo(2, 0.01), 0.02)\n})\n\nTest passed 🌈"
   },
   {
     "objectID": "r_training/testing.html#testing-several-values",
     "href": "r_training/testing.html#testing-several-values",
     "title": "Testing R code",
     "section": "Testing several values",
-    "text": "Testing several values\n\nif you want to work with vectors, there are a number of tools for checking their contents:\n\n\nx &lt;- rownames(as.matrix(eurodist, labels=TRUE)) # odd built in dataset\n\ntest_that(\"check my vec\", {\n    expect_equal(x[1:2], c(\"Athens\", \"Barcelona\"))\n})    \n\nTest passed 😀\n\n\n\nyou can get much more fancy with a bit of set theory (not really set theory):\n\n\ny &lt;- x\n\ntest_that(\"check my vec sets\", {\n    expect_success(expect_setequal(x, y)) # all x in y\n    expect_failure(expect_mapequal(x, y)) # same names, y is proper subset x) # all x in y)\n    show_failure(expect_contains(x[1:19], y)) # y proper subset x)\n    expect_success(expect_in(x, y)) # x proper subset y\n})    \n\nFailed expectation:\nx[1:19] (`actual`) doesn't fully contain all the values in `y` (`expected`).\n* Missing from `actual`: \"Stockholm\", \"Vienna\"\n* Present in `actual`:   \"Athens\", \"Barcelona\", \"Brussels\", \"Calais\", \"Cherbourg\", \"Cologne\", \"Copenhagen\", \"Geneva\", \"Gibraltar\", ...\n\nTest passed 🎊\n\n\n\ny &lt;- sample(x, length(x)-2)\n\ntest_that(\"check my vec sets\", {\n    expect_failure(expect_setequal(x, y)) # all x in y\n    expect_failure(expect_mapequal(x, y)) # same names, y is proper subset x) # all x in y)\n    expect_success(expect_contains(x, y)) # y proper subset x)\n    expect_failure(expect_in(x, y)) # x is a proper subset y\n})    \n\nTest passed 🎉\n\n\n\nTesting tibbles\n\nbecause most of the tests are powered by waldo, you shouldn’t have to do anything fancy to test on tibbles:\n\n\nlibrary(palmerpenguins)\n\nmy_pengs &lt;- penguins\n\ntest_that(\"penguin experiments\", {\n    expect_equal(my_pengs, penguins)\n})\n\nTest passed 😸\n\n\n\n\nTypes and classes etc\n\none massive corollary to that: if you don’t do a lot of base-R, expect a fiercely stringent test of your understanding of types and classes.\n\n\ntypeof(penguins)\n\n[1] \"list\"\n\nclass(penguins) \n\n[1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\nis.object(names(penguins)) # vectors are base types\n\n[1] FALSE\n\nattr(names(penguins), \"class\") # base types have no class\n\nNULL\n\nis.object(penguins) # this is some kind of object\n\n[1] TRUE\n\nattr(penguins, \"class\") # so it definitely does have a class\n\n[1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\n\n\n\nTibble tests\n\ntest_that(\"penguin types\", {\n    expect_type(penguins, \"list\")\n    expect_s3_class(penguins, \"tbl_df\")\n    expect_s3_class(penguins, \"tbl\")\n    expect_s3_class(penguins, \"data.frame\")\n    expect_type(penguins$island, \"integer\")\n    expect_s3_class(penguins$island, \"factor\")\n})\n\nTest passed 🥇\n\n\n\nthere’s also an expect_s4_class for those with that high clear mercury sound ringing in their ears\n\n\n\nLast tip\n\nyou can put bare expectations in pipes if you’re looking for something specific\n\n\npenguins |&gt;\n  expect_type(\"list\") |&gt;\n  dplyr::pull(island) |&gt;\n  expect_length(344)"
+    "text": "Testing several values\n\nif you want to work with vectors, there are a number of tools for checking their contents:\n\n\nx &lt;- rownames(as.matrix(eurodist, labels=TRUE)) # odd built in dataset\n\ntest_that(\"check my vec\", {\n    expect_equal(x[1:2], c(\"Athens\", \"Barcelona\"))\n})    \n\nTest passed 😀\n\n\n\nyou can get much more fancy with a bit of set theory (not really set theory):\n\n\ny &lt;- x\n\ntest_that(\"check my vec sets\", {\n    expect_success(expect_setequal(x, y)) # all x in y\n    expect_failure(expect_mapequal(x, y)) # same names, y is proper subset x) # all x in y)\n    show_failure(expect_contains(x[1:19], y)) # y proper subset x)\n    expect_success(expect_in(x, y)) # x proper subset y\n})    \n\nFailed expectation:\nx[1:19] (`actual`) doesn't fully contain all the values in `y` (`expected`).\n* Missing from `actual`: \"Stockholm\", \"Vienna\"\n* Present in `actual`:   \"Athens\", \"Barcelona\", \"Brussels\", \"Calais\", \"Cherbourg\", \"Cologne\", \"Copenhagen\", \"Geneva\", \"Gibraltar\", ...\n\nTest passed 😸\n\n\n\ny &lt;- sample(x, length(x)-2)\n\ntest_that(\"check my vec sets\", {\n    expect_failure(expect_setequal(x, y)) # all x in y\n    expect_failure(expect_mapequal(x, y)) # same names, y is proper subset x) # all x in y)\n    expect_success(expect_contains(x, y)) # y proper subset x)\n    expect_failure(expect_in(x, y)) # x is a proper subset y\n})    \n\nTest passed 🥇\n\n\n\nTesting tibbles\n\nbecause most of the tests are powered by waldo, you shouldn’t have to do anything fancy to test on tibbles:\n\n\nlibrary(palmerpenguins)\n\nmy_pengs &lt;- penguins\n\ntest_that(\"penguin experiments\", {\n    expect_equal(my_pengs, penguins)\n})\n\nTest passed 🎉\n\n\n\n\nTypes and classes etc\n\none massive corollary to that: if you don’t do a lot of base-R, expect a fiercely stringent test of your understanding of types and classes.\n\n\ntypeof(penguins)\n\n[1] \"list\"\n\nclass(penguins) \n\n[1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\nis.object(names(penguins)) # vectors are base types\n\n[1] FALSE\n\nattr(names(penguins), \"class\") # base types have no class\n\nNULL\n\nis.object(penguins) # this is some kind of object\n\n[1] TRUE\n\nattr(penguins, \"class\") # so it definitely does have a class\n\n[1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\n\n\n\nTibble tests\n\ntest_that(\"penguin types\", {\n    expect_type(penguins, \"list\")\n    expect_s3_class(penguins, \"tbl_df\")\n    expect_s3_class(penguins, \"tbl\")\n    expect_s3_class(penguins, \"data.frame\")\n    expect_type(penguins$island, \"integer\")\n    expect_s3_class(penguins$island, \"factor\")\n})\n\nTest passed 🥳\n\n\n\nthere’s also an expect_s4_class for those with that high clear mercury sound ringing in their ears\n\n\n\nLast tip\n\nyou can put bare expectations in pipes if you’re looking for something specific\n\n\npenguins |&gt;\n  expect_type(\"list\") |&gt;\n  dplyr::pull(island) |&gt;\n  expect_length(344)"
   },
   {
     "objectID": "r_training/why_bother_with_R.html",
@@ -557,14 +557,14 @@
     "href": "skills/neural_nets.html",
     "title": "Neural Networks made ridiculously simple",
     "section": "",
-    "text": "8 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nengaging. Good balance of principles and examples\nReally interesting and informative, showing me a data processing techniques that have previously been a mysterious black box for me.\ninteresting introduction to ground all the current frenzied excitement around AI/ML"
+    "text": "8 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA very accessible introduction to a very complicated topic; highly recommended for anyone interested in learning more but unsure where to begin.\nGreat introductions to the origin and concept of Neural Networks.\nReally interesting intro into neural networks, good explanation about the history and development. Good level of info for an introduction session which has made me want to look up more about neural networks and AI"
   },
   {
     "objectID": "skills/neural_nets.html#previous-attendees-have-said",
     "href": "skills/neural_nets.html#previous-attendees-have-said",
     "title": "Neural Networks made ridiculously simple",
     "section": "",
-    "text": "8 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nengaging. Good balance of principles and examples\nReally interesting and informative, showing me a data processing techniques that have previously been a mysterious black box for me.\ninteresting introduction to ground all the current frenzied excitement around AI/ML"
+    "text": "8 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA very accessible introduction to a very complicated topic; highly recommended for anyone interested in learning more but unsure where to begin.\nGreat introductions to the origin and concept of Neural Networks.\nReally interesting intro into neural networks, good explanation about the history and development. Good level of info for an introduction session which has made me want to look up more about neural networks and AI"
   },
   {
     "objectID": "skills/neural_nets.html#welcome",
@@ -760,7 +760,7 @@
     "href": "r_training/debugging_r.html#finding-help",
     "title": "Debugging R",
     "section": "Finding help",
-    "text": "Finding help\nYou should definitely read the incredibly short (+ free) chapter in R for Data Science as a start. R is a widely-used language, which means that most errors will have cropped-up in some form before. In general, I’d suggest a thorough search for your term before asking for specific help. Some search tips:\n\nlook in the help before anything online\nbe specific - mention package/function names and error messages. Often including the whole error message in quotes can sharpen things up a bit\ninclude “R” in your search string to ensure you’re getting relevant results\nyou might also use the “site: stackoverflow.com” to restrict searches to one of the most useful and relevant sources there is\n\nOtherwise, assuming this fails, you should ask for help. I’d probably think about one of three venues for that:\n\nif you’re reading this, you already know about the KIND network. We have a large R community - come and chat!\nif you’re NHS, the NHSR community is great and full of experts. They have an active Slack channel\notherwise, the big player is stackoverflow. They can be fierce, but definitely some serious experts out there\n\nWherever you ask for help, please help yourself: + be sure you know about any local rules governing asking for help + search carefully to make sure you’re not the twentieth person this week asking the same question + a specific, but concise, question is the thing. Include the error message, give basic details about your setup (R 4.4.1, Rstudio, Windows, e.g) and include your reprex so that potential helpers don’t have to ask you for it"
+    "text": "Finding help\nYou should definitely read the incredibly short (+ free) chapter in R for Data Science as a start. R is a widely-used language, which means that most errors will have cropped-up in some form before. In general, I’d suggest a thorough search for your term before asking for specific help. Some search tips:\n\nlook in the help before anything online\nbe specific - mention package/function names and error messages. Often including the whole error message in quotes can sharpen things up a bit\ninclude “R” in your search string to ensure you’re getting relevant results\nyou might also use the “site: stackoverflow.com” to restrict searches to one of the most useful and relevant sources there is\n\nOtherwise, assuming this fails, you should ask for help. I’d probably think about one of three venues for that:\n\nif you’re reading this, you already know about the KIND network. We have a large R community - come and chat!\nif you’re NHS, the NHS-R community is great and full of friendly experts. They have an active Slack channel\notherwise, the big player is stackoverflow. They can be fierce, but definitely some serious experts out there\n\nWherever you ask for help, please help yourself:\n\nbe sure you know about any local rules governing asking for help\nsearch carefully to make sure you’re not the twentieth person this week asking the same question\na specific, but concise, question is the thing. Include the error message, give basic details about your setup (R 4.4.1, Rstudio, Windows, e.g) and include your reprex so that potential helpers don’t have to ask you for it"
   },
   {
     "objectID": "r_training/debugging_r.html#fancier-stuff",
@@ -851,7 +851,7 @@
     "href": "excel/lookups_in_excel.html#previous-attendees-have-said",
     "title": "Lookups in Excel",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n16 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nInsightful\nDefinitely need to know a bit about writing formulas before this session. Very informative session with a good mix of teaching and doing.\nGreat refresher. Especially liked the Vlookup tip about returning unexpected result."
+    "text": "Previous attendees have said…\n\n16 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nPaste all formulas in chat as sometimes the session moves to fast\nInsightful\nDefinitely need to know a bit about writing formulas before this session. Very informative session with a good mix of teaching and doing."
   },
   {
     "objectID": "excel/lookups_in_excel.html#welcome",
@@ -907,14 +907,14 @@
     "href": "bi_training/measures_in_power_bi.html",
     "title": "Measures in Power BI",
     "section": "",
-    "text": "3 previous attendees have left feedback\n100% would recommend this session to a colleague\n67% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\ngood intro to measures - possibly could have had some more complex examples for an intermediate course\nGreat session and good explanation of keep filters and when to use, thank you.\nI liked the link to the excel formula context, it helps my confidence to know I am building on my knowledge rather than learning something totally new"
+    "text": "3 previous attendees have left feedback\n100% would recommend this session to a colleague\n67% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI liked the link to the excel formula context, it helps my confidence to know I am building on my knowledge rather than learning something totally new\ngood intro to measures - possibly could have had some more complex examples for an intermediate course\nGreat session and good explanation of keep filters and when to use, thank you."
   },
   {
     "objectID": "bi_training/measures_in_power_bi.html#previous-attendees-have-said",
     "href": "bi_training/measures_in_power_bi.html#previous-attendees-have-said",
     "title": "Measures in Power BI",
     "section": "",
-    "text": "3 previous attendees have left feedback\n100% would recommend this session to a colleague\n67% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\ngood intro to measures - possibly could have had some more complex examples for an intermediate course\nGreat session and good explanation of keep filters and when to use, thank you.\nI liked the link to the excel formula context, it helps my confidence to know I am building on my knowledge rather than learning something totally new"
+    "text": "3 previous attendees have left feedback\n100% would recommend this session to a colleague\n67% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI liked the link to the excel formula context, it helps my confidence to know I am building on my knowledge rather than learning something totally new\ngood intro to measures - possibly could have had some more complex examples for an intermediate course\nGreat session and good explanation of keep filters and when to use, thank you."
   },
   {
     "objectID": "bi_training/measures_in_power_bi.html#welcome",
@@ -1201,14 +1201,14 @@
     "href": "skills/referencing.html",
     "title": "Referencing",
     "section": "",
-    "text": "7 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nBrendan’s input made the subject of referencing much clearer to me and provided great links that I can refer back to too. Also glad to see I am not alone in my experiences with referencing - thank you\nGreat intro / refresher on referencing - been so long since uni (where, along with my degree, I obtained a certificate of proficiency in Word 3.1!) that digital referencing is a whole new world to me. Useful links to additional materials as always too.\nA very helpful session in how to reference. Useful resources to aid in referencing after the training sessions"
+    "text": "7 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA very helpful session in how to reference. Useful resources to aid in referencing after the training sessions\nGreat intro / refresher on referencing - been so long since uni (where, along with my degree, I obtained a certificate of proficiency in Word 3.1!) that digital referencing is a whole new world to me. Useful links to additional materials as always too.\nConcise. Just the right amount of information. Presented well. Helpful links provided. Included some practical too."
   },
   {
     "objectID": "skills/referencing.html#previous-attendees-have-said",
     "href": "skills/referencing.html#previous-attendees-have-said",
     "title": "Referencing",
     "section": "",
-    "text": "7 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nBrendan’s input made the subject of referencing much clearer to me and provided great links that I can refer back to too. Also glad to see I am not alone in my experiences with referencing - thank you\nGreat intro / refresher on referencing - been so long since uni (where, along with my degree, I obtained a certificate of proficiency in Word 3.1!) that digital referencing is a whole new world to me. Useful links to additional materials as always too.\nA very helpful session in how to reference. Useful resources to aid in referencing after the training sessions"
+    "text": "7 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA very helpful session in how to reference. Useful resources to aid in referencing after the training sessions\nGreat intro / refresher on referencing - been so long since uni (where, along with my degree, I obtained a certificate of proficiency in Word 3.1!) that digital referencing is a whole new world to me. Useful links to additional materials as always too.\nConcise. Just the right amount of information. Presented well. Helpful links provided. Included some practical too."
   },
   {
     "objectID": "skills/referencing.html#welcome",
@@ -1271,14 +1271,14 @@
     "href": "skills/power_automate_for_health_care.html",
     "title": "Power Automate for health and care",
     "section": "",
-    "text": "8 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nExcellent session very informative.\nToo quick, no time to test out learning, see details of where to click and do things.\nExcellent demo and training materials to use yourself later to learn Power Automate"
+    "text": "8 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nExcellent demo and training materials to use yourself later to learn Power Automate\nGreat starting point!\nToo quick, no time to test out learning, see details of where to click and do things."
   },
   {
     "objectID": "skills/power_automate_for_health_care.html#previous-attendees-have-said",
     "href": "skills/power_automate_for_health_care.html#previous-attendees-have-said",
     "title": "Power Automate for health and care",
     "section": "",
-    "text": "8 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nExcellent session very informative.\nToo quick, no time to test out learning, see details of where to click and do things.\nExcellent demo and training materials to use yourself later to learn Power Automate"
+    "text": "8 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nExcellent demo and training materials to use yourself later to learn Power Automate\nGreat starting point!\nToo quick, no time to test out learning, see details of where to click and do things."
   },
   {
     "objectID": "skills/power_automate_for_health_care.html#introduction",
@@ -1376,14 +1376,14 @@
     "href": "excel/tidy_data_in_excel.html",
     "title": "Tidy data in Excel",
     "section": "",
-    "text": "19 previous attendees have left feedback\n95% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA great introduction into getting data setup in a clean and tidy way.\nExcellent tips to ensure the foundation data structure is correct to ensure you don’t trip up down the line and waste time manually tydying data in order to extract anything meaningful.\nEnjoyed this today - learned a few new tips’n’tricks! There’s alwasy somehting you pickup even when you think you know the topic. - ‘Text to columns’ skip column functionality - Data Validation Use Case and Circles - Excel ‘Float’ menu keyboard interaction"
+    "text": "19 previous attendees have left feedback\n95% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThis session was so helpful. Brilliant hints and tips, pitched at just the right level for me and get loads out of them.\nEasy to follow and although I would describe myself as intermediate Excel user, I still picked up a few new tricks.\nExcellent tips to ensure the foundation data structure is correct to ensure you don’t trip up down the line and waste time manually tydying data in order to extract anything meaningful."
   },
   {
     "objectID": "excel/tidy_data_in_excel.html#previous-attendees-have-said",
     "href": "excel/tidy_data_in_excel.html#previous-attendees-have-said",
     "title": "Tidy data in Excel",
     "section": "",
-    "text": "19 previous attendees have left feedback\n95% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA great introduction into getting data setup in a clean and tidy way.\nExcellent tips to ensure the foundation data structure is correct to ensure you don’t trip up down the line and waste time manually tydying data in order to extract anything meaningful.\nEnjoyed this today - learned a few new tips’n’tricks! There’s alwasy somehting you pickup even when you think you know the topic. - ‘Text to columns’ skip column functionality - Data Validation Use Case and Circles - Excel ‘Float’ menu keyboard interaction"
+    "text": "19 previous attendees have left feedback\n95% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThis session was so helpful. Brilliant hints and tips, pitched at just the right level for me and get loads out of them.\nEasy to follow and although I would describe myself as intermediate Excel user, I still picked up a few new tricks.\nExcellent tips to ensure the foundation data structure is correct to ensure you don’t trip up down the line and waste time manually tydying data in order to extract anything meaningful."
   },
   {
     "objectID": "excel/tidy_data_in_excel.html#welcome",
@@ -1579,7 +1579,7 @@
     "href": "excel/relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.html#previous-attendees-have-said",
     "title": "Relative, absolute, mixed, and structured references",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n9 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI could already do some of what was discussed but the session gave me a better understanding of where to use it and how the formulae work\nI always use A1 referencing but have seen the light and Structured Referencing is the future :-)\nvery useful, especially using new version of Excel and named tables."
+    "text": "Previous attendees have said…\n\n9 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nvery useful, especially using new version of Excel and named tables.\nI missed the first 20 minutes as I was tied up in another meeting, but found what I did attend useful, thank you\nInformative and made me think about how I reference within my speadsheets"
   },
   {
     "objectID": "excel/relative_absolute_mixed_structured_and_r_1_c_1_references_in_excel.html#welcome",
@@ -1726,14 +1726,14 @@
     "href": "excel/pivot_tables_and_pivot_charts.html",
     "title": "Pivot tables and pivot charts",
     "section": "",
-    "text": "21 previous attendees have left feedback\n100% would recommend this session to a colleague\n95% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI found it very helpful as I have just started using pivot tables. I found it quite daunting using pivot tables before but now feel more comfortable and confident about using them\nGreat refresher with tips and tricks. All really good information. Looking forward to the next excel step and happy to take up any reading, etc.\nI am glad that I am able to attend this sessions."
+    "text": "21 previous attendees have left feedback\n100% would recommend this session to a colleague\n95% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood stuff\nIt made me realise there were more things to pivot tables that I had used so far, e.g. turning data into a table, the report filter pages, linking tables\nWas interesting, showed I knew more than I thought but still useful for little things that make life easier."
   },
   {
     "objectID": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
     "href": "excel/pivot_tables_and_pivot_charts.html#previous-attendees-have-said",
     "title": "Pivot tables and pivot charts",
     "section": "",
-    "text": "21 previous attendees have left feedback\n100% would recommend this session to a colleague\n95% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI found it very helpful as I have just started using pivot tables. I found it quite daunting using pivot tables before but now feel more comfortable and confident about using them\nGreat refresher with tips and tricks. All really good information. Looking forward to the next excel step and happy to take up any reading, etc.\nI am glad that I am able to attend this sessions."
+    "text": "21 previous attendees have left feedback\n100% would recommend this session to a colleague\n95% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood stuff\nIt made me realise there were more things to pivot tables that I had used so far, e.g. turning data into a table, the report filter pages, linking tables\nWas interesting, showed I knew more than I thought but still useful for little things that make life easier."
   },
   {
     "objectID": "excel/pivot_tables_and_pivot_charts.html#welcome",
@@ -1852,7 +1852,7 @@
     "href": "excel/excel_formulas.html#previous-attendees-have-said",
     "title": "Excel formulas",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n13 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThese are just brilliant, a version of which I write at the end of every session. Go to them, just go. If you’re not sure whether to go. Just go.\nshort sharp straight to the point\nIt is really helpful to be shown a task, and give us the chance to try it for ourselves."
+    "text": "Previous attendees have said…\n\n13 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nReally useful for going over basic concepts that I haven’t studied in a long time. So it was great for relearning the basic building blocks of how Excel works. Appropriate level for beginners session.\nReally good beginner session\nBasic beginner level - you could probably go on this same course a few times to try and get the basics, building on your knowledge each time. You may pick up different things each session so I’ll try and attend again the next time this course is run."
   },
   {
     "objectID": "excel/excel_formulas.html#where-does-this-fit-in",
@@ -1957,14 +1957,14 @@
     "href": "excel/excel_first_steps.html",
     "title": "Excel first steps",
     "section": "",
-    "text": "49 previous attendees have left feedback\n100% would recommend this session to a colleague\n96% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nUseful introduction to inputting data into Excel, especially found learning about how to add and edit tables useful.\nFantastic - Brendan takes his time to explain steps simply so it is easy to follow\nuse excel but never had training so really useful learning"
+    "text": "49 previous attendees have left feedback\n100% would recommend this session to a colleague\n96% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThe session was great as it gave some background to excel as well as explaining some of the basic functions of Excel.\nVery informative with simple easy steps to follow.\nReally useful introduction but I thought it assumed some basic PC skills like navigating your way round"
   },
   {
     "objectID": "excel/excel_first_steps.html#previous-attendees-have-said",
     "href": "excel/excel_first_steps.html#previous-attendees-have-said",
     "title": "Excel first steps",
     "section": "",
-    "text": "49 previous attendees have left feedback\n100% would recommend this session to a colleague\n96% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nUseful introduction to inputting data into Excel, especially found learning about how to add and edit tables useful.\nFantastic - Brendan takes his time to explain steps simply so it is easy to follow\nuse excel but never had training so really useful learning"
+    "text": "49 previous attendees have left feedback\n100% would recommend this session to a colleague\n96% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThe session was great as it gave some background to excel as well as explaining some of the basic functions of Excel.\nVery informative with simple easy steps to follow.\nReally useful introduction but I thought it assumed some basic PC skills like navigating your way round"
   },
   {
     "objectID": "excel/excel_first_steps.html#session-outline",
@@ -2139,7 +2139,7 @@
     "href": "bi_training/power_query_a_practical_introduction.html#previous-attendees-have-said",
     "title": "PowerQuery - a practical introduction",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n11 previous attendees have left feedback\n100% would recommend this session to a colleague\n82% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThought it was delivered well. Information in laymen’s terms which is really helpful. thank you\nvery good, cannot wait for the next level.\nissues in loading data and due to speed of which trainer was moving at could not follow along. transpired i needed an addon to excel and had to leave the session"
+    "text": "Previous attendees have said…\n\n11 previous attendees have left feedback\n100% would recommend this session to a colleague\n82% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nissues in loading data and due to speed of which trainer was moving at could not follow along. transpired i needed an addon to excel and had to leave the session\nA little bit too much information to take in for the lenght of the session but fien as a taster session.\nReally helpful to have a play in realtime, good way of taking in the practical use of the tools"
   },
   {
     "objectID": "bi_training/power_query_a_practical_introduction.html#welcome",
@@ -2370,7 +2370,7 @@
     "href": "bi_training/dax_vs_power_query_m.html#previous-attendees-have-said",
     "title": "DAX vs PowerQuery M",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n9 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nUseful to describe the difference between PQM and DAX as transformational and calculation languages.\nStill building my knowledge of power bi so this was both a useful refresher of material covered the the beginners pbi course along with new learning\nGood stuff"
+    "text": "Previous attendees have said…\n\n9 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA good description, easy to understand and follow.\nI definitely learned a lot but found it difficult to practice at the same time as keeping up with the session, so am doing some now. Thanks Brendan.\nStill building my knowledge of power bi so this was both a useful refresher of material covered the the beginners pbi course along with new learning"
   },
   {
     "objectID": "bi_training/dax_vs_power_query_m.html#welcome",
@@ -2482,14 +2482,14 @@
     "href": "bi_training/why_bother_with_power_bi.html",
     "title": "Why bother with Power BI?",
     "section": "",
-    "text": "20 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI have just recently joined the Kind network, and this was my first course. I found it very informative and useful. I am looking forward to the next one.\nA good demonstration of the abilities of PowerBI to present modern business intelligence type analytics. Would be really good if it was aimed at users, or the demand-side of analytics.\nGood introduction to the topic but maybe think about how much emphasis was put on the negatives and whether the audience would know what Power Pivot etc. were. A novice might not have understood what the advantages of BI were over Excel or Powerpoint. I think the comment re licences was very relevant as was the one re Power BI is easier to get started with than say R however the more complicated the requirement R etc. may be a better long term bet. I’d like to have heard the pros and cons of BI versus Microstrategy or Tableau etc. Microstrategy is widely used across the NHS but would we be better to “upgrade” to BI? That’s a question I don’t know the answer to but is very relevant to myself and my team. Overall it was a good session."
+    "text": "20 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThis was my first experience of any of these courses and also the first time I saw Brendan. I must say I was very impressed. Brendan’s presentation style and interaction with the groups comments was a joy to watch. The session itself was very informative and got a lot of information across in only 30 minutes. Also the fact that there are so many links in the notes to follow up on is a great added bonus. I will gradually be getting my whole team signed up for this and similar courses. Many thanks to Brendan for making this information available. Mark Menzies (NHS GG&C)\nGood introduction to the topic but maybe think about how much emphasis was put on the negatives and whether the audience would know what Power Pivot etc. were. A novice might not have understood what the advantages of BI were over Excel or Powerpoint. I think the comment re licences was very relevant as was the one re Power BI is easier to get started with than say R however the more complicated the requirement R etc. may be a better long term bet. I’d like to have heard the pros and cons of BI versus Microstrategy or Tableau etc. Microstrategy is widely used across the NHS but would we be better to “upgrade” to BI? That’s a question I don’t know the answer to but is very relevant to myself and my team. Overall it was a good session.\nI was blown away at the map example and had not seen anything like this before"
   },
   {
     "objectID": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
     "href": "bi_training/why_bother_with_power_bi.html#previous-attendees-have-said",
     "title": "Why bother with Power BI?",
     "section": "",
-    "text": "20 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI have just recently joined the Kind network, and this was my first course. I found it very informative and useful. I am looking forward to the next one.\nA good demonstration of the abilities of PowerBI to present modern business intelligence type analytics. Would be really good if it was aimed at users, or the demand-side of analytics.\nGood introduction to the topic but maybe think about how much emphasis was put on the negatives and whether the audience would know what Power Pivot etc. were. A novice might not have understood what the advantages of BI were over Excel or Powerpoint. I think the comment re licences was very relevant as was the one re Power BI is easier to get started with than say R however the more complicated the requirement R etc. may be a better long term bet. I’d like to have heard the pros and cons of BI versus Microstrategy or Tableau etc. Microstrategy is widely used across the NHS but would we be better to “upgrade” to BI? That’s a question I don’t know the answer to but is very relevant to myself and my team. Overall it was a good session."
+    "text": "20 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThis was my first experience of any of these courses and also the first time I saw Brendan. I must say I was very impressed. Brendan’s presentation style and interaction with the groups comments was a joy to watch. The session itself was very informative and got a lot of information across in only 30 minutes. Also the fact that there are so many links in the notes to follow up on is a great added bonus. I will gradually be getting my whole team signed up for this and similar courses. Many thanks to Brendan for making this information available. Mark Menzies (NHS GG&C)\nGood introduction to the topic but maybe think about how much emphasis was put on the negatives and whether the audience would know what Power Pivot etc. were. A novice might not have understood what the advantages of BI were over Excel or Powerpoint. I think the comment re licences was very relevant as was the one re Power BI is easier to get started with than say R however the more complicated the requirement R etc. may be a better long term bet. I’d like to have heard the pros and cons of BI versus Microstrategy or Tableau etc. Microstrategy is widely used across the NHS but would we be better to “upgrade” to BI? That’s a question I don’t know the answer to but is very relevant to myself and my team. Overall it was a good session.\nI was blown away at the map example and had not seen anything like this before"
   },
   {
     "objectID": "bi_training/why_bother_with_power_bi.html#welcome",
@@ -2573,7 +2573,7 @@
     "href": "excel/excel_formatting.html#previous-attendees-have-said",
     "title": "Excel formatting",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n33 previous attendees have left feedback\n97% would recommend this session to a colleague\n97% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI found this session really helpful - it had lots of useful tips and was structured really well!\nReally good session for beginners, well delivered session.\nAs a beginner and someone who has done the very basics I learned things I wasn’t aware of at this first session I am definitely going to attend other sessions thank you!"
+    "text": "Previous attendees have said…\n\n33 previous attendees have left feedback\n97% would recommend this session to a colleague\n97% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nReally practical and informative. Thank you.\nAlways something to learn from these sessions, even if you think you’re at least a level above them.\nVery useful tips!"
   },
   {
     "objectID": "excel/excel_formatting.html#where-does-this-fit-in",
@@ -2720,14 +2720,14 @@
     "href": "excel/excel_tables.html",
     "title": "Excel tables",
     "section": "",
-    "text": "20 previous attendees have left feedback\n100% would recommend this session to a colleague\n85% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nlearned a new way to make tables\nClear, presise guidance & instruction.\nReally useful, I have been using excel for many years and I am self taught so really good to get some nuggets that I may have missed along the way and I now understand how important tables are! Off to change all my excel sheets to tables :)"
+    "text": "20 previous attendees have left feedback\n100% would recommend this session to a colleague\n85% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery well presented and engaging\nReally easy to understand and tables it is from now on :)\nVery useful beginner session and easy to follow"
   },
   {
     "objectID": "excel/excel_tables.html#previous-attendees-have-said",
     "href": "excel/excel_tables.html#previous-attendees-have-said",
     "title": "Excel tables",
     "section": "",
-    "text": "20 previous attendees have left feedback\n100% would recommend this session to a colleague\n85% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nlearned a new way to make tables\nClear, presise guidance & instruction.\nReally useful, I have been using excel for many years and I am self taught so really good to get some nuggets that I may have missed along the way and I now understand how important tables are! Off to change all my excel sheets to tables :)"
+    "text": "20 previous attendees have left feedback\n100% would recommend this session to a colleague\n85% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nVery well presented and engaging\nReally easy to understand and tables it is from now on :)\nVery useful beginner session and easy to follow"
   },
   {
     "objectID": "excel/excel_tables.html#welcome",
@@ -2846,7 +2846,7 @@
     "href": "excel/power_query_a_practical_introduction.html#previous-attendees-have-said",
     "title": "PowerQuery - a practical introduction",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n11 previous attendees have left feedback\n100% would recommend this session to a colleague\n82% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nMade PowerQuery seem possible to use\nThought it was delivered well. Information in laymen’s terms which is really helpful. thank you\nA little bit too much information to take in for the lenght of the session but fien as a taster session."
+    "text": "Previous attendees have said…\n\n11 previous attendees have left feedback\n100% would recommend this session to a colleague\n82% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nissues in loading data and due to speed of which trainer was moving at could not follow along. transpired i needed an addon to excel and had to leave the session\nReally helpful to have a play in realtime, good way of taking in the practical use of the tools\nMade PowerQuery seem possible to use"
   },
   {
     "objectID": "excel/power_query_a_practical_introduction.html#welcome",
@@ -3245,14 +3245,14 @@
     "href": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html",
     "title": "An introduction to AI (…and why you might avoid that term)",
     "section": "",
-    "text": "18 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nthe essentials were there, whatever the care and social health focus; some of the information tidied up a few thoughts I had about AI\nThis was a great session. Thanks\nGood introduction to AI, the development of it, current uses and shortcomings, and possibilities for the future"
+    "text": "18 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nChatty, fun, informative\nThought it was a good intro but would be interesting to look at the main differences between “old AI” and new generative AI, The session you did looking at expert systems was good - are these classed as AI? When I was younger they were but now seems to refer mainly to generative AI so interesting to look at some of the history/hype vs the reality and the fact that most of the new AI is black box, so you can’t trace the algorithm back to why it made a particular descision in the way that you could in an expert system. This makes reviewing the Ai’s decisions a much harder task..\nVery nice introduction and exciting start for staff to familiarise ourselves with AI concepts."
   },
   {
     "objectID": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html#previous-attendees-have-said",
     "href": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html#previous-attendees-have-said",
     "title": "An introduction to AI (…and why you might avoid that term)",
     "section": "",
-    "text": "18 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nthe essentials were there, whatever the care and social health focus; some of the information tidied up a few thoughts I had about AI\nThis was a great session. Thanks\nGood introduction to AI, the development of it, current uses and shortcomings, and possibilities for the future"
+    "text": "18 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nChatty, fun, informative\nThought it was a good intro but would be interesting to look at the main differences between “old AI” and new generative AI, The session you did looking at expert systems was good - are these classed as AI? When I was younger they were but now seems to refer mainly to generative AI so interesting to look at some of the history/hype vs the reality and the fact that most of the new AI is black box, so you can’t trace the algorithm back to why it made a particular descision in the way that you could in an expert system. This makes reviewing the Ai’s decisions a much harder task..\nVery nice introduction and exciting start for staff to familiarise ourselves with AI concepts."
   },
   {
     "objectID": "skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.html#welcome",
@@ -3448,14 +3448,14 @@
     "href": "skills/presenting.html",
     "title": "Presenting",
     "section": "",
-    "text": "5 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nUseful exercise was incorporated into the session but would have been helpful if someone fed back to the larger group. Overall I thought it was a good session with some helpful hints/tips.\nVery helpful, simple and really enjoyed the tasks throughout.\nChallenging 1:1 presentation practice, but really helpful when receiving feedback"
+    "text": "5 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nClear advice to put into practice during the session (but maybe give advance warning about presenting in pairs, as I imagined it would be to the whole group and that was a terrifying thought!)\nVery Practical\nChallenging 1:1 presentation practice, but really helpful when receiving feedback"
   },
   {
     "objectID": "skills/presenting.html#previous-attendees-have-said",
     "href": "skills/presenting.html#previous-attendees-have-said",
     "title": "Presenting",
     "section": "",
-    "text": "5 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nUseful exercise was incorporated into the session but would have been helpful if someone fed back to the larger group. Overall I thought it was a good session with some helpful hints/tips.\nVery helpful, simple and really enjoyed the tasks throughout.\nChallenging 1:1 presentation practice, but really helpful when receiving feedback"
+    "text": "5 previous attendees have left feedback\n100% would recommend this session to a colleague\n100% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nClear advice to put into practice during the session (but maybe give advance warning about presenting in pairs, as I imagined it would be to the whole group and that was a terrifying thought!)\nVery Practical\nChallenging 1:1 presentation practice, but really helpful when receiving feedback"
   },
   {
     "objectID": "skills/presenting.html#who-is-this-session-for",
@@ -3665,14 +3665,14 @@
     "href": "bi_training/scope_of_the_possible_with_power_bi.html",
     "title": "Scope of the possible with Power BI",
     "section": "",
-    "text": "17 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nReally useful session to get an overview of how Power BI can be used, relevant to our sector\nFab intro into what Power BI can be used for. Brendan explained everything really well.\nGreat session to cover the basics"
+    "text": "17 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood journey describing how to obtain data and map accordingly with various visuals.\nFab intro into what Power BI can be used for. Brendan explained everything really well.\nInformative session about the scope of power bi - useful demos and links to further development sessions. Easy to follow."
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#previous-attendees-have-said",
     "href": "bi_training/scope_of_the_possible_with_power_bi.html#previous-attendees-have-said",
     "title": "Scope of the possible with Power BI",
     "section": "",
-    "text": "17 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nReally useful session to get an overview of how Power BI can be used, relevant to our sector\nFab intro into what Power BI can be used for. Brendan explained everything really well.\nGreat session to cover the basics"
+    "text": "17 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGood journey describing how to obtain data and map accordingly with various visuals.\nFab intro into what Power BI can be used for. Brendan explained everything really well.\nInformative session about the scope of power bi - useful demos and links to further development sessions. Easy to follow."
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#welcome",
@@ -3707,7 +3707,7 @@
     "href": "bi_training/scope_of_the_possible_with_power_bi.html#power-bi-demo",
     "title": "Scope of the possible with Power BI",
     "section": "Power BI demo",
-    "text": "Power BI demo\n\nusing tidied of the GP practice size dataset from April 2024\n\nGP practice size data\nDemographic data\n\n\n\nNote this data is cleaned\n\n\n\n\n\n\n\n\n\n\nName\nPracticeListSize\nPostcode\nHBName\nGPCluster\nCode\n\n\n\n\nKilbirnie Medical Practice\n7773\nKA25 6HS\nNHS Ayrshire and Arran\nGarnock Valley Cluster\n80363\n\n\nColdside Medical Practice\n10173\nDD3 8DB\nNHS Tayside\nDundee 3\n11166\n\n\nInchcruin Practice\n3763\nG83 0UE\nNHS Greater Glasgow and Clyde\nAlexandria\n85259"
+    "text": "Power BI demo\n\nusing tidied of the GP practice size dataset from April 2024\n\nGP practice size data\nDemographic data\n\n\n\nNote this data is cleaned\n\n\n\n\n\n\n\n\n\n\nName\nPracticeListSize\nPostcode\nHBName\nGPCluster\nCode\n\n\n\n\nFrew Terrace Surgery\n11592\nKA12 9DY\nNHS Ayrshire and Arran\nIrvine, Kilwinning, Dundonald\n80698\n\n\nKeith Medical Group\n7348\nAB55 5DJ\nNHS Grampian\nMoray East\n32904\n\n\nSkene Medical Group\n15143\nAB32 6FG\nNHS Grampian\nGarioch\n32209"
   },
   {
     "objectID": "bi_training/scope_of_the_possible_with_power_bi.html#load-some-data",
@@ -3938,7 +3938,7 @@
     "href": "skills/HTML_non-web-devs.html#parsing-html-1",
     "title": "HTML for non-web developers",
     "section": "parsing HTML",
-    "text": "parsing HTML\n\nhere::here(\"skills/data/doc_links.htm\") |&gt;\n  xml2::read_html() |&gt;\n  xml2::xml_find_all(\"//@href\") |&gt;\n  xml2::as_list() |&gt;\n  purrr::flatten() |&gt;\n  unlist() |&gt;\n  sample(5) # just a random sample of five to avoid overload\n\n[1] \"https://110.example.com\" \"https://474.example.com\"\n[3] \"https://734.example.com\" \"https://945.example.com\"\n[5] \"https://758.example.com\""
+    "text": "parsing HTML\n\nhere::here(\"skills/data/doc_links.htm\") |&gt;\n  xml2::read_html() |&gt;\n  xml2::xml_find_all(\"//@href\") |&gt;\n  xml2::as_list() |&gt;\n  purrr::flatten() |&gt;\n  unlist() |&gt;\n  sample(5) # just a random sample of five to avoid overload\n\n[1] \"https://720.example.com\" \"https://559.example.com\"\n[3] \"https://326.example.com\" \"https://109.example.com\"\n[5] \"https://393.example.com\""
   },
   {
     "objectID": "r_training/shiny_from_scratch.html",
@@ -4029,14 +4029,14 @@
     "href": "r_training/iteration_in_r.html",
     "title": "Iteration in R",
     "section": "",
-    "text": "9 previous attendees have left feedback\n89% would recommend this session to a colleague\n89% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA great into to iteration!\nmore than enough to spark interest in trying this but some of it clearly melted my brain\nExcellent introduction to iteration - easy to follow along during the session"
+    "text": "9 previous attendees have left feedback\n89% would recommend this session to a colleague\n89% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGreat to reinforce knowledge and always pick up a few tips and tricks along the way.\nmore than enough to spark interest in trying this but some of it clearly melted my brain\nA great into to iteration!"
   },
   {
     "objectID": "r_training/iteration_in_r.html#previous-attendees-have-said",
     "href": "r_training/iteration_in_r.html#previous-attendees-have-said",
     "title": "Iteration in R",
     "section": "",
-    "text": "9 previous attendees have left feedback\n89% would recommend this session to a colleague\n89% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nA great into to iteration!\nmore than enough to spark interest in trying this but some of it clearly melted my brain\nExcellent introduction to iteration - easy to follow along during the session"
+    "text": "9 previous attendees have left feedback\n89% would recommend this session to a colleague\n89% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nGreat to reinforce knowledge and always pick up a few tips and tricks along the way.\nmore than enough to spark interest in trying this but some of it clearly melted my brain\nA great into to iteration!"
   },
   {
     "objectID": "r_training/iteration_in_r.html#welcome",
@@ -4099,7 +4099,7 @@
     "href": "r_training/writing_functions_in_r.html#previous-attendees-have-said",
     "title": "Writing functions in R",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n17 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nInteresting content and enough tips and tricks to delight both beginners and intermediate prospective function writers.\nReally useful course\nTrust Brendan to put the FUN in FUNctions!"
+    "text": "Previous attendees have said…\n\n17 previous attendees have left feedback\n100% would recommend this session to a colleague\n88% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nSettings for input parameters, how to include more general inputs, and the possible pitfalls e.g. non-vectorised elements, were helpful\nA great reminder of how to write a function. Example were basic and easy to follow. Some more complex examples were explored through suggestions from attendees. Some more examples of writing functions involving datasets would be good.\nPresentation was very clear and I was able to check up on an unclear area for me by checking out the slides afterwards. Very useful to see curly brackets & vectorize()"
   },
   {
     "objectID": "r_training/writing_functions_in_r.html#welcome",
@@ -4155,7 +4155,7 @@
     "href": "r_training/writing_functions_in_r.html#vectorised-functions",
     "title": "Writing functions in R",
     "section": "Vectorised functions",
-    "text": "Vectorised functions\n\nmost functions in R are vectorised\n\n\nround(c(1.2, 3.2, 5.4, 2.7), 0)\n\n[1] 1 3 5 3\n\n\n\nthat means that mostly, our functions will end up vectorised without us doing any work at all\n\n\ndiv_seven_n_round &lt;- function(nums){\n  round(nums / 7, 0)\n}\n\nnumbers &lt;- rnorm(4, 5, 50)\n\nnumbers\n\n[1]   50.928024   -8.054458 -126.310474   33.196576\n\ndiv_seven_n_round(numbers)\n\n[1]   7  -1 -18   5\n\n\n\nbut there are a few cases where that can fail: most famously, using if/else\n\n\nis_even &lt;- function(n){\n  \n  if(n %% 2){\n  paste(n, \"is odd\")\n} else {\n  paste(n, \"is even\")\n}\n  \n}\nis_even(9)\n\n[1] \"9 is odd\"\n\nis_even(10)\n\n[1] \"10 is even\"\n\ntry(is_even(9:10))\n\nError in if (n%%2) { : the condition has length &gt; 1"
+    "text": "Vectorised functions\n\nmost functions in R are vectorised\n\n\nround(c(1.2, 3.2, 5.4, 2.7), 0)\n\n[1] 1 3 5 3\n\n\n\nthat means that mostly, our functions will end up vectorised without us doing any work at all\n\n\ndiv_seven_n_round &lt;- function(nums){\n  round(nums / 7, 0)\n}\n\nnumbers &lt;- rnorm(4, 5, 50)\n\nnumbers\n\n[1]  -7.900259 -35.180844 -27.883388  -9.291704\n\ndiv_seven_n_round(numbers)\n\n[1] -1 -5 -4 -1\n\n\n\nbut there are a few cases where that can fail: most famously, using if/else\n\n\nis_even &lt;- function(n){\n  \n  if(n %% 2){\n  paste(n, \"is odd\")\n} else {\n  paste(n, \"is even\")\n}\n  \n}\nis_even(9)\n\n[1] \"9 is odd\"\n\nis_even(10)\n\n[1] \"10 is even\"\n\ntry(is_even(9:10))\n\nError in if (n%%2) { : the condition has length &gt; 1"
   },
   {
     "objectID": "r_training/writing_functions_in_r.html#three-solutions",
@@ -4309,14 +4309,14 @@
     "href": "r_training/r_from_scratch.html",
     "title": "R from scratch",
     "section": "",
-    "text": "24 previous attendees have left feedback\n100% would recommend this session to a colleague\n92% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThanks for the great session! Really great and there is so much R training out there it’s overwhelming to know where to begin - so this walkthrough was great and a good motivation to now try stuff out. I did find it difficult following instructions on how create an account and download positcloud (same with R, even though there is so many instructions either it’s missing the very basics or I just dont understand - finally found that you need to download based on the nearest source) but managed to do so prior to the session - some hadnt and spent a bit of time troubleshooting that. Suggest could do a video walkthrough and for people who havent done it then send that in the chat. Sidenote: could you make this comment box larger :)\nI thoroughly enjoyed this session, as a complete newbie to R, it was easy to follow and understand, I can’t wait for the next one!\nVery useful intro, looking forward to getting my teeth into the meaty bits!"
+    "text": "24 previous attendees have left feedback\n100% would recommend this session to a colleague\n92% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI had no idea of what to expect and no prior knowledge of R. I found it be be fascinating and I am keen to learn a bit more.\nSessions was well put together. Easy to set up the posit cloud account. session was run at a good pace so I had plenty time to catch up if any of the code went a bit haywire\nInformative, well organised, informal. Comfortable learning environment."
   },
   {
     "objectID": "r_training/r_from_scratch.html#previous-attendees-have-said",
     "href": "r_training/r_from_scratch.html#previous-attendees-have-said",
     "title": "R from scratch",
     "section": "",
-    "text": "24 previous attendees have left feedback\n100% would recommend this session to a colleague\n92% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nThanks for the great session! Really great and there is so much R training out there it’s overwhelming to know where to begin - so this walkthrough was great and a good motivation to now try stuff out. I did find it difficult following instructions on how create an account and download positcloud (same with R, even though there is so many instructions either it’s missing the very basics or I just dont understand - finally found that you need to download based on the nearest source) but managed to do so prior to the session - some hadnt and spent a bit of time troubleshooting that. Suggest could do a video walkthrough and for people who havent done it then send that in the chat. Sidenote: could you make this comment box larger :)\nI thoroughly enjoyed this session, as a complete newbie to R, it was easy to follow and understand, I can’t wait for the next one!\nVery useful intro, looking forward to getting my teeth into the meaty bits!"
+    "text": "24 previous attendees have left feedback\n100% would recommend this session to a colleague\n92% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\n\nThree random comments from previous attendees\n\n\n\n\nI had no idea of what to expect and no prior knowledge of R. I found it be be fascinating and I am keen to learn a bit more.\nSessions was well put together. Easy to set up the posit cloud account. session was run at a good pace so I had plenty time to catch up if any of the code went a bit haywire\nInformative, well organised, informal. Comfortable learning environment."
   },
   {
     "objectID": "r_training/r_from_scratch.html#hello-world",
@@ -4400,28 +4400,28 @@
     "href": "r_training/scope_of_the_possible_with_r.html#preview",
     "title": "Scope of the possible with R",
     "section": "Preview",
-    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn_within\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n\n20210704\nS92000003\nS08000016\nB120H\nEmergency Department\n575\n479\n96\n83.3\n19\n3.3\n2\n0.3\n\n\n20210530\nS92000003\nS08000024\nS319H\nEmergency Department\n1089\n1064\n25\n97.7\n0\n0.0\n0\n0.0\n\n\n20150322\nS92000003\nS08000015\nA210H\nEmergency Department\n856\n828\n28\n96.7\n0\n0.0\n0\n0.0\n\n\n20151213\nS92000003\nS08000030\nT202H\nEmergency Department\n461\n455\n6\n98.7\n1\n0.2\n0\n0.0\n\n\n20171105\nS92000003\nS08000015\nA210H\nEmergency Department\n677\n631\n46\n93.2\n7\n1.0\n1\n0.1"
+    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn_within\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n\n20190908\nS92000003\nS08000022\nC121H\nEmergency Department\n173\n169\n4\n97.7\n0\n0.0\n0\n0.0\n\n\n20181028\nS92000003\nS08000022\nH103H\nEmergency Department\n149\n142\n7\n95.3\n1\n0.7\n0\n0.0\n\n\n20220116\nS92000003\nS08000022\nC121H\nEmergency Department\n132\n131\n1\n99.2\n0\n0.0\n0\n0.0\n\n\n20230709\nS92000003\nS08000024\nS314H\nEmergency Department\n2402\n1374\n1028\n57.2\n328\n13.7\n147\n6.1\n\n\n20210801\nS92000003\nS08000019\nV217H\nEmergency Department\n1162\n958\n204\n82.4\n16\n1.4\n3\n0.3"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "href": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "title": "Scope of the possible with R",
     "section": "Removing data",
-    "text": "Removing data\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n20150621\nS08000015\nA210H\nEmergency Department\n863\n788\n75\n12\n0\n\n\n20160508\nS08000032\nL106H\nEmergency Department\n1357\n1328\n29\n0\n0\n\n\n20231029\nS08000024\nS319H\nEmergency Department\n996\n843\n153\n11\n2\n\n\n20160221\nS08000032\nL106H\nEmergency Department\n1218\n1152\n66\n2\n0\n\n\n20170108\nS08000020\nN411H\nEmergency Department\n470\n451\n19\n0\n0"
+    "text": "Removing data\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n20171029\nS08000022\nC121H\nEmergency Department\n144\n141\n3\n1\n0\n\n\n20151206\nS08000025\nR103H\nEmergency Department\n95\n95\n0\n0\n0\n\n\n20160703\nS08000024\nS319H\nEmergency Department\n843\n829\n14\n0\n0\n\n\n20240225\nS08000032\nL106H\nEmergency Department\n1275\n728\n547\n129\n27\n\n\n20230521\nS08000030\nT202H\nEmergency Department\n482\n409\n73\n2\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "href": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "title": "Scope of the possible with R",
     "section": "Tidying data",
-    "text": "Tidying data\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = lubridate::ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2017-04-30\nS08000031\nG107H\nEmergency Department\n1840\n1524\n316\n18\n1\n\n\n2019-10-06\nS08000020\nN411H\nEmergency Department\n543\n529\n14\n0\n0\n\n\n2022-06-05\nS08000030\nT101H\nEmergency Department\n1272\n1127\n145\n1\n0\n\n\n2023-12-24\nS08000015\nA210H\nEmergency Department\n528\n349\n179\n74\n44\n\n\n2022-05-08\nS08000016\nB120H\nEmergency Department\n596\n396\n200\n89\n68"
+    "text": "Tidying data\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = lubridate::ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2015-10-11\nS08000020\nN411H\nEmergency Department\n425\n418\n7\n0\n0\n\n\n2018-02-18\nS08000025\nR103H\nEmergency Department\n115\n106\n9\n0\n0\n\n\n2016-05-01\nS08000022\nC121H\nEmergency Department\n140\n139\n1\n0\n0\n\n\n2015-09-27\nS08000016\nB120H\nEmergency Department\n560\n525\n35\n1\n0\n\n\n2020-05-31\nS08000029\nF704H\nEmergency Department\n1022\n978\n44\n0\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "href": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "title": "Scope of the possible with R",
     "section": "Subset data",
-    "text": "Subset data\n\nwe’ll take a random selection of 5 health boards to keep things tidy\n\nae_activity &lt;- ae_activity |&gt;\n    filter(hb %in% boards)\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2019-06-23\nS08000030\nT202H\nEmergency Department\n555\n536\n19\n0\n0\n\n\n2018-06-24\nS08000028\nW107H\nEmergency Department\n128\n126\n2\n0\n0\n\n\n2019-08-11\nS08000020\nN411H\nEmergency Department\n505\n486\n19\n0\n0\n\n\n2018-01-14\nS08000022\nH202H\nEmergency Department\n562\n541\n21\n1\n0\n\n\n2023-01-08\nS08000016\nB120H\nEmergency Department\n552\n330\n222\n95\n64"
+    "text": "Subset data\n\nwe’ll take a random selection of 5 health boards to keep things tidy\n\nae_activity &lt;- ae_activity |&gt;\n    filter(hb %in% boards)\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn_within\nn_4\nn_8\nn_12\n\n\n\n\n2019-04-14\nS08000025\nR103H\nEmergency Department\n145\n128\n17\n0\n0\n\n\n2021-02-07\nS08000022\nH212H\nEmergency Department\n81\n78\n3\n0\n0\n\n\n2023-08-27\nS08000017\nY146H\nEmergency Department\n679\n513\n166\n49\n15\n\n\n2022-03-20\nS08000022\nC121H\nEmergency Department\n181\n153\n28\n3\n1\n\n\n2023-12-03\nS08000022\nH212H\nEmergency Department\n141\n128\n13\n0\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#basic-plots",
