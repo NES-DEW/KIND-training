@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-08-12">
+<meta name="dcterms.date" content="2024-09-09">
 
-<title>Neural Networks made ridiculously simple – KIND training pages</title>
+<title>An introduction to EBM (session 4) – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,41 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
 }
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
 }
-</style>
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -76,7 +62,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -190,27 +175,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link" data-scroll-target="#welcome">Welcome</a></li>
-  <li><a href="#whats-this-session-for" id="toc-whats-this-session-for" class="nav-link" data-scroll-target="#whats-this-session-for">What’s this session for?</a></li>
-  <li><a href="#what-this-session-wont-do" id="toc-what-this-session-wont-do" class="nav-link" data-scroll-target="#what-this-session-wont-do">What this session won’t do</a></li>
-  <li><a href="#biology-the-neurone" id="toc-biology-the-neurone" class="nav-link" data-scroll-target="#biology-the-neurone">Biology: the neurone</a></li>
-  <li><a href="#biology-activation" id="toc-biology-activation" class="nav-link" data-scroll-target="#biology-activation">Biology: activation</a></li>
-  <li><a href="#biology-networks-of-neurones" id="toc-biology-networks-of-neurones" class="nav-link" data-scroll-target="#biology-networks-of-neurones">Biology: networks of neurones</a></li>
-  <li><a href="#machines-the-node" id="toc-machines-the-node" class="nav-link" data-scroll-target="#machines-the-node">Machines: the node</a></li>
-  <li><a href="#machines-activation-functions" id="toc-machines-activation-functions" class="nav-link" data-scroll-target="#machines-activation-functions">Machines: activation functions</a></li>
-  <li><a href="#activation-functions-can-be-extremely-simple" id="toc-activation-functions-can-be-extremely-simple" class="nav-link" data-scroll-target="#activation-functions-can-be-extremely-simple">Activation functions can be extremely simple</a></li>
-  <li><a href="#machines-networks-of-nodes" id="toc-machines-networks-of-nodes" class="nav-link" data-scroll-target="#machines-networks-of-nodes">Machines: networks of nodes</a></li>
-  <li><a href="#machines-networks-of-nodes-1" id="toc-machines-networks-of-nodes-1" class="nav-link" data-scroll-target="#machines-networks-of-nodes-1">Machines: networks of nodes</a></li>
-  <li><a href="#several-kinds-of-networks" id="toc-several-kinds-of-networks" class="nav-link" data-scroll-target="#several-kinds-of-networks">Several kinds of networks</a></li>
-  <li><a href="#why-anns" id="toc-why-anns" class="nav-link" data-scroll-target="#why-anns">Why ANNs?</a></li>
-  <li><a href="#different-activation-functions" id="toc-different-activation-functions" class="nav-link" data-scroll-target="#different-activation-functions">Different activation functions</a></li>
-  <li><a href="#training-in-neural-networks" id="toc-training-in-neural-networks" class="nav-link" data-scroll-target="#training-in-neural-networks">Training in neural networks</a></li>
-  <li><a href="#mnist" id="toc-mnist" class="nav-link" data-scroll-target="#mnist">MNIST</a></li>
-  <li><a href="#mnist-data-example" id="toc-mnist-data-example" class="nav-link" data-scroll-target="#mnist-data-example">MNIST data example</a></li>
-  <li><a href="#train-for-mnist" id="toc-train-for-mnist" class="nav-link" data-scroll-target="#train-for-mnist">Train for MNIST</a></li>
-  <li><a href="#mnist-examples" id="toc-mnist-examples" class="nav-link" data-scroll-target="#mnist-examples">MNIST examples</a></li>
-  <li><a href="#mnist-in-r" id="toc-mnist-in-r" class="nav-link" data-scroll-target="#mnist-in-r">MNIST in R</a></li>
+  <li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#this-is-non-technical-and-non-comprehensive" id="toc-this-is-non-technical-and-non-comprehensive" class="nav-link" data-scroll-target="#this-is-non-technical-and-non-comprehensive">This is non-technical, and non-comprehensive</a></li>
+  <li><a href="#e1-whats-this-all-for" id="toc-e1-whats-this-all-for" class="nav-link" data-scroll-target="#e1-whats-this-all-for">E1: what’s this all for?</a></li>
+  <li><a href="#finding-out-if-treatments-work-is-hard" id="toc-finding-out-if-treatments-work-is-hard" class="nav-link" data-scroll-target="#finding-out-if-treatments-work-is-hard">Finding out if treatments work is hard</a></li>
+  </ul></li>
+  <li><a href="#sample-size-n" id="toc-sample-size-n" class="nav-link" data-scroll-target="#sample-size-n">Sample size (n)</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#the-problem-of-growing-sample-sizes" id="toc-the-problem-of-growing-sample-sizes" class="nav-link" data-scroll-target="#the-problem-of-growing-sample-sizes">The problem of growing sample sizes</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence intervals</a></li>
+  <li><a href="#confidence-intervals-1" id="toc-confidence-intervals-1" class="nav-link" data-scroll-target="#confidence-intervals-1">Confidence intervals</a></li>
+  <li><a href="#the-idea-of-sampling-error" id="toc-the-idea-of-sampling-error" class="nav-link" data-scroll-target="#the-idea-of-sampling-error">The idea of sampling error</a></li>
+  <li><a href="#confidence-intervals-2" id="toc-confidence-intervals-2" class="nav-link" data-scroll-target="#confidence-intervals-2">Confidence intervals</a></li>
+  <li><a href="#e2-ways-to-cheat" id="toc-e2-ways-to-cheat" class="nav-link" data-scroll-target="#e2-ways-to-cheat">E2: ways to cheat</a></li>
+  </ul></li>
+  <li><a href="#p-values" id="toc-p-values" class="nav-link" data-scroll-target="#p-values">p-values</a>
+  <ul class="collapse">
+  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2">Introduction</a></li>
+  <li><a href="#two-kinds-of-statistical-work" id="toc-two-kinds-of-statistical-work" class="nav-link" data-scroll-target="#two-kinds-of-statistical-work">two kinds of statistical work</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">hypothesis testing</a></li>
+  <li><a href="#does-the-data-support-the-hypothesis" id="toc-does-the-data-support-the-hypothesis" class="nav-link" data-scroll-target="#does-the-data-support-the-hypothesis">does the data support the hypothesis?</a></li>
+  <li><a href="#p-values-tell-us-about-support" id="toc-p-values-tell-us-about-support" class="nav-link" data-scroll-target="#p-values-tell-us-about-support">P-values tell us about support</a></li>
+  </ul></li>
+  <li><a href="#effect-sizes" id="toc-effect-sizes" class="nav-link" data-scroll-target="#effect-sizes">effect sizes</a>
+  <ul class="collapse">
+  <li><a href="#introduction-3" id="toc-introduction-3" class="nav-link" data-scroll-target="#introduction-3">Introduction</a></li>
+  <li><a href="#cohens-d" id="toc-cohens-d" class="nav-link" data-scroll-target="#cohens-d">Cohen’s d</a></li>
+  <li><a href="#e3-putting-it-all-together" id="toc-e3-putting-it-all-together" class="nav-link" data-scroll-target="#e3-putting-it-all-together">E3: putting it all together</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
   </ul>
 </nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -223,10 +220,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Neural Networks made ridiculously simple</h1>
+<h1 class="title">An introduction to EBM (session 4)</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">AI/ML</div>
+    <div class="quarto-category">skills</div>
     <div class="quarto-category">beginner</div>
+    <div class="quarto-category">evidence-based medicine</div>
+    <div class="quarto-category">critical appraisal</div>
+    <div class="quarto-category">clinical trials</div>
   </div>
   </div>
 
@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 12, 2024</p>
+      <p class="date">September 9, 2024</p>
     </div>
   </div>
   
@@ -250,428 +250,371 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="previous-attendees-have-said" class="level2 cell" data-layout-align="left">
-<h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
+<section id="session-outline" class="level2">
+<h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
 <ul>
-<li>8 previous attendees have left feedback</li>
-<li>100% would recommend this session to a colleague</li>
-<li>100% said that this session was pitched correctly</li>
+<li>this session is about core EBM statistics:
+<ul>
+<li>Greenhalgh’s three numbers <span class="citation" data-cites="Greenhalgh2019">(<a href="#ref-Greenhalgh2019" role="doc-biblioref">Greenhalgh 2019, 54</a>)</span>:
+<ul>
+<li><strong>sample size</strong></li>
+<li>duration of follow-up</li>
+<li>completeness of follow-up</li>
+</ul></li>
+<li>confidence intervals</li>
+<li>p-values</li>
+<li>effect sizes</li>
+</ul></li>
 </ul>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="neural_nets_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="288"></p>
-</figure>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ul>
+<li>E1: what’s this all for?</li>
+<li>E2: ways to cheat</li>
+<li>E3: putting it all together</li>
+</ul>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="this-is-non-technical-and-non-comprehensive" class="level2">
+<h2 class="anchored" data-anchor-id="this-is-non-technical-and-non-comprehensive">This is non-technical, and non-comprehensive</h2>
+<ul>
+<li>medical statistics is big and complicated
+<ul>
+<li>hundreds of statistical tests</li>
+<li>many are formidably complicated
+<ul>
+<li>really nice advice in chapter 5 of Greenhalgh’s book</li>
+</ul></li>
+<li>so we’re just looking at a few core areas</li>
+</ul></li>
+<li>statistics are widely abused in the health literature</li>
+<li>this gives rise to worries about statistics in general terms
+<ul>
+<li>e.g.&nbsp;suggestions that the use of statistics might be driving a mistaken approach to clinical research in very general terms <span class="citation" data-cites="heneghan2017">(<a href="#ref-heneghan2017" role="doc-biblioref">Heneghan, Goldacre, and Mahtani 2017</a>)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="e1-whats-this-all-for" class="level2">
+<h2 class="anchored" data-anchor-id="e1-whats-this-all-for">E1: what’s this all for?</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Please review the abstract of <span class="citation" data-cites="smith2003">Smith (<a href="#ref-smith2003" role="doc-biblioref">2003</a>)</span> available at <a href="https://www.bmj.com/content/327/7429/1459.short">bmj.com</a>. What point is the author trying to make?</li>
+<li>Please now review the abstract of <span class="citation" data-cites="yeh2018">Yeh et al. (<a href="#ref-yeh2018" role="doc-biblioref">2018</a>)</span> available at <a href="https://www.bmj.com/content/363/bmj.k5094">bmj.com</a>. What point are the authors trying to make?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="finding-out-if-treatments-work-is-hard" class="level2">
+<h2 class="anchored" data-anchor-id="finding-out-if-treatments-work-is-hard">Finding out if treatments work is hard</h2>
+<ul>
+<li>most examples are not like the parachute case <span class="citation" data-cites="xu2022">(<a href="#ref-xu2022" role="doc-biblioref">Xu and Prasad 2022</a>)</span></li>
+<li>most treatment effects are subtle</li>
+<li>statistics are a vital way of being more sure about the results we get</li>
+</ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Three random comments from previous attendees
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Really interesting intro into neural networks, good explanation about the history and development. Good level of info for an introduction session which has made me want to look up more about neural networks and AI</li>
-<li>engaging. Good balance of principles and examples</li>
-<li>Really interesting and informative, showing me a data processing techniques that have previously been a mysterious black box for me.</li>
+<li>the <a href="https://www.cebm.ox.ac.uk/resources/ebm-tools/number-needed-to-treat-nnt">Number Needed to Treat</a> is the number of patients that need to be treated to prevent an undesirable outcome</li>
 </ul>
 </div>
 </div>
+<ul>
+<li>NNTs are <a href="https://thennt.com/nnt/nicotine-replacement-therapy-for-smoking-cessation/">often startlingly high</a></li>
+</ul>
 </section>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+</section>
+<section id="sample-size-n" class="level1">
+<h1>Sample size (n)</h1>
+<section id="introduction-1" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-1">Introduction</h2>
+<ul>
+<li>as treatment effects are subtle, we often need to use large groups of participants
+<ul>
+<li>as we’ll see, there are concerns about margins of error that explain this - later!</li>
+</ul></li>
+<li>trials have grown:
+<ul>
+<li>MRC streptomycin study, 1948, 109 participants <span class="citation" data-cites="streptom1948">(<a href="#ref-streptom1948" role="doc-biblioref"><span>“Streptomycin Treatment of Pulmonary Tuberculosis: A Medical Research Council Investigation”</span> 1948</a>)</span></li>
+<li>WOSCOPS, 1995, 6595 participants <span class="citation" data-cites="shepherd1995">(<a href="#ref-shepherd1995" role="doc-biblioref">Shepherd 1995</a>)</span></li>
+<li>TRITON, 2009, 3534 participants <span class="citation" data-cites="montalescot2009">(<a href="#ref-montalescot2009" role="doc-biblioref">Montalescot et al. 2009</a>)</span></li>
+<li>RE-LY, 2010, 18113 participants <span class="citation" data-cites="wallentin2010">(<a href="#ref-wallentin2010" role="doc-biblioref">Wallentin et al. 2010</a>)</span></li>
+</ul></li>
+<li>see also worries about the logic of large trials in medicine <span class="citation" data-cites="penston2005">(<a href="#ref-penston2005" role="doc-biblioref">Penston 2005</a>)</span> and elsewhere <span class="citation" data-cites="lortie-forgues2019">(<a href="#ref-lortie-forgues2019" role="doc-biblioref">Lortie-Forgues and Inglis 2019</a>)</span> - “often uninformative”</li>
+</ul>
+</section>
+<section id="the-problem-of-growing-sample-sizes" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem-of-growing-sample-sizes">The problem of growing sample sizes</h2>
+<ul>
+<li>recruitment is hard</li>
+<li>larger n = harder recruitment
+<ul>
+<li>may end up relying on heterogeneous population
+<ul>
+<li>e.g. <span class="citation" data-cites="montalescot2009">Montalescot et al. (<a href="#ref-montalescot2009" role="doc-biblioref">2009</a>)</span></li>
+<li>3534 participants</li>
+<li>707 sites</li>
+<li>30 countries</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="confidence-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals">Confidence intervals</h2>
+<ul>
+<li>or, why make things so large?</li>
+<li>intuition: the larger our sample, the more precise our estimates</li>
+</ul>
+</section>
+<section id="confidence-intervals-1" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals-1">Confidence intervals</h2>
+<ul>
+<li>imagine we’re evaluating an intervention in a small population</li>
+<li>10% of the treatment arm get some outcome, compared to 12% in the control arm</li>
+<li>relative risk in this trial population = 83%</li>
+<li><strong>Q</strong>: what will the relative risk be in the whole population?</li>
+</ul>
+</section>
+<section id="the-idea-of-sampling-error" class="level2">
+<h2 class="anchored" data-anchor-id="the-idea-of-sampling-error">The idea of sampling error</h2>
+<ul>
+<li>our measure of risk in our small population sample might not accurately reflect the true population risk
+<ul>
+<li>AKA standard error</li>
+</ul></li>
+<li>we can’t say exactly how accurate our sample estimate is
+<ul>
+<li>unless we know the true population risk</li>
+</ul></li>
+<li>but we can give an interval estimate for our measurement, effectively describing likely lower and upper values within which the estimate might lie</li>
+</ul>
+</section>
+<section id="confidence-intervals-2" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals-2">Confidence intervals</h2>
+<ul>
+<li>for our example with 83% relative risk, our confidence interval might be between 75% and 91%
+<ul>
+<li>we could say “the chances are that our ‘real’ population risk would be between 75% and 91%”</li>
+</ul></li>
+<li>we conventionally use 95% confidence for these kinds of EBM estimates of confidence
+<ul>
+<li>effectively, saying that there’s a 95% chance the ‘true’ population risk is contained within this interval</li>
+<li>you might see these expressed as 95% CIs in print</li>
+</ul></li>
+<li><span class="citation" data-cites="sedgwick2014">Sedgwick (<a href="#ref-sedgwick2014" role="doc-biblioref">2014b</a>)</span> is a good next-step reading on CIs</li>
+</ul>
+</section>
+<section id="e2-ways-to-cheat" class="level2">
+<h2 class="anchored" data-anchor-id="e2-ways-to-cheat">E2: ways to cheat</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Session materials
+Task
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Take Greenhalgh’s list of ways to cheat<br><img src="images/04_ways_to_cheat.png" height="300" alt="Greenhalgh’s ways to cheat"></li>
+<li>Are there any areas where your paper from the previous session might be faulty in this way?</li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="p-values" class="level1">
+<h1>p-values</h1>
+<section id="introduction-2" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-2">Introduction</h2>
+<ul>
+<li>imagine that you’re looking at a 95% CI that is reported as follows:
+<ul>
+<li>“the relative risk of death in the intervention group compared to the control group was 92% (95% CI 72-112%)”
+<ul>
+<li>what does this result mean to you?</li>
+<li>is there a real reduction of death in the intervention group?</li>
+</ul></li>
+</ul></li>
+<li>that wide confidence interval means the population risk might well be 100% - the control group might not prevent death at all</li>
+<li>what does this mean for us?</li>
+</ul>
+</section>
+<section id="two-kinds-of-statistical-work" class="level2">
+<h2 class="anchored" data-anchor-id="two-kinds-of-statistical-work">two kinds of statistical work</h2>
+<ol type="1">
+<li>descriptive statistics = what do these numbers look like</li>
+<li>inferential statistics = what do these numbers tell us</li>
+</ol>
+</section>
+<section id="hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing">hypothesis testing</h2>
+<ul>
+<li>technically, RCT reports are <strong>hypothesis tests</strong></li>
+<li>hypothesis = educated guess about outcomes</li>
+<li>hypothesis testing is definitely part of inferential statistics</li>
+<li>hypothesis vs null hypothesis
+<ul>
+<li>what we think will happen if the treatment works</li>
+<li>what we think will happen if the treatment does not work</li>
+</ul></li>
+</ul>
+</section>
+<section id="does-the-data-support-the-hypothesis" class="level2">
+<h2 class="anchored" data-anchor-id="does-the-data-support-the-hypothesis">does the data support the hypothesis?</h2>
+<ul>
+<li>does the evidence (our sample data) support the hypothesis, or the null hypothesis?</li>
+<li>we could use a two-tailed statistical test to compare the support for each</li>
+<li>these tests give us a P-value, which is:</li>
+</ul>
+<blockquote class="blockquote">
+<p>…the probability of obtaining the observed difference between treatment groups…if there was no difference between treatment groups <span class="citation" data-cites="sedgwick2014a">(<a href="#ref-sedgwick2014a" role="doc-biblioref">Sedgwick 2014a</a>)</span></p>
+</blockquote>
+</section>
+<section id="p-values-tell-us-about-support" class="level2">
+<h2 class="anchored" data-anchor-id="p-values-tell-us-about-support">P-values tell us about support</h2>
+<ul>
+<li>assume the null hypothesis is true
+<ul>
+<li>that our treatment does nothing</li>
+</ul></li>
+<li>the P-value tells us how often we’d expect to get results like our real results just by chance</li>
+<li>P-values are probabilities, so reported as a number between 0 and 1</li>
+<li><strong>critical level of significance</strong> = the arbitrary level below which P-values are assumed to be convincing
+<ul>
+<li>usually P = 0.05 - below that, the results are said to be statistically significant</li>
+</ul></li>
+<li>P-values tell us whether our data supports our hypothesis (when P &lt; 0.05) or whether it supports the null hypothesis (when P is &gt; 0.05)</li>
+</ul>
+</section>
+</section>
+<section id="effect-sizes" class="level1">
+<h1>effect sizes</h1>
+<section id="introduction-3" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-3">Introduction</h2>
+<ul>
+<li>an important third statistical tool deals with effect sizes</li>
+<li>so far, we’ve just looked at individual trial results</li>
+<li>from now on, though, we’re going to look at pooled results</li>
+<li>we’ll need a way of comparing outcomes between trials</li>
+</ul>
+</section>
+<section id="cohens-d" class="level2">
+<h2 class="anchored" data-anchor-id="cohens-d">Cohen’s d</h2>
+<ul>
+<li>informally, calculated by taking the difference between (control and treatment) groups, and dividing by the standard deviation
+<ul>
+<li>because we’re being non-technical in this session, we can think of the SD as a measure of variation or spread</li>
+<li>usually positive (absolute value reported)</li>
+</ul></li>
+<li>that means that d expresses the effect size in terms of the natural variation within the study population
+<ul>
+<li>try playing with the demonstration on <a href="https://rpsychologist.com/cohend/">rpsychologist.com</a></li>
+</ul></li>
+<li>anything over 1 is massive (a whole standard deviation difference), anything under 0.2 is tiny</li>
+<li>the third reference to <span class="citation" data-cites="sedgwick2015">Sedgwick (<a href="#ref-sedgwick2015" role="doc-biblioref">2015</a>)</span> - really recommend that sequence of articles for the technical questions about EBM</li>
+</ul>
+</section>
+<section id="e3-putting-it-all-together" class="level2">
+<h2 class="anchored" data-anchor-id="e3-putting-it-all-together">E3: putting it all together</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><a href="src/neural_nets.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
-<li>slides <a href="src/neural_nets.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/neural_nets.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a></li>
-</ul>
-</div>
-</div>
-</div>
-<section id="welcome" class="level2">
-<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
+<li>here’s a timely reference: <span class="citation" data-cites="effecto2020">(<a href="#ref-effecto2020" role="doc-biblioref">The RECOVERY Collaborative Group 2020</a>)</span>?</li>
+<li>what do you think here about the:
 <ul>
-<li>this session is 🌶: for beginners</li>
-</ul>
-</section>
-<section id="whats-this-session-for" class="level2">
-<h2 class="anchored" data-anchor-id="whats-this-session-for">What’s this session for?</h2>
-<ul>
-<li>neural nets are a core technology for AI/ML systems</li>
-<li>they’ve been around for decades (and probably will go on for decades)</li>
-<li>they’re also particularly helpful for health &amp; care folk as a way of understanding AI/ML tools in general</li>
-</ul>
-</section>
-<section id="what-this-session-wont-do" class="level2">
-<h2 class="anchored" data-anchor-id="what-this-session-wont-do">What this session won’t do</h2>
-<ul>
-<li>give a general introduction to AI/ML</li>
-<li>explain how to build a neural net of your very own</li>
-<li>discuss in any detail the (often formidable) maths of neural nets</li>
-</ul>
-</section>
-<section id="biology-the-neurone" class="level2">
-<h2 class="anchored" data-anchor-id="biology-the-neurone">Biology: the neurone</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3856000381.png" height="550" class="figure-img"></p>
-<figcaption><a href="https://commons.wikimedia.org/wiki/Category:Camillo_Golgi#/media/File:Golgi_1885_Plate_XIII.JPG">WikiMedia</a></figcaption>
-</figure>
-</div>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Neuron">biological neurones</a>:
-<ul>
-<li>receive some input from an upstream neuron(s)</li>
-<li>process that input in some way</li>
-<li>generate some output(s) in response to that input, and pass it downstream</li>
+<li>sample size</li>
+<li>the duration and completeness of follow-up</li>
+<li>the use of confidence intervals</li>
+<li>the use of p-values</li>
+<li>any discussion of effect sizes</li>
 </ul></li>
 </ul>
-</section>
-<section id="biology-activation" class="level2">
-<h2 class="anchored" data-anchor-id="biology-activation">Biology: activation</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3431060444.png" height="550" class="figure-img"></p>
-<figcaption>https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Action_potential.svg/778px-Action_potential.svg.png</figcaption>
-</figure>
-</div>
-<ul>
-<li>neurones respond to stimulii
-<ul>
-<li>threshold-y</li>
-<li>approximately digital output (on/off)</li>
-<li>sometimes complex behaviour about inputs</li>
-</ul></li>
-</ul>
-</section>
-<section id="biology-networks-of-neurones" class="level2">
-<h2 class="anchored" data-anchor-id="biology-networks-of-neurones">Biology: networks of neurones</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2953597145.png" height="550" class="figure-img"></p>
-<figcaption><a href="https://commons.wikimedia.org/wiki/Category:Camillo_Golgi#/media/File:Camillo_Golgi's_image_of_a_dog%E2%80%99s_olfactory_bulb_(detail_2).jpg">wikimedia</a></figcaption>
-</figure>
-</div>
-<ul>
-<li>neurones are usually found in networks</li>
-<li>can produce complex and sophisticated behaviours in a robust way <br> <img src="images/clipboard-2825173395.png" class="img-fluid" alt="Leon Benjamin on Flickr"></li>
-<li>non-obvious relationships between structure and function</li>
-</ul>
-</section>
-<section id="machines-the-node" class="level2">
-<h2 class="anchored" data-anchor-id="machines-the-node">Machines: the node</h2>
-<p>Here’s a simple representation of a node, implemented in code, that we might find in a neural network:</p>
-<p><img src="images/net1.png" class="img-fluid"></p>
-</section>
-<section id="machines-activation-functions" class="level2">
-<h2 class="anchored" data-anchor-id="machines-activation-functions">Machines: activation functions</h2>
-<p>Here are some example input:output pairs for our node:</p>
-<p><img src="images/net2.png" class="img-fluid"></p>
-<ul>
-<li>there are lots of possible activation functions</li>
-<li>a simple one: <code>NOT</code>
-<ul>
-<li>our node outputs TRUE when we input FALSE, and vice versa</li>
-</ul></li>
-</ul>
-<p>This flexibility means that we can build networks of nodes (hence neural networks). Again, a very simple example:</p>
-</section>
-<section id="activation-functions-can-be-extremely-simple" class="level2">
-<h2 class="anchored" data-anchor-id="activation-functions-can-be-extremely-simple">Activation functions can be extremely simple</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>node <span class="ot">&lt;-</span> <span class="cf">function</span>(input){</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">!</span>input</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">node</span>(<span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE</code></pre>
 </div>
 </div>
 </section>
-<section id="machines-networks-of-nodes" class="level2">
-<h2 class="anchored" data-anchor-id="machines-networks-of-nodes">Machines: networks of nodes</h2>
-<p><img src="images/net3.png" class="img-fluid"></p>
-</section>
-<section id="machines-networks-of-nodes-1" class="level2">
-<h2 class="anchored" data-anchor-id="machines-networks-of-nodes-1">Machines: networks of nodes</h2>
-<ul>
-<li>nodes are usually found in networks</li>
-<li>can produce complex and sophisticated behaviours in a robust way <br> <img src="images/clipboard-1429075449.png" height="400" alt="Chat GPT nonsense"></li>
-<li>again, non-obvious relationships between structure and function in artifical neural networks (ANN)</li>
-</ul>
-<div class="notes">
-<p>A user supplies some input. That input is fed into an input node(s), which processes the input, and produces three different outputs that are then fed into a second layer of nodes. Further processing happens in this hidden layer, leading to three outputs that are integrated together in a final output node that processes the outputs of the hidden layer into a single output.</p>
-</div>
-</section>
-<section id="several-kinds-of-networks" class="level2">
-<h2 class="anchored" data-anchor-id="several-kinds-of-networks">Several kinds of networks</h2>
-<ul>
-<li><a href="https://www.asimovinstitute.org/neural-network-zoo/">there are lots of ways that neural networks can be arranged</a></li>
-<li>our example above = feed-forward
-<ul>
-<li>all the nodes are connected from left-to-right</li>
-</ul></li>
-<li>but more complex architectures - like <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network">recurrent neural networks</a> - might have feedback looks and other biological-ish features</li>
-<li>different numbers of layers</li>
-<li>lots of different design tendencies since the first intro of neural nets in the 1950s <span class="citation" data-cites="rosenblatt1958">[@rosenblatt1958]</span></li>
-<li>most fancy ANNs are currently architecturally simple</li>
-</ul>
-</section>
-<section id="why-anns" class="level2">
-<h2 class="anchored" data-anchor-id="why-anns">Why ANNs?</h2>
-<ul>
-<li>ANNs can can potentially replicate <em>any</em> input-output ransformation</li>
-<li>we do that by a) increasing complexity and b) allowing them to ‘learn’</li>
-</ul>
-<p>. . .</p>
-<p><img src="images/net4.png" class="img-fluid"></p>
-</section>
-<section id="different-activation-functions" class="level2">
-<h2 class="anchored" data-anchor-id="different-activation-functions">Different activation functions</h2>
-<ul>
-<li>binary (true/false)</li>
-<li>continuous
-<ul>
-<li>linear</li>
-<li>non-linear (like sigmoid, ReLU)</li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="neural_nets_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="neural_nets_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="training-in-neural-networks" class="level2">
-<h2 class="anchored" data-anchor-id="training-in-neural-networks">Training in neural networks</h2>
-<ul>
-<li>ANNs can be trained
-<ul>
-<li>take a dataset</li>
-<li>split it into training and test parts
-<ul>
-<li>classify (by hand) the training data</li>
-</ul></li>
-<li>then train
-<ul>
-<li>feed your ANN the training data and evaluate how well it performs</li>
-<li>modify the ANN based on that evaluation</li>
-<li>repeat until done/bored/perfect</li>
-</ul></li>
-<li>finally, test your model with your unlabelled test data and evaluate</li>
-</ul></li>
-</ul>
-</section>
-<section id="mnist" class="level2">
-<h2 class="anchored" data-anchor-id="mnist">MNIST</h2>
-<ul>
-<li>a <a href="https://upload.wikimedia.org/wikipedia/commons/f/f7/MnistExamplesModified.png">classic dataset</a> <br><img src="images/MnistExamplesModified.png" class="img-fluid"></li>
-<li>recognizing handwritten numbers = actually-important task</li>
-<li>60000 labelled training images</li>
-<li>10000 test images</li>
-<li>each is a 28*28 pixel matrix grey vales encoded as 0-255</li>
-</ul>
-</section>
-<section id="mnist-data-example" class="level2">
-<h2 class="anchored" data-anchor-id="mnist-data-example">MNIST data example</h2>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">V10</th>
-<th style="text-align: right;">V11</th>
-<th style="text-align: right;">V12</th>
-<th style="text-align: right;">V13</th>
-<th style="text-align: right;">V14</th>
-<th style="text-align: right;">V15</th>
-<th style="text-align: right;">V16</th>
-<th style="text-align: right;">V17</th>
-<th style="text-align: right;">V18</th>
-<th style="text-align: right;">V19</th>
-<th style="text-align: right;">V20</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">126</td>
-<td style="text-align: right;">136</td>
-<td style="text-align: right;">175</td>
-<td style="text-align: right;">26</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">94</td>
-<td style="text-align: right;">154</td>
-<td style="text-align: right;">170</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">225</td>
-<td style="text-align: right;">172</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">251</td>
-<td style="text-align: right;">93</td>
-<td style="text-align: right;">82</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">198</td>
-<td style="text-align: right;">182</td>
-<td style="text-align: right;">247</td>
-<td style="text-align: right;">241</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">156</td>
-<td style="text-align: right;">107</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">205</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">154</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="train-for-mnist" class="level2">
-<h2 class="anchored" data-anchor-id="train-for-mnist">Train for MNIST</h2>
-<ul>
-<li>take your training data</li>
-<li>put together a neural network (number of nodes, layers, feedback, activation functions)</li>
-<li>run the training data, and evaluate based on labelling</li>
-<li>modify your neural network, rinse, and repeat</li>
-<li>…</li>
-<li>when happy, try the unlabelled test data</li>
-</ul>
-</section>
-<section id="mnist-examples" class="level2">
-<h2 class="anchored" data-anchor-id="mnist-examples">MNIST examples</h2>
-<ul>
-<li><a href="https://www.google.com/search?sca_esv=2570ae1cf58fa5c0&amp;sca_upv=1&amp;sxsrf=ADLYWIKxXMZkhLseWyic66zzdMajQ_FY3Q:1723463086461&amp;q=mnist+neural+network&amp;tbm=isch&amp;source=lnms&amp;fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWERaHdBms7t-tHL1116ec0FnDIxrxgGhNFSZEtYqV91QqM6LWLrLFWKmjC_P6yIDKAfdUXLK5TdVXK9XKaLJ0CvIevHNUoTv_L_edtCkFO49GwFOyIj9HDXPzAaIsMKrRU9-We_G08qTzCW2H2tx2SXc4OexQzDRMByEUFhbW4wpPcER3&amp;sa=X&amp;ved=2ahUKEwiP-LSosO-HAxWpT0EAHdVLOBsQ0pQJegQIERAB&amp;biw=1842&amp;bih=1007&amp;dpr=1">lots of different examples</a></li>
-<li>why do this work in an ANN, rather than in some other tool?
-<ul>
-<li>generic training strategy - reduces need for domain knowledge</li>
-<li>hopefully robust outcomes - so giving models able to work across contexts</li>
-<li>scalable</li>
-</ul></li>
-</ul>
-</section>
-<section id="mnist-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="mnist-in-r">MNIST in R</h2>
-<p>An aside here for the R enthusiasts - we can plot the handwritten numbers back out of the data using <code>ggplot()</code>:</p>
-<div class="cell" data-output-location="slide">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mnist_plot_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># matrix to pivoted tibble for plotting</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">rn =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="sc">!</span>rn) <span class="sc">|&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">"V"</span>, <span class="st">""</span>, name)))</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>mnist_main_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="fu">aes</span>(</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> rn,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">reorder</span>(name,<span class="sc">-</span>name),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> value</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    )) <span class="sc">+</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradient2</span>(<span class="at">mid =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"black"</span>)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>mnist_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mnist_plot_dat</span>(<span class="fu">matrix</span>(mnist<span class="sc">$</span>train<span class="sc">$</span>images[n, ], <span class="dv">28</span>, <span class="dv">28</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mnist_main_plot</span>() <span class="sc">+</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="fu">glue</span>(<span class="st">"Label: { mnist$train$labels[n]}"</span>)) <span class="sc">+</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(<span class="at">grobs =</span> purrr<span class="sc">::</span><span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">36</span>, mnist_plot), <span class="at">nrow =</span> <span class="dv">6</span>, <span class="at">top=</span><span class="st">"Some MNIST examples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="neural_nets_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<section id="references" class="level2">
+
+
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Greenhalgh2019" class="csl-entry" role="listitem">
+Greenhalgh, Trisha. 2019. <em>How to Read a Paper</em>. Hoboken, NJ: Wiley-Blackwell. <a href="https://nhs-scot-primo.hosted.exlibrisgroup.com/permalink/f/3dhhck/44NHSS_ALMA5146749970003491">https://nhs-scot-primo.hosted.exlibrisgroup.com/permalink/f/3dhhck/44NHSS_ALMA5146749970003491</a>.
+</div>
+<div id="ref-heneghan2017" class="csl-entry" role="listitem">
+Heneghan, Carl, Ben Goldacre, and Kamal R. Mahtani. 2017. <span>“Why Clinical Trial Outcomes Fail to Translate into Benefits for Patients.”</span> <em>Trials</em> 18 (1). <a href="https://doi.org/10.1186/s13063-017-1870-2">https://doi.org/10.1186/s13063-017-1870-2</a>.
+</div>
+<div id="ref-lortie-forgues2019" class="csl-entry" role="listitem">
+Lortie-Forgues, Hugues, and Matthew Inglis. 2019. <span>“Rigorous Large-Scale Educational RCTs Are Often Uninformative: Should We Be Concerned?”</span> <em>Educational Researcher</em> 48 (3): 158–66. <a href="https://doi.org/10.3102/0013189x19832850">https://doi.org/10.3102/0013189x19832850</a>.
+</div>
+<div id="ref-montalescot2009" class="csl-entry" role="listitem">
+Montalescot, Gilles, Stephen D Wiviott, Eugene Braunwald, Sabina A Murphy, C Michael Gibson, Carolyn H McCabe, and Elliott M Antman. 2009. <span>“Prasugrel Compared with Clopidogrel in Patients Undergoing Percutaneous Coronary Intervention for ST-Elevation Myocardial Infarction (TRITON-TIMI 38): Double-Blind, Randomised Controlled Trial.”</span> <em>The Lancet</em> 373 (9665): 723–31. <a href="https://doi.org/10.1016/s0140-6736(09)60441-4">https://doi.org/10.1016/s0140-6736(09)60441-4</a>.
+</div>
+<div id="ref-penston2005" class="csl-entry" role="listitem">
+Penston, James. 2005. <span>“Large-Scale Randomised Trials <span></span> a Misguided Approach to Clinical Research.”</span> <em>Medical Hypotheses</em> 64 (3): 651–57. <a href="https://doi.org/10.1016/j.mehy.2004.09.006">https://doi.org/10.1016/j.mehy.2004.09.006</a>.
+</div>
+<div id="ref-sedgwick2014a" class="csl-entry" role="listitem">
+Sedgwick, P. 2014a. <span>“Understanding P Values.”</span> <em>BMJ</em> 349 (jul11 3): g4550–50. <a href="https://doi.org/10.1136/bmj.g4550">https://doi.org/10.1136/bmj.g4550</a>.
+</div>
+<div id="ref-sedgwick2014" class="csl-entry" role="listitem">
+———. 2014b. <span>“Understanding Confidence Intervals.”</span> <em>BMJ</em> 349 (oct06 12): g6051–51. <a href="https://doi.org/10.1136/bmj.g6051">https://doi.org/10.1136/bmj.g6051</a>.
+</div>
+<div id="ref-sedgwick2015" class="csl-entry" role="listitem">
+———. 2015. <span>“Randomised Controlled Trials: Understanding Effect Sizes.”</span> <em>BMJ</em> 350 (mar27 2): h1690–90. <a href="https://doi.org/10.1136/bmj.h1690">https://doi.org/10.1136/bmj.h1690</a>.
+</div>
+<div id="ref-shepherd1995" class="csl-entry" role="listitem">
+Shepherd, James. 1995. <span>“The West of Scotland Coronary Prevention Study: A Trial of Cholesterol Reduction in Scottish Men.”</span> <em>The American Journal of Cardiology</em> 76 (9): 113C–117C. <a href="https://doi.org/10.1016/s0002-9149(99)80480-9">https://doi.org/10.1016/s0002-9149(99)80480-9</a>.
+</div>
+<div id="ref-smith2003" class="csl-entry" role="listitem">
+Smith, G. C S. 2003. <span>“Parachute Use to Prevent Death and Major Trauma Related to Gravitational Challenge: Systematic Review of Randomised Controlled Trials.”</span> <em>BMJ</em> 327 (7429): 1459–61. <a href="https://doi.org/10.1136/bmj.327.7429.1459">https://doi.org/10.1136/bmj.327.7429.1459</a>.
+</div>
+<div id="ref-streptom1948" class="csl-entry" role="listitem">
+<span>“Streptomycin Treatment of Pulmonary Tuberculosis: A Medical Research Council Investigation.”</span> 1948. <em>BMJ</em> 2 (4582): 769–82. <a href="https://doi.org/10.1136/bmj.2.4582.769">https://doi.org/10.1136/bmj.2.4582.769</a>.
+</div>
+<div id="ref-effecto2020" class="csl-entry" role="listitem">
+The RECOVERY Collaborative Group. 2020. <span>“Effect of Hydroxychloroquine in Hospitalized Patients with Covid-19.”</span> <em>New England Journal of Medicine</em> 383 (21): 2030–40. <a href="https://doi.org/10.1056/nejmoa2022926">https://doi.org/10.1056/nejmoa2022926</a>.
+</div>
+<div id="ref-wallentin2010" class="csl-entry" role="listitem">
+Wallentin, Lars, Salim Yusuf, Michael D Ezekowitz, Marco Alings, Marcus Flather, Maria Grazia Franzosi, Prem Pais, et al. 2010. <span>“Efficacy and Safety of Dabigatran Compared with Warfarin at Different Levels of International Normalised Ratio Control for Stroke Prevention in Atrial Fibrillation: An Analysis of the RE-LY Trial.”</span> <em>The Lancet</em> 376 (9745): 975–83. <a href="https://doi.org/10.1016/s0140-6736(10)61194-4">https://doi.org/10.1016/s0140-6736(10)61194-4</a>.
+</div>
+<div id="ref-xu2022" class="csl-entry" role="listitem">
+Xu, Alexander, and Vinay Prasad. 2022. <span>“The Use and Meaning of the Parachute Metaphor in Biomedicine: A Citation Analysis of a Systematic Review and a Randomized Trial of the Parachute for Freefall.”</span> <em>Journal of Comparative Effectiveness Research</em> 11 (6): 383–90. <a href="https://doi.org/10.2217/cer-2021-0171">https://doi.org/10.2217/cer-2021-0171</a>.
+</div>
+<div id="ref-yeh2018" class="csl-entry" role="listitem">
+Yeh, Robert W, Linda R Valsdottir, Michael W Yeh, Changyu Shen, Daniel B Kramer, Jordan B Strom, Eric A Secemsky, et al. 2018. <span>“Parachute Use to Prevent Death and Major Trauma When Jumping from Aircraft: Randomized Controlled Trial.”</span> <em>BMJ</em>, December, k5094. <a href="https://doi.org/10.1136/bmj.k5094">https://doi.org/10.1136/bmj.k5094</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
