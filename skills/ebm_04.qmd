@@ -1,0 +1,213 @@
+---
+title: An introduction to EBM (session 4)
+date: 2024-09-09
+execute: 
+  echo: false
+  eval: true
+  freeze: auto
+  output: "markup"
+categories: [skills, beginner, evidence-based medicine, critical appraisal, clinical trials]
+bibliography: src/references.bib
+---
+
+## Session outline
+
++ this session is about core EBM statistics:
+    + Greenhalgh's three numbers [@Greenhalgh2019 p.54]:
+        + **sample size**
+        + duration of follow-up
+        + completeness of follow-up
+    + confidence intervals
+    + p-values
+    + effect sizes
+
+## Exercises
+
++ E1: what's this all for?
++ E2: ways to cheat
++ E3: putting it all together
+
+# Introduction
+
+## This is non-technical, and non-comprehensive
+
++ medical statistics is big and complicated
+    + hundreds of statistical tests
+    + many are formidably complicated
+        + really nice advice in chapter 5 of Greenhalgh's book
+    + so we're just looking at a few core areas
++ statistics are widely abused in the health literature
++ this gives rise to worries about statistics in general terms
+    + e.g. suggestions that the use of statistics might be driving a mistaken approach to clinical research in very general terms [@heneghan2017]
+
+## E1: what's this all for?
+
+::: {.callout-tip title="Task"}
+
+1. Please review the abstract of @smith2003 available at [bmj.com](https://www.bmj.com/content/327/7429/1459.short). What point is the author trying to make?
+1. Please now review the abstract of @yeh2018 available at [bmj.com](https://www.bmj.com/content/363/bmj.k5094). What point are the authors trying to make?
+
+:::
+
+## Finding out if treatments work is hard
+
++ most examples are not like the parachute case [@xu2022]
++ most treatment effects are subtle
++ statistics are a vital way of being more sure about the results we get
+
+
+
+::: {.callout-note}
++ the [Number Needed to Treat](https://www.cebm.ox.ac.uk/resources/ebm-tools/number-needed-to-treat-nnt) is the number of patients that need to be treated to prevent an undesirable outcome
+:::
+
++ NNTs are [often startlingly high](https://thennt.com/nnt/nicotine-replacement-therapy-for-smoking-cessation/)
+
+
+
+# Sample size (n)
+
+## Introduction
+
++ as treatment effects are subtle, we often need to use large groups of participants
+    + as we'll see, there are concerns about margins of error that explain this - later!
++ trials have grown:
+    + MRC streptomycin study, 1948, 109 participants [@streptom1948]
+    + WOSCOPS, 1995, 6595 participants [@shepherd1995]
+    + TRITON, 2009, 3534 participants [@montalescot2009]
+    + RE-LY, 2010, 18113 participants [@wallentin2010]
++ see also worries about the logic of large trials in medicine [@penston2005] and elsewhere [@lortie-forgues2019] - "often uninformative"
+
+## The problem of growing sample sizes
+
++ recruitment is hard
++ larger n = harder recruitment
+    + may end up relying on heterogeneous population
+      + e.g. @montalescot2009
+      + 3534 participants
+      + 707 sites
+      + 30 countries
+    
+## Confidence intervals
+
++ or, why make things so large?
++ intuition: the larger our sample, the more precise our estimates
+
+```{r}
+#| include: false
+
+x <- rnorm(50, mean = 10, sd = 2)
+
+# Calculate a 95% confidence interval for the mean
+t.test(x, conf.level = 0.95)$conf.int
+
+```
+## Confidence intervals
+
++ imagine we're evaluating an intervention in a small population
++ 10% of the treatment arm get some outcome, compared to 12% in the control arm
++ relative risk in this trial population = 83%
++ **Q**: what will the relative risk be in the whole population?
+
+## The idea of sampling error
++ our measure of risk in our small population sample might not accurately reflect the true population risk
+    + AKA standard error
++ we can't say exactly how accurate our sample estimate is
+    + unless we know the true population risk 
++ but we can give an interval estimate for our measurement, effectively describing likely lower and upper values within which the estimate might lie
+
+## Confidence intervals
+
++ for our example with 83% relative risk, our confidence interval might be between 75% and 91%
+  + we could say "the chances are that our 'real' population risk would be between 75% and 91%" 
++ we conventionally use 95% confidence for these kinds of EBM estimates of confidence
+  + effectively, saying that there's a 95% chance the 'true' population risk is contained within this interval
+  + you might see these expressed as 95% CIs in print
++ @sedgwick2014 is a good next-step reading on CIs
+
+
+## E2: ways to cheat
+
+::: {.callout-tip title="Task"}
+
+1. Take Greenhalgh's list of ways to cheat</br>![Greenhalgh's ways to cheat](images/04_ways_to_cheat.png){height=300}
+1. Are there any areas where your paper from the previous session might be faulty in this way?
+
+:::
+
+
+# p-values
+
+## Introduction
++ imagine that you're looking at a 95% CI that is reported as follows:
+    + "the relative risk of death in the intervention group compared to the control group was 92% (95% CI 72-112%)"
+      + what does this result mean to you?
+      + is there a real reduction of death in the intervention group?
++ that wide confidence interval means the population risk might well be 100% - the control group might not prevent death at all
++ what does this mean for us?
+
+## two kinds of statistical work
+1. descriptive statistics = what do these numbers look like
+2. inferential statistics = what do these numbers tell us
+
+## hypothesis testing
++ technically, RCT reports are **hypothesis tests**
++ hypothesis = educated guess about outcomes
++ hypothesis testing is definitely part of inferential statistics
++ hypothesis vs null hypothesis
+    + what we think will happen if the treatment works
+    + what we think will happen if the treatment does not work
+
+## does the data support the hypothesis?
++ does the evidence (our sample data) support the hypothesis, or the null hypothesis?
++ we could use a two-tailed statistical test to compare the support for each
++ these tests give us a P-value, which is:
+
+> ...the probability of obtaining the observed difference between treatment groups...if there was no difference between treatment groups [@sedgwick2014a]
+
+## P-values tell us about support
+
++ assume the null hypothesis is true
+    + that our treatment does nothing
++ the P-value tells us how often we'd expect to get results like our real results just by chance
++ P-values are probabilities, so reported as a number between 0 and 1
++ **critical level of significance** = the arbitrary level below which P-values are assumed to be convincing
+    + usually P = 0.05 - below that, the results are said to be statistically significant
++ P-values tell us whether our data supports our hypothesis (when P < 0.05) or whether it supports the null hypothesis (when P is > 0.05)
+
+# effect sizes
+
+## Introduction
+
+
+- an important third statistical tool deals with effect sizes
+- so far, we've just looked at individual trial results
+- from now on, though, we're going to look at pooled results
+- we'll need a way of comparing outcomes between trials
+
+## Cohen's d
+
+- informally, calculated by taking the difference between (control and treatment) groups, and dividing by the standard deviation
+    - because we're being non-technical in this session, we can think of the SD as a measure of variation or spread
+     - usually positive (absolute value reported)
+- that means that d expresses the effect size in terms of the natural variation within the study population
+    - try playing with the demonstration on [rpsychologist.com](https://rpsychologist.com/cohend/)
+- anything over 1 is massive (a whole standard deviation difference), anything under 0.2 is tiny
+- the third reference to @sedgwick2015 - really recommend that sequence of articles for the technical questions about EBM
+
+
+## E3: putting it all together
+
+::: {.callout-tip title="Task"}
+
++ here's a timely reference: [@effecto2020]?
++ what do you think here about the:
+    + sample size
+    + the duration and completeness of follow-up
+    + the use of confidence intervals
+    + the use of p-values
+    + any discussion of effect sizes
+:::
+
+
+## References
