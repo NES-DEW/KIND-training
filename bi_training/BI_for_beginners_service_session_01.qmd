@@ -1,0 +1,184 @@
+---
+title: "BI for Beginners (service version) Session 1"
+date: "2024-09-12"
+categories: [Power BI, beginner]
+---
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx session data](src/s01_data.xlsx)
+:::
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("BI for Beginners (service version)")
+
+```
+
+## Session outline
+
+-   practical first
+    -   loading data
+    -   making visualizations
+    -   manipulating data
+-   then some explanation and examples
+    -   what is it for?
+    -   how does it work?
+
+## Two words of warning...
+
+1.  This course uses [Power BI Service](https://app.powerbi.com/). Most of the skills here are transferable to other versions of Power BI, but you'll need Service to follow the examples
+2.  Licencing and publication can be complicated in Power BI. We don't discuss that much here, but it's important to understand the implications if you're planning to use it in practice. The [KIND Network](https://teams.microsoft.com/l/team/19%3aQZ7-PbFVcziG2piHLt1_ifey3I2cwFL0yBuTSS8vVao1%40thread.tacv2/conversations?groupId=106d08f3-9026-40e2-b3c7-87cd87304d58&tenantId=10efe0bd-a030-4bca-809c-b5e6745e499a) is a good resource for those kinds of questions.
+
+## Hospital occupancy data
+
+::: {.callout-tip title="Task"}
+1.  download, and open the sample [s01_data.xlsx](src/s01_data.xlsx) workbook in Excel
+2.  have a look at the two sheets, called `occupancy_sh` and `wards_sh`
+3.  each contains a table, which are named `occupancy` and `wards`
+4.  close the Excel file
+:::
+
+## Open Power BI service
+
+::: {.callout-tip title="Task"}
+1.  Navigate to <https://app.powerbi.com/>
+2.  Select `New Report`</br>![](images/clipboard-3571025835.png){height="150"}
+:::
+
+## Loading data
+
+::: {.callout-tip title="Task"}
+1.  select `Excel (preview)` </br>![select Excel (preview)](images/clipboard-4053349010.png){height="150"}
+2.  select `Upload file` </br>![](images/clipboard-916950338.png)
+3.  now drag your Excel workbook into the Power BI window</br>![drag your Excel workbook into the Power BI window](images/clipboard-357030995.png)
+:::
+
+## Hospital occupancy data
+
+::: {.callout-tip title="Task"}
+1.  we can either load the worksheets or the tables from the Excel file
+    1.  if you're planning to work with data from Excel, we'd strongly advise you to work with tables rather than worksheets
+2.  select the two tables in the preview and select `Create` </br> ![select the two tables in the preview and select Create](images/clipboard-815799949.png)
+:::
+
+## The Report View
+
+![Report view](images/clipboard-3761155047.png)
+
+-   this is where we'll build our dashboard
+-   take a minute to look round - particularly noting the three panes (`Filters`, `Visualizations`, and `Data`) on the right of the screen
+-   you should also save your report at this point</br>![Save your report](images/clipboard-435366504.png)
+
+## A note on data loading
+
+-   data loading is one-way
+    -   what we do in Power BI won't change the underlying files
+    -   but if our files change, our dashboard will change
+        -   we'll usually need to refresh our data to see that
+
+## A first visual
+
+-   for now, let's use this data to build a simple visualization
+
+::: {.callout-tip title="Task"}
+1.  make sure you select `Edit` from the menu </br> ![select Edit](images/clipboard-1317552922.png)
+2.  Select `Line chart` from the visualizations pane </br> ![Select Line chart from the visualizations pane](images/clipboard-812342158.png){height="300"}
+3.  Enlarge the visualisation to fill the page by dragging the corners of the new line chart to fill the report area
+4.  Add some data:
+    a.  Drag the `OccupiedBeds` column from the occupancy table to the `Y-axis` field
+    b.  Drag the `date` column from the occupancy table to the **X-axis field** </br>![date in x axis, occupiedbeds in the y axis](images/clipboard-2429031845.png)
+:::
+
++ you should have a nice, craggy, time series graph of bed occupancy </br> ![Bed occupancy time series](images/aggchart.png)
++ don't panic if you have a straight-line graph</br>![Straight line graph](images/clipboard-1010441889.png)
++ Power BI will usually aggregate your data. This straight line graph comes from Power BI adding all the values for the years 2022 and 2023 together, and plotting a graph between those two points
++ you control aggregation from the drop-down menu on the data in your field</br> ![drop-down menu on the date data](images/clipboard-1180337001.png)
+-   we can do similar aggregations on our other data too. Swap `Sum` for `Average` in your `OccupiedBeds` field ![drop-down menu on the occupied beds data](images/clipboard-909269035.png)
+
+## Making our chart more useful
+
+::: {.callout-tip title="Task"}
+1.  Try dragging the **WardName** column to the **Legend** field </br> ![](images/legend.png){height="400"}
+:::
+
+or to the `Small multiples` field:
+
+![](images/clipboard-2313058786.png)
+
+## Formatting
+
+![](images/clipboard-3526313208.png)
+
+-   formatting options live in the paintbrush tab above the grid of visualisations
+- there are **lots** of options there
+- a good homework project would be to experiment with re-styling your graph
+
+## Changing our chart type
+
+-   this is easy: just make sure your chart is selected (look for the tiny grey corners ![graph corners](images/clipboard-58530006.png)), and click a new graph icon (liked stacked columns ![new graph icon](images/clipboard-1162591482.png))
+-   that will change the type of graph you're building - in this case, to a stacked column chart </br>![stacked column chart](images/clipboard-3312791348.png)
+
+## What's happening behind the scenes?
+
+-   to to your workspace ![](images/clipboard-3750165785.png)
+
+-   you should see a graph for your dashboard ![](images/clipboard-1712134014.png)
+
+-   now follow the `...` menu from the `Semantic model` to `Open data model` ![Open data model](images/clipboard-3886944991.png)
+
+## The data model
+
+-   the data model gives you an overview of your data ![Data model](images/clipboard-4151043456.png)
+-   we can also modify aspects of the data from here (data types, relationships, ...)
+
+## Calculated columns
+
+- **Calculated columns** are how we describe columns calculated from other values
+-   Here, we could calculate something simple for each ward - how about the number of non-closed beds available?
+
+::: {.callout-tip title="Task"}
+1.  select **New column** from the ribbon </br> ![select New column from the ribbon](images/clipboard-171542657.png)
+1.  now we write a formula in the formula bar: `AvailableBeds = [BedComp] - [ClosedBed]` </br> ![add a formula to the formula bar](images/formula.png){height="100"}
+1.  AvailableBeds = our new column name
+1.  `[BedComp]` and `[ClosedBed]` are the existing column names that we're subtracting
+1.  now return to your report. You should see your new calculated column available for use
+:::
+
+-   Congratulations! You've just written your first [DAX](https://learn.microsoft.com/en-us/dax/dax-overview) formula.
+
+## What is DAX?
+
+**DAX** (Data Analysis eXpressions) is the formula language used in Power BI, Power Pivot, and across various MS SQL tools...
+
+-   similar to Excel formulas
+    -   functions have similar names and similar behaviours
+    -   DAX is more 'fussy' than Excel
+-   we'll talk about DAX more in session 4
+
+## What is Power BI for?
+
+-   [NHS Digital Adult Social Care dashboard](https://app.powerbi.com/view?r=eyJrIjoiODMwNjRjMGMtZDhhZC00ZjQzLTgzYWItZTA3ZWM0ZDcyOGY2IiwidCI6IjUwZjYwNzFmLWJiZmUtNDAxYS04ODAzLTY3Mzc0OGU2MjllMiIsImMiOjh9) - particularly great for showing how Power BI can be used as a hub for data. I imagine how many Excel files on shared network drives this might have required before...
+-   [Northern Ireland Department of Health COVID dashboard](https://app.powerbi.com/view?r=eyJrIjoiODJjOGE3ZDUtM2ViNy00YjBlLTllMjktOTNjZjlkODJhODU4IiwidCI6ImU3YTEzYWVhLTk0MzctNGRiNy1hMjJiLWNmYWE0Y2UzM2I2ZSJ9) - an object lesson in scale, and I'd be keen to use Power BI if a service potentially was going to be very busy, or experience highly variable load
+-   [QI project dashboard from NHS England's East London NHS Foundation Trust](https://qi.elft.nhs.uk/leveraging-microsoft-powerbi/) - some useful thoughts about implementing a project in Power BI
+
+## Power BI has attractive features
+
+-   Interactive
+-   Dynamic
+-   Presenting data from many sources
+-   Scalable
+-   Separates data from analysis/presentation
+
+## Homework tasks
+
+1.  Try using the filters pane to play with your dashboard. How do filters change your visual?
+2.  Could you use the data from this session to find out how often a ward is overcrowded?
+3.  Can you plot the AvailableBeds column?
