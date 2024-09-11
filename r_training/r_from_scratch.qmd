@@ -41,6 +41,10 @@ feed_block("R from scratch")
 :::
 
 
+
+::: {.panel-tabset}
+
+
 # Session 1: "hello world"
 
 ## hello world
@@ -185,3 +189,183 @@ named_list[[4]]
 # and you can flatten a list into a vector
 unlist(named_list)
 ```
+
+
+# Session 2: core function toolkit
+
+## session 1 reminders
+
+* console vs script (`Ctrl` + `⏎`)
+* assign values to variables with `<-`
+* vectors = simplest R data structure (like an ordered group)
+* functions = R verbs that:
+  * are case-sensitive, whitespace-insensitive
+  * have arguments (roughly = options)
+  * return results
+  * are usually vectorised (so can be used over all members of a vector)
+
+### make some play data
+
+```{r}
+a <- 2
+numbers <- c(3,6,5,4,3)
+string <- "just a string"
+longer_string <- c("this", "is", "a", "length", "seven", "character", "vector")
+```
+
+## core numeric operators and functions
+
+### arithmetic
+```{r}
+1 + 3
+numbers * 5 # they're vectorised
+4 / 3
+5 - numbers
+8 ^ 0.5
+```
+
+
+### range operator
+
+The range operator is an easy way of making integer sequences:
+
+```{r}
+1:4
+5:2
+```
+
+There's always a fancier way too:
+
+```{r}
+seq(1,3,0.2)
+```
+
+### equals/inequality
+
+Really important for lots of programming things
+
+```{r}
+a <- 2
+a == 2
+a < 3
+a >= 2
+a != 2
+numbers > 3
+numbers[numbers > 3] # filtering with equalities/inequalities
+```
+
+### fancy operator bits
+```{r}
+5 %% 3 # remainder / modulo for remainder-after-division
+5 %/% 3 # integer division
+```
+
+### core numeric functions
+
+Note that most of these functions are vectorised, but will require you to use `c()` if you want to supply your values directly (i.e. if you don't want to make a variable containing your values first). `sum()` is a rare exception:
+
+```{r}
+sum(1,5,10) # works okay
+sum(c(1,5,10)) # but this works fine too, and is easy
+mean(c(1,5,10)) # and is the general way you'll need to work if you're supplying values directly to the function
+```
+
+```{r}
+sqrt(a) # square root
+sum(numbers)
+cumsum(numbers)
+sqrt(numbers) # square roots
+mean(numbers) 
+median(numbers)
+min(numbers)
+max(numbers)
+```
+
+For odd reasons, there's no built-in function to find the statistical mode of some numbers. It can be done, but the code is ugly (and exactly the sort of thing we'd usually avoid in beginner's sessions). Included here for interest only:
+
+```{r}
+# mode
+as.numeric(names(sort(-table(numbers)))[1])
+```
+
+There are also a few other fairly basic functions that you might find helpful:
+
+```{r}
+sd(numbers) # standard deviation
+range(numbers) # min and max in one
+summary(numbers) # good for rapid numeric summaries
+table(numbers) # good for finding out what you've got in more complicated vectors
+```
+
+
+## interlude: joining code together
+
+There are three main ways of doing this. Traditionally, you'd bracket together several functions, and read from the inside out. Fastest to write, hardest to read and fix:
+
+```{r}
+round(sqrt(c(1,5,10)))
+```
+
+or you can make intervening variables. Messy, but good if you need to be extra careful:
+```{r}
+n <- c(1,5,10)
+o <- sqrt(n)
+p <- round(o)
+p
+```
+
+or, probably the best way, pipe the code together. `Ctrl` + `Shift` + `m` will give you a pipe symbol:
+
+```{r}
+c(1,5,10) |>
+  sqrt() |>
+  round()
+```
+
+Note that the pipe method doesn't automatically save your output. You'll need to assign with `<-` to do that:
+
+```{r}
+temp <- c(1,5,10) |>
+  sqrt() |>
+  round()
+
+temp
+```
+
+## basic string functions
+
+```{r}
+tolower(hw)
+toupper(hw)
+tolower(longer_string)
+toupper(longer_string)
+
+paste(hw, hw)
+paste(string, "ed instrument")
+paste0("question ", numbers)
+
+rep(hw, 10)
+```
+
+## a few more interesting string functions
+
+```{r}
+strsplit(hw, " ") # split a string into pieces and get a list back
+
+strsplit(hw, " ") |> # split and unlist back to vector
+  unlist()
+
+grep("seven", longer_string) # tell me where in a vector a search term is found
+
+grepl("seven", longer_string) # tell me if a vector contains a search term
+
+sort(longer_string) # into alphabetical order
+
+table(longer_string) # as with numbers
+```
+
+
+::: 
+<!--  the main tabset, so leave well alone and work within please -->
+
+
