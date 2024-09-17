@@ -364,7 +364,148 @@ sort(longer_string) # into alphabetical order
 table(longer_string) # as with numbers
 ```
 
+# Session 3: functions, loops, and flow
 
+Don't repeat your code. Long code is hard to read and understand. Three basic design patterns: the function, the loop, the if/else.
+
+## write a function
+
+```{r}
+# basic function syntax
+# need to run the definition before calling it
+
+function_name <- function(argument){
+  # some code doing something to the argument
+  argument + 4 # the function will return the last value it produces
+}
+
+function_name(3)
+
+```
+
+```{r}
+# challenge - I'm bored of writing na.rm = TRUE. Could you make mean() automatically ignore the missing values?
+
+new_mean <- function(x){
+  mean(x, na.rm = TRUE)
+}
+
+new_mean(c(1,4,2,4,NA))
+```
+
+```{r}
+# arguments and defaults
+# simple function syntax without {}
+
+multo <- function(n1, n2 = 7) n1 * n2
+
+multo(3)  
+multo(3, 6)  
+```
+
+```{r}
+# anonymous function syntax is useful, but way too evil for a beginner's course
+
+(\(x) x^2)(5)
+(\(x, y) x^y)(5,3)
+```
+
+## write a loop
+
+```{r}
+# basic syntax 
+for(i in 1:5){
+  print(i)
+}
+```
+
+```{r}
+# seq_along as a sensible safe way to work with vectors
+for(i in seq_along(numbers)){ # seq_along converts a vector into sequential integers 1,2,3,4... up to the length of the vector
+  print(i)
+}
+```
+
+```{r}
+# indexing is the key to working with vectors inside loops
+for(i in seq_along(numbers)){
+  print(numbers[i]) # with indexing
+}
+```
+
+```{r}
+# need to create output first, then collect
+
+loop_output <- vector(mode = "numeric", length = length(numbers))
+
+for(i in seq_along(numbers)){
+  loop_output[i] <- numbers[i] * 9 # insert each bit of output into the right place in the output vector
+}
+
+loop_output
+
+```
+
+## write an if/else
+
+```{r}
+# basic syntax
+a <- 3
+
+if(a == 3){
+  "a is three"
+} else {
+  "nope"
+}
+```
+
+```{r}
+# even easier if your condition is logical
+c <- TRUE
+
+if(c){
+  "c is true"
+} else {
+  "nope"
+}
+```
+
+```{r}
+# combine conditions
+b <- 2
+
+if(a == 3 | b == 3){
+  "a and/or b are three"
+} else {
+  "nope"
+}
+
+if(a == 3 & b == 3){
+  "a and/or b are three"
+} else {
+  "nope"
+}
+
+```
+
+```{r}
+#| eval: false
+
+d <- c(4,3)
+
+if(d == 3){
+  "if/else isn't vectorised"
+} else {
+  "so this won't work"
+}
+```
+
+```{r}
+# use the ifelse type if you need vectorised if/else
+d <- c(4,3)
+
+ifelse(d == 3, "...and we'll get this one second", "the first item is false, so we'll get this first")
+```
 ::: 
 <!--  the main tabset, so leave well alone and work within please -->
 
