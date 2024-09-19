@@ -336,7 +336,7 @@ Note
 <h2 class="anchored" data-anchor-id="how-is-your-code-broken">How is your code broken?</h2>
 <section id="my-code-wont-run-at-all" class="level3">
 <h3 class="anchored" data-anchor-id="my-code-wont-run-at-all">My code won’t run at all</h3>
-<p>This is the commonest, hard-to-solve error that most of us encounter. It usually means that there’s some problem recognizing the R code you’re looking at as being R code. It’s hard to solve because you don’t have a nice informative error message (or anything else) to look at. Things to check at this point are:</p>
+<p>This is the commonest, hard-to-solve error that most of us encounter. It usually means that R is having some unusual difficulty in recognizing the R code you’re written <em>as being</em> R code. It’s hard to solve because you don’t have a nice informative error message (or anything else) to look at. Things to check at this point are:</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -381,7 +381,7 @@ A list of generic R troubleshooting strategies
 <p>To solve an error you’ll almost always need to refine your understanding of a) what’s gone wrong, and b) where it’s gone wrong.</p>
 <section id="read-the-error-message" class="level3">
 <h3 class="anchored" data-anchor-id="read-the-error-message">Read the error message</h3>
-<p>Obvious but takes practice. Most R error messages give you clues as to how to find and fix the problem. The key here is that a) the message will contain the work <code>Error</code> and b) your code will stop running. Many errors from more recent packages have nice explanations and fixes. In general, the older the function, the more difficult the error. That wasn’t always the case, and some older R functions have horrid error messages. Here’s a short dictionary for some classics:</p>
+<p>Obvious but takes practice. Most R error messages give you clues as to how to find and fix the problem. The key here is that a) the message will contain the word <code>Error</code> and b) your code will stop running. Many errors from more recent packages have nice explanations and fixes. In general, the older the function, the more difficult the error. That wasn’t always the case, and some older R functions have horrid error messages. Here’s a short dictionary for some classics:</p>
 <ul>
 <li><code>could not find function ‘thing’</code> = you’ve mis-spelled a function name or failed to load a package</li>
 <li><code>there is no package called ‘glok’</code> = you’ve mis-spelled a package name - or you haven’t installed it</li>
@@ -449,21 +449,22 @@ A list of basic code errors
 <li>when you’ve got the code to run, you’ll either:
 <ol type="1">
 <li>have the same error again, in which case you’re in a much better position to do the same thing again to localise the error within that new, simpler, script you’ve just built</li>
-<li>have fixed the error, in which case you now know what you need to look elsewhere in your original code for the source of the problem 1., given yourself a brand-new error to focus on. Lucky you! Definitely try to fix that new error before proceeding</li>
+<li>have fixed the error, in which case you now know what you need to look elsewhere in your original code for the source of the problem</li>
+<li>have given yourself a brand-new error to focus on. Lucky you! Definitely try to fix that new error before proceeding</li>
 </ol></li>
 </ol>
 <p>If that doesn’t work, it’s time to look up the chain to the inputs of this piece of code. I’d work as follows:</p>
 <ol type="1">
-<li>check for types - so if you’re expecting your code to add numbers together, ensure that your inputs are both numbers</li>
-<li>check that the variable names line up</li>
-<li>check that there’s no other code that could potentially alter any of your inputs</li>
-<li>finally, repeat the isolation exercise above for each input</li>
+<li>check for <strong>types</strong> - so if you’re expecting your code to add numbers together, ensure that your inputs are both numbers</li>
+<li>check that the <strong>variable names</strong> line up</li>
+<li>check that there’s <strong>no other code</strong> that could potentially alter any of your inputs</li>
+<li>finally, <strong>repeat the isolation exercise</strong> above for each input</li>
 </ol>
 </section>
 <section id="reprex" class="level3">
 <h3 class="anchored" data-anchor-id="reprex">Reprex</h3>
 <p>= <strong>repr</strong>oducible <strong>ex</strong>ample. See the <a href="https://reprex.tidyverse.org/">documentation for the reprex package</a>, especially the <a href="https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html">helpful set of do’s and don’t</a>.</p>
-<p>If the minimal example method above doesn’t find your problem, you’re probably going to need to ask for help. Luckily, the preparatory work you’ll need for that is directly helpful in solving your problem.</p>
+<p>If the minimal example method above doesn’t find your problem, you’re probably going to need to ask for help. Luckily, the preparatory work you’ll need for that is itself directly helpful in solving your problem.</p>
 <p>Generally, when people want to help you with your R code, the first thing they’ll want to do is to run it A reprex is a way of packaging up everything your code needs so that anyone can copy and paste it. This is important, because a bare snippet of code doesn’t tell the full story. For example, say this bit of code isn’t working for me:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span></span>
@@ -473,7 +474,7 @@ A list of basic code errors
 <p>A potential ally and helper won’t be able to assist me with this as it stands. They won’t know about my data, they won’t know which packages I’m using, and (last line) they won’t even recognize the function name that I just made up. To save a lot of annoying back and forth, you should turn this into a minimal example (see above), and then use reprex to help your helpers. I need at least the following bits to make this code reproducible:</p>
 <ul>
 <li>the data</li>
-<li>an idea of where <code>filter()</code> comes from</li>
+<li>an idea of which package the <code>filter()</code> comes from</li>
 <li>a definition of <code>transmogrify()</code></li>
 </ul>
 <p>That breaks down as follows:</p>
@@ -483,20 +484,18 @@ A list of basic code errors
 <li>include the function definition for any non-package functions</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">flavours =</span> <span class="fu">c</span>(<span class="st">"chocolate"</span>, <span class="st">"onion"</span>, <span class="st">"chocolate"</span>),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scoop_size =</span> <span class="fu">c</span>(<span class="dv">100</span>,<span class="dv">120</span>,<span class="dv">100</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">count =</span> <span class="fu">c</span>(<span class="dv">200</span>,<span class="dv">500</span>,<span class="dv">400</span>)) <span class="co"># give a preview of the data in a copy/pastable format</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>transmogrify <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">total_vol_l =</span> <span class="fu">sum</span>(scoop_size <span class="sc">*</span> count)<span class="sc">/</span><span class="dv">1000</span>) <span class="co"># add the function definition</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="at">flavours =</span> <span class="st">"chocolate"</span>) <span class="sc">|&gt;</span> <span class="co"># I can now run this and find the error!</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmogrify</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">flavours =</span> <span class="fu">c</span>(<span class="st">"chocolate"</span>, <span class="st">"onion"</span>, <span class="st">"chocolate"</span>),</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scoop_size =</span> <span class="fu">c</span>(<span class="dv">100</span>,<span class="dv">120</span>,<span class="dv">100</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">count =</span> <span class="fu">c</span>(<span class="dv">200</span>,<span class="dv">500</span>,<span class="dv">400</span>)) <span class="co"># give a preview of the data in a copy/pastable format</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>transmogrify <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">total_vol_l =</span> <span class="fu">sum</span>(scoop_size <span class="sc">*</span> count)<span class="sc">/</span><span class="dv">1000</span>) <span class="co"># add the function definition</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> <span class="co"># I can now run this and find the error!</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="at">flavours =</span> <span class="st">"chocolate"</span>) <span class="sc">|&gt;</span> <span class="co"># dplyr's filter</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmogrify</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <blockquote class="blockquote">
 <p>This usually means that you’ve used <code>=</code> instead of <code>==</code>.</p>
@@ -531,8 +530,9 @@ A list of basic code errors
 </section>
 <section id="fancier-stuff" class="level2">
 <h2 class="anchored" data-anchor-id="fancier-stuff">Fancier stuff</h2>
-<p>As you write more complex code, I would want to add two more sets of tools. The first of these is <code>browser()</code>/breakpoints. These are mainly used to understand what’s going on inside functions. I’d recommend <a href="https://adv-r.hadley.nz/debugging.html">the chapter in Advanced R as an entry point</a> to these techniques.</p>
-<p>The other strategy is to formalize and automate your testing. Again, well beyond the scope of this beginner’s session, but if you’re interested in this powerful approach for more advanced applications you can review our <a href="https://nes-dew.github.io/KIND-training/r_training/testing.html">unit testing materials</a> for an accessible introduction. - unit testing</p>
+<p>As you write more complex code, I would want to add three more sets of tools. The first of these is <code>browser()</code>/breakpoints. These are mainly used to understand what’s going on inside functions. I’d recommend <a href="https://adv-r.hadley.nz/debugging.html">the chapter in Advanced R as an entry point</a> to these techniques.</p>
+<p>I’d also want to start thinking more formally about methods and classes as this is a common cause of errors. The chapter on <a href="https://adv-r.hadley.nz/s3.html">S3 in Advanced R</a> is a good place to start, as is fooling around with the <a href="https://sloop.r-lib.org/">sloop package</a>.</p>
+<p>The final strategy is to formalize and automate your testing. Again, well beyond the scope of this beginner’s session, but if you’re interested in this powerful approach for more advanced applications you can review our <a href="https://nes-dew.github.io/KIND-training/r_training/testing.html">unit testing materials</a> for an accessible introduction. - unit testing</p>
 
 
 </section>
