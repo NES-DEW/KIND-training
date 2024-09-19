@@ -71,7 +71,7 @@ I see a lot of broken code, and the commonest cause by far is excessive script l
 ## How is your code broken?
 
 ### My code won't run at all
-This is the commonest, hard-to-solve error that most of us encounter. It usually means that there's some problem recognizing the R code you're looking at as being R code. It's hard to solve because you don't have a nice informative error message (or anything else) to look at. Things to check at this point are:
+This is the commonest, hard-to-solve error that most of us encounter. It usually means that R is having some unusual difficulty in recognizing the R code you're written *as being* R code. It's hard to solve because you don't have a nice informative error message (or anything else) to look at. Things to check at this point are:
 
 ::: {.callout-tip}
 
@@ -105,7 +105,7 @@ To solve an error you'll almost always need to refine your understanding of a) w
 
 ### Read the error message
 
-Obvious but takes practice. Most R error messages give you clues as to how to find and fix the problem. The key here is that a) the message will contain the work `Error` and b) your code will stop running. Many errors from more recent packages have nice explanations and fixes. In general, the older the function, the more difficult the error. That wasn't always the case, and some older R functions have horrid error messages. Here's a short dictionary for some classics:
+Obvious but takes practice. Most R error messages give you clues as to how to find and fix the problem. The key here is that a) the message will contain the word `Error` and b) your code will stop running. Many errors from more recent packages have nice explanations and fixes. In general, the older the function, the more difficult the error. That wasn't always the case, and some older R functions have horrid error messages. Here's a short dictionary for some classics:
 
 + `could not find function ‘thing’` = you've mis-spelled a function name or failed to load a package
 + `there is no package called ‘glok’` = you've mis-spelled a package name - or you haven't installed it
@@ -160,20 +160,20 @@ The best advice for tricky problems is to make your problem as specific as probl
 1. when you've got the code to run, you'll either:
     1. have the same error again, in which case you're in a much better position to do the same thing again to localise the error within that new, simpler, script you've just built
     1. have fixed the error, in which case you now know what you need to look elsewhere in your original code for the source of the problem
-    1., given yourself a brand-new error to focus on. Lucky you! Definitely try to fix that new error before proceeding
+    1. have given yourself a brand-new error to focus on. Lucky you! Definitely try to fix that new error before proceeding
 
 If that doesn't work, it's time to look up the chain to the inputs of this piece of code. I'd work as follows:
 
-1. check for types - so if you're expecting your code to add numbers together, ensure that your inputs are both numbers
-1. check that the variable names line up
-1. check that there's no other code that could potentially alter any of your inputs
-1. finally, repeat the isolation exercise above for each input
+1. check for **types** - so if you're expecting your code to add numbers together, ensure that your inputs are both numbers
+1. check that the **variable names** line up
+1. check that there's **no other code** that could potentially alter any of your inputs
+1. finally, **repeat the isolation exercise** above for each input
 
 ### Reprex
 
 = **repr**oducible **ex**ample. See the [documentation for the reprex package](https://reprex.tidyverse.org/), especially the [helpful set of do's and don't](https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html).
 
-If the minimal example method above doesn't find your problem, you're probably going to need to ask for help. Luckily, the preparatory work you'll need for that is directly helpful in solving your problem.
+If the minimal example method above doesn't find your problem, you're probably going to need to ask for help. Luckily, the preparatory work you'll need for that is itself directly helpful in solving your problem.
 
 Generally, when people want to help you with your R code, the first thing they'll want to do is to run it A reprex is a way of packaging up everything your code needs so that anyone can copy and paste it. This is important, because a bare snippet of code doesn't tell the full story. For example, say this bit of code isn't working for me:
 
@@ -188,7 +188,7 @@ my_data |>
 A potential ally and helper won't be able to assist me with this as it stands. They won't know about my data, they won't know which packages I'm using, and (last line) they won't even recognize the function name that I just made up. To save a lot of annoying back and forth, you should turn this into a minimal example (see above), and then use reprex to help your helpers. I need at least the following bits to make this code reproducible:
 
 + the data
-+ an idea of where `filter()` comes from
++ an idea of which package the `filter()` comes from
 + a definition of `transmogrify()`
 
 That breaks down as follows:
@@ -199,9 +199,8 @@ That breaks down as follows:
 
 ```{r}
 #| eval: false
-library(dplyr)
 
-my_data <- tibble(flavours = c("chocolate", "onion", "chocolate"),
+my_data <- dplyr::tibble(flavours = c("chocolate", "onion", "chocolate"),
                   scoop_size = c(100,120,100),
                   count = c(200,500,400)) # give a preview of the data in a copy/pastable format
 
@@ -210,8 +209,8 @@ transmogrify <- function(df){
     dplyr::summarise(total_vol_l = sum(scoop_size * count)/1000) # add the function definition
 }
 
-my_data |>
-  dplyr::filter(flavours = "chocolate") |> # I can now run this and find the error!
+my_data |> # I can now run this and find the error!
+  dplyr::filter(flavours = "chocolate") |> # dplyr's filter
   transmogrify() 
 
 ```
@@ -248,7 +247,9 @@ Wherever you ask for help, please help yourself:
 + a specific, but concise, question is the thing. Include the error message, give basic details about your setup (R 4.4.1, Rstudio, Windows, e.g) and **include your reprex** so that potential helpers don't have to ask you for it
     
 ## Fancier stuff
-As you write more complex code, I would want to add two more sets of tools. The first of these is `browser()`/breakpoints. These are mainly used to understand what's going on inside functions. I'd recommend [the chapter in Advanced R as an entry point](https://adv-r.hadley.nz/debugging.html) to these techniques.
+As you write more complex code, I would want to add three more sets of tools. The first of these is `browser()`/breakpoints. These are mainly used to understand what's going on inside functions. I'd recommend [the chapter in Advanced R as an entry point](https://adv-r.hadley.nz/debugging.html) to these techniques.
 
-The other strategy is to formalize and automate your testing. Again, well beyond the scope of this beginner's session, but if you're interested in this powerful approach for more advanced applications you can review our [unit testing materials](https://nes-dew.github.io/KIND-training/r_training/testing.html) for an accessible introduction.
+I'd also want to start thinking more formally about methods and classes as this is a common cause of errors. The chapter on [S3 in Advanced R](https://adv-r.hadley.nz/s3.html) is a good place to start, as is fooling around with the [sloop package](https://sloop.r-lib.org/).
+
+The final strategy is to formalize and automate your testing. Again, well beyond the scope of this beginner's session, but if you're interested in this powerful approach for more advanced applications you can review our [unit testing materials](https://nes-dew.github.io/KIND-training/r_training/testing.html) for an accessible introduction.
   - unit testing
