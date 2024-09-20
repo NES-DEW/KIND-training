@@ -1,0 +1,175 @@
+---
+title: R lists
+date: 2024-09-05
+execute: 
+  echo: true
+  eval: true
+  output: true
+  freeze: auto
+categories: [R, beginner, lists, data structures]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Lists in R")
+```
+
+## Introduction
+
+* lists are one of R's built-in data structures
+* lists are roughly equivalent to a vector of vectors
+
+## Make and change lists
++ list construction can be done in a couple of different ways:
+```{r}
+list("1", "2")
+empty <- vector("list", 3L)
+empty
+```
+
++ you can assign into lists
+```{r}
+empty[[2]] <- 9
+empty # ironic
+
+empty[[2]] <- NULL
+empty # balance restored
+```
+
++ lists are ordered:
+
+```{r}
+simple_list <- list("one", "two", "three")
+simple_list[1]
+```
+
+## So what's good about lists?
++ so far, so like vectors
++ unlike vectors and df/tibbles, lists are **ragged arrays** - can store different lengths and kinds of values together
++ let's start with some vectors of different types:
+```{r}
+hw <- "hello world"
+hi <- substr(hw, 1, 5)
+hh <- c(hi, hw)
+hcount <- sum(nchar(c(hh, hi, hw)))
+ing_things <- factor(c("thing", "string", "wing", "bling"), levels = c("wing", "bling", "string", "thing"))
+```
+
++ now build a list, and discover that you can store these dissimilar items together
+```{r}
+list(hh, hi, hw, ing_things, hcount)
+```
+
+## Names
+
++ you can name list items
+
+```{r}
+
+named_list <- list("hh" = hh, 
+                   "hi" = hi, 
+                   "hw" = hw, 
+                   "silly_name" = ing_things,
+                   "total_letter_score" = hcount)
+```
+
++ it turns out that you already knew that: df/tibbles are a special case of lists. That means that some familiar friends will work with lists - list using `$` to get at named list items:
+
+```{r}
+named_list$hw
+named_list$hi
+paste("we've got a total of", named_list$hcount, "characters in our list, including", named_list$silly_name)
+```
+
+## Indexing lists
+
++ there's some additional care required when working with indexes and lists though:
+```{r}
+named_list$hi # a vector
+named_list[2] # that's a list
+class(mtcars[2]) # likewise, a 1-column df
+```
+
++ two easy ways of getting vectors out of lists
+```{r}
+named_list$silly_name # like df
+named_list[[2]] # double brackets
+```
+
+## Unmaking lists
+
++ if you're not too fussy about the resulting structure, you can flatten a list into a named vector
+
+```{r}
+unlist(named_list)
+```
+
++ each item is named by a concatenation of the original list item name (like "silly_name") and an index number - so "silly_name4". You can retrieve elements from the vector by these names:
+
+```{r}
+unlist(named_list)["silly_name4"]
+```
+
++ note that everything has been coerced to character - a reminder that vectors can only contain a single data type 
++ you can also turn a list with equal/similar length items into a tidy array like a tibble:
+
+```{r}
+tidyr::tibble(glurt = list(hh, hh, hh)) |>
+  tidyr::unnest_wider(col = glurt, names_sep = "_")
+```
+
++ things get much more messy when you're dealing with lists with mixed lengths and types. That's beyond us today - have a look at [R for data science](https://r4ds.hadley.nz/rectangling) for an introduction to rectangling
+
+## What are lists for?
+
+Lists are particularly useful in three cases:
+
+1. where you don't know what type of output you're going to get. This is the reason that `purrr::map` returns a list by default - you can collect any output type in a list.
+
+```{r}
+rando <- function(n){
+  ifelse(runif(1) > 0.5, list(n), as.character(n)) # sometimes numeric, sometimes char
+}
+rando(4)
+c(4,3,rando(8)) # unfortunate coercion that might happen with vectors
+list(4,3,rando(8)) # happier and safer in a list
+```
+
+2. when you've got several related bits of data you want to keep together, especially if you'd like to save them to a single portable object:
+
+```{r}
+named_list |>
+  readr::write_rds("data/named_list.rds")
+rm(list = ls()) # clear environment
+
+named_list <- readr::read_rds("data/named_list.rds")
+
+named_list |>
+  list2env(envir = .GlobalEnv) # don't tell any proper programmers about this
+```
+
+3. when you're dealing with wildly complicated data structures. Nice example from [R for data science](https://r4ds.hadley.nz/rectangling#deeply-nested), which is too long-winded for a practical session like this, but a good example of real-world horrible data
+
+```{r}
+repurrrsive::gmaps_cities |> # list columns on list columns
+  tidyr::unnest_wider(col = json) |>
+  tidyr::unnest_longer(col = results) |>
+  tidyr::unnest_wider(col = results) 
+```
+
+Again, getting beyond the session's aims, but the purrr package is a great help for this kind of nested-nested-nested data
+
+```{r}
+repurrrsive::gmaps_cities |>
+  purrr::pluck(2,1,1,1,"formatted_address")
+```
+
+
