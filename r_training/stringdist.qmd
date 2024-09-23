@@ -1,0 +1,274 @@
+---
+title: stringdist
+date: 2024-09-23
+execute: 
+  echo: true
+  eval: true
+  output: true
+  freeze: auto
+categories: [R, intermediate, NLP]
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("stringdist")
+```
+
+
+## Introduction
+This is an introduction to [stringdist](https://cran.r-project.org/web/packages/stringdist/stringdist.pdf) which is designed to allow fuzzy matching of text. Install and attach in the standard way:
+
+```{r}
+# install.packages("stringdist") # likely needs compiling
+library(stringdist) 
+library(ggplot2) # for something fun later
+```
+
+While there are several families of functions in the package, we'll concentrate on those that focus on the core idea: strings differ, and you can quantify those differences for pleasure and profit. A simple example:
+
+```{r}
+stringdist("thing", "think")
+stringdist("thing", "string")
+stringdist("thing", "oxpecker")
+```
+
+Once you've got an idea about how different you're okay with your strings being, you can use e.g. a max distance as a cut-off to do work in your code. A simple example of implementing this can be found in the `amatch` function, which is designed to work like a fuzzy matching version of base-R's `match`. We'll use `a` and `b` as variable names to keep aligned with the stringdist documentation. Quick refresher on `match`:
+
+```{r}
+a <- "the" # take a value
+b <- c("this", "is", "the", "thing") # and a vector of possible values
+match(a, b) # match returns the index location of your a in your b
+```
+Match lets you do useful work with strings - e.g. remove everything before your key word:
+
+```{r}
+b[match(a, b):length(b)]
+```
+
+## exemplar: `amatch`
+
+And now for the `amatch` version:
+
+```{r}
+a <- "thee" # take a value
+amatch(a, b, maxDist = 1) # maxDist = allowable number of typos
+amatch(a, b, maxDist = 10) # where several possible values exist, amatch returns the closest match
+```
+
+You can use that in a base-R way to e.g. correct wonky input values:
+```{r}
+b[amatch(a, b, maxDist = 1)] 
+```
+
+Or you might prefer the ain helper:
+```{r}
+ain(a, b, maxDist = 1)
+a %in% b # like a fuzzy version of %in%
+"the" %in% b
+```
+
+Or in a slightly horrid but tidyish way if you wanted to tidy up several different values:
+```{r}
+dplyr::tibble(raw_data = c("thi", "ss", "thee", "thung")) |>
+  dplyr::rowwise() |>
+  dplyr::mutate(is_match = b[amatch(raw_data, b, maxDist = 5)])
+```
+
+## other functions
+
+### `stringdist`, `stringsim`, and `stringdistmatrix`
+`stringdist` has a nice toolkit of related functions. `stringdist` gives you the distance between strings:
+
+```{r}
+stringdist("thing", "think") # gives you the raw distance.
+stringdist(a, b) # vectorised
+```
+
+`stringsim` does the opposite, giving a similarity score between 0 and 1:
+
+```{r}
+stringsim(a, b)
+stringsim("cat", "dog")
+stringsim("cat", "cat")
+```
+
+`stringdistmatrix` does what you might imagine, returning a matrix of differences. This is largely useful if you want e.g. to pass these scores into something like a clustering algorithm that expects a matrix:
+
+```{r}
+stringdistmatrix(a, b) # same idea, different output: a matrix of differences
+hclust(stringdistmatrix(b))
+plot(hclust(stringdistmatrix(b, useNames = "strings")))
+```
+
+It's possible-but-messy to take this matrix and tidy it into a tibble:
+```{r}
+stringdistmatrix(c("thee", "che"), b, useNames = "strings") |>
+  as.data.frame() |>
+  tibble::as_tibble(rownames = "a") |> # slightly roundabout conversion to tibble via df to preserve rownames
+  tidyr::pivot_longer(!a, names_to = "b", values_to = "stringdist") # useful 
+```
+
+But probably better/more idiomatic to go:
+```{r}
+tidyr::expand_grid(a = c("thee", "che"), b) |>
+  dplyr::mutate(stringdist = stringdist(a, b))
+```
+
+### `afind`, `grab`, `grabl`, and `extract`
+
+```{r}
+afind(a, b)
+```
+
+`afind` returns a lot of stuff:
+
+```{r}
+afind(a, b)$location # where in substrings do the search terms start?
+afind(a, b)$distance # how far from the search term is each substring?
+afind(a, b)$match # what's the best matching part of the search term against each substring
+```
+
+If that's a bit confusing, `grab` and `grabl` are basically replacements for `grep(l)`. 
+`grab` == `grep` and `grabl` == `grepl`:
+
+```{r}
+c <- c("wig", "win", "banana", "ring")
+c[grab(c,  "wig", maxDist = 1)]
+c[grab(c,  "wig", maxDist = 2)]
+grabl(c,  "wig", maxDist = 2)
+c[grab(c,  "wig", maxDist = 3)]
+extract(c, "wii", maxDist=1)
+```
+
+## What do you mean closest?
+
+The *really* interesting bit: you can play with the method used to calculate distance which will give different results:
+
+### hamming
+Hamming distance. Number of character substitutions required to change a into b.
+
+```{r}
+amatch("thign", b, maxDist = 1, method = "hamming") # not found
+amatch("thign", b, maxDist = 2, method = "hamming") # n subs g, g subs n = 2
+```
+
+### lv
+Levenshtein distance. Number of del/ins/subs required to change a into b.
+
+```{r}
+amatch("thinng", b, maxDist = 2, method = "hamming")
+amatch("thinng", b, maxDist = 2, method = "lv") # as we can now delete
+```
+
+### osa
+Optimal string aligment. Number of del/ins/subs/swaps required to change a into b:
+
+```{r}
+amatch("think", b, maxDist = 1)
+amatch("thign", b, maxDist = 1, method = "osa") # n swaps with g
+```
+
+### dl
+Full Damerau-Levenshtein distance. As osa, but calculated slightly differently.
+
+```{r}
+amatch("thign", b, maxDist = 1, method = "dl") # can't find a difference with these simple ones from osa
+```
+
+### lcs
+Longest common substring distance. Comparing longest identical parts of a and b:
+```{r}
+amatch("thign", b, maxDist = 2, method = "lcs") # I think roughly = length - common substring
+```
+
+### soundex
+Distance based on soundex encoding. Used in the `phonetic` function (see below), but finds homophones:
+
+```{r}
+amatch("thign", b, maxDist = 1, method = "soundex")
+stringdist("too", c("two", "to", "oto"), method = "soundex")
+```
+
+There are also several methods designed to look at **q-grams** = substring chunks of q characters long, and a group of methods based on the number of similar and different q-grams between a and b:
+
+### qgram
+This is the q-gram distance:
+```{r}
+stringdist("thign", b, method = "qgram")
+```
+
+### cosine
+
+The cosine distance between q-gram profiles, which gives you (usefully) a scaled distance of between 0 (identical) and 1 (utterly different)
+
+```{r}
+stringdist("thing", b, method = "cosine")
+stringdist("thing", "fox", method = "cosine")
+```
+
+### jaccard
+
+The [Jaccard distance](https://en.wikipedia.org/wiki/Jaccard_index) between q-gram profiles
+
+```{r}
+stringdist("thing", b, method = "cosine") 
+stringdist("thing", b, method = "jaccard") 
+```
+
+### jw
+
+The Jaro distance (and Jaro-Winkler distance):
+
+```{r}
+stringdist("thing", b, method = "jw", p = 0.2) # correction term
+```
+
+## phonetic
+
+There's also tooling to deal with the similarity of phonetic spellings. Excellent for e.g. Teams transcripts, if you're trying to tidy those up:
+
+```{r}
+phonetic("ring")
+phonetic("wing") # similar sounding strings get similar values
+phonetic("string")
+phonetic("strung")
+```
+
+
+## a play example: GGC
+
+The KIND network has lots of members from the main NHS body in Glasgow, which is officially known as ["NHS Greater Glasgow and Clyde"](https://www.nhsggc.scot/). That's a highly variable and abbreviatable name though, leading to over 70 different permutations in common use. Here are some real-ish examples
+
+```{r}
+ggc <- readr::read_lines(here::here("r_training/data/ggc.txt")) # real data
+
+sample(ggc, 10)
+```
+
+There's lots here to play with using `stringdist`. My two quick examples are to plot a couple of different sensible variants of the name ("NHS GGC", "NHS Greater Glasgow and Clyde", "NHSGGC") methods, and see how many distant results we get:
+
+```{r}
+tidyr::expand_grid(a = c("NHS GGC", "NHS Greater Glasgow and Clyde", "NHSGGC"), b = ggc) |>
+  dplyr::mutate(stringdist = stringdist(a, b)) |>
+  ggplot() +
+  geom_density(aes(x = stringdist, fill = a)) +
+  facet_wrap(~a, ncol = 1) +
+  theme(legend.position = "none")
+```
+
+Or to try a family tree (more swishily, a [cluster dendrogram](https://www.statisticshowto.com/hierarchical-clustering/)) of those terms:
+
+```{r}
+sort(table(ggc), decreasing = T)[1:7] |>
+  stringdistmatrix(useNames = "names") |>
+  hclust() |>
+  plot()
+```
