@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-09-03">
+<meta name="dcterms.date" content="2024-09-24">
 
 <title>R from scratch – KIND training pages</title>
 <style>
@@ -218,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 3, 2024</p>
+      <p class="date">September 24, 2024</p>
     </div>
   </div>
   
@@ -253,9 +253,9 @@ Three random comments from previous attendees
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Base R broken down into easy to understand language so it’s not confusing. As an R beginner I found this very helpful and look forward to the next session to build on my knowledge and understanding. I work within Data Management where R hasn’t been geared towards with basic training, as the training available is usually geared towards Analytical staff who have more knowledge of R, and with R becoming utilised more within Data Management these kind of sessions are essential allowing for personal development to help with your workstreams.</li>
-<li>Informative, well organised, informal. Comfortable learning environment.</li>
-<li>A well paced and gentle introduction to R. Well delivered by a very approachable host.</li>
+<li>Thanks for the training. As a neurodivergent learnerI found it really hard to keep up in the previous R session. I however saw your explaination for not recording and I understand why. The idea of notetaking works as it reinforces and also reminds me of parts that I missed. I also found that because I had set up the environment for the last session , it was easier to follow the examples. So it really is a matter of exposure , then familiarity which only comes with pratice and time spent on practicing. Thank you</li>
+<li>Very well presentated and explained</li>
+<li>Thanks for the great session! Really great and there is so much R training out there it’s overwhelming to know where to begin - so this walkthrough was great and a good motivation to now try stuff out. I did find it difficult following instructions on how create an account and download positcloud (same with R, even though there is so many instructions either it’s missing the very basics or I just dont understand - finally found that you need to download based on the nearest source) but managed to do so prior to the session - some hadnt and spent a bit of time troubleshooting that. Suggest could do a video walkthrough and for people who havent done it then send that in the chat. Sidenote: could you make this comment box larger :)</li>
 </ul>
 </div>
 </div>
@@ -294,7 +294,7 @@ Testing your Posit Cloud
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Session 1: “hello world”</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Session 2: core function toolkit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Session 3: functions, loops, and flow</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Session 1: “hello world”</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Session 2: core function toolkit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Session 3: functions, loops, and flow</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Session 4: packages and dplyr</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <section id="hello-world" class="level2">
@@ -1041,6 +1041,311 @@ Levels: wing bling string thing</code></pre>
 <pre><code>[1] "the first item is false, so we'll get this first"
 [2] "...and we'll get this one second"                </code></pre>
 </div>
+</div>
+</section>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>We can bring in external code to help us with R. That external code is known as a package. There are thousands of packages in current use, as the <a href="https://cran.r-project.org/web/packages/available_packages_by_date.html">relevant pages on CRAN will tell you</a>.</p>
+<section id="penguins" class="level2">
+<h2 class="anchored" data-anchor-id="penguins">penguins</h2>
+<p>We need to install packages before we can use them. That only needs to be done once for your R setup. To illustrate, let’s install a package, called <a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a>, which contains some interesting data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb196"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb196-1"><a href="#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"palmerpenguins"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once that package is installed, we can use the data (and functions) it contains by attaching them to our current script:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb197"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb197-1"><a href="#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once we’ve done that, we’ll have several new items available to use. The most important here is the main <code>penguins</code> dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb198"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb198-1"><a href="#cb198-1" aria-hidden="true" tabindex="-1"></a>penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>That’s tabular data - so formed into rows and columns, rectangular (so all columns the same lengths etc), and with each column containing only one type of data. Tabular data is probably the most widely used type of data in R. That means that there are lots of tools for working with it. Some basic examples:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb200"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb200-1"><a href="#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 344</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb202"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb202-1"><a href="#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb204"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb204-1"><a href="#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+1 Adelie  Torgersen           39.1          18.7               181        3750
+2 Adelie  Torgersen           39.5          17.4               186        3800
+3 Adelie  Torgersen           40.3          18                 195        3250
+4 Adelie  Torgersen           NA            NA                  NA          NA
+5 Adelie  Torgersen           36.7          19.3               193        3450
+6 Adelie  Torgersen           39.3          20.6               190        3650
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb206"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb206-1"><a href="#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "species"           "island"            "bill_length_mm"   
+[4] "bill_depth_mm"     "flipper_length_mm" "body_mass_g"      
+[7] "sex"               "year"             </code></pre>
+</div>
+</div>
+</section>
+<section id="dplyr" class="level2">
+<h2 class="anchored" data-anchor-id="dplyr">dplyr</h2>
+<p>As well as those base-R functions, there are also many packages for working with tabular data. Probably the best-known package is <a href="https://dplyr.tidyverse.org/">dplyr</a>, which we install and attach in the same way as <code>palmerpenguins</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb208"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb208-1"><a href="#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb209"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb209-1"><a href="#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The reason that <code>dplyr</code> is so popular is that some of the base-R ways of working with tabular data are a bit messy and hard to read:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb210"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb210-1"><a href="#cb210-1" aria-hidden="true" tabindex="-1"></a>penguins<span class="sc">$</span>species[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="co"># just to show the first few</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Adelie Adelie Adelie Adelie
+Levels: Adelie Chinstrap Gentoo</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb212"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb212-1"><a href="#cb212-1" aria-hidden="true" tabindex="-1"></a>penguins[[<span class="st">"island"</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="co"># just the first few, again</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Torgersen Torgersen Torgersen Torgersen
+Levels: Biscoe Dream Torgersen</code></pre>
+</div>
+</div>
+<p>dplyr generally produces much easier-to-read code, especially when using the pipe to bring together lines of code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb214"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb214-1"><a href="#cb214-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb214-2"><a href="#cb214-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(island) <span class="co"># pick out a column by providing a column name</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 1
+   island   
+   &lt;fct&gt;    
+ 1 Torgersen
+ 2 Torgersen
+ 3 Torgersen
+ 4 Torgersen
+ 5 Torgersen
+ 6 Torgersen
+ 7 Torgersen
+ 8 Torgersen
+ 9 Torgersen
+10 Torgersen
+# ℹ 334 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb216"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb216-1"><a href="#cb216-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb216-2"><a href="#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>island) <span class="co"># remove a column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 7
+   species bill_length_mm bill_depth_mm flipper_length_mm body_mass_g sex   
+   &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt; &lt;fct&gt; 
+ 1 Adelie            39.1          18.7               181        3750 male  
+ 2 Adelie            39.5          17.4               186        3800 female
+ 3 Adelie            40.3          18                 195        3250 female
+ 4 Adelie            NA            NA                  NA          NA &lt;NA&gt;  
+ 5 Adelie            36.7          19.3               193        3450 female
+ 6 Adelie            39.3          20.6               190        3650 male  
+ 7 Adelie            38.9          17.8               181        3625 female
+ 8 Adelie            39.2          19.6               195        4675 male  
+ 9 Adelie            34.1          18.1               193        3475 &lt;NA&gt;  
+10 Adelie            42            20.2               190        4250 &lt;NA&gt;  
+# ℹ 334 more rows
+# ℹ 1 more variable: year &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb218"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb218-1"><a href="#cb218-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb218-2"><a href="#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, flipper_length_mm, island) <span class="co"># select and re-order columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 3
+   species flipper_length_mm island   
+   &lt;fct&gt;               &lt;int&gt; &lt;fct&gt;    
+ 1 Adelie                181 Torgersen
+ 2 Adelie                186 Torgersen
+ 3 Adelie                195 Torgersen
+ 4 Adelie                 NA Torgersen
+ 5 Adelie                193 Torgersen
+ 6 Adelie                190 Torgersen
+ 7 Adelie                181 Torgersen
+ 8 Adelie                195 Torgersen
+ 9 Adelie                193 Torgersen
+10 Adelie                190 Torgersen
+# ℹ 334 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb220"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb220-1"><a href="#cb220-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb220-2"><a href="#cb220-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">home_island =</span> island) <span class="co"># select and rename</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 1
+   home_island
+   &lt;fct&gt;      
+ 1 Torgersen  
+ 2 Torgersen  
+ 3 Torgersen  
+ 4 Torgersen  
+ 5 Torgersen  
+ 6 Torgersen  
+ 7 Torgersen  
+ 8 Torgersen  
+ 9 Torgersen  
+10 Torgersen  
+# ℹ 334 more rows</code></pre>
+</div>
+</div>
+<p>A note here: the <code>penguins</code> object that we’re working with is technically called a tibble. <code>dplyr</code> is specifically adapted to work with tibbles, and many of the functions won’t work properly on other kinds of data structure. The main idea underlying <code>dplyr</code> is that the many functions it contains should all work consistently, and work well together. So once you’ve got the hang of <code>select</code> there’s not much new to say about <code>filter</code>, which picks rows based on their values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb222"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb222-1"><a href="#cb222-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb222-2"><a href="#cb222-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>) <span class="co"># find some rows about Adelie penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 152 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 142 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb224"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb224-1"><a href="#cb224-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb224-2"><a href="#cb224-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">&gt;</span> <span class="dv">55</span>) <span class="co"># find the big bills</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+  species   island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+1 Gentoo    Biscoe           59.6          17                 230        6050
+2 Gentoo    Biscoe           55.9          17                 228        5600
+3 Gentoo    Biscoe           55.1          16                 230        5850
+4 Chinstrap Dream            58            17.8               181        3700
+5 Chinstrap Dream            55.8          19.8               207        4000
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb226"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb226-2"><a href="#cb226-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(bill_length_mm)) <span class="co"># find missing data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 8
+  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+1 Adelie  Torgersen             NA            NA                NA          NA
+2 Gentoo  Biscoe                NA            NA                NA          NA
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>And <code>mutate</code> - which makes new columns - will work in the same way:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb228"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb228-1"><a href="#cb228-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb228-2"><a href="#cb228-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_col =</span> <span class="dv">11</span>) <span class="sc">|&gt;</span> <span class="co"># every row the same</span></span>
+<span id="cb228-3"><a href="#cb228-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, new_col) <span class="co"># so that we can see the new values in the preview</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 2
+   species new_col
+   &lt;fct&gt;     &lt;dbl&gt;
+ 1 Adelie       11
+ 2 Adelie       11
+ 3 Adelie       11
+ 4 Adelie       11
+ 5 Adelie       11
+ 6 Adelie       11
+ 7 Adelie       11
+ 8 Adelie       11
+ 9 Adelie       11
+10 Adelie       11
+# ℹ 334 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb230"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb230-1"><a href="#cb230-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb230-2"><a href="#cb230-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bill_vol =</span> bill_length_mm <span class="sc">*</span> bill_depth_mm<span class="sc">^</span><span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="co"># some calculation</span></span>
+<span id="cb230-3"><a href="#cb230-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, bill_vol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 2
+   species bill_vol
+   &lt;fct&gt;      &lt;dbl&gt;
+ 1 Adelie    13673.
+ 2 Adelie    11959.
+ 3 Adelie    13057.
+ 4 Adelie       NA 
+ 5 Adelie    13670.
+ 6 Adelie    16677.
+ 7 Adelie    12325.
+ 8 Adelie    15059.
+ 9 Adelie    11172.
+10 Adelie    17138.
+# ℹ 334 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb232"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb232-1"><a href="#cb232-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb232-2"><a href="#cb232-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"From"</span>, island, <span class="st">"island, a penguin of the species"</span>, species)) <span class="sc">|&gt;</span></span>
+<span id="cb232-3"><a href="#cb232-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(label, body_mass_g) <span class="co"># mutate and then select. You can use your new columns immediately.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 2
+   label                                                  body_mass_g
+   &lt;chr&gt;                                                        &lt;int&gt;
+ 1 From Torgersen island, a penguin of the species Adelie        3750
+ 2 From Torgersen island, a penguin of the species Adelie        3800
+ 3 From Torgersen island, a penguin of the species Adelie        3250
+ 4 From Torgersen island, a penguin of the species Adelie          NA
+ 5 From Torgersen island, a penguin of the species Adelie        3450
+ 6 From Torgersen island, a penguin of the species Adelie        3650
+ 7 From Torgersen island, a penguin of the species Adelie        3625
+ 8 From Torgersen island, a penguin of the species Adelie        4675
+ 9 From Torgersen island, a penguin of the species Adelie        3475
+10 From Torgersen island, a penguin of the species Adelie        4250
+# ℹ 334 more rows</code></pre>
+</div>
+</div>
+<p>As before, we need to assign with <code>&lt;-</code> to save our changes. Let’s add the <code>bill_vol column</code> to the data now</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb234"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb234-1"><a href="#cb234-1" aria-hidden="true" tabindex="-1"></a>penguins_vol <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb234-2"><a href="#cb234-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bill_vol =</span> bill_length_mm <span class="sc">*</span> bill_depth_mm<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>arrange</code> sorts columns:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb235"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb235-1"><a href="#cb235-1" aria-hidden="true" tabindex="-1"></a>penguins_vol <span class="sc">|&gt;</span></span>
+<span id="cb235-2"><a href="#cb235-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(bill_vol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 9
+   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Gentoo  Biscoe           42.9          13.1               215        5000
+ 2 Gentoo  Biscoe           42            13.5               210        4150
+ 3 Gentoo  Biscoe           40.9          13.7               214        4650
+ 4 Adelie  Dream            32.1          15.5               188        3050
+ 5 Gentoo  Biscoe           43.3          13.4               209        4400
+ 6 Gentoo  Biscoe           44.9          13.3               213        5100
+ 7 Gentoo  Biscoe           42.6          13.7               213        4950
+ 8 Gentoo  Biscoe           42.7          13.7               208        3950
+ 9 Gentoo  Biscoe           46.1          13.2               211        4500
+10 Gentoo  Biscoe           44            13.6               208        4350
+# ℹ 334 more rows
+# ℹ 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;, bill_vol &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>The nice thing about dplyr is that there are several other packages which work in similar ways. This package ecosystem gets called <a href="https://www.tidyverse.org/">the tidyverse</a>, and is extremely widely used to do data science work in R. A close relative of <code>dplyr</code> is the <code>readr</code> package, which reads in data to R and makes it into tibbles:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb237"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb237-1"><a href="#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb238"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb238-1"><a href="#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb238-2"><a href="#cb238-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb238-3"><a href="#cb238-3" aria-hidden="true" tabindex="-1"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins_raw.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </div>
