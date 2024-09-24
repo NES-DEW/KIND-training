@@ -1,6 +1,6 @@
 ---
 title: "R from scratch"
-date: 2024-09-03
+date: 2024-09-24
 execute: 
   echo: true
   eval: true
@@ -506,6 +506,135 @@ d <- c(4,3)
 
 ifelse(d == 3, "...and we'll get this one second", "the first item is false, so we'll get this first")
 ```
+
+
+
+# Session 4: packages and dplyr
+
+We can bring in external code to help us with R. That external code is known as a package. There are thousands of packages in current use, as the [relevant pages on CRAN will tell you](https://cran.r-project.org/web/packages/available_packages_by_date.html).
+
+## penguins
+
+We need to install packages before we can use them. That only needs to be done once for your R setup. To illustrate, let's install a package, called [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/), which contains some interesting data:
+
+```{r}
+#| eval: false
+install.packages("palmerpenguins")
+```
+
+Once that package is installed, we can use the data (and functions) it contains by attaching them to our current script:
+
+```{r}
+library(palmerpenguins)
+```
+
+Once we've done that, we'll have several new items available to use. The most important here is the main `penguins` dataset:
+
+```{r}
+penguins
+```
+
+That's tabular data - so formed into rows and columns, rectangular (so all columns the same lengths etc), and with each column containing only one type of data. Tabular data is probably the most widely used type of data in R. That means that there are lots of tools for working with it. Some basic examples:
+
+```{r}
+nrow(penguins)
+ncol(penguins)
+head(penguins)
+names(penguins)
+```
+
+## dplyr
+
+As well as those base-R functions, there are also many packages for working with tabular data. Probably the best-known package is [dplyr](https://dplyr.tidyverse.org/), which we install and attach in the same way as `palmerpenguins`:
+
+
+```{r}
+#| eval: false
+install.packages("dplyr")
+```
+
+```{r}
+library(dplyr)
+```
+
+The reason that `dplyr` is so popular is that some of the base-R ways of working with tabular data are a bit messy and hard to read:
+
+```{r}
+penguins$species[1:4] # just to show the first few
+penguins[["island"]][1:4] # just the first few, again
+```
+
+dplyr generally produces much easier-to-read code, especially when using the pipe to bring together lines of code:
+
+```{r}
+penguins |>
+  select(island) # pick out a column by providing a column name
+
+penguins |>
+  select(-island) # remove a column
+
+penguins |>
+  select(species, flipper_length_mm, island) # select and re-order columns
+
+penguins |>
+  select(home_island = island) # select and rename
+```
+
+A note here: the `penguins` object that we're working with is technically called a tibble. `dplyr` is specifically adapted to work with tibbles, and many of the functions won't work properly on other kinds of data structure. The main idea underlying `dplyr` is that the many functions it contains should all work consistently, and work well together. So once you've got the hang of `select` there's not much new to say about `filter`, which picks rows based on their values: 
+
+```{r}
+penguins |>
+  filter(species == "Adelie") # find some rows about Adelie penguins
+
+penguins |>
+  filter(bill_length_mm > 55) # find the big bills
+
+penguins |>
+  filter(is.na(bill_length_mm)) # find missing data
+```
+
+And `mutate` - which makes new columns - will work in the same way:
+
+```{r}
+penguins |>
+  mutate(new_col = 11) |> # every row the same
+  select(species, new_col) # so that we can see the new values in the preview
+
+penguins |>
+  mutate(bill_vol = bill_length_mm * bill_depth_mm^2) |> # some calculation
+  select(species, bill_vol)
+
+penguins |>
+  mutate(label = paste("From", island, "island, a penguin of the species", species)) |>
+  select(label, body_mass_g) # mutate and then select. You can use your new columns immediately.
+```
+
+As before, we need to assign with `<-` to save our changes. Let's add the `bill_vol column` to the data now
+```{r}
+penguins_vol <- penguins |>
+  mutate(bill_vol = bill_length_mm * bill_depth_mm^2)
+```
+
+`arrange` sorts columns:
+```{r}
+penguins_vol |>
+  arrange(bill_vol)
+```
+
+The nice thing about dplyr is that there are several other packages which work in similar ways. This package ecosystem gets called [the tidyverse](https://www.tidyverse.org/), and is extremely widely used to do data science work in R. A close relative of `dplyr` is the `readr` package, which reads in data to R and makes it into tibbles:
+
+```{r}
+#| eval: false
+install.packages("readr")
+```
+```{r}
+library(readr)
+
+penguins_raw <- read_csv("https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins_raw.csv")
+
+```
+
+
 ::: 
 <!--  the main tabset, so leave well alone and work within please -->
 
