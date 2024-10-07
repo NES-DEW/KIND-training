@@ -634,6 +634,257 @@ penguins_raw <- read_csv("https://raw.githubusercontent.com/allisonhorst/palmerp
 
 ```
 
+# Session 5: graphs with ggplot2
+
+There are many options for making graphs with R. We'll use the [ggplot2](https://ggplot2.tidyverse.org/index.html) package, which is probably the best balance between power and ease for beginners. We'll install and attach that package in the usual way:
+
+```{r}
+# you may need to install the package
+# install.packages("ggplot2")
+
+library(ggplot2)
+
+# you may also need to load the penguins data
+# library(palmerpenguins)
+
+```
+
+
+In ggplot, plots are built up in layers. If you take your penguins data, and pipe it to the `ggplot()` function, you'll create a plot, albeit not a very interesting one:
+
+```{r}
+penguins |>
+  ggplot()
+```
+
+To make our plot more interesting, we can add layers. We'll add a geom layer now to build a simple [histogram](https://en.wikipedia.org/wiki/Histogram). Geoms describe the type of plot we want to add in a layer. So `geom_line()` adds a line-graph layer, `geom_point()` an XY scatter layer, `geom_col()` a column graph etc etc. Inside that `geom_histogram()` function, we'll use a new function: `aes()`. `aes()` describes hthe relationship between our data and our graph. If we want to produce a histogram of flipper length, for example, we'd put our `geom_histogram()` and our `aes()` together like this:
+
+```{r}
+penguins |>
+  ggplot() + 
+  geom_histogram(aes(x = flipper_length_mm)) # do a histogram of flipper length
+```
+
+You'll also see a slight quirk here about ggplot, which is that we don't use the `|>` pipe with ggplot code. ggplot is older than the pipe, so we need to join lines of code using `+`. Back to `aes()`: if we want to make a similar graph that produces a histogram for a different part of our data, we'll need to change the `aes()`. So a histogram of bill depth would be:
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_histogram(aes(x = bill_depth_mm))
+```
+
+But if we wanted to change the type of graph we produced for that data, we could keep the `aes()` intact, but change the `geom_`:
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_density(aes(x = bill_depth_mm))
+```
+
+Geoms have lots of options. Set fixed options for that geom outside the `aes()`:
+
+```{r}
+# 
+penguins |>
+  ggplot() +
+  geom_density(aes(x = bill_depth_mm), fill = "hotpink", alpha = 0.5)
+```
+
+R recognises about 600 colour names. There are [various cheatsheets](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf) on the internet that will help with that. Or you can specify colour more precisely using [hex colour values](https://www.w3schools.com/colors/colors_hexadecimal.asp):
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_density(aes(x = bill_depth_mm), fill = "#4dc3ff", alpha = 0.5)
+```
+
+Different geoms have different options, and can take different aes options to map features of your graph onto your data:
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_histogram(aes(x = bill_length_mm, fill = species)) # different colours per species
+
+penguins |>
+  ggplot() +
+  geom_point(aes(x = bill_length_mm, 
+                 y = bill_depth_mm,
+                 colour = species,
+                 shape = species,
+                 size = body_mass_g))
+```
+
+You can also put several `geom_` layers on one plot. Those layers can have different `aes`:
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_histogram(aes(x = bill_length_mm, fill = species)) +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm))
+
+```
+
+(not sure that plot's showing anything useful at all). Or you can put one call to `aes` inside `ggplot()`, and have all your `geom_` layers inherit:
+
+```{r}
+penguins |>
+  ggplot(aes(x = bill_length_mm, 
+                 y = bill_depth_mm,
+                 colour = species)) +
+  geom_point() +
+  geom_smooth() # smoothed conditional mean with confidence interval
+
+```
+
+## Saving plots
+
+You can save and recall ggplot objects like anything else in R:
+
+```{r}
+peng_plot <- penguins |>
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, colour = species, shape = species)) +
+  geom_point()
+```
+
+```{r}
+peng_plot
+```
+
+ggplot objects are lists:
+```{r}
+class(peng_plot)
+typeof(peng_plot)
+```
+
+Interestingly, the plot object contains the full data used to build the plot:
+
+```{r}
+peng_plot$data # your original data
+```
+
+It's possible, although highly non-advisible, to fiddle with the ggplot object by assigning into it:
+```{r}
+peng_plot$labels$x <- "huley booley" 
+peng_plot
+```
+
+```{r}
+peng_plot$labels$x <- "bill_length_mm" # restoring order
+```
+
+The reason this is interesting and useful is that you can take a saved ggplot, and add extra layers to it:
+
+```{r}
+peng_plot +
+  geom_smooth() # add extra layers to the saved object
+```
+
+## Styling plots
+
+Styling happens in layers too. Start with labelling, where there are several different possible options:
+
+```{r}
+
+peng_plot +
+  ggtitle("A title using ggtitle") # good if you're only adding a title
+
+peng_plot +
+  xlab("Bill length (mm), set using xlab") # or if you just want to tweak the x-axis label
+
+peng_plot +
+  labs(x = "Bill length (mm), set using labs")
+
+peng_plot +
+    labs(title = "An uninformative title") # better if you're doing lots of labelling
+
+peng_plot +
+    labs(title = "An uninformative title",
+       x = "Something about Bill Lengths",
+       subtitle = "This one here is a subtitle") 
+```
+
+You can also theme the entire plot:
+
+```{r}
+peng_plot +
+  theme_minimal()
+
+peng_plot +
+  theme_classic()
+```
+
+Each element can be styled individually. That can become very involved, but some simple and useful examples:
+
+```{r}
+
+peng_plot +
+  theme_classic(base_size = 18) # embiggen the text
+
+peng_plot +
+  theme_classic() +
+  theme(legend.position = "none") # hide the legend
+```
+
+Customising the plot colours can be done in several ways. For very simple cases, it might be enough to specify a vector of colour names or hex values, which you can then use inside either `scale_fill_manual` or `scale_colour_manual`:
+
+```{r}
+my_colours <- c("#e66101", "#b2abd2", "#5e3c99")
+
+peng_plot +
+  scale_colour_manual(values = my_colours) # use scale_colour_manual for geoms that take a colour aesthetic
+
+# if you're using a geom that takes a fill, use scale_fill_manual:
+
+penguins |>
+  ggplot() +
+  geom_col(aes(x = species, y = bill_length_mm, fill = species)) +
+  scale_fill_manual(values = my_colours)
+```
+
+Manually specifying colours is hard, particularly as you should be considering the likely impacts on accessibility that can result. A stronger general approach is to use [colorbrewer](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) to do the hard work for you:
+
+```{r}
+peng_plot +
+  scale_colour_brewer(palette = "Dark2")
+
+peng_plot +
+  scale_colour_brewer(palette = "Paired")
+```
+
+You can also borrow entire themes from packages, such as ggthemes:
+
+```{r}
+# install.packages("ggthemes")
+library(ggthemes)
+peng_plot +
+  theme_economist() +
+  scale_colour_economist()
+```
+
+## Data for plots
+
+A final thought: if your ggplot code is becoming very complicated, the usual first check is to see if you can re-work your data to make it easier to plot. A good example is transforming wide data to long-form to simplify aes calls:
+
+```{r}
+# install.packages("tidyr")
+# install.packages("tibble")
+library(tidyr)
+library(tibble)
+
+long_cars <- mtcars |>
+  select(qsec,drat, disp, hp) |>
+  rownames_to_column() |>
+  pivot_longer(-rowname)
+
+long_cars |>
+  ggplot() +
+  geom_histogram(aes(x = value, fill = name), bins = 5) 
+
+long_cars |>
+  ggplot() +
+  geom_histogram(aes(x = value, fill = name), bins = 5) +
+  facet_wrap(~name, ncol = 1, scales = "free") # this can be split into small multiples
+```
 
 ::: 
 <!--  the main tabset, so leave well alone and work within please -->
