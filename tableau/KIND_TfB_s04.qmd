@@ -1,0 +1,170 @@
+---
+title: "Tableau for Beginners (session 4)"
+categories: [Tableau, beginner]
+---
+
+::: {.callout-warning collapse="false" appearance="default" icon="true"}
+## Warning
+
+This is currently a **draft** version of the materials for this training session, and so may contain minor errors and inaccuracies.
+:::
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Tableau for Beginners")
+```
+
+## Session outline
+
+-   In this session, we’re going to build out the GP practice size dashboard from last time
+-   we’re going to use some new features of Tableau to help us with that
+    -   Calculated Fields
+    -   Table calculations
+    -   Level of Detail (LOD) expressions
+
+## Session files
+
+-   four .csv files
+    -   [`1 - practices.csv`](data/1%20-%20practices.csv) from [PHS's opendata portal](https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes)
+    -   [`2 - boards.csv`](data/2%20-%20boards.csv) rom [PHS's opendata portal](https://www.opendata.nhs.scot/dataset/geography-codes-and-labels/resource/652ff726-e676-4a20-abda-435b98dd7bdc)
+    -   [`3b - demographics_p.csv`](data/3b%20-%20demographics_p.csv) pivoted data from [PHS's opendata portal](https://www.opendata.nhs.scot/dataset/gp-practice-populations)
+    -   [`4 - postcodes.csv`](data/4%20-%20postcodes.csv) from the [Scottish Postcode Directory](https://www.nrscotland.gov.uk/statistics-and-data/geography/our-products/scottish-postcode-directory/2024-1) - although note that the supplied file is a small subset of this larger directory
+
+
+## Getting started
+
+::: {.callout-tip title="Task"}
+-   [find your dashboard](https://public.tableau.com/app/profile/brendan.clarke4139/viz/KIND_Tableau_for_beginners_s04/Map) from last time
+    -   or create a new dashboard based on the following four data sources for this week
+-   create a new, empty, worksheet
+:::
+
+## Calculated Fields
+
+-   **Calculated Fields** are the basic tool used to summarize data in Tableau
+-   let's start with a simple example: how big is the largest GP practice?
+-   we'll answer that by writing a simple formula: `MAX([Practice List Size])`
+    -   `MAX` is a function that finds the largest value in some data
+    -   `[Practice List Size]` refers to one of our columns of data
+
+## `MAX()`
+
+::: {.callout-tip title="Task"}
+-   right-click your `Practice List Size` field, and select `Create > Calculated Field...` </br>![select Create \> Calculated Field...](images/clipboard-834204544.png)
+-   name your Calculated Field `largest_practice`
+-   then use the following (case sensitive) formula to calculate the largest practice: `MAX([Practice List Size])` </br> ![Calculate the largest practice](images/clipboard-249424320.png)
+:::
+
+## Finding your calculated fields
+
+-   note that your new `largest_practice` field will show up at the very bottom of your sets of data: </br>![Calculated field location](images/clipboard-4047316822.png)
+-   note too the equals sign in the icon, indicating a calculated field
+
+## `MIN()`
+
+::: {.callout-tip title="Task"}
+-   now repeat to find the smallest practice using `MIN()`</br>![Smallest practice](images/clipboard-1865594794.png)
+:::
+
+## `COUNT()`
+
+::: {.callout-tip title="Task"}
+-   now repeat to find the number of practices using `COUNT()`</br>![Number of practices](images/clipboard-1199492693.png)
+:::
+
+## `AVG()`
+
+::: {.callout-tip title="Task"}
+-   finally, find the average practice size using `AVG()`</br>![Average practice size](images/clipboard-3666195275.png)
+:::
+
+## Adding calculated fields to worksheets
+
+::: {.callout-tip title="Task"}
+-   Drag any one of your new calculated fields to Text Marks, then add `HB Name` to the column shelf: </br>![Adding calculated fields to a worksheet](images/clipboard-1921124157.png)
+
+-   then (in a slightly quirky way) you should be able to add each calculation by double-clicking the name of the calculated field: </br> ![Double-click the calculated field to add to the worksheet](images/clipboard-2599202520.png)
+:::
+
+## Combining functions
+
+-   we can use several functions in a formula to do interesting analytic work
+-   we'll look at three helpers for combining functions:
+    -   brackets
+    -   `+`
+    -   `STR()`
+
+## Brackets
+
+-   you can combine several functions together with brackets
+-   the functions will run from the inside-out:
+    -   `ROUND(AVG([dat]))` will:
+        -   average `[dat]`, then
+        -   round that result
+        
+::: {.callout-tip title="Task"}
+-   try making a rounded average of practice list size to the nearest 100
+:::
+
+## `+`
+
+-   `+` joins text values together
+-   you may need to play with the `Fit` menu to see your results:</br> ![The Fit menu](images/clipboard-2278766619.png)
+
+::: {.callout-tip title="Task"}
+-   try `"The first practice name is " + MIN([GP Practice Name])`
+:::
+
+## `STR()`
+
+-   if you try to use `+` to add text to numeric calculations, you'll run into a problem
+-   `STR()` converts numbers to text
+
+::: {.callout-tip title="Task"}
+-   try `"The smallest practice has " + STR(MIN([Practice List Size])) + " patients"`
+:::
+
+## `IF` and friends
+
++ `IF something THEN action1 ELSE action2 END`
++ `ELSEIF something else THEN action2`
++ `IFF(something, action1, action2)`
+
+## Table calculations
+
+-   Table calculations are calculations on visualizations, rather than the underlying data
+-   We'll run through a quick table calculation now
+
+## Quick table calculations
+
+::: {.callout-tip title="Task"}
+-   build a new sheet with largest and smallest practices by board </br>![largest and smallest practices by board](images/clipboard-838239548.png)
+-   right-click your largest_practice calculation, and select `Quick Table Calculation > Rank` </br>![Quick Table Calculation](images/clipboard-1483597521.png)
+-   that converts largest_practice to display as a rank between 1 and 14
+:::
+
+-   clear the table calculations from the right-click menu: </br>![clear the table calculations](images/clipboard-3011197319.png)
+
+## Level of detail calculations
+
+-   LoD calculations allow you to control the level of detail that your calculations work at
+-   this is just a taster as this gets into advanced (and messy) territory pretty fast
+
+::: {.callout-tip title="Task"}
+-   create a table showing the average of each demographic group per NHS board:</br>![average of each demographic group per NHS board](images/clipboard-1829421050.png)
+-   now add a LoD calculation that will show the average for each attribute bracket for Scotland overall using `{FIXED [Attribute] : AVG([Value])}`:</br> ![average for each attribute bracket for Scotland overall](images/clipboard-3770245436.png)
+:::
+
+That gives us a slightly messy way of benchmarking our average for our bracket within a board to the bracket nationally: </br>![national benchmark](images/clipboard-205489057.png)
+
+We could also try the more ambitious:
+
+`AVG([Value]) / ATTR({FIXED [Attribute] : AVG([Value])})`
+
+(you need the `ATTR` function to trick Tableau into mixing and matching these different values)
