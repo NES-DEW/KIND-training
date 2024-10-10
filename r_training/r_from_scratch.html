@@ -253,9 +253,9 @@ Three random comments from previous attendees
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>It was great that we were showed the basics and tips and tricks.</li>
-<li>Thanks for the training. As a neurodivergent learnerI found it really hard to keep up in the previous R session. I however saw your explaination for not recording and I understand why. The idea of notetaking works as it reinforces and also reminds me of parts that I missed. I also found that because I had set up the environment for the last session , it was easier to follow the examples. So it really is a matter of exposure , then familiarity which only comes with pratice and time spent on practicing. Thank you</li>
 <li>Very interesting</li>
+<li>Very useful</li>
+<li>Base R broken down into easy to understand language so it’s not confusing. As an R beginner I found this very helpful and look forward to the next session to build on my knowledge and understanding. I work within Data Management where R hasn’t been geared towards with basic training, as the training available is usually geared towards Analytical staff who have more knowledge of R, and with R becoming utilised more within Data Management these kind of sessions are essential allowing for personal development to help with your workstreams.</li>
 </ul>
 </div>
 </div>
@@ -294,7 +294,7 @@ Testing your Posit Cloud
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Session 1: “hello world”</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Session 2: core function toolkit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Session 3: functions, loops, and flow</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Session 4: packages and dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Session 5: graphs with ggplot2</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Session 1: “hello world”</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Session 2: core function toolkit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Session 3: functions, loops, and flow</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Session 4: packages and dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Session 5: graphs with ggplot2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false">Session 6: tips, tricks, troubleshooting, and pain-points</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <section id="hello-world" class="level2">
@@ -1766,6 +1766,657 @@ Levels: Biscoe Dream Torgersen</code></pre>
 <p><img src="r_from_scratch_files/figure-html/unnamed-chunk-85-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+</section>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<section id="formattingrefactoringtidying-code" class="level2">
+<h2 class="anchored" data-anchor-id="formattingrefactoringtidying-code">Formatting/refactoring/tidying code</h2>
+<p>You’ll often need to rework code as you write it. You can think of this similar to the process of drafting, and then editing, and then proof-reading text. There’s lots to say about this subject, so we’ll stick to a few beginner tips here. But you might also like to look at the set of <a href="https://nes-dew.github.io/KIND-community-standards/r.html">R community standards produced by the KIND network</a>:</p>
+<section id="use-source" class="level3">
+<h3 class="anchored" data-anchor-id="use-source">Use <code>source()</code></h3>
+<p><code>source()</code> allows you to split up long R scripts. If you put some code in a file called <code>somescript.R</code>, you can then include that code in another script by writing: <code>source(somescript.R)</code>. It’s as if you’d pasted the code in, but without the bulk and confusion that can cause.</p>
+</section>
+<section id="pick-a-structure-and-stick-to-it" class="level3">
+<h3 class="anchored" data-anchor-id="pick-a-structure-and-stick-to-it">Pick a structure and stick to it</h3>
+<p>For example, you might go with something like:</p>
+<ol type="1">
+<li>script information at the very top</li>
+<li>then package loading</li>
+<li>then data loading</li>
+<li>then function definitions</li>
+<li>…</li>
+</ol>
+</section>
+<section id="make-your-variable-names-sensible-and-hierarchical" class="level3">
+<h3 class="anchored" data-anchor-id="make-your-variable-names-sensible-and-hierarchical">Make your variable names sensible (and hierarchical)</h3>
+<p>So if you’re working with a set of data about GP practices named <code>practices</code>, you might create several derivative variables which would most sensibly be named:</p>
+<ul>
+<li><code>practices_count</code></li>
+<li><code>practices_count_grouped</code></li>
+<li><code>practices_largest</code></li>
+<li>…</li>
+</ul>
+</section>
+<section id="add-comments-and-sections" class="level3">
+<h3 class="anchored" data-anchor-id="add-comments-and-sections">Add comments and sections</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb277"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb277-1"><a href="#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all the code here has been full of comments. Write comments!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="find-ways-of-automating-the-routine-stuff" class="level3">
+<h3 class="anchored" data-anchor-id="find-ways-of-automating-the-routine-stuff">Find ways of automating the routine stuff</h3>
+<p>Three packages to know about to help manage your code: <a href="https://cran.r-project.org/web/packages/formatR/index.html">formatR</a>, <a href="https://github.com/r-lib/styler">styler</a>, and <a href="https://github.com/r-lib/lintr">lintr</a></p>
+</section>
+</section>
+<section id="use-projects" class="level2">
+<h2 class="anchored" data-anchor-id="use-projects">Use projects</h2>
+<p>You should work in projects. That’s easy to do in Posit Cloud as everything is a project. R projects help keep you organised, and prevent you having to do lots of messy and fallible work in setting working directories, supplying file paths, and wrestling with scripts when you move them.</p>
+<p>R thinks about a working directory, which is where it is based at the time it’s running. You can use the <code>getwd()</code> and <code>setwd()</code> to find out, or change, your working directory. But those are better avoided. If you’re working in a project, the project root is your working directory.</p>
+<p>Projects allow you to use relative paths with confidence - so <code>"data/data.csv"</code> describes a file named <code>data.csv</code> that lives in the <code>data</code> subdirectory of your project. Managing full paths is a nuisance in R, especially if you’re on Windows. R doesn’t like Windows file paths as they include back slashes <code>\</code>. For example:<br><code>C:\my_drive\my_code\R_code\data\data.csv</code>. If we want to use that path in R, you’ll need to tweak it to deal with the back slashes. You can either double them:<br><code>C:\\my_drive\\my_code\\R_code\\data\\data.csv</code><br> or replace them with forward slashes <code>/</code>: <br><code>C:/my_drive/my_code/R_code/data/data.csv</code>.</p>
+<p>But definitely better to avoid full paths if at all possible. Projects make scripts portable by allowing you to ignore details specific to your computer that are hard-coded into paths etc etc. Sharing code is a key advantage of R, and you should make that as easy and fun as possible</p>
+</section>
+<section id="error-messages" class="level2">
+<h2 class="anchored" data-anchor-id="error-messages">Error messages</h2>
+<p>Some error messages - mainly those from newer functions - are nice and informative, and can even suggest ways of resolving the problem:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb278"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb278-1"><a href="#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="st">"two"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in 1 + "two" : non-numeric argument to binary operator</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb280"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb280-1"><a href="#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"nope.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error : 'nope.csv' does not exist in current working directory ('C:/Users/brendancl/not_od/KIND-training/r_training').</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb282"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb282-1"><a href="#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(penguins <span class="sc">|&gt;</span> <span class="fu">ggplot</span>() <span class="sc">|&gt;</span> <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">y =</span> flipper_length_mm)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in geom_density(ggplot(penguins), aes(y = flipper_length_mm)) : 
+  `mapping` must be created by `aes()`.
+ℹ Did you use `%&gt;%` or `|&gt;` instead of `+`?</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb284"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb284-1"><a href="#cb284-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NaN</code></pre>
+</div>
+</div>
+<p>Others are unfortunately a bit more opaque:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb286"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb286-1"><a href="#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb286-2"><a href="#cb286-2" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(na_numbers[<span class="dv">10</span>,]) <span class="co"># vectors are, I suppose, 1-dimensional</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in eval(expr, envir, enclos) : object 'na_numbers' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb288"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb288-1"><a href="#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">Sum</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)) <span class="co"># remember the capitals</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in Sum(3, 4, 5) : could not find function "Sum"</code></pre>
+</div>
+</div>
+<p>But the worst are the non-error errors - e.g.&nbsp;where the code won’t even run well enough to have an error. A nice example is when your console is showing an +, rather than a &gt;, which means means that R is waiting for input, and usually means there’s a missing bracket somewhere.</p>
+<p>Another one to watch out for: there are a couple of different filter functions. If a filter isn’t working well, it’s always worth specifying which filter you want with <code>dplyr::filter</code> (or much more rarely <code>stats::filter</code>),</p>
+</section>
+<section id="how-to-read-data-into-and-out-of-excel-pdf-word-etc" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-data-into-and-out-of-excel-pdf-word-etc">How to read data into, and out of, Excel, pdf, Word, etc…</h2>
+<p>There are a couple of different areas to think about here. Reading data to and from Excel is the most straightforward:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb290"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb290-1"><a href="#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("readxl")</span></span>
+<span id="cb290-2"><a href="#cb290-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb290-3"><a href="#cb290-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("readr")</span></span>
+<span id="cb290-4"><a href="#cb290-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb290-5"><a href="#cb290-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb290-6"><a href="#cb290-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb290-7"><a href="#cb290-7" aria-hidden="true" tabindex="-1"></a><span class="fu">read_xlsx</span>(<span class="st">"data/my_dat.xlsx"</span>) <span class="co"># to read data in from Excel</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  name      values
+  &lt;chr&gt;      &lt;dbl&gt;
+1 Elizabeth      8
+2 Lorah          7
+3 Eilish        10
+4 Colin          6
+5 Robert         1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb292"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb292-1"><a href="#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"data/my_dat.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb292-2"><a href="#cb292-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> value1 <span class="sc">+</span> value2) <span class="sc">|&gt;</span></span>
+<span id="cb292-3"><a href="#cb292-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"data/my_output_dat.csv"</span>) <span class="co"># to write data back to csv, which can be opened in Excel</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can also scale this up to read several files at once:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb293"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb293-1"><a href="#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/multifile"</span>, <span class="at">full.names =</span> T) <span class="sc">|&gt;</span></span>
+<span id="cb293-2"><a href="#cb293-2" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_csv</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 3
+   name      value1 value2
+   &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Elizabeth      8      7
+ 2 Lorah          7      5
+ 3 Eilish        10      7
+ 4 Colin          6     41
+ 5 Robert         1     99
+ 6 Elizabeth      8      7
+ 7 Lorah          7      5
+ 8 Eilish        10      7
+ 9 Colin          6      4
+10 Robert         1     99
+11 Elizabeth      8      7
+12 Lorah          7      5
+13 Eilish        10      7
+14 Colin          6      4
+15 Robert         1     99
+16 Elizabeth      8      7
+17 Lorah          7      5
+18 Eilish        10      7
+19 Colin          6      4
+20 Robert         1     99</code></pre>
+</div>
+</div>
+<p>Or use a pattern option to only read some files:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb295"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb295-1"><a href="#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/"</span>, </span>
+<span id="cb295-2"><a href="#cb295-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">full.names =</span> T, </span>
+<span id="cb295-3"><a href="#cb295-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">pattern =</span> <span class="st">"my_"</span>,</span>
+<span id="cb295-4"><a href="#cb295-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">recursive =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data/multifile/my_dat - v1.csv" "data/multifile/my_dat - v2.csv"
+[3] "data/multifile/my_dat - v3.csv" "data/multifile/my_dat - v4.csv"
+[5] "data/my_dat.csv"                "data/my_dat.xlsx"              
+[7] "data/my_output_dat.csv"        </code></pre>
+</div>
+</div>
+<p>Writing back to a proper .xlsx file is much more involved. A good place to start would be the <a href="https://ycphs.github.io/openxlsx/">openxlsx package</a>, although note that this can become quite involved pretty easily. <a href="https://www.joelonsoftware.com/2008/02/19/why-are-the-microsoft-office-file-formats-so-complicated-and-some-workarounds/">Excel files are surprisingly complicated</a>…</p>
+<p>Similarly, if you need to read/write Word documents, you’re going to need some packages. For Word, <a href="https://cran.r-project.org/web/packages/docxtractr/index.html">docxtractr</a> (as the name suggests) is helpful for extracting data, while <a href="https://ardata-fr.github.io/flextable-book/">flextable</a> can be used to help write to docx:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb297"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb297-1"><a href="#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("docxtractr")</span></span>
+<span id="cb297-2"><a href="#cb297-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("flextable")</span></span>
+<span id="cb297-3"><a href="#cb297-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb297-4"><a href="#cb297-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(docxtractr)</span>
+<span id="cb297-5"><a href="#cb297-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb297-6"><a href="#cb297-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb297-7"><a href="#cb297-7" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb297-8"><a href="#cb297-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb297-9"><a href="#cb297-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save_as_docx</span>(<span class="at">path =</span> <span class="st">"data/word.docx"</span>) <span class="co"># to write some data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1849315505.png" class="img-fluid figure-img"></p>
+<figcaption>Data in Word</figcaption>
+</figure>
+</div>
+<p>We can then read this data back to show how extraction might work:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb298"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb298-1"><a href="#cb298-1" aria-hidden="true" tabindex="-1"></a>mtcars_from_word <span class="ot">&lt;-</span> docxtractr<span class="sc">::</span><span class="fu">read_docx</span>(<span class="st">"data/word.docx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>But, unlike Excel, we need to do some additional work to extract our data. docxtractr has identified a table, so we can convert that back into a tibble to get at its contents:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb299"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb299-1"><a href="#cb299-1" aria-hidden="true" tabindex="-1"></a>mtcars_from_word <span class="sc">|&gt;</span></span>
+<span id="cb299-2"><a href="#cb299-2" aria-hidden="true" tabindex="-1"></a>  docxtractr<span class="sc">::</span><span class="fu">docx_extract_tbl</span>() <span class="sc">|&gt;</span></span>
+<span id="cb299-3"><a href="#cb299-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">mpg</th>
+<th style="text-align: left;">cyl</th>
+<th style="text-align: left;">disp</th>
+<th style="text-align: left;">hp</th>
+<th style="text-align: left;">drat</th>
+<th style="text-align: left;">wt</th>
+<th style="text-align: left;">qsec</th>
+<th style="text-align: left;">vs</th>
+<th style="text-align: left;">am</th>
+<th style="text-align: left;">gear</th>
+<th style="text-align: left;">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">21.0</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">160.0</td>
+<td style="text-align: left;">110</td>
+<td style="text-align: left;">3.90</td>
+<td style="text-align: left;">2.620</td>
+<td style="text-align: left;">16.46</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">21.0</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">160.0</td>
+<td style="text-align: left;">110</td>
+<td style="text-align: left;">3.90</td>
+<td style="text-align: left;">2.875</td>
+<td style="text-align: left;">17.02</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">22.8</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">108.0</td>
+<td style="text-align: left;">93</td>
+<td style="text-align: left;">3.85</td>
+<td style="text-align: left;">2.320</td>
+<td style="text-align: left;">18.61</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">21.4</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">258.0</td>
+<td style="text-align: left;">110</td>
+<td style="text-align: left;">3.08</td>
+<td style="text-align: left;">3.215</td>
+<td style="text-align: left;">19.44</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">18.7</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">360.0</td>
+<td style="text-align: left;">175</td>
+<td style="text-align: left;">3.15</td>
+<td style="text-align: left;">3.440</td>
+<td style="text-align: left;">17.02</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">18.1</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">225.0</td>
+<td style="text-align: left;">105</td>
+<td style="text-align: left;">2.76</td>
+<td style="text-align: left;">3.460</td>
+<td style="text-align: left;">20.22</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">14.3</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">360.0</td>
+<td style="text-align: left;">245</td>
+<td style="text-align: left;">3.21</td>
+<td style="text-align: left;">3.570</td>
+<td style="text-align: left;">15.84</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">24.4</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">146.7</td>
+<td style="text-align: left;">62</td>
+<td style="text-align: left;">3.69</td>
+<td style="text-align: left;">3.190</td>
+<td style="text-align: left;">20.00</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">22.8</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">140.8</td>
+<td style="text-align: left;">95</td>
+<td style="text-align: left;">3.92</td>
+<td style="text-align: left;">3.150</td>
+<td style="text-align: left;">22.90</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">19.2</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">167.6</td>
+<td style="text-align: left;">123</td>
+<td style="text-align: left;">3.92</td>
+<td style="text-align: left;">3.440</td>
+<td style="text-align: left;">18.30</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">17.8</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">167.6</td>
+<td style="text-align: left;">123</td>
+<td style="text-align: left;">3.92</td>
+<td style="text-align: left;">3.440</td>
+<td style="text-align: left;">18.90</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16.4</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">275.8</td>
+<td style="text-align: left;">180</td>
+<td style="text-align: left;">3.07</td>
+<td style="text-align: left;">4.070</td>
+<td style="text-align: left;">17.40</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">17.3</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">275.8</td>
+<td style="text-align: left;">180</td>
+<td style="text-align: left;">3.07</td>
+<td style="text-align: left;">3.730</td>
+<td style="text-align: left;">17.60</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">15.2</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">275.8</td>
+<td style="text-align: left;">180</td>
+<td style="text-align: left;">3.07</td>
+<td style="text-align: left;">3.780</td>
+<td style="text-align: left;">18.00</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10.4</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">472.0</td>
+<td style="text-align: left;">205</td>
+<td style="text-align: left;">2.93</td>
+<td style="text-align: left;">5.250</td>
+<td style="text-align: left;">17.98</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10.4</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">460.0</td>
+<td style="text-align: left;">215</td>
+<td style="text-align: left;">3.00</td>
+<td style="text-align: left;">5.424</td>
+<td style="text-align: left;">17.82</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">14.7</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">440.0</td>
+<td style="text-align: left;">230</td>
+<td style="text-align: left;">3.23</td>
+<td style="text-align: left;">5.345</td>
+<td style="text-align: left;">17.42</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">32.4</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">78.7</td>
+<td style="text-align: left;">66</td>
+<td style="text-align: left;">4.08</td>
+<td style="text-align: left;">2.200</td>
+<td style="text-align: left;">19.47</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">30.4</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">75.7</td>
+<td style="text-align: left;">52</td>
+<td style="text-align: left;">4.93</td>
+<td style="text-align: left;">1.615</td>
+<td style="text-align: left;">18.52</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">33.9</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">71.1</td>
+<td style="text-align: left;">65</td>
+<td style="text-align: left;">4.22</td>
+<td style="text-align: left;">1.835</td>
+<td style="text-align: left;">19.90</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">21.5</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">120.1</td>
+<td style="text-align: left;">97</td>
+<td style="text-align: left;">3.70</td>
+<td style="text-align: left;">2.465</td>
+<td style="text-align: left;">20.01</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">15.5</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">318.0</td>
+<td style="text-align: left;">150</td>
+<td style="text-align: left;">2.76</td>
+<td style="text-align: left;">3.520</td>
+<td style="text-align: left;">16.87</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15.2</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">304.0</td>
+<td style="text-align: left;">150</td>
+<td style="text-align: left;">3.15</td>
+<td style="text-align: left;">3.435</td>
+<td style="text-align: left;">17.30</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">13.3</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">350.0</td>
+<td style="text-align: left;">245</td>
+<td style="text-align: left;">3.73</td>
+<td style="text-align: left;">3.840</td>
+<td style="text-align: left;">15.41</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">19.2</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">400.0</td>
+<td style="text-align: left;">175</td>
+<td style="text-align: left;">3.08</td>
+<td style="text-align: left;">3.845</td>
+<td style="text-align: left;">17.05</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">27.3</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">79.0</td>
+<td style="text-align: left;">66</td>
+<td style="text-align: left;">4.08</td>
+<td style="text-align: left;">1.935</td>
+<td style="text-align: left;">18.90</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">26.0</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">120.3</td>
+<td style="text-align: left;">91</td>
+<td style="text-align: left;">4.43</td>
+<td style="text-align: left;">2.140</td>
+<td style="text-align: left;">16.70</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30.4</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">95.1</td>
+<td style="text-align: left;">113</td>
+<td style="text-align: left;">3.77</td>
+<td style="text-align: left;">1.513</td>
+<td style="text-align: left;">16.90</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15.8</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">351.0</td>
+<td style="text-align: left;">264</td>
+<td style="text-align: left;">4.22</td>
+<td style="text-align: left;">3.170</td>
+<td style="text-align: left;">14.50</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">19.7</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">145.0</td>
+<td style="text-align: left;">175</td>
+<td style="text-align: left;">3.62</td>
+<td style="text-align: left;">2.770</td>
+<td style="text-align: left;">15.50</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15.0</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">301.0</td>
+<td style="text-align: left;">335</td>
+<td style="text-align: left;">3.54</td>
+<td style="text-align: left;">3.570</td>
+<td style="text-align: left;">14.60</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">21.4</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">121.0</td>
+<td style="text-align: left;">109</td>
+<td style="text-align: left;">4.11</td>
+<td style="text-align: left;">2.780</td>
+<td style="text-align: left;">18.60</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Reading data from pdf is much more involved, and I’d suggest exploring the <a href="https://cran.r-project.org/web/packages/pdftools/index.html">pdftools package</a> as a starting point.</p>
+<p>An alternative strategy if you need to write a lot of Word/pdf documents would be Rmarkdown or Quarto. These enable you to embed R code in a proper document production tool, which is great for writing regular reports.</p>
+</section>
+<section id="how-to-read-and-analyze-free-text" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-and-analyze-free-text">How to read and analyze free text?</h2>
+<p>There’s a really nice set of tools for text analysis in the <a href="https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html">tidytext package</a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb300"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb300-1"><a href="#cb300-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidytext") # main tidytext package</span></span>
+<span id="cb300-2"><a href="#cb300-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb300-3"><a href="#cb300-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("stopwords") # to help remove common small words</span></span>
+<span id="cb300-4"><a href="#cb300-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stopwords)</span>
+<span id="cb300-5"><a href="#cb300-5" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("janeaustenr") # for some sample text</span></span>
+<span id="cb300-6"><a href="#cb300-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janeaustenr)</span>
+<span id="cb300-7"><a href="#cb300-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb300-8"><a href="#cb300-8" aria-hidden="true" tabindex="-1"></a><span class="fu">austen_books</span>() <span class="sc">|&gt;</span></span>
+<span id="cb300-9"><a href="#cb300-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> text, <span class="at">output =</span> word) <span class="sc">|&gt;</span></span>
+<span id="cb300-10"><a href="#cb300-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(<span class="fu">get_stopwords</span>()) <span class="sc">|&gt;</span> <span class="co"># remove small common words</span></span>
+<span id="cb300-11"><a href="#cb300-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> T) <span class="sc">|&gt;</span></span>
+<span id="cb300-12"><a href="#cb300-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(n, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  word      n
+  &lt;chr&gt; &lt;int&gt;
+1 mr     3015
+2 mrs    2446
+3 must   2071
+4 said   2041
+5 much   1935</code></pre>
 </div>
 </div>
 </section>
