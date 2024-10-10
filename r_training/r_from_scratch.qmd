@@ -31,20 +31,17 @@ feed_block("R from scratch")
 -   Then confirm that you're able to log-in to that account using the device and the network connection that you're going to be using during the training session. Of note, some board VPNs (PHS, Lothian, couple of others) seem to cause trouble, and it can take a bit of time to work out fixes and workarounds.
 -   Once logged in, please attempt a 2 minute test (below) so that we can be sure everything will be in working order before the first training session:
 
-:::{.callout-note collapse=true appearance='default' icon=true}
+::: {.callout-note collapse="true" appearance="default" icon="true"}
 ## Testing your Posit Cloud
-1. sign in to your account at <https://posit.cloud/>
-1. create a New RStudio Project from the big blue button</br> ![create a New RStudio Project](images/clipboard-1870431838.png)
-1. after 30 seconds or so you should have a new R project open in front of you</br>![new R project](images/clipboard-3686794244.png)
-1. in the console - the bottom-left part of the window with all the text in - please type `demo(image)` at the `>` prompt and press enter
-1. keep pressing enter until you see graphs start appearing (2-3 times should do it)</br>![demo plots](images/clipboard-984098222.png)
+
+1.  sign in to your account at <https://posit.cloud/>
+2.  create a New RStudio Project from the big blue button</br> ![create a New RStudio Project](images/clipboard-1870431838.png)
+3.  after 30 seconds or so you should have a new R project open in front of you</br>![new R project](images/clipboard-3686794244.png)
+4.  in the console - the bottom-left part of the window with all the text in - please type `demo(image)` at the `>` prompt and press enter
+5.  keep pressing enter until you see graphs start appearing (2-3 times should do it)</br>![demo plots](images/clipboard-984098222.png)
 :::
 
-
-
-::: {.panel-tabset}
-
-
+::: panel-tabset
 # Session 1: "hello world"
 
 ## hello world
@@ -56,6 +53,7 @@ feed_block("R from scratch")
 ```{r}
 "hello world"
 ```
+
 </br> !["hello world" in the terminal](images/clipboard-1008380297.png)
 
 -   but we usually write R in script files
@@ -190,19 +188,18 @@ named_list[[4]]
 unlist(named_list)
 ```
 
-
 # Session 2: core function toolkit
 
 ## session 1 reminders
 
-* console vs script (`Ctrl` + `⏎`)
-* assign values to variables with `<-`
-* vectors = simplest R data structure (like an ordered group)
-* functions = R verbs that:
-  * are case-sensitive, whitespace-insensitive
-  * have arguments (roughly = options)
-  * return results
-  * are usually vectorised (so can be used over all members of a vector)
+-   console vs script (`Ctrl` + `⏎`)
+-   assign values to variables with `<-`
+-   vectors = simplest R data structure (like an ordered group)
+-   functions = R verbs that:
+    -   are case-sensitive, whitespace-insensitive
+    -   have arguments (roughly = options)
+    -   return results
+    -   are usually vectorised (so can be used over all members of a vector)
 
 ### make some play data
 
@@ -216,6 +213,7 @@ longer_string <- c("this", "is", "a", "length", "seven", "character", "vector")
 ## core numeric operators and functions
 
 ### arithmetic
+
 ```{r}
 1 + 3
 numbers * 5 # they're vectorised
@@ -223,7 +221,6 @@ numbers * 5 # they're vectorised
 5 - numbers
 8 ^ 0.5
 ```
-
 
 ### range operator
 
@@ -255,6 +252,7 @@ numbers[numbers > 3] # filtering with equalities/inequalities
 ```
 
 ### fancy operator bits
+
 ```{r}
 5 %% 3 # remainder / modulo for remainder-after-division
 5 %/% 3 # integer division
@@ -297,7 +295,6 @@ summary(numbers) # good for rapid numeric summaries
 table(numbers) # good for finding out what you've got in more complicated vectors
 ```
 
-
 ## interlude: joining code together
 
 There are three main ways of doing this. Traditionally, you'd bracket together several functions, and read from the inside out. Fastest to write, hardest to read and fix:
@@ -307,6 +304,7 @@ round(sqrt(c(1,5,10)))
 ```
 
 or you can make intervening variables. Messy, but good if you need to be extra careful:
+
 ```{r}
 n <- c(1,5,10)
 o <- sqrt(n)
@@ -507,8 +505,6 @@ d <- c(4,3)
 ifelse(d == 3, "...and we'll get this one second", "the first item is false, so we'll get this first")
 ```
 
-
-
 # Session 4: packages and dplyr
 
 We can bring in external code to help us with R. That external code is known as a package. There are thousands of packages in current use, as the [relevant pages on CRAN will tell you](https://cran.r-project.org/web/packages/available_packages_by_date.html).
@@ -547,7 +543,6 @@ names(penguins)
 
 As well as those base-R functions, there are also many packages for working with tabular data. Probably the best-known package is [dplyr](https://dplyr.tidyverse.org/), which we install and attach in the same way as `palmerpenguins`:
 
-
 ```{r}
 #| eval: false
 install.packages("dplyr")
@@ -580,7 +575,7 @@ penguins |>
   select(home_island = island) # select and rename
 ```
 
-A note here: the `penguins` object that we're working with is technically called a tibble. `dplyr` is specifically adapted to work with tibbles, and many of the functions won't work properly on other kinds of data structure. The main idea underlying `dplyr` is that the many functions it contains should all work consistently, and work well together. So once you've got the hang of `select` there's not much new to say about `filter`, which picks rows based on their values: 
+A note here: the `penguins` object that we're working with is technically called a tibble. `dplyr` is specifically adapted to work with tibbles, and many of the functions won't work properly on other kinds of data structure. The main idea underlying `dplyr` is that the many functions it contains should all work consistently, and work well together. So once you've got the hang of `select` there's not much new to say about `filter`, which picks rows based on their values:
 
 ```{r}
 penguins |>
@@ -610,12 +605,14 @@ penguins |>
 ```
 
 As before, we need to assign with `<-` to save our changes. Let's add the `bill_vol column` to the data now
+
 ```{r}
 penguins_vol <- penguins |>
   mutate(bill_vol = bill_length_mm * bill_depth_mm^2)
 ```
 
 `arrange` sorts columns:
+
 ```{r}
 penguins_vol |>
   arrange(bill_vol)
@@ -627,6 +624,7 @@ The nice thing about dplyr is that there are several other packages which work i
 #| eval: false
 install.packages("readr")
 ```
+
 ```{r}
 library(readr)
 
@@ -648,7 +646,6 @@ library(ggplot2)
 # library(palmerpenguins)
 
 ```
-
 
 In ggplot, plots are built up in layers. If you take your penguins data, and pipe it to the `ggplot()` function, you'll create a plot, albeit not a very interesting one:
 
@@ -751,6 +748,7 @@ peng_plot
 ```
 
 ggplot objects are lists:
+
 ```{r}
 class(peng_plot)
 typeof(peng_plot)
@@ -763,6 +761,7 @@ peng_plot$data # your original data
 ```
 
 It's possible, although highly non-advisible, to fiddle with the ggplot object by assigning into it:
+
 ```{r}
 peng_plot$labels$x <- "huley booley" 
 peng_plot
@@ -886,7 +885,169 @@ long_cars |>
   facet_wrap(~name, ncol = 1, scales = "free") # this can be split into small multiples
 ```
 
-::: 
+# Session 6: tips, tricks, troubleshooting, and pain-points
+
+## Formatting/refactoring/tidying code
+
+You'll often need to rework code as you write it. You can think of this similar to the process of drafting, and then editing, and then proof-reading text. There's lots to say about this subject, so we'll stick to a few beginner tips here. But you might also like to look at the set of [R community standards produced by the KIND network](https://nes-dew.github.io/KIND-community-standards/r.html):
+
+### Use `source()`
+
+`source()` allows you to split up long R scripts. If you put some code in a file called `somescript.R`, you can then include that code in another script by writing: `source(somescript.R)`. It's as if you'd pasted the code in, but without the bulk and confusion that can cause.
+
+### Pick a structure and stick to it
+
+For example, you might go with something like:
+
+1.  script information at the very top
+2.  then package loading
+3.  then data loading
+4.  then function definitions
+5.  ...
+
+### Make your variable names sensible (and hierarchical)
+
+So if you're working with a set of data about GP practices named `practices`, you might create several derivative variables which would most sensibly be named:
+
+-   `practices_count`
+-   `practices_count_grouped`
+-   `practices_largest`
+-   ...
+
+### Add comments and sections
+
+```{r}
+# all the code here has been full of comments. Write comments!
+```
+
+### Find ways of automating the routine stuff
+
+Three packages to know about to help manage your code: [formatR](https://cran.r-project.org/web/packages/formatR/index.html), [styler](https://github.com/r-lib/styler), and [lintr](https://github.com/r-lib/lintr)
+
+## Use projects
+
+You should work in projects. That's easy to do in Posit Cloud as everything is a project. R projects help keep you organised, and prevent you having to do lots of messy and fallible work in setting working directories, supplying file paths, and wrestling with scripts when you move them.
+
+R thinks about a working directory, which is where it is based at the time it's running. You can use the `getwd()` and `setwd()` to find out, or change, your working directory. But those are better avoided. If you're working in a project, the project root is your working directory.
+
+Projects allow you to use relative paths with confidence - so `"data/data.csv"` describes a file named `data.csv` that lives in the `data` subdirectory of your project. Managing full paths is a nuisance in R, especially if you're on Windows. R doesn't like Windows file paths as they include back slashes `\`. For example:</br>`C:\my_drive\my_code\R_code\data\data.csv`. If we want to use that path in R, you'll need to tweak it to deal with the back slashes. You can either double them:</br>`C:\\my_drive\\my_code\\R_code\\data\\data.csv`</br> or replace them with forward slashes `/`: </br>`C:/my_drive/my_code/R_code/data/data.csv`.
+
+But definitely better to avoid full paths if at all possible. Projects make scripts portable by allowing you to ignore details specific to your computer that are hard-coded into paths etc etc. Sharing code is a key advantage of R, and you should make that as easy and fun as possible
+
+## Error messages
+
+Some error messages - mainly those from newer functions - are nice and informative, and can even suggest ways of resolving the problem:
+
+```{r}
+try(1 + "two")
+try(readr::read_csv("nope.csv"))
+try(penguins |> ggplot() |> geom_density(aes(y = flipper_length_mm)))
+try(log(-1))
+```
+
+Others are unfortunately a bit more opaque:
+
+```{r}
+#
+try(na_numbers[10,]) # vectors are, I suppose, 1-dimensional
+try(Sum(3,4,5)) # remember the capitals
+```
+
+But the worst are the non-error errors - e.g. where the code won't even run well enough to have an error. A nice example is when your console is showing an +, rather than a >, which means means that R is waiting for input, and usually means there's a missing bracket somewhere.
+
+Another one to watch out for: there are a couple of different filter functions. If a filter isn't working well, it's always worth specifying which filter you want with `dplyr::filter` (or much more rarely `stats::filter`),
+
+## How to read data into, and out of, Excel, pdf, Word, etc...
+
+There are a couple of different areas to think about here. Reading data to and from Excel is the most straightforward:
+
+```{r}
+# install.packages("readxl")
+library(readxl)
+# install.packages("readr")
+library(readr)
+library(dplyr)
+
+read_xlsx("data/my_dat.xlsx") # to read data in from Excel
+
+read_csv("data/my_dat.csv") |>
+  mutate(total = value1 + value2) |>
+  write_csv("data/my_output_dat.csv") # to write data back to csv, which can be opened in Excel
+
+```
+
+You can also scale this up to read several files at once:
+
+```{r}
+list.files("data/multifile", full.names = T) |>
+  readr::read_csv()
+```
+
+Or use a pattern option to only read some files:
+```{r}
+list.files("data/", 
+           full.names = T, 
+           pattern = "my_",
+           recursive = T)
+```
+
+
+Writing back to a proper .xlsx file is much more involved. A good place to start would be the [openxlsx package](https://ycphs.github.io/openxlsx/), although note that this can become quite involved pretty easily. [Excel files are surprisingly complicated](https://www.joelonsoftware.com/2008/02/19/why-are-the-microsoft-office-file-formats-so-complicated-and-some-workarounds/)...
+
+Similarly, if you need to read/write Word documents, you're going to need some packages. For Word, [docxtractr](https://cran.r-project.org/web/packages/docxtractr/index.html) (as the name suggests) is helpful for extracting data, while [flextable](https://ardata-fr.github.io/flextable-book/) can be used to help write to docx:
+
+```{r}
+# install.packages("docxtractr")
+# install.packages("flextable")
+
+library(docxtractr)
+library(flextable)
+
+mtcars |>
+  flextable() |>
+  save_as_docx(path = "data/word.docx") # to write some data
+
+```
+
+![Data in Word](images/clipboard-1849315505.png)
+
+We can then read this data back to show how extraction might work:
+
+```{r}
+mtcars_from_word <- docxtractr::read_docx("data/word.docx")
+```
+
+But, unlike Excel, we need to do some additional work to extract our data. docxtractr has identified a table, so we can convert that back into a tibble to get at its contents:
+
+```{r}
+mtcars_from_word |>
+  docxtractr::docx_extract_tbl() |>
+  knitr::kable()
+```
+
+Reading data from pdf is much more involved, and I'd suggest exploring the [pdftools package](https://cran.r-project.org/web/packages/pdftools/index.html) as a starting point.
+
+An alternative strategy if you need to write a lot of Word/pdf documents would be Rmarkdown or Quarto. These enable you to embed R code in a proper document production tool, which is great for writing regular reports.
+
+## How to read and analyze free text?
+
+There's a really nice set of tools for text analysis in the [tidytext package](https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html):
+
+```{r}
+# install.packages("tidytext") # main tidytext package
+library(tidytext)
+#install.packages("stopwords") # to help remove common small words
+library(stopwords)
+# install.packages("janeaustenr") # for some sample text
+library(janeaustenr)
+
+austen_books() |>
+  unnest_tokens(input = text, output = word) |>
+  anti_join(get_stopwords()) |> # remove small common words
+  count(word, sort = T) |>
+  slice_max(n, n = 5)
+
+```
+:::
+
 <!--  the main tabset, so leave well alone and work within please -->
-
-
