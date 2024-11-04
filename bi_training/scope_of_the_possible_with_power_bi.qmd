@@ -1,11 +1,17 @@
 ---
 title: "Scope of the possible with Power BI"
-date: "2024-06-17"
+date: "2024-11-04"
 execute: 
   echo: false
   freeze: auto
 categories: [Power BI, overview]
 ---
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+[{{< iconify ph:file-pdf size=2x >}} pdf slides](src/scope_of_the_possible_with_power_bi.pdf)
+:::
 
 ```{r}
 #| echo: false
@@ -19,15 +25,9 @@ feed_block("Scope of the possible with Power BI")
 
 ```
 
-
-
-## Welcome!
-
--   this session is a **non-technical overview** designed for service leads
-- <i class="far fa-file-pdf"></i>[pdf version of the session slides]("data/scope_of_the_possible_with_power_bi.pdf")
-
 ## Session outline
 
+-   this session is a **non-technical overview** designed for service leads
 -   Why Power BI, and why this session?
 -   Power BI demo - build a simple dashboard
 -   Strengths and weaknesses
@@ -38,7 +38,7 @@ feed_block("Scope of the possible with Power BI")
 
 ## Power BI?
 
--   new (c.2015)
+-   newish (c.2015)
 -   based on Microsoft's SQL reporting products
     -   proprietary, closed-source, paid-for
 -   integrates functions from several other Microsoft data products (bits of Excel, PowerPivot, PowerQuery…)
@@ -58,15 +58,14 @@ feed_block("Scope of the possible with Power BI")
 ## Power BI demo
 
 -   using tidied of the [GP practice size dataset](https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes) from April 2024
-    - [GP practice size data]("data/apr_2024_clean.xlsx")
-     - [Demographic data]("data/3 - demographics.csv")
-  
+    -   [GP practice size data](%22data/apr_2024_clean.xlsx%22)
+    -   [Demographic data](%22data/3%20-%20demographics.csv%22)
+
 ```{r}
 readxl::read_xlsx("data/apr_2024_clean.xlsx") |>
     dplyr::slice_sample(n = 3) |>
     knitr::kable(caption = "Note this data is cleaned")
 ```
-
 
 ## Load some data
 
@@ -84,9 +83,18 @@ readxl::read_xlsx("data/apr_2024_clean.xlsx") |>
 
 ![Visualisations are interactive](images/clipboard-1372596463.png)
 
+## Publish
+
+![](images/clipboard-3096192703.png)
+
 ## Add more visuals
 
 ![30-odd built in, hundreds of free additional visuals, thousands of (often dodgy) commercial add-ins](images/clipboard-2549253369.png)
+
+## Add more data
+
+-   we could add the [health board names](https://www.opendata.nhs.scot/dataset/geography-codes-and-labels/resource/652ff726-e676-4a20-abda-435b98dd7bdc), to make our visual more useful
+-   we could also get [GP practice demographics](https://www.opendata.nhs.scot/dataset/gp-practice-populations)
 
 ## Add more data
 
@@ -112,7 +120,7 @@ readxl::read_xlsx("data/apr_2024_clean.xlsx") |>
 
 -   by far the easiest way of producing interactive data products
 -   great tools for tidying data
-- good for iterative projects
+-   good for iterative projects
 -   data hubbing / self-service data
 -   scaling
 -   potential to manage complex and sensitive data on existing infrastructure
