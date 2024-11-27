@@ -4,7 +4,7 @@ date: 2023-10-26
 execute: 
   echo: true
   eval: true
-  freeze: auto
+  freeze: false
   output: "markup"
 categories: [skills, beginner, CSS, Javascript]
 editor_options: 
@@ -17,6 +17,7 @@ bibliography: references.bib
 #| fig-align: left
 #| fig-height: 0.6
 #| fig-width: 3
+#| echo: false
 
 source(here::here("R/feed_block.R"))
 feed_block("CSS and Javascript for non-web developers")
@@ -257,15 +258,13 @@ format:
 ## JS in Shiny
 
 ```{r}
-#| echo: true
-#| eval: false
-
 library(shiny)
 ui <- fluidPage(
-    tags$button(HTML("document.write('Hello World');")),
-    tags$script(src = "my_script.js"),
-    includeScript(path = "my_script3.js")
-    
+  tags$script(HTML("document.write('Hello World');")),
+  tags$br(), 
+  tags$script(src = "my_script.js"),
+  tags$br(), 
+  includeScript(path = "my_script2.js")
 )
 server <- function(input, output, session) {
 }
