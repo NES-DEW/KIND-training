@@ -1,5 +1,5 @@
 source(here::here("R/nice_date.R"))
-source(here::here("R/KIND_ics_maker.R"))
+# source(here::here("R/KIND_ics_maker.R"))
 
 training_sessions <- function(tr_type = "all", start_date = "today", end_date = lubridate::dmy("01-12-2025"), dt_output = FALSE){
   
@@ -38,12 +38,12 @@ training_sessions <- function(tr_type = "all", start_date = "today", end_date = 
       stringr::str_detect(Level, "advanced") ~ paste0("<style='color:red'>", "🌶🌶🌶", "</style>: <b>advanced-level</b>"),
       stringr::str_detect(Level, "manag") ~ "💼: <b>non-technical</b>")) |>
     dplyr::mutate(end = start + lubridate::minutes(`Duration (minutes)`)) |>
-    dplyr::mutate(ics_link = purrr::pmap(dplyr::across(dplyr::everything()), ~ KIND_ics_maker(title_arg = `session title`, desc_string = paste(Description), start = start, end = end, link = url))) |>
+    # dplyr::mutate(ics_link = purrr::pmap(dplyr::across(dplyr::everything()), ~ KIND_ics_maker(title_arg = `session title`, desc_string = paste(Description), start = start, end = end, link = url))) |>
     dplyr::mutate(friendly_date = paste0(
       format(start, "%H:%M"),
       "-",
       nice_date(end))) |>
-    dplyr::select(Session = linky, Date = friendly_date, Level2 = Level, Area = `Platform / area`, Level = desc2, start, `Calendar invite` = ics_link) |>
+    dplyr::select(Session = linky, Date = friendly_date, Level2 = Level, Area = `Platform / area`, Level = desc2, start) |>
     dplyr::arrange(start, Level2) |>
     dplyr::select(!c(Level2, start)) |>
     dplyr::ungroup()
