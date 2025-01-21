@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-01-21">
 
-<title>R training – KIND training pages</title>
+<title>Data tidying in Excel – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,26 +24,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c75bcb89907db7808f0349b764a1a524.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-5fb51e988fb370b77d08ba3eb0559e4e.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c75bcb89907db7808f0349b764a1a524.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5fb51e988fb370b77d08ba3eb0559e4e.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,67 +70,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -143,7 +82,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">KIND training pages</span>
     </a>
   </div>
@@ -154,35 +93,35 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./excel_main.html"> 
+    <a class="nav-link" href="../excel_main.html"> 
 <span class="menu-text">Excel</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./r_main.html" aria-current="page"> 
+    <a class="nav-link" href="../r_main.html"> 
 <span class="menu-text">R</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./BI_main.html"> 
+    <a class="nav-link" href="../BI_main.html"> 
 <span class="menu-text">Power BI</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./tableau_main.html"> 
+    <a class="nav-link" href="../tableau_main.html"> 
 <span class="menu-text">Tableau</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./skills_main.html"> 
+    <a class="nav-link" href="../skills_main.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./schedule.html"> 
+    <a class="nav-link" href="../schedule.html"> 
 <span class="menu-text">📅 Training schedule</span></a>
   </li>  
 </ul>
@@ -217,11 +156,29 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-training-schedule" id="toc-r-training-schedule" class="nav-link active" data-scroll-target="#r-training-schedule">R training schedule</a></li>
-  <li><a href="#r-session-materials" id="toc-r-session-materials" class="nav-link" data-scroll-target="#r-session-materials">R session materials</a></li>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#understanding-tidy-data" id="toc-understanding-tidy-data" class="nav-link" data-scroll-target="#understanding-tidy-data">Understanding tidy data</a></li>
+  <li><a href="#values" id="toc-values" class="nav-link" data-scroll-target="#values">Values</a></li>
+  <li><a href="#entering-values" id="toc-entering-values" class="nav-link" data-scroll-target="#entering-values">Entering values</a></li>
+  <li><a href="#more-values" id="toc-more-values" class="nav-link" data-scroll-target="#more-values">More values</a></li>
+  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables">Tables</a></li>
+  <li><a href="#extending-tables" id="toc-extending-tables" class="nav-link" data-scroll-target="#extending-tables">Extending tables</a></li>
+  <li><a href="#autofill" id="toc-autofill" class="nav-link" data-scroll-target="#autofill">Autofill</a></li>
+  <li><a href="#back-to-tidy-data" id="toc-back-to-tidy-data" class="nav-link" data-scroll-target="#back-to-tidy-data">Back to tidy data</a></li>
+  <li><a href="#many-values-per-cell" id="toc-many-values-per-cell" class="nav-link" data-scroll-target="#many-values-per-cell">Many values per cell</a></li>
+  <li><a href="#exercise-one-many-values-per-cell" id="toc-exercise-one-many-values-per-cell" class="nav-link" data-scroll-target="#exercise-one-many-values-per-cell">Exercise one: many values per cell</a></li>
+  <li><a href="#nothing-works" id="toc-nothing-works" class="nav-link" data-scroll-target="#nothing-works">Nothing works!</a></li>
+  <li><a href="#whats-the-solution" id="toc-whats-the-solution" class="nav-link" data-scroll-target="#whats-the-solution">What’s the solution?</a></li>
+  <li><a href="#text-to-columns" id="toc-text-to-columns" class="nav-link" data-scroll-target="#text-to-columns">Text to Columns</a></li>
+  <li><a href="#try-working-with-that-data-again" id="toc-try-working-with-that-data-again" class="nav-link" data-scroll-target="#try-working-with-that-data-again">Try working with that data again</a></li>
+  <li><a href="#exercise-two-transposed-data" id="toc-exercise-two-transposed-data" class="nav-link" data-scroll-target="#exercise-two-transposed-data">Exercise two: transposed data</a></li>
+  <li><a href="#validation-and-really-messy-data" id="toc-validation-and-really-messy-data" class="nav-link" data-scroll-target="#validation-and-really-messy-data">Validation and really messy data</a></li>
+  <li><a href="#reshaped-data" id="toc-reshaped-data" class="nav-link" data-scroll-target="#reshaped-data">Reshaped data</a></li>
+  <li><a href="#manual-reshape" id="toc-manual-reshape" class="nav-link" data-scroll-target="#manual-reshape">Manual reshape</a></li>
   </ul>
 </nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(15)</span></div><div class="category" data-category="TkxQ">NLP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(15)</span></div><div class="category" data-category="YmVnaW5uZXI=">beginner <span class="quarto-category-count">(5)</span></div><div class="category" data-category="ZGF0YSUyMHN0cnVjdHVyZXM=">data structures <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVidWdnaW5n">debugging <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZnVuY3Rpb25z">functions <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW50ZXJtZWRpYXRl">intermediate <span class="quarto-category-count">(9)</span></div><div class="category" data-category="bGlzdHM=">lists <span class="quarto-category-count">(1)</span></div><div class="category" data-category="b3ZlcnZpZXc=">overview <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJlLWJlZ2lubmVy">pre-beginner <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dHJvdWJsZXNob290aW5n">troubleshooting <span class="quarto-category-count">(1)</span></div></div><div class="quarto-margin-footer"><div class="margin-footer-item">
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
 </p>
@@ -231,8 +188,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R training</h1>
-</div>
+<h1 class="title">Data tidying in Excel</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">excel</div>
+    <div class="quarto-category">intermediate</div>
+  </div>
+  </div>
 
 
 
@@ -254,256 +215,250 @@ window.Quarto = {
 </header>
 
 
-<section id="r-training-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="r-training-schedule">R training schedule</h2>
-<table class="caption-top table" data-quarto-postprocess="true">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Session materials
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="src/tidy_data_excel.xlsx">Excel data for this session <iconify-icon inline="" icon="ph:file-xlsx" style="font-size: 2em;" aria-label="Icon file-xlsx from ph Iconify.design set." title="Icon file-xlsx from ph Iconify.design set."></iconify-icon></a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="left">
+<p>No feedback found for this session</p>
+</div>
+<section id="welcome" class="level2">
+<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
+<ul>
+<li>this session is 🌶🌶 - for intermediate Excel users</li>
+<li>materials can be found on our training pages: <strong>tinyurl.com/kindtrp</strong></li>
+<li>you’ll need Excel, ideally M365 desktop to follow along</li>
+<li>you’ll also need the <a href="https://nes-dew.github.io/KIND-training/excel/src/tidy_data_excel.xlsx">sample data</a></li>
+</ul>
+</section>
+<section id="session-outline" class="level2">
+<h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+<ul>
+<li>understanding tidy data</li>
+<li>a practical introduction to making tidy data</li>
+<li>tables</li>
+<li>autofill</li>
+<li>text to columns</li>
+<li>validation, manual reshaping, and PowerQuery demo</li>
+</ul>
+</section>
+<section id="understanding-tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-tidy-data">Understanding tidy data</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3584154739.png" class="img-fluid figure-img"></p>
+<figcaption>R4DS Figure 5.1: The following three rules make a dataset tidy: variables are columns, observations are rows, and values are cells, via CC BY-NC-ND 3.0 US</figcaption>
+</figure>
+</div>
+<ul>
+<li>tidy data is not specific to Excel (e.g.&nbsp;this session is partly adapted from <a href="https://r4ds.hadley.nz/data-tidy">chapter 5 of R for Data Science</a>)</li>
+<li>if we tidy our data, we’ll be able to compute it</li>
+<li>standards for tidying data help make for safe and effective analysis</li>
+</ul>
+</section>
+<section id="values" class="level2">
+<h2 class="anchored" data-anchor-id="values">Values</h2>
+<ul>
+<li><code>values</code> is the word we use to describe each bit of information in an Excel spreadsheet. Some examples:</li>
+<li>a date, like <code>2024-06-28</code></li>
+<li>a number, like <code>11.2</code></li>
+<li>a name, like <code>NHS Grampian</code></li>
+<li>a cost, like <code>£12.50</code></li>
+<li>…</li>
+<li>each value should have its own cell</li>
+</ul>
+</section>
+<section id="entering-values" class="level2">
+<h2 class="anchored" data-anchor-id="entering-values">Entering values</h2>
+<ul>
+<li>how would you enter this data: <code>2018, 2019, 2020, 2021, 2022</code>?</li>
+<li>please now:</li>
+<li>open Excel</li>
+<li>start a new workbook</li>
+<li>add a column header <code>year</code> in cell <code>A1</code></li>
+<li>then add each of those five values in the five cells underneath (down to <code>A6</code>)</li>
+</ul>
+</section>
+<section id="more-values" class="level2">
+<h2 class="anchored" data-anchor-id="more-values">More values</h2>
+<ul>
+<li>we’re going to be using some <a href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/vital-events-reference-tables/2022">birthrate data from the NRS</a> for this session. We’ll start by adding some birth rate data</li>
+<li>this is given as births per 1,000 women in five year age brackets. We’ll start with 25-29 year old mothers</li>
+<li>please add the header <code>25-29yrs</code> in cell <code>B1</code></li>
+<li>here are the values for our five years: <code>73.4, 71, 66.8, 69.6, 66.7</code></li>
+</ul>
+</section>
+<section id="tables" class="level2">
+<h2 class="anchored" data-anchor-id="tables">Tables</h2>
+<ul>
+<li>you should keep your new data in a <strong>table</strong></li>
+<li><code>Insert</code> &gt; <code>Table</code> <br> <img src="images/clipboard-3262660351.png" class="img-fluid" alt="Or you might prefer the Ctrl + T shortcut"></li>
+<li>tables allow you to sort and filter your data</li>
+<li>they also act as a useful ‘container’ (or <strong>data structure</strong>) for your data</li>
+</ul>
+</section>
+<section id="extending-tables" class="level2">
+<h2 class="anchored" data-anchor-id="extending-tables">Extending tables</h2>
+<table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Session</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Date</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Area</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Level</th>
+<th>30-34yrs</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://events.teams.microsoft.com/event/357ba97d-22bf-41a1-8671-96dc16413615@10efe0bd-a030-4bca-809c-b5e6745e499a">R from scratch (session 1)</a></td>
-<td style="text-align: left;">14:00-15:00 Tue 28th January 2025</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶
-
-:<strong>beginner-level</strong></red'></td>
+<td>90.9</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://events.teams.microsoft.com/event/1f8be961-cafa-4dee-b1ef-a1fbc5e01d12@10efe0bd-a030-4bca-809c-b5e6745e499a">Intro to predictive models in R</a></td>
-<td style="text-align: left;">13:00-14:30 Thu 30th January 2025</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶
-
-:<strong>beginner-level</strong></red'></td>
+<td>88.6</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://events.teams.microsoft.com/event/eafce0cf-22d0-4486-b63e-b92d674b4fab@10efe0bd-a030-4bca-809c-b5e6745e499a">R from scratch (session 2)</a></td>
-<td style="text-align: left;">14:00-15:00 Tue 4th February 2025</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶
-
-:<strong>beginner-level</strong></red'></td>
+<td>83.4</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://events.teams.microsoft.com/event/a169d1dd-6234-4330-b6ee-9f52829ae592@10efe0bd-a030-4bca-809c-b5e6745e499a">R from scratch (session 3)</a></td>
-<td style="text-align: left;">14:00-15:00 Tue 11th February 2025</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶
-
-:<strong>beginner-level</strong></red'></td>
+<td>85.9</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://events.teams.microsoft.com/event/84f85448-d267-4181-8e8b-5cf23b24998e@10efe0bd-a030-4bca-809c-b5e6745e499a">R from scratch (session 4)</a></td>
-<td style="text-align: left;">14:00-15:00 Tue 18th February 2025</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶
-
-:<strong>beginner-level</strong></red'></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><a href="https://events.teams.microsoft.com/event/9a1970a9-e541-4d02-aaf3-3b4600571b33@10efe0bd-a030-4bca-809c-b5e6745e499a">R from scratch (session 5)</a></td>
-<td style="text-align: left;">14:00-15:00 Tue 25th February 2025</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶
-
-:<strong>beginner-level</strong></red'></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><a href="https://events.teams.microsoft.com/event/e6c106c6-33f1-43ac-ad96-43feec93438e@10efe0bd-a030-4bca-809c-b5e6745e499a">R from scratch (session 6)</a></td>
-<td style="text-align: left;">14:00-15:00 Tue 4th March 2025</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶
-
-:<strong>beginner-level</strong></red'></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><a href="https://events.teams.microsoft.com/event/04395689-f29b-42d1-8fc7-9d19fbc67d67@10efe0bd-a030-4bca-809c-b5e6745e499a">Debugging R</a></td>
-<td style="text-align: left;">10:00-11:00 Thu 13th March 2025</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: left;"><red'>🌶
-
-:<strong>beginner-level</strong></red'></td>
+<td>84.4</td>
 </tr>
 </tbody>
 </table>
+<ul>
+<li>please could you add some new data to your table showing births for another age group</li>
+<li>you should be able to drag the blue table corner over your new column to extend the table <br><img src="images/clipboard-99329456.png" class="img-fluid" alt="blue table corner"></li>
+</ul>
+</section>
+<section id="autofill" class="level2">
+<h2 class="anchored" data-anchor-id="autofill">Autofill</h2>
+<ul>
+<li>one last way of adding values: autofill</li>
+<li>drag again to make a new empty column, and label it <code>difference</code></li>
+<li>in <code>D2</code> (the first ‘proper’ cell), copy this formula: <code>=C2-B2</code>. This will calculate the difference in birth rates between the two columns</li>
+<li>finally, click the small green corner of that newly-filled cell to autofill the column <img src="images/clipboard-1736118371.png" class="img-fluid" alt="small green corner"></li>
+</ul>
+</section>
+<section id="back-to-tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-tidy-data">Back to tidy data</h2>
+<ul>
+<li>we’ve now got some data with:</li>
+<li>each value in a cell</li>
+<li>each variable in a column</li>
+<li>here, this is a maternal age bracket</li>
+<li>each observation in a row</li>
+<li>here, this is a year</li>
+<li>we could work through and extend this data by hand, but we’ll now switch over to some supplied data to save all the typing
+<ul>
+<li>errors are common in manual data-entry</li>
+<li>if you can import data, that’s usually better than re-typing it</li>
+</ul></li>
+</ul>
+</section>
+<section id="many-values-per-cell" class="level2">
+<h2 class="anchored" data-anchor-id="many-values-per-cell">Many values per cell</h2>
+<ul>
+<li>We often find useful data with more than one value per cell</li>
+<li>this can be helpful for humans <br> <img src="images/clipboard-1363924537.png" class="img-fluid" alt="multiple values is good for humans, but bad for Excel"></li>
+<li>Excel can’t do anything with this data</li>
+</ul>
+</section>
+<section id="exercise-one-many-values-per-cell" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-one-many-values-per-cell">Exercise one: many values per cell</h2>
+<ul>
+<li>find the <code>Exercise one</code> sheet in the exercise file</li>
+<li>try calculating an average for each of the groups</li>
+<li>or, if you’re more confident, try plotting the data</li>
+</ul>
+</section>
+<section id="nothing-works" class="level2">
+<h2 class="anchored" data-anchor-id="nothing-works">Nothing works!</h2>
+<p><img src="images/clipboard-2726354511.png" class="img-fluid" alt="Divide by zero errors in the averages"> <br> <img src="images/clipboard-945883446.png" class="img-fluid" alt="Plots produce pure nonsense"></p>
+</section>
+<section id="whats-the-solution" class="level2">
+<h2 class="anchored" data-anchor-id="whats-the-solution">What’s the solution?</h2>
+<ul>
+<li>make this data have <strong>one value per cell</strong></li>
+<li>we could remove all the percentages by hand - but that’s going to be very slow</li>
+<li><code>Text to Columns</code> gives us a better tool for the job <br> <img src="images/clipboard-3594403318.png" class="img-fluid" alt="Text to Columns gives us a better tool for the job"></li>
+</ul>
+</section>
+<section id="text-to-columns" class="level2">
+<h2 class="anchored" data-anchor-id="text-to-columns">Text to Columns</h2>
+<ul>
+<li>select a column</li>
+<li>in the <code>Data</code> tab of the ribbon, you should find the <code>Text to Columns</code> tool <br> <img src="images/clipboard-3002655192.png" class="img-fluid" alt="Text to Columns tool"></li>
+<li>note that you can keep, or remove, the percentage column. We’ll <strong>skip</strong> it, to keep things simple <br> <img src="images/clipboard-4061284093.png" class="img-fluid" alt="keep, or remove, the percentage column"></li>
+</ul>
+</section>
+<section id="try-working-with-that-data-again" class="level2">
+<h2 class="anchored" data-anchor-id="try-working-with-that-data-again">Try working with that data again</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3377421044.png" class="img-fluid figure-img"></p>
+<figcaption>We can plot the data now</figcaption>
+</figure>
+</div>
+</section>
+<section id="exercise-two-transposed-data" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-two-transposed-data">Exercise two: transposed data</h2>
+<ul>
+<li>sometimes you’ll find data where the columns and rows have been flipped <br> <img src="images/clipboard-2760486038.png" class="img-fluid" alt="data where the columns and rows have been flipped"></li>
+<li>that’s slow to fix by hand, but luckily you can <strong>transpose it</strong>, which swaps rows and columns</li>
+<li>select your data, and copy/paste into a new cell</li>
+<li>then use the transpose option <br><img src="images/clipboard-3580893754.png" class="img-fluid" alt="transpose option"></li>
+<li>you might need to fix formatting and labels: <img src="images/clipboard-3017525992.png" class="img-fluid" alt="fix formatting and labels"> <br></li>
+<li>the <code>Clear formats</code> option might help this <img src="images/clipboard-2927420900.png" class="img-fluid" alt="Clear formats"></li>
+<li>if you run into trouble, please note that transposing only works on data <a href="https://support.microsoft.com/en-gb/office/transpose-rotate-data-from-rows-to-columns-or-vice-versa-3419f2e3-beab-4318-aae5-d0f862209744">that is not in a table</a></li>
+</ul>
+</section>
+<section id="validation-and-really-messy-data" class="level2">
+<h2 class="anchored" data-anchor-id="validation-and-really-messy-data">Validation and really messy data</h2>
+<ul>
+<li>one of the most time-consuming bits of tidying is checking your values</li>
+<li>we’ll briefly demonstrate the <strong>data validation</strong> tool <br> <img src="images/clipboard-622908428.png" class="img-fluid" alt="the data validation tool"></li>
+<li>you can follow-along from the <code>Demo one (validation)</code> worksheet</li>
+<li>this allows you to describe what format you think your data should be in, and then highlights anything that doesn’t fit</li>
+<li>we select the <code>years</code> column</li>
+<li>then open the data validation tool</li>
+<li>then set appropriate validation options, so <strong>Whole number</strong> between 2010 and 2030 <br> <img src="images/clipboard-665473732.png" class="img-fluid" alt="set appropriate validation options"></li>
+<li>then select <code>Circle Invalid Data</code> <br> <img src="images/clipboard-1528491886.png" class="img-fluid" alt="select Circle Invalid Data"></li>
+<li>we can now go through and fix anything circled</li>
+</ul>
+</section>
+<section id="reshaped-data" class="level2">
+<h2 class="anchored" data-anchor-id="reshaped-data">Reshaped data</h2>
+<ul>
+<li>there are several automated ways of reshaping data that’s not in a tidy format</li>
+<li>we’ll look at the manual way here, but - as it’s horrible - I’d be keen to encourage you to investigate Power Query or Pivot Tables to reshape if this is a regular part of your working day. PQ takes &lt; 10 seconds, PT not much longer</li>
+<li>you can follow-along from the <code>Demo two (reshaping)</code> worksheet</li>
+</ul>
+</section>
+<section id="manual-reshape" class="level2">
+<h2 class="anchored" data-anchor-id="manual-reshape">Manual reshape</h2>
+<ul>
+<li>sort the data by year <br><img src="images/clipboard-3321721696.png" class="img-fluid" alt="sort the data by year"></li>
+<li>then copy and paste blocks of data, making sure to keep the years aligned <br><img src="images/clipboard-2841186181.png" class="img-fluid" alt="copy and paste blocks of data"></li>
+<li>make sure you then copy the age brackets to label the column <br><img src="images/clipboard-1151172294.png" class="img-fluid" alt="copy the age brackets to label"></li>
+<li>then delete the spare years columns, and the age brackets <br><img src="images/clipboard-1265051366.png" class="img-fluid" alt="delete the spare years"></li>
+</ul>
 
 
 </section>
-<section id="r-session-materials" class="level2">
-<h2 class="anchored" data-anchor-id="r-session-materials">R session materials</h2>
-<p>Not all training session have training materials currently available. This is a work in progress - please get in touch if there’s something you’d particularly like to see.</p>
 
-
-
-</section>
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title-sort" data-direction="asc">
-          Title
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
-</th>
-<th>
-Categories
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ2Z1bmN0aW9ucyUyQ2RlYnVnZ2luZw==" data-listing-date-sort="1727049600000" data-listing-file-modified-sort="1737469797304" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1577" data-listing-title-sort="Data masking in R" data-listing-filename-sort="data_masking.qmd">
-<td>
-<a href="./r_training/data_masking.html" class="title listing-title">Data masking in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate, functions, debugging</span>
-</td>
-</tr>
-<tr data-index="1" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1715904000000" data-listing-file-modified-sort="1737469797304" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="425" data-listing-title-sort="Dates and times with lubridate" data-listing-filename-sort="dates_and_times_with_lubridate.qmd">
-<td>
-<a href="./r_training/dates_and_times_with_lubridate.html" class="title listing-title">Dates and times with lubridate</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner</span>
-</td>
-</tr>
-<tr data-index="2" data-categories="UiUyQ2JlZ2lubmVyJTJDdHJvdWJsZXNob290aW5n" data-listing-date-sort="1725494400000" data-listing-file-modified-sort="1737469797304" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2543" data-listing-title-sort="Debugging R" data-listing-filename-sort="debugging_r.qmd">
-<td>
-<a href="./r_training/debugging_r.html" class="title listing-title">Debugging R</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner, troubleshooting</span>
-</td>
-</tr>
-<tr data-index="3" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1720137600000" data-listing-file-modified-sort="1737469797315" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="478" data-listing-title-sort="Iteration in R" data-listing-filename-sort="iteration_in_r.qmd">
-<td>
-<a href="./r_training/iteration_in_r.html" class="title listing-title">Iteration in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="4" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1721001600000" data-listing-file-modified-sort="1737469797315" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1252" data-listing-title-sort="Parameterised Rmarkdown" data-listing-filename-sort="parameterised_rmarkdown.qmd">
-<td>
-<a href="./r_training/parameterised_rmarkdown.html" class="title listing-title">Parameterised Rmarkdown</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="5" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1727136000000" data-listing-file-modified-sort="1737469797316" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4230" data-listing-title-sort="R from scratch" data-listing-filename-sort="r_from_scratch.qmd">
-<td>
-<a href="./r_training/r_from_scratch.html" class="title listing-title">R from scratch</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner</span>
-</td>
-</tr>
-<tr data-index="6" data-categories="UiUyQ2JlZ2lubmVyJTJDbGlzdHMlMkNkYXRhJTIwc3RydWN0dXJlcw==" data-listing-date-sort="1726790400000" data-listing-file-modified-sort="1737469797315" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="664" data-listing-title-sort="R lists" data-listing-filename-sort="lists_r.qmd">
-<td>
-<a href="./r_training/lists_r.html" class="title listing-title">R lists</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner, lists, data structures</span>
-</td>
-</tr>
-<tr data-index="7" data-categories="UiUyQ292ZXJ2aWV3" data-listing-date-sort="1737469797000" data-listing-file-modified-sort="1737469797316" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="790" data-listing-title-sort="Scope of the possible with R" data-listing-filename-sort="scope_of_the_possible_with_r.qmd">
-<td>
-<a href="./r_training/scope_of_the_possible_with_r.html" class="title listing-title">Scope of the possible with R</a>
-</td>
-<td>
-<span class="listing-categories">R, overview</span>
-</td>
-</tr>
-<tr data-index="8" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1719964800000" data-listing-file-modified-sort="1737469797316" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="714" data-listing-title-sort="Shiny from scratch" data-listing-filename-sort="shiny_from_scratch.qmd">
-<td>
-<a href="./r_training/shiny_from_scratch.html" class="title listing-title">Shiny from scratch</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="9" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1722988800000" data-listing-file-modified-sort="1737469797353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1076" data-listing-title-sort="Testing R code" data-listing-filename-sort="testing.qmd">
-<td>
-<a href="./r_training/testing.html" class="title listing-title">Testing R code</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="10" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1722211200000" data-listing-file-modified-sort="1737469797315" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="743" data-listing-title-sort="The purrr package in R" data-listing-filename-sort="purrr_package.qmd">
-<td>
-<a href="./r_training/purrr_package.html" class="title listing-title">The purrr package in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="11" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1716508800000" data-listing-file-modified-sort="1737469797353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="350" data-listing-title-sort="We ❤️ janitor" data-listing-filename-sort="we_heart_janitor.qmd">
-<td>
-<a href="./r_training/we_heart_janitor.html" class="title listing-title">We ❤️ janitor</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="12" data-categories="UiUyQ2JlZ2lubmVyJTJDcHJlLWJlZ2lubmVy" data-listing-date-sort="1717372800000" data-listing-file-modified-sort="1737469797353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1088" data-listing-title-sort="Why bother with R?" data-listing-filename-sort="why_bother_with_R.qmd">
-<td>
-<a href="./r_training/why_bother_with_R.html" class="title listing-title">Why bother with R?</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner, pre-beginner</span>
-</td>
-</tr>
-<tr data-index="13" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1718668800000" data-listing-file-modified-sort="1737469797354" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="518" data-listing-title-sort="Writing functions in R" data-listing-filename-sort="writing_functions_in_r.qmd">
-<td>
-<a href="./r_training/writing_functions_in_r.html" class="title listing-title">Writing functions in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-</tr>
-<tr data-index="14" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ05MUA==" data-listing-date-sort="1727049600000" data-listing-file-modified-sort="1737469797353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1054" data-listing-title-sort="stringdist" data-listing-filename-sort="stringdist.qmd">
-<td>
-<a href="./r_training/stringdist.html" class="title listing-title">stringdist</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate, NLP</span>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
