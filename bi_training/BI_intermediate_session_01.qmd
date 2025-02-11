@@ -1,0 +1,143 @@
+---
+title: "Intermediate Power BI session 1"
+date: "2025-02-11"
+categories: [Power BI, intermediate]
+---
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+Most of the data is taken directly from source, but there is one subsidiary dataset with CCTV camera locations. These are best-guesses about likely locations, and should be used purely for demonstration purposes.
+
+-   [{{< iconify ph:file-csv size=2x >}}.csv location data](src/dundee_cctv_locations.csv)
+:::
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Intermediate Power BI (session 1)")
+
+```
+## Course structure
+
+-   session 1: a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices
+-   session 2: DAX language foundations, including FILTER and CALCULATE
+-   session 3: core PowerQuery functions to manage sources, join data sets, pivot, and tidy values
+-   session 4: PowerQuery M language foundations, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility
+-   session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
+
+## Session outline
+
+-   load some data
+-   wrangle it with PowerQuery
+-   write some DAX and think about the filter context
+-   build some visuals and assemble them into a dashboard
+
+## Session aim
+
+-   recap and reminder about core Power BI workflows </br> ![Completed dashboard](images/clipboard-1662072668.png)
+
+## Data
+
+-   CCTV data from Dundee
+-   hourly machine-classified counts of bikes, people, road vehicles
+-   [preview](https://data.dundeecity.gov.uk/maps/dundeecity::cctv-data-counts-august-2023)
+-   download link: <https://data.dundeecity.gov.uk/api/download/v1/items/90ce515ccc9a496f8f61c84d2eb01488/csv?layers=0>
+
+## Please import the dataset into Power BI
+
+-   `Get data > From web`
+-   rename `csv?layers=0` to `cctv` </br>![Rename to cctv](images/clipboard-2771147717.png){height="150"}
+-   then `Transform Data`
+
+## PowerQuery reminder
+
+-   aimed at data wrangling
+- the right place to do any one-off calculations and transformations
+- reminder about terminology:
+    - query = dataset
+    - query steps = steps in wrangling from loading to final data
+    - PowerQuery M (PQM) language
+
+## Fix the dates
+
+-   split `[Hour]` on "-", then rename to give `[start_hour]` and `[end_hour]` cols
+-   make sure `[Date]` is a date, rather than a date/time
+-   custom columns to make `[start_time]` by appending with `&`
+  + `[Date] & [start_hour]`
+-   duplicate and tweak to make `[end_time]`
+
+## Rename and pivot the counts
+
+-   unpivot the three `Number_of_xxx` columns
+-   then replace values to remove `Number_of_` to leave `Bicycles`, `People` and `Vehicles`
+-   you could also tidy `Road vehicles`
+-   rename to `Type` and `Count`
+
+## Duplicate query
+
+-   just to see what happens
+-   then close and apply
+
+## New query in PowerQuery
+
+-   subsidiary data: [CCTV camera locations data](src/dundee_cctv_locations.csv)
+-   save and close back to Power BI
+
+## Relationships
+
+-   go to model view
+-   drag `dundee_cctv_locations[Source]` to `cctv[Source]`
+-   and cross-filter direction set to both
+
+## Sorting days
+
+-   still in model view, use DAX to make a `[weekday]` column with `weekday = WEEKDAY(cctv[Date], 2)`
+-   n.b. quirky return value argument
+-   then, in the model, sort `[Day]` by `[weekday]` in `Properties  > Advanced`
+
+## Date table
+
+-   Power BI does lots of helpful inference about dates
+    -   e.g. the `.[Year]`, `.[Month]`, etc values that pop up when writing functions about a date column in DAX
+-   those work best when the dates are continuous. We have some missing data here, so we'll add a proper date table
+-   `New Table`, then `date_table = CALENDAR(min(cctv[Date]), max(cctv[Date]))` - creates a row per day in the range of dates
+
+## DAX query view
+
+-   `EVALUATE()`
+-   `F5` to run
+-   `.[Year]` syntax
+-   `SUMMARIZECOLUMNS(group, name, expression)`
+
+## Summary tables
+
+-   total counts by day, and by type
+-   `SUMMARIZECOLUMNS(cctv[Date].[Date], "Total count", SUM(cctv[Count]))`
+-   `SUMMARIZECOLUMNS(cctv[Type], "Total count", SUM(cctv[Count]))`
+-   please now translate each to new summary tables
+
+## Dashboard build out
+
+![Completed dashboard](images/clipboard-1662072668.png)
+
+## Dashboard build out
+
+-   2 x filters
+-   1 x map
+-   1 x header text box however you like
+-   1 x column graph showing traffic by day: you should link the date table here to show missing data
+-   1 x alluvial showing sites against time
+-   1 x matrix showing days of the week and type and average count. Turn off subtotals, and `Format>General>Data format` to round values
+-   1 x pie showing type against count
+-   1 x line showing diurnal change
+
+## Tidying
+
+-   sort out the values to make sure the cctv map links properly (especially for the Murraygate and Seagate cameras)
