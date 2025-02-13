@@ -7,6 +7,23 @@ execute:
 categories: [excel, intermediate]
 ---
 
+This is a session in our intermediate-level Excel skill builder course. This consists of five practical training sessions, designed to be taken together, that are aimed at helping users with some prior Excel experience build and consolidate their skills. The sessions are:
+
++ [Excel foundations 1](excel_foundations_01.qmd)
++ [Excel foundations 2](excel_foundations_02.qmd) 
++ [Lookups in Excel](lookups_in_excel.qmd)
++ [Excel programming](excel_programming.qmd)
++ [Pivot tables and pivot charts](pivot_tables_and_pivot_charts.qmd) (this session)
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx exercises](src/KIND_excel_skills_s05_exercises.xlsx)
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx exercises (completed)](src/KIND_excel_skills_s05_exercises_final.xlsx)
+
+:::
+
+
 ```{r}
 #| echo: false
 #| results: asis
@@ -19,142 +36,131 @@ feed_block("Pivot tables and pivot charts")
 
 ```
 
-## Welcome!
-
-+ this session is for 🌶️🌶️intermediate Excel users
-+ we'll do an initial chat and run through, followed by a practical demo
-    + you're welcome to stay for all or part of the session
-+ if you want to follow the practical part, you'll need:
-    + Excel, ideally M365 Desktop
-    + previous Excel experience (particularly around references, tables, and formulas)
-    + the data: [guidance](https://publichealthscotland.scot/publications/nhs-waiting-times-18-weeks-referral-to-treatment/nhs-waiting-times-18-weeks-referral-to-treatment-quarter-ending-31-december-2023/) / [download page](https://www.opendata.nhs.scot/dataset/18-weeks-referral-to-treatment) / [direct](https://www.opendata.nhs.scot/dataset/aa8b22e8-8a02-484d-a6c8-0a0154a6249d/resource/f2598c24-bf00-4171-b7ef-a469bbacbf6c/download/open_data_18_weeks_rtt.csv) / short **tinyurl.com/kinddata1**
-+ it also helps if you have access to the chat. You may need to add youself to the KIND Network Teams channel: **tinyurl.com/kindnetwork**
-
-
 ## Session outline
 
 + Pivot tables
 + Pivot charts
 + Slicers
-+ the session is totally informal
-  + cameras on, please
-  + chat/question away
-  + don't panic if things go wrong
++ Conditional formatting
 
-## Why pivot tables?
+## Getting started
++ files for today:
+    + [`s05_exercises.xlsx`](src/KIND_excel_skills_s05_exercises.xlsx) is a starting-point for the exercises today
+    + [`s05_exercises_final.xlsx`](src/KIND_excel_skills_s05_exercises_final.xlsx) is the end-point for the exercises today - it's there to help if you get stuck or lost
 
--   **the** key summary tool in Excel
--   we often want to summarise long/complex data
--   two key concerns:
-    -   we want to do that safely
-    -   we also want to do that effectively
--   pivot tables are safe and effective
-    -   they keep your analysis out of your data
-    -   they have lots of powerful tools built-in
-
-## Some data
-
-1.  on the [18 week referral target](https://opendata.scot/datasets/public+health+scotland-18+weeks+referral+to+treatment/)
-2.  Copy the [data link](https://www.opendata.nhs.scot/dataset/aa8b22e8-8a02-484d-a6c8-0a0154a6249d/resource/f2598c24-bf00-4171-b7ef-a469bbacbf6c/download/open_data_18_weeks_rtt.csv)
-3.  Open the **Get Data From web** tool </br> ![](images/clipboard-1578174090.png)
-4.  Paste in the link </br> ![](images/clipboard-1582667377.png)
-
-## What questions might we ask about that data?
-
-## Insert a pivot table
-
--   on a new sheet</br> ![](images/clipboard-1899219137.png)
--   `ALT`, `N`, `V`, `T`
-
-## Adding data to a pivot table
-
-::: columns
-::: {.column width="30%"}
-![](images/pt_cols.png){height="500"}
+::: {.callout-tip title="Task"}
+1. Open the sample spreadsheet `s05_exercises.xlsx` and have a look around
+2. Switch to the service use data in the `weekend_sh` sheet
 :::
 
-::: {.column width="5%"}
-<!-- empty column to create gap -->
-:::
+## What's this all for?
++ this data is complicated
++ we want to find out when our service is busiest
+    + that's hard to do manually - we can't just inspect it by eye
+    + we'll need to summarise our data
++ two key concerns
+    + we want to do that safely
+    + we also want to do that efficiently
++ this session (and the previous ones) give some key methods for effectively summarising Excel data
+    + most importantly: be clear about where your data lives, and where your summaries will live
 
-::: {.column width="65%"}
--   we build pivot tables from the fields interface
-:::
+## Pivot tables
+
++ **the** key summary tool in Excel
++ making a new pivot table is easy
++ and will give us an answer to our summary question quickly
+
+::: {.callout-tip title="Task"}
+1. Open the `s05_exercises.xlsx` file
+1. Go to the `weekend_sh` worksheet
+1. Select the `weekend_service` table (click inside it and `Ctrl` + `a`)
+1. Press `Alt`, `N`, `V`, `T` (or from the ribbon `Insert >> PivotTable`), and click **OK** to insert a pivot table </br>![Insert pivot table](images/pt.png){height="150"}
+1. Switch to the new worksheet containing your new (blank) pivot table </br>![New pivot table](images/pt_cols.png)
 :::
 
 ## Adding data to a pivot table
 
-::: columns
-::: {.column width="30%"}
-![](images/pt_cols_p.png){height="500"}
-:::
-
-::: {.column width="5%"}
-<!-- empty column to create gap -->
-:::
-
-::: {.column width="65%"}
--   drag values to fields
--   dropdowns change settings
-:::
-:::
++ next, we need to tell the pivot table which data we want to summarise
++ we'll use the PivotTable Fields interface to control this</br>![Pivot table fields](images/pt_cols_p.png)
++ we want to find the busiest days for each quarter for each site, so we:
+    + drag the three `site_` columns to the **Values** field
+    + then, using the dropdown, change the Value Field Settings to **Max**
+    + (the **Columns** field should automatically populate with **Values**)
+    + drag the date column to the **Rows** field
 
 ## Improving our pivot table
 
-![](images/clipboard-1128103846.png){height="300"}
+![New Pivot table](images/pt_new.png)
 
--   that gives us a simple pivot table
--   we can also add a PivotChart instantly - click on your pivot table, and press `Alt + F1`
-    -   play with the expansion buttons - the PivotChart should update to reflect the way that your PivotTable is currently arranged
-
-## PivotTable warnings
-
--   this isn't Excel!
--   warnings about coherence
++ that gives us a simple pivot table, showing us the peak values for our service
++ we can also add a PivotChart instantly - click on your pivot table, and press `Alt + F1`
+    + play with the expansion buttons - the PivotChart should update to reflect the way that your PivotTable is currently arranged
 
 ## PivotTable tips
 
-::: callout-note
--   Double-click any cell in a PivotTable to see the underlying data
--   Group PivotTable items using:
-    -   `Shift` + `Alt` + `→` (right arrow) to add items to a group
-    -   `Shift` + `Alt` + `←` (left arrow) to ungroup
--   Add a new calculated field using `Ctrl` + `Shift` + `=` (equals)
--   Delete an entire PivotTable using `Ctrl + A` then pressing `Del`
+::: {.callout-note}
++ Double-click any cell in a PivotTable to see the underlying data
++ Group PivotTable items using:
+    + `Shift` + `Alt` + `→` (right arrow) to add items to a group
+    + `Shift` + `Alt` + `←` (left arrow) to ungroup
++ Add a new calculated field using `Ctrl` + `Shift` + `=` (equals)
++ Delete an entire PivotTable using `Ctrl + A` then pressing `Del`
 :::
-
-## Add board names
-
--   those codes are hard work
--   let's make them [look a little more human](https://www.opendata.nhs.scot/dataset/geography-codes-and-labels/resource/652ff726-e676-4a20-abda-435b98dd7bdc)
--   [board names data](https://www.opendata.nhs.scot/datastore/dump/652ff726-e676-4a20-abda-435b98dd7bdc?bom=True)
-
-## Years and months
-
--   our Month column is a pain
--   we can turn that back into a proper date
--   `=date(left([@Month], 4), right([@Month], 2), 24)`
--   refresh the pivot table, and update the fields
 
 ## PivotTable pages
 
--   we can split out parts of a PivotTable to separate worksheets
++ we can split out parts of a PivotTable to separate worksheets
 
 ::: {.callout-tip title="Task"}
-1.  Drag the Years item to the *Filters* field. This should update the PivotTable so that only one year's data is present at once
-2.  We can also split each year into its own worksheet: find the option in the PivotTable Analyze section of the ribbon - or via `Alt`, `J`, `T`, `T`, `P` </br>![](images/05_jttp.png)
+
+1. Drag the Years item to the *Filters* field. This should update the PivotTable so that only one year's data is present at once
+1. We can also split each year into its own worksheet: find the option in the PivotTable Analyze section of the ribbon - or via `Alt`, `J`, `T`, `T`, `P` </br>![Pivot table pages](images/05_jttp.png)
+
 :::
 
 ## Slicing
-
--   one slicer can control many PivotTables
++  one slicer can control many PivotTables
 
 ::: {.callout-tip title="Task"}
-1.  Click within one of your new annual PivotTables
-2.  Add a slicer from the insert menu (or `ALT`, `N`, `S`, `F`)
-3.  Select date to slice on
-4.  When the slicer appears, right click and select "Report Connections..." and add the other annual PivotTables
-5.  Now select a couple of months from your slicer, and see the effect on your PivotTables
+1. Click within one of your new annual PivotTables
+1. Add a slicer from the insert menu (or `ALT`, `N`, `S`, `F`)
+1. Select date to slice on 
+1. When the slicer appears, right click and select "Report Connections..." and add the other annual PivotTables
+1. Now select a couple of months from your slicer, and see the effect on your PivotTables
 :::
 
--   if you're working with dates, you can also use the timeline, which works in exactly the same way. Insert with `ALT`, `N`, `S`, `T`, update the connections, and you can get fine-grained control over which date-ranges contribute to your PivotTable
++ if you're working with dates, you can also use the timeline, which works in exactly the same way. Insert with `ALT`, `N`, `S`, `T`, update the connections, and you can get fine-grained control over which date-ranges contribute to your PivotTable
+
+## Conditional formatting
++ generally useful for shorter data and simpler summary queries than PivotTables
+    + duplicated values
+    + max values
++ loads of pre-packed options for conditional formatting
+
+::: {.callout-tip title="Task"}
+1. Switch to the `Conditional formatting` worksheet
+2. From the ribbon, explore some of the pre-packed conditional formats </br>![Conditional formatting](images/05_cf.png)
+:::
+
+## Conditional formatting rules
+
++ for more sophisticated conditional formatting, formatting rules can be specified and edited using the conditional formatting rules manager
+
+::: {.callout-tip title="Task"}
+1. Add a pre-packed conditional format to your table
+1. Bring up the conditional formatting rules manager using `ALT`, `H`, `L`, `R` </br>![Conditional formatting rules](images/05_cfrm.png)
+:::
+
+## Custom conditional formatting
++ again, there are pre-set formatting rules available
++ we can also write a custom formula
+
+::: {.callout-tip title="Task"}
+1. To find the max value in a row, use the formula `= A2 = MAX($A2:$E2)`
+![Row sum formula](images/05_rowmax.png)
+1. Try adding extra rules and experimenting with how they interact
+:::
+
+## Thank yous
+
+I'm grateful to Jennifer Watt, John Mackintosh, Duncan Sage, David Coigach, Michael Robb, Angela Godfrey, and other members of the KIND network for their valuable suggestions and corrections to these training materials

@@ -1,0 +1,208 @@
+---
+title: "Excel foundations 2"
+date: "2025-02-13"
+execute: 
+  echo: false
+  freeze: auto
+categories: [excel, intermediate, Excel skill-builder]
+---
+
+This is a session in our intermediate-level Excel skill builder course. This consists of five practical training sessions, designed to be taken together, that are aimed at helping users with some prior Excel experience build and consolidate their skills. The sessions are:
+
++ [Excel foundations 1](excel_foundations_01.qmd)
++ [Excel foundations 2](excel_foundations_02.qmd) (this session) 
++ [Lookups in Excel](lookups_in_excel.qmd)
++ [Excel programming](excel_programming.qmd)
++ [Pivot tables and pivot charts](pivot_tables_and_pivot_charts.qmd)
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+{{< iconify ph:file-xls size=2x >}}.xlsx exercises](src/KIND_excel_skills_s02_exercises.xlsx)
+{{< iconify ph:file-xls size=2x >}}.xlsx exercises (completed)](src/KIND_excel_skills_s02_exercises_final.xlsx)
+
+:::
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Excel foundations 2")
+
+```
+
+
+## Session outline
+
++ most Excel questions can be broken down into these five areas
+    + Cells and formatting
+    + Ranges and tables
+    + References
+    + Formulas
+    + Functions
++ we'll look at formulas and functions in this session
+
+## Getting started
+
++ files for today:
+ [`s02_exercises.xlsx`](src/KIND_excel_skills_s02_exercises.xlsx) itarting-point for the exercises today
+ [`s02_exercises_final.xlsx`](src/KIND_excel_skills_s02_exercises_final.xlsx)is the end-point for the exercises todat’s there to help if you get stuck or lost
+
+::: {.callout-tip title="Task"}
+1. open the sample spreadsheet `s02_exercises.xlsx` and have a look around
+2. find the `service_use` worksheet
+:::
+
+## Previously, on Building Excel Skills...
+::: {.callout-tip title="Task"}
+1. Please find an example of number formatting on this worksheet. How would you alter this using a keyboard shortcut?
+1. Try typing `Ctrl` + `1`. What happens?
+1. Find a table in the `service_use` worksheet. How would you convert that table to a range?
+1. Find an example of a cell reference. What does `$` do in a reference? 
+1. Find a named object on that worksheet. How would you change a name?
+:::
+
+## Formulas
++ most of the calculations that you do in Excel will be based on formulas
++ e.g. references (like `=A2`) are simple formulas
++ formulas are written in the formula bar
++ you start a formula with an `=`
+
+
+
+::: {.callout-tip title="Task"}
+1. Select a blank cell on the sheet
+2. Click in the formula bar and type `=`
+3. After the `=`, type a simple sum (like `2+2`)
+4. Press `Enter` and see the result in the cell
+:::
+
+## Formulas
+
++ let's build a more interesting formula using `SUM()`
++ `SUM()` adds up the values of all the cells referenced inside the brackets
+
+::: {.callout-tip title="Task"}
+1. Click the cell next to **Service A total**
+2. Then in the formula bar enter `=SUM(B2:B14)`
+:::
+
++ `:` lets you specify a range of cells
++ there are several other ways of doing this:
+  + you could write `SUM(B2, B3, B4, B5 .....)`
+  + if you select the range with the mouse, you might see your formula written as `=SUM(service_t[service_a])`
+
+## Formulas
+
+::: {.callout-tip title="Task"}
+1. Please populate `Service B total` and `Service C total`
+1. Can you figure out two ways of populating the `Grand total` value in the summary table?
+:::
+
+## Working with formulas
+
++ formulas are the real power in Excel
++ but they're usually hidden in the background
+
+::: {.callout-tip title="Task"}
+1. Try pressing `Ctrl` + ` (backtick). What do you see? </br>![Formula auditing](images/02_backtik.png)
+
+:::
+
+## Formula auditing
+
++ Excel has lots of helpers for building functions </br>![Formula auditing](images/02_formula_audit.png) 
++ we'll investigate these tools as we start writing our own functions today
+
+## Working with formulas
+
++ let's make a new column using sum to give us daily totals across the three services
+
+::: {.callout-tip title="Task"}
+1. Select the duty_manager column by clicking the column letter
+1. Right click and select **insert** (or `Ctrl` + `Shift` + `+`)
+1. Name the column `daily_total`
+1. In the first cell in that column, use the sum function to add up the three service figures for that day
+1. Now use the fill handle to populate the empty cells in that `daily_total` column
+1. Finally, come out of the formula view (`Ctrl` + `)
+:::
+
+## `MAX()`
+
++ now that we've used `SUM()`, we can use another useful function: `MAX()`
++ this finds the maximum value in a specified range of cells
+
+::: {.callout-tip title="Task"}
+1. select the empty cell next to **Peak daily load**
+2. add a formula `=MAX(E2:E14)`
+
+:::
+
+## About functions
+
++ Excel has [hundreds of different functions](https://support.microsoft.com/en-us/office/excel-functions-alphabetical-b3944572-255d-4efb-bb96-c6d90033e188)
++ you can think of functions as the verbs of an Excel worksheet
+
+::: {.callout-tip title="Task"}
+1. Find the Function library</br>![Function library](images/02_fl.png)
+1. Try several new functions - and be ready to share the most interesting/surprising one with the group
+:::
+
+## Formula auditing
++ both formulas and cell references get hard to pick out from data in more complicated workbooks
+
+::: {.callout-tip title="Task"}
++ press `Ctrl` + ` (backtick) to open the formula auditing view
+:::
+
+## About functions
+
++ four key bits of jargon: **NAME**, **ARGUMENTS**, **SYNTAX**, and **RETURN**
++ each function has a name (like `MAX()`) that describes what the function does
++ each function then has some **arguments** in the brackets after the name
+    + in the `MAX()` example, our argument was the range of cells `E2:E14`
+    + arguments control what the function works on
++ each function has a **syntax**, which is how these arguments need to be arranged
++ each function will **return** something
+    + in the `MAX()` example, our returned value was the largest value found in that range
+
+## Function shortcuts and helpers
+
++ `Ctrl` + `'` copy-pastes the formula from the directly above
++ `Ctrl` + `A` while typing the function name brings up the function argument interface </br>![Function argument interface](images/04_fa.png)
++ `Ctrl` + `Shift` + `A` while typing the function name brings up the arguments inline help
++ `F3` to paste names into functions
++ `Shift` + `F3` to use the insert formula interface
+
+
+## Using functions together
+
++ now that we've had a go with a couple of simple formulas, we should look at some more complicated formulas
++ we want to count the number of shifts each manager did during the early part of January
++ that takes a few steps, and a few functions
+
+
+## Using functions together
+
++ we get a list of all the duty managers using `=UNIQUE(F2:F14)`
+    + note that this formula **spills** - so it returns several cell's worth of information
+    + that's unusual behaviour, and can cause trouble - watch out for `#SPILL` errors when Excel cannot fit the results into the desired location
++ we count the shifts for each of those managers with `=COUNTIF($F$2:$F$14, C21)`
++ then we calculate the busiest manager, and grab their name, using `=INDEX(C18:C21, MATCH(MAX(D18:D21), D18:D21))`
+
+## Busiest day
+::: {.callout-tip title="Task"}
+1. Using a similar approach, can you give the date of the busiest day?
+:::
+
+
+
+`=INDEX(A2:A14, MATCH(B25, E2:E14))` - busiest day
+
+## Thank yous
+
++ I'm grateful to Jennifer Watt, John Mackintosh, Duncan Sage, David Coigach, Michael Robb, Angela Godfrey, and other members of the KIND network for their valuable suggestions and corrections to these training materials

@@ -1,0 +1,240 @@
+---
+title: "Excel foundations 1"
+date: "2025-02-13"
+execute: 
+  echo: false
+  freeze: false
+categories: [excel, intermediate, Excel skill-builder]
+---
+
+This is a session in our intermediate-level Excel skill builder course. This consists of five practical training sessions, designed to be taken together, that are aimed at helping users with some prior Excel experience build and consolidate their skills. The sessions are:
+
++ [Excel foundations 1](excel_foundations_01.qmd) (this session)
++ [Excel foundations 2](excel_foundations_02.qmd) 
++ [Lookups in Excel](lookups_in_excel.qmd)
++ [Excel programming](excel_programming.qmd)
++ [Pivot tables and pivot charts](pivot_tables_and_pivot_charts.qmd)
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx exercises](src/KIND_excel_skills_s01_exercises.xlsx)
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx exercises (completed)](src/KIND_excel_skills_s01_exercises_final.xlsx)
+
+:::
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Excel foundations 1")
+
+```
+
+
+## Session outline
+
++ most Excel questions can be broken down into these five areas
+    + Cells and formatting
+    + Ranges and tables
+    + References
+    + Formulas
+    + Functions
++ we'll look at cells, ranges, and references in this session
+
+## Tasks
++ there are tasks throughout the training session
++ they're described in the green boxes
++ please follow along with the tasks
+
+::: {.callout-tip title="Task"}
+1. this is the first step of the task
+2. this is the next step
+:::
+
+## Getting started
++ this course is written for M365 Excel (desktop)
++ other versions of Excel are available, and will work in a similar way
++ files for today:
+    + `s01_exercises.xlsx` is a starting-point for the exercises today
+    + `s01_exercises_final.xlsx` is the end-point for the exercises today - it's there to help if you get stuck or lost
+
+
+
+::: {.callout-tip title="Task"}
+1. open the sample spreadsheet `s01_exercises.xlsx` and have a look around
+2. find the `service_use` worksheet
+:::
+
+## Terminology
+
+![](images/interface.png)
+
++ worksheet / workbook distinction
++ `Ctrl` + `F1` to hide the ribbon
+
+## Keyboard shortcuts
+
++ Excel is rich in keyboard shortcuts
++ these shortcuts are a great way to build speed and fluency
+
+
+
+::: {.callout-tip title="Task"}
+1. Press `Alt`
+1. Try exploring the ribbon using the keyboard shortcuts
+:::
+
+## Cells and formatting
+
+1. Excel sheets are made up of cells
+2. each cell can contain either a **value** or a **formula**
+3. cells can be formatted
+    a. sometimes that's just text formatting, like size, colour, etc
+    b. sometimes that's **number format**, which changes the value in the cell
+4. Formatting can be **conditional**, where formatting changes based on cell values. We talk about this in session 5
+
+::: {.callout-tip title="Task"}
+1. look at the values in the first 15 rows of the **date** column </br>![](images/1900.png)
+1. Excel [generally](https://support.microsoft.com/en-us/office/date-systems-in-excel-e7fe7167-48a9-4b96-bb53-5612a800b487) stores dates using the *1900 date system*, which is the number of days since Jan 1st 1900
+1. so `44570` stands for the 9th of January 2022
+1. we can format these into something human-readable. Please select all the cells in that date column and change the number format to **Short date** </br>![](images/format.png) 
+		1. or use `Alt`, `H`, `N`, `S`
+		1. or `Ctrl` + `1` and select from the dropdown
+:::
+
++ cells are arranged in rows and columns </br> ![Rows and columns](images/cols.png)
+
+## Ranges and tables
+
++ any group of cells is called a **range**
++ we can convert ranges to **tables**
++ tables have lots of useful features
+    + automatic formatting of headings
+    + auto filters
+    + flash fill
+    + ...
++ let's turn a range into a table
+
+::: {.callout-tip title="Task"}
+1. the first 15 rows and 5 columns of our exercise worksheet contain a range
+2. please select all of those cells
+3. then select **Format as Table** from the ribbon (or `Ctrl` + `T`) </br>![](images/table.png)
+:::
+
++ you can also convert a table back into a range using the `Convert to Range` tool </br>![](images/01_converttorange.png)
+
+
+## References
+
++ references are the 'address' of a particular cell
++ references are usually made up of a letter and a number (like **A2**, **B56**, ...)
+    + the letter stands for the column a cell is in
+    + the number stands for the row
++ we can use those references in formulas
+  + `=A1` will copy the values from A1 into the current cell
+
+::: {.callout-tip title="Task"}
+1. using A1 reference, can you populate the first three rows of the summary table? </br>![](images/ref_task.png)
+    a. Start date
+    b. End date
+    c. First duty manager
+1. you might need to switch off **Calculated Columns** from the floatie </br>![](images/01_stop_calc.png)
+:::
+
+## Absolute vs relative references
+
++ by default, A1 references are **relative**
+  + if the formula moves, the reference will change
+
+::: {.callout-tip title="Task"}
+1. the data accidentally includes the last day of the previous year</br>![](images/01_last_yr.png)
+2. please remove that first row of data (click the row number, then `Ctrl` + `-`), and see how the references change
+:::
+
+![Relative references](images/refs.png)
+
++ as you've seen, relative references can cause problems
++ you can change relative references to absolute (=fixed) references using `$`
+  + `$A$1` refers to A1 **no matter what**
+    + use this if you absolutely always want to refer to the same cell
+
+::: {.callout-tip title="Task"}
+1. update your relative references in the summary table to absolute references
+:::
+
+## Working with absolute references
+
++ there's a bit more to say about absolute references
+  + `$A1` will be absolute in the column, but relative in the rows
+  + `A$1` will be relative in the row, but absolute in the column
+
+::: {.callout-note}
++ if you click in the formula bar, `F4` toggles absolute/relative
+  + relative > absolute > abs row > abs col
+:::
+
+::: {.callout-tip title="Task"}
+1. try changing your 3 absolute references to abs col references (like `$A2`)
+1. now try copying the manager's name down the column
+1. now try copying the manager's name along the row
+1. does this behave as you'd expect?
+1. (please remove any of this copied data now - we won't use it again)
+:::
+
+## Working with names
+
++ we can name cells in Excel
++ this is done using the name box </br> ![The name box](images/01_name_box.png)
+
+::: {.callout-tip title="Task"}
+1. select B18
+1. in the name box, please type a useful short name and confirm with `Ctrl` + `Enter`
+1. please repeat for the other two value cells in the summary table
+:::
+
++ we can then use those names in formulas
+
+::: {.callout-tip title="Task"}
+1. in a random cell, use `TEXT()` to find the days of the week from each of your start and end dates
+1. for example, my start date is named `start_date`, so `=TEXT(start_date, "dddd")` gives me `Saturday`
+:::
+
++ naming important values helps lower the complexity of formulas by:
+    + making it obvious what is being referred to
+    + allowing you to change the location of a cell - as long as the name is retained, the formulas will continue to work
++ we can name lots of other parts of Excel sheets too
+
+## Naming
++ most objects in Excel can be named - including cells, tables, and ranges
+    + special case - `Table[Column]` shorthand for columns. This is known as **structured referencing**
++ those names will work like variable names
++ you can see names in the **name box** to the left of the formula bar
+
+## Adding names
++ the easiest way to name a cell is to click in that cell, then edit using the name box (to the left of the formula bar)
++ there are a few [name rules](https://support.microsoft.com/en-au/office/names-in-formulas-fc2935f9-115d-4bef-a370-3aa8bb4c91f1) 
+    + don't make names that look like references
+    + don't include spaces
+    + don't rely on case (Excel in general is case insensitive)
+    + keep them shortish (less than 255 chars)
+    + avoid numbers at the start of names
+    
+## The name manager
++ you can review names using the **name manager** via `Ctrl` + `F3`
+    + note reference, scope, and value
+    + `Ctrl + J` for new lines in name manager
+    + `F2` switches between edit and enter mode
+    
+## The Go To menu
++ you can use names to navigate using the **Go To** menu via `F5`
+    + gives you an overview of the names in play
+    + quick navigation shortcut
+    
+## Thank yous
+
++ I'm grateful to Jennifer Watt, John Mackintosh, Duncan Sage, David Coigach, Michael Robb, Angela Godfrey, and other members of the KIND network for their valuable suggestions and corrections to these training materials
