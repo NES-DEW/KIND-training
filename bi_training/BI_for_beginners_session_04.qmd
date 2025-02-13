@@ -1,0 +1,289 @@
+---
+title: "BI for Beginners Session 4"
+date: "2025-02-13"
+categories: [Power BI, beginner]
+---
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+Ideally, you'll use the data that you wrangled during the previous session. But if that's not suitable, use this data:
+
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx session data](src/s04_data.xlsx)
+
+There's also a starting-point pbix file which you might prefer to use instead:
+- [{{< iconify arcticons:microsoft-power-bi size=2x >}}.pbix starting file](src/BfB_s03.pbix)
+:::
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("BI for Beginners")
+
+```
+
+## Session outline
+
++ In this session, we're going to build out the GP practice size dashboard from last time
++ we're going to use some new features of Power BI to help us with that
+    + we'll spend a little bit of time looking at the model
+    + but most of the session is about DAX and measures
+
+## Session files
+
++ `BfB_s03.pbix` as starting point
++ `BfB_s04.pbix` as completed example
+
+## Recap
++ we did lots of data wrangling last week using Power Query
++ that's designed to do data loading and tidying - so we tried removing some data, reshaping data, and joining data,...
++ but there's another whole language in Power BI to let us do things with that tidy data: DAX (annoyingly, **Data Analysis eXpressions**)
++ similar to Excel formulas
+
+## Major differences between DAX and Excel formulas
+
++ Excel takes a cell or range of cells (like A4)
+    + DAX functions take a **column or table** as reference, and cannot use e.g. cell ranges
++ Excel formulas show their results directly in the cell
+    + DAX formulas need to be added to a card (or similar)
++ also a grab-bag of minor differences (no mixed columns data type, date and time functions, different lookup mechanics)
+
+## Set up
+::: {.callout-tip title="Task"}
+1. open your dashboard from the last session (or you can use `BfB_s03.pbix`)
+2. add a new report page, and name it **measures**
+3. remind yourself about the data we're working with
+:::
+
+
+## The model
+
++ let's start by looking at the model view
++ we should see our data tables as blocks in the model
++ thre are also connections between some of those blocks
+
+
+
+::: {.callout-tip title="Task"}
+1.  Mouse-over the relationships in the model view
+2.  What's the difference between ![star](images/star.png) and ![one](images/one.png)?
+3.  Now expand the **Properties** pane
+:::
+
+
+## DAX first steps
+
+::: {.callout-tip title="Task"}
+1. in either the report or the data views, click **New measure**
+2. in the formula bar, add `largest_practice = MAX(practices[PracticeListSize])`
+:::
+
+## DAX queries
+
+The general way of building a DAX formula is as follows:
+
+> measure = FUNCTION(table[column])
+
++ note the [square brackets] for column names
++ we wrote a simple DAX formula in the first session, when we calculated a column using the formula `AvailableBeds = [BedComp] - [ClosedBed]`
++ in this session, we're going to concentrate on using DAX to write **measures**
+
+## WTH are measures?
++ **measures** are Power BI lingo for calculated data summaries
++ calculated columns, as we've seen before, let you make new columns from existing data
++ measures allow you to make non-column summaries of your data - like an average
+
+
+## DAX queries
+
+For our example, our measure is called **largest_practice**, and we want it to report the largest practice in each health board. Our DAX-based measure works as follows:
+
+-   our data table is called **practices**
+-   our column is **PracticeListSize**
+- we're using the `MAX()` function to find the largest value (exactly like Excel)
+
+
+
+> largest_practice = MAX(practices[PracticeListSize])
+
+## Adding our measure to our report
+
++ we should be able to add our **largest_practice** measure to our report
++ go back to the report view, and refresh
++ you should see the **largest_practice** measure appear in the data pane </br>![largest_practice measure in data pane](images/measure.png){height="300px"}
+
+## Adding our measure to our report
+
+::: {.callout-tip title="Task"}
+
+1. in our new measures page, drag the **largest_practice** measure into a new card
+2. we also want to be able to look at different boards, so add a slicer using the HBnames from the practices table
+3. we'll then play with the interactions to make sure that this measure gives us a sensible result </br>![edit interactions](images/editinteractions.png){height="200px"}
+
+:::
+
+## Making a measures table
++ it's helpful to keep your measures in a stand-alone measures table - but requires a bit of creativity
+
+
+
+::: {.callout-tip title="Task"}
++ manually create an empty table using **Enter data** </br> ![Enter data](images/measurest.png){height="150px"}
++ select your **largest_practice** measure, go to the data view, and use the **Home table** menu to move it to your new measures table
++ then delete the blank column from your measures table
+:::
+
+
+## Concatenating
+
++ so far, our `largest_practice` measure is ugly-but-functional
++ we can use the concatenate operator (`&`) to beautify it
+
+
+
+::: {.callout-tip title="Task"}
+1. edit your `largest_practice` measure
+2. you can insert text by "quoting" it, and using `&` to join it to the result of your `MAX()`
+    + for instance, `largest_practice = "Largest practice: " & max(practices[PracticeListSize]) & " patients"`
+3. feel free to experiment - make sure you go back to the report view and refresh to see changes
+4. you can also use the **format visual** section to change the font size, and drop/alter the category label
+
+:::
+
+
+## Core DAX functions
+
++ several useful DAX functions work in basically the same way as `MAX()`
++ let's try them out now
+
+
+
+::: {.callout-tip title="Task"}
+
+1. in your measures table, make a new measure called `average_practice`
+2. try `average_practice = AVERAGE(practices[PracticeListSize])`
+3. add this to a new card to test it
+4. now tweak with concatenated text
+5. `COUNT()`, and `MIN()` should also work in the same way
+
+:::
+
+
+## Combining functions
+
++ most measures will need more than one DAX function
++ we combine functions just like Excel, by bracketing them together
++ `function1(function2(data))` does function 2 on the data, then function 1 on that result
++ when you're reading/building formulas with many functions, two top-tips:
+    1. make sure you match your brackets
+    2. read from the inside out
+
+
+## Combining functions
+
++ our **average_practice** measure is pretty ugly
++ a whole number value would be more suitable
+
+
+
+::: {.callout-tip title="Task"}
++ click on the **average_practice** measure, which should read `average_practice = AVERAGE(practices[PracticeListSize])`
++ add the `INT()` function, which converts a number to an integer (whole number)
+    + we want `INT()` to wrap around the `AVERAGE()` function
+    + `average_practice = INT(AVERAGE(practices[PracticeListSize]))`
+:::
+
+## Combining functions
+
++ we can keep combining functions together in the same way
++ e.g. we could round that result to the nearest hundred using `round(..., -2)`
+    + the `-2` specifies the number of decimal places, so `3` here would give us 3 decimal places (say 444.444).
+    + `average_practice = ROUND(INT(AVERAGE(practices[PracticeListSize])), -2)`
++ care with the brackets!
++ you might prefer to do simple rounding in the **format visual** area </br>![Format visual](images/card_number_format.png)){height="150px"}
+
+## Filter
++ `FILTER()` is the last DAX function we're going to look at
++ it lets us filter our data based on conditions
++ say we want to count how many big practices (more than 10000 patients) we have...
++ `big_practices = countrows(filter(practices, practices[PracticeListSize] > 10000))`
+
+## Filter
++ `big_practices = countrows(filter(practices, practices[PracticeListSize] > 10000))`
++ let's read this from the inside-out
++ `filter(practices, practices[PracticeListSize] > 10000)` applies the filter function over the whole **practices** table
++ it finds all the rows where **PracticeListSize** is greater than (>) 10000
++ those rows are then counted by `countrows()`
++ finally, we save that number into our measure named `big_practices`
+
+## Filter
++ that'll be another ugly-but-functional measure
++ we'll use an alternative way of beautifying this one, to avoid making the formula too complicated
++ measures can contain measures
++ instead of the **table[column]** format we've been using, we refer to measures by wrapping them in single square-brackets: *[measure]*
+
+## Filter
++ let's create this now
+
+
+
+::: {.callout-tip title="Task"}
+1. add a new measure to your measures table
+2. use the formula `big_practices = countrows(filter(practices, practices[PracticeListSize] > 10000))` to obtain the filtered count of big practices
+3. create a second new measure
+4. `nice_big_practices = [big_practices] & " practices with more than 10000 patients"`
+5. add **nice_big_practices** to a new card
+
+:::
+
+## Beautifying **average_practice**
+
+::: {.callout-tip title="Task"}
+1. Please make a new meaure named **nice_average_practice**
+2. Use concatenation to make the **average_practice** measure nicer to read
+3. Update your average measure card in the report
+:::
+
+## More interesting filters
++ `FILTER()` is one of the big building-blocks of Power BI
++ we can use it as a way of looking up matching data
++ for example, to find the **name** of the largest practice, we can:
+
+
+
+```
+largest_practice_name = CALCULATE (
+    VALUES (practices[Practice Name]),
+    FILTER (
+      ALL(practices[PracticeListSize]), 
+      practices[PracticeListSize] = MAX (practices[PracticeListSize]
+            )
+            )
+)
+```
+
++ `FILTER()` finds the largest practice
++ `VALUES()` returns the corresponding value from the **Practice Name** column
++ `CALCULATE()` joins the `FILTER()` and `VALUES()` parts of the expression 
+
+## DAX resources (beginners)
+
+-   DAX sandbox - [dax.do](dax.do)
+-   DAX introduction on the [Microsoft site](https://support.microsoft.com/en-us/office/quickstart-learn-dax-basics-in-30-minutes-51744643-c2a5-436a-bdf6-c895762bec1a)
+-   [cheat sheet from Pragmatic Works](https://pragmaticworks.com/wp-content/uploads/2020/08/DAX-Cheat-Sheet.pdf) - good as an introduction
+-   [introduction to DAX from Data Flair](https://data-flair.training/blogs/power-bi-dax-basics/) is particularly useful if you have a bit of prior experience
+-   [Saurabh dasgupta's DAX cheat sheet](https://medium.com/@saurabh.dasgupta1/dax-cheat-sheet-part-1-7e5dbc277e41)
+
+## DAX resources (advanced)
+
+-   [DAX reference](https://docs.microsoft.com/en-gb/dax/)
+-   [DAX formatting utility](https://www.daxformatter.com/raw/)
+-   [Helpful tutorial on DAX variables](https://docs.microsoft.com/en-us/dax/best-practices/dax-variables)
+-   Marco Russo and Alberto Ferrari's book *The Definitive Guide to DAX: Business intelligence for Microsoft Power BI, SQL Server Analysis Services, and Excel* is the standard big reference book
+-   I've also heard good things about [DAX Studio](https://daxstudio.org/) as a helper for writing more complex DAX functions - broadly analogous to an [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) for DAX

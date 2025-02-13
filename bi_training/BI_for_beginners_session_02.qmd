@@ -1,0 +1,193 @@
+---
+title: "BI for Beginners Session 2"
+date: "2025-02-13"
+categories: [Power BI, beginner]
+---
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx session data](src/s02_data.xlsx)
+:::
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("BI for Beginners")
+
+```
+
+
+## Session outline
+
+**Visualisation overload!**
+
++ we're going to build several visualisations
++ we'll use some tidied data for this - today is all about using data to do interesting things
++ next time, we'll get into the data wrangling needed to sort that data out
+
+## Session files
+
++ `BfB_s02.pbix` as completed example
++ `s02_data.xlsx` as data
+
+## ETL
+
+(as a preview of the next session)
+
+1. extract
+2. transform
+3. load
+
+## Today's visualisations
+- maps
+- column charts
+- line graphs
+- numeric summaries of data
+- filtering and slicing tools
+
+## The goal
+
+::: {.callout-tip title="Task"}
+Open `BfB_s02.pbix` to have a look
+:::
+
+## Today's data
+
+::: {.callout-tip title="Task"}
+1. Start a new report in Power BI
+2. Open `data/s02_data.xlsx`
+3. Select the two tables (`gp_size` and `weekend_service`) and have a look at the preview</br>![Select both tables](images/s02data.png)
+4. Load those tables
+:::
+
+## Visualising service use
+![Service use dashboard](images/we_dash.png)
+
+## Finding our data
+
+::: {.callout-tip title="Task"}
+1. Go to the data view
+2. Open the `weekend_service` table and inspect the data
+:::
+
+## Add a line chart
+
+::: {.callout-tip title="Task"}
+1. Go to the report view
+2. Go to the visualisation pane, and add a line chart
+3. Expand it to fill the bottom three-quarters of the visualisation area</br>![Expand the line chart to fit](images/line_chart.png)
+:::
+
+## Add data
+
+::: {.callout-tip title="Task"}
+1. Click the date column in the data pane, and drag the Date Hierarchy to the X-axis field
+2. Drag the three site columns to the Y-axis field</br>![Add three site columns to the y-axis field](images/wend_dat.png)
+:::
+
+
+## Add a slicer
+
+::: {.callout-tip title="Task"}
+1. Click off your line graph, then add a slicer</br>![Slicer](images/we_slicer.png)
+2. Drag the year field from the Date Hierarchy into the slicer Field
+3. Add a second slicer in the same way
+4. This time, drag the weekend column into the Field
+5. Select the **Format your visual** menu</br>![Format your visual](images/we_format.png){height="100"}
+6. Format the slicer to use a dropdown</br>![Dropdown slicer](images/we_drop.png){height="200"}
+:::
+
+## Add some cards
+
+::: {.callout-tip title="Task"}
+1. Add a card</br>![Card](images/we_card.png){height="200"}
+2. Drag **site_a** into the Field
+3. Use the dropdown on **Sum of site_a** to select average
+4. Repeat for **site_b** and **site_c**
+5. Adjust the decimal places via the **Callout value** section of the format menu
+:::
+
+## Tidy up the names
+::: {.callout-tip title="Task"}
+1. Go round using **Rename for this visual** to tidy up the names</br>![Rename for this visual](images/we_rename.png){height="200"}
+2. Name the page of the report appropriately
+:::
+
+## End result
+![Final dashboard](images/we_dash.png)
+
+##  GP practice size
+
+![GP practices map dashboard](images/gp_final.png)
+
+## Add a map
+::: {.callout-tip title="Task"}
+1. Add a new page to your report
+2. Add a map and expand to fill the left-hand half of the visualisation area</br>![Add a map](images/gp_map.png){height="200"}
+2. From the **gp_size** table, drag the **Postcode** column to the Location field
+3. Now drag the **ListSize** column to the Bubble size field
+:::
+
+
+
+## Format the map
+::: {.callout-tip title="Task"}
+1. From the **Format visual** menu, change the map style to greyscale</br>![Greyscale map](images/gp_format.png){height="200"}
+2. (feel free to play around with the bubble size too)
+:::
+
+
+
+## Colour the bubbles by health board
+::: {.callout-tip title="Task"}
+1. Can you find a way of colouring the bubbles by health board? </br> ![Colour bubbles by health board](images/gp_bub_col.png){height="350"}
+:::
+
+
+
+(add the HBName to the Legend field)
+
+## Add a slicer
+::: {.callout-tip title="Task"}
+1. Add a slicer for health board
+2. Use the Format visual options to change this to a dropdown
+3. Test what happens when you change this
+:::
+
+## Add a practice details card
+::: {.callout-tip title="Task"}
+1. Add a card (new)
+2. Drag the ListSize and SIMD2020v2 columns to the Fields area
+3. Make sure that the SIMD2020v2 value is set to Min
+3. Add a title showing the practice name via the Format Visual options
+5. Format to suit </br> ![Format the title](images/pract_dee.png){height="200"}
+:::
+
+
+
+
+## Add a column chart
+::: {.callout-tip title="Task"}
+1. Add a column chart
+2. Add the Name on the X-axis, the ListSize on the Y-axis, and the HBName in the legend
+:::
+
+## Tidy up the names
+::: {.callout-tip title="Task"}
+1. Go round using **Rename for this visual** to tidy up the names
+2. Name the page of the report appropriately
+:::
+
+## End result
+
+![Final dashboard](images/gp_final.png)
+
+## Homework tasks
+1. Is there any relationship between practice size and SIMD2020 deprivation scores in the GP data? How could you show that relationship in a visual?
+2. Is there any month-to-month or seasonal change in the weekend service use data? How could you show that relationship in a visual?
