@@ -74,8 +74,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5027bf1c1f92ac6615724d89c8213d6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-22155e0a9ec0237f22fbd19bb7fb02cb.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-5c67a7444eebc356e54fdce0a63e8750.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c3e08f668760915a5922da0beb0161d7.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -193,14 +193,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
   <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
   <li><a href="#whats-the-point-of-shiny" id="toc-whats-the-point-of-shiny" class="nav-link" data-scroll-target="#whats-the-point-of-shiny">What’s the point of Shiny?</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#key-resources" id="toc-key-resources" class="nav-link" data-scroll-target="#key-resources">Key resources</a></li>
   <li><a href="#boilerplate-shiny-code" id="toc-boilerplate-shiny-code" class="nav-link" data-scroll-target="#boilerplate-shiny-code">Boilerplate Shiny code</a></li>
   <li><a href="#sections" id="toc-sections" class="nav-link" data-scroll-target="#sections">3 sections</a></li>
   <li><a href="#hello-world" id="toc-hello-world" class="nav-link" data-scroll-target="#hello-world"><code>"hello world!"</code></a></li>
-  <li><a href="#adding-r-code" id="toc-adding-r-code" class="nav-link" data-scroll-target="#adding-r-code">adding R code</a></li>
+  <li><a href="#adding-r-code" id="toc-adding-r-code" class="nav-link" data-scroll-target="#adding-r-code">Adding R code</a></li>
   <li><a href="#rendertable-output-and-tableoutput" id="toc-rendertable-output-and-tableoutput" class="nav-link" data-scroll-target="#rendertable-output-and-tableoutput"><code>renderTable</code>, <code>output$</code>, and <code>tableOutput</code></a></li>
   <li><a href="#whats-going-on-with-renderx-etc" id="toc-whats-going-on-with-renderx-etc" class="nav-link" data-scroll-target="#whats-going-on-with-renderx-etc">What’s going on with <code>renderX</code> etc?</a></li>
-  <li><a href="#capturing-user-input" id="toc-capturing-user-input" class="nav-link" data-scroll-target="#capturing-user-input">capturing user input</a></li>
+  <li><a href="#capturing-user-input" id="toc-capturing-user-input" class="nav-link" data-scroll-target="#capturing-user-input">Capturing user input</a></li>
+  <li><a href="#thinking-about-reactivity" id="toc-thinking-about-reactivity" class="nav-link" data-scroll-target="#thinking-about-reactivity">Thinking about reactivity</a></li>
+  <li><a href="#reactlog" id="toc-reactlog" class="nav-link" data-scroll-target="#reactlog">Reactlog</a></li>
   </ul>
 </nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -263,17 +265,18 @@ Session materials
 <ul>
 <li>this is an 🌶🌶 intermediate-level practical session designed for those with prior R experience, but who are new to Shiny</li>
 <li>it’s definitely meant to be a taster session, rather than a comprehensive introduction</li>
+<li>we’ll concentrate on the Shiny-specific material here, and assume that you’re generally familiar with ordinary R</li>
 </ul>
 </section>
 <section id="session-outline" class="level2">
 <h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
 <ul>
-<li>what’s the point of Shiny?</li>
-<li>resources</li>
+<li>What’s the point of Shiny?</li>
+<li>Key resources</li>
 <li><code>"hello world!"</code></li>
-<li>adding R code</li>
-<li>capturing user input</li>
-<li>thinking about reactivity</li>
+<li>Adding R code</li>
+<li>Capturing user input</li>
+<li>Thinking about reactivity</li>
 </ul>
 </section>
 <section id="whats-the-point-of-shiny" class="level2">
@@ -283,15 +286,15 @@ Session materials
 <li>here’s <a href="https://l8865y-brendan-clarke.shinyapps.io/shiny_from_scratch/">a minimal Shiny dashboard</a> which we’ll build in this session</li>
 </ul>
 </section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<section id="key-resources" class="level2">
+<h2 class="anchored" data-anchor-id="key-resources">Key resources</h2>
 <ul>
 <li>you’ll need:
 <ul>
 <li>R 4.0+ and Rstudio/posit.cloud/Posit workbench/VSCode</li>
 <li>the <code>shiny</code> and <code>reactlog</code> packages</li>
-<li>the <a href="https://shiny.posit.co/r/articles/start/cheatsheet/">Shiny cheatsheet</a> (essential)</li>
-<li><a href="https://mastering-shiny.org/">Mastering Shiny</a> (optional)</li>
+<li>the <a href="https://shiny.posit.co/r/articles/start/cheatsheet/">Shiny cheatsheet</a></li>
+<li><a href="https://mastering-shiny.org/">Mastering Shiny</a> (very helpful, but optional)</li>
 </ul></li>
 </ul>
 </section>
@@ -316,12 +319,12 @@ Session materials
 <ul>
 <li>now add <code>"hello world!"</code> in the <code>ui</code><br><img src="images/clipboard-4221183305.png" class="img-fluid" alt="add “hello world!” in the ui"></li>
 <li><code>Ctrl</code> + <code>Shift</code> + <code>Enter</code> to run your code - or use the run app button <img src="images/clipboard-229560138.png" class="img-fluid" alt="run app button"></li>
-<li>that should start your Shiny app - and you should see “hello world!” in the viewer pane <img src="images/clipboard-1464337300.png" class="img-fluid"></li>
-<li>Press stop <img src="images/clipboard-20538929.png" class="img-fluid"> - or hit <code>Esc</code> to stop your app. You’ll need to stop and restart to see changes.</li>
+<li>that should start your Shiny app - and you should see “hello world!” in the viewer pane <img src="images/clipboard-1464337300.png" class="img-fluid" alt="“Hello world!”"></li>
+<li>Press stop <img src="images/clipboard-20538929.png" class="img-fluid" alt="Press stop"> - or hit <code>Esc</code> to stop your app. You’ll need to stop and restart to see changes.</li>
 </ul>
 </section>
 <section id="adding-r-code" class="level2">
-<h2 class="anchored" data-anchor-id="adding-r-code">adding R code</h2>
+<h2 class="anchored" data-anchor-id="adding-r-code">Adding R code</h2>
 <ul>
 <li>now we’ll add some simple R code to our <code>server</code>. That’s going to do something simple with mtcars:</li>
 </ul>
@@ -342,7 +345,8 @@ Session materials
 <section id="rendertable-output-and-tableoutput" class="level2">
 <h2 class="anchored" data-anchor-id="rendertable-output-and-tableoutput"><code>renderTable</code>, <code>output$</code>, and <code>tableOutput</code></h2>
 <ul>
-<li>we’ll need to do three things to include this code, and its output, in Shiny</li>
+<li>if we run our Shiny dashboard now, we won’t see any output from this new R code</li>
+<li>we’ll need to add <strong>three</strong> new elements to make the code work</li>
 </ul>
 <ol type="1">
 <li>wrap our mtcars code in the <code>renderTable</code> function in <code>server</code></li>
@@ -376,7 +380,7 @@ Session materials
 </ul>
 </section>
 <section id="capturing-user-input" class="level2">
-<h2 class="anchored" data-anchor-id="capturing-user-input">capturing user input</h2>
+<h2 class="anchored" data-anchor-id="capturing-user-input">Capturing user input</h2>
 <ul>
 <li>we need to add three elements to capture user input:</li>
 </ul>
@@ -386,11 +390,37 @@ Session materials
 <li>finally, you connect your user input into your code using <code>input$my_input</code></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>my_table <span class="ot">&lt;-</span> <span class="fu">renderTable</span>(mtcars <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                dplyr<span class="sc">::</span><span class="fu">filter</span>(gear <span class="sc">==</span> input<span class="sc">$</span>my_input) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                  ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">radioButtons</span>(<span class="st">"my_input"</span>, <span class="st">"Which gear to show?"</span>, <span class="fu">sort</span>(<span class="fu">unique</span>(mtcars<span class="sc">$</span>gear))),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tableOutput</span>(<span class="st">"my_table"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>my_table <span class="ot">&lt;-</span> <span class="fu">renderTable</span>(mtcars <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                dplyr<span class="sc">::</span><span class="fu">filter</span>(gear <span class="sc">==</span> input<span class="sc">$</span>my_input) <span class="sc">|&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                dplyr<span class="sc">::</span><span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mpg =</span> <span class="fu">round</span>(<span class="fu">mean</span>(mpg), <span class="dv">2</span>)))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="thinking-about-reactivity" class="level2">
+<h2 class="anchored" data-anchor-id="thinking-about-reactivity">Thinking about reactivity</h2>
+<ul>
+<li>all this extra work is needed to allow Shiny to run reactive code: code that responds to user input by producing different outputs</li>
+<li>that’s a big difference from standard, declarative, R code</li>
+<li>one helpful tool for understanding reactivity: <a href="https://rstudio.github.io/reactlog/">reactlog</a></li>
+</ul>
+</section>
+<section id="reactlog" class="level2">
+<h2 class="anchored" data-anchor-id="reactlog">Reactlog</h2>
+<ul>
+<li>run <code>install.packages("reactlog")</code></li>
+<li>then add <code>library(reactlog)</code> to the start of your Shiny script to attach the package</li>
+<li>then follow that with <code>reactlog_enable()</code> to start logging</li>
+<li>now launch your dashboard, interact with it a couple of times, and then press <code>Ctrl</code> + <code>F3</code></li>
+<li>that should bring up a new webpage showing you the reactive graph of your Shiny app <br><img src="images/clipboard-3340920917.png" class="img-fluid" alt="Reactive graph"></li>
+<li>conveniently, <a href="https://mastering-shiny.org/reactive-graph.html">Mastering Shiny</a> uses the same visual style to explain the reactive graph as <code>reactlog</code></li>
+</ul>
 
 
 </section>
