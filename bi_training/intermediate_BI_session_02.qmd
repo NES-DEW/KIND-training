@@ -1,0 +1,207 @@
+---
+title: "Intermediate Power BI Session 2"
+categories: [Power BI, beginner]
+---
+This is part of our intermediate-level Power BI desktop course. The course structure is as follows:
+
+-   session 1: [a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices](intermediate_BI_session_01.qmd)
+-   session 2 (this session): [DAX language foundations, including FILTER and CALCULATE](intermediate_BI_session_02.qmd)
+-   session 3: core PowerQuery functions to manage sources, join data sets, pivot, and tidy values
+-   session 4: PowerQuery M language foundations, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility
+-   session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx session data](src/traffic_detail.xlsx)
+:::
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("BI for Beginners")
+
+```
+
+## Session outline
+
+- look at the foundations of DAX
+- iterator functions
+- filter context
+    -   `FILTER()`
+    -   `CALCULATE()`
+-   variables
+-   calculation groups
+
+## Data
+
+-   this session uses a bit of synthetic data extending the Dundee traffic dataset from the previous session </br> ![New traffic dataset](images/clipboard-1392993828.png)
+-   please [download the data from this link](https://nes-dew.github.io/KIND-training/bi_training/src/traffic_detail.xlsx), and import into Power BI
+
+## DAX reminders
+
+-   functions vs formulas
+-   arguments and return values
+-   references
+-   columns vs measures
+
+## Column functions
+
+-   Many DAX functions can return either columns or measures
+-   let's try a practical example:
+
+
+
+::: {.callout-tip title="Task"}
+-   in the `traffic` data, select `New column` then add the DAX formula `temp_col = 66`
+-   now repeat with `New measure` then `temp_measure = 66`
+-   now add `temp_measure` to a card on a new report page
+:::
+
+## Column vs measure
+
+-   your `temp_xxx` functions will be identical: the value of `temp_measure` will be the same as each row of the `temp_col` in your data
+-   that's because the filter context for the two calculations is currently the same
+
+## Standard DAX functions
+
+::: {.callout-tip title="Task"}
+-   now tweak your `temp_col` formula to use the `UPPER` function on the `[Detail]` column: `temp = UPPER(traffic[Detail])`
+-   inspect the result
+-   now try a simple bit of control flow: `temp_col = IF(traffic[number] > 0 , "Found", "Not found")`
+-   again, that should work row-by-row
+:::
+
+-   what's important: DAX functions in columns default to working in rows
+-   if you try the same formula in `temp_measure` you'll cause an error: Power BI won't know which row you want to change the case of
+-   we'll return to measures later
+
+## `FILTER()`
+
+::: {.callout-tip title="Task"}
+-   now update `temp_col = COUNTROWS(filter(traffic, traffic[number] = 3))`
+:::
+
+-   note that this function now isn't working row-by-row, but across the entire table
+-   `FILTER()` has changed the default row-by-row context
+
+## Filter context
+
+::: {.callout-tip title="Task"}
+-   to illustrate, please build a simple dashboard with:
+    -   a card containing the minimum value of `traffic[temp_col]`
+    -   a slicer containing `traffic[time]` </br> ![dashboard outline](images/clipboard-4202268694.png)
+:::
+
+-   note that the value of temp seems to be incorrect - it's the same no matter how the slicer is set
+
+## Iterator functions
+
+::: {.callout-tip title="Task"}
+-   add two new columns:
+    -   `col_sum = SUM(traffic[number])`
+    -   `col_sumx = SUMX(traffic, traffic[number])`
+-   add two new measures
+    -   `meas_sum = SUM(traffic[number])`
+    -   `meas_sumx = SUMX(traffic, traffic[number])`
+-   finally, add all 4 to cards, summarising by `min` when necessary </br> ![Four cards to display results](images/clipboard-816781852.png){height="200px"}
+:::
+
+## What's the difference?
+
+-   in the measure, `SUM()` takes the report filter context, and sums for that time of day
+-   in the column, `SUM()` calculates the total for an entire column
+-   in both cases, `SUMX()` gives the same result, but it calculates it in a different way...
+
+## `SUMX()`
+
+::: {.callout-tip title="Task"}
+-   to illustrate, change both `SUMX` calculations to `SUMX(filter(traffic, traffic[number] < 15), traffic[number])`
+:::
+
+-   all four values will now disagree: </br> ![Four different values](images/clipboard-1039448726.png)...
+
+-   `col_sum` is showing the total for the entire column
+-   `meas_sum` is showing the total for the filtered column (so `traffic[time]` = morning)
+-   `col_sumx` is showing the total for the filtered column (values of `traffic[number]` \> 15 only)
+-   `meas_sumx` is showing the total for the doubly-filtered column (values of `traffic[number]` \> 15 where `traffic[time]` = morning)
+
+## `SUMX()` is an iterator
+
+-   `SUMX()` calculates row-by-row
+-   in our initial case, it was calculating row-by-row, and then aggregating all the rows
+-   when we added a filter, `SUMX()` included rows meeting the filter condition
+
+## `ALL()`
+
+-   strictly, `SUM(x[y])` is a sweetened form of `SUMX(ALL(x), x[y])`
+-   `ALL()` removes any filter context to include every row of a table
+
+## `ALL()` and `CALCULATE()`
+
+-   much of the power of DAX lies in that ability to alter the filter context. Let's tweak `meas_sum` to show that:
+
+
+
+::: {.callout-tip title="Task"}
+-   `meas_sum = CALCULATE(SUM(traffic[number]), ALL())`
+-   compare and contrast col_sum and meas_sum
+:::
+
+-   `CALCULATE()` is a generic function that changes the filter context
+-   `ALL()`, as we've already seen, removes any filtering from the current filter context
+
+## `ALLEXCEPT()`
+
+-   `ALLEXCEPT()` allows you to remove part of the filter context
+
+
+
+::: {.callout-tip title="Task"}
+-   add an additional slicer to your report slicing on `traffic[Type]`
+-   add a new measure with `meas_sum_time = CALCULATE(SUM(traffic[number]), ALLEXCEPT(traffic, traffic[time]))` and add to a card
+:::
+
+
+
+-   that should give you a measure that reponds to `time`, but not to `Type`
+-   this could be extended - e.g. to `meas_sum_type_time = CALCULATE(SUM(traffic[number]), ALLEXCEPT (traffic, traffic[Type], traffic[time]))`
+
+## Variables
+
+-   DAX formulas get horrid quickly. In this section, we'll demonstrate the use of variables
+-   add a new measure:
+
+```         
+temp_var = 
+  VAR my_var = 66
+  RETURN my_var
+```
+
+## Variable considerations
+
+-   useful to avoid repeating yourself
+-   also useful for avoiding clutter (e.g. component measures)
+-   local scope - you can't refer to variables in other expressions
+-   potentially improve performance
+
+## Calculation groups
+
+-   calculation groups are a way of applying functions to many measures at once
+
+
+
+::: {.callout-tip title="Task"}
+-   in the model view, select `Calculation group` </br>![Calculation group](images/clipboard-2635822059.png)
+-   select `Yes` when warned about implicit measures </br>![Warning about implict measures](images/clipboard-351916943.png)
+-   that will add a new section to your model </br>![Calculation group](images/clipboard-1705263343.png)
+-   select `Calculation item` in the Model sidebar</br> ![Calculation item](images/clipboard-1527218390.png)
+-   add the formula `round_10 = ROUND(SELECTEDMEASURE(), -1)` to the formula bar
+-   back on the report page, add a slicer and populate with your Calculation group </br> ![Round to nearest 10 via calculation group](images/clipboard-552195342.png)
+:::
+
