@@ -1,0 +1,198 @@
+---
+title: "Intermediate Power BI Session 3"
+categories: [Power BI, intermediate, Intermediate Power BI course, DAX]
+date: "2025-02-26"
+---
+
+This is part of our intermediate-level Power BI desktop course. The course structure is as follows:
+
+-   session 1: [a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices](intermediate_BI_session_01.qmd)
+-   session 2 (this session): [DAX language foundations, including FILTER and CALCULATE](intermediate_BI_session_02.qmd)
+-   session 3: core PowerQuery functions to manage sources, join data sets, pivot, and tidy values
+-   session 4: PowerQuery M language foundations, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility
+-   session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Intermediate Power BI session 2")
+
+```
+
+## Session aim
+
+-   to cover core Power Query (PQ) functions and techniques
+
+## Where does this fit in?
+
+-   session 1: a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices
+-   session 2: DAX language foundations, including FILTER and CALCULATE
+-   session 3: core PowerQuery functions to manage sources, join data sets, pivot, and tidy values
+-   session 4: PowerQuery M language foundations, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility
+-   session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
+
+## Session outline
+
+-   thinking about queries - sources, connections, code folding, duplicating/referencing
+-   data formats for Power BI - tidy data, and key-value pairs, and interconverting with pivots
+-   joins and relationships
+-   normalising and the star schema
+
+## Data for this session
+
+-   [NRS vital events data for Q3 2024](https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx)
+
+## Getting started
+
+-   open Power BI
+-   create a blank report
+-   then click `Tranform data` to open PQ
+
+## Loading data from Power Query
+
+-   all the Power BI connectors are available in PQ
+-   `New query > Web`</br>![Load data from web](images/clipboard-3224181959.png)
+-   supply the link for the NRS vital events data for Q3 2024: <https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx>
+
+## Tables and sheets
+
+-   we want table 6 </br>(`TableQ6_Deaths_by_sex_cause_and_NHS_Board_area`) ![Table 6](images/clipboard-849064723.png)
+-   please import that from the navigator
+
+## Tidying up
+
+-   remove the three `All` rows </br>![Filter out the three all rows](images/clipboard-623679649.png)
+-   check the data types
+-   fix the query name to `cause_death` </br>![Rename to cause_death](images/clipboard-1287398295.png)
+
+## This data isn't quite tidy
+
+![Tidy data](images/clipboard-3584154739.png)
+
+## Shaping your data
+
+-   two main approaches found in Power BI:
+    -   Excel-like tidy data
+    -   SQL-like relational data
+-   tidy data is conceptually easier to build
+    -   joins/merges
+    -   splitting columns
+-   but really Power BI prefers relational data
+-   more performant
+-   easier to manage complex datasets
+
+## Tidy data
+
+-   largely covered in session one, but a quick reminder about splitting and merging
+
+## Key-value pair data
+
+| Key         | Value |
+|-------------|-------|
+| Pneumonia   | 144   |
+| Asthma      | 20    |
+| Influenza 3 | 2     |
+
+: Key-value pair data
+
+## Relational data in two minutes
+
+-   break your data into multiple tables
+-   give each item a key
+-   build [relationships](https://en.wikipedia.org/wiki/Relational_database) between those keys
+
+## Take some wide data
+
+| NHS Board | AED count | AED model | Manufacturer | Cost |
+|---------------|---------------|---------------|---------------|---------------|
+| NHS A&A | 3 | AED Plus Fully Automatic Defibrillator | ZOLL | 1305 |
+| NHS A&A | 4 | AED Plus Fully Automatic Defibrillator | ZOLL | 975 |
+| NHS A&A | 5 | Philips HeartStart FRx Semi-Automatic Defibrillator with Carry Case | Philips | 1200 |
+
+Data from [sja.org.uk](https://www.sja.org.uk/first-aid-supplies/defibrillators-accessories-and-training-models/defibrillator-models/)
+
+## Break into tables
+
+| NHS Board | AED count |
+|-----------|-----------|
+| NHS A&A   | 3         |
+| NHS A&A   | 4         |
+| NHS A&A   | 5         |
+
+| AED model | Manufacturer | Cost |
+|------------------------|------------------------|------------------------|
+| AED Plus Fully Automatic Defibrillator | ZOLL | 1305 |
+| AED Plus Fully Automatic Defibrillator | ZOLL | 975 |
+| Philips HeartStart FRx Semi-Automatic Defibrillator with Carry Case | Philips | 1200 |
+
+## Add unique keys
+
+| NHS Board | AED count | AED key |
+|-----------|-----------|---------|
+| NHS A&A   | 3         | ZOLL-1  |
+| NHS A&A   | 4         | ZOLL-2  |
+| NHS A&A   | 5         | PHIL-1  |
+
+| AED key | AED model | Manufacturer | Cost |
+|------------------|------------------|------------------|------------------|
+| ZOLL-1 | AED Plus Fully Automatic Defibrillator | ZOLL | 1305 |
+| ZOLL-2 | AED Plus Fully Automatic Defibrillator | ZOLL | 975 |
+| PHIL-1 | Philips HeartStart FRx Semi-Automatic Defibrillator with Carry Case | Philips | 1200 |
+
+## Star schema
+
+-   you might also see Power BI data described as a star schema </br>![Star schema](images/clipboard-2583516447.png) image: [Wikimedia](https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4_%D1%81%D1%85%D0%B5%D0%BC%D0%B8_%D0%B7%D1%96%D1%80%D0%BA%D0%B8.png)
+
+## Reshaping our data
+
+-   we'll break out the cause of death parts of the data into a new table
+-   we'll use the [ICD 10 codes](https://icd.who.int/browse10/2019/en) as a key
+-   duplicate query and rename that query to `ICD10`
+-   remove anything other than ICD10 data in `ICD10` (and a note about `Table.SelectColumns`)
+-   remove duplicates via `Remove Rows > Remove Duplicates`
+-   rename `ICD 10 Summary List` to `ICD10`
+-   then remove the `Cause of death` column in `cause_death`, and rename the `ICD10` column to link with the new table
+
+## Duplicating vs referencing queries
+
+-   a duplicate query is an independent copy of a query that can be tweaked/extended
+-   a referenced query takes the output of a query, and uses it as the starting-point for additional work
+
+## Reshape `cause_death` to key-value
+
+-   remove the `Scotland` column
+-   then unpivot everything but `ICD10` and `Sex`</br> ![Unpivot](images/clipboard-279191218.png)
+-   rename your new Attribute/Value columns to `board` and `n`
+
+## Create national data for benchmarking
+
+-   duplicate `cause_death`
+-   name that new query `national`
+-   remove everything but the national data with `= Table.SelectColumns(#"Filtered Rows",{"ICD 10 Summary List", "Scotland", "Sex"})`
+
+## More data, same source
+
+-   go back to source step of the `cause_death` query
+-   find the table data in the row `TableQ2b_Vital_events_by_NHS_Board_area`
+-   right-click the `Table`, and select `Add as New Query`</br>![Add as New Query](images/clipboard-4014078747.png)
+-   rename that new query `population`
+
+## Make a population table
+
+-   remove everything but the first three columns </br> ![First three columns](images/clipboard-3972508190.png)
+- remove the `null` row and the `SCOTLAND` row
+- rename `NHS Board area` to `board`
+- clean and trim the `board` values 
+- unpivot the population columns to `sex` and `population`
+- replace values and change case in the `sex` column to leave `Male` and `Female` values
+
+## Additional data sources
+
+-   you might like to add in a second data source at this point for practice
+-   e.g. [population estimates](https://www.opendata.nhs.scot/api/3/action/datastore_search?q=jones&resource_id=27a72cc8-d6d8-430c-8b4f-3109a9ceadb1), which could be added as a web source
+-   or [second quarter 2024 NRS vital data](https://www.nrscotland.gov.uk/media/lmxnfxup/quarter-2-24-tables.xlsx) as an Excel file

@@ -1,6 +1,7 @@
 ---
 title: "Intermediate Power BI Session 2"
-categories: [Power BI, beginner]
+categories: [Power BI, intermediate, Intermediate Power BI course, DAX]
+date: "2025-02-19"
 ---
 This is part of our intermediate-level Power BI desktop course. The course structure is as follows:
 
@@ -66,20 +67,18 @@ feed_block("BI for Beginners")
 ## Column vs measure
 
 -   your `temp_xxx` functions will be identical: the value of `temp_measure` will be the same as each row of the `temp_col` in your data
--   that's because the filter context for the two calculations is currently the same
+-   the values are the same
+-   the filter context is also the same
 
-## Standard DAX functions
+## DAX defaults
 
 ::: {.callout-tip title="Task"}
 -   now tweak your `temp_col` formula to use the `UPPER` function on the `[Detail]` column: `temp = UPPER(traffic[Detail])`
 -   inspect the result
--   now try a simple bit of control flow: `temp_col = IF(traffic[number] > 0 , "Found", "Not found")`
--   again, that should work row-by-row
 :::
 
--   what's important: DAX functions in columns default to working in rows
--   if you try the same formula in `temp_measure` you'll cause an error: Power BI won't know which row you want to change the case of
--   we'll return to measures later
+- an important result: DAX column functions default to row-wise filter context
+- if you try the same formula in `temp_measure` you'll cause an error: Power BI won't know which row you want to change the case of
 
 ## `FILTER()`
 
