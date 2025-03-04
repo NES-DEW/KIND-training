@@ -1,0 +1,310 @@
+---
+title: "Intermediate Power BI Session 4"
+categories: [Power BI, intermediate, Intermediate Power BI course, DAX]
+date: "2025-03-04"
+---
+
+This is part of our intermediate-level Power BI desktop course. The course structure is as follows:
+
+-   session 1: [a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices](intermediate_BI_session_01.qmd)
+-   session 2 (this session): [DAX language foundations, including FILTER and CALCULATE](intermediate_BI_session_02.qmd)
+-   session 3: core PowerQuery functions to manage sources, join data sets, pivot, and tidy values
+-   session 4: PowerQuery M language foundations, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility
+-   session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Intermediate Power BI session 4")
+
+```
+
+## Session aim
+
+-   to introduce the PowerQuery M language
+
+## Where does this fit in?
+
+-   session 1: a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices
+-   session 2: DAX language foundations, including FILTER and CALCULATE
+-   session 3: core PowerQuery functions to manage sources, join data sets, pivot, and tidy values
+-   session 4: PowerQuery M language foundations, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility
+-   session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
+
+## Session outline
+
+-   what's PQM?
+- setting values and creating lists
+-   the Advanced Editor
+-   basic syntax: `let`/`in`
+-   defining and using functions
+
+## What's PQM?
+
+-   formula language used in Power Query
+-   similar to Excel formulas
+
+## Getting started
+
+-   open Power BI
+-   create a blank report
+-   then click `Tranform data` to open PQ
+-   add a blank query </br>![Blank query](images/clipboard-243002182.png)
+
+## Add a value to that query
+
+-   you can edit PQM in the formula bar
+-   let's start with the traditional expression: `Hello world!`
+    -   you don't need quotes
+-   call this a [primitive value](https://learn.microsoft.com/en-us/powerquery-m/expressions-values-and-let-expression#primitive-value)
+
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Task
+
+-   add `"Hello world"` to the formula bar </br>![Hello world](images/clipboard-1199358198.png)
+:::
+
+## Lists
+
+-   an especially-useful kind of value: the **list**
+
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+- make a new blank query
+- in the formula bar, after the equals-sign, type a `{`, then some comma-separated numbers, then a closing `}` </br> ![List syntax](images/clipboard-779827820.png)
+:::
+
+## Functions
+
+-   PQM has 700+ functions
+-   some can be used directly on values
+
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Task
+
+-   update your hello world to `= Text.Lower("Hello world")` in the formula bar
+:::
+
+## Warning
+
+-   PQM is case-sensitive, unlike basically all the other Microsoft formula languages: ![PQM is case-sensitive](images/clipboard-376022155.png)
+
+## Query steps
+
+-   you can add query steps using the Add Step ($fx$) button: </br>![Add Step](images/clipboard-932557527.png)
+
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Task
+
+-   Add a step, and insert the formula `= Text.Proper(Source)` </br> ![Capitalised output](images/clipboard-3853673537.png)
+:::
+
+
+
+-   `Source` in the formula is the name of your first step
+-   That should create a new step named `Custom1`
+
+## Advanced editor
+
+-   you can do more interesting work in PQM using the Advanced Editor </br> ![Advanced Editor](images/clipboard-3778934641.png)
+
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Task
+
+-   please open the `Advanced Editor` now </br>![Advanced Editor view](images/clipboard-1473577876.png)
+:::
+
+## Advanced editor
+
+-   the advanced editor should contain your two query steps:
+
+
+
+```         
+let
+    Source = Text.Lower("Hello world!"),
+    Custom1 = Text.Proper(Source)
+in
+    Custom1
+```
+
+## `let`/`in`
+
+-   let statements are the basic structural building-block of PQM
+-   the `let` part contains a series of steps
+-   the `in` part returns the result of those steps
+
+## `let`
+
+-   each line of the `let` has a step name, and an expression:
+    -   `name = expression`
+-   each expression (apart from the source) refers to a previous step
+-   in our example, we make a step named `Source`, which contains our lowercase `"hello world"`
+-   we then pass it to a second step named `Custom1` where we transform it into Proper Case
+
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Task
+
+-   rename the second step to `proper_case`
+:::
+
+## `in`
+
+-   the `in` section is where we return a result from our query
+-   you'll need to match the name in `in` to the correct stage of your query - almost always the last value
+
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Task
+
+-   update line 5 (after the `in`) to use your new name for `Custom1`
+-   then select `Done` to return to Power Query - you should see your new step name in the `Applied Steps` menu</br> ![Applied Steps menu](images/clipboard-3154301732.png)
+:::
+
+## Query steps
+
+-   we can use the Advanced Editor to change the sequence of query steps
+
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Task
+
+-   open the advanced editor
+
+-   break down your source step into two steps:
+
+    1.  a `Source` step, where we input the "Hello world" primitive value
+    2.  a `lower_case` step, where we use the `Text.Lower` function on `Source`
+
+-   make sure your lines end with `,` (except the final line of `let` and `in`)
+
+-   make sure your names link up correctly, and then apply the changes.
+- you should see the change in your `Applied Steps` pane
+:::
+
+## Query steps
+
+-   your query should now read: </br>![Advanced editor view](images/clipboard-1882963271.png)\
+-   those names should be reflected in the query steps view: </br>![Applied steps with new step names](images/clipboard-4012119365.png)\
+
+## Nested let
+
+-   we could re-arrange our expression to use nested `let`s
+-   this is helpful when things grow more complex
+
+
+
+```         
+let 
+    lower_case = 
+        let 
+            Source = "Hello world!"
+        in 
+            Text.Lower(Source), 
+            proper_case = Text.Proper(lower_case)
+in 
+    proper_case
+```
+
+## Defining functions
+
+-   we can define functions of our own
+-   let's make one now that prints "Hello world!" for us
+
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Task
+
+-   make a new blank query and open it in the advanced editor populate with the code below
+:::
+
+
+
+```         
+let
+    hw = () => "Hello world!"
+in
+    hw
+```
++ `hw` here is an ordinary step name
++ `()` will contain our parameters
++ `=>` defines this as containing a function
+
+## Naming functions
+
+- that creates a new function
+- note that the function name will correspond with our query name (it's not the step name): </br>![Function named query 2](images/clipboard-820927735.png)
+-   we could use that function as-is: </br>![Default query naming](images/clipboard-1548123534.png)
+-   but properly-named functions are much more useful: do that by renaming the query as a whole to `hw`
+
+## Using functions
+
+-   functions defined in this way are global: we can use them in any other query
+    - so `hw()` will work in Query1 to generate our `Hello world!` text: `Source = hw()`
+    -   the order of queries (Query1, Query2, etc) doesn't affect function definitions and use
+-   but within a query, you'll need to define a function before you can use it
+
+## Defining functions within queries
+
+```         
+let 
+    hw2 = () => "Hello world!",
+    Source = hw2(),
+    lower_case = Text.Lower(Source),
+    proper_case = Text.Proper(lower_case)
+in 
+    proper_case
+```
+
+
+
+-   `hw2()` has local scope: you can't use it in other queries
+
+## Add a parameter
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+-   make a new blank query and name it `lower_proper`
+-   in the formula bar, define the function `= (x) => Text.Proper(Text.Lower(x))`
+-   check the parameter option that should appear below the formula bar: </br> ![Parameter options](images/clipboard-2873238028.png)
+:::
+
+## Re-edit your original query
+
+-   to use `lower_proper` instead of `Text.Lower` etc
+
+```         
+let
+    Source = hw(),
+    proper_case = lower_proper(Source)
+in 
+    proper_case
+```
+
+## Bonus: types
+
+-   you can [specify types](https://learn.microsoft.com/en-us/powerquery-m/m-spec-types) in your function:
+
+`= (x as text) as text => Text.Proper(Text.Lower(x))`
+
+## Resources
+
+-   an [especially-helpful introduction to PQM](https://bengribaudo.com/blog/2017/11/17/4107/power-query-m-primer-part1-introduction-simple-expressions-let)
