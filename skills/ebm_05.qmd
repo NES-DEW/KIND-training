@@ -4,8 +4,6 @@ date: 2024-09-09
 execute: 
   echo: false
   eval: true
-  freeze: auto
-  output: "markup"
 categories: [skills, beginner, evidence-based medicine, critical appraisal, clinical trials]
 bibliography: src/references.bib
 editor_options: 
@@ -33,6 +31,8 @@ editor_options:
 
 # systematic review
 
+
+
 ## E1: the logo
 
 ::: {.callout-tip title="Task"}
@@ -47,29 +47,21 @@ editor_options:
 
 ## Cochrane story
 
-```{r}
-#| echo: false
-#| true: true
-#| message: false
 
-library(rmeta)
-data(cochrane)
+```{r}
+cochrane <- tibble::tribble(
+  ~name, ~ev.trt, ~n.trt, ~ev.ctrl, ~n.ctrl,
+  "Auckland",     36L,   532L,      60L,    538L,
+  "Block",      1L,    69L,       5L,     61L,
+  "Doran",      4L,    81L,      11L,     63L,
+  "Gamsu",     14L,   131L,      20L,    137L,
+  "Morrison",      3L,    67L,       7L,     59L,
+  "Papageorgiou",      1L,    71L,       7L,     75L,
+  "Tauesch",      8L,    56L,      10L,     71L
+) 
 
 cochrane |>
   knitr::kable(caption = "Data from randomised trials before 1980 of corticosteroid therapy in premature labour and its effect on neonatal death.", col.names=c("Identifier", "Deaths (Treatment)", "n (Treatment)", "Deaths (Control)", "n (Control)" ))
-```
-
-## Cochrane story
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-
-steroid <- meta.MH(n.trt, n.ctrl, ev.trt, ev.ctrl,
-                   names=name, data=cochrane)
-plot(steroid, col=meta.colors("RoyalBlue"))
-
 ```
 
 ## Forest plots
@@ -83,9 +75,9 @@ plot(steroid, col=meta.colors("RoyalBlue"))
 #| eval: true
 #| message: false
 
-steroid <- meta.MH(n.trt, n.ctrl, ev.trt, ev.ctrl,
+steroid <- rmeta::meta.MH(n.trt, n.ctrl, ev.trt, ev.ctrl,
                    names=name, data=cochrane)
-plot(steroid, col=meta.colors("RoyalBlue"))
+plot(steroid, col = rmeta::meta.colors("RoyalBlue"))
 
 ```
 ::::
@@ -112,7 +104,6 @@ plot(steroid, col=meta.colors("RoyalBlue"))
 ::::
 
 :::
-
 
 
 ## E2: from 1982 to 2020

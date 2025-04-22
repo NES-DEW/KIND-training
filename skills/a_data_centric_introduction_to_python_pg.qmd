@@ -7,6 +7,8 @@ execute:
   freeze: true
 bibliography: references.bib
 categories: [python, beginner]
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -22,6 +24,12 @@ feed_block("A data-centric introduction to Python")
 ```
 
 
+```{r}
+#| include: false
+
+# this one falls over all the time - make sure you've run reticulate::install_miniconda()
+```
+
 
 
 
@@ -34,6 +42,7 @@ R sections, and the tabsets were added, and the document was then knitted using 
 ```{r}
 #| echo: true
 library(reticulate)
+
 ```
 
 ```{r}
@@ -44,7 +53,12 @@ if (.Platform$OS.type != "windows") {
 } else {
   reticulate::use_python("C:/Users/brendancl/AppData/Local/r-miniconda/envs/r-reticulate/python.exe")
 }
+# py_install("matplotlib")
 
+py_require("pandas")
+py_require("matplotlib")
+pandas <- import("pandas")
+matplotlib <- import("matplotlib")
 ```
 
 # A data-centric introduction to Python
@@ -198,6 +212,7 @@ botw = read_csv(botw_dat)
 
 # one minor bit of cheating - we'll coerce the Year column to numeric
 botw = botw.replace("1979 (1935)", 1979)
+botw = botw.replace("2015 / 2017", 2015)
 botw["Year"] = pandas.to_numeric(botw["Year"])
 ```
 
