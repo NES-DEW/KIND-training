@@ -31,11 +31,11 @@ feed_block("References and names in Excel")
 
 ## Some sample data
 
-| user   | DoB        | visit_date | service     |
-|--------|------------|------------|-------------|
-| Steve  | 12/11/1984 | 26/04/2024 | podiatry    |
-| Emma   | 05/06/1999 | 24/05/2024 | respiratory |
-| Bhavin | 11/04/1976 | 23/04/2024 | dietetics   |
+| user   | pre-training score  | post-training score  | session |
+|--------|---------------------|----------------------|---------|
+| Steve  | 4                   | 6                    | Excel 1 |
+| Emma   | 7                   | 6                    | Excel 2 |
+| Bhavin | 3                   | 9                    | Excel 1 |
 
 ## References
 
@@ -62,8 +62,8 @@ feed_block("References and names in Excel")
 ## References in formulas
 
 -   we use references to allow us to pass data around our spreadsheet
--   an example: how long ago was the service visit?
--   calculate the number of days since the last visit with `= C3 - TODAY()`
+- an example: how much did Emma's score improve during the session?
+-  calculate this with `= C3 - C2`
 
 ## References move
 
@@ -89,25 +89,24 @@ feed_block("References and names in Excel")
 
 ## Using a reference
 
--   we can write a formula that copies the value from C3 into another cell
+-   we can write a formula that copies the value from `C3` into another cell
 
 ::: {.callout-tip appearance="default" icon="true"}
 -   go to an empty cell, type `= C3`, and press `Enter/⏎`
--   that cell should now have Emma's visit date (or whatever value you referenced)
+-   that cell should now have Emma's post-training score (or whatever value you referenced)
 :::
 
 ## References in formulas
 
--   how long ago was the service visit?
+-   how much did people improve during the training session?
 
 ::: {.callout-tip appearance="default" icon="true"}
 ## Task
 
--   add a new column called last_visit
--   in cell `E2`, add the following formula: `= TODAY() - C2`
-    -   that calculates the number of days since the last visit
-    -   you may need to correct the formatting </br> ![correct the formatting if needed](images/clipboard-2200716982.png){height="200"}
--   then copy/fill down
+-   add a new column called `improvement`
+-   in the first row of that column, add the formula: `= C2 - B2`
+    -   that calculates the post-training score minus the pre-training score</br> ![](images/clipboard-2200716982.png){height="200"}
+- then copy/fill down
 :::
 
 ## References move
@@ -115,8 +114,8 @@ feed_block("References and names in Excel")
 ::: {.callout-tip appearance="default" icon="true"}
 ## Task
 
--   try copying your new block of last_visit cells around your sheet
--   their value should change
+-   try copying your new block of `improvement` cells around your sheet
+-   their value should change (almost certainly to a `#VALUE` error)
 -   now try clicking those cells to see where the updated reference points to </br> ![where does the updated reference point to?](images/clipboard-754991469.png)
 :::
 
@@ -138,12 +137,11 @@ feed_block("References and names in Excel")
 ::: {.callout-tip appearance="default" icon="true"}
 ## Task
 
--   let's average the last_visit column
--   in a new cell (`G2` perhaps?) add this formula:
-    -   `=AVERAGE(E2, E3, E4)`
--   now name that new cell `av_length` and try using it in a formula
-    -   `= INT(av_length)` would round that to the nearest day
-    -   `= E2 / av_length` would give you the percentage of average
+-   let's average the `post-training score` column
+-   in a new cell (`C5` perhaps?) add this formula:
+    -   `=AVERAGE(C2, C3, C4)`
+-   now name that new cell `av_score` and try using it in a formula
+    -   `= INT(av_length)` would round that to the nearest whole number
 :::
 
 ## You can manage those names
@@ -152,7 +150,7 @@ feed_block("References and names in Excel")
 ## Task
 
 -   find the **Name manager** (or press `Ctrl` + `F3`) </br> ![Name manager](images/clipboard-3382288451.png)
--   try renaming your `av_length` cell
--   try making a new named **range** from your three `last_visit` cells
+-   try renaming your `av_score` cell
+-   try making a new named **range** from your three `pre-training score` cells
 -   try using the `F5` Go to interface to navigate between your named cells
 :::
