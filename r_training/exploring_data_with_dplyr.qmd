@@ -1,0 +1,204 @@
+---
+title: Exploring data with dplyr
+date: 2025-05-19
+execute: 
+  echo: true
+  output: "markup"
+  freeze: auto
+categories: [R, intermediate]
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Exploring data with dplyr")
+
+```
+
+
+## Session outline
+
+This session is an 🌶🌶 **intermediate practical** designed for those with some R experience. The aim of this session is to do three things with dplyr:
+
++ build your fluency with basic dplyr functionality
++ show some of the similarities of approach across the package, again to help you master the syntax
++ learn some of the more advanced functions to harness the power available beneath the surface
+
+You might also like some of the other dplyr-themed practical sessions:
+* r_training/dplyr_group_summarise.qmd
+
+## A starting-point
+
+You should have at least some previous experience working with dplyr before starting this training. Specifically, you should be familiar with at least:
+
++ `select()`, to select columns from data
++ `filter()`, to select rows from data
++ `mutate()`, to make new columns from existing columns
+
+## Investigating data
+
+We'll start with four functions that are especially useful when you're investigating new data - `slice()`, `glimpse()`, `rename()` and `relocate()`
+
+Package loading as follows:
+
+```{r}
+library(NHSRdatasets)
+library(dplyr)
+```
+
+
+### `slice()`
+
++ [slice() manual page](https://dplyr.tidyverse.org/reference/slice.html)
+
+At its simplest, `slice()` is an alternative to head:
+```{r }
+ae_attendances |> 
+  slice(1:6)
+```
+
+The number supplied to `slice()` returns that row - so `slice(3)` shows the third row. You can also provide a sequence or vector of rows:
+
+```{r }
+ae_attendances |> 
+  slice(1:3)
+
+ae_attendances |> 
+  slice(2,5,918)
+```
+
+More interestingly, you can `group_by()`, then slice, to see the first row of each group. Here, the data is filtered, grouped by org_code, then we slice the top row of each group:
+
+```{r}
+ae_attendances |>
+  filter(attendances >= 22000) |>
+  group_by(org_code) |>
+  slice(1)
+```
+
+(we'll explore `group_by()` later in the session, so don't worry if this is new to you)
+
+The `slice_min()` and `slice_max()` functions are also useful, giving you something like an integrated `arrange()` for looking at slices of the data:
+
+```{r}
+ae_attendances |>
+  filter(type == "1") |>
+  slice_max(breaches, n=1)
+
+
+# equivalent to
+ae_attendances |>
+  arrange(desc(breaches)) |>
+  slice(1)
+
+```
+(note that you need to explicitly name the number of rows you want using `n=...`)
+
+`slice_min()` and `slice_max()` are particularly useful for groups:
+
+```{r}
+ae_attendances |>
+  filter(type == "1") |>
+  group_by(org_code) |>
+  slice_max(breaches, n=1) 
+```
+
+`slice_sample()` gives a random sampling of the data.
+```{r}
+ae_attendances |>
+  slice_sample(n=6) 
+```
+
+There are also `slice_head()` and `slice_tail()` functions which work in the same way.
+
+Final tip - slice with a negative index can be used as like `filter()` to remove the specified row(s):
+```{r}
+# returns the last 5 rows only
+ae_attendances |> 
+  slice(-1:-12760)
+```
+
+### `glimpse()`
+
++ [glimpse() manual page](https://dplyr.tidyverse.org/reference/glimpse.html)
+
+`glimpse()` is a data viewing function similar to `print()`, except it transposes the data so that each column is displayed as a row. This is particularly useful for wide data with many columns, especially when you are interested in checking the class (date, character, etc.) of your columns.
+
+```{r}
+synthetic_news_data |> 
+  glimpse() 
+```
+
+Note the useful dimension information in the first two lines, and the class information in angle brackets. Okay, so there are lots of similar ways of displaying the same information, but `glimpse()` is nice and concise both to write and to read. Compare a couple of base r (or purrr) near-equivalents, which are especially messy when the data is quite wide:
+
+```{r}
+synthetic_news_data |> 
+  purrr::map_df(class)
+
+# equivalent in base R
+lapply(synthetic_news_data, class)
+```
+
+`glimpse()` plays nicely with the pipe, meaning that it's potentially useful while you're working on a complicated data transformation. If you have lots of stages piped together, you can insert `glimpse()` in periodically to check that each stage of your transformation is working as expected:
+
+```{r}
+synthetic_news_data |> 
+  glimpse() |>
+  filter(age == 71 & male == 0) |>
+  glimpse() |>
+  mutate(pulse_pres = syst-dias) |>
+  glimpse()
+
+```
+
+
+### `rename()` (and `rename_with()`)
+
++ [rename() manual page](https://dplyr.tidyverse.org/reference/rename.html)
+
+`rename()` renames columns. Like `mutate()`, the general syntax for `rename()` is *new name* = *old name*.
+
+```{r}
+LOS_model |>
+  rename(age = Age) 
+```
+
+There's not much more to say about the basic `rename()` function beyond that. However, the scoped variants, `rename_with()` and `rename_all()` provide some useful additional tools. For example, we can use `tolower()` - which converts strings to all lower-case - to rename multiple columns at once:
+
+```{r}
+LOS_model |> 
+  rename_with(tolower) 
+```
+`rename()` works well with [tidyselect operators](r_training/tidyselect.qmd) too, as we discuss in that session.
+
+### `relocate()`
+
++ [relocate() manual page](https://dplyr.tidyverse.org/reference/relocate.html)
+
+`relocate()` re-arranges the order of columns:
+
+```{r}
+LOS_model 
+```
+
+`relocate()`'s default behaviour is to move specified columns to the far left:
+```{r}
+LOS_model |>
+  relocate(LOS) 
+```
+
+You can specify `.before` and `.after` if you need finer control over where your column ends up:
+
+```{r}
+LOS_model |>
+  relocate(LOS, .after=Death)
+
+LOS_model |>
+  relocate(Death, .before=last_col()) # little bit of tidyselect
+```
+

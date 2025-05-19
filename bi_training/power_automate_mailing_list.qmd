@@ -1,0 +1,157 @@
+---
+title: Mailing lists in Power Automate
+date: "2025-02-10"
+execute: 
+  echo: false
+  output: true
+  freeze: false
+categories: [skills, beginner, Power Automate]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Mailing lists in Power Automate")
+
+```
+
+
+## Aim
+
+-   build a simple mailing list:
+    -   based on Microsoft Lists
+    -   with subscribe/unsubscribe forms built in Forms
+    -   so that we can subscribe/unsubscribe/send out a mailshot via Power Automate
+- we'll give you some practical Power Automate experience
+- and identify some common pain-points
+
+## General principles
+
+-   work incrementally
+-   keep names simple (form/list/flow names are all cake xxxx, variables are single-word, lowercase...)
+-   understand the way that Lists understands names
+-   test and check and test and check and test...
+
+## Setup
+-   make an Excel table
+    -   `name`, `email`, `subscribed`, `cake`
+-   make a new List by uploading that Excel table
+![Uploading that Excel table](images/clipboard-458313672.png){height="200"}
+- check the data types
+- beware the `Title` column. That's roughly an index: we'll use `Title` to hold our email addresses (as we'll check membership etc by email)
+
+## Tweak your list
+- now add `subscribed` / `not_subscribed` choices to your `subscribed` column
+
+:::: {.columns}
+
+::: {.column width='60%'}
+![Column settings](images/clipboard-682077029.png)
+:::
+
+::: {.column width='40%'}
+![Edit column to populate values](images/clipboard-4138328983.png){height="400"}
+:::
+
+::::
+
+## Make two forms
+
+-   make a new Form for subscriptions </br> ![Form for subscriptions](images/clipboard-1101827132.png){height="300"}
+- make a second, unsubscribe, form with email alone
+- note about form ID: the right way to identify your Forms </br>![Form ID is the second-half of the URL](images/clipboard-321062008.png)
+
+## Subscription flow
+
++ select `Build an automated flow` </br> 
+![Build an automated flow](images/clipboard-3021700734.png){height="400"}
+
+## Link the flow trigger to your form
+
++ your new flow should be populated with a response block</br> ![response block](images/clipboard-3445989790.png)
++ use the form ID of the subscription form as a custom value in the `Form ID` field </br> ![Form response details](images/clipboard-1083881180.png)
++ that will leave Power Automate 'watching' your subscription form
+
+## Then retrieve the form response details
+
++ Add a `Get response details` block </br> ![Get response details](images/clipboard-2001060265.png)
++ then populate as per the previous step. This retrieves the relevant information from your subscription form
+
+
+## Create a new List Item
+
++ now we'll pass the form information to Lists
++ Create a `Create item` block </br> ![Create item details](images/clipboard-2627922703.png){height="200"}
++ you'll need your List address </br> ![List address](images/clipboard-3730094754.png)
++ now test - it should create a blank List item when you submit something into the form
+
+## Populate specific values
+
++ now we map the Form fields to the columns in our List </br>![Map form values to List](images/clipboard-3328577167.png)
++ the test now should be more interesting. Ensure that everything is being sent to the right column
+
+## Unsubscribe
+
+-   create a new Flow, with same two response blocks as previously
+- make sure those link to your unsubscribe form
+- then add additional blocks: `Get Items` and `Update item` </br>![Flow outline](images/clipboard-3343962300.png){height="400"}
+
+## Update item
++ start with your `Update item` block as follows: </br>![Update item block](images/clipboard-1706688066.png)
+
+## Update item fails??
++ I'd expect that to fail...</br>![](images/clipboard-2790792965.png)
+
+## A digression: List names
++ Lists stores column names in an aggravating way:
+  + there's the **Name**, which is the name you see in the column header
+  + but there's also the **Field name**, which is the proper-actual-real name of the column, as far as Lists is concerned
+    + I *think* field names are immutable, so this bad design is probably a kludge to let people rename columns
++ your email column doesn't work because we need to use the **Field name**
+
+## Fixing the field name
++ find the field name in Lists from `Settings > List Settings`</br>![List settings](images/clipboard-4210686253.png)
++ then click on the column name </br>![Column name](images/clipboard-2975047667.png)
++ the end of the URL should give the proper field name </br>![Field name](images/clipboard-510100321.png)
+
+## Mail flow
+
++ After that digression, the actual mailing flow is easy
++ new instant cloud flow triggered by a button </br>
+![instant cloud flow](images/clipboard-4189344858.png){height="150"}
+
++ `Get items` from your list with a filter for subscribed - something like `field_3 eq 'subscribed'`</br>![Get items](images/clipboard-3848599611.png){height="250"}
+
+## Compose a message
+
++ there are several different email blocks you can try: </br>
+![Send an email notification](images/clipboard-69801691.png)
+
+## Test and check
+![Received email](images/clipboard-693156259.png)
+
+## Bonus ball: prevent redundancy
+
++ you can tweak your subscription flow to allow people to update their details and re-subscribe via the subscription form</br>![Overall flow design](images/clipboard-3920161095.png){height="400"}
+
+## Get matching items
++ on your subscription form, add a `Get Items` with a filter</br>![Filter items](images/clipboard-3888348706.png)
+
+## Control flow via number of matching items
++ next, add a `Condition` testing the length of the body from the matching items step</br>![](images/clipboard-2735982208.png)
+
+## Create item is as before
++ Create item (when the length = 0): </br>![Create item](images/clipboard-277926594.png)
+
+## Update item
++ Similar idea. The minimal version is just to change the subscribed status: </br>![Change subscribed status](images/clipboard-3259295345.png)
++ You could also add name, cake fields etc if you were keen
+
+## Thanks
++ many thanks to Maria Botha-Lopez (NES) who patiently taught me how to do this when I was new to Power Automate

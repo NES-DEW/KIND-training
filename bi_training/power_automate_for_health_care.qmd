@@ -1,0 +1,121 @@
+---
+title: Scope of the possible with Power Automate
+date: "2025-03-07"
+execute: 
+  echo: false
+  output: true
+  freeze: false
+categories: [skills, beginner, Power Automate]
+---
+
+```{r}
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Power Automate for health and care")
+
+```
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+-   [all materials {{< iconify ph:file-zip size=2x >}}](src/power_automate.zip)
+-   slides [{{< iconify ph:file-html size=2x >}} html](src/power_automate.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/power_automate.pdf)
+- sample data [{{< iconify ph:file-xls size=2x >}}.xlsx](src/Falkirk Council Asset Register.xlsx)
+
+:::
+
+
+
+
+
+## Introduction
+
+-   this session is 🌶 - for beginners
+- it's designed as a demonstration session to show what Power Automate might be used to achieve, and how it works
+
+## Session outline
+
+-   a warning
+-   an introduction
+-   scope of the possible
+-   three example tasks
+-   free play
+
+## A word of warning
+
+::: {.callout-warning collapse="false" appearance="default" icon="true"}
+## Warning
+
+Do not use Power Automate for anything unless you're absolutely sure that your organisational policies permit it
+:::
+
+-   many boards and orgs have serious information governance and information security objections to Power Automate
+    -   automation tools are an excellent way to break your data
+    -   they're also an excellent way to compromise its integrity/security
+    -   especially true if you're thinking about automating processes with sensitive information
+    -   if in any doubt, speak to your IG/Caldicott/information security colleagues before setting to work
+
+## Quick introduction to Power Automate
+
+-   [Power Automate](https://en.wikipedia.org/wiki/Microsoft_Power_Automate) is a set of low-code automation tools
+-   allows users to automate tasks
+-   lots of options
+    -   [web](https:://www.powerautomate.com) and [desktop versions](https://learn.microsoft.com/en-us/power-automate/desktop-flows/install)
+    -   several [different subscription levels](https://www.microsoft.com/en-us/power-platform/products/power-automate/#Pricing)
+    -   hundreds of add-ons
+
+## Scope of the possible
+
+-   Power Automate is an extremely useful tool for H&SC
+-   but you should be aware of some complicating factors for people like us:
+    -   [massive and confusing](https://make.powerautomate.com/environments/Default-10efe0bd-a030-4bca-809c-b5e6745e499a/templates) range of different templates and use-cases, often with a business-focus
+    -   a thick layer of promotional AI talk over everything at present (late 2024)
+    -   unexpected cost/IG barriers to using parts of the platform
+    -   glitchy, and often requiring more coding skills than you might expect
+    -   [generally shockingly poor documentation](https://learn.microsoft.com/en-us/power-automate/)
+
+## This session = honest, application-focused, introduction
+
+-   we'll build three example flows that will:
+    1.  take an Excel workbook, extract some parts of it, and save as a new Excel file
+    2.  turn a response to Microsoft Forms into a Teams post
+    3.  turn an Excel workbook into a simple mailing list
+
+## Subset an Excel file
+
+-   you'll need a sample data file - I used [this open data about council assets from Falkirk](https://opendata.scot/datasets/falkirk+council-council+asset+register+-+falkirk/)
+-   I converted the data to a table, then saved the workbook to OneDrive
+-   `New flow > Instant cloud flow` </br>![Instant cloud flow](images/clipboard-1863368884.png)
+-   `Manually trigger a flow` </br>![Manually trigger a flow](images/clipboard-2098982554.png)
+-   Add a step </br>![Add a step](images/clipboard-186036160.png)
+-   `Excel online > List rows present in a table` and populate</br> ![List rows present in a table](images/clipboard-523258398.png)
+-   there are several ways we could subset the data</br> ![subset the data](images/clipboard-909526396.png)
+-   we'll demonstrate by taking the first 20 rows</br> ![take the first 20 rows](images/clipboard-3113671612.png)
+-   `Create csv table` </br> ![Create csv table](images/clipboard-1492307871.png)
+-   `Create file` </br>![Create file](images/clipboard-3364586860.png)\
+
+## Microsoft Forms to Teams
+
+-   here's an overview</br>![](images/clipboard-3171169259.png)
+-   create a simple form (ours is at <https://forms.office.com/e/8Zds2aTS5c>)</br>![create a simple form](images/clipboard-2678316851.png)
+-   grab the form id </br>![grab the form id](images/clipboard-3599278669.png)
+-   create an `Build an automated cloud flow` - </br>![Build an automated cloud flow](images/clipboard-3500499466.png)
+-   Enter your form ID </br>![Enter your form ID](images/clipboard-977889460.png)(veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMU9LWURaUUhUT0xYOUtNQVY1UFpURTQ1Vi4u)
+-   `Get response details` </br>![Get response details](images/clipboard-1023983558.png)
+-   Populate with the form and step details </br>![Populate with the form and step details](images/clipboard-3695518768.png)
+-   `Post message in a chat or channel` </br>![Post message in a chat or channel](images/clipboard-3431396843.png)
+
+## Excel workbook to mailing list
+
+-   here's an overview </br>![overview](images/clipboard-985184515.png)
+-   start with a simple .xlsx. Again, that will need to be on Sharepoint or Onedrive </br>![start with a simple .xlsx](images/clipboard-719218061.png)
+-   `List rows present in a table` </br>![Add a List rows present in a table](images/clipboard-2050216422.png)
+-   `Apply to each` </br>![Apply to each](images/clipboard-1086607329.png)
+-   `Send an email notification (V3)` nested inside the `Apply to each`</br>![Nest your email notification inside an apply to each](images/clipboard-708934752.png)
+-   add the expression `items('For_each')?['email']` ![add the expression `items('For_each')?['email']`](images/clipboard-4251490288.png)
+-   enjoy the result</br>![Many emails result](images/clipboard-1453222920.png)

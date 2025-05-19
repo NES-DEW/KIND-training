@@ -1,0 +1,143 @@
+---
+title: "Scope of the possible with PowerQuery"
+date: "2025-05-19"
+execute: 
+  echo: true
+  freeze: auto
+categories: [Power BI, beginner, PowerQuery]
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Scope of the possible with PowerQuery")
+
+```
+
+## Session outline
+
+-   data wrangling
+-   what's Power Query, and why this session?
+-   strengths and weaknesses
+-   skill development
+
+## Data wrangling
+
+-   data wrangling = the work required to get data in the right shape for analysis
+-   often manual and repetitious
+-   e.g. some staff spend 90% of their time doing the same Excel work
+-   this is **almost certainly** the result of poor practices, rather than the tech
+-   (unsolicited advice): we are far too accepting of that drudgery
+
+## The golden rule {auto-animate="true"}
+
+Don't repeat yourself
+
+## Power Query
+
+-   specialist data wrangling toolkit
+-   allows you to automate data wrangling
+-   available in Excel from c.2013
+    -   add-ins from Excel 2010/3
+    -   built-in from Excel 2016
+-   also found in Power BI (and some of the Microsoft SQL products)
+
+## Why this session?
+
+-   (opinion) PQ is criminally under-used
+-   if you're repeating yourself in Excel, consider doing it in PQ
+-   benefits beyond automation
+
+## Workflow
+
+-   load data into PQ from many sources:
+-   tables, spreadsheets, CSV, SQL, ...
+-   process that data by building a **transformation pipeline**
+-   return your data to Excel
+-   potentially, run that same pipeline again when the source data changes
+
+## Sample data
+
+-   some Excel tables
+-   [GP practice data](https://www.opendata.nhs.scot/dataset/f23655c3-6e23-4103-a511-a80d998adb90/resource/f3633113-9768-4676-8ed1-6695fe385bbe/download/practice_contactdetails_apr2025.csv)
+-   [Open Annual inpatient/daycase data](https://www.opendata.nhs.scot/dataset/9e032286-e5bf-4eb0-837d-c0a05fe0d839/resource/32058e0a-0107-4035-891c-5c6a8571415a/download/inpatient_and_day_case_by_council_area_age_sex.csv)
+
+## Demo workthrough
+
+We'll explore Power Query with a basic demonstration during the session. While not all of that will translate neatly to this sort of written format, I'll include an outline of part of the demo below to give you an overview of what to expect.
+
+We have two tables in Excel
+
+![Excel tables](images/clipboard-1663435808.png)
+
+Each can be loading into Power Query using `Get & Transform Data > From Table/Range`
+
+![Get & Transform Data > From Table/Range](images/clipboard-3019786035.png)
+
+Loading data into Power Query is one-way, and creates a copy of the Excel table
+
+![Copy of Excel data in Power Query](images/clipboard-193204746.png)
+
+That copy can be modified - in this case, by renaming the column
+
+![Renamed column](images/clipboard-4108057861.png)
+
+When suitably modified, the data can be passed back to Excel by clicking `Close & Load`
+
+![Close & Load button](images/clipboard-2406898774.png)
+
+That will create a new table in a new worksheet that comes from Power Query (hence the green colour palette):
+
+![Preview of PQ data in Excel](images/clipboard-671162869.png)
+
+## Merging data
+
+We can also create new datasets. Start with the two queries containing our pair of Excel tables:
+
+![Two queries in Power Query](images/clipboard-1716933876.png)
+
+Select `Merge Queries as New`
+
+![Merge Queries as New](images/clipboard-1931505846.png)
+
+Then select the two datasets, and the corresponding name columns. Power Query will merge these - so find matching names from `dataset_1` in `dataset_2`, and where it finds a match bringing that data together.
+
+![Select columns to merge on](images/clipboard-1662551278.png)
+
+That returns a nested table that can be expanded (click the two arrow button):
+
+![Nested table](images/clipboard-1459452110.png)
+
+Select the columns you'd like to retain:
+
+![Select columns to expand](images/clipboard-4061421800.png)
+
+And see the merged data:
+
+![Merged data preview](images/clipboard-266258524.png)
+
+Optionally, you can also replace those *null* values to something more friendly:
+
+![Replacing values in the data](images/clipboard-1729895180.png)
+
+There are lots of options for this, but *null* is a nice simple one: just replace the word:
+
+![Replacing null example](images/clipboard-76846011.png)
+
+## Strengths
+
+-   flexible: do almost anything to your data
+-   reproducible: do the same operations over many files
+-   powerful: has advanced tools for reshaping data
+
+## Weaknesses
+
+-   harder to learn than Excel
+-   requires some thought and set-up
+-   poor documentation
+-   bafflingly small user-base
