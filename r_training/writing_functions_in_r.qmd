@@ -6,6 +6,8 @@ execute:
   output: "markup"
   freeze: auto
 categories: [R, intermediate]
+editor_options: 
+  chunk_output_type: console
 ---
 
 :::{.callout-note collapse=false appearance='default' icon=true}
@@ -20,7 +22,7 @@ categories: [R, intermediate]
 #| fig-align: left
 #| fig-height: 0.6
 #| fig-width: 3
-
+library(dplyr)
 source(here::here("R/feed_block.R"))
 feed_block("Writing functions in R")
 
@@ -37,7 +39,7 @@ feed_block("Writing functions in R")
 + adding arguments
 + vectorised functions
 + the mystery of the paired brackets
-+ ...
++ anonymous functions
 
 ## Why functions?
 
@@ -219,6 +221,40 @@ dotty <- function(n, ...){
 
 dotty(4, letters[1:5])
 
+```
+
+## Anonymous functions
+
+In some cases, you might find yourself creating a function that's only going to be used in a single location. In that case, it's possible to define a nameless (anonymous) function, which is concise-but-nasty. For example:
+
+```{r}
+(\(x) x * 2)(5)
+```
+
+Here:
+
++ `\(x)` defines an anonymous function that takes one argument `x`.
++ `x * 2` is the body of the function which determines how the function works
++ `(5)` is the value that we're supplying to the function
+
+Most usually, that anonymous function won't be used with a single value, but within a pipe. Here, the supplied value is dropped, and substituted by the values passing along the pipe:
+
+```{r}
+mtcars |>
+  select(wt) |>
+  (\(x) x * 2)() |> # Double the weight of all the values
+  slice_max(wt, n = 3)
+```
+
+### Anonymous functions and the magrittr pipe
+
+The magrittr pipe (`%>%`) has an older, and simple, method of writing anonymous formulas using the `.` placeholder:
+  
+```{r eval=F}
+mtcars %>%
+  select(wt) %>%
+  { . * 2 } %>% # Double the weight of all the values
+  slice_max(wt, n = 3)
 ```
 
 
