@@ -363,6 +363,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#glimpse" id="toc-glimpse" class="nav-link" data-scroll-target="#glimpse"><code>glimpse()</code></a></li>
   <li><a href="#rename-and-rename_with" id="toc-rename-and-rename_with" class="nav-link" data-scroll-target="#rename-and-rename_with"><code>rename()</code> (and <code>rename_with()</code>)</a></li>
   <li><a href="#relocate" id="toc-relocate" class="nav-link" data-scroll-target="#relocate"><code>relocate()</code></a></li>
+  <li><a href="#case_when" id="toc-case_when" class="nav-link" data-scroll-target="#case_when"><code>case_when()</code></a></li>
+  <li><a href="#case_match" id="toc-case_match" class="nav-link" data-scroll-target="#case_match"><code>case_match()</code></a></li>
+  <li><a href="#consecutive_id" id="toc-consecutive_id" class="nav-link" data-scroll-target="#consecutive_id"><code>consecutive_id()</code></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -415,7 +418,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>show some of the similarities of approach across the package, again to help you master the syntax</li>
 <li>learn some of the more advanced functions to harness the power available beneath the surface</li>
 </ul>
-<p>You might also like some of the other dplyr-themed practical sessions: * r_training/dplyr_group_summarise.qmd</p>
+<p>You might also like some of the other dplyr-themed practical sessions:</p>
+<ul>
+<li><a href="../r_training/dplyr_group_summarise.html">Summarising data with dplyr</a></li>
+<li><a href="../r_training/dplyr_joins.html">Joining data with dplyr</a></li>
+<li><a href="../r_training/tidyselect.html">Tidyselect</a></li>
+</ul>
 </section>
 <section id="a-starting-point" class="level2">
 <h2 class="anchored" data-anchor-id="a-starting-point">A starting-point</h2>
@@ -428,17 +436,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="investigating-data" class="level2">
 <h2 class="anchored" data-anchor-id="investigating-data">Investigating data</h2>
-<p>We’ll start with four functions that are especially useful when you’re investigating new data - <code>slice()</code>, <code>glimpse()</code>, <code>rename()</code> and <code>relocate()</code></p>
-<p>Package loading as follows:</p>
+<p>Dplyr is usually used as a toolkit for manipulating tidy data. This session concentrates on some lesser-used functions in the dplyr package that are especially useful earlier in the analysis lifecycle when exploring new data: <code>slice()</code>, <code>glimpse()</code>, <code>rename()</code>, <code>relocate()</code>, <code>case_when()</code>/<code>case_match()</code>, and <code>consecutive_id()</code></p>
+<p>ackage loading as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NHSRdatasets)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="slice" class="level3">
 <h3 class="anchored" data-anchor-id="slice"><code>slice()</code></h3>
-<ul>
-<li><a href="https://dplyr.tidyverse.org/reference/slice.html">slice() manual page</a></li>
-</ul>
+<p>Although we’ve got code linking on these pages, so that you can click function names and see the documentation, it’s definitely worth pointing you towards the <a href="https://dplyr.tidyverse.org/reference/slice.html">slice() manual page</a> - it’s clear and interesting.</p>
 <p>At its simplest, <code>slice()</code> is an alternative to head:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ae_attendances <span class="sc">|&gt;</span> </span>
@@ -551,12 +557,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 6 × 6
   period     org_code type  attendances breaches admissions
   &lt;date&gt;     &lt;fct&gt;    &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
-1 2018-12-01 RWW      other        2669       45          0
-2 2017-08-01 RNS      2            1060        2          0
-3 2017-08-01 RA7      1            8371      847       2640
-4 2017-04-01 AD913    other        4617        0          0
-5 2018-10-01 ATQ02    other        3220        0          0
-6 2017-06-01 RWP      1           10313     2824       3174</code></pre>
+1 2016-06-01 RK9      2             306        0          0
+2 2018-05-01 RFS      other        1704        0          0
+3 2019-01-01 RYJ      2            4081       12         11
+4 2017-02-01 RGR      1            5050      812       1860
+5 2017-12-01 RJL      other        1213        5          1
+6 2016-09-01 NJS05    other        3550       92          0</code></pre>
 </div>
 </div>
 <p>There are also <code>slice_head()</code> and <code>slice_tail()</code> functions which work in the same way.</p>
@@ -579,9 +585,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="glimpse" class="level3">
 <h3 class="anchored" data-anchor-id="glimpse"><code>glimpse()</code></h3>
-<ul>
-<li><a href="https://dplyr.tidyverse.org/reference/glimpse.html">glimpse() manual page</a></li>
-</ul>
 <p><code>glimpse()</code> is a data viewing function similar to <code>print()</code>, except it transposes the data so that each column is displayed as a row. This is particularly useful for wide data with many columns, especially when you are interested in checking the class (date, character, etc.) of your columns.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>synthetic_news_data <span class="sc">|&gt;</span> </span>
@@ -710,9 +713,6 @@ $ pulse_pres &lt;int&gt; 61, 47, 76, 47, 52, 50, 46, 48, 36, 59, 51</code></pre>
 </section>
 <section id="rename-and-rename_with" class="level3">
 <h3 class="anchored" data-anchor-id="rename-and-rename_with"><code>rename()</code> (and <code>rename_with()</code>)</h3>
-<ul>
-<li><a href="https://dplyr.tidyverse.org/reference/rename.html">rename() manual page</a></li>
-</ul>
 <p><code>rename()</code> renames columns. Like <code>mutate()</code>, the general syntax for <code>rename()</code> is <em>new name</em> = <em>old name</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>LOS_model <span class="sc">|&gt;</span></span>
@@ -759,9 +759,6 @@ $ pulse_pres &lt;int&gt; 61, 47, 76, 47, 52, 50, 46, 48, 36, 59, 51</code></pre>
 </section>
 <section id="relocate" class="level3">
 <h3 class="anchored" data-anchor-id="relocate"><code>relocate()</code></h3>
-<ul>
-<li><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate() manual page</a></li>
-</ul>
 <p><code>relocate()</code> re-arranges the order of columns:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>LOS_model </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -840,6 +837,199 @@ $ pulse_pres &lt;int&gt; 61, 47, 76, 47, 52, 50, 46, 48, 36, 59, 51</code></pre>
  9     9 Trust9          51     7     1
 10    10 Trust10         81     1     0
 # ℹ 290 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="case_when" class="level3">
+<h3 class="anchored" data-anchor-id="case_when"><code>case_when()</code></h3>
+<p>The ONS mortality data in NHSRdatasets has several categories</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>ons_mortality <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(category_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  category_1                                                                   n
+  &lt;chr&gt;                                                                    &lt;int&gt;
+1 All respiratory diseases (ICD-10 J00-J99) ICD-10                           536
+2 Deaths where COVID-19 was mentioned on the death certificate (ICD-10 U0…    14
+3 Females                                                                   3927
+4 Males                                                                     3927
+5 Persons                                                                   3927
+6 Region                                                                    5350
+7 Total deaths                                                              1056
+8 average of same week over 5 years                                           14
+9 &lt;NA&gt;                                                                        52</code></pre>
+</div>
+</div>
+<p>Winter (metrological winter, for clarity) runs from the start of December to the end of February. Can we class the total deaths into winter, and non-winter categories? In practice, I’d be tempted to use <code>lubridate::quarter()</code> with an appropriate starting offset for this kind of work if possible, especially if I was grouping into regular groups. Winter/non-winter isn’t regular though, so <code>case_when()</code> is the better option. Here, we’ll work in stages. First, as we’ll need the months, we’ll extract those using <code>lubridate::month()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>ons_mortality <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category_1 <span class="sc">==</span> <span class="st">"Total deaths"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,056 × 6
+   category_1   category_2 counts date       week_no month
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;date&gt;       &lt;int&gt; &lt;dbl&gt;
+ 1 Total deaths all ages    12968 2010-01-08       1     1
+ 2 Total deaths all ages    12541 2010-01-15       2     1
+ 3 Total deaths all ages    11762 2010-01-22       3     1
+ 4 Total deaths all ages    11056 2010-01-29       4     1
+ 5 Total deaths all ages    10524 2010-02-05       5     2
+ 6 Total deaths all ages    10117 2010-02-12       6     2
+ 7 Total deaths all ages    10102 2010-02-19       7     2
+ 8 Total deaths all ages    10295 2010-02-26       8     2
+ 9 Total deaths all ages     9981 2010-03-05       9     3
+10 Total deaths all ages     9792 2010-03-12      10     3
+# ℹ 1,046 more rows</code></pre>
+</div>
+</div>
+<p>Our definition of winter is any case where that month is 1, 2, or 12. So use <code>case_when()</code> to catch Jan and Feb:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>ons_mortality <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category_1 <span class="sc">==</span> <span class="st">"Total deaths"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">thing =</span> <span class="fu">case_when</span>(month <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Winter"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,056 × 7
+   category_1   category_2 counts date       week_no month thing 
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;date&gt;       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; 
+ 1 Total deaths all ages    12968 2010-01-08       1     1 Winter
+ 2 Total deaths all ages    12541 2010-01-15       2     1 Winter
+ 3 Total deaths all ages    11762 2010-01-22       3     1 Winter
+ 4 Total deaths all ages    11056 2010-01-29       4     1 Winter
+ 5 Total deaths all ages    10524 2010-02-05       5     2 Winter
+ 6 Total deaths all ages    10117 2010-02-12       6     2 Winter
+ 7 Total deaths all ages    10102 2010-02-19       7     2 Winter
+ 8 Total deaths all ages    10295 2010-02-26       8     2 Winter
+ 9 Total deaths all ages     9981 2010-03-05       9     3 &lt;NA&gt;  
+10 Total deaths all ages     9792 2010-03-12      10     3 &lt;NA&gt;  
+# ℹ 1,046 more rows</code></pre>
+</div>
+</div>
+<p>and then add an extra case to deal with December:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ons_mortality <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category_1 <span class="sc">==</span> <span class="st">"Total deaths"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">case_when</span>(month <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Winter"</span>,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>                           month <span class="sc">==</span> <span class="dv">12</span> <span class="sc">~</span> <span class="st">"Winter"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,056 × 7
+   category_1   category_2 counts date       week_no month season
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;date&gt;       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; 
+ 1 Total deaths all ages    12968 2010-01-08       1     1 Winter
+ 2 Total deaths all ages    12541 2010-01-15       2     1 Winter
+ 3 Total deaths all ages    11762 2010-01-22       3     1 Winter
+ 4 Total deaths all ages    11056 2010-01-29       4     1 Winter
+ 5 Total deaths all ages    10524 2010-02-05       5     2 Winter
+ 6 Total deaths all ages    10117 2010-02-12       6     2 Winter
+ 7 Total deaths all ages    10102 2010-02-19       7     2 Winter
+ 8 Total deaths all ages    10295 2010-02-26       8     2 Winter
+ 9 Total deaths all ages     9981 2010-03-05       9     3 &lt;NA&gt;  
+10 Total deaths all ages     9792 2010-03-12      10     3 &lt;NA&gt;  
+# ℹ 1,046 more rows</code></pre>
+</div>
+</div>
+<p>And finally a default to catch all the non-Winter values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>seasonal_ons_mortality <span class="ot">&lt;-</span> ons_mortality <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category_1 <span class="sc">==</span> <span class="st">"Total deaths"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">case_when</span>(month <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Winter"</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>                           month <span class="sc">==</span> <span class="dv">12</span> <span class="sc">~</span> <span class="st">"Winter"</span>,</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Not winter"</span>))</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>seasonal_ons_mortality</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,056 × 7
+   category_1   category_2 counts date       week_no month season    
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;date&gt;       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;     
+ 1 Total deaths all ages    12968 2010-01-08       1     1 Winter    
+ 2 Total deaths all ages    12541 2010-01-15       2     1 Winter    
+ 3 Total deaths all ages    11762 2010-01-22       3     1 Winter    
+ 4 Total deaths all ages    11056 2010-01-29       4     1 Winter    
+ 5 Total deaths all ages    10524 2010-02-05       5     2 Winter    
+ 6 Total deaths all ages    10117 2010-02-12       6     2 Winter    
+ 7 Total deaths all ages    10102 2010-02-19       7     2 Winter    
+ 8 Total deaths all ages    10295 2010-02-26       8     2 Winter    
+ 9 Total deaths all ages     9981 2010-03-05       9     3 Not winter
+10 Total deaths all ages     9792 2010-03-12      10     3 Not winter
+# ℹ 1,046 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>seasonal_ons_mortality <span class="sc">|&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(season)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  season         n
+  &lt;chr&gt;      &lt;int&gt;
+1 Not winter   793
+2 Winter       263</code></pre>
+</div>
+</div>
+</section>
+<section id="case_match" class="level3">
+<h3 class="anchored" data-anchor-id="case_match"><code>case_match()</code></h3>
+<p>Rather than a logical test, <code>case_match()</code> matches against values rather than performing a logical test. This is excellent for the winter classification example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>ons_mortality <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category_1 <span class="sc">==</span> <span class="st">"Total deaths"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">case_match</span>(month, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">12</span>) <span class="sc">~</span> <span class="st">"Winter"</span>,</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">.default =</span> <span class="st">"Not winter"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,056 × 7
+   category_1   category_2 counts date       week_no month season    
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;date&gt;       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;     
+ 1 Total deaths all ages    12968 2010-01-08       1     1 Winter    
+ 2 Total deaths all ages    12541 2010-01-15       2     1 Winter    
+ 3 Total deaths all ages    11762 2010-01-22       3     1 Winter    
+ 4 Total deaths all ages    11056 2010-01-29       4     1 Winter    
+ 5 Total deaths all ages    10524 2010-02-05       5     2 Winter    
+ 6 Total deaths all ages    10117 2010-02-12       6     2 Winter    
+ 7 Total deaths all ages    10102 2010-02-19       7     2 Winter    
+ 8 Total deaths all ages    10295 2010-02-26       8     2 Winter    
+ 9 Total deaths all ages     9981 2010-03-05       9     3 Not winter
+10 Total deaths all ages     9792 2010-03-12      10     3 Not winter
+# ℹ 1,046 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="consecutive_id" class="level3">
+<h3 class="anchored" data-anchor-id="consecutive_id"><code>consecutive_id()</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">consecutive_id</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># puts groups together by changes. This would have been very useful for my transcripts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 1 2 3 3 4 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>repeats <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">speaker =</span> <span class="fu">c</span>(<span class="st">"steve"</span>, <span class="st">"steve"</span>, <span class="st">"emma"</span>, <span class="st">"steve"</span>, <span class="st">"emma"</span>, <span class="st">"emma"</span>),</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">comment =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]) <span class="co"># repeated data</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>repeats <span class="sc">|&gt;</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">consecutive_id</span>(speaker)) <span class="co"># add a group that increments with each change of speaker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  speaker comment group
+  &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;
+1 steve   a           1
+2 steve   b           1
+3 emma    c           2
+4 steve   d           3
+5 emma    e           4
+6 emma    f           4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>repeats <span class="sc">|&gt;</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">consecutive_id</span>(speaker)) <span class="sc">|&gt;</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">comment =</span> <span class="fu">paste</span>(comment, <span class="at">collapse =</span> <span class="st">" "</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+# Groups:   group [4]
+  speaker comment group
+  &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;
+1 steve   a b         1
+2 emma    c           2
+3 steve   d           3
+4 emma    e f         4</code></pre>
 </div>
 </div>
 
