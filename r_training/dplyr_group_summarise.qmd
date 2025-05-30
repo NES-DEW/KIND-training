@@ -6,6 +6,8 @@ execute:
   output: "markup"
   freeze: auto
 categories: [R, intermediate]
+editor_options: 
+  chunk_output_type: console
 ---
 
 
@@ -21,6 +23,25 @@ feed_block("Summarising data with dplyr")
 
 ```
 
+## Session outline
+
+This session is an 🌶🌶 **intermediate practical** designed for those with some R experience. The aim of this session is to do three things with dplyr:
+
++ show how to approach summarising data
++ explain how grouping works
++ show some simple summary functions
+
+You might also like some of the other dplyr-themed practical sessions:
+
+* [Exploring data with dplyr](exploring_data_with_dplyr)
+* [Joining data with dplyr](dplyr_joins.qmd)
+* [Tidyselect](tidyselect.qmd)
+
+
+<!-- summarise -->
+<!-- new ideas in count -->
+<!-- group_data() -->
+
 ## `summarise()`
 
 Let's do a little bit of package loading, and then start summarising things:
@@ -33,7 +54,7 @@ library(dplyr)
 
 The description on the [dplyr reference page for `summarise`](https://dplyr.tidyverse.org/reference/summarise.html) is admirably clear:
   
-> summarise() creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarising all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.
+> `summarise()` creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarising all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.
 
 ```{r}
 ae_attendances |> 
@@ -72,6 +93,26 @@ ae_attendances |>
   group_by(org_code) |>
   summarise(non_admissions = sum(attendances - admissions)) |>
   arrange(desc(non_admissions)) 
+```
+
+You can, in another recent change, group inside the summarise itself via `.by()`:
+
+```{r}
+ae_attendances |> 
+  summarise(non_admissions = sum(attendances - admissions), 
+            .by = org_code) |>
+  arrange(desc(non_admissions)) 
+```
+
+This returns an ungrouped tibble - so important to know that it's not a direct substitute for an ordinary `group_by()`. That's especially confusing with `summarise()` owing to the "remove a single grouping layer each time" approach:
+
+```{r}
+ae_attendances |> 
+  summarise(att = sum(attendances), .by = c(org_code, type)) 
+
+ae_attendances |> 
+  group_by(org_code, type) |>
+  summarise(att = sum(attendances))
 ```
 
 ## `reframe()`
@@ -188,4 +229,20 @@ There's also a `c_across()` function to select columns that looks really promisi
 ae_attendances |> 
   rowwise() |>
   mutate(mean = mean(c_across(4:6))) 
+```
+
+## Summary functions
+
+### `nth()` / `first()` / `last()`
+
+Get the nth, first, or last values. Very useful inside a summarise or similar when you want to be sure that you're going to return a sensible result.
+
+```{r}
+tibble(speaker = c("steve", "steve", "emma", "steve", "emma", "emma"),
+       comment = letters[1:6])  |>
+  mutate(group = consecutive_id(speaker)) |>
+  group_by(group, speaker) |>
+  summarise(comment = last(comment)) |>
+  ungroup() |>
+  select(-group)
 ```

@@ -6,6 +6,8 @@ execute:
   output: "markup"
   freeze: auto
 categories: [R, intermediate]
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -17,7 +19,6 @@ categories: [R, intermediate]
 
 source(here::here("R/feed_block.R"))
 feed_block("Exploring data with dplyr")
-
 ```
 
 
@@ -30,7 +31,10 @@ This session is an 🌶🌶 **intermediate practical** designed for those with s
 + learn some of the more advanced functions to harness the power available beneath the surface
 
 You might also like some of the other dplyr-themed practical sessions:
-* r_training/dplyr_group_summarise.qmd
+
+* [Summarising data with dplyr](dplyr_group_summarise.qmd)
+* [Joining data with dplyr](dplyr_joins.qmd)
+* [Tidyselect](tidyselect.qmd)
 
 ## A starting-point
 
@@ -42,9 +46,10 @@ You should have at least some previous experience working with dplyr before star
 
 ## Investigating data
 
-We'll start with four functions that are especially useful when you're investigating new data - `slice()`, `glimpse()`, `rename()` and `relocate()`
+Dplyr is usually used as a toolkit for manipulating tidy data. This session concentrates on some lesser-used functions in the dplyr package that are especially useful earlier in the analysis lifecycle when exploring new data: `slice()`, `glimpse()`, `rename()`, `relocate()`, `case_when()`/`case_match()`, and `consecutive_id()`
 
-Package loading as follows:
+
+ackage loading as follows:
 
 ```{r}
 library(NHSRdatasets)
@@ -54,7 +59,7 @@ library(dplyr)
 
 ### `slice()`
 
-+ [slice() manual page](https://dplyr.tidyverse.org/reference/slice.html)
+Although we've got code linking on these pages, so that you can click function names and see the documentation, it's definitely worth pointing you towards the [slice() manual page](https://dplyr.tidyverse.org/reference/slice.html) - it's clear and interesting.
 
 At its simplest, `slice()` is an alternative to head:
 ```{r }
@@ -125,8 +130,6 @@ ae_attendances |>
 
 ### `glimpse()`
 
-+ [glimpse() manual page](https://dplyr.tidyverse.org/reference/glimpse.html)
-
 `glimpse()` is a data viewing function similar to `print()`, except it transposes the data so that each column is displayed as a row. This is particularly useful for wide data with many columns, especially when you are interested in checking the class (date, character, etc.) of your columns.
 
 ```{r}
@@ -159,8 +162,6 @@ synthetic_news_data |>
 
 ### `rename()` (and `rename_with()`)
 
-+ [rename() manual page](https://dplyr.tidyverse.org/reference/rename.html)
-
 `rename()` renames columns. Like `mutate()`, the general syntax for `rename()` is *new name* = *old name*.
 
 ```{r}
@@ -177,8 +178,6 @@ LOS_model |>
 `rename()` works well with [tidyselect operators](r_training/tidyselect.qmd) too, as we discuss in that session.
 
 ### `relocate()`
-
-+ [relocate() manual page](https://dplyr.tidyverse.org/reference/relocate.html)
 
 `relocate()` re-arranges the order of columns:
 
@@ -201,4 +200,86 @@ LOS_model |>
 LOS_model |>
   relocate(Death, .before=last_col()) # little bit of tidyselect
 ```
+
+### `case_when()`
+
+The ONS mortality data in NHSRdatasets has several categories
+```{r}
+ons_mortality |>
+  count(category_1)
+```
+
+Winter (metrological winter, for clarity) runs from the start of December to the end of February. Can we class the total deaths into winter, and non-winter categories? In practice, I'd be tempted to use `lubridate::quarter()` with an appropriate starting offset for this kind of work if possible, especially if I was grouping into regular groups. Winter/non-winter isn't regular though, so `case_when()` is the better option. Here, we'll work in stages. First, as we'll need the months, we'll extract those using `lubridate::month()`:
+
+```{r}
+ons_mortality |>
+  filter(category_1 == "Total deaths") |>
+  mutate(month = lubridate::month(date))
+```
+
+Our definition of winter is any case where that month is 1, 2, or 12. So use `case_when()` to catch Jan and Feb:
+
+```{r}
+ons_mortality |>
+  filter(category_1 == "Total deaths") |>
+  mutate(month = lubridate::month(date)) |>
+  mutate(thing = case_when(month < 3 ~ "Winter"))
+```
+
+and then add an extra case to deal with December:
+
+```{r}
+ons_mortality |>
+  filter(category_1 == "Total deaths") |>
+  mutate(month = lubridate::month(date)) |>
+  mutate(season = case_when(month < 3 ~ "Winter",
+                           month == 12 ~ "Winter"))
+```
+
+And finally a default to catch all the non-Winter values:
+
+```{r}
+seasonal_ons_mortality <- ons_mortality |>
+  filter(category_1 == "Total deaths") |>
+  mutate(month = lubridate::month(date)) |>
+  mutate(season = case_when(month < 3 ~ "Winter",
+                           month == 12 ~ "Winter",
+                           TRUE ~ "Not winter"))
+seasonal_ons_mortality
+
+seasonal_ons_mortality |>
+  count(season)
+```
+
+### `case_match()`
+
+Rather than a logical test, `case_match()` matches against values rather than performing a logical test. This is excellent for the winter classification example:
+
+```{r}
+ons_mortality |>
+  filter(category_1 == "Total deaths") |>
+  mutate(month = lubridate::month(date)) |>
+  mutate(season = case_match(month, c(1, 2, 12) ~ "Winter",
+                             .default = "Not winter"))
+```
+
+### `consecutive_id()`
+
+```{r}
+consecutive_id(c(1, 1, 1, 2, 1, 1, 2, 2)) # puts groups together by changes. This would have been very useful for my transcripts
+
+repeats <- tibble(speaker = c("steve", "steve", "emma", "steve", "emma", "emma"),
+       comment = letters[1:6]) # repeated data
+
+repeats |>
+  mutate(group = consecutive_id(speaker)) # add a group that increments with each change of speaker
+
+repeats |>
+  mutate(group = consecutive_id(speaker)) |>
+  group_by(group) |>
+  mutate(comment = paste(comment, collapse = " ")) |>
+  distinct()
+```
+
+
 
