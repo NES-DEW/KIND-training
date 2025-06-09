@@ -42,31 +42,66 @@ You might also like some of the other dplyr-themed practical sessions:
 <!-- new ideas in count -->
 <!-- group_data() -->
 
-## `summarise()`
+## Setup
 
-Let's do a little bit of package loading, and then start summarising things:
+Let's do a little bit of package loading, find some interesting data, and then start summarising things:
 
 ```{r}
-library(NHSRdatasets)
 library(dplyr)
+library(readr)
+library(lubridate)
+library(ggplot2)
+library(NHSRdatasets)
+```
+
+For the first half of the session, we'll use a real dataset that shows deaths by socioeconomic deprivation. Full details on the [PHS opendata page](https://www.opendata.nhs.scot/dataset/hospital-standardised-mortality-ratios/resource/e6849f09-3a5c-44c6-8029-260882345071):
+
+```{r}
+SMR_SIMD <- read_csv("https://www.opendata.nhs.scot/datastore/dump/e6849f09-3a5c-44c6-8029-260882345071?bom=True") |>
+  select(-c(`_id`, contains("QF"), Country)) |>
+  tidyr::separate_wider_delim(TimePeriod, "Q", names = c("Year", "Quarter")) |>
+  mutate(Year = as.numeric(Year),
+         Quarter = as.numeric(Quarter) * 3) |>
+  mutate(Date = ymd(paste(Year, Quarter, "01"))) |>
+  mutate(SIMDQuintile = case_when(SIMDQuintile == "1 - most deprived" ~ "1",
+                                  SIMDQuintile == "5 - least deprived" ~ "5",
+                                  TRUE ~ SIMDQuintile)) |>
+  relocate(last_col()) 
+```
+
+We'll do a quick `skim()` of the data to help you get a better sense of it:
+
+```{r}
+skimr::skim(SMR_SIMD)
+```
+
+That dataset is useful to practice summarising, because there are various different plausible groups that we might like to investigate - especially the intersection between SIMDQuintiles (indicating different levels of deprivation) with the various date-based year/season/month groups that might be of interest for health improvement work:
+
+```{r}
+SMR_SIMD |>
+  ggplot() +
+  geom_line(aes(x = Date, y = NumberOfDeaths, colour = SIMDQuintile)) +
+  theme_minimal()
 ```
 
 
-The description on the [dplyr reference page for `summarise`](https://dplyr.tidyverse.org/reference/summarise.html) is admirably clear:
+## `summarise()`
+
+This is the standard way of summarising data in dplyr. The description on the [dplyr reference page for `summarise`](https://dplyr.tidyverse.org/reference/summarise.html) is admirably clear:
   
 > `summarise()` creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarising all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.
 
 ```{r}
-ae_attendances |> 
-  summarise(sum(attendances)) 
+SMR_SIMD |> 
+  summarise(sum(NumberOfDeaths)) 
 ```
 
 `summarise()` is especially strong in concert with `group_by()`:
   
 ```{r}
-ae_attendances |> 
-  group_by(org_code) |>
-  summarise(sum(attendances)) 
+SMR_SIMD |> 
+  group_by(Year) |>
+  summarise(sum(NumberOfDeaths)) 
 ```
 
 Two important things to note here:
@@ -75,44 +110,44 @@ Two important things to note here:
 + Each call to `summarise()` removes a layer of grouping
 
 ```{r}
-ae_attendances |> 
-  group_by(org_code) |>
-  summarise(sum(attendances)) |>
-  summarise(sum(`sum(attendances)`)) # horrible default column names, which we'll fix in future
+SMR_SIMD |> 
+  group_by(Year) |>
+  summarise(sum(NumberOfDeaths)) |>
+  summarise(sum(`sum(NumberOfDeaths)`)) # horrible default column names, which we'll fix in future
 ```
 
 And you can build simple formulae inside `summarise()`:
 
 ```{r}
-ae_attendances |> 
-  group_by(org_code) |>
-  summarise(total = sum(attendances)) |> # rename columns like select 
+SMR_SIMD |> 
+  group_by(Year) |>
+  summarise(total = sum(NumberOfDeaths)) |> # rename columns like select 
   arrange(desc(total)) 
 
-ae_attendances |> 
-  group_by(org_code) |>
-  summarise(non_admissions = sum(attendances - admissions)) |>
-  arrange(desc(non_admissions)) 
+SMR_SIMD |> 
+  group_by(Year) |>
+  summarise(surviving = sum(NumberOfPatients - NumberOfDeaths )) |>
+  arrange(desc(surviving)) 
 ```
 
 You can, in another recent change, group inside the summarise itself via `.by()`:
 
 ```{r}
-ae_attendances |> 
-  summarise(non_admissions = sum(attendances - admissions), 
-            .by = org_code) |>
-  arrange(desc(non_admissions)) 
+SMR_SIMD |> 
+  summarise(surviving = sum(NumberOfPatients - NumberOfDeaths), 
+            .by = Year) |>
+  arrange(desc(surviving)) 
 ```
 
-This returns an ungrouped tibble - so important to know that it's not a direct substitute for an ordinary `group_by()`. That's especially confusing with `summarise()` owing to the "remove a single grouping layer each time" approach:
+This **always** returns an ungrouped tibble - so important to know that it's not a direct substitute for an ordinary `group_by()`. That's especially confusing with `summarise()` owing to the "remove a single grouping layer each time" approach:
 
 ```{r}
-ae_attendances |> 
-  summarise(att = sum(attendances), .by = c(org_code, type)) 
+SMR_SIMD |> 
+  summarise(att = sum(NumberOfDeaths), .by = c(Year, Quarter)) 
 
-ae_attendances |> 
-  group_by(org_code, type) |>
-  summarise(att = sum(attendances))
+SMR_SIMD |> 
+  group_by(Year, Quarter) |>
+  summarise(att = sum(NumberOfDeaths))
 ```
 
 ## `reframe()`
@@ -235,7 +270,7 @@ ae_attendances |>
 
 ### `nth()` / `first()` / `last()`
 
-Get the nth, first, or last values. Very useful inside a summarise or similar when you want to be sure that you're going to return a sensible result.
+Get the nth, first, or last values. Very useful inside a `summarise()` or similar when you want to be sure that you're going to return a sensible result.
 
 ```{r}
 tibble(speaker = c("steve", "steve", "emma", "steve", "emma", "emma"),
@@ -246,3 +281,7 @@ tibble(speaker = c("steve", "steve", "emma", "steve", "emma", "emma"),
   ungroup() |>
   select(-group)
 ```
+
+## Acknowledgments
+
+I'm extremely grateful to Pauline Ward (PHS) for suggesting the dataset used for this session.
