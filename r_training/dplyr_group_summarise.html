@@ -341,6 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#summarise" id="toc-summarise" class="nav-link" data-scroll-target="#summarise"><code>summarise()</code></a></li>
   <li><a href="#reframe" id="toc-reframe" class="nav-link" data-scroll-target="#reframe"><code>reframe()</code></a></li>
   <li><a href="#count-and-tally" id="toc-count-and-tally" class="nav-link" data-scroll-target="#count-and-tally"><code>count()</code> and <code>tally()</code></a></li>
@@ -351,6 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#nth-first-last" id="toc-nth-first-last" class="nav-link" data-scroll-target="#nth-first-last"><code>nth()</code> / <code>first()</code> / <code>last()</code></a></li>
   </ul>
 </li>
+  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -401,46 +403,284 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="../r_training/dplyr_joins.html">Joining data with dplyr</a></li>
 <li><a href="../r_training/tidyselect.html">Tidyselect</a></li>
 </ul>
-<!-- summarise --><!-- new ideas in count --><!-- group_data() --></section><section id="summarise" class="level2"><h2 class="anchored" data-anchor-id="summarise"><code>summarise()</code></h2>
-<p>Let’s do a little bit of package loading, and then start summarising things:</p>
+<!-- summarise --><!-- new ideas in count --><!-- group_data() --></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>Let’s do a little bit of package loading, find some interesting data, and then start summarising things:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nhs-r-community/NHSRdatasets">NHSRdatasets</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nhs-r-community/NHSRdatasets">NHSRdatasets</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The description on the <a href="https://dplyr.tidyverse.org/reference/summarise.html">dplyr reference page for <code>summarise</code></a> is admirably clear:</p>
+<p>For the first half of the session, we’ll use a real dataset that shows deaths by socioeconomic deprivation. Full details on the <a href="https://www.opendata.nhs.scot/dataset/hospital-standardised-mortality-ratios/resource/e6849f09-3a5c-44c6-8029-260882345071">PHS opendata page</a>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://www.opendata.nhs.scot/datastore/dump/e6849f09-3a5c-44c6-8029-260882345071?bom=True"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`_id`</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"QF"</span><span class="op">)</span>, <span class="va">Country</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_delim</a></span><span class="op">(</span><span class="va">TimePeriod</span>, <span class="st">"Q"</span>, names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Year"</span>, <span class="st">"Quarter"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span>,</span>
+<span>         Quarter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">Quarter</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Quarter</span>, <span class="st">"01"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>SIMDQuintile <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">SIMDQuintile</span> <span class="op">==</span> <span class="st">"1 - most deprived"</span> <span class="op">~</span> <span class="st">"1"</span>,</span>
+<span>                                  <span class="va">SIMDQuintile</span> <span class="op">==</span> <span class="st">"5 - least deprived"</span> <span class="op">~</span> <span class="st">"5"</span>,</span>
+<span>                                  <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">SIMDQuintile</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">last_col</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We’ll do a quick <code>skim()</code> of the data to help you get a better sense of it:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">skimr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">SMR_SIMD</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">SMR_SIMD</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">204</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">SIMDQuintile</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr></tbody>
+</table>
+<p><strong>Variable type: Date</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 11%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">min</th>
+<th style="text-align: left;">max</th>
+<th style="text-align: left;">median</th>
+<th style="text-align: right;">n_unique</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">Date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">2016-09-01</td>
+<td style="text-align: left;">2024-12-01</td>
+<td style="text-align: left;">2020-10-16</td>
+<td style="text-align: right;">34</td>
+</tr></tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 5%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Year</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2020.24</td>
+<td style="text-align: right;">2.47</td>
+<td style="text-align: right;">2016.00</td>
+<td style="text-align: right;">2018.00</td>
+<td style="text-align: right;">2020.00</td>
+<td style="text-align: right;">2022.00</td>
+<td style="text-align: right;">2024.00</td>
+<td style="text-align: left;">▆▇▃▇▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Quarter</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7.68</td>
+<td style="text-align: right;">3.36</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">9.00</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: left;">▇▇▁▇▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NumberOfDeaths</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1144.20</td>
+<td style="text-align: right;">563.69</td>
+<td style="text-align: right;">7.00</td>
+<td style="text-align: right;">1006.00</td>
+<td style="text-align: right;">1286.00</td>
+<td style="text-align: right;">1551.00</td>
+<td style="text-align: right;">2057.00</td>
+<td style="text-align: left;">▃▁▆▇▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NumberOfPatients</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">35444.62</td>
+<td style="text-align: right;">16914.91</td>
+<td style="text-align: right;">490.00</td>
+<td style="text-align: right;">33310.00</td>
+<td style="text-align: right;">39724.50</td>
+<td style="text-align: right;">45818.25</td>
+<td style="text-align: right;">59076.00</td>
+<td style="text-align: left;">▃▁▃▇▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CrudeRate</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.02</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">2.72</td>
+<td style="text-align: right;">3.04</td>
+<td style="text-align: right;">3.42</td>
+<td style="text-align: right;">5.58</td>
+<td style="text-align: left;">▂▃▇▂▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>That dataset is useful to practice summarising, because there are various different plausible groups that we might like to investigate - especially the intersection between SIMDQuintiles (indicating different levels of deprivation) with the various date-based year/season/month groups that might be of interest for health improvement work:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Date</span>, y <span class="op">=</span> <span class="va">NumberOfDeaths</span>, colour <span class="op">=</span> <span class="va">SIMDQuintile</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="dplyr_group_summarise_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="summarise" class="level2"><h2 class="anchored" data-anchor-id="summarise"><code>summarise()</code></h2>
+<p>This is the standard way of summarising data in dplyr. The description on the <a href="https://dplyr.tidyverse.org/reference/summarise.html">dplyr reference page for <code>summarise</code></a> is admirably clear:</p>
 <blockquote class="blockquote">
 <p><code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarising all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">attendances</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">NumberOfDeaths</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
-  `sum(attendances)`
-               &lt;dbl&gt;
-1           72019402</code></pre>
+  `sum(NumberOfDeaths)`
+                  &lt;dbl&gt;
+1                233417</code></pre>
 </div>
 </div>
 <p><code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is especially strong in concert with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">org_code</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">attendances</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">NumberOfDeaths</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 274 × 2
-   org_code `sum(attendances)`
-   &lt;fct&gt;                 &lt;dbl&gt;
- 1 8J094                 74303
- 2 AAH                    6808
- 3 AC008                 25808
- 4 AD913                159739
- 5 AF002                  7542
- 6 AF003                  6046
- 7 AJN                   27425
- 8 ATQ02                127445
- 9 AXG                   36486
-10 AXT02                 88073
-# ℹ 264 more rows</code></pre>
+<pre><code># A tibble: 9 × 2
+   Year `sum(NumberOfDeaths)`
+  &lt;dbl&gt;                 &lt;dbl&gt;
+1  2016                 13273
+2  2017                 27471
+3  2018                 26670
+4  2019                 26940
+5  2020                 27717
+6  2021                 28745
+7  2022                 28101
+8  2023                 27670
+9  2024                 26830</code></pre>
 </div>
 </div>
 <p>Two important things to note here:</p>
@@ -450,128 +690,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Each call to <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> removes a layer of grouping</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">org_code</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">attendances</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">`sum(attendances)`</span><span class="op">)</span><span class="op">)</span> <span class="co"># horrible default column names, which we'll fix in future</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">NumberOfDeaths</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">`sum(NumberOfDeaths)`</span><span class="op">)</span><span class="op">)</span> <span class="co"># horrible default column names, which we'll fix in future</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
-  `sum(\`sum(attendances)\`)`
-                        &lt;dbl&gt;
-1                    72019402</code></pre>
+  `sum(\`sum(NumberOfDeaths)\`)`
+                           &lt;dbl&gt;
+1                         233417</code></pre>
 </div>
 </div>
 <p>And you can build simple formulae inside <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">org_code</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">attendances</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># rename columns like select </span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">NumberOfDeaths</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># rename columns like select </span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">total</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 274 × 2
-   org_code   total
-   &lt;fct&gt;      &lt;dbl&gt;
- 1 R1H      1471581
- 2 RW6      1067518
- 3 R1K      1033563
- 4 RQM       913440
- 5 RF4       873909
- 6 RJ2       873689
- 7 RYJ       868344
- 8 RJZ       856644
- 9 RAL       806571
-10 RJE       746107
-# ℹ 264 more rows</code></pre>
+<pre><code># A tibble: 9 × 2
+   Year total
+  &lt;dbl&gt; &lt;dbl&gt;
+1  2021 28745
+2  2022 28101
+3  2020 27717
+4  2023 27670
+5  2017 27471
+6  2019 26940
+7  2024 26830
+8  2018 26670
+9  2016 13273</code></pre>
 </div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">org_code</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>non_admissions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">attendances</span> <span class="op">-</span> <span class="va">admissions</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">non_admissions</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>surviving <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">NumberOfPatients</span> <span class="op">-</span> <span class="va">NumberOfDeaths</span> <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">surviving</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 274 × 2
-   org_code non_admissions
-   &lt;fct&gt;             &lt;dbl&gt;
- 1 R1H             1211923
- 2 RW6              856664
- 3 R1K              837535
- 4 RQM              778879
- 5 RYJ              750941
- 6 RJ2              712189
- 7 RF4              705767
- 8 RJZ              696891
- 9 RYX              661468
-10 RAL              660741
-# ℹ 264 more rows</code></pre>
+<pre><code># A tibble: 9 × 2
+   Year surviving
+  &lt;dbl&gt;     &lt;dbl&gt;
+1  2019    919377
+2  2017    888462
+3  2018    885537
+4  2024    846083
+5  2023    832262
+6  2022    778326
+7  2021    737727
+8  2020    662219
+9  2016    447292</code></pre>
 </div>
 </div>
 <p>You can, in another recent change, group inside the summarise itself via <code>.by()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>non_admissions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">attendances</span> <span class="op">-</span> <span class="va">admissions</span><span class="op">)</span>, </span>
-<span>            .by <span class="op">=</span> <span class="va">org_code</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">non_admissions</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>surviving <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">NumberOfPatients</span> <span class="op">-</span> <span class="va">NumberOfDeaths</span><span class="op">)</span>, </span>
+<span>            .by <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">surviving</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 274 × 2
-   org_code non_admissions
-   &lt;fct&gt;             &lt;dbl&gt;
- 1 R1H             1211923
- 2 RW6              856664
- 3 R1K              837535
- 4 RQM              778879
- 5 RYJ              750941
- 6 RJ2              712189
- 7 RF4              705767
- 8 RJZ              696891
- 9 RYX              661468
-10 RAL              660741
-# ℹ 264 more rows</code></pre>
+<pre><code># A tibble: 9 × 2
+   Year surviving
+  &lt;dbl&gt;     &lt;dbl&gt;
+1  2019    919377
+2  2017    888462
+3  2018    885537
+4  2024    846083
+5  2023    832262
+6  2022    778326
+7  2021    737727
+8  2020    662219
+9  2016    447292</code></pre>
 </div>
 </div>
-<p>This returns an ungrouped tibble - so important to know that it’s not a direct substitute for an ordinary <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>. That’s especially confusing with <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> owing to the “remove a single grouping layer each time” approach:</p>
+<p>This <strong>always</strong> returns an ungrouped tibble - so important to know that it’s not a direct substitute for an ordinary <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>. That’s especially confusing with <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> owing to the “remove a single grouping layer each time” approach:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>att <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">attendances</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">org_code</span>, <span class="va">type</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>att <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">NumberOfDeaths</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Quarter</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 428 × 3
-   org_code type     att
-   &lt;fct&gt;    &lt;fct&gt;  &lt;dbl&gt;
- 1 RF4      1     697635
- 2 RF4      2      25667
- 3 RF4      other 150607
- 4 R1H      1     998934
- 5 R1H      2      27286
- 6 R1H      other 445361
- 7 AD913    other 159739
- 8 RYX      other 661468
- 9 RQM      1     623161
-10 RQM      other 290279
-# ℹ 418 more rows</code></pre>
+<pre><code># A tibble: 34 × 3
+    Year Quarter   att
+   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+ 1  2016       9  6159
+ 2  2016      12  7114
+ 3  2017       3  7154
+ 4  2017       6  6367
+ 5  2017       9  6258
+ 6  2017      12  7692
+ 7  2018       3  7581
+ 8  2018       6  6089
+ 9  2018       9  6092
+10  2018      12  6908
+# ℹ 24 more rows</code></pre>
 </div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">org_code</span>, <span class="va">type</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>att <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">attendances</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Quarter</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>att <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">NumberOfDeaths</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 428 × 3
-# Groups:   org_code [274]
-   org_code type     att
-   &lt;fct&gt;    &lt;fct&gt;  &lt;dbl&gt;
- 1 8J094    other  74303
- 2 AAH      other   6808
- 3 AC008    other  25808
- 4 AD913    other 159739
- 5 AF002    other   7542
- 6 AF003    other   6046
- 7 AJN      other  27425
- 8 ATQ02    other 127445
- 9 AXG      other  36486
-10 AXT02    other  88073
-# ℹ 418 more rows</code></pre>
+<pre><code># A tibble: 34 × 3
+# Groups:   Year [9]
+    Year Quarter   att
+   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+ 1  2016       9  6159
+ 2  2016      12  7114
+ 3  2017       3  7154
+ 4  2017       6  6367
+ 5  2017       9  6258
+ 6  2017      12  7692
+ 7  2018       3  7581
+ 8  2018       6  6089
+ 9  2018       9  6092
+10  2018      12  6908
+# ℹ 24 more rows</code></pre>
 </div>
 </div>
 </section><section id="reframe" class="level2"><h2 class="anchored" data-anchor-id="reframe"><code>reframe()</code></h2>
 <p>A recent change in dplyr 1.1.0 is that <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> now will only return one row per group. A new function, <code><a href="https://dplyr.tidyverse.org/reference/reframe.html">reframe()</a></code>, has been developed to produce multiple-row summaries. It works exactly like <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> except, rather than removing one grouping layer per operation, it always returns an ungrouped tibble. The syntax is the same as <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sum</span> <span class="op">&lt;-</span> <span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sum</span> <span class="op">&lt;-</span> <span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">period</span>, unit <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    year <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>,</span>
@@ -599,7 +833,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </h2>
 <p><code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> counts unique values, and is equivalent to using <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and then <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">died</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
@@ -611,7 +845,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>That’s roughly equivalent to:</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">died</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -624,7 +858,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><code><a href="https://dplyr.tidyverse.org/reference/count.html">tally()</a></code> works similarly, except without the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="co"># group_by(died) |&gt; </span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -633,7 +867,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   &lt;int&gt;
 1  1000</code></pre>
 </div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
@@ -644,7 +878,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>A possible source of confusion is that adding a column name to <code><a href="https://dplyr.tidyverse.org/reference/count.html">tally()</a></code> performs a <strong>weighted count</strong> of that column:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
@@ -655,7 +889,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Roughly equivalent to:</p>
 <div class="cell">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -664,7 +898,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> has a useful sort option to arrange by group size:</p>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">syst</span>, sort<span class="op">=</span><span class="cn">T</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 125 × 2
@@ -685,7 +919,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Both <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/count.html">tally()</a></code> have <code>add_</code> variants, which work like <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> in that they add a new column containing the count:</p>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#add_ variants</span></span>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#add_ variants</span></span>
 <span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">add_count</a></span><span class="op">(</span><span class="va">syst</span>, name<span class="op">=</span><span class="st">"syst_BP_count"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">syst</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">last_col</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -708,7 +942,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><code><a href="https://dplyr.tidyverse.org/reference/count.html">add_tally()</a></code> gives a col with the same value in each row of a group:</p>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">synthetic_news_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">died</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">add_tally</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -728,7 +962,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="rowwise" class="level2"><h2 class="anchored" data-anchor-id="rowwise"><code>rowwise()</code></h2>
 <p><code><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise()</a></code> forms groups per row. For example, we could take the average of the three columns in ae_attendances:</p>
 <div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># to find the daily mean of attendances, breaches, and admissions</span></span>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># to find the daily mean of attendances, breaches, and admissions</span></span>
 <span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">attendances</span>, <span class="va">breaches</span>, <span class="va">admissions</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -752,7 +986,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Compare and contrast with the results we obtain if we omit <code><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise()</a></code>, where the mean column contains the averages of the three columns overall, rather than for each date and organisation:</p>
 <div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">attendances</span>, <span class="va">breaches</span>, <span class="va">admissions</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12,765 × 7
@@ -773,7 +1007,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>There’s also a <code><a href="https://dplyr.tidyverse.org/reference/c_across.html">c_across()</a></code> function to select columns that looks really promising for <code><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise()</a></code> work, but bafflingly it is extremely slow here, taking 50x longer than the equivalent <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>. This is a known issue - <a href="https://github.com/tidyverse/dplyr/issues/4953">“particularly for long, narrow, data”</a>. So this code is switched off and provided here for information only - although do feel free to try it out if you don’t mind a ten second wait.</p>
 <div class="cell">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/c_across.html">c_across</a></span><span class="op">(</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -781,9 +1015,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="nth-first-last" class="level3"><h3 class="anchored" data-anchor-id="nth-first-last">
 <code>nth()</code> / <code>first()</code> / <code>last()</code>
 </h3>
-<p>Get the nth, first, or last values. Very useful inside a summarise or similar when you want to be sure that you’re going to return a sensible result.</p>
+<p>Get the nth, first, or last values. Very useful inside a <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> or similar when you want to be sure that you’re going to return a sensible result.</p>
 <div class="cell">
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>speaker <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"steve"</span>, <span class="st">"steve"</span>, <span class="st">"emma"</span>, <span class="st">"steve"</span>, <span class="st">"emma"</span>, <span class="st">"emma"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>speaker <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"steve"</span>, <span class="st">"steve"</span>, <span class="st">"emma"</span>, <span class="st">"steve"</span>, <span class="st">"emma"</span>, <span class="st">"emma"</span><span class="op">)</span>,</span>
 <span>       comment <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span>  <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/consecutive_id.html">consecutive_id</a></span><span class="op">(</span><span class="va">speaker</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">speaker</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -800,9 +1034,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 emma    f      </code></pre>
 </div>
 </div>
+</section></section><section id="acknowledgments" class="level2"><h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
+<p>I’m extremely grateful to Pauline Ward (PHS) for suggesting the dataset used for this session.</p>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
