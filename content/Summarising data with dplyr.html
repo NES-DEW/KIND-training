@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.31">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-02-27">
-<title>Conditions in Power Automate – KIND training pages</title>
+<meta name="dcterms.date" content="2025-06-11">
+<title>summarising-data-with-dplyr – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -305,15 +305,20 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#prerequisites-for-this-session" id="toc-prerequisites-for-this-session" class="nav-link active" data-scroll-target="#prerequisites-for-this-session">Prerequisites for this session</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#plan" id="toc-plan" class="nav-link" data-scroll-target="#plan">Plan</a></li>
-  <li><a href="#project-one-connect-with-a-onedrive-folder" id="toc-project-one-connect-with-a-onedrive-folder" class="nav-link" data-scroll-target="#project-one-connect-with-a-onedrive-folder">Project one: connect with a OneDrive folder</a></li>
-  <li><a href="#project-two-counting-files" id="toc-project-two-counting-files" class="nav-link" data-scroll-target="#project-two-counting-files">Project two: counting files</a></li>
-  <li><a href="#digression-data-types" id="toc-digression-data-types" class="nav-link" data-scroll-target="#digression-data-types">Digression: data types</a></li>
-  <li><a href="#project-three-posting-a-count-of-those-files-in-a-teams-message" id="toc-project-three-posting-a-count-of-those-files-in-a-teams-message" class="nav-link" data-scroll-target="#project-three-posting-a-count-of-those-files-in-a-teams-message">Project three: posting a count of those files in a Teams message</a></li>
-  <li><a href="#project-4-varying-the-text-of-that-teams-message-by-count" id="toc-project-4-varying-the-text-of-that-teams-message-by-count" class="nav-link" data-scroll-target="#project-4-varying-the-text-of-that-teams-message-by-count">Project 4: varying the text of that Teams message by count</a></li>
-  <li><a href="#project-5-varying-text-by-time-of-day" id="toc-project-5-varying-text-by-time-of-day" class="nav-link" data-scroll-target="#project-5-varying-text-by-time-of-day">Project 5: varying text by time of day</a></li>
+<li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#summarise" id="toc-summarise" class="nav-link" data-scroll-target="#summarise"><code>summarise()</code></a></li>
+  <li><a href="#tools-for-understanding-groupings" id="toc-tools-for-understanding-groupings" class="nav-link" data-scroll-target="#tools-for-understanding-groupings">Tools for understanding groupings</a></li>
+  <li><a href="#reframe" id="toc-reframe" class="nav-link" data-scroll-target="#reframe"><code>reframe()</code></a></li>
+  <li><a href="#count-and-tally" id="toc-count-and-tally" class="nav-link" data-scroll-target="#count-and-tally"><code>count()</code> and <code>tally()</code></a></li>
+  <li><a href="#rowwise" id="toc-rowwise" class="nav-link" data-scroll-target="#rowwise"><code>rowwise()</code></a></li>
+  <li>
+<a href="#summary-functions" id="toc-summary-functions" class="nav-link" data-scroll-target="#summary-functions">Summary functions</a>
+  <ul class="collapse">
+<li><a href="#nth-first-last" id="toc-nth-first-last" class="nav-link" data-scroll-target="#nth-first-last"><code>nth()</code> / <code>first()</code> / <code>last()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -322,13 +327,7 @@ ul.task-list li input[type="checkbox"] {
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Conditions in Power Automate</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">skills</div>
-    <div class="quarto-category">intermediate</div>
-    <div class="quarto-category">Power Automate</div>
-  </div>
-  </div>
+</div>
 
 
 
@@ -338,7 +337,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 27, 2025</p>
+      <p class="date">June 11, 2025</p>
     </div>
   </div>
   
@@ -347,198 +346,654 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><div class="cell" data-layout-align="left">
-<p>No feedback found for this session</p>
-</div>
-<section id="prerequisites-for-this-session" class="level2"><h2 class="anchored" data-anchor-id="prerequisites-for-this-session">Prerequisites for this session</h2>
+</header><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+<p>This session is an 🌶🌶 <strong>intermediate practical</strong> designed for those with some R experience. The aim of this session is to do three things with dplyr:</p>
 <ul>
-<li>good general digital skills</li>
-<li>prior experience of writing your own Flows in Power Automate</li>
-<li>appropriate M365 access and permissions for Power Automate, Teams, and OneDrive</li>
-</ul></section><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<li>show how to approach summarising data</li>
+<li>explain how grouping works</li>
+<li>show some simple summary functions</li>
+</ul>
+<p>You might also like some of the other dplyr-themed practical sessions:</p>
+<ul>
+<li><a href="exploring_data_with_dplyr">Exploring data with dplyr</a></li>
+<li><a href="dplyr_joins.qmd">Joining data with dplyr</a></li>
+<li><a href="tidyselect.qmd">Tidyselect</a></li>
+</ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>Let’s do a little bit of package loading, find some interesting data, and then start summarising things:</p>
+<p>For the first half of the session, we’ll use a real dataset that shows deaths by socioeconomic deprivation. Full details on the <a href="https://www.opendata.nhs.scot/dataset/hospital-standardised-mortality-ratios/resource/e6849f09-3a5c-44c6-8029-260882345071">PHS opendata page</a>:</p>
+<p>We’ll do a quick <code>skim()</code> of the data to help you get a better sense of it:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">SMR_SIMD</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">204</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">SIMDQuintile</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr></tbody>
+</table>
+<p><strong>Variable type: Date</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 11%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">min</th>
+<th style="text-align: left;">max</th>
+<th style="text-align: left;">median</th>
+<th style="text-align: right;">n_unique</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">Date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">2016-09-01</td>
+<td style="text-align: left;">2024-12-01</td>
+<td style="text-align: left;">2020-10-16</td>
+<td style="text-align: right;">34</td>
+</tr></tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 5%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Year</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2020.24</td>
+<td style="text-align: right;">2.47</td>
+<td style="text-align: right;">2016.00</td>
+<td style="text-align: right;">2018.00</td>
+<td style="text-align: right;">2020.00</td>
+<td style="text-align: right;">2022.00</td>
+<td style="text-align: right;">2024.00</td>
+<td style="text-align: left;">▆▇▃▇▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Quarter</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7.68</td>
+<td style="text-align: right;">3.36</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">9.00</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: left;">▇▇▁▇▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NumberOfDeaths</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1144.20</td>
+<td style="text-align: right;">563.69</td>
+<td style="text-align: right;">7.00</td>
+<td style="text-align: right;">1006.00</td>
+<td style="text-align: right;">1286.00</td>
+<td style="text-align: right;">1551.00</td>
+<td style="text-align: right;">2057.00</td>
+<td style="text-align: left;">▃▁▆▇▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NumberOfPatients</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">35444.62</td>
+<td style="text-align: right;">16914.91</td>
+<td style="text-align: right;">490.00</td>
+<td style="text-align: right;">33310.00</td>
+<td style="text-align: right;">39724.50</td>
+<td style="text-align: right;">45818.25</td>
+<td style="text-align: right;">59076.00</td>
+<td style="text-align: left;">▃▁▃▇▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CrudeRate</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.02</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">2.72</td>
+<td style="text-align: right;">3.04</td>
+<td style="text-align: right;">3.42</td>
+<td style="text-align: right;">5.58</td>
+<td style="text-align: left;">▂▃▇▂▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>That dataset is useful to practice summarising, because there are various different plausible groups that we might like to investigate - especially the intersection between SIMDQuintiles (indicating different levels of deprivation) with the various date-based year/season/month groups that might be of interest for health improvement work:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="Summarising-data-with-dplyr_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="summarise" class="level2"><h2 class="anchored" data-anchor-id="summarise"><code>summarise()</code></h2>
+<p>This is the standard way of summarising data in dplyr. The description on the <a href="https://dplyr.tidyverse.org/reference/summarise.html">dplyr reference page for <code>summarise</code></a> is admirably clear:</p>
+<blockquote class="blockquote">
+<p><code>summarise()</code> creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarising all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.</p>
+</blockquote>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  `sum(NumberOfDeaths)`
+                  &lt;dbl&gt;
+1                233417</code></pre>
+</div>
+</div>
+<p><code>summarise()</code> is especially strong in concert with <code>group_by()</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+   Year `sum(NumberOfDeaths)`
+  &lt;dbl&gt;                 &lt;dbl&gt;
+1  2016                 13273
+2  2017                 27471
+3  2018                 26670
+4  2019                 26940
+5  2020                 27717
+6  2021                 28745
+7  2022                 28101
+8  2023                 27670
+9  2024                 26830</code></pre>
+</div>
+</div>
+<p>Two important things to note here:</p>
 <ul>
 <li>
-<a href="https://en.wikipedia.org/wiki/Control_flow">Control flow</a> is the technical term that coders use to describe software that changes its behaviour depending on circumstances.</li>
-<li>This session looks at using <strong>variables</strong> and <strong>conditions</strong> to do control flow in Power Automate</li>
-</ul></section><section id="plan" class="level2"><h2 class="anchored" data-anchor-id="plan">Plan</h2>
-<ul>
-<li>We’ll build a series of H&amp;SC-relevant mini-projects:
-<ul>
-<li>connecting to a OneDrive folder</li>
-<li>counting files in that folder</li>
-<li>posting a count of those files in a Teams message</li>
-<li>varying the text of that Teams message by count</li>
-<li>varying the content of that Teams message by the time of day (or day of week…)</li>
+<code>group_by</code> doesn’t change how the data looks - just how it behaves:</li>
+<li>Each call to <code>summarise()</code> removes a layer of grouping</li>
 </ul>
-</li>
-</ul></section><section id="project-one-connect-with-a-onedrive-folder" class="level2"><h2 class="anchored" data-anchor-id="project-one-connect-with-a-onedrive-folder">Project one: connect with a OneDrive folder</h2>
-<ul>
-<li>we’ll start with a very basic Flow that connects to a directory of files in your OneDrive.</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Setup
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<ul>
-<li>download the <a href="src/pa_conditions.zip">sample files</a>, and extract to your OneDrive</li>
-<li>or, create a directory in your OneDrive containing some text files, labelled <code>0.txt</code>, <code>1.txt</code>, <code>2.txt</code>…<code>9.txt</code>
-</li>
-<li>create a new instant flow</li>
-<li>after the <code>Manually trigger a flow</code> box, add a <code>List files in folder</code> connector  <img src="images/ce_struct_00.png" class="img-fluid" alt="List files in folder">
-</li>
-<li>supply the address of your directory of text files in the <code>List files in folder</code> connector</li>
-<li>save and test your flow</li>
-</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  `sum(\`sum(NumberOfDeaths)\`)`
+                           &lt;dbl&gt;
+1                         233417</code></pre>
 </div>
 </div>
+<p>And you can build simple formulae inside <code>summarise()</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+   Year total
+  &lt;dbl&gt; &lt;dbl&gt;
+1  2021 28745
+2  2022 28101
+3  2020 27717
+4  2023 27670
+5  2017 27471
+6  2019 26940
+7  2024 26830
+8  2018 26670
+9  2016 13273</code></pre>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<ul>
-<li>don’t expect any interesting output, but do run this flow to check for errors and permissions</li>
-<li>in the next project, we’ll collect part of the information that Power Automate makes available about your files</li>
-<li>Power Automate has connectors for most network/cloud file storage platform, so this approach should be adaptable to whatever platform you use</li>
-</ul>
-</div>
-</div>
-</div>
-</section><section id="project-two-counting-files" class="level2"><h2 class="anchored" data-anchor-id="project-two-counting-files">Project two: counting files</h2>
-<ul>
-<li>we’ll now update that flow to count the number of files in the folder</li>
-<li>we’ll need to create <strong>variables</strong> to hold that number</li>
-<li>in later stages, we’ll then pass that count variable into some useful output (like a Teams message)</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<ul>
-<li>add an <code>Initialize variable</code> block<img src="images/ce_struct_01.png" class="img-fluid" alt="Add an Initialize variable block">
-</li>
-<li>now populate the <code>Initialize variable</code> fields as shown below: <img src="images/ce_struct_02.png" class="img-fluid" alt="Populate the Initialize variable fields"><ul>
-<li>give your variable a name: <code>file_content</code>
-</li>
-<li>set the type, which tells Power Automate what sort of value to expect: <code>array</code>
-</li>
-<li>finally, set a starting value: <code>body/value</code>
-</li>
-</ul>
-</li>
-</ul>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+   Year surviving
+  &lt;dbl&gt;     &lt;dbl&gt;
+1  2019    919377
+2  2017    888462
+3  2018    885537
+4  2024    846083
+5  2023    832262
+6  2022    778326
+7  2021    737727
+8  2020    662219
+9  2016    447292</code></pre>
 </div>
 </div>
-</div>
-<ul>
-<li>we now have our <code>file_content</code> variable that contains <strong>all</strong> our file info</li>
-<li>in a real flow, we’d probably want to put other parts of that to use</li>
-<li>but in this simple example, we’ll just count the number of entries (= the number of files in our directory)</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<ul>
-<li>add a second <code>Initialize variable</code> block</li>
-<li>populate the fields as shown below:
-<ul>
-<li>give your variable a name: <code>file_count</code>
-</li>
-<li>set the type, which tells Power Automate what sort of value to expect: <code>integer</code>
-</li>
-<li>finally, set a starting value. That’s more involved than the previous variable: you need to write a formula to calculate the length of your file_content - <code>length(variables('file_content'))</code><img src="images/clipboard-122056247.png" class="img-fluid" alt="Formula to calculate length">
-</li>
-</ul>
-</li>
-</ul>
+<p>You can, in another recent change, group inside the summarise itself via <code>.by()</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+   Year surviving
+  &lt;dbl&gt;     &lt;dbl&gt;
+1  2019    919377
+2  2017    888462
+3  2018    885537
+4  2024    846083
+5  2023    832262
+6  2022    778326
+7  2021    737727
+8  2020    662219
+9  2016    447292</code></pre>
 </div>
 </div>
+<p>This <strong>always</strong> returns an ungrouped tibble - so important to know that it’s not a direct substitute for an ordinary <code>group_by()</code>. That’s especially confusing with <code>summarise()</code> owing to the “remove a single grouping layer each time” approach:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 34 × 3
+    Year Quarter   att
+   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+ 1  2016       9  6159
+ 2  2016      12  7114
+ 3  2017       3  7154
+ 4  2017       6  6367
+ 5  2017       9  6258
+ 6  2017      12  7692
+ 7  2018       3  7581
+ 8  2018       6  6089
+ 9  2018       9  6092
+10  2018      12  6908
+# ℹ 24 more rows</code></pre>
 </div>
-<ul>
-<li>that should leave you with a flow like the following, which you should save and test:  <img src="images/clipboard-1997909894.png" height="300" alt="File counting flow">
-</li>
-<li>once run, you should see that the value of <code>file_count</code> is 10 <img src="images/clipboard-2788856187.png" class="img-fluid" alt="Test value of file_count">
-</li>
-</ul></section><section id="digression-data-types" class="level2"><h2 class="anchored" data-anchor-id="digression-data-types">Digression: data types</h2>
-<ul>
-<li>a note on data types: Power Automate has several different built-in data types:  <img src="images/clipboard-601178402.png" class="img-fluid" alt="Data types">
-</li>
-<li>Power Automate is inflexible about data types: so, for example, if you accidentally try to set an integer to 2.4, your flow will fail</li>
-<li>you’ll need to think carefully about what sort of value your variable is intended to hold</li>
-</ul></section><section id="project-three-posting-a-count-of-those-files-in-a-teams-message" class="level2"><h2 class="anchored" data-anchor-id="project-three-posting-a-count-of-those-files-in-a-teams-message">Project three: posting a count of those files in a Teams message</h2>
-<p>This one should be easy! At least, once you’ve been added to the KIND test Team…</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<ul>
-<li>add a <code>Post message in a chat or channel</code> connector</li>
-<li>populate the fields - it’s recommended to post as <code>User</code> as this allows you to edit any embarrasing errors in your posts once they’ve been posted</li>
-<li>for the message, write some suitable text, then include the file_count variable <img src="images/clipboard-2062069255.png" height="350" alt="Compose a Teams message">
-</li>
-</ul>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 34 × 3
+# Groups:   Year [9]
+    Year Quarter   att
+   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+ 1  2016       9  6159
+ 2  2016      12  7114
+ 3  2017       3  7154
+ 4  2017       6  6367
+ 5  2017       9  6258
+ 6  2017      12  7692
+ 7  2018       3  7581
+ 8  2018       6  6089
+ 9  2018       9  6092
+10  2018      12  6908
+# ℹ 24 more rows</code></pre>
 </div>
 </div>
+</section><section id="tools-for-understanding-groupings" class="level2"><h2 class="anchored" data-anchor-id="tools-for-understanding-groupings">Tools for understanding groupings</h2>
+<p>dplyr has tools for working with grouping metadata. Let’s start with some simple grouped data. We can discover the groups that we’re working with using <code>groups()</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+Year</code></pre>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/clipboard-1054286011.png" height="250" class="figure-img"></p>
-<figcaption>Sample Teams output</figcaption></figure>
 </div>
-</section><section id="project-4-varying-the-text-of-that-teams-message-by-count" class="level2"><h2 class="anchored" data-anchor-id="project-4-varying-the-text-of-that-teams-message-by-count">Project 4: varying the text of that Teams message by count</h2>
-<ul>
-<li>so far, our message just repeats the contents of <code>file_count</code> with a bit of static text</li>
-<li>we can use a <strong>Condition</strong> to change the text that accompanies that value <img src="images/ce_struct_06.png" class="img-fluid" alt="Condition to alter text">
-</li>
-<li>we should be able to adapt our previous flow to use that condition</li>
-</ul></section><section id="project-5-varying-text-by-time-of-day" class="level2"><h2 class="anchored" data-anchor-id="project-5-varying-text-by-time-of-day">Project 5: varying text by time of day</h2>
-<ul>
-<li>we could now add another variable to our flow</li>
-<li>this will set a value based on the time of day<img src="images/ce_struct_11.png" class="img-fluid" alt="Variable based on time of day">
-</li>
-<li>we can set our condition to use this variable instead of <code>file_count</code>
-</li>
-</ul>
+<p>Simpler information is produced by <code>group_vars()</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Year"</code></pre>
+</div>
+</div>
+<p>Much fuller information by <code>group_data()</code>, <code>group_rows()</code> and friends:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+   Year       .rows
+  &lt;dbl&gt; &lt;list&lt;int&gt;&gt;
+1  2016        [12]
+2  2017        [24]
+3  2018        [24]
+4  2019        [24]
+5  2020        [24]
+6  2021        [24]
+7  2022        [24]
+8  2023        [24]
+9  2024        [24]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;list_of&lt;integer&gt;[9]&gt;
+[[1]]
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12
+
+[[2]]
+ [1] 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
+
+[[3]]
+ [1] 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60
+
+[[4]]
+ [1] 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84
+
+[[5]]
+ [1]  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100 101 102 103
+[20] 104 105 106 107 108
+
+[[6]]
+ [1] 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127
+[20] 128 129 130 131 132
+
+[[7]]
+ [1] 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151
+[20] 152 153 154 155 156
+
+[[8]]
+ [1] 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175
+[20] 176 177 178 179 180
+
+[[9]]
+ [1] 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199
+[20] 200 201 202 203 204</code></pre>
+</div>
+</div>
+</section><section id="reframe" class="level2"><h2 class="anchored" data-anchor-id="reframe"><code>reframe()</code></h2>
+<p>A recent change in dplyr 1.1.0 is that <code>summarise()</code> now will only return one row per group. A new function, <code>reframe()</code>, has been developed to produce multiple-row summaries. It works exactly like <code>summarise()</code> except, rather than removing one grouping layer per operation, it always returns an ungrouped tibble. The syntax is the same as <code>summarise()</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>`class(old)`: "grouped_df" "tbl_df" "tbl" "data.frame"
+`class(new)`:              "tbl_df" "tbl" "data.frame"
+
+`attr(old, 'groups')` is an S3 object of class &lt;tbl_df/tbl/data.frame&gt;, a list
+`attr(new, 'groups')` is absent</code></pre>
+</div>
+</div>
+</section><section id="count-and-tally" class="level2"><h2 class="anchored" data-anchor-id="count-and-tally">
+<code>count()</code> and <code>tally()</code>
+</h2>
+<p><code>count()</code> counts unique values, and is equivalent to using <code>group_by()</code> and then <code>summarise()</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+   died     n
+  &lt;int&gt; &lt;int&gt;
+1     0   930
+2     1    70</code></pre>
+</div>
+</div>
+<p>That’s roughly equivalent to:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+   died     n
+  &lt;int&gt; &lt;int&gt;
+1     0   930
+2     1    70</code></pre>
+</div>
+</div>
+<p><code>tally()</code> works similarly, except without the <code>group_by()</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      n
+  &lt;int&gt;
+1  1000</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      n
+  &lt;int&gt;
+1  1000</code></pre>
+</div>
+</div>
+<p>A possible source of confusion is that adding a column name to either <code>count()</code> or <code>tally()</code> performs a <strong>weighted count</strong> of that column:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      n
+  &lt;int&gt;
+1 69647</code></pre>
+</div>
+</div>
+<p>Roughly equivalent to:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 69647</code></pre>
+</div>
+</div>
+<p>Personally, it seems wise to use named arguments inside <code>count()</code> and <code>tally()</code> to make sure it’s obvious what the column name is doing:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      n
+  &lt;int&gt;
+1 69647</code></pre>
+</div>
+</div>
+<p><code>count()</code> has a useful sort option to arrange by group size:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 125 × 2
+    syst     n
+   &lt;int&gt; &lt;int&gt;
+ 1   130    28
+ 2   120    26
+ 3   139    26
+ 4   150    25
+ 5   135    24
+ 6   126    22
+ 7   134    22
+ 8   119    21
+ 9   123    21
+10   112    20
+# ℹ 115 more rows</code></pre>
+</div>
+</div>
+<p>And you can name your new count column something more descriptive than <code>n</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 125 × 2
+    syst count_of_something
+   &lt;int&gt;              &lt;int&gt;
+ 1    65                  2
+ 2    76                  2
+ 3    78                  1
+ 4    80                  6
+ 5    81                  1
+ 6    82                  2
+ 7    83                  1
+ 8    85                  5
+ 9    86                  2
+10    87                  2
+# ℹ 115 more rows</code></pre>
+</div>
+</div>
+<p>If you want to count empty groups, use <code>.drop</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  male      n
+  &lt;fct&gt; &lt;int&gt;
+1 0       524
+2 1       476</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  male      n
+  &lt;fct&gt; &lt;int&gt;
+1 0       524
+2 1       476
+3 2         0</code></pre>
+</div>
+</div>
+<p>Both <code>count()</code> and <code>tally()</code> have <code>add_</code> variants, which work like <code>mutate()</code> in that they add a new column containing the count:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000 × 2
+    syst syst_BP_count
+   &lt;int&gt;         &lt;int&gt;
+ 1   150            25
+ 2   145            16
+ 3   169             4
+ 4   154            12
+ 5   122            11
+ 6   146            16
+ 7    65             2
+ 8   116            12
+ 9   162            10
+10   132             9
+# ℹ 990 more rows</code></pre>
+</div>
+</div>
+<p><code>add_tally()</code> gives a col with the same value in each row of a group:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+# Groups:   died [2]
+   male   age  NEWS  syst  dias  temp pulse  resp   sat   sup alert  died     n
+  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+1     0    68     3   150    98  36.8    78    26    96     0     0     0   930
+2     1    94     1   145    67  35      62    18    96     0     0     0   930
+3     0    85     0   169    69  36.2    54    18    96     0     0     0   930
+4     0    80     5   130    81  37     129    18    97     0     0     1    70
+5     0    62     6   108    65  34.4    43    18    99     0     0     1    70
+6     1    64     0   114    82  36.2    78    18    97     0     0     1    70</code></pre>
+</div>
+</div>
+</section><section id="rowwise" class="level2"><h2 class="anchored" data-anchor-id="rowwise"><code>rowwise()</code></h2>
+<p><code>rowwise()</code> forms groups per row. For example, we could take the average of the three columns in ae_attendances:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12,765 × 7
+# Rowwise: 
+   period     org_code type  attendances breaches admissions   mean
+   &lt;date&gt;     &lt;fct&gt;    &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+ 1 2017-03-01 RF4      1           21289     2879       5060  9743.
+ 2 2017-03-01 RF4      2             813       22          0   278.
+ 3 2017-03-01 RF4      other        2850        6          0   952 
+ 4 2017-03-01 R1H      1           30210     5902       6943 14352.
+ 5 2017-03-01 R1H      2             807       11          0   273.
+ 6 2017-03-01 R1H      other       11352      136          0  3829.
+ 7 2017-03-01 AD913    other        4381        2          0  1461 
+ 8 2017-03-01 RYX      other       19562      258          0  6607.
+ 9 2017-03-01 RQM      1           17414     2030       3597  7680.
+10 2017-03-01 RQM      other        7817       86          0  2634.
+# ℹ 12,755 more rows</code></pre>
+</div>
+</div>
+<p>Compare and contrast with the results we obtain if we omit <code>rowwise()</code>, where the mean column contains the averages of the three columns overall, rather than for each date and organisation:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12,765 × 7
+   period     org_code type  attendances breaches admissions  mean
+   &lt;date&gt;     &lt;fct&gt;    &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+ 1 2017-03-01 RF4      1           21289     2879       5060 2450.
+ 2 2017-03-01 RF4      2             813       22          0 2450.
+ 3 2017-03-01 RF4      other        2850        6          0 2450.
+ 4 2017-03-01 R1H      1           30210     5902       6943 2450.
+ 5 2017-03-01 R1H      2             807       11          0 2450.
+ 6 2017-03-01 R1H      other       11352      136          0 2450.
+ 7 2017-03-01 AD913    other        4381        2          0 2450.
+ 8 2017-03-01 RYX      other       19562      258          0 2450.
+ 9 2017-03-01 RQM      1           17414     2030       3597 2450.
+10 2017-03-01 RQM      other        7817       86          0 2450.
+# ℹ 12,755 more rows</code></pre>
+</div>
+</div>
+<p>There’s also a <code>c_across()</code> function to select columns that looks really promising for <code>rowwise()</code> work, but bafflingly it is extremely slow here, taking 50x longer than the equivalent <code>mutate()</code>. This is a known issue - <a href="https://github.com/tidyverse/dplyr/issues/4953">“particularly for long, narrow, data”</a>. So this code is switched off and provided here for information only - although do feel free to try it out if you don’t mind a ten second wait.</p>
+</section><section id="summary-functions" class="level2"><h2 class="anchored" data-anchor-id="summary-functions">Summary functions</h2>
+<section id="nth-first-last" class="level3"><h3 class="anchored" data-anchor-id="nth-first-last">
+<code>nth()</code> / <code>first()</code> / <code>last()</code>
+</h3>
+<p>Get the nth, first, or last values. Very useful inside a <code>summarise()</code> or similar when you want to be sure that you’re going to return a sensible result.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  speaker comment
+  &lt;chr&gt;   &lt;chr&gt;  
+1 steve   b      
+2 emma    c      
+3 steve   d      
+4 emma    f      </code></pre>
+</div>
+</div>
+</section></section><section id="acknowledgments" class="level2"><h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
+<p>I’m extremely grateful to Pauline Ward (PHS) for suggesting the dataset used for this session.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
