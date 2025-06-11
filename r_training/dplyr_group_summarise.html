@@ -342,7 +342,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
 <li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#summarise" id="toc-summarise" class="nav-link" data-scroll-target="#summarise"><code>summarise()</code></a></li>
+  <li><a href="#basic-example" id="toc-basic-example" class="nav-link" data-scroll-target="#basic-example">Basic example</a></li>
+  <li><a href="#group_by" id="toc-group_by" class="nav-link" data-scroll-target="#group_by"><code>group_by()</code></a></li>
+  <li><a href="#care-with-groups" id="toc-care-with-groups" class="nav-link" data-scroll-target="#care-with-groups">Care with groups</a></li>
+  <li><a href="#better-summarising" id="toc-better-summarising" class="nav-link" data-scroll-target="#better-summarising">Better summarising</a></li>
+  <li><a href="#by" id="toc-by" class="nav-link" data-scroll-target="#by"><code>'by()</code></a></li>
   <li><a href="#tools-for-understanding-groupings" id="toc-tools-for-understanding-groupings" class="nav-link" data-scroll-target="#tools-for-understanding-groupings">Tools for understanding groupings</a></li>
   <li><a href="#reframe" id="toc-reframe" class="nav-link" data-scroll-target="#reframe"><code>reframe()</code></a></li>
   <li><a href="#count-and-tally" id="toc-count-and-tally" class="nav-link" data-scroll-target="#count-and-tally"><code>count()</code> and <code>tally()</code></a></li>
@@ -412,6 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nhs-r-community/NHSRdatasets">NHSRdatasets</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section><section id="data" class="level2"><h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>For the first half of the session, we’ll use a real dataset that shows deaths by socioeconomic deprivation. Full details on the <a href="https://www.opendata.nhs.scot/dataset/hospital-standardised-mortality-ratios/resource/e6849f09-3a5c-44c6-8029-260882345071">PHS opendata page</a>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://www.opendata.nhs.scot/datastore/dump/e6849f09-3a5c-44c6-8029-260882345071?bom=True"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -653,6 +660,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarising all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.</p>
 </blockquote>
+</section><section id="basic-example" class="level2"><h2 class="anchored" data-anchor-id="basic-example">Basic example</h2>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">NumberOfDeaths</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -663,6 +671,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1                233417</code></pre>
 </div>
 </div>
+</section><section id="group_by" class="level2"><h2 class="anchored" data-anchor-id="group_by"><code>group_by()</code></h2>
 <p><code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> is especially strong in concert with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
@@ -683,6 +692,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 9  2024                 26830</code></pre>
 </div>
 </div>
+</section><section id="care-with-groups" class="level2"><h2 class="anchored" data-anchor-id="care-with-groups">Care with groups</h2>
 <p>Two important things to note here:</p>
 <ul>
 <li>
@@ -701,6 +711,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1                         233417</code></pre>
 </div>
 </div>
+</section><section id="better-summarising" class="level2"><h2 class="anchored" data-anchor-id="better-summarising">Better summarising</h2>
 <p>And you can build simple formulae inside <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
@@ -740,6 +751,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 9  2016    447292</code></pre>
 </div>
 </div>
+</section><section id="by" class="level2"><h2 class="anchored" data-anchor-id="by"><code>'by()</code></h2>
 <p>You can, in another recent change, group inside the summarise itself via <code>.by()</code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SMR_SIMD</span> <span class="op">|&gt;</span> </span>
