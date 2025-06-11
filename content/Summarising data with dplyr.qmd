@@ -1,0 +1,320 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Session outline
+
+This session is an 🌶🌶 **intermediate practical** designed for those with some R experience. The aim of this session is to do three things with dplyr:
+
++ show how to approach summarising data
++ explain how grouping works
++ show some simple summary functions
+
+You might also like some of the other dplyr-themed practical sessions:
+
+* [Exploring data with dplyr](exploring_data_with_dplyr)
+* [Joining data with dplyr](dplyr_joins.qmd)
+* [Tidyselect](tidyselect.qmd)
+
+## Setup
+
+Let's do a little bit of package loading, find some interesting data, and then start summarising things:
+
+```{r}
+library(dplyr)
+library(readr)
+library(lubridate)
+library(ggplot2)
+library(NHSRdatasets)
+```
+
+For the first half of the session, we'll use a real dataset that shows deaths by socioeconomic deprivation. Full details on the [PHS opendata page](https://www.opendata.nhs.scot/dataset/hospital-standardised-mortality-ratios/resource/e6849f09-3a5c-44c6-8029-260882345071):
+
+```{r}
+SMR_SIMD <- read_csv("https://www.opendata.nhs.scot/datastore/dump/e6849f09-3a5c-44c6-8029-260882345071?bom=True") |>
+  select(-c(`_id`, contains("QF"), Country)) |>
+  tidyr::separate_wider_delim(TimePeriod, "Q", names = c("Year", "Quarter")) |>
+  mutate(Year = as.numeric(Year),
+         Quarter = as.numeric(Quarter) * 3) |>
+  mutate(Date = ymd(paste(Year, Quarter, "01"))) |>
+  mutate(SIMDQuintile = case_when(SIMDQuintile == "1 - most deprived" ~ "1",
+                                  SIMDQuintile == "5 - least deprived" ~ "5",
+                                  TRUE ~ SIMDQuintile)) |>
+  relocate(last_col()) 
+```
+
+We'll do a quick `skim()` of the data to help you get a better sense of it:
+
+```{r}
+skimr::skim(SMR_SIMD)
+```
+
+That dataset is useful to practice summarising, because there are various different plausible groups that we might like to investigate - especially the intersection between SIMDQuintiles (indicating different levels of deprivation) with the various date-based year/season/month groups that might be of interest for health improvement work:
+
+```{r}
+SMR_SIMD |>
+  ggplot() +
+  geom_line(aes(x = Date, y = NumberOfDeaths, colour = SIMDQuintile)) +
+  theme_minimal()
+```
+
+
+## `summarise()`
+
+This is the standard way of summarising data in dplyr. The description on the [dplyr reference page for `summarise`](https://dplyr.tidyverse.org/reference/summarise.html) is admirably clear:
+  
+> `summarise()` creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarising all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.
+
+```{r}
+SMR_SIMD |> 
+  summarise(sum(NumberOfDeaths)) 
+```
+
+`summarise()` is especially strong in concert with `group_by()`:
+  
+```{r}
+SMR_SIMD |> 
+  group_by(Year) |>
+  summarise(sum(NumberOfDeaths)) 
+```
+
+Two important things to note here:
+  
++ `group_by` doesn't change how the data looks - just how it behaves:
++ Each call to `summarise()` removes a layer of grouping
+
+```{r}
+SMR_SIMD |> 
+  group_by(Year) |>
+  summarise(sum(NumberOfDeaths)) |>
+  summarise(sum(`sum(NumberOfDeaths)`)) # horrible default column names, which we'll fix in future
+```
+
+And you can build simple formulae inside `summarise()`:
+
+```{r}
+SMR_SIMD |> 
+  group_by(Year) |>
+  summarise(total = sum(NumberOfDeaths)) |> # rename columns like select 
+  arrange(desc(total)) 
+
+SMR_SIMD |> 
+  group_by(Year) |>
+  summarise(surviving = sum(NumberOfPatients - NumberOfDeaths )) |>
+  arrange(desc(surviving)) 
+```
+
+You can, in another recent change, group inside the summarise itself via `.by()`:
+
+```{r}
+SMR_SIMD |> 
+  summarise(surviving = sum(NumberOfPatients - NumberOfDeaths), 
+            .by = Year) |>
+  arrange(desc(surviving)) 
+```
+
+This **always** returns an ungrouped tibble - so important to know that it's not a direct substitute for an ordinary `group_by()`. That's especially confusing with `summarise()` owing to the "remove a single grouping layer each time" approach:
+
+```{r}
+SMR_SIMD |> 
+  summarise(att = sum(NumberOfDeaths), .by = c(Year, Quarter)) 
+
+SMR_SIMD |> 
+  group_by(Year, Quarter) |>
+  summarise(att = sum(NumberOfDeaths))
+```
+
+## Tools for understanding groupings
+
+dplyr has tools for working with grouping metadata. Let's start with some simple grouped data. We can discover the groups that we're working with using `groups()`:
+
+```{r}
+SMR_SIMD |> 
+  group_by(Year) |>
+  groups() # as a list
+```
+
+Simpler information is produced by `group_vars()`:
+
+```{r}
+SMR_SIMD |> 
+  group_by(Year) |>
+  group_vars() # vector
+```
+
+Much fuller information by `group_data()`, `group_rows()` and friends:
+
+```{r}
+SMR_SIMD |> 
+  group_by(Year) |>
+  group_data() # tibble
+
+SMR_SIMD |> 
+  group_by(Year) |>
+  group_rows() # list of each group's rows
+```
+
+## `reframe()`
+A recent change in dplyr 1.1.0 is that `summarise()` now will only return one row per group. A new function, `reframe()`, has been developed to produce multiple-row summaries. It works exactly like `summarise()` except, rather than removing one grouping layer per operation, it always returns an ungrouped tibble. The syntax is the same as `summarise()`:
+
+```{r results='markup'}
+sum <- ae_attendances |>
+  group_by(year = lubridate::floor_date(period, unit = "year")) |>
+  summarise(
+    year = lubridate::year(year),
+    non_admissions = sum(attendances - admissions)
+  )
+
+ref <- ae_attendances |>
+  group_by(year = lubridate::floor_date(period, unit = "year")) |>
+  reframe(
+    year = lubridate::year(year),
+    non_admissions = sum(attendances - admissions)
+  )
+
+waldo::compare(sum, ref)
+```
+
+
+## `count()` and `tally()`
+
+`count()` counts unique values, and is equivalent to using `group_by()` and then `summarise()`:
+
+```{r}
+synthetic_news_data |>
+  count(died) 
+```
+
+That's roughly equivalent to:
+  
+```{r}
+synthetic_news_data |> 
+  group_by(died) |> 
+  summarise(n = n())  
+```
+
+`tally()` works similarly, except without the `group_by()`:
+  
+```{r}
+synthetic_news_data |> 
+  # group_by(died) |> 
+  summarise(n = n())  
+
+synthetic_news_data |>
+  tally() 
+```
+
+A possible source of confusion is that adding a column name to either `count()` or `tally()` performs a **weighted count** of that column:
+  
+```{r}
+synthetic_news_data |>
+  tally(age)
+```
+
+Roughly equivalent to:
+  
+```{r results='markup'}
+synthetic_news_data |>
+  pull(age) |>
+  sum()
+```
+
+Personally, it seems wise to use named arguments inside `count()` and `tally()` to make sure it's obvious what the column name is doing:
+
+```{r}
+synthetic_news_data |>
+  count(wt = age)
+```
+
+`count()` has a useful sort option to arrange by group size:
+  
+```{r}
+synthetic_news_data |>
+  count(syst, sort=T) 
+```
+
+And you can name your new count column something more descriptive than `n`:
+  
+```{r}
+synthetic_news_data |>
+  count(syst, name = "count_of_something") 
+```
+
+If you want to count empty groups, use `.drop`:
+  
+```{r}
+synthetic_news_data |>
+  mutate(male = factor(male, levels = c(0, 1, 2))) |>
+  count(male, .drop = T)
+
+synthetic_news_data |>
+  mutate(male = factor(male, levels = c(0, 1, 2))) |>
+  count(male, .drop = F) 
+```
+
+
+Both `count()` and `tally()` have `add_` variants, which work like `mutate()` in that they add a new column containing the count:
+  
+```{r}
+#add_ variants
+synthetic_news_data |>
+  add_count(syst, name="syst_BP_count") |>
+  select(syst, last_col())
+```
+
+`add_tally()` gives a col with the same value in each row of a group:
+  
+```{r}
+synthetic_news_data |>
+  group_by(died) |>
+  add_tally() |>
+  slice(1:3) 
+```
+
+## `rowwise()`
+
+`rowwise()` forms groups per row. For example, we could take the average of the three columns in ae_attendances:
+  
+```{r eval=T}
+# to find the daily mean of attendances, breaches, and admissions
+ae_attendances |> 
+  rowwise() |>
+  mutate(mean = mean(c(attendances, breaches, admissions))) 
+```
+
+Compare and contrast with the results we obtain if we omit `rowwise()`, where the mean column contains the averages of the three columns overall, rather than for each date and organisation:
+  
+```{r}
+ae_attendances |> 
+  mutate(mean=mean(c(attendances, breaches, admissions))) 
+```
+
+There's also a `c_across()` function to select columns that looks really promising for `rowwise()` work, but bafflingly it is extremely slow here, taking 50x longer than the equivalent `mutate()`. This is a known issue - ["particularly for long, narrow, data"](https://github.com/tidyverse/dplyr/issues/4953). So this code is switched off and provided here for information only - although do feel free to try it out if you don't mind a ten second wait.
+
+```{r eval=F, include=T}
+ae_attendances |> 
+  rowwise() |>
+  mutate(mean = mean(c_across(4:6))) 
+```
+
+## Summary functions
+
+### `nth()` / `first()` / `last()`
+
+Get the nth, first, or last values. Very useful inside a `summarise()` or similar when you want to be sure that you're going to return a sensible result.
+
+```{r}
+tibble(speaker = c("steve", "steve", "emma", "steve", "emma", "emma"),
+       comment = letters[1:6])  |>
+  mutate(group = consecutive_id(speaker)) |>
+  group_by(group, speaker) |>
+  summarise(comment = last(comment)) |>
+  ungroup() |>
+  select(-group)
+```
+
+## Acknowledgments
+
+I'm extremely grateful to Pauline Ward (PHS) for suggesting the dataset used for this session.
