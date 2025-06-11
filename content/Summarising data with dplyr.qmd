@@ -4,19 +4,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Session outline
 
-This session is an 🌶🌶 **intermediate practical** designed for those with some R experience. The aim of this session is to do three things with dplyr:
-
-+ show how to approach summarising data
-+ explain how grouping works
-+ show some simple summary functions
-
-You might also like some of the other dplyr-themed practical sessions:
-
-* [Exploring data with dplyr](exploring_data_with_dplyr)
-* [Joining data with dplyr](dplyr_joins.qmd)
-* [Tidyselect](tidyselect.qmd)
 
 ## Setup
 
@@ -29,6 +17,8 @@ library(lubridate)
 library(ggplot2)
 library(NHSRdatasets)
 ```
+
+## Data
 
 For the first half of the session, we'll use a real dataset that shows deaths by socioeconomic deprivation. Full details on the [PHS opendata page](https://www.opendata.nhs.scot/dataset/hospital-standardised-mortality-ratios/resource/e6849f09-3a5c-44c6-8029-260882345071):
 
@@ -67,10 +57,14 @@ This is the standard way of summarising data in dplyr. The description on the [d
   
 > `summarise()` creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarising all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.
 
+## Basic example
+
 ```{r}
 SMR_SIMD |> 
   summarise(sum(NumberOfDeaths)) 
 ```
+
+## `group_by()`
 
 `summarise()` is especially strong in concert with `group_by()`:
   
@@ -79,6 +73,8 @@ SMR_SIMD |>
   group_by(Year) |>
   summarise(sum(NumberOfDeaths)) 
 ```
+
+## Care with groups
 
 Two important things to note here:
   
@@ -92,6 +88,7 @@ SMR_SIMD |>
   summarise(sum(`sum(NumberOfDeaths)`)) # horrible default column names, which we'll fix in future
 ```
 
+## Better summarising
 And you can build simple formulae inside `summarise()`:
 
 ```{r}
@@ -106,6 +103,7 @@ SMR_SIMD |>
   arrange(desc(surviving)) 
 ```
 
+## `'by()`
 You can, in another recent change, group inside the summarise itself via `.by()`:
 
 ```{r}
