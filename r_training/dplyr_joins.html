@@ -359,6 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#anti_join" id="toc-anti_join" class="nav-link" data-scroll-target="#anti_join"><code>anti_join()</code></a></li>
   </ul>
 </li>
+  <li><a href="#by-and-join_by" id="toc-by-and-join_by" class="nav-link" data-scroll-target="#by-and-join_by">by and <code>join_by()</code></a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -394,9 +395,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><div class="cell" data-layout-align="left">
 <p>No feedback found for this session</p>
 </div>
-<!-- joins -->
-<!-- multiple and unmatched -->
-<!-- .by/by -->
 <section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
 <p>This session is an 🌶🌶 <strong>intermediate practical</strong> designed for those with some R experience. The aim of this session is to do three things with dplyr:</p>
 <ul>
@@ -421,7 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="binding" class="level2"><h2 class="anchored" data-anchor-id="binding">Binding</h2>
+</section><section id="binding" class="level1"><h1>Binding</h1>
 <p>To demonstrate how joins work in dplyr, we need to start with some suitable data.</p>
 <p>We’ll set up some extremely simple data using <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code> to demonstrate how the joins work:</p>
 <div class="cell">
@@ -445,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="st">"y"</span>,<span class="fl">2</span>,<span class="fl">14</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="bind_rows" class="level3"><h3 class="anchored" data-anchor-id="bind_rows"><code>bind_rows()</code></h3>
+<section id="bind_rows" class="level2"><h2 class="anchored" data-anchor-id="bind_rows"><code>bind_rows()</code></h2>
 <p><code><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows()</a></code> does exactly what the name describes. It adds the rows of one tibble to another, resulting in one joined tibble containing all the rows:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">|&gt;</span></span>
@@ -526,7 +524,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 10 y            2    14</code></pre>
 </div>
 </div>
-</section><section id="bind_cols" class="level3"><h3 class="anchored" data-anchor-id="bind_cols">bind_cols()</h3>
+</section><section id="bind_cols" class="level2"><h2 class="anchored" data-anchor-id="bind_cols">bind_cols()</h2>
 <p>Another function, another descriptive name. <code><a href="https://dplyr.tidyverse.org/reference/bind_cols.html">bind_cols()</a></code> adds columns to the starting tibble, but otherwise works as <code><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">|&gt;</span></span>
@@ -542,7 +540,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5 x                    9       1 y                    2      14</code></pre>
 </div>
 </div>
-</section></section><section id="mutating-joins" class="level2 tabset"><h2 class="tabset anchored" data-anchor-id="mutating-joins">Mutating joins</h2>
+</section></section><section id="mutating-joins" class="level1 tabset"><h1 class="tabset">Mutating joins</h1>
 <p>To get started with mutating joins in dplyr, we could do much worse than the <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">first part of the manual page</a>, which is nice and clear:</p>
 <hr>
 <p><em>The mutating joins add columns from y to x, matching rows based on the keys:</em></p>
@@ -560,7 +558,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><em>If a row in x matches multiple rows in y, all the rows in y will be returned once for each matching row in x.</em></p>
 <hr>
-<section id="inner_join" class="level3"><h3 class="anchored" data-anchor-id="inner_join"><code>inner_join()</code></h3>
+<section id="inner_join" class="level2"><h2 class="anchored" data-anchor-id="inner_join"><code>inner_join()</code></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/inner.png" height="250" class="figure-img"></p>
 <figcaption>Inner join</figcaption></figure>
@@ -578,7 +576,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This returns all the rows that exist in both tibbles.</p>
-</section><section id="left_join" class="level3"><h3 class="anchored" data-anchor-id="left_join"><code>left_join()</code></h3>
+</section><section id="left_join" class="level2"><h2 class="anchored" data-anchor-id="left_join"><code>left_join()</code></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/left.png" height="250" class="figure-img"></p>
 <figcaption>Left join</figcaption></figure>
@@ -600,7 +598,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We get returned the rows that exist in <code>x</code>, and any that match keys from <code>y</code>. Any ‘extra’ rows in simple_a are filled in with <code>NAs</code>. We’ve also tweaked the column names in this example, using the <code>suffix</code> argument.</p>
-</section><section id="right_join" class="level3"><h3 class="anchored" data-anchor-id="right_join"><code>right_join()</code></h3>
+</section><section id="right_join" class="level2"><h2 class="anchored" data-anchor-id="right_join"><code>right_join()</code></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/right.png" height="250" class="figure-img"></p>
 <figcaption>Right join</figcaption></figure>
@@ -621,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We get all the rows that exist in <code>y</code>, and any that match keys from <code>simple_a</code>, again, filling with NAs where appropriate. Here, we’re demonstrating the <code>keep</code> argument, which will repeat the column on which we’re joining for each of the tibbles.</p>
-</section><section id="full_join" class="level3"><h3 class="anchored" data-anchor-id="full_join"><code>full_join()</code></h3>
+</section><section id="full_join" class="level2"><h2 class="anchored" data-anchor-id="full_join"><code>full_join()</code></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/full.png" height="250" class="figure-img"></p>
 <figcaption>Full join</figcaption></figure>
@@ -646,7 +644,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>All rows in both tibbles, filling with <code>NAs</code> where needed.</p>
-</section><section id="anti_join" class="level3"><h3 class="anchored" data-anchor-id="anti_join"><code>anti_join()</code></h3>
+</section><section id="anti_join" class="level2"><h2 class="anchored" data-anchor-id="anti_join"><code>anti_join()</code></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/anti.png" height="250" class="figure-img"></p>
 <figcaption>Anti join</figcaption></figure>
@@ -666,9 +664,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Only those rows in <code>x</code> that are not present in <code>y</code>.</p>
+</section></section><section id="by-and-join_by" class="level1"><h1>by and <code>join_by()</code>
+</h1>
+<p>Our examples so far have used data with identical column names. Let’s break that now:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>new_key <span class="op">=</span> <span class="va">key</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Non-matching column names has traditionally complicated joining syntax. But there’s a comparatively new dplyr function that can simplify things: <code><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by()</a></code></p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">y</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="st">"key"</span> <span class="op">==</span> <span class="st">"new_key"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  category.x value.x   key category.y value.y
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
+1 x                4     2 y                7
+2 x                4     2 y                3</code></pre>
+</div>
+</div>
+<!-- multiple and unmatched -->
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
