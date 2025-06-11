@@ -18,6 +18,8 @@ library(dplyr)
 
 # Binding
 
+## Introduction
+
 To demonstrate how joins work in dplyr, we need to start with some suitable data. 
 
 We'll set up some extremely simple data using `tribble()` to demonstrate how the joins work:
@@ -53,6 +55,8 @@ x |>
   bind_rows(y) 
 ```
 
+## Missing values
+
 `bind_rows()` will create new columns and fill with NAs if the names of the columns don't match:
   
 ```{r}
@@ -83,7 +87,9 @@ x |>
   bind_cols(y, .name_repair="universal") 
 ```
 
-# Mutating joins {.tabset}
+# Mutating joins
+
+## Introduction
 
 To get started with mutating joins in dplyr, we could do much worse than the [first part of the manual page](https://dplyr.tidyverse.org/reference/mutate-joins.html), which is nice and clear:
   
@@ -106,7 +112,9 @@ To get started with mutating joins in dplyr, we could do much worse than the [fi
 
 ![Inner join](images/inner.png){height="250px"}
 
-`inner_join()` joins two tibbles by whichever key column you supply using `by=`:
+`inner_join()` joins two tibbles by whichever key column you supply using `by=`
+
+## `inner_join()` example
   
 ```{r}
 x |>
@@ -120,7 +128,9 @@ This returns all the rows that exist in both tibbles.
 ![Left join](images/left.png){height="250px"}
 
 
-`left_join()` includes all the rows in the first tibble:
+`left_join()` includes all the rows in the first tibble
+
+## `left_join()` example
   
 ```{r}
 x |>
@@ -133,7 +143,9 @@ We get returned the rows that exist in `x`, and any that match keys from `y`. An
 
 ![Right join](images/right.png){height="250px"}
 
-`right_join()` includes all the rows in the second tibble:
+`right_join()` includes all the rows in the second tibble
+
+## `right_join()` example
 
 ```{r}
 x |>
@@ -146,7 +158,9 @@ We get all the rows that exist in `y`, and any that match keys from `simple_a`, 
 
 ![Full join](images/full.png){height="250px"}
 
-`full_join()` gives us all the rows from all the tibbles:
+`full_join()` gives us all the rows from all the tibbles
+
+## `full_join()` example
 
 ```{r}
 x |>
@@ -161,7 +175,9 @@ All rows in both tibbles, filling with `NAs` where needed.
 ![Anti join](images/anti.png){height="250px"}
 
 
-Anti-join is a bit of an outlier, because it returns a smaller tibble than it is supplied with. It returns all the rows of our first tibble that are not present in the second tibble:
+Anti-join is a bit of an outlier, because it returns a smaller tibble than it is supplied with. It returns all the rows of our first tibble that are not present in the second tibble
+
+## `anti_join()` example
 
 ```{r}
 x |>
@@ -181,11 +197,27 @@ y <- y |>
 
 Non-matching column names has traditionally complicated  joining syntax. But there's a comparatively new dplyr function that can simplify things: `join_by()`
 
+
+## `join_by()` example
+
 ```{r}
 x |>
   inner_join(y, by = join_by("key" == "new_key"))
 ```
 
+<!-- ## `join_by()` inqui join example -->
+
+## Helpers
+
+```{r}
+#| eval: false
+
+keep = NULL # keep the join keys
+na_matches = c("na", "never") # what to do with NA values
+multiple = "all" # in the case of multiple matches, any/first/last match is joined
+unmatched = "drop" # drop or error
+relationship = "one-to-many" # error checking
+```
 
 <!-- multiple and unmatched -->
 
