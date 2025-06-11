@@ -309,7 +309,9 @@ ul.task-list li input[type="checkbox"] {
   <li>
 <a href="#binding" id="toc-binding" class="nav-link" data-scroll-target="#binding">Binding</a>
   <ul class="collapse">
-<li><a href="#bind_rows" id="toc-bind_rows" class="nav-link" data-scroll-target="#bind_rows"><code>bind_rows()</code></a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#bind_rows" id="toc-bind_rows" class="nav-link" data-scroll-target="#bind_rows"><code>bind_rows()</code></a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing values</a></li>
   </ul>
 </li>
   <li><a href="#a-tibble-10-4" id="toc-a-tibble-10-4" class="nav-link" data-scroll-target="#a-tibble-10-4">A tibble: 10 × 4</a></li>
@@ -324,36 +326,52 @@ ul.task-list li input[type="checkbox"] {
   <li>
 <a href="#mutating-joins" id="toc-mutating-joins" class="nav-link" data-scroll-target="#mutating-joins">Mutating joins</a>
   <ul class="collapse">
-<li><a href="#inner_join" id="toc-inner_join" class="nav-link" data-scroll-target="#inner_join"><code>inner_join()</code></a></li>
+<li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#inner_join" id="toc-inner_join" class="nav-link" data-scroll-target="#inner_join"><code>inner_join()</code></a></li>
+  <li><a href="#inner_join-example" id="toc-inner_join-example" class="nav-link" data-scroll-target="#inner_join-example"><code>inner_join()</code> example</a></li>
   </ul>
 </li>
   <li>
 <a href="#a-tibble-2-5" id="toc-a-tibble-2-5" class="nav-link" data-scroll-target="#a-tibble-2-5">A tibble: 2 × 5</a>
   <ul class="collapse">
 <li><a href="#left_join" id="toc-left_join" class="nav-link" data-scroll-target="#left_join"><code>left_join()</code></a></li>
+  <li><a href="#left_join-example" id="toc-left_join-example" class="nav-link" data-scroll-target="#left_join-example"><code>left_join()</code> example</a></li>
   </ul>
 </li>
   <li>
 <a href="#a-tibble-6-5" id="toc-a-tibble-6-5" class="nav-link" data-scroll-target="#a-tibble-6-5">A tibble: 6 × 5</a>
   <ul class="collapse">
 <li><a href="#right_join" id="toc-right_join" class="nav-link" data-scroll-target="#right_join"><code>right_join()</code></a></li>
+  <li><a href="#right_join-example" id="toc-right_join-example" class="nav-link" data-scroll-target="#right_join-example"><code>right_join()</code> example</a></li>
   </ul>
 </li>
   <li>
 <a href="#a-tibble-5-6-1" id="toc-a-tibble-5-6-1" class="nav-link" data-scroll-target="#a-tibble-5-6-1">A tibble: 5 × 6</a>
   <ul class="collapse">
 <li><a href="#full_join" id="toc-full_join" class="nav-link" data-scroll-target="#full_join"><code>full_join()</code></a></li>
+  <li><a href="#full_join-example" id="toc-full_join-example" class="nav-link" data-scroll-target="#full_join-example"><code>full_join()</code> example</a></li>
   </ul>
 </li>
   <li>
 <a href="#a-tibble-9-5" id="toc-a-tibble-9-5" class="nav-link" data-scroll-target="#a-tibble-9-5">A tibble: 9 × 5</a>
   <ul class="collapse">
 <li><a href="#anti_join" id="toc-anti_join" class="nav-link" data-scroll-target="#anti_join"><code>anti_join()</code></a></li>
+  <li><a href="#anti_join-example" id="toc-anti_join-example" class="nav-link" data-scroll-target="#anti_join-example"><code>anti_join()</code> example</a></li>
   </ul>
 </li>
   <li><a href="#a-tibble-4-3" id="toc-a-tibble-4-3" class="nav-link" data-scroll-target="#a-tibble-4-3">A tibble: 4 × 3</a></li>
-  <li><a href="#by-and-join_by" id="toc-by-and-join_by" class="nav-link" data-scroll-target="#by-and-join_by">by and <code>join_by()</code></a></li>
-  <li><a href="#a-tibble-2-5-1" id="toc-a-tibble-2-5-1" class="nav-link" data-scroll-target="#a-tibble-2-5-1">A tibble: 2 × 5</a></li>
+  <li>
+<a href="#by-and-join_by" id="toc-by-and-join_by" class="nav-link" data-scroll-target="#by-and-join_by">by and <code>join_by()</code></a>
+  <ul class="collapse">
+<li><a href="#join_by-example" id="toc-join_by-example" class="nav-link" data-scroll-target="#join_by-example"><code>join_by()</code> example</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-tibble-2-5-1" id="toc-a-tibble-2-5-1" class="nav-link" data-scroll-target="#a-tibble-2-5-1">A tibble: 2 × 5</a>
+  <ul class="collapse">
+<li><a href="#helpers" id="toc-helpers" class="nav-link" data-scroll-target="#helpers">Helpers</a></li>
+  </ul>
+</li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -391,10 +409,12 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Let’s start with binding joins - after a bit of basic package loading:</p>
 </section><section id="binding" class="level1"><h1>Binding</h1>
+<section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>To demonstrate how joins work in dplyr, we need to start with some suitable data.</p>
 <p>We’ll set up some extremely simple data using <code>tribble()</code> to demonstrate how the joins work:</p>
-<section id="bind_rows" class="level2"><h2 class="anchored" data-anchor-id="bind_rows"><code>bind_rows()</code></h2>
+</section><section id="bind_rows" class="level2"><h2 class="anchored" data-anchor-id="bind_rows"><code>bind_rows()</code></h2>
 <p><code>bind_rows()</code> does exactly what the name describes. It adds the rows of one tibble to another, resulting in one joined tibble containing all the rows: # A tibble: 10 × 3 category value key <chr><dbl><dbl> 1 x 5 3 2 x 2 7 3 x 4 2 4 x 7 1 5 x 9 1 6 y 2 5 7 y 7 2 8 y 3 2 9 y 2 8 10 y 2 14</dbl></dbl></chr></p>
+</section><section id="missing-values" class="level2"><h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
 <p><code>bind_rows()</code> will create new columns and fill with NAs if the names of the columns don’t match:</p>
 </section></section><section id="a-tibble-10-4" class="level1"><h1>A tibble: 10 × 4</h1>
 <p>category wrong_name key value <chr><dbl><dbl><dbl> 1 x 5 3 NA 2 x 2 7 NA 3 x 4 2 NA 4 x 7 1 NA 5 x 9 1 NA 6 y NA 5 2 7 y NA 2 7 8 y NA 2 3 9 y NA 8 2 10 y NA 14 2</dbl></dbl></dbl></chr></p>
@@ -408,7 +428,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Another function, another descriptive name. <code>bind_cols()</code> adds columns to the starting tibble, but otherwise works as <code>bind_rows()</code>:</p>
 </section></section><section id="a-tibble-5-6" class="level1"><h1>A tibble: 5 × 6</h1>
 <p>category…1 value…2 key…3 category…4 value…5 key…6 <chr><dbl><dbl><chr><dbl><dbl> 1 x 5 3 y 2 5 2 x 2 7 y 7 2 3 x 4 2 y 3 2 4 x 7 1 y 2 8 5 x 9 1 y 2 14</dbl></dbl></chr></dbl></dbl></chr></p>
-</section><section id="mutating-joins" class="level1 tabset"><h1 class="tabset">Mutating joins</h1>
+</section><section id="mutating-joins" class="level1"><h1>Mutating joins</h1>
+<section id="introduction-1" class="level2"><h2 class="anchored" data-anchor-id="introduction-1">Introduction</h2>
 <p>To get started with mutating joins in dplyr, we could do much worse than the <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">first part of the manual page</a>, which is nice and clear:</p>
 <hr>
 <p><em>The mutating joins add columns from y to x, matching rows based on the keys:</em></p>
@@ -425,13 +446,14 @@ ul.task-list li input[type="checkbox"] {
 <code>anti_join()</code>: includes all rows in x that are not in y.</li>
 </ul>
 <p><em>If a row in x matches multiple rows in y, all the rows in y will be returned once for each matching row in x.</em></p>
-<hr>
-<section id="inner_join" class="level2"><h2 class="anchored" data-anchor-id="inner_join"><code>inner_join()</code></h2>
+<hr></section><section id="inner_join" class="level2"><h2 class="anchored" data-anchor-id="inner_join"><code>inner_join()</code></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/inner.png" height="250" class="figure-img"></p>
 <figcaption>Inner join</figcaption></figure>
 </div>
-<p><code>inner_join()</code> joins two tibbles by whichever key column you supply using <code>by=</code>:</p>
+<p><code>inner_join()</code> joins two tibbles by whichever key column you supply using <code>by=</code></p>
+</section><section id="inner_join-example" class="level2"><h2 class="anchored" data-anchor-id="inner_join-example">
+<code>inner_join()</code> example</h2>
 </section></section><section id="a-tibble-2-5" class="level1"><h1>A tibble: 2 × 5</h1>
 <p>category.x value.x key category.y value.y <chr><dbl><dbl><chr><dbl> 1 x 4 2 y 7 2 x 4 2 y 3</dbl></chr></dbl></dbl></chr></p>
 <p>This returns all the rows that exist in both tibbles.</p>
@@ -440,7 +462,9 @@ ul.task-list li input[type="checkbox"] {
 <figure class="figure"><p><img src="images/left.png" height="250" class="figure-img"></p>
 <figcaption>Left join</figcaption></figure>
 </div>
-<p><code>left_join()</code> includes all the rows in the first tibble:</p>
+<p><code>left_join()</code> includes all the rows in the first tibble</p>
+</section><section id="left_join-example" class="level2"><h2 class="anchored" data-anchor-id="left_join-example">
+<code>left_join()</code> example</h2>
 </section></section><section id="a-tibble-6-5" class="level1"><h1>A tibble: 6 × 5</h1>
 <p>category.a value.a key category.b value.b <chr><dbl><dbl><chr><dbl> 1 x 5 3 <na> NA 2 x 2 7 <na> NA 3 x 4 2 y 7 4 x 4 2 y 3 5 x 7 1 <na> NA 6 x 9 1 <na> NA</na></na></na></na></dbl></chr></dbl></dbl></chr></p>
 <p>We get returned the rows that exist in <code>x</code>, and any that match keys from <code>y</code>. Any ‘extra’ rows in simple_a are filled in with <code>NAs</code>. We’ve also tweaked the column names in this example, using the <code>suffix</code> argument.</p>
@@ -449,7 +473,9 @@ ul.task-list li input[type="checkbox"] {
 <figure class="figure"><p><img src="images/right.png" height="250" class="figure-img"></p>
 <figcaption>Right join</figcaption></figure>
 </div>
-<p><code>right_join()</code> includes all the rows in the second tibble:</p>
+<p><code>right_join()</code> includes all the rows in the second tibble</p>
+</section><section id="right_join-example" class="level2"><h2 class="anchored" data-anchor-id="right_join-example">
+<code>right_join()</code> example</h2>
 </section></section><section id="a-tibble-5-6-1" class="level1"><h1>A tibble: 5 × 6</h1>
 <p>category.x value.x key.x category.y value.y key.y <chr><dbl><dbl><chr><dbl><dbl> 1 x 4 2 y 7 2 2 x 4 2 y 3 2 3 <na> NA NA y 2 5 4 <na> NA NA y 2 8 5 <na> NA NA y 2 14</na></na></na></dbl></dbl></chr></dbl></dbl></chr></p>
 <p>We get all the rows that exist in <code>y</code>, and any that match keys from <code>simple_a</code>, again, filling with NAs where appropriate. Here, we’re demonstrating the <code>keep</code> argument, which will repeat the column on which we’re joining for each of the tibbles.</p>
@@ -458,7 +484,9 @@ ul.task-list li input[type="checkbox"] {
 <figure class="figure"><p><img src="images/full.png" height="250" class="figure-img"></p>
 <figcaption>Full join</figcaption></figure>
 </div>
-<p><code>full_join()</code> gives us all the rows from all the tibbles:</p>
+<p><code>full_join()</code> gives us all the rows from all the tibbles</p>
+</section><section id="full_join-example" class="level2"><h2 class="anchored" data-anchor-id="full_join-example">
+<code>full_join()</code> example</h2>
 </section></section><section id="a-tibble-9-5" class="level1"><h1>A tibble: 9 × 5</h1>
 <p>category.x value.x key category.y value.y <chr><dbl><dbl><chr><dbl> 1 x 5 3 <na> NA 2 x 2 7 <na> NA 3 x 4 2 y 7 4 x 4 2 y 3 5 x 7 1 <na> NA 6 x 9 1 <na> NA 7 <na> NA 5 y 2 8 <na> NA 8 y 2 9 <na> NA 14 y 2</na></na></na></na></na></na></na></dbl></chr></dbl></dbl></chr></p>
 <p>All rows in both tibbles, filling with <code>NAs</code> where needed.</p>
@@ -467,7 +495,9 @@ ul.task-list li input[type="checkbox"] {
 <figure class="figure"><p><img src="images/anti.png" height="250" class="figure-img"></p>
 <figcaption>Anti join</figcaption></figure>
 </div>
-<p>Anti-join is a bit of an outlier, because it returns a smaller tibble than it is supplied with. It returns all the rows of our first tibble that are not present in the second tibble:</p>
+<p>Anti-join is a bit of an outlier, because it returns a smaller tibble than it is supplied with. It returns all the rows of our first tibble that are not present in the second tibble</p>
+</section><section id="anti_join-example" class="level2"><h2 class="anchored" data-anchor-id="anti_join-example">
+<code>anti_join()</code> example</h2>
 </section></section><section id="a-tibble-4-3" class="level1"><h1>A tibble: 4 × 3</h1>
 <p>category value key <chr><dbl><dbl> 1 x 5 3 2 x 2 7 3 x 7 1 4 x 9 1</dbl></dbl></chr></p>
 <p>Only those rows in <code>x</code> that are not present in <code>y</code>.</p>
@@ -475,12 +505,16 @@ ul.task-list li input[type="checkbox"] {
 </h1>
 <p>Our examples so far have used data with identical column names. Let’s break that now:</p>
 <p>Non-matching column names has traditionally complicated joining syntax. But there’s a comparatively new dplyr function that can simplify things: <code>join_by()</code></p>
-</section><section id="a-tibble-2-5-1" class="level1"><h1>A tibble: 2 × 5</h1>
+<section id="join_by-example" class="level2"><h2 class="anchored" data-anchor-id="join_by-example">
+<code>join_by()</code> example</h2>
+</section></section><section id="a-tibble-2-5-1" class="level1"><h1>A tibble: 2 × 5</h1>
 <p>category.x value.x key category.y value.y <chr><dbl><dbl><chr><dbl> 1 x 4 2 y 7 2 x 4 2 y 3</dbl></chr></dbl></dbl></chr></p>
+<!-- ## `join_by()` inqui join example -->
+<section id="helpers" class="level2"><h2 class="anchored" data-anchor-id="helpers">Helpers</h2>
 <!-- multiple and unmatched -->
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
