@@ -182,7 +182,7 @@ x |>
   inner_join(y, by = join_by(key)) # unquoted tidyselect syntax
 ```
 
-# Understanding `join_by()`
+## Understanding `join_by()`
 
 That short-hand syntax stands for:
 
@@ -233,7 +233,7 @@ This returns all the rows that exist in both tibbles.
   
 ```{r}
 x |>
-  left_join(y, by = "key", suffix = c(".a", ".b")) 
+  left_join(y, by = join_by(key), suffix = c(".a", ".b")) 
 ```
 
 We get returned the rows that exist in `x`, and any that match keys from `y`. Any 'extra' rows in simple_a are filled in with `NAs`. We've also tweaked the column names in this example, using the `suffix` argument.
@@ -248,7 +248,7 @@ We get returned the rows that exist in `x`, and any that match keys from `y`. An
 
 ```{r}
 x |>
-  right_join(y, by="key", keep=T) 
+  right_join(y, by = join_by(key), keep=T) 
 ```
 
 We get all the rows that exist in `y`, and any that match keys from `simple_a`, again, filling with NAs where appropriate. Here, we're demonstrating the `keep` argument, which will repeat the column on which we're joining for each of the tibbles.
@@ -263,10 +263,14 @@ We get all the rows that exist in `y`, and any that match keys from `simple_a`, 
 
 ```{r}
 x |>
-  full_join(y, by="key") 
+  full_join(y, by = join_by(key)) 
 ```
 
 All rows in both tibbles, filling with `NAs` where needed.
+
+# Filtering joins
+
+While the mutating joins mean that different parts of the data are joined together, it's also worth knowing about a couple of filtering joins. Unlike mutating joins, filtering joins just return a sub-set of the first dataset.
 
 ## `anti_join()`
 
@@ -274,16 +278,30 @@ All rows in both tibbles, filling with `NAs` where needed.
 ![Anti join](images/anti.png){height="250px"}
 
 
-Anti-join is a bit of an outlier, because it returns a smaller tibble than it is supplied with. It returns all the rows of our first tibble that are not present in the second tibble
+Anti-join removes any rows whose keys match those in the second set, so it always returns either the original tibble (if there aren't any matches), or a smaller sub-set tibble with any matching rows removed.
 
 ## `anti_join()` example
 
 ```{r}
 x |>
-  anti_join(y, by="key") 
+  anti_join(y, by = join_by(key)) 
 ```
 
-Only those rows in `x` that are not present in `y`.
+## `semi_join()`
+
+
+![Semi join](images/semi.png){height="250px"}
+
+Semi-join is an anti-`anti-join()`, returning only those rows that do not match keys.
+
+## `semi_join()` example
+
+```{r}
+x |>
+  semi_join(y, by = join_by(key)) 
+```
+
+Because it's a filtering join, it only returns rows from the first tibble, but otherwise the logic is identical to the inner join.
 
 ## Helpers
 
@@ -307,5 +325,24 @@ x |>
              keep = T, # adds x and y join keys
              na_matches = "never", # drops any NAs in the key column
              relationship = "one-to-many") # checks that each key in y appears once only in x 
+```
+
+## Nesting joins
+
+This is useful if you're trying to understand exactly what's happening during a complex join. Instead of bringing in columns from the second tibble directly, `nest_join()` creates the new columns as a list col:
+
+```{r}
+x |>
+  nest_join(y, by = join_by(key)) # list column
+```
+
+## Dealing with list columns
+
+This is for the purrr lists session really, but list columns can be `tidyr::unnest()`'d into standard columns. In this example we need to worry a bit about the column names, because they're identical in the two tibbles:
+
+```{r}
+x |>
+  nest_join(y, by = join_by(key)) |>
+  tidyr::unnest(y, names_sep = "_")
 ```
 
