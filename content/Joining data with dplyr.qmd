@@ -1,30 +1,23 @@
-
-
-
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
 ## Joins
 
-Joins are where we merge two tibbles together in some way, while broadly preserving the structure of each. There are a couple of variants that we'll introduce in turn:
+Joins are where we merge two tibbles together in some way, while broadly preserving the structure of each. There are a few different ways of joining data in dplyr, and we'll explore the following approaches during this session:
 
 + **binding joins**, which are joins where data are added based on position. For example, we merge the each of the first columns in the two tibbles into one new first column.
 + **mutating joins**, which are joins where data are added by values to match existing data. For example, we might match two tibbles based on CHI number, and connect two otherwise dissimilar data sets together. 
++ **filtering joins**, where we filter one dataset using a joining relationship. For example, we might remove any individuals from a dataset based on their CHI appearing in a second dataset
++ **non-equi joins**, which we'll only mention here, but will deal with properly in a more developed follow-up session
 
-Let's start with binding joins - after a bit of basic package loading:
+# Setup
 
 ```{r}
 library(dplyr)
-```
 
-
-# Binding
-
-## Introduction
-
-To demonstrate how joins work in dplyr, we need to start with some suitable data. 
-
-We'll set up some extremely simple data using `tribble()` to demonstrate how the joins work:
-
-```{r}
 x <- tibble::tribble(
   ~category, ~value, ~key,
   "x",5,3,
@@ -32,9 +25,7 @@ x <- tibble::tribble(
   "x",4,2,
   "x",7,1,
   "x",9,1
-  )
-
-
+)
 
 y <- tibble::tribble(
   ~category, ~value, ~key,
@@ -43,39 +34,74 @@ y <- tibble::tribble(
   "y",3,2,
   "y",2,8,
   "y",2,14
-  )
+)
 
 ```
+
+
+# Binding
+
+## Introduction
+
+Binding joins don't change the structure of the data in any way. Instead, they just bring together multiple tibbles into one. That's nearly always about adding rows using `bind_rows()`
 
 ## `bind_rows()`
 
 `bind_rows()` does exactly what the name describes. It adds the rows of one tibble to another, resulting in one joined tibble containing all the rows:
+
 ```{r}
 x |>
   bind_rows(y) 
 ```
 
+## `rbind()`
+
+That's similar to the base R `rbind()`
+
+```{r}
+x |>
+  rbind(y)
+```
+
+
 ## Missing values
 
-`bind_rows()` will create new columns and fill with NAs if the names of the columns don't match:
+Unlike `rbind()`, which breaks if the column names don't match, `bind_rows()` will create new columns and fill with NAs if the names of the columns don't match:
   
 ```{r}
 x |>
-  rename("wrong_name" = "value") |>
+  rename(wrong_name = category) |>
   bind_rows(y)
 ```
+
+## `coalesce()`
+
+`coalesce()` is a good way to gather values that become spread out across mis-matched columns:
+
+```{r}
+x |>
+  rename(wrong_name = category) |>
+  bind_rows(y) |>
+  mutate(category = coalesce(wrong_name, category)) |>
+  select(-wrong_name) # fixing non-matching col name
+```
+
+
+## ID
 
 And you can create an optional ID column to show where each row originated, which is helpful for debugging:
   
 ```{r}
 x |>
-  bind_rows(y, .id="ID") 
+  bind_rows(y, .id = "ID") 
 ```
+
+## Many binds
 
 You can also `bind_rows()` by list:
   
 ```{r}
-bind_rows(list(x, y)) 
+bind_rows(list(x, y, x, y)) 
 ```
 
 ## bind_cols()
@@ -84,8 +110,18 @@ Another function, another descriptive name. `bind_cols()` adds columns to the st
   
 ```{r}
 x |>
-  bind_cols(y, .name_repair="universal") 
+  bind_cols(y, .name_repair="universal") # various different name repair options
 ```
+
+## `cbind()`
+
+Another base R near-equivalent - although note that `cbind()` is prone to generating illegal column names that can be extremely hard to fix:
+
+```{r}
+x |>
+  cbind(y) 
+```
+
 
 # Mutating joins
 
@@ -107,8 +143,71 @@ To get started with mutating joins in dplyr, we could do much worse than the [fi
   
 ----
 
+## `cross_join()`
+
+`cross_join()` creates all possible combinations (the Cartesian product) of two datasets. If we have m rows in one, and n rows in another, our cross join will have m * n rows.
+
+```{r}
+x |>
+  cross_join(y)
+```
+
+## `cross_join()` + filters/mutates
+
+If we filter (and otherwise tidy up the structure) of cross-joins, we can create other types of join. For example, an inner join is a cross join with a filter to retain only rows with identical keys:
+
+```{r}
+x |>
+  cross_join(y) |>
+  filter(key.x == key.y)
+```
+
+Less painfully, we can do that direct with `inner_join()`, as we'll see below.
+
+## `by` 
+
+We need to specify which values our join should match on. There are two ways of doing this. The traditional approach has used `by`:
+
+```{r}
+x |>
+  inner_join(y, by = "key")
+```
+
+## `join_by()`
+
+A newer approach, which offers some more advanced options for matching, is `join_by()`. For simple cases, it's very similar to the standard `by` approach:
+
+```{r}
+x |>
+  inner_join(y, by = join_by(key)) # unquoted tidyselect syntax
+```
+
+# Understanding `join_by()`
+
+That short-hand syntax stands for:
+
+```{r}
+x |>
+  inner_join(y, by = join_by(key == key)) # filter-like relationship between columns
+```
+
+That lets us deal easily with non-identical column names:
+
+## Non-identical column names
+
+Our examples so far have used data with identical column names. Let's break that now:
+
+```{r}
+x |>
+  rename(new_key = key) |>
+  inner_join(y, by = join_by(new_key == key))
+```
+
+It's possible to use non-equality expressions inside `join_by()` for more advanced joins known as non-equi joins. We don't really explore those in this session, but will plan to develop a separate set of material in the future.
+
 ## `inner_join()`
   
+
 
 ![Inner join](images/inner.png){height="250px"}
 
@@ -118,7 +217,7 @@ To get started with mutating joins in dplyr, we could do much worse than the [fi
   
 ```{r}
 x |>
-  inner_join(y, by="key") 
+  inner_join(y, by = join_by(key)) 
 ```
 
 This returns all the rows that exist in both tibbles.
@@ -134,7 +233,7 @@ This returns all the rows that exist in both tibbles.
   
 ```{r}
 x |>
-  left_join(y, by="key", suffix = c(".a", ".b")) 
+  left_join(y, by = "key", suffix = c(".a", ".b")) 
 ```
 
 We get returned the rows that exist in `x`, and any that match keys from `y`. Any 'extra' rows in simple_a are filled in with `NAs`. We've also tweaked the column names in this example, using the `suffix` argument.
@@ -186,38 +285,27 @@ x |>
 
 Only those rows in `x` that are not present in `y`.
 
-# by and `join_by()`
-
-Our examples so far have used data with identical column names. Let's break that now:
-
-```{r}
-y <- y |>
-  rename(new_key = key) 
-```
-
-Non-matching column names has traditionally complicated  joining syntax. But there's a comparatively new dplyr function that can simplify things: `join_by()`
-
-
-## `join_by()` example
-
-```{r}
-x |>
-  inner_join(y, by = join_by("key" == "new_key"))
-```
-
-<!-- ## `join_by()` inqui join example -->
-
 ## Helpers
+
+There are a group of helpers that can be added to joins that are mainly helpful for debugging, or preventing odd behaviours in more complex joins
 
 ```{r}
 #| eval: false
 
 keep = NULL # keep the join keys
 na_matches = c("na", "never") # what to do with NA values
-multiple = "all" # in the case of multiple matches, any/first/last match is joined
-unmatched = "drop" # drop or error
-relationship = "one-to-many" # error checking
+multiple = "all" # in the case of multiple matches, only the any/first/last match is joined
+unmatched = "drop" # drop or produce an error for unmatched rows
+relationship = "one-to-many" # error checking the expected relationship
 ```
 
-<!-- multiple and unmatched -->
+## Helper example
+
+```{r}
+x |>
+  inner_join(y, by = join_by(key == key), 
+             keep = T, # adds x and y join keys
+             na_matches = "never", # drops any NAs in the key column
+             relationship = "one-to-many") # checks that each key in y appears once only in x 
+```
 
