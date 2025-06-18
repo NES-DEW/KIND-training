@@ -329,12 +329,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#cross_join-filtersmutates" id="toc-cross_join-filtersmutates" class="nav-link" data-scroll-target="#cross_join-filtersmutates"><code>cross_join()</code> + filters/mutates</a></li>
   <li><a href="#by" id="toc-by" class="nav-link" data-scroll-target="#by"><code>by</code></a></li>
   <li><a href="#join_by" id="toc-join_by" class="nav-link" data-scroll-target="#join_by"><code>join_by()</code></a></li>
-  </ul>
-</li>
-  <li>
-<a href="#understanding-join_by" id="toc-understanding-join_by" class="nav-link" data-scroll-target="#understanding-join_by">Understanding <code>join_by()</code></a>
-  <ul class="collapse">
-<li><a href="#non-identical-column-names" id="toc-non-identical-column-names" class="nav-link" data-scroll-target="#non-identical-column-names">Non-identical column names</a></li>
+  <li><a href="#understanding-join_by" id="toc-understanding-join_by" class="nav-link" data-scroll-target="#understanding-join_by">Understanding <code>join_by()</code></a></li>
+  <li><a href="#non-identical-column-names" id="toc-non-identical-column-names" class="nav-link" data-scroll-target="#non-identical-column-names">Non-identical column names</a></li>
   <li><a href="#inner_join" id="toc-inner_join" class="nav-link" data-scroll-target="#inner_join"><code>inner_join()</code></a></li>
   <li><a href="#inner_join-example" id="toc-inner_join-example" class="nav-link" data-scroll-target="#inner_join-example"><code>inner_join()</code> example</a></li>
   <li><a href="#left_join" id="toc-left_join" class="nav-link" data-scroll-target="#left_join"><code>left_join()</code></a></li>
@@ -343,10 +339,19 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#right_join-example" id="toc-right_join-example" class="nav-link" data-scroll-target="#right_join-example"><code>right_join()</code> example</a></li>
   <li><a href="#full_join" id="toc-full_join" class="nav-link" data-scroll-target="#full_join"><code>full_join()</code></a></li>
   <li><a href="#full_join-example" id="toc-full_join-example" class="nav-link" data-scroll-target="#full_join-example"><code>full_join()</code> example</a></li>
-  <li><a href="#anti_join" id="toc-anti_join" class="nav-link" data-scroll-target="#anti_join"><code>anti_join()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#filtering-joins" id="toc-filtering-joins" class="nav-link" data-scroll-target="#filtering-joins">Filtering joins</a>
+  <ul class="collapse">
+<li><a href="#anti_join" id="toc-anti_join" class="nav-link" data-scroll-target="#anti_join"><code>anti_join()</code></a></li>
   <li><a href="#anti_join-example" id="toc-anti_join-example" class="nav-link" data-scroll-target="#anti_join-example"><code>anti_join()</code> example</a></li>
+  <li><a href="#semi_join" id="toc-semi_join" class="nav-link" data-scroll-target="#semi_join"><code>semi_join()</code></a></li>
+  <li><a href="#semi_join-example" id="toc-semi_join-example" class="nav-link" data-scroll-target="#semi_join-example"><code>semi_join()</code> example</a></li>
   <li><a href="#helpers" id="toc-helpers" class="nav-link" data-scroll-target="#helpers">Helpers</a></li>
   <li><a href="#helper-example" id="toc-helper-example" class="nav-link" data-scroll-target="#helper-example">Helper example</a></li>
+  <li><a href="#nesting-joins" id="toc-nesting-joins" class="nav-link" data-scroll-target="#nesting-joins">Nesting joins</a></li>
+  <li><a href="#dealing-with-list-columns" id="toc-dealing-with-list-columns" class="nav-link" data-scroll-target="#dealing-with-list-columns">Dealing with list columns</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -614,8 +619,8 @@ ul.task-list li input[type="checkbox"] {
 2 x                4     2 y                3</code></pre>
 </div>
 </div>
-</section></section><section id="understanding-join_by" class="level1"><h1>Understanding <code>join_by()</code>
-</h1>
+</section><section id="understanding-join_by" class="level2"><h2 class="anchored" data-anchor-id="understanding-join_by">Understanding <code>join_by()</code>
+</h2>
 <p>That short-hand syntax stands for:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -627,7 +632,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <p>That lets us deal easily with non-identical column names:</p>
-<section id="non-identical-column-names" class="level2"><h2 class="anchored" data-anchor-id="non-identical-column-names">Non-identical column names</h2>
+</section><section id="non-identical-column-names" class="level2"><h2 class="anchored" data-anchor-id="non-identical-column-names">Non-identical column names</h2>
 <p>Our examples so far have used data with identical column names. Let’s break that now:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -725,12 +730,14 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <p>All rows in both tibbles, filling with <code>NAs</code> where needed.</p>
-</section><section id="anti_join" class="level2"><h2 class="anchored" data-anchor-id="anti_join"><code>anti_join()</code></h2>
+</section></section><section id="filtering-joins" class="level1"><h1>Filtering joins</h1>
+<p>While the mutating joins mean that different parts of the data are joined together, it’s also worth knowing about a couple of filtering joins. Unlike mutating joins, filtering joins just return a sub-set of the first dataset.</p>
+<section id="anti_join" class="level2"><h2 class="anchored" data-anchor-id="anti_join"><code>anti_join()</code></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/anti.png" height="250" class="figure-img"></p>
 <figcaption>Anti join</figcaption></figure>
 </div>
-<p>Anti-join is a bit of an outlier, because it returns a smaller tibble than it is supplied with. It returns all the rows of our first tibble that are not present in the second tibble</p>
+<p>Anti-join removes any rows whose keys match those in the second set, so it always returns either the original tibble (if there aren’t any matches), or a smaller sub-set tibble with any matching rows removed.</p>
 </section><section id="anti_join-example" class="level2"><h2 class="anchored" data-anchor-id="anti_join-example">
 <code>anti_join()</code> example</h2>
 <div class="cell">
@@ -744,7 +751,23 @@ ul.task-list li input[type="checkbox"] {
 4 x            9     1</code></pre>
 </div>
 </div>
-<p>Only those rows in <code>x</code> that are not present in <code>y</code>.</p>
+</section><section id="semi_join" class="level2"><h2 class="anchored" data-anchor-id="semi_join"><code>semi_join()</code></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/semi.png" height="250" class="figure-img"></p>
+<figcaption>Semi join</figcaption></figure>
+</div>
+<p>Semi-join is an anti-<code>anti-join()</code>, returning only those rows that do not match keys.</p>
+</section><section id="semi_join-example" class="level2"><h2 class="anchored" data-anchor-id="semi_join-example">
+<code>semi_join()</code> example</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  category value   key
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;
+1 x            4     2</code></pre>
+</div>
+</div>
+<p>Because it’s a filtering join, it only returns rows from the first tibble, but otherwise the logic is identical to the inner join.</p>
 </section><section id="helpers" class="level2"><h2 class="anchored" data-anchor-id="helpers">Helpers</h2>
 <p>There are a group of helpers that can be added to joins that are mainly helpful for debugging, or preventing odd behaviours in more complex joins</p>
 </section><section id="helper-example" class="level2"><h2 class="anchored" data-anchor-id="helper-example">Helper example</h2>
@@ -755,6 +778,31 @@ ul.task-list li input[type="checkbox"] {
   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
 1 x                4     2 y                7     2
 2 x                4     2 y                3     2</code></pre>
+</div>
+</div>
+</section><section id="nesting-joins" class="level2"><h2 class="anchored" data-anchor-id="nesting-joins">Nesting joins</h2>
+<p>This is useful if you’re trying to understand exactly what’s happening during a complex join. Instead of bringing in columns from the second tibble directly, <code>nest_join()</code> creates the new columns as a list col:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  category value   key y               
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;          
+1 x            5     3 &lt;tibble [0 × 2]&gt;
+2 x            2     7 &lt;tibble [0 × 2]&gt;
+3 x            4     2 &lt;tibble [2 × 2]&gt;
+4 x            7     1 &lt;tibble [0 × 2]&gt;
+5 x            9     1 &lt;tibble [0 × 2]&gt;</code></pre>
+</div>
+</div>
+</section><section id="dealing-with-list-columns" class="level2"><h2 class="anchored" data-anchor-id="dealing-with-list-columns">Dealing with list columns</h2>
+<p>This is for the purrr lists session really, but list columns can be <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">tidyr::unnest()</a></code>’d into standard columns. In this example we need to worry a bit about the column names, because they’re identical in the two tibbles:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  category value   key y_category y_value
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
+1 x            4     2 y                7
+2 x            4     2 y                3</code></pre>
 </div>
 </div>
 
