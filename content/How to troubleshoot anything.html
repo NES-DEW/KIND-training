@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-06-20">
+<meta name="dcterms.date" content="2025-06-30">
 
 <title>how-to-troubleshoot-anything – KIND training pages</title>
 <style>
@@ -42,9 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-223f1af479d51f76ddcfb2dc5892168c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3a31035d69732cc16eceb104f6284284.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -322,14 +322,14 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#ive-got-a-problem" id="toc-ive-got-a-problem" class="nav-link" data-scroll-target="#ive-got-a-problem">“I’ve got a problem”</a></li>
+  <li><a href="#discovering-when-a-problem-has-happened" id="toc-discovering-when-a-problem-has-happened" class="nav-link" data-scroll-target="#discovering-when-a-problem-has-happened">Discovering when a problem has happened</a></li>
   <li><a href="#what-happened" id="toc-what-happened" class="nav-link" data-scroll-target="#what-happened">“What happened?”</a></li>
-  <li><a href="#what-have-you-tried-irrational-strategies" id="toc-what-have-you-tried-irrational-strategies" class="nav-link" data-scroll-target="#what-have-you-tried-irrational-strategies">“What have you tried?” Irrational strategies</a></li>
+  <li><a href="#the-glitch" id="toc-the-glitch" class="nav-link" data-scroll-target="#the-glitch">The glitch</a></li>
+  <li><a href="#irrational-fixes" id="toc-irrational-fixes" class="nav-link" data-scroll-target="#irrational-fixes">Irrational fixes</a></li>
   <li><a href="#was-there-an-error-message" id="toc-was-there-an-error-message" class="nav-link" data-scroll-target="#was-there-an-error-message">“Was there an error message?”</a></li>
   <li><a href="#when-did-it-happen" id="toc-when-did-it-happen" class="nav-link" data-scroll-target="#when-did-it-happen">“When did it happen?”</a></li>
-  <li><a href="#discovering-when-a-problem-has-happened" id="toc-discovering-when-a-problem-has-happened" class="nav-link" data-scroll-target="#discovering-when-a-problem-has-happened">discovering when a problem has happened</a></li>
-  <li><a href="#reading-error-messages" id="toc-reading-error-messages" class="nav-link" data-scroll-target="#reading-error-messages">reading error messages</a></li>
-  <li><a href="#searching-and-using-genai-chat-for-help" id="toc-searching-and-using-genai-chat-for-help" class="nav-link" data-scroll-target="#searching-and-using-genai-chat-for-help">searching and using genAI chat for help</a></li>
-  <li><a href="#asking-for-help" id="toc-asking-for-help" class="nav-link" data-scroll-target="#asking-for-help">asking for help</a></li>
+  <li><a href="#searching-for-help" id="toc-searching-for-help" class="nav-link" data-scroll-target="#searching-for-help">Searching for help</a></li>
+  <li><a href="#asking-for-help" id="toc-asking-for-help" class="nav-link" data-scroll-target="#asking-for-help">Asking for help</a></li>
   </ul>
 </nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -353,7 +353,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 20, 2025</p>
+      <p class="date">June 30, 2025</p>
     </div>
   </div>
   
@@ -381,58 +381,94 @@ ul.task-list li input[type="checkbox"] {
 <section id="ive-got-a-problem" class="level2">
 <h2 class="anchored" data-anchor-id="ive-got-a-problem">“I’ve got a problem”</h2>
 <ul>
-<li>a few common patterns of problems. Imagine we’re doing some job x.
+<li>most problems fit into a few families:
 <ul>
-<li>x doesn’t do anything/doesn’t run</li>
-<li>x gives the wrong result</li>
-<li>x gives a weird result</li>
+<li>glitches</li>
+<li>doesn’t work at all</li>
+<li>starts to work, but stops / goes wrong</li>
+<li>seems to works, but gives the wrong result</li>
 </ul></li>
+</ul>
+</section>
+<section id="discovering-when-a-problem-has-happened" class="level2">
+<h2 class="anchored" data-anchor-id="discovering-when-a-problem-has-happened">Discovering when a problem has happened</h2>
+<ul>
+<li>can be surprisingly hard: not all errors are obvious</li>
+<li>testing is highly recommended/essential: do you know what you’re expecting to see?</li>
+<li>testing can be as simple as having a few rows of sample data that you use to build your formulas that you hand-check</li>
+<li>especially important for projects with long life-spans etc</li>
 </ul>
 </section>
 <section id="what-happened" class="level2">
 <h2 class="anchored" data-anchor-id="what-happened">“What happened?”</h2>
+<ul>
+<li>the most important lesson here: troubleshooting is nearly all about learning how to describe what’s gone wrong</li>
+<li>by definition, most problems are common problems</li>
+<li>help is almost always out there</li>
+<li>that doesn’t mean that help is always easy to find</li>
+<li>it also doesn’t mean that finding help is always needed…</li>
+</ul>
 </section>
-<section id="what-have-you-tried-irrational-strategies" class="level2">
-<h2 class="anchored" data-anchor-id="what-have-you-tried-irrational-strategies">“What have you tried?” Irrational strategies</h2>
+<section id="the-glitch" class="level2">
+<h2 class="anchored" data-anchor-id="the-glitch">The glitch</h2>
 <ul>
-<li>often helpful, but entirely non-specific
+<li>glitch = minor, temporary, self-resolving error</li>
+<li>glitches are common</li>
+</ul>
+</section>
+<section id="irrational-fixes" class="level2">
+<h2 class="anchored" data-anchor-id="irrational-fixes">Irrational fixes</h2>
 <ul>
-<li>try it again</li>
+<li>before doing anything clever, it’s always worth trying…
+<ul>
+<li>to do the task again</li>
 <li>do something else, then try again</li>
 <li>restart the software and try again</li>
 <li>restart your computer and try again</li>
 </ul></li>
 </ul>
+<div class="notes">
+<p>these irrational fixes nearly exhaust what you can do with glitches or when x doesn’t work at all</p>
+</div>
 </section>
 <section id="was-there-an-error-message" class="level2">
 <h2 class="anchored" data-anchor-id="was-there-an-error-message">“Was there an error message?”</h2>
 <ul>
-<li>skim the error message. Half the time, the error message will have the solution - it might just require a bit of sifting/interpretation</li>
-<li>copy the message, and search online (one search, two links)</li>
+<li>error messages are good news!</li>
+<li>but they can require specialist skills to interpret - they’re generally written in an excessively technical way of most of us</li>
+<li>even if they look scary <strong>skim the error message for any words you might recognise</strong>. With a bit of sifting, error messages often contain solutions</li>
+<li>copy the message, and do a quick search online</li>
 </ul>
 </section>
 <section id="when-did-it-happen" class="level2">
 <h2 class="anchored" data-anchor-id="when-did-it-happen">“When did it happen?”</h2>
 <ul>
-<li><p>try to replicate the error in miniature</p></li>
-<li><p>look at my code/whatever carefully</p></li>
-<li><p>read the error message carefully</p></li>
-<li><p>proper search for help</p></li>
-<li><p>minimal/reproducible example</p></li>
-<li><p>ask for help</p></li>
+<li>try to reproduce the error in a different spreadsheet/project/file</li>
+<li>keep things simple: isolate the broken bit with as little other stuff as possible</li>
+<li>this helps you understand the error
+<ul>
+<li>it also gives you a reprex - a minimal <strong>rep</strong>roducible <strong>ex</strong>ample that you can send to people (on the KIND network etc)</li>
+</ul></li>
 </ul>
 </section>
-<section id="discovering-when-a-problem-has-happened" class="level1">
-<h1>discovering when a problem has happened</h1>
+<section id="searching-for-help" class="level2">
+<h2 class="anchored" data-anchor-id="searching-for-help">Searching for help</h2>
+<ul>
+<li>start with the error message itself</li>
+<li>failing that, include as much specific information in your search as you can</li>
+<li><code>site: stackoverflow.com</code></li>
+<li>depending on your local rules, you might also put that into genAI and ask for explanation</li>
+</ul>
 </section>
-<section id="reading-error-messages" class="level1">
-<h1>reading error messages</h1>
-</section>
-<section id="searching-and-using-genai-chat-for-help" class="level1">
-<h1>searching and using genAI chat for help</h1>
-</section>
-<section id="asking-for-help" class="level1">
-<h1>asking for help</h1>
+<section id="asking-for-help" class="level2">
+<h2 class="anchored" data-anchor-id="asking-for-help">Asking for help</h2>
+<ul>
+<li>don’t share anything naughty</li>
+<li>say that you’ve done the basics (retrying, restarting, etc)</li>
+<li>tell us what happened vs what you expected to happen</li>
+<li>be specific and concise: screenshots and error messages really help your helpers</li>
+<li>reproducible examples will make you a lot of friends, and get you a lot of help</li>
+</ul>
 
 
 </section>
