@@ -1,0 +1,298 @@
+---
+title: "Tidyselect"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## Introduction
+
+<!-- New material? -->
+<!-- pick() -->
+<!-- distinct(starwars, pick(contains("color"))) -->
+<!-- distinct(starwars, contains("color")) -->
+<!-- ?pick -->
+
+This session is an 🌶🌶 **intermediate practical** designed for those with some R experience. The aim of this session is to explore dplyr's built-in language for selecting columns: tidyselect.
+
+Package loading is just:
+
+```{r}
+library(NHSRdatasets) # for sample data
+library(dplyr)
+```
+
+## Logical operators
+
+As usual, the [R4DS chapter]("https://r4ds.had.co.nz/transform.html?q=&&#logical-operators") is extremely helpful if this is completely new to you. The four operators that we'll introduce here are found all over R, and aren't in any way specific to the tidyverse, so we'll review them very briefly before moving on to the more idiosyncratic aspects of tidyselect. 
+
+`:` allows you to select a range of columns. So to select the second to the fifth columns in the `stranded_data` set by name:
+
+```{r}
+stranded_data %>%
+  select(age:hcop)
+```
+
+Similarly, by index:
+
+```{r}
+stranded_data %>%
+  select(2:5) 
+```
+
+`!` allows you to select the complement - in other words, everything but the specified column:
+
+```{r}
+stranded_data %>%
+  select(!stranded.label) 
+```
+
+Use `c()` if you want to drop multiple columns using `!`:
+
+```{r}
+stranded_data %>%
+  select(!c(age, stranded.label)) 
+```
+
+`&` lets you group together selection helpers. If you're selecting many columns by name, `&` isn't needed. Instead, you can just specify what you need to keep:
+
+```{r}
+stranded_data %>%
+  select(stranded.label, hcop, age) 
+```
+
+Where `&` is really useful is in combination with pattern matching helpers, which we'll look at in more detail in the next subsection:
+
+```{r}
+stranded_data %>%
+  select(starts_with("m") & ends_with("e")) 
+```
+
+`&` returns the columns where both of the patterns are matched. Compare and contrast the `|` operator, which gives the union of both helpers:
+
+```{r}
+stranded_data %>%
+  select(starts_with("m") | ends_with("e")) 
+```
+
+
+## `contains()`
+
+`contains()` is a good example of tidyselect functions that are based on pattern matching. There are several related functions that work in the same way, including:
+
+  + `starts_with()`
+  + `ends_with()`
+  + `matches()`
+  + `num_range()`
+  
+Here, we'll concentrate on `contains()` as an exemplar for this family, because the other functions in the family work in a very similar way. `contains()` allows you to pick columns based on their names. So to `select()` all the columns in `stranded_data` whose names contain the string "care":
+
+```{r}
+stranded_data |>
+  select(contains("care"))
+  
+```
+
+Note that by default this string matching is case insensitive, so "care" will match columns called "CARE", "Care", and "cArE". You can also combine the `contains()` statement with other `select()` criteria:
+
+```{r}
+stranded_data |>
+  select(age, contains("care"))
+```
+
+And you can match over a vector of strings:
+
+```{r}
+stranded_data |>
+  select(contains(c("care", "age")))
+```
+
+The order of strings in your vector will determine the order of columns returned:
+
+```{r}
+stranded_data |>
+  select(contains(c("age", "care")))
+```
+
+And you can negate the `contains()` to give the complement:
+
+```{r}
+stranded_data |>
+  select(-contains(c("age", "care")))
+```
+
+`starts_with()` and `ends_with()` work in exactly the same way - but will only match strings at the beginning and end of the column name respectively:
+
+```{r}
+stranded_data |>
+  select(starts_with("care"))
+
+stranded_data |>
+  select(ends_with("care"))
+```
+
+`num_range()` matches columns with numeric ranges. For example, in the [billboard](https://cran.r-project.org/web/packages/billboard/billboard.pdf) dataset, there are a large number of columns named `wk1`, `wk2`... representing weeks. To select `wk10` to `wk15`:
+
+```{r}
+tidyr::billboard |> 
+  dplyr::select(num_range("wk", 10:15))
+```
+
+## `matches()`
+
+While `starts_with()` and `ends_with()` match supplied strings, `matches()` uses [regular expressions]("https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html") (regex). Regular expressions are a way of matching all kinds of strings by specifying a pattern. For example, you can use regex to search through a piece of text for all the email addresses that it contains. In pseudocode, the regex would work like this:
+
++ look for an @
++ look for the start and ends of the word that contains that @
++ make sure that the word doesn't contain any forbidden characters
+
+Getting to grips with regex is a bit forbidding, because the syntax used is very concise and impenetrable. For instance, the above pseudocode translates into:
+
+> [[:alnum:].-_]+@[[:alnum:].-]+
+
+Luckily, there are some great tools to help the beginner - such as [the Rstudio cheatsheet]("https://raw.githubusercontent.com/rstudio/cheatsheets/main/regex.pdf"), or the interactive tool [regular expressions 101]("https://regex101.com/"). There are also a few very simple examples below that cover some of the common cases:
+
+Match one of a group of letters using `[]`:
+```{r}
+stranded_data %>%
+  select(matches("me[dn]"))  
+```
+This returns columns containing either "med" or "men". 
+
+To match characters at the start of a word use `^`:
+```{r}
+stranded_data %>%
+  select(matches("^[am]")) 
+```
+
+`.` matches any character:
+
+```{r}
+stranded_data %>%
+  select(matches("me."))  
+```
+
+To match columns containing a literal full stop use `\\` to escape the character:
+```{r}
+stranded_data %>%
+  select(matches("\\.")) 
+```
+
+## `where()`
+There's a bit more to explain with `where()` than the other tidyselect helpers. Broadly, `where()` lets us use a function to match columns. Let's start simply. We'll use the base R function `is.character()`. This is simple - it returns `TRUE` when a column (or vector, but not whole tibble) contains character data. Let's look at the stranded.label column in stranded_data:
+
+
+```{r results='markup'}
+is.character(stranded_data$stranded.label)
+```
+
+This should return true. So we can see how we might use is.character as the basis of selecting all the character columns from this data using `where()`.
+
+```{r}
+# select all the character columns from stranded_data:
+stranded_data %>% 
+  select(where(is.character))
+```
+
+
+## `any_of()`
+
+`any_of()` matches **full** column names from a vector of names. Let's set up some names:
+
+```{r}
+my_columns <- names(stranded_data)[1:4]
+my_columns
+```
+
+If we supply `any_of()` with this vector of names, `any_of()` will match any column names that appear in the vector, and ignore those that do not:
+
+```{r}
+stranded_data |>
+  select(any_of(my_columns))
+```
+
+Compared to `contains()`, `any_of()` will match the entire name, while `contains()` will match any part of the name. 
+
+There's a great tip on the `all_of()` man page - `any_of()` is an especially clever way to drop columns from a tibble because calling it more than once does not cause an error:
+
+```{r}
+stranded_data |>
+  select(-any_of(my_columns)) |>
+  select(-any_of(my_columns))
+  
+```
+
+Trying to do something similar using `select()` will cause an error:
+
+```{r}
+try(stranded_data |>
+  select(-age) |>
+  select(-age))
+```
+
+## `everything()`
+
+`everything()` selects all columns. This is less useful in combination with `select()` itself, but simplifies some other functions well - particularly with `pivot_longer()`. 
+
+```{r}
+stranded_data |> 
+  select(2:5) |>
+  tidyr::pivot_longer(everything())
+```
+
+## `last_col()`
+
+Last col selects the right-most column in your data. That's especially useful in concert with `mutate()`, as by default new columns are created at the right-hand edge of your tibble. This gives you an easy way of previewing changes in new columns:
+
+```{r}
+stranded_data |> 
+  mutate(decade = round(age, -1)) |>
+  relocate(last_col())
+
+```
+
+## `if_any()`, `if_all()` and `across()`
+
+Although not technically part of the [tidyselect](https://tidyselect.r-lib.org/index.html) family, the final topic for this session is to explore a group of three functions that work similarly: `if_any()` / `if_all()`, which allow you to effectively integrate basic filtering with selection, and `across()`, which allows you to apply functions across many columns.
+
+```{r}
+
+stranded_data |>
+  filter(if_any(contains("care"), ~ .x == 1)) # that'll find rows with a 1 in any "care" column
+
+
+stranded_data |>
+  mutate(care_found = case_when(if_all(contains("care"), ~ .x >= 1) ~ "Yup",
+                                TRUE ~ "Nope")) |>
+  select(contains("care"), care_found)
+
+
+```
+
+
+`across()` is used inside `summarise()` or `mutate()`:
+
+```{r}
+stranded_data |>
+  mutate(across(where(is.character), toupper))
+
+stranded_data |>
+  mutate(across(medicallysafe:hcop, ~ .x * 20))
+
+cols <- c("mpg", "drat")
+
+mtcars |>
+   mutate(across(all_of(cols), round))
+
+stranded_data |>
+  group_by(care.home.referral) |>
+  summarise(across(where(is.numeric), list(mean = mean, sd = sd)))
+
+stranded_data |>
+  group_by(care.home.referral) |>
+  summarise(across(where(is.numeric), mean, .names = "average_{.col}"))
+```
+
+
+
+
