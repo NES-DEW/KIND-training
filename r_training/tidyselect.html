@@ -349,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#any_of" id="toc-any_of" class="nav-link" data-scroll-target="#any_of"><code>any_of()</code></a></li>
   <li><a href="#everything" id="toc-everything" class="nav-link" data-scroll-target="#everything"><code>everything()</code></a></li>
   <li><a href="#last_col" id="toc-last_col" class="nav-link" data-scroll-target="#last_col"><code>last_col()</code></a></li>
-  <li><a href="#if_any-if_all-and-across" id="toc-if_any-if_all-and-across" class="nav-link" data-scroll-target="#if_any-if_all-and-across"><code>if_any()</code>, <code>if_all()</code> and <code>across()</code></a></li>
+  <li><a href="#if_any-if_all-across-and-pick" id="toc-if_any-if_all-across-and-pick" class="nav-link" data-scroll-target="#if_any-if_all-across-and-pick"><code>if_any()</code>, <code>if_all()</code>, <code>across()</code>, and <code>pick()</code></a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -975,10 +975,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   admit_date &lt;chr&gt;, frailty_index &lt;chr&gt;</code></pre>
 </div>
 </div>
-</section><section id="if_any-if_all-and-across" class="level2"><h2 class="anchored" data-anchor-id="if_any-if_all-and-across">
-<code>if_any()</code>, <code>if_all()</code> and <code>across()</code>
+</section><section id="if_any-if_all-across-and-pick" class="level2"><h2 class="anchored" data-anchor-id="if_any-if_all-across-and-pick">
+<code>if_any()</code>, <code>if_all()</code>, <code>across()</code>, and <code>pick()</code>
 </h2>
-<p>Although not technically part of the <a href="https://tidyselect.r-lib.org/index.html">tidyselect</a> family, the final topic for this session is to explore a group of three functions that work similarly: <code><a href="https://dplyr.tidyverse.org/reference/across.html">if_any()</a></code> / <code><a href="https://dplyr.tidyverse.org/reference/across.html">if_all()</a></code>, which allow you to effectively integrate basic filtering with selection, and <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>, which allows you to apply functions across many columns.</p>
+<p>Although not technically part of the <a href="https://tidyselect.r-lib.org/index.html">tidyselect</a> family, the final topic for this session is to explore a group of functions that work similarly: <code><a href="https://dplyr.tidyverse.org/reference/across.html">if_any()</a></code> / <code><a href="https://dplyr.tidyverse.org/reference/across.html">if_all()</a></code>, which allow you to effectively integrate basic filtering with selection, and <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> / <code><a href="https://dplyr.tidyverse.org/reference/pick.html">pick()</a></code>, which allows you to apply functions across many columns.</p>
 <div class="cell">
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">if_any</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"care"</span><span class="op">)</span>, <span class="op">~</span> <span class="va">.x</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># that'll find rows with a 1 in any "care" column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1126,6 +1126,58 @@ Volvo 142E           21   4 121.0 109    4 2.780 18.60  1  1    4    2</code></p
 2                  1        52.3                 0.471        0.506
 # ℹ 2 more variables: average_mental_health_care &lt;dbl&gt;,
 #   average_periods_of_previous_care &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><code><a href="https://dplyr.tidyverse.org/reference/pick.html">pick()</a></code> effectively allows you to sub-set a tibble inside a data masking function. Effectively an integrated <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pick.html">pick</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"care"</span><span class="op">)</span><span class="op">)</span>, sort <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 19 × 3
+   mental_health_care periods_of_previous_care     n
+                &lt;int&gt;                    &lt;int&gt; &lt;int&gt;
+ 1                  0                        1   293
+ 2                  1                        1   286
+ 3                  1                       NA    42
+ 4                  0                       NA    27
+ 5                  1                        2    18
+ 6                  0                        2    17
+ 7                  0                        3    17
+ 8                  1                        3    16
+ 9                  1                        4     8
+10                  0                       10     7
+11                  1                       10     7
+12                  0                        8     5
+13                  1                        7     5
+14                  0                        4     4
+15                  0                        5     4
+16                  0                        7     4
+17                  0                        6     3
+18                  1                        8     3
+19                  1                        5     2</code></pre>
+</div>
+</div>
+<p>Especially useful when you’re effectively working with a tibble sub-set of your data:</p>
+<div class="cell">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">dense_rank</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pick.html">pick</a></span><span class="op">(</span><span class="va">periods_of_previous_care</span>, <span class="va">age</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">rank</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">age</span>, <span class="va">periods_of_previous_care</span><span class="op">)</span> <span class="co"># something like a rank by previous episodes, with age as a tie-breaker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 768 × 3
+    rank   age periods_of_previous_care
+   &lt;int&gt; &lt;int&gt;                    &lt;int&gt;
+ 1   152    75                       10
+ 2   151    71                       10
+ 3   150    68                       10
+ 4   149    66                       10
+ 5   148    65                       10
+ 6   148    65                       10
+ 7   147    63                       10
+ 8   146    61                       10
+ 9   145    51                       10
+10   144    42                       10
+# ℹ 758 more rows</code></pre>
 </div>
 </div>
 
