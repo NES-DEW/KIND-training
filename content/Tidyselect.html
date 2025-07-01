@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2025-07-01">
-<title>Data tidying in Excel – KIND training pages</title>
+<title>Tidyselect – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -40,8 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-3a31035d69732cc16eceb104f6284284.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -306,26 +305,65 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
-  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#understanding-tidy-data" id="toc-understanding-tidy-data" class="nav-link" data-scroll-target="#understanding-tidy-data">Understanding tidy data</a></li>
-  <li><a href="#values" id="toc-values" class="nav-link" data-scroll-target="#values">Values</a></li>
-  <li><a href="#entering-values" id="toc-entering-values" class="nav-link" data-scroll-target="#entering-values">Entering values</a></li>
-  <li><a href="#more-values" id="toc-more-values" class="nav-link" data-scroll-target="#more-values">More values</a></li>
-  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables">Tables</a></li>
-  <li><a href="#extending-tables" id="toc-extending-tables" class="nav-link" data-scroll-target="#extending-tables">Extending tables</a></li>
-  <li><a href="#autofill" id="toc-autofill" class="nav-link" data-scroll-target="#autofill">Autofill</a></li>
-  <li><a href="#back-to-tidy-data" id="toc-back-to-tidy-data" class="nav-link" data-scroll-target="#back-to-tidy-data">Back to tidy data</a></li>
-  <li><a href="#many-values-per-cell" id="toc-many-values-per-cell" class="nav-link" data-scroll-target="#many-values-per-cell">Many values per cell</a></li>
-  <li><a href="#exercise-one-many-values-per-cell" id="toc-exercise-one-many-values-per-cell" class="nav-link" data-scroll-target="#exercise-one-many-values-per-cell">Exercise one: many values per cell</a></li>
-  <li><a href="#nothing-works" id="toc-nothing-works" class="nav-link" data-scroll-target="#nothing-works">Nothing works!</a></li>
-  <li><a href="#whats-the-solution" id="toc-whats-the-solution" class="nav-link" data-scroll-target="#whats-the-solution">What’s the solution?</a></li>
-  <li><a href="#text-to-columns" id="toc-text-to-columns" class="nav-link" data-scroll-target="#text-to-columns">Text to Columns</a></li>
-  <li><a href="#try-working-with-that-data-again" id="toc-try-working-with-that-data-again" class="nav-link" data-scroll-target="#try-working-with-that-data-again">Try working with that data again</a></li>
-  <li><a href="#exercise-two-transposed-data" id="toc-exercise-two-transposed-data" class="nav-link" data-scroll-target="#exercise-two-transposed-data">Exercise two: transposed data</a></li>
-  <li><a href="#validation-and-really-messy-data" id="toc-validation-and-really-messy-data" class="nav-link" data-scroll-target="#validation-and-really-messy-data">Validation and really messy data</a></li>
-  <li><a href="#reshaped-data" id="toc-reshaped-data" class="nav-link" data-scroll-target="#reshaped-data">Reshaped data</a></li>
-  <li><a href="#manual-reshape" id="toc-manual-reshape" class="nav-link" data-scroll-target="#manual-reshape">Manual reshape</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#logical-operators" id="toc-logical-operators" class="nav-link" data-scroll-target="#logical-operators">Logical operators</a></li>
+  <li><a href="#a-tibble-768-4" id="toc-a-tibble-768-4" class="nav-link" data-scroll-target="#a-tibble-768-4">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-4-1" id="toc-a-tibble-768-4-1" class="nav-link" data-scroll-target="#a-tibble-768-4-1">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-8" id="toc-a-tibble-768-8" class="nav-link" data-scroll-target="#a-tibble-768-8">A tibble: 768 × 8</a></li>
+  <li><a href="#a-tibble-768-7" id="toc-a-tibble-768-7" class="nav-link" data-scroll-target="#a-tibble-768-7">A tibble: 768 × 7</a></li>
+  <li><a href="#a-tibble-768-3" id="toc-a-tibble-768-3" class="nav-link" data-scroll-target="#a-tibble-768-3">A tibble: 768 × 3</a></li>
+  <li><a href="#a-tibble-768-2" id="toc-a-tibble-768-2" class="nav-link" data-scroll-target="#a-tibble-768-2">A tibble: 768 × 2</a></li>
+  <li>
+<a href="#a-tibble-768-5" id="toc-a-tibble-768-5" class="nav-link" data-scroll-target="#a-tibble-768-5">A tibble: 768 × 5</a>
+  <ul class="collapse">
+<li><a href="#contains" id="toc-contains" class="nav-link" data-scroll-target="#contains"><code>contains()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#a-tibble-768-3-1" id="toc-a-tibble-768-3-1" class="nav-link" data-scroll-target="#a-tibble-768-3-1">A tibble: 768 × 3</a></li>
+  <li><a href="#a-tibble-768-4-2" id="toc-a-tibble-768-4-2" class="nav-link" data-scroll-target="#a-tibble-768-4-2">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-4-3" id="toc-a-tibble-768-4-3" class="nav-link" data-scroll-target="#a-tibble-768-4-3">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-4-4" id="toc-a-tibble-768-4-4" class="nav-link" data-scroll-target="#a-tibble-768-4-4">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-5-1" id="toc-a-tibble-768-5-1" class="nav-link" data-scroll-target="#a-tibble-768-5-1">A tibble: 768 × 5</a></li>
+  <li><a href="#a-tibble-768-1" id="toc-a-tibble-768-1" class="nav-link" data-scroll-target="#a-tibble-768-1">A tibble: 768 × 1</a></li>
+  <li>
+<a href="#a-tibble-317-6" id="toc-a-tibble-317-6" class="nav-link" data-scroll-target="#a-tibble-317-6">A tibble: 317 × 6</a>
+  <ul class="collapse">
+<li><a href="#matches" id="toc-matches" class="nav-link" data-scroll-target="#matches"><code>matches()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-tibble-768-3-2" id="toc-a-tibble-768-3-2" class="nav-link" data-scroll-target="#a-tibble-768-3-2">A tibble: 768 × 3</a>
+  <ul class="collapse">
+<li><a href="#where" id="toc-where" class="nav-link" data-scroll-target="#where"><code>where()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-tibble-768-3-3" id="toc-a-tibble-768-3-3" class="nav-link" data-scroll-target="#a-tibble-768-3-3">A tibble: 768 × 3</a>
+  <ul class="collapse">
+<li><a href="#any_of" id="toc-any_of" class="nav-link" data-scroll-target="#any_of"><code>any_of()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#a-tibble-768-4-5" id="toc-a-tibble-768-4-5" class="nav-link" data-scroll-target="#a-tibble-768-4-5">A tibble: 768 × 4</a></li>
+  <li>
+<a href="#a-tibble-768-5-2" id="toc-a-tibble-768-5-2" class="nav-link" data-scroll-target="#a-tibble-768-5-2">A tibble: 768 × 5</a>
+  <ul class="collapse">
+<li><a href="#everything" id="toc-everything" class="nav-link" data-scroll-target="#everything"><code>everything()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-tibble-3072-2" id="toc-a-tibble-3072-2" class="nav-link" data-scroll-target="#a-tibble-3072-2">A tibble: 3,072 × 2</a>
+  <ul class="collapse">
+<li><a href="#last_col" id="toc-last_col" class="nav-link" data-scroll-target="#last_col"><code>last_col()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-tibble-768-10" id="toc-a-tibble-768-10" class="nav-link" data-scroll-target="#a-tibble-768-10">A tibble: 768 × 10</a>
+  <ul class="collapse">
+<li><a href="#if_any-if_all-and-across" id="toc-if_any-if_all-and-across" class="nav-link" data-scroll-target="#if_any-if_all-and-across"><code>if_any()</code>, <code>if_all()</code> and <code>across()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#a-tibble-723-9" id="toc-a-tibble-723-9" class="nav-link" data-scroll-target="#a-tibble-723-9">A tibble: 723 × 9</a></li>
+  <li><a href="#a-tibble-768-9" id="toc-a-tibble-768-9" class="nav-link" data-scroll-target="#a-tibble-768-9">A tibble: 768 × 9</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -334,12 +372,8 @@ ul.task-list li input[type="checkbox"] {
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Data tidying in Excel</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">excel</div>
-    <div class="quarto-category">intermediate</div>
-  </div>
-  </div>
+<h1 class="title">Tidyselect</h1>
+</div>
 
 
 
@@ -358,218 +392,168 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Session materials
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
+</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<!-- New material? -->
+<!-- pick() -->
+<!-- distinct(starwars, pick(contains("color"))) -->
+<!-- distinct(starwars, contains("color")) -->
+<!-- ?pick -->
+<p>This session is an 🌶🌶 <strong>intermediate practical</strong> designed for those with some R experience. The aim of this session is to explore dplyr’s built-in language for selecting columns: tidyselect.</p>
+<p>Package loading is just:</p>
+</section><section id="logical-operators" class="level2"><h2 class="anchored" data-anchor-id="logical-operators">Logical operators</h2>
+<p>As usual, the <a href="&quot;https://r4ds.had.co.nz/transform.html?q=&amp;&amp;#logical-operators&quot;">R4DS chapter</a> is extremely helpful if this is completely new to you. The four operators that we’ll introduce here are found all over R, and aren’t in any way specific to the tidyverse, so we’ll review them very briefly before moving on to the more idiosyncratic aspects of tidyselect.</p>
+<p><code>:</code> allows you to select a range of columns. So to select the second to the fifth columns in the <code>stranded_data</code> set by name:</p>
+</section><section id="a-tibble-768-4" class="level1"><h1>A tibble: 768 × 4</h1>
+<pre><code> age care.home.referral medicallysafe  hcop</code></pre>
+<p><int><int><int><int> 1 50 0 0 0 2 31 1 0 1 3 32 0 1 0 4 69 1 1 0 5 33 0 0 1 6 75 1 1 0 7 26 1 0 1 8 64 0 1 1 9 53 0 1 0 10 63 1 0 0 # ℹ 758 more rows</int></int></int></int></p>
+<p>Similarly, by index:</p>
+</section><section id="a-tibble-768-4-1" class="level1"><h1>A tibble: 768 × 4</h1>
+<pre><code> age care.home.referral medicallysafe  hcop</code></pre>
+<p><int><int><int><int> 1 50 0 0 0 2 31 1 0 1 3 32 0 1 0 4 69 1 1 0 5 33 0 0 1 6 75 1 1 0 7 26 1 0 1 8 64 0 1 1 9 53 0 1 0 10 63 1 0 0 # ℹ 758 more rows</int></int></int></int></p>
+<p><code>!</code> allows you to select the complement - in other words, everything but the specified column:</p>
+</section><section id="a-tibble-768-8" class="level1"><h1>A tibble: 768 × 8</h1>
+<pre><code> age care.home.referral medicallysafe  hcop mental_health_care</code></pre>
+<p><int><int><int><int><int> 1 50 0 0 0 0 2 31 1 0 1 0 3 32 0 1 0 1 4 69 1 1 0 1 5 33 0 0 1 1 6 75 1 1 0 1 7 26 1 0 1 0 8 64 0 1 1 0 9 53 0 1 0 0 10 63 1 0 0 1 # ℹ 758 more rows # ℹ 3 more variables: periods_of_previous_care <int>, admit_date <chr>, # frailty_index <chr></chr></chr></int></int></int></int></int></int></p>
+<p>Use <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> if you want to drop multiple columns using <code>!</code>:</p>
+</section><section id="a-tibble-768-7" class="level1"><h1>A tibble: 768 × 7</h1>
+<p>care.home.referral medicallysafe hcop mental_health_care <int><int><int><int> 1 0 0 0 0 2 1 0 1 0 3 0 1 0 1 4 1 1 0 1 5 0 0 1 1 6 1 1 0 1 7 1 0 1 0 8 0 1 1 0 9 0 1 0 0 10 1 0 0 1 # ℹ 758 more rows # ℹ 3 more variables: periods_of_previous_care <int>, admit_date <chr>, # frailty_index <chr></chr></chr></int></int></int></int></int></p>
+<p><code>&amp;</code> lets you group together selection helpers. If you’re selecting many columns by name, <code>&amp;</code> isn’t needed. Instead, you can just specify what you need to keep:</p>
+</section><section id="a-tibble-768-3" class="level1"><h1>A tibble: 768 × 3</h1>
+<p>stranded.label hcop age <chr><int><int> 1 Not Stranded 0 50 2 Not Stranded 1 31 3 Not Stranded 0 32 4 Not Stranded 0 69 5 Not Stranded 1 33 6 Stranded 0 75 7 Not Stranded 1 26 8 Not Stranded 1 64 9 Not Stranded 0 53 10 Not Stranded 0 63 # ℹ 758 more rows</int></int></chr></p>
+<p>Where <code>&amp;</code> is really useful is in combination with pattern matching helpers, which we’ll look at in more detail in the next subsection:</p>
+</section><section id="a-tibble-768-2" class="level1"><h1>A tibble: 768 × 2</h1>
+<p>medicallysafe mental_health_care <int><int> 1 0 0 2 0 0 3 1 1 4 1 1 5 0 1 6 1 1 7 0 0 8 1 0 9 1 0 10 0 1 # ℹ 758 more rows</int></int></p>
+<p><code>&amp;</code> returns the columns where both of the patterns are matched. Compare and contrast the <code>|</code> operator, which gives the union of both helpers:</p>
+</section><section id="a-tibble-768-5" class="level1"><h1>A tibble: 768 × 5</h1>
+<p>medicallysafe mental_health_care age periods_of_previous_care admit_date <int><int><int><int><chr><br>
+1 0 0 50 1 29/12/2020 2 0 0 31 1 11/12/2020 3 1 1 32 1 19/01/2021 4 1 1 69 1 07/01/2021 5 0 1 33 1 15/01/2021 6 1 1 75 1 02/01/2021 7 0 0 26 1 02/01/2021 8 1 0 64 1 29/12/2020 9 1 0 53 5 04/01/2021 10 0 1 63 1 30/12/2020 # ℹ 758 more rows</chr></int></int></int></int></p>
+<section id="contains" class="level2"><h2 class="anchored" data-anchor-id="contains"><code>contains()</code></h2>
+<p><code>contains()</code> is a good example of tidyselect functions that are based on pattern matching. There are several related functions that work in the same way, including:</p>
 <ul>
-<li><a href="src/tidy_data_excel.xlsx">Excel data for this session <iconify-icon inline="" icon="ph:file-xlsx" style="font-size: 2em;" aria-label="Icon file-xlsx from ph Iconify.design set." title="Icon file-xlsx from ph Iconify.design set."></iconify-icon></a></li>
+<li><code>starts_with()</code></li>
+<li><code>ends_with()</code></li>
+<li><code>matches()</code></li>
+<li><code>num_range()</code></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="left">
-<p>No feedback found for this session</p>
-</div>
-<section id="welcome" class="level2"><h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
+<p>Here, we’ll concentrate on <code>contains()</code> as an exemplar for this family, because the other functions in the family work in a very similar way. <code>contains()</code> allows you to pick columns based on their names. So to <code>select()</code> all the columns in <code>stranded_data</code> whose names contain the string “care”:</p>
+</section></section><section id="a-tibble-768-3-1" class="level1"><h1>A tibble: 768 × 3</h1>
+<p>care.home.referral mental_health_care periods_of_previous_care <int><int><int> 1 0 0 1 2 1 0 1 3 0 1 1 4 1 1 1 5 0 1 1 6 1 1 1 7 1 0 1 8 0 0 1 9 0 0 5 10 1 1 1 # ℹ 758 more rows</int></int></int></p>
+<p>Note that by default this string matching is case insensitive, so “care” will match columns called “CARE”, “Care”, and “cArE”. You can also combine the <code>contains()</code> statement with other <code>select()</code> criteria:</p>
+</section><section id="a-tibble-768-4-2" class="level1"><h1>A tibble: 768 × 4</h1>
+<pre><code> age care.home.referral mental_health_care periods_of_previous_care</code></pre>
+<p><int><int><int><int> 1 50 0 0 1 2 31 1 0 1 3 32 0 1 1 4 69 1 1 1 5 33 0 1 1 6 75 1 1 1 7 26 1 0 1 8 64 0 0 1 9 53 0 0 5 10 63 1 1 1 # ℹ 758 more rows</int></int></int></int></p>
+<p>And you can match over a vector of strings:</p>
+</section><section id="a-tibble-768-4-3" class="level1"><h1>A tibble: 768 × 4</h1>
+<p>care.home.referral mental_health_care periods_of_previous_care age <int><int><int><int> 1 0 0 1 50 2 1 0 1 31 3 0 1 1 32 4 1 1 1 69 5 0 1 1 33 6 1 1 1 75 7 1 0 1 26 8 0 0 1 64 9 0 0 5 53 10 1 1 1 63 # ℹ 758 more rows</int></int></int></int></p>
+<p>The order of strings in your vector will determine the order of columns returned:</p>
+</section><section id="a-tibble-768-4-4" class="level1"><h1>A tibble: 768 × 4</h1>
+<pre><code> age care.home.referral mental_health_care periods_of_previous_care</code></pre>
+<p><int><int><int><int> 1 50 0 0 1 2 31 1 0 1 3 32 0 1 1 4 69 1 1 1 5 33 0 1 1 6 75 1 1 1 7 26 1 0 1 8 64 0 0 1 9 53 0 0 5 10 63 1 1 1 # ℹ 758 more rows</int></int></int></int></p>
+<p>And you can negate the <code>contains()</code> to give the complement:</p>
+</section><section id="a-tibble-768-5-1" class="level1"><h1>A tibble: 768 × 5</h1>
+<p>stranded.label medicallysafe hcop admit_date frailty_index<br><chr><int><int><chr><chr><br>
+1 Not Stranded 0 0 29/12/2020 No index item<br>
+2 Not Stranded 0 1 11/12/2020 No index item<br>
+3 Not Stranded 1 0 19/01/2021 No index item<br>
+4 Not Stranded 1 0 07/01/2021 Mobility problems<br>
+5 Not Stranded 0 1 15/01/2021 No index item<br>
+6 Stranded 1 0 02/01/2021 Mobility problems<br>
+7 Not Stranded 0 1 02/01/2021 No index item<br>
+8 Not Stranded 1 1 29/12/2020 Fall patient history 9 Not Stranded 1 0 04/01/2021 No index item<br>
+10 Not Stranded 0 0 30/12/2020 Activity Limitation # ℹ 758 more rows</chr></chr></int></int></chr></p>
+<p><code>starts_with()</code> and <code>ends_with()</code> work in exactly the same way - but will only match strings at the beginning and end of the column name respectively:</p>
+</section><section id="a-tibble-768-1" class="level1"><h1>A tibble: 768 × 1</h1>
+<p>care.home.referral <int> 1 0 2 1 3 0 4 1 5 0 6 1 7 1 8 0 9 0 10 1 # ℹ 758 more rows # A tibble: 768 × 2 mental_health_care periods_of_previous_care <int><int> 1 0 1 2 0 1 3 1 1 4 1 1 5 1 1 6 1 1 7 0 1 8 0 1 9 0 5 10 1 1 # ℹ 758 more rows</int></int></int></p>
+<p><code>num_range()</code> matches columns with numeric ranges. For example, in the <a href="https://cran.r-project.org/web/packages/billboard/billboard.pdf">billboard</a> dataset, there are a large number of columns named <code>wk1</code>, <code>wk2</code>… representing weeks. To select <code>wk10</code> to <code>wk15</code>:</p>
+</section><section id="a-tibble-317-6" class="level1"><h1>A tibble: 317 × 6</h1>
+<pre><code>wk10  wk11  wk12  wk13  wk14  wk15</code></pre>
+<p><dbl><dbl><dbl><dbl><dbl><dbl> 1 NA NA NA NA NA NA 2 NA NA NA NA NA NA 3 51 51 51 47 44 38 4 61 61 59 61 66 72 5 57 64 70 75 76 78 6 6 7 22 29 36 47 7 NA NA NA NA NA NA 8 36 37 37 38 49 61 9 10 9 8 6 1 2 10 59 66 68 61 67 59 # ℹ 307 more rows</dbl></dbl></dbl></dbl></dbl></dbl></p>
+<section id="matches" class="level2"><h2 class="anchored" data-anchor-id="matches"><code>matches()</code></h2>
+<p>While <code>starts_with()</code> and <code>ends_with()</code> match supplied strings, <code>matches()</code> uses <a href="&quot;https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html&quot;">regular expressions</a> (regex). Regular expressions are a way of matching all kinds of strings by specifying a pattern. For example, you can use regex to search through a piece of text for all the email addresses that it contains. In pseudocode, the regex would work like this:</p>
 <ul>
-<li>this session is 🌶🌶 - for intermediate Excel users</li>
-<li>materials can be found on our training pages: <strong>tinyurl.com/kindtrp</strong>
-</li>
-<li>you’ll need Excel, ideally M365 desktop to follow along</li>
-<li>you’ll also need the <a href="https://nes-dew.github.io/KIND-training/excel/src/tidy_data_excel.xlsx">sample data</a>
-</li>
-</ul></section><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
-<ul>
-<li>understanding tidy data</li>
-<li>a practical introduction to making tidy data</li>
-<li>tables</li>
-<li>autofill</li>
-<li>text to columns</li>
-<li>validation, manual reshaping, and PowerQuery demo</li>
-</ul></section><section id="understanding-tidy-data" class="level2"><h2 class="anchored" data-anchor-id="understanding-tidy-data">Understanding tidy data</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/clipboard-3584154739.png" class="img-fluid figure-img"></p>
-<figcaption>R4DS Figure 5.1: The following three rules make a dataset tidy: variables are columns, observations are rows, and values are cells, via CC BY-NC-ND 3.0 US</figcaption></figure>
-</div>
-<ul>
-<li>tidy data is not specific to Excel (e.g.&nbsp;this session is partly adapted from <a href="https://r4ds.hadley.nz/data-tidy">chapter 5 of R for Data Science</a>)</li>
-<li>if we tidy our data, we’ll be able to compute it</li>
-<li>standards for tidying data help make for safe and effective analysis</li>
-</ul></section><section id="values" class="level2"><h2 class="anchored" data-anchor-id="values">Values</h2>
-<ul>
-<li>
-<code>values</code> is the word we use to describe each bit of information in an Excel spreadsheet. Some examples:</li>
-<li>a date, like <code>2024-06-28</code>
-</li>
-<li>a number, like <code>11.2</code>
-</li>
-<li>a name, like <code>NHS Grampian</code>
-</li>
-<li>a cost, like <code>£12.50</code>
-</li>
-<li>…</li>
-<li>each value should have its own cell</li>
-</ul></section><section id="entering-values" class="level2"><h2 class="anchored" data-anchor-id="entering-values">Entering values</h2>
-<ul>
-<li>how would you enter this data: <code>2018, 2019, 2020, 2021, 2022</code>?</li>
-<li>please now:</li>
-<li>open Excel</li>
-<li>start a new workbook</li>
-<li>add a column header <code>year</code> in cell <code>A1</code>
-</li>
-<li>then add each of those five values in the five cells underneath (down to <code>A6</code>)</li>
-</ul></section><section id="more-values" class="level2"><h2 class="anchored" data-anchor-id="more-values">More values</h2>
-<ul>
-<li>we’re going to be using some <a href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/vital-events-reference-tables/2022">birthrate data from the NRS</a> for this session. We’ll start by adding some birth rate data</li>
-<li>this is given as births per 1,000 women in five year age brackets. We’ll start with 25-29 year old mothers</li>
-<li>please add the header <code>25-29yrs</code> in cell <code>B1</code>
-</li>
-<li>here are the values for our five years: <code>73.4, 71, 66.8, 69.6, 66.7</code>
-</li>
-</ul></section><section id="tables" class="level2"><h2 class="anchored" data-anchor-id="tables">Tables</h2>
-<ul>
-<li>you should keep your new data in a <strong>table</strong>
-</li>
-<li>
-<code>Insert</code> &gt; <code>Table</code>  <img src="images/clipboard-3262660351.png" class="img-fluid" alt="Or you might prefer the Ctrl + T shortcut">
-</li>
-<li>tables allow you to sort and filter your data</li>
-<li>they also act as a useful ‘container’ (or <strong>data structure</strong>) for your data</li>
-</ul></section><section id="extending-tables" class="level2"><h2 class="anchored" data-anchor-id="extending-tables">Extending tables</h2>
-<table class="caption-top table">
-<thead><tr class="header">
-<th>30-34yrs</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>90.9</td>
-</tr>
-<tr class="even">
-<td>88.6</td>
-</tr>
-<tr class="odd">
-<td>83.4</td>
-</tr>
-<tr class="even">
-<td>85.9</td>
-</tr>
-<tr class="odd">
-<td>84.4</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>please could you add some new data to your table showing births for another age group</li>
-<li>you should be able to drag the blue table corner over your new column to extend the table <img src="images/clipboard-99329456.png" class="img-fluid" alt="blue table corner">
-</li>
-</ul></section><section id="autofill" class="level2"><h2 class="anchored" data-anchor-id="autofill">Autofill</h2>
-<ul>
-<li>one last way of adding values: autofill</li>
-<li>drag again to make a new empty column, and label it <code>difference</code>
-</li>
-<li>in <code>D2</code> (the first ‘proper’ cell), copy this formula: <code>=C2-B2</code>. This will calculate the difference in birth rates between the two columns</li>
-<li>finally, click the small green corner of that newly-filled cell to autofill the column <img src="images/clipboard-1736118371.png" class="img-fluid" alt="small green corner">
-</li>
-</ul></section><section id="back-to-tidy-data" class="level2"><h2 class="anchored" data-anchor-id="back-to-tidy-data">Back to tidy data</h2>
-<ul>
-<li>we’ve now got some data with:</li>
-<li>each value in a cell</li>
-<li>each variable in a column</li>
-<li>here, this is a maternal age bracket</li>
-<li>each observation in a row</li>
-<li>here, this is a year</li>
-<li>we could work through and extend this data by hand, but we’ll now switch over to some supplied data to save all the typing
-<ul>
-<li>errors are common in manual data-entry</li>
-<li>if you can import data, that’s usually better than re-typing it</li>
+<li>look for an @</li>
+<li>look for the start and ends of the word that contains that @</li>
+<li>make sure that the word doesn’t contain any forbidden characters</li>
 </ul>
-</li>
-</ul></section><section id="many-values-per-cell" class="level2"><h2 class="anchored" data-anchor-id="many-values-per-cell">Many values per cell</h2>
-<ul>
-<li>We often find useful data with more than one value per cell</li>
-<li>this can be helpful for humans  <img src="images/clipboard-1363924537.png" class="img-fluid" alt="multiple values is good for humans, but bad for Excel">
-</li>
-<li>Excel can’t do anything with this data</li>
-</ul></section><section id="exercise-one-many-values-per-cell" class="level2"><h2 class="anchored" data-anchor-id="exercise-one-many-values-per-cell">Exercise one: many values per cell</h2>
-<ul>
-<li>find the <code>Exercise one</code> sheet in the exercise file</li>
-<li>try calculating an average for each of the groups</li>
-<li>or, if you’re more confident, try plotting the data</li>
-</ul></section><section id="nothing-works" class="level2"><h2 class="anchored" data-anchor-id="nothing-works">Nothing works!</h2>
-<p><img src="images/clipboard-2726354511.png" class="img-fluid" alt="Divide by zero errors in the averages"><img src="images/clipboard-945883446.png" class="img-fluid" alt="Plots produce pure nonsense"></p>
-</section><section id="whats-the-solution" class="level2"><h2 class="anchored" data-anchor-id="whats-the-solution">What’s the solution?</h2>
-<ul>
-<li>make this data have <strong>one value per cell</strong>
-</li>
-<li>we could remove all the percentages by hand - but that’s going to be very slow</li>
-<li>
-<code>Text to Columns</code> gives us a better tool for the job  <img src="images/clipboard-3594403318.png" class="img-fluid" alt="Text to Columns gives us a better tool for the job">
-</li>
-</ul></section><section id="text-to-columns" class="level2"><h2 class="anchored" data-anchor-id="text-to-columns">Text to Columns</h2>
-<ul>
-<li>select a column</li>
-<li>in the <code>Data</code> tab of the ribbon, you should find the <code>Text to Columns</code> tool  <img src="images/clipboard-3002655192.png" class="img-fluid" alt="Text to Columns tool">
-</li>
-<li>note that you can keep, or remove, the percentage column. We’ll <strong>skip</strong> it, to keep things simple  <img src="images/clipboard-4061284093.png" class="img-fluid" alt="keep, or remove, the percentage column">
-</li>
-</ul></section><section id="try-working-with-that-data-again" class="level2"><h2 class="anchored" data-anchor-id="try-working-with-that-data-again">Try working with that data again</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/clipboard-3377421044.png" class="img-fluid figure-img"></p>
-<figcaption>We can plot the data now</figcaption></figure>
+<p>Getting to grips with regex is a bit forbidding, because the syntax used is very concise and impenetrable. For instance, the above pseudocode translates into:</p>
+<blockquote class="blockquote">
+<p>[[:alnum:].-_]+@[[:alnum:].-]+</p>
+</blockquote>
+<p>Luckily, there are some great tools to help the beginner - such as <a href="&quot;https://raw.githubusercontent.com/rstudio/cheatsheets/main/regex.pdf&quot;">the Rstudio cheatsheet</a>, or the interactive tool <a href="&quot;https://regex101.com/&quot;">regular expressions 101</a>. There are also a few very simple examples below that cover some of the common cases:</p>
+<p>Match one of a group of letters using <code>[]</code>: # A tibble: 768 × 2 medicallysafe mental_health_care <int><int> 1 0 0 2 0 0 3 1 1 4 1 1 5 0 1 6 1 1 7 0 0 8 1 0 9 1 0 10 0 1 # ℹ 758 more rows This returns columns containing either “med” or “men”.</int></int></p>
+<p>To match characters at the start of a word use <code>^</code>: # A tibble: 768 × 4 age medicallysafe mental_health_care admit_date <int><int><int><chr><br>
+1 50 0 0 29/12/2020 2 31 0 0 11/12/2020 3 32 1 1 19/01/2021 4 69 1 1 07/01/2021 5 33 0 1 15/01/2021 6 75 1 1 02/01/2021 7 26 0 0 02/01/2021 8 64 1 0 29/12/2020 9 53 1 0 04/01/2021 10 63 0 1 30/12/2020 # ℹ 758 more rows</chr></int></int></int></p>
+<p><code>.</code> matches any character:</p>
+</section></section><section id="a-tibble-768-3-2" class="level1"><h1>A tibble: 768 × 3</h1>
+<p>care.home.referral medicallysafe mental_health_care <int><int><int> 1 0 0 0 2 1 0 0 3 0 1 1 4 1 1 1 5 0 0 1 6 1 1 1 7 1 0 0 8 0 1 0 9 0 1 0 10 1 0 1 # ℹ 758 more rows</int></int></int></p>
+<p>To match columns containing a literal full stop use <code>\\</code> to escape the character: # A tibble: 768 × 2 stranded.label care.home.referral <chr><int> 1 Not Stranded 0 2 Not Stranded 1 3 Not Stranded 0 4 Not Stranded 1 5 Not Stranded 0 6 Stranded 1 7 Not Stranded 1 8 Not Stranded 0 9 Not Stranded 0 10 Not Stranded 1 # ℹ 758 more rows</int></chr></p>
+<section id="where" class="level2"><h2 class="anchored" data-anchor-id="where"><code>where()</code></h2>
+<p>There’s a bit more to explain with <code>where()</code> than the other tidyselect helpers. Broadly, <code>where()</code> lets us use a function to match columns. Let’s start simply. We’ll use the base R function <code><a href="https://rdrr.io/r/base/character.html">is.character()</a></code>. This is simple - it returns <code>TRUE</code> when a column (or vector, but not whole tibble) contains character data. Let’s look at the stranded.label column in stranded_data:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
 </div>
-</section><section id="exercise-two-transposed-data" class="level2"><h2 class="anchored" data-anchor-id="exercise-two-transposed-data">Exercise two: transposed data</h2>
-<ul>
-<li>sometimes you’ll find data where the columns and rows have been flipped  <img src="images/clipboard-2760486038.png" class="img-fluid" alt="data where the columns and rows have been flipped">
-</li>
-<li>that’s slow to fix by hand, but luckily you can <strong>transpose it</strong>, which swaps rows and columns</li>
-<li>select your data, and copy/paste into a new cell</li>
-<li>then use the transpose option <br><img src="images/clipboard-3580893754.png" class="img-fluid" alt="transpose option">
-</li>
-<li>you might need to fix formatting and labels: <img src="images/clipboard-3017525992.png" class="img-fluid" alt="fix formatting and labels">
-</li>
-<li>the <code>Clear formats</code> option might help this <img src="images/clipboard-2927420900.png" class="img-fluid" alt="Clear formats">
-</li>
-<li>if you run into trouble, please note that transposing only works on data <a href="https://support.microsoft.com/en-gb/office/transpose-rotate-data-from-rows-to-columns-or-vice-versa-3419f2e3-beab-4318-aae5-d0f862209744">that is not in a table</a>
-</li>
-</ul></section><section id="validation-and-really-messy-data" class="level2"><h2 class="anchored" data-anchor-id="validation-and-really-messy-data">Validation and really messy data</h2>
-<ul>
-<li>one of the most time-consuming bits of tidying is checking your values</li>
-<li>we’ll briefly demonstrate the <strong>data validation</strong> tool  <img src="images/clipboard-622908428.png" class="img-fluid" alt="the data validation tool">
-</li>
-<li>you can follow-along from the <code>Demo one (validation)</code> worksheet</li>
-<li>this allows you to describe what format you think your data should be in, and then highlights anything that doesn’t fit</li>
-<li>we select the <code>years</code> column</li>
-<li>then open the data validation tool</li>
-<li>then set appropriate validation options, so <strong>Whole number</strong> between 2010 and 2030  <img src="images/clipboard-665473732.png" class="img-fluid" alt="set appropriate validation options">
-</li>
-<li>then select <code>Circle Invalid Data</code>  <img src="images/clipboard-1528491886.png" class="img-fluid" alt="select Circle Invalid Data">
-</li>
-<li>we can now go through and fix anything circled</li>
-</ul></section><section id="reshaped-data" class="level2"><h2 class="anchored" data-anchor-id="reshaped-data">Reshaped data</h2>
-<ul>
-<li>there are several automated ways of reshaping data that’s not in a tidy format</li>
-<li>we’ll look at the manual way here, but - as it’s horrible - I’d be keen to encourage you to investigate Power Query or Pivot Tables to reshape if this is a regular part of your working day. PQ takes &lt; 10 seconds, PT not much longer</li>
-<li>you can follow-along from the <code>Demo two (reshaping)</code> worksheet</li>
-</ul></section><section id="manual-reshape" class="level2"><h2 class="anchored" data-anchor-id="manual-reshape">Manual reshape</h2>
-<ul>
-<li>sort the data by year <img src="images/clipboard-3321721696.png" class="img-fluid" alt="sort the data by year">
-</li>
-<li>then copy and paste blocks of data, making sure to keep the years aligned <img src="images/clipboard-2841186181.png" class="img-fluid" alt="copy and paste blocks of data">
-</li>
-<li>make sure you then copy the age brackets to label the column <img src="images/clipboard-1151172294.png" class="img-fluid" alt="copy the age brackets to label">
-</li>
-<li>then delete the spare years columns, and the age brackets <img src="images/clipboard-1265051366.png" class="img-fluid" alt="delete the spare years">
-</li>
-</ul>
+</div>
+<p>This should return true. So we can see how we might use is.character as the basis of selecting all the character columns from this data using <code>where()</code>.</p>
+</section></section><section id="a-tibble-768-3-3" class="level1"><h1>A tibble: 768 × 3</h1>
+<p>stranded.label admit_date frailty_index<br><chr><chr><chr><br>
+1 Not Stranded 29/12/2020 No index item<br>
+2 Not Stranded 11/12/2020 No index item<br>
+3 Not Stranded 19/01/2021 No index item<br>
+4 Not Stranded 07/01/2021 Mobility problems<br>
+5 Not Stranded 15/01/2021 No index item<br>
+6 Stranded 02/01/2021 Mobility problems<br>
+7 Not Stranded 02/01/2021 No index item<br>
+8 Not Stranded 29/12/2020 Fall patient history 9 Not Stranded 04/01/2021 No index item<br>
+10 Not Stranded 30/12/2020 Activity Limitation # ℹ 758 more rows</chr></chr></chr></p>
+<section id="any_of" class="level2"><h2 class="anchored" data-anchor-id="any_of"><code>any_of()</code></h2>
+<p><code>any_of()</code> matches <strong>full</strong> column names from a vector of names. Let’s set up some names:</p>
+<p>[1] “stranded.label” “age” “care.home.referral” [4] “medicallysafe”</p>
+<p>If we supply <code>any_of()</code> with this vector of names, <code>any_of()</code> will match any column names that appear in the vector, and ignore those that do not:</p>
+</section></section><section id="a-tibble-768-4-5" class="level1"><h1>A tibble: 768 × 4</h1>
+<p>stranded.label age care.home.referral medicallysafe <chr><int><int><int> 1 Not Stranded 50 0 0 2 Not Stranded 31 1 0 3 Not Stranded 32 0 1 4 Not Stranded 69 1 1 5 Not Stranded 33 0 0 6 Stranded 75 1 1 7 Not Stranded 26 1 0 8 Not Stranded 64 0 1 9 Not Stranded 53 0 1 10 Not Stranded 63 1 0 # ℹ 758 more rows</int></int></int></chr></p>
+<p>Compared to <code>contains()</code>, <code>any_of()</code> will match the entire name, while <code>contains()</code> will match any part of the name.</p>
+<p>There’s a great tip on the <code>all_of()</code> man page - <code>any_of()</code> is an especially clever way to drop columns from a tibble because calling it more than once does not cause an error:</p>
+</section><section id="a-tibble-768-5-2" class="level1"><h1>A tibble: 768 × 5</h1>
+<pre><code>hcop mental_health_care periods_of_previous_care admit_date frailty_index   </code></pre>
+<p><int><int><int><chr><chr><br>
+1 0 0 1 29/12/2020 No index item<br>
+2 1 0 1 11/12/2020 No index item<br>
+3 0 1 1 19/01/2021 No index item<br>
+4 0 1 1 07/01/2021 Mobility proble… 5 1 1 1 15/01/2021 No index item<br>
+6 0 1 1 02/01/2021 Mobility proble… 7 1 0 1 02/01/2021 No index item<br>
+8 1 0 1 29/12/2020 Fall patient hi… 9 0 0 5 04/01/2021 No index item<br>
+10 0 1 1 30/12/2020 Activity Limita… # ℹ 758 more rows</chr></chr></int></int></int></p>
+<p>Trying to do something similar using <code>select()</code> will cause an error:</p>
+<p>Error in select(select(stranded_data, -age), -age) : Can’t select columns that don’t exist. ✖ Column <code>age</code> doesn’t exist.</p>
+<section id="everything" class="level2"><h2 class="anchored" data-anchor-id="everything"><code>everything()</code></h2>
+<p><code>everything()</code> selects all columns. This is less useful in combination with <code>select()</code> itself, but simplifies some other functions well - particularly with <code>pivot_longer()</code>.</p>
+</section></section><section id="a-tibble-3072-2" class="level1"><h1>A tibble: 3,072 × 2</h1>
+<p>name value <chr><int> 1 age 50 2 care.home.referral 0 3 medicallysafe 0 4 hcop 0 5 age 31 6 care.home.referral 1 7 medicallysafe 0 8 hcop 1 9 age 32 10 care.home.referral 0 # ℹ 3,062 more rows</int></chr></p>
+<section id="last_col" class="level2"><h2 class="anchored" data-anchor-id="last_col"><code>last_col()</code></h2>
+<p>Last col selects the right-most column in your data. That’s especially useful in concert with <code>mutate()</code>, as by default new columns are created at the right-hand edge of your tibble. This gives you an easy way of previewing changes in new columns:</p>
+</section></section><section id="a-tibble-768-10" class="level1"><h1>A tibble: 768 × 10</h1>
+<p>decade stranded.label age care.home.referral medicallysafe hcop <dbl><chr><int><int><int><int> 1 50 Not Stranded 50 0 0 0 2 30 Not Stranded 31 1 0 1 3 30 Not Stranded 32 0 1 0 4 70 Not Stranded 69 1 1 0 5 30 Not Stranded 33 0 0 1 6 80 Stranded 75 1 1 0 7 30 Not Stranded 26 1 0 1 8 60 Not Stranded 64 0 1 1 9 50 Not Stranded 53 0 1 0 10 60 Not Stranded 63 1 0 0 # ℹ 758 more rows # ℹ 4 more variables: mental_health_care <int>, periods_of_previous_care <int>, # admit_date <chr>, frailty_index <chr></chr></chr></int></int></int></int></int></int></chr></dbl></p>
+<section id="if_any-if_all-and-across" class="level2"><h2 class="anchored" data-anchor-id="if_any-if_all-and-across">
+<code>if_any()</code>, <code>if_all()</code> and <code>across()</code>
+</h2>
+<p>Although not technically part of the <a href="https://tidyselect.r-lib.org/index.html">tidyselect</a> family, the final topic for this session is to explore a group of three functions that work similarly: <code>if_any()</code> / <code>if_all()</code>, which allow you to effectively integrate basic filtering with selection, and <code>across()</code>, which allows you to apply functions across many columns.</p>
+</section></section><section id="a-tibble-723-9" class="level1"><h1>A tibble: 723 × 9</h1>
+<p>stranded.label age care.home.referral medicallysafe hcop <chr><int><int><int><int> 1 Not Stranded 50 0 0 0 2 Not Stranded 31 1 0 1 3 Not Stranded 32 0 1 0 4 Not Stranded 69 1 1 0 5 Not Stranded 33 0 0 1 6 Stranded 75 1 1 0 7 Not Stranded 26 1 0 1 8 Not Stranded 64 0 1 1 9 Not Stranded 63 1 0 0 10 Not Stranded 30 1 1 0 # ℹ 713 more rows # ℹ 4 more variables: mental_health_care <int>, periods_of_previous_care <int>, # admit_date <chr>, frailty_index <chr> # A tibble: 768 × 4 care.home.referral mental_health_care periods_of_previous_care care_found <int><int><int><chr><br>
+1 0 0 1 Nope<br>
+2 1 0 1 Nope<br>
+3 0 1 1 Nope<br>
+4 1 1 1 Yup<br>
+5 0 1 1 Nope<br>
+6 1 1 1 Yup<br>
+7 1 0 1 Nope<br>
+8 0 0 1 Nope<br>
+9 0 0 5 Nope<br>
+10 1 1 1 Yup<br>
+# ℹ 758 more rows</chr></int></int></int></chr></chr></int></int></int></int></int></int></chr></p>
+<p><code>across()</code> is used inside <code>summarise()</code> or <code>mutate()</code>:</p>
+</section><section id="a-tibble-768-9" class="level1"><h1>A tibble: 768 × 9</h1>
+<p>stranded.label age care.home.referral medicallysafe hcop <chr><int><int><int><int> 1 NOT STRANDED 50 0 0 0 2 NOT STRANDED 31 1 0 1 3 NOT STRANDED 32 0 1 0 4 NOT STRANDED 69 1 1 0 5 NOT STRANDED 33 0 0 1 6 STRANDED 75 1 1 0 7 NOT STRANDED 26 1 0 1 8 NOT STRANDED 64 0 1 1 9 NOT STRANDED 53 0 1 0 10 NOT STRANDED 63 1 0 0 # ℹ 758 more rows # ℹ 4 more variables: mental_health_care <int>, periods_of_previous_care <int>, # admit_date <chr>, frailty_index <chr> # A tibble: 768 × 9 stranded.label age care.home.referral medicallysafe hcop <chr><int><int><dbl><dbl> 1 Not Stranded 50 0 0 0 2 Not Stranded 31 1 0 20 3 Not Stranded 32 0 20 0 4 Not Stranded 69 1 20 0 5 Not Stranded 33 0 0 20 6 Stranded 75 1 20 0 7 Not Stranded 26 1 0 20 8 Not Stranded 64 0 20 20 9 Not Stranded 53 0 20 0 10 Not Stranded 63 1 0 0 # ℹ 758 more rows # ℹ 4 more variables: mental_health_care <int>, periods_of_previous_care <int>, # admit_date <chr>, frailty_index <chr> mpg cyl disp hp drat wt qsec vs am gear carb Mazda RX4 21 6 160.0 110 4 2.620 16.46 0 1 4 4 Mazda RX4 Wag 21 6 160.0 110 4 2.875 17.02 0 1 4 4 Datsun 710 23 4 108.0 93 4 2.320 18.61 1 1 4 1 Hornet 4 Drive 21 6 258.0 110 3 3.215 19.44 1 0 3 1 Hornet Sportabout 19 8 360.0 175 3 3.440 17.02 0 0 3 2 Valiant 18 6 225.0 105 3 3.460 20.22 1 0 3 1 Duster 360 14 8 360.0 245 3 3.570 15.84 0 0 3 4 Merc 240D 24 4 146.7 62 4 3.190 20.00 1 0 4 2 Merc 230 23 4 140.8 95 4 3.150 22.90 1 0 4 2 Merc 280 19 6 167.6 123 4 3.440 18.30 1 0 4 4 Merc 280C 18 6 167.6 123 4 3.440 18.90 1 0 4 4 Merc 450SE 16 8 275.8 180 3 4.070 17.40 0 0 3 3 Merc 450SL 17 8 275.8 180 3 3.730 17.60 0 0 3 3 Merc 450SLC 15 8 275.8 180 3 3.780 18.00 0 0 3 3 Cadillac Fleetwood 10 8 472.0 205 3 5.250 17.98 0 0 3 4 Lincoln Continental 10 8 460.0 215 3 5.424 17.82 0 0 3 4 Chrysler Imperial 15 8 440.0 230 3 5.345 17.42 0 0 3 4 Fiat 128 32 4 78.7 66 4 2.200 19.47 1 1 4 1 Honda Civic 30 4 75.7 52 5 1.615 18.52 1 1 4 2 Toyota Corolla 34 4 71.1 65 4 1.835 19.90 1 1 4 1 Toyota Corona 22 4 120.1 97 4 2.465 20.01 1 0 3 1 Dodge Challenger 16 8 318.0 150 3 3.520 16.87 0 0 3 2 AMC Javelin 15 8 304.0 150 3 3.435 17.30 0 0 3 2 Camaro Z28 13 8 350.0 245 4 3.840 15.41 0 0 3 4 Pontiac Firebird 19 8 400.0 175 3 3.845 17.05 0 0 3 2 Fiat X1-9 27 4 79.0 66 4 1.935 18.90 1 1 4 1 Porsche 914-2 26 4 120.3 91 4 2.140 16.70 0 1 5 2 Lotus Europa 30 4 95.1 113 4 1.513 16.90 1 1 5 2 Ford Pantera L 16 8 351.0 264 4 3.170 14.50 0 1 5 4 Ferrari Dino 20 6 145.0 175 4 2.770 15.50 0 1 5 6 Maserati Bora 15 8 301.0 335 4 3.570 14.60 0 1 5 8 Volvo 142E 21 4 121.0 109 4 2.780 18.60 1 1 4 2 # A tibble: 2 × 11 care.home.referral age_mean age_sd medicallysafe_mean medicallysafe_sd <int><dbl><dbl><dbl><dbl> 1 0 53.1 20.7 0.475 0.500 2 1 52.3 20.5 0.471 0.500 # ℹ 6 more variables: hcop_mean <dbl>, hcop_sd <dbl>, # mental_health_care_mean <dbl>, mental_health_care_sd <dbl>, # periods_of_previous_care_mean <dbl>, periods_of_previous_care_sd <dbl> # A tibble: 2 × 6 care.home.referral average_age average_medicallysafe average_hcop <int><dbl><dbl><dbl> 1 0 53.1 0.475 0.496 2 1 52.3 0.471 0.506 # ℹ 2 more variables: average_mental_health_care <dbl>, # average_periods_of_previous_care <dbl></dbl></dbl></dbl></dbl></dbl></int></dbl></dbl></dbl></dbl></dbl></dbl></dbl></dbl></dbl></dbl></int></chr></chr></int></int></dbl></dbl></int></int></chr></chr></chr></int></int></int></int></int></int></chr></p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
