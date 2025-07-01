@@ -251,9 +251,9 @@ stranded_data |>
 
 ```
 
-## `if_any()`, `if_all()` and `across()`
+## `if_any()`, `if_all()`, `across()`, and `pick()`
 
-Although not technically part of the [tidyselect](https://tidyselect.r-lib.org/index.html) family, the final topic for this session is to explore a group of three functions that work similarly: `if_any()` / `if_all()`, which allow you to effectively integrate basic filtering with selection, and `across()`, which allows you to apply functions across many columns.
+Although not technically part of the [tidyselect](https://tidyselect.r-lib.org/index.html) family, the final topic for this session is to explore a group of functions that work similarly: `if_any()` / `if_all()`, which allow you to effectively integrate basic filtering with selection, and `across()` / `pick()`, which allows you to apply functions across many columns.
 
 ```{r}
 
@@ -293,6 +293,22 @@ stranded_data |>
   summarise(across(where(is.numeric), mean, .names = "average_{.col}"))
 ```
 
+`pick()` effectively allows you to sub-set a tibble inside a data masking function. Effectively an integrated `select()`:
+
+```{r}
+stranded_data |>
+  count(pick(ends_with("care")), sort = T)
+```
+
+Especially useful when you're effectively working with a tibble sub-set of your data:
+
+```{r}
+stranded_data |>
+  mutate(rank = dense_rank(pick(periods_of_previous_care, age))) |>
+  arrange(-rank) |>
+  select(rank, age, periods_of_previous_care) # something like a rank by previous episodes, with age as a tie-breaker
+
+```
 
 
 
