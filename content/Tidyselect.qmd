@@ -7,12 +7,6 @@ editor_options:
 
 ## Introduction
 
-<!-- New material? -->
-<!-- pick() -->
-<!-- distinct(starwars, pick(contains("color"))) -->
-<!-- distinct(starwars, contains("color")) -->
-<!-- ?pick -->
-
 This session is an 🌶🌶 **intermediate practical** designed for those with some R experience. The aim of this session is to explore dplyr's built-in language for selecting columns: tidyselect.
 
 Package loading is just:
@@ -296,6 +290,9 @@ stranded_data |>
 `pick()` effectively allows you to sub-set a tibble inside a data masking function. Effectively an integrated `select()`:
 
 ```{r}
+stranded_data |>
+  distinct(pick(contains("care")))
+
 stranded_data |>
   count(pick(ends_with("care")), sort = T)
 ```
