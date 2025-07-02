@@ -23,49 +23,49 @@ The four operators that we'll introduce here are found all over R, and aren't in
 `:` allows you to select a range of columns. So to select the second to the fifth columns in the `stranded_data` set by name:
 
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(age:hcop)
 ```
 
 Similarly, by index:
 
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(2:5) 
 ```
 
 `!` allows you to select the complement - in other words, everything but the specified column:
 
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(!stranded.label) 
 ```
 
 Use `c()` if you want to drop multiple columns using `!`:
 
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(!c(age, stranded.label)) 
 ```
 
 `&` lets you group together selection helpers. If you're selecting many columns by name, `&` isn't needed. Instead, you can just specify what you need to keep:
 
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(stranded.label, hcop, age) 
 ```
 
 Where `&` is really useful is in combination with pattern matching helpers, which we'll look at in more detail in the next subsection:
 
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(starts_with("m") & ends_with("e")) 
 ```
 
 `&` returns the columns where both of the patterns are matched. Compare and contrast the `|` operator, which gives the union of both helpers:
 
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(starts_with("m") | ends_with("e")) 
 ```
 
@@ -134,7 +134,7 @@ tidyr::billboard |>
 
 ## `matches()`
 
-While `starts_with()` and `ends_with()` match supplied strings, `matches()` uses [regular expressions]("https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html") (regex). Regular expressions are a way of matching all kinds of strings by specifying a pattern. For example, you can use regex to search through a piece of text for all the email addresses that it contains. In pseudocode, the regex would work like this:
+While `starts_with()` and `ends_with()` match supplied strings, `matches()` uses [regular expressions](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html) (regex). Regular expressions are a way of matching all kinds of strings by specifying a pattern. For example, you can use regex to search through a piece of text for all the email addresses that it contains. In pseudocode, the regex would work like this:
 
 + look for an @
 + look for the start and ends of the word that contains that @
@@ -144,31 +144,31 @@ Getting to grips with regex is a bit forbidding, because the syntax used is very
 
 > [[:alnum:].-_]+@[[:alnum:].-]+
 
-Luckily, there are some great tools to help the beginner - such as [the Rstudio cheatsheet]("https://raw.githubusercontent.com/rstudio/cheatsheets/main/regex.pdf"), or the interactive tool [regular expressions 101]("https://regex101.com/"). There are also a few very simple examples below that cover some of the common cases:
+Luckily, there are some great tools to help the beginner - such as [the Rstudio cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/regex.pdf), or the interactive tool [regular expressions 101](https://regex101.com/). There are also a few very simple examples below that cover some of the common cases:
 
 Match one of a group of letters using `[]`:
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(matches("me[dn]"))  
 ```
 This returns columns containing either "med" or "men". 
 
 To match characters at the start of a word use `^`:
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(matches("^[am]")) 
 ```
 
 `.` matches any character:
 
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(matches("me."))  
 ```
 
 To match columns containing a literal full stop use `\\` to escape the character:
 ```{r}
-stranded_data %>%
+stranded_data |>
   select(matches("\\.")) 
 ```
 
@@ -184,7 +184,7 @@ This should return true. So we can see how we might use is.character as the basi
 
 ```{r}
 # select all the character columns from stranded_data:
-stranded_data %>% 
+stranded_data |> 
   select(where(is.character))
 ```
 
