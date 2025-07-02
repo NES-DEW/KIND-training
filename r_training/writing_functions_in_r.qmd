@@ -99,6 +99,21 @@ hi_name_n_def(n = 4)
 hi_name_n_def(n = 2, name = "bruce")
 ```
 
+## Namespacing
+
+If you plan to use non-base R functions in your function, it's always a good idea to namespace them:
+
+```{r}
+hp_av <- function(cyls = 4){
+  mtcars |>
+    dplyr::filter(cyl == cyls) |>
+    dplyr::summarise(mean_hp = round(mean(hp)))
+}
+
+hp_av(8)
+```
+
+
 ## Vectorised functions
 
 + most functions in R are [vectorised](https://bookdown.org/rdpeng/rprogdatascience/vectorized-operations.html)
@@ -220,6 +235,18 @@ dotty <- function(n, ...){
 }
 
 dotty(4, letters[1:5])
+
+```
+
+If you need to collect values from `...`, `rlang::list2()` is probably the right way to do that:
+
+
+```{r}
+list_out <- function(...){
+  rlang::list2(...)
+}
+
+list_out(1, 4, 9)
 
 ```
 
