@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-07-07">
+<meta name="dcterms.date" content="2024-07-07">
 <title>writing-functions-in-r – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -316,8 +316,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#thinking-about-functions" id="toc-thinking-about-functions" class="nav-link" data-scroll-target="#thinking-about-functions">Thinking about functions</a></li>
   <li><a href="#operators-and-functions" id="toc-operators-and-functions" class="nav-link" data-scroll-target="#operators-and-functions">Operators and functions</a></li>
   <li><a href="#classtypeof" id="toc-classtypeof" class="nav-link" data-scroll-target="#classtypeof"><code>class()</code>/<code>typeof()</code></a></li>
+  <li><a href="#primitive-functions" id="toc-primitive-functions" class="nav-link" data-scroll-target="#primitive-functions">Primitive functions</a></li>
   <li><a href="#environments" id="toc-environments" class="nav-link" data-scroll-target="#environments">Environments</a></li>
   <li><a href="#scoping" id="toc-scoping" class="nav-link" data-scroll-target="#scoping">Scoping</a></li>
+  <li><a href="#name-masking" id="toc-name-masking" class="nav-link" data-scroll-target="#name-masking">Name masking</a></li>
+  <li><a href="#lazy-evaluation" id="toc-lazy-evaluation" class="nav-link" data-scroll-target="#lazy-evaluation">Lazy evaluation</a></li>
   <li><a href="#vectorised-functions" id="toc-vectorised-functions" class="nav-link" data-scroll-target="#vectorised-functions">Vectorised functions</a></li>
   <li>
 <a href="#three-solutions" id="toc-three-solutions" class="nav-link" data-scroll-target="#three-solutions">Three solutions</a>
@@ -343,12 +346,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
   <li><a href="#calling-functions-from-lists" id="toc-calling-functions-from-lists" class="nav-link" data-scroll-target="#calling-functions-from-lists">Calling functions from lists</a></li>
   <li><a href="#do.call" id="toc-do.call" class="nav-link" data-scroll-target="#do.call"><code>do.call()</code></a></li>
-  <li>
-<a href="#a-tibble-2-2" id="toc-a-tibble-2-2" class="nav-link" data-scroll-target="#a-tibble-2-2">A tibble: 2 × 2</a>
-  <ul class="collapse">
-<li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
-  </ul>
-</li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -367,7 +365,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 7, 2025</p>
+      <p class="date">July 7, 2024</p>
     </div>
   </div>
   
@@ -399,7 +397,11 @@ ul.task-list li input[type="checkbox"] {
 <li>think of this as a way of repeating yourself</li>
 <li>in time-honoured fashion…</li>
 </ul>
-<p>[1] “hello world”</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello world"</code></pre>
+</div>
+</div>
 </section><section id="adding-arguments" class="level2"><h2 class="anchored" data-anchor-id="adding-arguments">Adding arguments</h2>
 <ul>
 <li>most of the time, you’ll want to add <strong>arguments</strong> to your function
@@ -410,40 +412,97 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </li>
 </ul>
-<p>[1] “hello world” “hello world” “hello world” “hello world”</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello world" "hello world" "hello world" "hello world"</code></pre>
+</div>
+</div>
 </section><section id="another-argument" class="level2"><h2 class="anchored" data-anchor-id="another-argument">Another argument</h2>
 <ul>
 <li>you can add another argument</li>
 <li>either position or name can be used in the function call</li>
 </ul>
-<p>[1] “hello sue” “hello sue” “hello sue” “hello sue” [1] “hello tango” “hello tango” “hello tango”</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello sue" "hello sue" "hello sue" "hello sue"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello tango" "hello tango" "hello tango"</code></pre>
+</div>
+</div>
 </section><section id="defaults" class="level2"><h2 class="anchored" data-anchor-id="defaults">Defaults</h2>
-<p>[1] “hello janelle” “hello janelle” “hello janelle” “hello janelle” [1] “hello bruce” “hello bruce”</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello janelle" "hello janelle" "hello janelle" "hello janelle"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello bruce" "hello bruce"</code></pre>
+</div>
+</div>
 </section><section id="namespacing" class="level2"><h2 class="anchored" data-anchor-id="namespacing">Namespacing</h2>
 <p>If you plan to use non-base R functions in your function, it’s always a good idea to namespace them:</p>
-<p>mean_hp 1 209</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  mean_hp
+1     209</code></pre>
+</div>
+</div>
 </section><section id="thinking-about-functions" class="level2"><h2 class="anchored" data-anchor-id="thinking-about-functions">Thinking about functions</h2>
 <ul>
 <li>R functions are ordinary R objects, usually bound to a function name</li>
 <li>there are several ways of investigating functions using ordinary R code. Two ways of investigating aspects of functions we’ve already discussed:</li>
 </ul>
-<p>$cyls [1] 4</p>
-<p>{ dplyr::summarise(dplyr::filter(mtcars, cyl == cyls), mean_hp = round(mean(hp))) }</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$cyls
+[1] 4</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{
+    dplyr::summarise(dplyr::filter(mtcars, cyl == cyls), mean_hp = round(mean(hp)))
+}</code></pre>
+</div>
+</div>
 </section><section id="operators-and-functions" class="level2"><h2 class="anchored" data-anchor-id="operators-and-functions">Operators and functions</h2>
 <ul>
 <li>most R operators are really functions too - properly referred to as infix functions. You can use them in the standard prefix way using backticks:</li>
 </ul>
-<p>[1] 4 If you’re feeling …experimental, you can also convert a standard function to an infix function by wrapping the function name in <code>%%</code>:</p>
-<p>[1] 5</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>If you’re feeling …experimental, you can also convert a standard function to an infix function by wrapping the function name in <code>%%</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
 </section><section id="classtypeof" class="level2"><h2 class="anchored" data-anchor-id="classtypeof">
 <code>class()</code>/<code>typeof()</code>
 </h2>
 <p>For user-defined functions, and functions from packages, this means <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> gives sensible results:</p>
-<p>[1] “function” [1] “closure” ## Primitive functions</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "function"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "closure"</code></pre>
+</div>
+</div>
+</section><section id="primitive-functions" class="level2"><h2 class="anchored" data-anchor-id="primitive-functions">Primitive functions</h2>
 <p>Note that’s not true for some built-in functions written in C:</p>
-<p>[1] “builtin”</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "builtin"</code></pre>
+</div>
+</div>
 </section><section id="environments" class="level2"><h2 class="anchored" data-anchor-id="environments">Environments</h2>
-<p>&lt;environment: R_GlobalEnv&gt;</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;environment: R_GlobalEnv&gt;</code></pre>
+</div>
+</div>
 <ul>
 <li>Think of the environment as the space in which the function is executed</li>
 <li>Much more to say really - but <a href="https://adv-r.hadley.nz/environments.html"><em>Advanced R</em></a> is the right place for that</li>
@@ -451,54 +510,130 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>the reason environments are important: names defined within scope mask those outwith:</li>
 </ul>
-<p>[1] 10 ## Name masking</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+</section><section id="name-masking" class="level2"><h2 class="anchored" data-anchor-id="name-masking">Name masking</h2>
 <ul>
 <li>if names aren’t defined within the environment of the function, it’ll look one level up</li>
 </ul>
-<p>[1] 15 ## Lazy evaluation</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+</div>
+</section><section id="lazy-evaluation" class="level2"><h2 class="anchored" data-anchor-id="lazy-evaluation">Lazy evaluation</h2>
 <ul>
 <li>names get used at execution only. This explains the following odd behaviour:</li>
 </ul>
-<p>[1] 10 You’d usually expect the absence of <code>n</code> in the function call to produce an error. But because the body never uses <code>n</code>, no problem!</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<p>You’d usually expect the absence of <code>n</code> in the function call to produce an error. But because the body never uses <code>n</code>, no problem!</p>
 </section><section id="vectorised-functions" class="level2"><h2 class="anchored" data-anchor-id="vectorised-functions">Vectorised functions</h2>
 <ul>
 <li>most functions in R are <a href="https://bookdown.org/rdpeng/rprogdatascience/vectorized-operations.html">vectorised</a>
 </li>
 </ul>
-<p>[1] 1 3 5 3</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 3 5 3</code></pre>
+</div>
+</div>
 <ul>
 <li>that means that mostly, our functions will end up vectorised without us doing any work at all</li>
 </ul>
-<p>[1] -4.427329 -15.725611 73.011709 10.363429 [1] -1 -2 10 1</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  79.009096 -17.349402   3.548599  22.845738</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11 -2  1  3</code></pre>
+</div>
+</div>
 <ul>
 <li>
 <strong>but</strong> there are a few cases where that can fail: most famously, using <code>if</code>/<code>else</code>
 </li>
 </ul>
-<p>[1] “9 is odd” [1] “10 is even” Error in if (n%%2) { : the condition has length &gt; 1</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "9 is odd"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "10 is even"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in if (n%%2) { : the condition has length &gt; 1</code></pre>
+</div>
+</div>
 </section><section id="three-solutions" class="level2"><h2 class="anchored" data-anchor-id="three-solutions">Three solutions</h2>
 <section id="vectorize-with-vectorize" class="level3"><h3 class="anchored" data-anchor-id="vectorize-with-vectorize">vectorize with <code>Vectorize</code>
 </h3>
-<p>[1] “9 is odd” “10 is even”</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "9 is odd"   "10 is even"</code></pre>
+</div>
+</div>
 </section><section id="apply" class="level3"><h3 class="anchored" data-anchor-id="apply">apply</h3>
 <ul>
-<li>apply with <code>lapply</code> / <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map</a></code> with <code>Vectorize</code> [[1]] [1] “9 is odd”</li>
+<li>apply with <code>lapply</code> / <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map</a></code> with <code>Vectorize</code>
+</li>
 </ul>
-<p>[[2]] [1] “10 is even”</p>
-<p>[[1]] [1] “9 is odd”</p>
-<p>[[2]] [1] “10 is even”</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "9 is odd"
+
+[[2]]
+[1] "10 is even"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "9 is odd"
+
+[[2]]
+[1] "10 is even"</code></pre>
+</div>
+</div>
 </section><section id="refactor" class="level3"><h3 class="anchored" data-anchor-id="refactor">refactor</h3>
 <ul>
 <li>refactor to avoid scalar functions</li>
 </ul>
-<p>[1] “9 is odd” “10 is even”</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "9 is odd"   "10 is even"</code></pre>
+</div>
+</div>
 </section></section><section id="section" class="level2"><h2 class="anchored" data-anchor-id="section"><code>{{}}</code></h2>
 <section id="whats-the-problem" class="level3"><h3 class="anchored" data-anchor-id="whats-the-problem">What’s the problem?</h3>
-<p>average 1 147 so</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  average
+1     147</code></pre>
+</div>
+</div>
+<p>so</p>
 <ul>
-<li><p>but… Error in dplyr::summarise(mtcars, average = round(mean(column))) : ℹ In argument: <code>average = round(mean(column))</code>. Caused by error: ! object ‘hp’ not found &gt; object ‘hp’ not found</p></li>
-<li>
-<p>we get used to R (and particularly tidyverse) helping us with some sugar when selecting column by their names</p>
+<li>but…</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in dplyr::summarise(mtcars, average = round(mean(column))) : 
+  ℹ In argument: `average = round(mean(column))`.
+Caused by error:
+! object 'hp' not found</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>object ‘hp’ not found</p>
+</blockquote>
+<ul>
+<li>we get used to R (and particularly tidyverse) helping us with some sugar when selecting column by their names
 <ul>
 <li>
 <code>mtcars$hp</code> / <code>mtcars |&gt; select(hp)</code>
@@ -506,10 +641,16 @@ ul.task-list li input[type="checkbox"] {
 <li>effectively, we’re just able to specify <code>hp</code> like an object, and R figures out the scope etc for us</li>
 </ul>
 </li>
-<li><p>that misfires inside functions. R isn’t sure where to look for an object called <code>hp</code></p></li>
+<li>that misfires inside functions. R isn’t sure where to look for an object called <code>hp</code>
+</li>
 </ul></section><section id="enter" class="level3"><h3 class="anchored" data-anchor-id="enter">Enter <code>{{}}</code>
 </h3>
-<p>average 1 147</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  average
+1     147</code></pre>
+</div>
+</div>
 <ul>
 <li>for 95% of purposes, take <code>{{}}</code> as a purely empirical fix</li>
 <li>but, if you’re very enthusiastic:
@@ -524,14 +665,31 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>pass arbitrary arguments into/through a function with …</li>
 </ul>
-<p>[1] “abcde” “abcde” “abcde” “abcde”</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "abcde" "abcde" "abcde" "abcde"</code></pre>
+</div>
+</div>
 <p>If you need to collect values from <code>...</code>, <code><a href="https://rlang.r-lib.org/reference/list2.html">rlang::list2()</a></code> is probably the right way to do that:</p>
-<p>[[1]] [1] 1</p>
-<p>[[2]] [1] 4</p>
-<p>[[3]] [1] 9</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1
+
+[[2]]
+[1] 4
+
+[[3]]
+[1] 9</code></pre>
+</div>
+</div>
 </section><section id="anonymous-functions" class="level2"><h2 class="anchored" data-anchor-id="anonymous-functions">Anonymous functions</h2>
 <p>In some cases, you might find yourself creating a function that’s only going to be used in a single location. In that case, it’s possible to define a nameless (anonymous) function, which is concise-but-nasty. For example:</p>
-<p>[1] 10</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
 <p>Here:</p>
 <ul>
 <li>
@@ -542,22 +700,44 @@ ul.task-list li input[type="checkbox"] {
 <code>(5)</code> is the value that we’re supplying to the function</li>
 </ul>
 <p>Most usually, that anonymous function won’t be used with a single value, but within a pipe. Here, the supplied value is dropped, and substituted by the values passing along the pipe:</p>
-<pre><code>                    wt</code></pre>
-<p>Lincoln Continental 10.848 Chrysler Imperial 10.690 Cadillac Fleetwood 10.500</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                        wt
+Lincoln Continental 10.848
+Chrysler Imperial   10.690
+Cadillac Fleetwood  10.500</code></pre>
+</div>
+</div>
 <section id="anonymous-functions-and-the-magrittr-pipe" class="level3"><h3 class="anchored" data-anchor-id="anonymous-functions-and-the-magrittr-pipe">Anonymous functions and the magrittr pipe</h3>
 <p>The magrittr pipe (<code>%&gt;%</code>) offers a simple method of avoiding the horrid anonymous function syntax using the <code>.</code> placeholder:</p>
-<pre><code>                    wt</code></pre>
-<p>Lincoln Continental 10.848 Chrysler Imperial 10.690 Cadillac Fleetwood 10.500</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                        wt
+Lincoln Continental 10.848
+Chrysler Imperial   10.690
+Cadillac Fleetwood  10.500</code></pre>
+</div>
+</div>
 </section></section><section id="calling-functions-from-lists" class="level2"><h2 class="anchored" data-anchor-id="calling-functions-from-lists">Calling functions from lists</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44.5</code></pre>
+</div>
+</div>
 </section><section id="do.call" class="level2"><h2 class="anchored" data-anchor-id="do.call"><code>do.call()</code></h2>
 <ul>
 <li>For when you want to call a function over a stored set of arguments - e.g.&nbsp;where you have values held as a list:</li>
-</ul></section><section id="a-tibble-2-2" class="level1"><h1>A tibble: 2 × 2</h1>
-<pre><code>  x     y</code></pre>
-<ul>
-<li><dbl><dbl> 1 1 2 2 3 4</dbl></dbl></li>
 </ul>
-<section id="resources" class="level2"><h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+      x     y
+* &lt;dbl&gt; &lt;dbl&gt;
+1     1     2
+2     3     4</code></pre>
+</div>
+</div>
+</section><section id="resources" class="level2"><h2 class="anchored" data-anchor-id="resources">Resources</h2>
 <ul>
 <li>
 <strong>best = home made!</strong> Refactor something simple in your code today.</li>
@@ -567,7 +747,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {

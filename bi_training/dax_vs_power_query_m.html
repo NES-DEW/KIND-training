@@ -397,9 +397,9 @@ Three random comments from previous attendees
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Useful to describe the difference between PQM and DAX as transformational and calculation languages.</li>
-<li>Still building my knowledge of power bi so this was both a useful refresher of material covered the the beginners pbi course along with new learning</li>
 <li>great introduction</li>
+<li>Useful to describe the difference between PQM and DAX as transformational and calculation languages.</li>
+<li>good session, managed to keep up and good write-up which is very helpful</li>
 </ul>
 </div>
 </div>
@@ -462,7 +462,7 @@ Three random comments from previous attendees
 </li>
 <li>calculate a column <code>overall = SUM(ae_activity[over4])</code> in DAX
 <ul>
-<li>like Excel, this sums the entire <code>over4</code> column, rather than each row  <img src="images/clipboard-528769158.png" class="img-fluid" alt="sums the entire over4 column">
+<li>like Excel, this sums the entire <code>over4</code> column, rather than each row  <img src="../src/images/clipboard-528769158.png" class="img-fluid" alt="sums the entire over4 column">
 </li>
 </ul>
 </li>
@@ -502,14 +502,14 @@ Three random comments from previous attendees
 <li>PQM works on <strong>query steps</strong>, with the <strong>#step name</strong> (and columns/tables) as input
 <ul>
 <li>
-<code>= List.Sum(#"Filtered Rows"[over4])</code> would sum all the values in the over4 column  <img src="images/clipboard-1782980858.png" class="img-fluid" alt="sum all the values in the over4 column">
+<code>= List.Sum(#"Filtered Rows"[over4])</code> would sum all the values in the over4 column  <img src="../src/images/clipboard-1782980858.png" class="img-fluid" alt="sum all the values in the over4 column">
 </li>
 <li>takes the <code>#Filtered Rows</code>query step, and sums its <code>over4</code> column</li>
 <li>that new query step will be called <code>#Calculated Sum</code> (but we could edit that)</li>
 </ul>
 </li>
 <li>this is unusual, but gives PQM users a tweak-able history of their data transformation with undo/redo</li>
-<li>try looking at the advanced editor in PQM to see what PQM really looks like  <img src="images/clipboard-989890971.png" class="img-fluid" alt="advanced editor view of PQM">
+<li>try looking at the advanced editor in PQM to see what PQM really looks like  <img src="../src/images/clipboard-989890971.png" class="img-fluid" alt="advanced editor view of PQM">
 </li>
 </ul></section><section id="filter-context" class="level2"><h2 class="anchored" data-anchor-id="filter-context">Filter context</h2>
 <ul>
@@ -538,14 +538,14 @@ Three random comments from previous attendees
 </li>
 </ul>
 </li>
-<li>then put <code>overall</code> and <code>overall_m</code> into a table, and play with the filters:  <img src="images/clipboard-417490134.png" class="img-fluid" alt="different results for the calculated column and the measure">
+<li>then put <code>overall</code> and <code>overall_m</code> into a table, and play with the filters:  <img src="../src/images/clipboard-417490134.png" class="img-fluid" alt="different results for the calculated column and the measure">
 </li>
 </ul></section><section id="more-on-the-filter-context" class="level2"><h2 class="anchored" data-anchor-id="more-on-the-filter-context">More on the filter context</h2>
 <ul>
 <li>different functions interpret the context differently: <code>SUM</code> vs <code>SUMX</code>
 <ul>
 <li>
-<code>SUMX</code> evaluates some expression for each row in the context: <code>overall_x = SUMX(ae_activity, ae_activity[over4] + ae_activity[over8])</code>  <img src="images/clipboard-193493353.png" class="img-fluid" alt="SUMX evaluates some expression for each row in the context">
+<code>SUMX</code> evaluates some expression for each row in the context: <code>overall_x = SUMX(ae_activity, ae_activity[over4] + ae_activity[over8])</code>  <img src="../src/images/clipboard-193493353.png" class="img-fluid" alt="SUMX evaluates some expression for each row in the context">
 </li>
 </ul>
 </li>
@@ -553,7 +553,7 @@ Three random comments from previous attendees
 <code>CALCULATE</code> as a function specifically for fooling with the filter context in a more detailed way
 <ul>
 <li>
-<code>overall_borders = CALCULATE(SUM(ae_activity[over4]), ae_activity[board] = "NHS Borders")</code> to restrict to just NHS Borders  <img src="images/clipboard-1383498018.png" class="img-fluid" alt="restrict to just NHS Borders">
+<code>overall_borders = CALCULATE(SUM(ae_activity[over4]), ae_activity[board] = "NHS Borders")</code> to restrict to just NHS Borders  <img src="../src/images/clipboard-1383498018.png" class="img-fluid" alt="restrict to just NHS Borders">
 </li>
 </ul>
 </li>

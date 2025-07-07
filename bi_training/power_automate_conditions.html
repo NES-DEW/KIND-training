@@ -392,7 +392,7 @@ Setup
 <li>or, create a directory in your OneDrive containing some text files, labelled <code>0.txt</code>, <code>1.txt</code>, <code>2.txt</code>…<code>9.txt</code>
 </li>
 <li>create a new instant flow</li>
-<li>after the <code>Manually trigger a flow</code> box, add a <code>List files in folder</code> connector  <img src="images/ce_struct_00.png" class="img-fluid" alt="List files in folder">
+<li>after the <code>Manually trigger a flow</code> box, add a <code>List files in folder</code> connector  <img src="../src/images/ce_struct_00.png" class="img-fluid" alt="List files in folder">
 </li>
 <li>supply the address of your directory of text files in the <code>List files in folder</code> connector</li>
 <li>save and test your flow</li>
@@ -439,9 +439,9 @@ Task
 <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
-<li>add an <code>Initialize variable</code> block<img src="images/ce_struct_01.png" class="img-fluid" alt="Add an Initialize variable block">
+<li>add an <code>Initialize variable</code> block<img src="../src/images/ce_struct_01.png" class="img-fluid" alt="Add an Initialize variable block">
 </li>
-<li>now populate the <code>Initialize variable</code> fields as shown below: <img src="images/ce_struct_02.png" class="img-fluid" alt="Populate the Initialize variable fields"><ul>
+<li>now populate the <code>Initialize variable</code> fields as shown below: <img src="../src/images/ce_struct_02.png" class="img-fluid" alt="Populate the Initialize variable fields"><ul>
 <li>give your variable a name: <code>file_content</code>
 </li>
 <li>set the type, which tells Power Automate what sort of value to expect: <code>array</code>
@@ -479,7 +479,7 @@ Task
 </li>
 <li>set the type, which tells Power Automate what sort of value to expect: <code>integer</code>
 </li>
-<li>finally, set a starting value. That’s more involved than the previous variable: you need to write a formula to calculate the length of your file_content - <code>length(variables('file_content'))</code><img src="images/clipboard-122056247.png" class="img-fluid" alt="Formula to calculate length">
+<li>finally, set a starting value. That’s more involved than the previous variable: you need to write a formula to calculate the length of your file_content - <code>length(variables('file_content'))</code><img src="../src/images/clipboard-122056247.png" class="img-fluid" alt="Formula to calculate length">
 </li>
 </ul>
 </li>
@@ -488,13 +488,13 @@ Task
 </div>
 </div>
 <ul>
-<li>that should leave you with a flow like the following, which you should save and test:  <img src="images/clipboard-1997909894.png" height="300" alt="File counting flow">
+<li>that should leave you with a flow like the following, which you should save and test:  <img src="../src/images/clipboard-1997909894.png" height="300" alt="File counting flow">
 </li>
-<li>once run, you should see that the value of <code>file_count</code> is 10 <img src="images/clipboard-2788856187.png" class="img-fluid" alt="Test value of file_count">
+<li>once run, you should see that the value of <code>file_count</code> is 10 <img src="../src/images/clipboard-2788856187.png" class="img-fluid" alt="Test value of file_count">
 </li>
 </ul></section><section id="digression-data-types" class="level2"><h2 class="anchored" data-anchor-id="digression-data-types">Digression: data types</h2>
 <ul>
-<li>a note on data types: Power Automate has several different built-in data types:  <img src="images/clipboard-601178402.png" class="img-fluid" alt="Data types">
+<li>a note on data types: Power Automate has several different built-in data types:  <img src="../src/images/clipboard-601178402.png" class="img-fluid" alt="Data types">
 </li>
 <li>Power Automate is inflexible about data types: so, for example, if you accidentally try to set an integer to 2.4, your flow will fail</li>
 <li>you’ll need to think carefully about what sort of value your variable is intended to hold</li>
@@ -515,26 +515,26 @@ Task
 <ul>
 <li>add a <code>Post message in a chat or channel</code> connector</li>
 <li>populate the fields - it’s recommended to post as <code>User</code> as this allows you to edit any embarrasing errors in your posts once they’ve been posted</li>
-<li>for the message, write some suitable text, then include the file_count variable <img src="images/clipboard-2062069255.png" height="350" alt="Compose a Teams message">
+<li>for the message, write some suitable text, then include the file_count variable <img src="../src/images/clipboard-2062069255.png" height="350" alt="Compose a Teams message">
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/clipboard-1054286011.png" height="250" class="figure-img"></p>
+<figure class="figure"><p><img src="../src/images/clipboard-1054286011.png" height="250" class="figure-img"></p>
 <figcaption>Sample Teams output</figcaption></figure>
 </div>
 </section><section id="project-4-varying-the-text-of-that-teams-message-by-count" class="level2"><h2 class="anchored" data-anchor-id="project-4-varying-the-text-of-that-teams-message-by-count">Project 4: varying the text of that Teams message by count</h2>
 <ul>
 <li>so far, our message just repeats the contents of <code>file_count</code> with a bit of static text</li>
-<li>we can use a <strong>Condition</strong> to change the text that accompanies that value <img src="images/ce_struct_06.png" class="img-fluid" alt="Condition to alter text">
+<li>we can use a <strong>Condition</strong> to change the text that accompanies that value <img src="../src/images/ce_struct_06.png" class="img-fluid" alt="Condition to alter text">
 </li>
 <li>we should be able to adapt our previous flow to use that condition</li>
 </ul></section><section id="project-5-varying-text-by-time-of-day" class="level2"><h2 class="anchored" data-anchor-id="project-5-varying-text-by-time-of-day">Project 5: varying text by time of day</h2>
 <ul>
 <li>we could now add another variable to our flow</li>
-<li>this will set a value based on the time of day<img src="images/ce_struct_11.png" class="img-fluid" alt="Variable based on time of day">
+<li>this will set a value based on the time of day<img src="../src/images/ce_struct_11.png" class="img-fluid" alt="Variable based on time of day">
 </li>
 <li>we can set our condition to use this variable instead of <code>file_count</code>
 </li>

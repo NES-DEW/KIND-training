@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2024-06-18">
+<meta name="dcterms.date" content="2024-07-07">
 <title>Writing functions in R – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -407,7 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 18, 2024</p>
+      <p class="date">2024-07-07</p>
     </div>
   </div>
   
@@ -457,9 +457,9 @@ Three random comments from previous attendees
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Good session, as a R beginner learned some interesting things about how to write functions</li>
-<li>Great session thanks - some reminders in there, and also some new things for me, great mix</li>
-<li>Very well prepared, the session is very useful.</li>
+<li>Interesting content and enough tips and tricks to delight both beginners and intermediate prospective function writers.</li>
+<li>Really useful course</li>
+<li>A really interactive and fun way to learn about using functions with something new for everyone</li>
 </ul>
 </div>
 </div>
@@ -714,11 +714,11 @@ Three random comments from previous attendees
 <span></span>
 <span><span class="va">numbers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  27.72867 -14.73516  92.10265  66.84920</code></pre>
+<pre><code>[1]  59.34954 -24.96494 -66.86355 -29.44078</code></pre>
 </div>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">div_seven_n_round</span><span class="op">(</span><span class="va">numbers</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  4 -2 13 10</code></pre>
+<pre><code>[1]   8  -4 -10  -4</code></pre>
 </div>
 </div>
 <ul>
@@ -945,14 +945,19 @@ Cadillac Fleetwood  10.500</code></pre>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">funs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  half <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">2</span>,</span>
 <span>  double <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">funs</span><span class="op">$</span><span class="fu">half</span><span class="op">(</span><span class="fl">89</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44.5</code></pre>
+</div>
 </div>
 </section><section id="do.call" class="level2"><h2 class="anchored" data-anchor-id="do.call"><code>do.call()</code></h2>
 <ul>
 <li>For when you want to call a function over a stored set of arguments - e.g.&nbsp;where you have values held as a list:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  a <span class="op">=</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
 <span>  b <span class="op">=</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, y <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
