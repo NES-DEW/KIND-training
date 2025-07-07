@@ -56,23 +56,23 @@ feed_block("Intermediate Power BI session 2")
 ## Loading data from Power Query
 
 -   all the Power BI connectors are available in PQ
--   `New query > Web`</br>![Load data from web]../src/images/clipboard-3224181959.png)
+-   `New query > Web`</br>![Load data from web](../src/images/clipboard-3224181959.png)
 -   supply the link for the NRS vital events data for Q3 2024: <https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx>
 
 ## Tables and sheets
 
--   we want table 6 </br>(`TableQ6_Deaths_by_sex_cause_and_NHS_Board_area`) ![Table 6]../src/images/clipboard-849064723.png)
+-   we want table 6 </br>(`TableQ6_Deaths_by_sex_cause_and_NHS_Board_area`) ![Table 6](../src/images/clipboard-849064723.png)
 -   please import that from the navigator
 
 ## Tidying up
 
--   remove the three `All` rows </br>![Filter out the three all rows]../src/images/clipboard-623679649.png)
+-   remove the three `All` rows </br>![Filter out the three all rows](../src/images/clipboard-623679649.png)
 -   check the data types
--   fix the query name to `cause_death` </br>![Rename to cause_death]../src/images/clipboard-1287398295.png)
+-   fix the query name to `cause_death` </br>![Rename to cause_death](../src/images/clipboard-1287398295.png)
 
 ## This data isn't quite tidy
 
-![Tidy data]../src/images/clipboard-3584154739.png)
+![Tidy data](../src/images/clipboard-3584154739.png)
 
 ## Shaping your data
 
@@ -146,7 +146,7 @@ Data from [sja.org.uk](https://www.sja.org.uk/first-aid-supplies/defibrillators-
 
 ## Star schema
 
--   you might also see Power BI data described as a star schema </br>![Star schema]../src/images/clipboard-2583516447.png) image: [Wikimedia](https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4_%D1%81%D1%85%D0%B5%D0%BC%D0%B8_%D0%B7%D1%96%D1%80%D0%BA%D0%B8.png)
+-   you might also see Power BI data described as a star schema </br>![Star schema](../src/images/clipboard-2583516447.png) image: [Wikimedia](https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4_%D1%81%D1%85%D0%B5%D0%BC%D0%B8_%D0%B7%D1%96%D1%80%D0%BA%D0%B8.png)
 
 ## Reshaping our data
 
@@ -166,7 +166,7 @@ Data from [sja.org.uk](https://www.sja.org.uk/first-aid-supplies/defibrillators-
 ## Reshape `cause_death` to key-value
 
 -   remove the `Scotland` column
--   then unpivot everything but `ICD10` and `Sex`</br> ![Unpivot]../src/images/clipboard-279191218.png)
+-   then unpivot everything but `ICD10` and `Sex`</br> ![Unpivot](../src/images/clipboard-279191218.png)
 -   rename your new Attribute/Value columns to `board` and `n`
 
 ## Create national data for benchmarking
@@ -179,12 +179,12 @@ Data from [sja.org.uk](https://www.sja.org.uk/first-aid-supplies/defibrillators-
 
 -   go back to source step of the `cause_death` query
 -   find the table data in the row `TableQ2b_Vital_events_by_NHS_Board_area`
--   right-click the `Table`, and select `Add as New Query`</br>![Add as New Query]../src/images/clipboard-4014078747.png)
+-   right-click the `Table`, and select `Add as New Query`</br>![Add as New Query](../src/images/clipboard-4014078747.png)
 -   rename that new query `population`
 
 ## Make a population table
 
--   remove everything but the first three columns </br> ![First three columns]../src/images/clipboard-3972508190.png)
+-   remove everything but the first three columns </br> ![First three columns](../src/images/clipboard-3972508190.png)
 - remove the `null` row and the `SCOTLAND` row
 - rename `NHS Board area` to `board`
 - clean and trim the `board` values 

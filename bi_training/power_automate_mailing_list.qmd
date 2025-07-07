@@ -42,7 +42,7 @@ feed_block("Mailing lists in Power Automate")
 -   make an Excel table
     -   `name`, `email`, `subscribed`, `cake`
 -   make a new List by uploading that Excel table
-![Uploading that Excel table]../src/images/clipboard-458313672.png){height="200"}
+![Uploading that Excel table](../src/images/clipboard-458313672.png){height="200"}
 - check the data types
 - beware the `Title` column. That's roughly an index: we'll use `Title` to hold our email addresses (as we'll check membership etc by email)
 
@@ -52,61 +52,61 @@ feed_block("Mailing lists in Power Automate")
 :::: {.columns}
 
 ::: {.column width='60%'}
-![Column settings]../src/images/clipboard-682077029.png)
+![Column settings](../src/images/clipboard-682077029.png)
 :::
 
 ::: {.column width='40%'}
-![Edit column to populate values]../src/images/clipboard-4138328983.png){height="400"}
+![Edit column to populate values](../src/images/clipboard-4138328983.png){height="400"}
 :::
 
 ::::
 
 ## Make two forms
 
--   make a new Form for subscriptions </br> ![Form for subscriptions]../src/images/clipboard-1101827132.png){height="300"}
+-   make a new Form for subscriptions </br> ![Form for subscriptions](../src/images/clipboard-1101827132.png){height="300"}
 - make a second, unsubscribe, form with email alone
-- note about form ID: the right way to identify your Forms </br>![Form ID is the second-half of the URL]../src/images/clipboard-321062008.png)
+- note about form ID: the right way to identify your Forms </br>![Form ID is the second-half of the URL](../src/images/clipboard-321062008.png)
 
 ## Subscription flow
 
 + select `Build an automated flow` </br> 
-![Build an automated flow]../src/images/clipboard-3021700734.png){height="400"}
+![Build an automated flow](../src/images/clipboard-3021700734.png){height="400"}
 
 ## Link the flow trigger to your form
 
-+ your new flow should be populated with a response block</br> ![response block]../src/images/clipboard-3445989790.png)
-+ use the form ID of the subscription form as a custom value in the `Form ID` field </br> ![Form response details]../src/images/clipboard-1083881180.png)
++ your new flow should be populated with a response block</br> ![response block](../src/images/clipboard-3445989790.png)
++ use the form ID of the subscription form as a custom value in the `Form ID` field </br> ![Form response details](../src/images/clipboard-1083881180.png)
 + that will leave Power Automate 'watching' your subscription form
 
 ## Then retrieve the form response details
 
-+ Add a `Get response details` block </br> ![Get response details]../src/images/clipboard-2001060265.png)
++ Add a `Get response details` block </br> ![Get response details](../src/images/clipboard-2001060265.png)
 + then populate as per the previous step. This retrieves the relevant information from your subscription form
 
 
 ## Create a new List Item
 
 + now we'll pass the form information to Lists
-+ Create a `Create item` block </br> ![Create item details]../src/images/clipboard-2627922703.png){height="200"}
-+ you'll need your List address </br> ![List address]../src/images/clipboard-3730094754.png)
++ Create a `Create item` block </br> ![Create item details](../src/images/clipboard-2627922703.png){height="200"}
++ you'll need your List address </br> ![List address](../src/images/clipboard-3730094754.png)
 + now test - it should create a blank List item when you submit something into the form
 
 ## Populate specific values
 
-+ now we map the Form fields to the columns in our List </br>![Map form values to List]../src/images/clipboard-3328577167.png)
++ now we map the Form fields to the columns in our List </br>![Map form values to List](../src/images/clipboard-3328577167.png)
 + the test now should be more interesting. Ensure that everything is being sent to the right column
 
 ## Unsubscribe
 
 -   create a new Flow, with same two response blocks as previously
 - make sure those link to your unsubscribe form
-- then add additional blocks: `Get Items` and `Update item` </br>![Flow outline]../src/images/clipboard-3343962300.png){height="400"}
+- then add additional blocks: `Get Items` and `Update item` </br>![Flow outline](../src/images/clipboard-3343962300.png){height="400"}
 
 ## Update item
-+ start with your `Update item` block as follows: </br>![Update item block]../src/images/clipboard-1706688066.png)
++ start with your `Update item` block as follows: </br>![Update item block](../src/images/clipboard-1706688066.png)
 
 ## Update item fails??
-+ I'd expect that to fail...</br>![]../src/images/clipboard-2790792965.png)
++ I'd expect that to fail...</br>![](../src/images/clipboard-2790792965.png)
 
 ## A digression: List names
 + Lists stores column names in an aggravating way:
@@ -116,41 +116,41 @@ feed_block("Mailing lists in Power Automate")
 + your email column doesn't work because we need to use the **Field name**
 
 ## Fixing the field name
-+ find the field name in Lists from `Settings > List Settings`</br>![List settings]../src/images/clipboard-4210686253.png)
-+ then click on the column name </br>![Column name]../src/images/clipboard-2975047667.png)
-+ the end of the URL should give the proper field name </br>![Field name]../src/images/clipboard-510100321.png)
++ find the field name in Lists from `Settings > List Settings`</br>![List settings](../src/images/clipboard-4210686253.png)
++ then click on the column name </br>![Column name](../src/images/clipboard-2975047667.png)
++ the end of the URL should give the proper field name </br>![Field name](../src/images/clipboard-510100321.png)
 
 ## Mail flow
 
 + After that digression, the actual mailing flow is easy
 + new instant cloud flow triggered by a button </br>
-![instant cloud flow]../src/images/clipboard-4189344858.png){height="150"}
+![instant cloud flow](../src/images/clipboard-4189344858.png){height="150"}
 
-+ `Get items` from your list with a filter for subscribed - something like `field_3 eq 'subscribed'`</br>![Get items]../src/images/clipboard-3848599611.png){height="250"}
++ `Get items` from your list with a filter for subscribed - something like `field_3 eq 'subscribed'`</br>![Get items](../src/images/clipboard-3848599611.png){height="250"}
 
 ## Compose a message
 
 + there are several different email blocks you can try: </br>
-![Send an email notification]../src/images/clipboard-69801691.png)
+![Send an email notification](../src/images/clipboard-69801691.png)
 
 ## Test and check
-![Received email]../src/images/clipboard-693156259.png)
+![Received email](../src/images/clipboard-693156259.png)
 
 ## Bonus ball: prevent redundancy
 
-+ you can tweak your subscription flow to allow people to update their details and re-subscribe via the subscription form</br>![Overall flow design]../src/images/clipboard-3920161095.png){height="400"}
++ you can tweak your subscription flow to allow people to update their details and re-subscribe via the subscription form</br>![Overall flow design](../src/images/clipboard-3920161095.png){height="400"}
 
 ## Get matching items
-+ on your subscription form, add a `Get Items` with a filter</br>![Filter items]../src/images/clipboard-3888348706.png)
++ on your subscription form, add a `Get Items` with a filter</br>![Filter items](../src/images/clipboard-3888348706.png)
 
 ## Control flow via number of matching items
-+ next, add a `Condition` testing the length of the body from the matching items step</br>![]../src/images/clipboard-2735982208.png)
++ next, add a `Condition` testing the length of the body from the matching items step</br>![](../src/images/clipboard-2735982208.png)
 
 ## Create item is as before
-+ Create item (when the length = 0): </br>![Create item]../src/images/clipboard-277926594.png)
++ Create item (when the length = 0): </br>![Create item](../src/images/clipboard-277926594.png)
 
 ## Update item
-+ Similar idea. The minimal version is just to change the subscribed status: </br>![Change subscribed status]../src/images/clipboard-3259295345.png)
++ Similar idea. The minimal version is just to change the subscribed status: </br>![Change subscribed status](../src/images/clipboard-3259295345.png)
 + You could also add name, cake fields etc if you were keen
 
 ## Thanks

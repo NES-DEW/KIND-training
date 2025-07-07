@@ -56,7 +56,7 @@ feed_block("Practical PowerPivot")
 
 -   download the [Agatha Christie dataset](https://docs.google.com/spreadsheets/d/1A8ZRe5KLLAllhT31pCzke4j5qAPqeMKf0jYgyJXcoPs/edit#gid=564606948) as an Excel file
 -   tidying:
-    -   remove filters </br>![Remove filters](images/clipboard-835331234.png)
+    -   remove filters </br>![Remove filters](../src/images/clipboard-835331234.png)
     -   create 4 x named tables for each of the four main data sheets:
         -   `novels`
         -   `short_stories`
@@ -66,39 +66,39 @@ feed_block("Practical PowerPivot")
 ## Add data to Power Pivot
 
 -   find Power Pivot in the ribbon menu
--   now add each table in turn to your data model </br> ![Add four tabhles to the data model](images/clipboard-657264833.png)
+-   now add each table in turn to your data model </br> ![Add four tabhles to the data model](../src/images/clipboard-657264833.png)
 
 ## The data view
 
--   data view </br>![data view](images/clipboard-3263737736.png)
+-   data view </br>![data view](../src/images/clipboard-3263737736.png)
 
 ## The diagram view
 
--   diagram view </br>![diagram view](images/clipboard-4246528073.png)
+-   diagram view </br>![diagram view](../src/images/clipboard-4246528073.png)
 
 ## Relationships
 
 -   you can create relationships between different parts of your data
 -   that's useful as you can then exploit those relationships using DAX formulas
--   open the diagram view, and connect the other three `Title ID` columns to `all_titles[Title ID]` </br>![Build relationships](images/clipboard-4256752901.png){height="400px"}
+-   open the diagram view, and connect the other three `Title ID` columns to `all_titles[Title ID]` </br>![Build relationships](../src/images/clipboard-4256752901.png){height="400px"}
 
 ## Relationships have directions
-(with thanks to Michael Robb, NHS Highland) </br> ![Manage relationships allows you to edit the filter direction](images/clipboard-823580961.png)
+(with thanks to Michael Robb, NHS Highland) </br> ![Manage relationships allows you to edit the filter direction](../src/images/clipboard-823580961.png)
 
 ## Make a Pivot Table
 
 -   this should feel nice and familiar: please insert a pivot table (from Power Pivot)
--   that should bring up a nearly-standard set of pivot table tools. One immediate difference though: you can work across several tables </br>![Several data sources in one pivot table](images/clipboard-3068291267.png)
+-   that should bring up a nearly-standard set of pivot table tools. One immediate difference though: you can work across several tables </br>![Several data sources in one pivot table](../src/images/clipboard-3068291267.png)
 
 ## Make a Pivot Table
 
 ::::: columns
 ::: {.column width="40%"}
-![Pivot table fields](images/clipboard-3092995500.png)
+![Pivot table fields](../src/images/clipboard-3092995500.png)
 :::
 
 ::: {.column width="60%"}
-![Output](images/clipboard-45311937.png)
+![Output](../src/images/clipboard-45311937.png)
 :::
 :::::
 
@@ -118,12 +118,12 @@ feed_block("Practical PowerPivot")
 ## Fancier calculated columns with DAX
 
 -   add a series col to your all_titles data
--   `=related(novels[Series]) & related(short_stories[Series])` </br> ![Series column DAX](images/clipboard-515038106.png)
+-   `=related(novels[Series]) & related(short_stories[Series])` </br> ![Series column DAX](../src/images/clipboard-515038106.png)
 
 ## Fancier calculated columns with DAX
 
 -   add a `publication_year` column to your short_story data
--  `=LOOKUPVALUE(short_story_collections[Year of first publication],short_story_collections[Title Name], short_stories[Collection]) ` </br> ![Publication year](images/clipboard-579564219.png)
+-  `=LOOKUPVALUE(short_story_collections[Year of first publication],short_story_collections[Title Name], short_stories[Collection]) ` </br> ![Publication year](../src/images/clipboard-579564219.png)
 
 ## Calculated columns work as ordinary pivot table data
 
@@ -133,13 +133,13 @@ feed_block("Practical PowerPivot")
 ## Creating measures
 
 -   another way of using DAX to create values
--   insert from the Power Pivot menu: </br>![Insert measure](images/clipboard-3327636246.png)
+-   insert from the Power Pivot menu: </br>![Insert measure](../src/images/clipboard-3327636246.png)
 -   then populate with a simple DAX calculation: `=AVERAGE(ssc[Number of stories])`
-- note the Table Name (which is where your measure will live)</br>![Create measure](images/clipboard-3534424614.png)
+- note the Table Name (which is where your measure will live)</br>![Create measure](../src/images/clipboard-3534424614.png)
 
 ## Using measures
 
 - you can then insert your measure in a Pivot Table
 - first refresh your pivot table
-- then look in the table you set as the Table Name to find your measure: </br>![Table Name](images/clipboard-2005550216.png)
-- now drag the measure to the `Values` field, and then populate `Rows` with `short_story_collection[Decade]` </br>![Pivot table with measure](images/clipboard-3383725040.png)
+- then look in the table you set as the Table Name to find your measure: </br>![Table Name](../src/images/clipboard-2005550216.png)
+- now drag the measure to the `Values` field, and then populate `Rows` with `short_story_collection[Decade]` </br>![Pivot table with measure](../src/images/clipboard-3383725040.png)

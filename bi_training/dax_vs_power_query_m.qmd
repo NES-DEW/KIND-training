@@ -71,7 +71,7 @@ feed_block("DAX vs Power Query M")
     -   similar/identical function names
     -   similar syntax in some places
 -   calculate a column `overall = SUM(ae_activity[over4])` in DAX
-    -   like Excel, this sums the entire `over4` column, rather than each row </br> ![sums the entire over4 column]../src/images/clipboard-528769158.png)
+    -   like Excel, this sums the entire `over4` column, rather than each row </br> ![sums the entire over4 column](../src/images/clipboard-528769158.png)
 
 ## PQM vs Excel
 
@@ -97,11 +97,11 @@ feed_block("DAX vs Power Query M")
 ## Input in PQM
 
 -   PQM works on **query steps**, with the **#step name** (and columns/tables) as input
-    -   `= List.Sum(#"Filtered Rows"[over4])` would sum all the values in the over4 column </br> ![sum all the values in the over4 column]../src/images/clipboard-1782980858.png)
+    -   `= List.Sum(#"Filtered Rows"[over4])` would sum all the values in the over4 column </br> ![sum all the values in the over4 column](../src/images/clipboard-1782980858.png)
     -   takes the `#Filtered Rows`query step, and sums its `over4` column
     -   that new query step will be called `#Calculated Sum` (but we could edit that)
 -   this is unusual, but gives PQM users a tweak-able history of their data transformation with undo/redo
--   try looking at the advanced editor in PQM to see what PQM really looks like </br> ![advanced editor view of PQM]../src/images/clipboard-989890971.png)
+-   try looking at the advanced editor in PQM to see what PQM really looks like </br> ![advanced editor view of PQM](../src/images/clipboard-989890971.png)
 
 ## Filter context
 
@@ -117,14 +117,14 @@ feed_block("DAX vs Power Query M")
     -   `overall_m = SUM(ae_activity[over4])`
         -   same code as the calculated column
         -   different filter context
--   then put `overall` and `overall_m` into a table, and play with the filters: </br> ![different results for the calculated column and the measure]../src/images/clipboard-417490134.png)
+-   then put `overall` and `overall_m` into a table, and play with the filters: </br> ![different results for the calculated column and the measure](../src/images/clipboard-417490134.png)
 
 ## More on the filter context
 
 -   different functions interpret the context differently: `SUM` vs `SUMX`
-    -   `SUMX` evaluates some expression for each row in the context: `overall_x = SUMX(ae_activity, ae_activity[over4] + ae_activity[over8])` </br> ![`SUMX` evaluates some expression for each row in the context]../src/images/clipboard-193493353.png)
+    -   `SUMX` evaluates some expression for each row in the context: `overall_x = SUMX(ae_activity, ae_activity[over4] + ae_activity[over8])` </br> ![`SUMX` evaluates some expression for each row in the context](../src/images/clipboard-193493353.png)
 -   `CALCULATE` as a function specifically for fooling with the filter context in a more detailed way
-    -   `overall_borders = CALCULATE(SUM(ae_activity[over4]), ae_activity[board] = "NHS Borders")` to restrict to just NHS Borders </br> ![restrict to just NHS Borders]../src/images/clipboard-1383498018.png)
+    -   `overall_borders = CALCULATE(SUM(ae_activity[over4]), ae_activity[board] = "NHS Borders")` to restrict to just NHS Borders </br> ![restrict to just NHS Borders](../src/images/clipboard-1383498018.png)
 
 ## Applications and best practice
 

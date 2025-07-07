@@ -39,25 +39,25 @@ feed_block("BI for Beginners (service version)")
 ## Load our data
 
 ::: {.callout-tip title="Task"}
-1.  Open Excel and create a blank workbook</br>![create a blank workbook]../src/images/clipboard-3287158368.png){height="200"}
-2.  In the `Data` tab of the ribbon menu, select the `From Web` option </br> ![select the `From Web` option]../src/images/clipboard-563180817.png){height="100"}
-3.  Supply the first URL </br>![Supply the first URL]../src/images/clipboard-1386370273.png){height="100"}
-4.  Select `Load` </br>![]../src/images/clipboard-1784687147.png){height="200"}
+1.  Open Excel and create a blank workbook</br>![create a blank workbook](../src/images/clipboard-3287158368.png){height="200"}
+2.  In the `Data` tab of the ribbon menu, select the `From Web` option </br> ![select the `From Web` option](../src/images/clipboard-563180817.png){height="100"}
+3.  Supply the first URL </br>![Supply the first URL](../src/images/clipboard-1386370273.png){height="100"}
+4.  Select `Load` </br>![](../src/images/clipboard-1784687147.png){height="200"}
 5.  Repeat with the remaining URLs
 6.  Save your workbook
 :::
 
 ## Inspect our data
 
--   You should be able to see each of your datasets in Excel as separate worksheets (with pretty horrible names) ![new worksheets in Excel]../src/images/clipboard-1507354050.png)
+-   You should be able to see each of your datasets in Excel as separate worksheets (with pretty horrible names) ![new worksheets in Excel](../src/images/clipboard-1507354050.png)
 
 ## PowerQuery
 
-Next, we'll open these three sets of data in PowerQuery by selecting `Launch Power Query Editor...` from the `Get Data` menu:</br> ![Launch Power Query Editor...]../src/images/clipboard-468826289.png){height="300"}
+Next, we'll open these three sets of data in PowerQuery by selecting `Launch Power Query Editor...` from the `Get Data` menu:</br> ![Launch Power Query Editor...](../src/images/clipboard-468826289.png){height="300"}
 
 ## Navigating PowerQuery
 
-![PowerQuery interface]../src/images/clipboard-3570519607.png)
+![PowerQuery interface](../src/images/clipboard-3570519607.png)
 
 -   on the left, you'll see three queries, corresponding to the three datasets you loaded from the web
 -   in the centre of the page, you'll see an Excel-like preview of your data
@@ -66,7 +66,7 @@ Next, we'll open these three sets of data in PowerQuery by selecting `Launch Pow
 
 ## Renaming our data
 
--   To make life easier, we'll rename each query by right-clicking the query title on the left-hand side of the screen </br>![rename each query]../src/images/clipboard-4147252052.png):
+-   To make life easier, we'll rename each query by right-clicking the query title on the left-hand side of the screen </br>![rename each query](../src/images/clipboard-4147252052.png):
     -   call the GP practice details `practices`
     -   call the NHS boards data `practices`
     -   call the demographic data `demographics`
@@ -84,11 +84,11 @@ Next, we'll open these three sets of data in PowerQuery by selecting `Launch Pow
 -   (reminder about the [duty of data minimization](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/data-minimisation/))
 -   we can safely lose several columns:
     -   `_id`, `HBDateEnacted`, `HBDateArchived` and `Country` are all spare
-    -   right click the column header to `Remove` </br>![remove columns]../src/images/clipboard-1367785018.png)
+    -   right click the column header to `Remove` </br>![remove columns](../src/images/clipboard-1367785018.png)
 
 ## The big idea
 
--   once you've removed a column, you'll see a change to the `Applied Steps` area: </br> ![Applied steps are]../src/images/clipboard-1786703847.png)
+-   once you've removed a column, you'll see a change to the `Applied Steps` area: </br> ![Applied steps are](../src/images/clipboard-1786703847.png)
 -   we've gained an extra step, showing that we've removed a column
 
 ## Steps
@@ -99,7 +99,7 @@ Next, we'll open these three sets of data in PowerQuery by selecting `Launch Pow
 
 ## PowerQuery -> Excel
 
--   Once you've removed the unnecessary columns, click `Close & Load` to commit your changes </br>![Commit your changes]../src/images/clipboard-3018844657.png)
+-   Once you've removed the unnecessary columns, click `Close & Load` to commit your changes </br>![Commit your changes](../src/images/clipboard-3018844657.png)
 - that will return your data to Excel
 
 ## Excel -> Power BI
@@ -121,18 +121,18 @@ Next, we'll open these three sets of data in PowerQuery by selecting `Launch Pow
 -   we can link these up so that we can use the actual proper health board names in our dashboard
 
 ::: {.callout-tip title="Task"}
-1.  select the HB column and select **Merge Queries** </br> ![select Merge Queries]../src/images/merge.png)
-1.  fill in the options in the merge pop-up </br> ![merge pop-up]../src/images/merge2.png){height="300px"}
+1.  select the HB column and select **Merge Queries** </br> ![select Merge Queries](../src/images/merge.png)
+1.  fill in the options in the merge pop-up </br> ![merge pop-up](../src/images/merge2.png){height="300px"}
 2.  note that this gives us lots of information about how the join is likely to work
 :::
 
--   a slight puzzle: the join initially looks pretty unpromising </br>![nested columns]../src/images/merge3.png)
+-   a slight puzzle: the join initially looks pretty unpromising </br>![nested columns](../src/images/merge3.png)
 -   here, Power Query is effectively telling you that there are several columns packed into this new column
 -   we can unpack all or some of the columns from each row using the menu in the column header.
 -   I think we only want **HBName** - but feel free to experiment as you can always backtrack from the query settings pane
 
 ::: {.callout-tip title="Task"}
-1.  select the column(s) you want to keep from the column header </br> ![Select your columns from the expand button]../src/images/merge4.png){height="150px"}
+1.  select the column(s) you want to keep from the column header </br> ![Select your columns from the expand button](../src/images/merge4.png){height="150px"}
 :::
 
 -   you can also access lots of other Excel-ish options by right-clicking the column
@@ -140,7 +140,7 @@ Next, we'll open these three sets of data in PowerQuery by selecting `Launch Pow
 
 ::: {.callout-tip title="Task"}
 1.  please rename your new column to **"HBName"**
-2.  note that you can also do this inside the formula bar at the top of the screen </br> ![Formula bar]../src/images/merge5.png)</br> This formula is written in **Power Query M**, which we'll discuss later
+2.  note that you can also do this inside the formula bar at the top of the screen </br> ![Formula bar](../src/images/merge5.png)</br> This formula is written in **Power Query M**, which we'll discuss later
 3.  check that you now have nice board names in the practices data
 4.  remember to **close & apply**
 :::
@@ -156,12 +156,12 @@ Next, we'll open these three sets of data in PowerQuery by selecting `Launch Pow
 1.  As before, please **Transform Data**
 2.  Use the **Select columns** tool (or delete as before) to remove the **id**, **Date**, **HSPC**, **HB**, and **SexQF** columns
 3.  You can do this in Power Query directly with `= Table.RemoveColumns(#"Changed Type",{"_id", "Date", "HB", "HSCP", "SexQF"})`
-1.  Select the **PracticeCode** and **Sex** columns, then select **Unpivot Other Columns**</br>![Unpivot Other Columns]../src/images/pivot_1.png){height="350px"}
+1.  Select the **PracticeCode** and **Sex** columns, then select **Unpivot Other Columns**</br>![Unpivot Other Columns](../src/images/pivot_1.png){height="350px"}
 :::
 
--   That should give us our data in long form, so that it looks like this: </br> ![long form data]../src/images/pivot_2.png)
+-   That should give us our data in long form, so that it looks like this: </br> ![long form data](../src/images/pivot_2.png)
 - this will make it easier to plot in Power BI as we usually need to have one variable (like number of patients in an age/sex bracket) in a single column
--   we can now remove unwanted values by filtering </br>![remove unwanted values by filtering]../src/images/pivot_3.png){height="300px"}
+-   we can now remove unwanted values by filtering </br>![remove unwanted values by filtering](../src/images/pivot_3.png){height="300px"}
 
 ::: {.callout-tip title="Task"}
 1.  From the **Attribute** column, please remove the **QF** rows,
@@ -174,7 +174,7 @@ Next, we'll open these three sets of data in PowerQuery by selecting `Launch Pow
 -   the last type of reshaping to show off is about transforming values
 
 ::: {.callout-tip title="Task"}
-1.  Split the **Attribute** column by **Digit to Non-digit**</br>![Digit to non-digit]../src/images/pivot_4.png){height="150px"}
+1.  Split the **Attribute** column by **Digit to Non-digit**</br>![Digit to non-digit](../src/images/pivot_4.png){height="150px"}
 2.  replace values in the new **Attribute.1** column to remove the "Ages"
 3.  then in **Attribute.2**, two replacements to remove the "to"s and replace the "plus" with **99**
 4.  then rename the columns to **age_upper** and **age_lower**
@@ -185,11 +185,11 @@ Next, we'll open these three sets of data in PowerQuery by selecting `Launch Pow
 
 -   we should now be able to use this data to re-make our GP bubble map from last time.
 -   there are some minor bits of tidying up that need to happen first
--   there are a few duplicate practice names, which might cause us problems </br>![Duplicate practice names]../src/images/barclay.png)
+-   there are a few duplicate practice names, which might cause us problems </br>![Duplicate practice names](../src/images/barclay.png)
 
 ::: {.callout-tip title="Task"}
 1.  select **Transform data**
-2.  add a **Custom column** called Practice Name</br> ![Add a custom column]../src/images/cust_col.png){height="200px"}
+2.  add a **Custom column** called Practice Name</br> ![Add a custom column](../src/images/cust_col.png){height="200px"}
 3.  use `&` to concatenate values: `[GPPracticeName] & " (" & [Postcode] & ")"`
 4.  close and apply
 :::
@@ -199,7 +199,7 @@ Next, we'll open these three sets of data in PowerQuery by selecting `Launch Pow
 
 ::: {.callout-tip title="Task"}
 1.  Go to the data view
-2.  In the **practices** table, note that you can change the summary options for the **PracticeListSize** column </br>![Summary defaults]../src/images/summ_list.png){height="200px"}
+2.  In the **practices** table, note that you can change the summary options for the **PracticeListSize** column </br>![Summary defaults](../src/images/summ_list.png){height="200px"}
 :::
 
 ## Re-making our visualisation

@@ -41,7 +41,7 @@ feed_block("Data tidying in Excel")
 
 ## Understanding tidy data
 
-![R4DS Figure 5.1: The following three rules make a dataset tidy: variables are columns, observations are rows, and values are cells, via CC BY-NC-ND 3.0 US](images/clipboard-3584154739.png)
+![R4DS Figure 5.1: The following three rules make a dataset tidy: variables are columns, observations are rows, and values are cells, via CC BY-NC-ND 3.0 US](../src/images/clipboard-3584154739.png)
 
 -   tidy data is not specific to Excel (e.g. this session is partly adapted from [chapter 5 of R for Data Science](https://r4ds.hadley.nz/data-tidy))
 -   if we tidy our data, we'll be able to compute it
@@ -78,7 +78,7 @@ feed_block("Data tidying in Excel")
 ## Tables
 
 -   you should keep your new data in a **table**
--   `Insert` \> `Table` </br> ![Or you might prefer the Ctrl + T shortcut](images/clipboard-3262660351.png)
+-   `Insert` \> `Table` </br> ![Or you might prefer the Ctrl + T shortcut](../src/images/clipboard-3262660351.png)
 -   tables allow you to sort and filter your data
 -   they also act as a useful 'container' (or **data structure**) for your data
 
@@ -93,14 +93,14 @@ feed_block("Data tidying in Excel")
 | 84.4     |
 
 -   please could you add some new data to your table showing births for another age group
--   you should be able to drag the blue table corner over your new column to extend the table </br>![blue table corner](images/clipboard-99329456.png)
+-   you should be able to drag the blue table corner over your new column to extend the table </br>![blue table corner](../src/images/clipboard-99329456.png)
 
 ## Autofill
 
 -   one last way of adding values: autofill
 -   drag again to make a new empty column, and label it `difference`
 -   in `D2` (the first 'proper' cell), copy this formula: `=C2-B2`. This will calculate the difference in birth rates between the two columns
--   finally, click the small green corner of that newly-filled cell to autofill the column ![small green corner](images/clipboard-1736118371.png)
+-   finally, click the small green corner of that newly-filled cell to autofill the column ![small green corner](../src/images/clipboard-1736118371.png)
 
 ## Back to tidy data
 
@@ -117,7 +117,7 @@ feed_block("Data tidying in Excel")
 ## Many values per cell
 
 -   We often find useful data with more than one value per cell
--   this can be helpful for humans </br> ![multiple values is good for humans, but bad for Excel](images/clipboard-1363924537.png)
+-   this can be helpful for humans </br> ![multiple values is good for humans, but bad for Excel](../src/images/clipboard-1363924537.png)
 -   Excel can't do anything with this data
 
 ## Exercise one: many values per cell
@@ -128,44 +128,44 @@ feed_block("Data tidying in Excel")
 
 ## Nothing works!
 
-![Divide by zero errors in the averages](images/clipboard-2726354511.png) </br> ![Plots produce pure nonsense](images/clipboard-945883446.png)
+![Divide by zero errors in the averages](../src/images/clipboard-2726354511.png) </br> ![Plots produce pure nonsense](../src/images/clipboard-945883446.png)
 
 ## What's the solution?
 
 -   make this data have **one value per cell**
   -   we could remove all the percentages by hand - but that's going to be very slow
--   `Text to Columns` gives us a better tool for the job </br> ![Text to Columns gives us a better tool for the job](images/clipboard-3594403318.png)
+-   `Text to Columns` gives us a better tool for the job </br> ![Text to Columns gives us a better tool for the job](../src/images/clipboard-3594403318.png)
 
 ## Text to Columns
 
 -   select a column
--   in the `Data` tab of the ribbon, you should find the `Text to Columns` tool </br> ![Text to Columns tool](images/clipboard-3002655192.png)
--   note that you can keep, or remove, the percentage column. We'll **skip** it, to keep things simple </br> ![keep, or remove, the percentage column](images/clipboard-4061284093.png)
+-   in the `Data` tab of the ribbon, you should find the `Text to Columns` tool </br> ![Text to Columns tool](../src/images/clipboard-3002655192.png)
+-   note that you can keep, or remove, the percentage column. We'll **skip** it, to keep things simple </br> ![keep, or remove, the percentage column](../src/images/clipboard-4061284093.png)
 
 ## Try working with that data again
 
-![We can plot the data now](images/clipboard-3377421044.png)
+![We can plot the data now](../src/images/clipboard-3377421044.png)
 
 ## Exercise two: transposed data
 
--   sometimes you'll find data where the columns and rows have been flipped </br> ![data where the columns and rows have been flipped](images/clipboard-2760486038.png)
+-   sometimes you'll find data where the columns and rows have been flipped </br> ![data where the columns and rows have been flipped](../src/images/clipboard-2760486038.png)
 -   that's slow to fix by hand, but luckily you can **transpose it**, which swaps rows and columns
 -   select your data, and copy/paste into a new cell
--   then use the transpose option <br>![transpose option](images/clipboard-3580893754.png)
--   you might need to fix formatting and labels: ![fix formatting and labels](images/clipboard-3017525992.png) </br>
-  -   the `Clear formats` option might help this ![Clear formats](images/clipboard-2927420900.png)
+-   then use the transpose option <br>![transpose option](../src/images/clipboard-3580893754.png)
+-   you might need to fix formatting and labels: ![fix formatting and labels](../src/images/clipboard-3017525992.png) </br>
+  -   the `Clear formats` option might help this ![Clear formats](../src/images/clipboard-2927420900.png)
 -   if you run into trouble, please note that transposing only works on data [that is not in a table](https://support.microsoft.com/en-gb/office/transpose-rotate-data-from-rows-to-columns-or-vice-versa-3419f2e3-beab-4318-aae5-d0f862209744)
 
 ## Validation and really messy data
 
 -   one of the most time-consuming bits of tidying is checking your values
--   we'll briefly demonstrate the **data validation** tool </br> ![the data validation tool](images/clipboard-622908428.png)
+-   we'll briefly demonstrate the **data validation** tool </br> ![the data validation tool](../src/images/clipboard-622908428.png)
 - you can follow-along from the `Demo one (validation)` worksheet
 -   this allows you to describe what format you think your data should be in, and then highlights anything that doesn't fit
 -  we select the `years` column
 -   then open the data validation tool
--   then set appropriate validation options, so **Whole number** between 2010 and 2030 </br> ![set appropriate validation options](images/clipboard-665473732.png)
--   then select `Circle Invalid Data` </br> ![select Circle Invalid Data](images/clipboard-1528491886.png)
+-   then set appropriate validation options, so **Whole number** between 2010 and 2030 </br> ![set appropriate validation options](../src/images/clipboard-665473732.png)
+-   then select `Circle Invalid Data` </br> ![select Circle Invalid Data](../src/images/clipboard-1528491886.png)
 -   we can now go through and fix anything circled
 
 ## Reshaped data
@@ -176,8 +176,8 @@ feed_block("Data tidying in Excel")
 
 ## Manual reshape
 
--   sort the data by year </br>![sort the data by year](images/clipboard-3321721696.png)
--   then copy and paste blocks of data, making sure to keep the years aligned </br>![copy and paste blocks of data](images/clipboard-2841186181.png)
--   make sure you then copy the age brackets to label the column </br>![copy the age brackets to label](images/clipboard-1151172294.png)
--   then delete the spare years columns, and the age brackets </br>![delete the spare years](images/clipboard-1265051366.png)
+-   sort the data by year </br>![sort the data by year](../src/images/clipboard-3321721696.png)
+-   then copy and paste blocks of data, making sure to keep the years aligned </br>![copy and paste blocks of data](../src/images/clipboard-2841186181.png)
+-   make sure you then copy the age brackets to label the column </br>![copy the age brackets to label](../src/images/clipboard-1151172294.png)
+-   then delete the spare years columns, and the age brackets </br>![delete the spare years](../src/images/clipboard-1265051366.png)
 

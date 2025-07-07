@@ -47,7 +47,7 @@ feed_block("Parameterised Rmarkdown")
 
 ## Ways of knitting
 
-We'll need to start with a hello-world Rmarkdown document. That should be knit-able from the knit button ![knit button](images/clipboard-1650697445.png). But you should also be able to knit using `rmarkdown::render()` to produce some output. Together, those three elements look like this:
+We'll need to start with a hello-world Rmarkdown document. That should be knit-able from the knit button ![knit button](../src/images/clipboard-1650697445.png). But you should also be able to knit using `rmarkdown::render()` to produce some output. Together, those three elements look like this:
 
 ::: panel-tabset
 ### Rmarkdown
@@ -70,7 +70,7 @@ rmarkdown::render("01_rmd.Rmd")
 
 ```
 
-![](images/01_rmd.png)
+![](../src/images/01_rmd.png)
 :::
 
 This gets more interesting when you start specifying options inside `render`. A basic example of this would be to change the output filename by adding `output_file`:
@@ -113,7 +113,7 @@ rmarkdown::render("02_rmd.Rmd")
 
 ```
 
-![](images/02_rmd.png)
+![](../src/images/02_rmd.png)
 :::
 
 We can now add some params in our render code to produce a different output. Note that, as we set defaults in the Rmarkdown header, these params are optional. But if we do include params in our render call, they will over-ride the defaults:
@@ -144,7 +144,7 @@ rmarkdown::render("02_rmd.Rmd",
 
 ```
 
-![](images/02_rmd_steve.png)
+![](../src/images/02_rmd_steve.png)
 :::
 
 ## Interesting things to do with params: show/hide code
@@ -175,7 +175,7 @@ rmarkdown::render("03_rmd.Rmd",
 
 ```
 
-![](images/03_rmd_nocode.png)
+![](../src/images/03_rmd_nocode.png)
 :::
 
 ## Interesting things to do with params: choose params interactively
@@ -190,13 +190,13 @@ With the same Rmd, we can run params interactively via a mini-Shiny app:
 
 ### Render code
 
-You can also access this via the knit menu: ![](images/clipboard-386029477.png)
+You can also access this via the knit menu: ![](../src/images/clipboard-386029477.png)
 
 ```{r, eval=F}
 rmarkdown::render("03_rmd.Rmd", params = "ask") # interactive parameter choice
 ```
 
-Interactive parameter chooser: </br>![](images/clipboard-1496409770.png){height="200"}
+Interactive parameter chooser: </br>![](../src/images/clipboard-1496409770.png){height="200"}
 
 ### Output
 
@@ -209,7 +209,7 @@ Interactive parameter chooser: </br>![](images/clipboard-1496409770.png){height=
 
 ```
 
-![](images/03_rmd_interactive.png)
+![](../src/images/03_rmd_interactive.png)
 :::
 
 
@@ -268,15 +268,15 @@ make_mark(input_name = "Sue", show_code = FALSE, format = "html")
 
 ```
 
-![](images/03_rmd_Nat_pdf.png)
+![](../src/images/03_rmd_Nat_pdf.png)
 
 and
 
-![](images/03_rmd_Mel_pdf.png)
+![](../src/images/03_rmd_Mel_pdf.png)
 
 and
 
-![](images/03_rmd_Sue_html.png)
+![](../src/images/03_rmd_Sue_html.png)
 
 :::
 
@@ -306,19 +306,19 @@ tidyr::expand_grid(input_name, format) |>
 ### Output
 
 
-![Angela HTML](images/03_rmd_Angela.png)
+![Angela HTML](../src/images/03_rmd_Angela.png)
 
 and
 
-![Angela .pdf](images/03_rmd_Angela_pdf.png)
+![Angela .pdf](../src/images/03_rmd_Angela_pdf.png)
 
 and
 
-![Audr](images/03_rmd_Audre.png)
+![Audr](../src/images/03_rmd_Audre.png)
 
 and
 
-![](images/03_rmd_Audre_pdf.png)
+![](../src/images/03_rmd_Audre_pdf.png)
 
 
 ...and so on and so on.
@@ -353,9 +353,9 @@ quarto::quarto_render("01_qmd.qmd",
 
 ### Output
 
-![](images/01_qmd_plain.png)
+![](../src/images/01_qmd_plain.png)
 
 and
 
-![](images/01_qmd_emma.png)
+![](../src/images/01_qmd_emma.png)
 :::
