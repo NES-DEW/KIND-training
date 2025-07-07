@@ -41,7 +41,7 @@ feed_block("BI for Beginners")
 
 ## Data
 
--   this session uses a bit of synthetic data extending the Dundee traffic dataset from the previous session </br> ![New traffic dataset](images/clipboard-1392993828.png)
+-   this session uses a bit of synthetic data extending the Dundee traffic dataset from the previous session </br> ![New traffic dataset]../src/images/clipboard-1392993828.png)
 -   please [download the data from this link](https://nes-dew.github.io/KIND-training/bi_training/src/traffic_detail.xlsx), and import into Power BI
 
 ## DAX reminders
@@ -94,7 +94,7 @@ feed_block("BI for Beginners")
 ::: {.callout-tip title="Task"}
 -   to illustrate, please build a simple dashboard with:
     -   a card containing the minimum value of `traffic[temp_col]`
-    -   a slicer containing `traffic[time]` </br> ![dashboard outline](images/clipboard-4202268694.png)
+    -   a slicer containing `traffic[time]` </br> ![dashboard outline]../src/images/clipboard-4202268694.png)
 :::
 
 -   note that the value of temp seems to be incorrect - it's the same no matter how the slicer is set
@@ -108,7 +108,7 @@ feed_block("BI for Beginners")
 -   add two new measures
     -   `meas_sum = SUM(traffic[number])`
     -   `meas_sumx = SUMX(traffic, traffic[number])`
--   finally, add all 4 to cards, summarising by `min` when necessary </br> ![Four cards to display results](images/clipboard-816781852.png){height="200px"}
+-   finally, add all 4 to cards, summarising by `min` when necessary </br> ![Four cards to display results]../src/images/clipboard-816781852.png){height="200px"}
 :::
 
 ## What's the difference?
@@ -123,7 +123,7 @@ feed_block("BI for Beginners")
 -   to illustrate, change both `SUMX` calculations to `SUMX(filter(traffic, traffic[number] < 15), traffic[number])`
 :::
 
--   all four values will now disagree: </br> ![Four different values](images/clipboard-1039448726.png)...
+-   all four values will now disagree: </br> ![Four different values]../src/images/clipboard-1039448726.png)...
 
 -   `col_sum` is showing the total for the entire column
 -   `meas_sum` is showing the total for the filtered column (so `traffic[time]` = morning)
@@ -196,12 +196,12 @@ temp_var =
 
 
 ::: {.callout-tip title="Task"}
--   in the model view, select `Calculation group` </br>![Calculation group](images/clipboard-2635822059.png)
--   select `Yes` when warned about implicit measures </br>![Warning about implict measures](images/clipboard-351916943.png)
--   that will add a new section to your model </br>![Calculation group](images/clipboard-1705263343.png)
--   select `Calculation item` in the Model sidebar</br> ![Calculation item](images/clipboard-1527218390.png)
+-   in the model view, select `Calculation group` </br>![Calculation group]../src/images/clipboard-2635822059.png)
+-   select `Yes` when warned about implicit measures </br>![Warning about implict measures]../src/images/clipboard-351916943.png)
+-   that will add a new section to your model </br>![Calculation group]../src/images/clipboard-1705263343.png)
+-   select `Calculation item` in the Model sidebar</br> ![Calculation item]../src/images/clipboard-1527218390.png)
 -   add the formula `round_10 = ROUND(SELECTEDMEASURE(), -1)` to the formula bar
--   back on the report page, add a slicer and populate with your Calculation group </br> ![Round to nearest 10 via calculation group](images/clipboard-552195342.png)
+-   back on the report page, add a slicer and populate with your Calculation group </br> ![Round to nearest 10 via calculation group]../src/images/clipboard-552195342.png)
 :::
 
 

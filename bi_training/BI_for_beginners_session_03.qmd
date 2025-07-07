@@ -38,7 +38,7 @@ If you'd like to get a sense of the core content, you might have a look at the v
 
 ::: {.callout-tip title="Task"}
 1. Open Power BI and start a new report
-2. Use the **Get data** menu to load data from the web</br>![Get data](images/get_data.png){height="300px"}
+2. Use the **Get data** menu to load data from the web</br>![Get data]../src/images/get_data.png){height="300px"}
 3. Load each of the three URLs supplied in the chat
 :::
 
@@ -60,12 +60,12 @@ If you'd like to get a sense of the core content, you might have a look at the v
 
 
 ::: {.callout-tip title="Task"}
-1. In the data view, select **Transform data**</br>![Transform data](images/transform.png)
+1. In the data view, select **Transform data**</br>![Transform data]../src/images/transform.png)
 :::
 
 ## Discarding data
 
-+ (duty of data minimization) </br> ![Remove unnecessary columns](images/rem_col.png)
++ (duty of data minimization) </br> ![Remove unnecessary columns]../src/images/rem_col.png)
 + we can safely lose several columns:
     + **TelephoneNumber**, **PracticeType**, **Dispensing** are all spare
     + **HSPC** and **DataZone** are more directly useful, although we actually won't use them
@@ -79,19 +79,19 @@ If you'd like to get a sense of the core content, you might have a look at the v
 
 
 ::: {.callout-tip title="Task"}
-1. select the HB column and select **Merge Queries** </br> ![Merge queries](images/merge.png)
-1. fill in the options in the merge pop-up </br> ![merge options](images/merge2.png){height="300px"}
+1. select the HB column and select **Merge Queries** </br> ![Merge queries]../src/images/merge.png)
+1. fill in the options in the merge pop-up </br> ![merge options]../src/images/merge2.png){height="300px"}
 1. note that this gives us lots of information about how the join is likely to work
 :::
 
 
-+ a slight puzzle: the join initially looks pretty unpromising </br>![nested table](images/merge3.png)
++ a slight puzzle: the join initially looks pretty unpromising </br>![nested table]../src/images/merge3.png)
 + here, Power Query is effectively telling you that there's a table row packed into each of these cells. That row is the matching row from the boards data that matched our HB column in the practices data
 + we can unpack all or some of the columns from each row using the menu in the column header. 
 + I think we only want **HBName** - but feel free to experiment as you can always backtrack from the query settings pane
 
 ::: {.callout-tip title="Task"}
-1. select the column(s) you want to keep from the column header </br> ![Select columns](images/merge4.png){height="250px"}
+1. select the column(s) you want to keep from the column header </br> ![Select columns]../src/images/merge4.png){height="250px"}
 :::
 
 + you can also access lots of other Excel-ish options by right-clicking the column
@@ -99,7 +99,7 @@ If you'd like to get a sense of the core content, you might have a look at the v
 
 ::: {.callout-tip title="Task"}
 1. please rename your new column to **"HBName"**
-2. note that you can also do this inside the formula bar at the top of the screen </br> ![Rename via PQM](images/merge5.png)</br>This formula is written in **Power Query M**, which we'll discuss later
+2. note that you can also do this inside the formula bar at the top of the screen </br> ![Rename via PQM]../src/images/merge5.png)</br>This formula is written in **Power Query M**, which we'll discuss later
 3. check that you now have nice board names in the practices data
 4. remember to **close & apply**
 :::
@@ -112,11 +112,11 @@ If you'd like to get a sense of the core content, you might have a look at the v
 1. As before, please **Transform Data**
 1. Use the **Select columns** tool (or delete as before) to remove the **id**, **Date**, **HSPC**, **HB**, and **SexQF** columns 
 1. You can do this in Power Query directly with `= Table.RemoveColumns(#"Changed Type",{"_id", "Date", "HB", "HSCP", "SexQF"})`
-1. Select the **PracticeCode** and **Sex** columns, then select **Unpivot Other Columns**</br>![Unpivot other columns](images/pivot_1.png){height="350px"}
+1. Select the **PracticeCode** and **Sex** columns, then select **Unpivot Other Columns**</br>![Unpivot other columns]../src/images/pivot_1.png){height="350px"}
 :::
 
-+ That should give us something that looks like this: </br> ![Long-form data](images/pivot_2.png)
-+ we can now remove unwanted values by filtering </br>![Remove unwanted values by filtering](images/pivot_3.png){height="300px"}
++ That should give us something that looks like this: </br> ![Long-form data]../src/images/pivot_2.png)
++ we can now remove unwanted values by filtering </br>![Remove unwanted values by filtering]../src/images/pivot_3.png){height="300px"}
 
 ::: {.callout-tip title="Task"}
 1. From the **Attribute** column, please remove the **QF** rows, 
@@ -127,7 +127,7 @@ If you'd like to get a sense of the core content, you might have a look at the v
 + the last type of reshaping to show off is about transforming values
 
 ::: {.callout-tip title="Task"}
-1. Split the **Attribute** column by **Digit to Non-digit**</br>![Split the attribute column](images/pivot_4.png){height="150px"}
+1. Split the **Attribute** column by **Digit to Non-digit**</br>![Split the attribute column]../src/images/pivot_4.png){height="150px"}
 2. replace values in the new **Attribute.1** column to remove the "Ages"
 3. then in **Attribute.2**, two replacements to remove the "to"s and replace the "plus" with **99**
 4. then rename the columns to **age_upper** and **age_lower**
@@ -138,12 +138,12 @@ If you'd like to get a sense of the core content, you might have a look at the v
 
 + we should now be able to use this data to re-make our GP bubble map from last time.
 + there are some minor bits of tidying up that need to happen first
-+ there are a few duplicate practice names, which might cause us problems </br>![Beware duplicate practice names](images/barclay.png)
++ there are a few duplicate practice names, which might cause us problems </br>![Beware duplicate practice names]../src/images/barclay.png)
 + so we'll transform each name to include the postcode to avoid this happening
 
 ::: {.callout-tip title="Task"}
 1. select **Transform data**
-2. add a **Custom column** called Practice Name</br> ![New custom column](images/cust_col.png){height="300px"}
+2. add a **Custom column** called Practice Name</br> ![New custom column]../src/images/cust_col.png){height="300px"}
 3. use `&` to concatenate values: `[GPPracticeName] & " (" & [Postcode] & ")"`
 4. close and apply
 :::
@@ -153,7 +153,7 @@ If you'd like to get a sense of the core content, you might have a look at the v
 
 ::: {.callout-tip title="Task"}
 1. Go to the data view
-2. In the **practices** table, note that you can change the summary options for the **PracticeListSize** column </br>![Change default summary](images/summ_list.png){height="200px"}
+2. In the **practices** table, note that you can change the summary options for the **PracticeListSize** column </br>![Change default summary]../src/images/summ_list.png){height="200px"}
 :::
 
 ## Re-making our visualisation

@@ -59,7 +59,7 @@ in your OneDrive.
     labelled `0.txt`, `1.txt`, `2.txt`...`9.txt`
 -   create a new instant flow
 -   after the `Manually trigger a flow` box, add a
-    `List files in folder` connector </br> ![List files in folder](images/ce_struct_00.png)
+    `List files in folder` connector </br> ![List files in folder](../src/images/ce_struct_00.png)
 - supply the address of your directory of text files in the `List files in folder` connector
 -   save and test your flow
 :::
@@ -82,8 +82,8 @@ folder
 ::: {.callout-note collapse="false" appearance="default" icon="true"}
 ### Task
 
--   add an `Initialize variable` block</br>![Add an Initialize variable block](images/ce_struct_01.png)
--  now populate the `Initialize variable` fields as shown below:</br> ![Populate the Initialize variable fields](images/ce_struct_02.png)
+-   add an `Initialize variable` block</br>![Add an Initialize variable block](../src/images/ce_struct_01.png)
+-  now populate the `Initialize variable` fields as shown below:</br> ![Populate the Initialize variable fields](../src/images/ce_struct_02.png)
     -   give your variable a name: `file_content`
     -   set the type, which tells Power Automate what sort of value to
         expect: `array`
@@ -107,17 +107,17 @@ folder
         previous variable: you need to write a formula to calculate the
         length of your file_content -
         `length(variables('file_content'))`</br>![Formula to calculate
-        length](images/clipboard-122056247.png)
+        length](../src/images/clipboard-122056247.png)
 :::
 
 + that should leave you with a flow like the following, which you should
-save and test: </br> ![File counting flow](images/clipboard-1997909894.png){height="300px"}
+save and test: </br> ![File counting flow](../src/images/clipboard-1997909894.png){height="300px"}
 + once run, you should see that the value of `file_count` is 10</br>
-![Test value of file_count](images/clipboard-2788856187.png)
+![Test value of file_count](../src/images/clipboard-2788856187.png)
 
 ## Digression: data types
 * a note on data types: Power Automate has several different built-in data
-types: </br> ![Data types](images/clipboard-601178402.png)
+types: </br> ![Data types](../src/images/clipboard-601178402.png)
 * Power Automate is inflexible about data types: so, for example, if you accidentally try to set an integer to 2.4, your flow will fail
 * you'll need to think carefully about what sort of value your variable is intended to hold
 
@@ -134,17 +134,17 @@ test Team...
     allows you to edit any embarrasing errors in your posts once they've
     been posted
 -   for the message, write some suitable text, then include the
-    file_count variable </br>![Compose a Teams message](images/clipboard-2062069255.png){height="350px"}
+    file_count variable </br>![Compose a Teams message](../src/images/clipboard-2062069255.png){height="350px"}
 :::
 
-![Sample Teams output](images/clipboard-1054286011.png){height="250px"}
+![Sample Teams output](../src/images/clipboard-1054286011.png){height="250px"}
 
 ## Project 4: varying the text of that Teams message by count
 + so far, our message just repeats the contents of `file_count` with a bit of static text
-+ we can use a **Condition** to change the text that accompanies that value</br> ![Condition to alter text](images/ce_struct_06.png)
++ we can use a **Condition** to change the text that accompanies that value</br> ![Condition to alter text](../src/images/ce_struct_06.png)
 + we should be able to adapt our previous flow to use that condition
 
 ## Project 5: varying text by time of day
 + we could now add another variable to our flow
-+ this will set a value based on the time of day</br>![Variable based on time of day](images/ce_struct_11.png)
++ this will set a value based on the time of day</br>![Variable based on time of day](../src/images/ce_struct_11.png)
 + we can set our condition to use this variable instead of `file_count`
