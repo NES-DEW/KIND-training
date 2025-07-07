@@ -1,0 +1,391 @@
+## Welcome!
+
+-   this session is an 🌶🌶 **intermediate practical** designed for those with some R experience
+
+## Session outline
+
++ why functions?
++ basic syntax
++ understanding how functions work
++ vectorised functions
++ the mysteries of the paired curly brackets `{{}}` and the dots `...`
++ anonymous functions
++ a bunch of ways to call functions
+
+## Why functions?
+
++ most beginners write repetitious code
++ repetitious code is hard to maintain
++ functions give you an easy way of repeating chunks of code
+
+## Basic syntax
+
++ think of this as a way of repeating yourself
++ in time-honoured fashion...
+
+```{r}
+hi_wrld <- function(){
+  "hello world"
+}
+
+hi_wrld()
+```
+
+## Adding arguments
+
++ most of the time, you'll want to add **arguments** to your function
+    + add a variable name inside the round bracket of `function`
+    + use that variable name in your function body
+
+```{r}
+hi_wrld_n <- function(n){
+  paste(rep("hello world", n))
+}
+
+hi_wrld_n(4)
+```
+
+## Another argument
+
++ you can add another argument
++ either position or name can be used in the function call
+
+```{r}
+hi_name_n <- function(name, n){
+  rep(paste("hello", name) , n)
+}
+
+hi_name_n("sue", 4)
+hi_name_n(n = 3, name = "tango") # evil but legal
+```
+
+## Defaults
+
+```{r}
+hi_name_n_def <- function(n, name = "janelle"){
+  rep(paste("hello", name) , n)
+}
+
+hi_name_n_def(n = 4)
+hi_name_n_def(n = 2, name = "bruce")
+```
+
+## Namespacing
+
+If you plan to use non-base R functions in your function, it's always a good idea to namespace them:
+
+```{r}
+hp_av <- function(cyls = 4){
+  mtcars |>
+    dplyr::filter(cyl == cyls) |>
+    dplyr::summarise(mean_hp = round(mean(hp)))
+}
+
+hp_av(8)
+```
+
+## Thinking about functions
+
++ R functions are ordinary R objects, usually bound to a function name
++ there are several ways of investigating functions using ordinary R code. Two ways of investigating aspects of functions we've already discussed:
+
+```{r}
+hp_av |>
+  formals() # the arguments
+
+hp_av |>
+  body() # the body
+```
+
+## Operators and functions
+
++ most R operators are really functions too - properly referred to as infix functions. You can use them in the standard prefix way using backticks:
+
+```{r}
+`+`(2, 2)
+```
+If you're feeling ...experimental, you can also convert a standard function to an infix function by wrapping the function name in `%%`:
+
+```{r}
+`%tri%` <- function(a, b){
+  sqrt(a^2 + b^2)
+}
+
+3 %tri% 4
+```
+
+
+## `class()`/`typeof()`
+
+For user-defined functions, and functions from packages, this means `class()` gives sensible results:
+
+```{r}
+class(hp_av)
+typeof(hp_av) # run away!
+```
+## Primitive functions
+
+Note that's not true for some built-in functions written in C:
+
+
+```{r}
+typeof(sum)
+```
+
+
+## Environments
+```{r}
+hp_av |>
+  environment() # the environment
+```
+
++ Think of the environment as the space in which the function is executed
++ Much more to say really - but [*Advanced R*](https://adv-r.hadley.nz/environments.html) is the right place for that
+
+## Scoping
+
++ the reason environments are important: names defined within scope mask those outwith:
+
+```{r}
+a <- 10
+
+scope_test <- function(n) {
+  a <- 5
+  n + a
+}
+
+scope_test(5)
+```
+## Name masking
+
++ if names aren't defined within the environment of the function, it'll look one level up
+
+```{r}
+a <- 10
+
+scope_test2 <- function(n) {
+  # a <- 5
+  n + a
+}
+
+scope_test2(5)
+```
+## Lazy evaluation
+
++ names get used at execution only. This explains the following odd behaviour:
+
+```{r}
+
+a <- 10
+
+scope_test3 <- function(n) {
+  # a <- 5
+  a
+}
+
+scope_test3()
+
+```
+You'd usually expect the absence of `n` in the function call to produce an error. But because the body never uses `n`, no problem!
+
+## Vectorised functions
+
++ most functions in R are [vectorised](https://bookdown.org/rdpeng/rprogdatascience/vectorized-operations.html)
+
+```{r}
+round(c(1.2, 3.2, 5.4, 2.7), 0)
+```
+
++ that means that mostly, our functions will end up vectorised without us doing any work at all
+
+```{r}
+div_seven_n_round <- function(nums){
+  round(nums / 7, 0)
+}
+
+numbers <- rnorm(4, 5, 50)
+
+numbers
+
+div_seven_n_round(numbers)
+```
+
++ **but** there are a few cases where that can fail: most famously, using `if`/`else`
+
+```{r}
+is_even <- function(n){
+  
+  if(n %% 2){
+  paste(n, "is odd")
+} else {
+  paste(n, "is even")
+}
+  
+}
+is_even(9)
+is_even(10)
+try(is_even(9:10))
+
+```
+
+## Three solutions
+
+### vectorize with `Vectorize`
+
+```{r}
+is_even_v <- Vectorize(is_even)
+is_even_v(9:10)
+```
+
+### apply
+
++ apply with `lapply` / `purrr::map` with `Vectorize`
+```{r}
+lapply(9:10, is_even)
+purrr::map(9:10, is_even)
+```
+
+### refactor
+
++ refactor to avoid scalar functions
+
+```{r}
+is_even_rf <- function(n){
+  ifelse(n %% 2, paste(n, "is odd"), paste(n, "is even"))
+}
+is_even_rf(9:10)
+```
+
+## `{{}}`
+
+### What's the problem?
+```{r}
+mtcars |>
+  dplyr::summarise(average = round(mean(hp)))
+```
+so
+
+```{r}
+carmo <- function(column){
+  mtcars |>
+    dplyr::summarise(average = round(mean(column)))
+  }
+```
+
++ but...
+```{r}
+try(carmo(hp))
+```
+> object 'hp' not found
+
++ we get used to R (and particularly tidyverse) helping us with some sugar when selecting column by their names
+  + `mtcars$hp` / `mtcars |> select(hp)`
+  + effectively, we're just able to specify `hp` like an object, and R figures out the scope etc for us
++ that misfires inside functions. R isn't sure where to look for an object called `hp`
+
+### Enter `{{}}`
+
+```{r}
+carmo_woo <- function(column){
+  mtcars |>
+    dplyr::summarise(average = round(mean({{column}})))
+}
+
+carmo_woo(hp)
+```
+
++ for 95% of purposes, take `{{}}` as a purely empirical fix
++ but, if you're very enthusiastic:
+    + `{{}}` [defuses and injects](https://rlang.r-lib.org/reference/topic-metaprogramming.html) the column name
+    + equivalent to `!!enquo(var)`
+    
+## ...
+
++ pass arbitrary arguments into/through a function with ...
+
+```{r}
+dotty <- function(n, ...){
+  rep(paste(..., collapse = ""), n)
+}
+
+dotty(4, letters[1:5])
+
+```
+
+If you need to collect values from `...`, `rlang::list2()` is probably the right way to do that:
+
+
+```{r}
+list_out <- function(...){
+  rlang::list2(...)
+}
+
+list_out(1, 4, 9)
+
+```
+
+## Anonymous functions
+
+In some cases, you might find yourself creating a function that's only going to be used in a single location. In that case, it's possible to define a nameless (anonymous) function, which is concise-but-nasty. For example:
+
+```{r}
+(\(x) x * 2)(5)
+```
+
+Here:
+
++ `\(x)` defines an anonymous function that takes one argument `x`.
++ `x * 2` is the body of the function which determines how the function works
++ `(5)` is the value that we're supplying to the function
+
+Most usually, that anonymous function won't be used with a single value, but within a pipe. Here, the supplied value is dropped, and substituted by the values passing along the pipe:
+
+```{r}
+mtcars |>
+  dplyr::select(wt) |>
+  (\(x) x * 2)() |> # Double the weight of all the values
+  dplyr::slice_max(wt, n = 3)
+```
+
+### Anonymous functions and the magrittr pipe
+
+The magrittr pipe (`%>%`) offers a simple method of avoiding the horrid anonymous function syntax using the `.` placeholder:
+  
+```{r}
+library(magrittr)
+
+mtcars %>%
+  dplyr::select(wt) %>%
+  { . * 2 } %>% # Double the weight of all the values
+  dplyr::slice_max(wt, n = 3)
+```
+
+## Calling functions from lists
+
+```{r}
+funs <- list(
+  half = function(x) x / 2,
+  double = function(x) x * 2
+)
+```
+
+
+## `do.call()`
+
++ For when you want to call a function over a stored set of arguments - e.g. where you have values held as a list:
+
+```{r}
+
+dfs <- list(
+  a = tibble::tibble(x = 1, y = 2),
+  b = tibble::tibble(x = 3, y = 4)
+)
+
+do.call(rbind, dfs)
+
+```
+
+## Resources
++ **best = home made!** Refactor something simple in your code today.
++ hard to beat the treatment of functions in [R4DS](https://r4ds.hadley.nz/functions)
++ the [Rlang page on data masking](https://rlang.r-lib.org/reference/topic-data-mask.html) is surprisingly sane for such a complicated area
