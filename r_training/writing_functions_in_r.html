@@ -350,6 +350,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#another-argument" id="toc-another-argument" class="nav-link" data-scroll-target="#another-argument">Another argument</a></li>
   <li><a href="#defaults" id="toc-defaults" class="nav-link" data-scroll-target="#defaults">Defaults</a></li>
   <li><a href="#namespacing" id="toc-namespacing" class="nav-link" data-scroll-target="#namespacing">Namespacing</a></li>
+  <li><a href="#thinking-about-functions" id="toc-thinking-about-functions" class="nav-link" data-scroll-target="#thinking-about-functions">Thinking about functions</a></li>
+  <li><a href="#operators-and-functions" id="toc-operators-and-functions" class="nav-link" data-scroll-target="#operators-and-functions">Operators and functions</a></li>
+  <li><a href="#classtypeof" id="toc-classtypeof" class="nav-link" data-scroll-target="#classtypeof"><code>class()</code>/<code>typeof()</code></a></li>
+  <li><a href="#primitive-functions" id="toc-primitive-functions" class="nav-link" data-scroll-target="#primitive-functions">Primitive functions</a></li>
+  <li><a href="#environments" id="toc-environments" class="nav-link" data-scroll-target="#environments">Environments</a></li>
+  <li><a href="#scoping" id="toc-scoping" class="nav-link" data-scroll-target="#scoping">Scoping</a></li>
+  <li><a href="#name-masking" id="toc-name-masking" class="nav-link" data-scroll-target="#name-masking">Name masking</a></li>
+  <li><a href="#lazy-evaluation" id="toc-lazy-evaluation" class="nav-link" data-scroll-target="#lazy-evaluation">Lazy evaluation</a></li>
   <li><a href="#vectorised-functions" id="toc-vectorised-functions" class="nav-link" data-scroll-target="#vectorised-functions">Vectorised functions</a></li>
   <li>
 <a href="#three-solutions" id="toc-three-solutions" class="nav-link" data-scroll-target="#three-solutions">Three solutions</a>
@@ -373,6 +381,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#anonymous-functions-and-the-magrittr-pipe" id="toc-anonymous-functions-and-the-magrittr-pipe" class="nav-link" data-scroll-target="#anonymous-functions-and-the-magrittr-pipe">Anonymous functions and the magrittr pipe</a></li>
   </ul>
 </li>
+  <li><a href="#calling-functions-from-lists" id="toc-calling-functions-from-lists" class="nav-link" data-scroll-target="#calling-functions-from-lists">Calling functions from lists</a></li>
+  <li><a href="#do.call" id="toc-do.call" class="nav-link" data-scroll-target="#do.call"><code>do.call()</code></a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -447,9 +457,9 @@ Three random comments from previous attendees
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>For me it was a good refresher as I have written functions in R, but there were some useful shortcuts I did not know about, and the explanation of the … was useful.</li>
-<li>Presentation was very clear and I was able to check up on an unclear area for me by checking out the slides afterwards. Very useful to see curly brackets &amp; vectorize()</li>
-<li>Really useful course</li>
+<li>Good session, as a R beginner learned some interesting things about how to write functions</li>
+<li>Great session thanks - some reminders in there, and also some new things for me, great mix</li>
+<li>Very well prepared, the session is very useful.</li>
 </ul>
 </div>
 </div>
@@ -460,10 +470,12 @@ Three random comments from previous attendees
 <ul>
 <li>why functions?</li>
 <li>basic syntax</li>
-<li>adding arguments</li>
+<li>understanding how functions work</li>
 <li>vectorised functions</li>
-<li>the mystery of the paired brackets</li>
+<li>the mysteries of the paired curly brackets <code>{{}}</code> and the dots <code>...</code>
+</li>
 <li>anonymous functions</li>
+<li>a bunch of ways to call functions</li>
 </ul></section><section id="why-functions" class="level2"><h2 class="anchored" data-anchor-id="why-functions">Why functions?</h2>
 <ul>
 <li>most beginners write repetitious code</li>
@@ -553,13 +565,139 @@ Three random comments from previous attendees
 1     209</code></pre>
 </div>
 </div>
+</section><section id="thinking-about-functions" class="level2"><h2 class="anchored" data-anchor-id="thinking-about-functions">Thinking about functions</h2>
+<ul>
+<li>R functions are ordinary R objects, usually bound to a function name</li>
+<li>there are several ways of investigating functions using ordinary R code. Two ways of investigating aspects of functions we’ve already discussed:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hp_av</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/formals.html">formals</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># the arguments</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$cyls
+[1] 4</code></pre>
+</div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hp_av</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/body.html">body</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># the body</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{
+    dplyr::summarise(dplyr::filter(mtcars, cyl == cyls), mean_hp = round(mean(hp)))
+}</code></pre>
+</div>
+</div>
+</section><section id="operators-and-functions" class="level2"><h2 class="anchored" data-anchor-id="operators-and-functions">Operators and functions</h2>
+<ul>
+<li>most R operators are really functions too - properly referred to as infix functions. You can use them in the standard prefix way using backticks:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">`+`</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>If you’re feeling …experimental, you can also convert a standard function to an infix function by wrapping the function name in <code>%%</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">`%tri%`</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">a</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">b</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fl">3</span> <span class="op">%tri%</span> <span class="fl">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+</section><section id="classtypeof" class="level2"><h2 class="anchored" data-anchor-id="classtypeof">
+<code>class()</code>/<code>typeof()</code>
+</h2>
+<p>For user-defined functions, and functions from packages, this means <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> gives sensible results:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">hp_av</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "function"</code></pre>
+</div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">hp_av</span><span class="op">)</span> <span class="co"># run away!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "closure"</code></pre>
+</div>
+</div>
+</section><section id="primitive-functions" class="level2"><h2 class="anchored" data-anchor-id="primitive-functions">Primitive functions</h2>
+<p>Note that’s not true for some built-in functions written in C:</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">sum</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "builtin"</code></pre>
+</div>
+</div>
+</section><section id="environments" class="level2"><h2 class="anchored" data-anchor-id="environments">Environments</h2>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hp_av</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/environment.html">environment</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># the environment</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;environment: R_GlobalEnv&gt;</code></pre>
+</div>
+</div>
+<ul>
+<li>Think of the environment as the space in which the function is executed</li>
+<li>Much more to say really - but <a href="https://adv-r.hadley.nz/environments.html"><em>Advanced R</em></a> is the right place for that</li>
+</ul></section><section id="scoping" class="level2"><h2 class="anchored" data-anchor-id="scoping">Scoping</h2>
+<ul>
+<li>the reason environments are important: names defined within scope mask those outwith:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span></span>
+<span><span class="va">scope_test</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span>  <span class="va">n</span> <span class="op">+</span> <span class="va">a</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">scope_test</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+</section><section id="name-masking" class="level2"><h2 class="anchored" data-anchor-id="name-masking">Name masking</h2>
+<ul>
+<li>if names aren’t defined within the environment of the function, it’ll look one level up</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span></span>
+<span><span class="va">scope_test2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># a &lt;- 5</span></span>
+<span>  <span class="va">n</span> <span class="op">+</span> <span class="va">a</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">scope_test2</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+</div>
+</section><section id="lazy-evaluation" class="level2"><h2 class="anchored" data-anchor-id="lazy-evaluation">Lazy evaluation</h2>
+<ul>
+<li>names get used at execution only. This explains the following odd behaviour:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span></span>
+<span><span class="va">scope_test3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># a &lt;- 5</span></span>
+<span>  <span class="va">a</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">scope_test3</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<p>You’d usually expect the absence of <code>n</code> in the function call to produce an error. But because the body never uses <code>n</code>, no problem!</p>
 </section><section id="vectorised-functions" class="level2"><h2 class="anchored" data-anchor-id="vectorised-functions">Vectorised functions</h2>
 <ul>
 <li>most functions in R are <a href="https://bookdown.org/rdpeng/rprogdatascience/vectorized-operations.html">vectorised</a>
 </li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">3.2</span>, <span class="fl">5.4</span>, <span class="fl">2.7</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">3.2</span>, <span class="fl">5.4</span>, <span class="fl">2.7</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 3 5 3</code></pre>
 </div>
@@ -568,7 +706,7 @@ Three random comments from previous attendees
 <li>that means that mostly, our functions will end up vectorised without us doing any work at all</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">div_seven_n_round</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">nums</span><span class="op">)</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">div_seven_n_round</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">nums</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">nums</span> <span class="op">/</span> <span class="fl">7</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -576,11 +714,11 @@ Three random comments from previous attendees
 <span></span>
 <span><span class="va">numbers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]   60.136884    1.902588 -114.102130  -26.399481</code></pre>
+<pre><code>[1]  27.72867 -14.73516  92.10265  66.84920</code></pre>
 </div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">div_seven_n_round</span><span class="op">(</span><span class="va">numbers</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">div_seven_n_round</span><span class="op">(</span><span class="va">numbers</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]   9   0 -16  -4</code></pre>
+<pre><code>[1]  4 -2 13 10</code></pre>
 </div>
 </div>
 <ul>
@@ -589,7 +727,7 @@ Three random comments from previous attendees
 </li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">is_even</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">is_even</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span><span class="op">(</span><span class="va">n</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">n</span>, <span class="st">"is odd"</span><span class="op">)</span></span>
@@ -602,11 +740,11 @@ Three random comments from previous attendees
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "9 is odd"</code></pre>
 </div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">is_even</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">is_even</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "10 is even"</code></pre>
 </div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">is_even</span><span class="op">(</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">is_even</span><span class="op">(</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Error in if (n%%2) { : the condition has length &gt; 1</code></pre>
 </div>
@@ -615,7 +753,7 @@ Three random comments from previous attendees
 <section id="vectorize-with-vectorize" class="level3"><h3 class="anchored" data-anchor-id="vectorize-with-vectorize">vectorize with <code>Vectorize</code>
 </h3>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">is_even_v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html">Vectorize</a></span><span class="op">(</span><span class="va">is_even</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">is_even_v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html">Vectorize</a></span><span class="op">(</span><span class="va">is_even</span><span class="op">)</span></span>
 <span><span class="fu">is_even_v</span><span class="op">(</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "9 is odd"   "10 is even"</code></pre>
@@ -627,7 +765,7 @@ Three random comments from previous attendees
 </li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, <span class="va">is_even</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, <span class="va">is_even</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "9 is odd"
@@ -635,7 +773,7 @@ Three random comments from previous attendees
 [[2]]
 [1] "10 is even"</code></pre>
 </div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, <span class="va">is_even</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, <span class="va">is_even</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "9 is odd"
@@ -649,7 +787,7 @@ Three random comments from previous attendees
 <li>refactor to avoid scalar functions</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">is_even_rf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">is_even_rf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">n</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">n</span>, <span class="st">"is odd"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">n</span>, <span class="st">"is even"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">is_even_rf</span><span class="op">(</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -660,7 +798,7 @@ Three random comments from previous attendees
 </section></section><section id="section" class="level2"><h2 class="anchored" data-anchor-id="section"><code>{{}}</code></h2>
 <section id="whats-the-problem" class="level3"><h3 class="anchored" data-anchor-id="whats-the-problem">What’s the problem?</h3>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">hp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  average
@@ -669,7 +807,7 @@ Three random comments from previous attendees
 </div>
 <p>so</p>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">carmo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">column</span><span class="op">)</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">carmo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">column</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">column</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -678,7 +816,7 @@ Three random comments from previous attendees
 <li>but…</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">carmo</span><span class="op">(</span><span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">carmo</span><span class="op">(</span><span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Error in dplyr::summarise(mtcars, average = round(mean(column))) : 
   ℹ In argument: `average = round(mean(column))`.
@@ -703,7 +841,7 @@ Caused by error:
 </ul></section><section id="enter" class="level3"><h3 class="anchored" data-anchor-id="enter">Enter <code>{{}}</code>
 </h3>
 <div class="cell">
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">carmo_woo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">column</span><span class="op">)</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">carmo_woo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">column</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">column</span><span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -729,7 +867,7 @@ Caused by error:
 <li>pass arbitrary arguments into/through a function with …</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dotty</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dotty</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">...</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, <span class="va">n</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -740,7 +878,7 @@ Caused by error:
 </div>
 <p>If you need to collect values from <code>...</code>, <code><a href="https://rlang.r-lib.org/reference/list2.html">rlang::list2()</a></code> is probably the right way to do that:</p>
 <div class="cell">
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">list_out</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">list_out</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/list2.html">list2</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -759,7 +897,7 @@ Caused by error:
 </section><section id="anonymous-functions" class="level2"><h2 class="anchored" data-anchor-id="anonymous-functions">Anonymous functions</h2>
 <p>In some cases, you might find yourself creating a function that’s only going to be used in a single location. In that case, it’s possible to define a nameless (anonymous) function, which is concise-but-nasty. For example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10</code></pre>
 </div>
@@ -775,10 +913,10 @@ Caused by error:
 </ul>
 <p>Most usually, that anonymous function won’t be used with a single value, but within a pipe. Here, the supplied value is dropped, and substituted by the values passing along the pipe:</p>
 <div class="cell">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">wt</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">wt</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># Double the weight of all the values</span></span>
-<span>  <span class="fu">slice_max</span><span class="op">(</span><span class="va">wt</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">wt</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                        wt
 Lincoln Continental 10.848
@@ -787,12 +925,14 @@ Cadillac Fleetwood  10.500</code></pre>
 </div>
 </div>
 <section id="anonymous-functions-and-the-magrittr-pipe" class="level3"><h3 class="anchored" data-anchor-id="anonymous-functions-and-the-magrittr-pipe">Anonymous functions and the magrittr pipe</h3>
-<p>The magrittr pipe (<code>%&gt;%</code>) has an older, and simple, method of writing anonymous formulas using the <code>.</code> placeholder:</p>
+<p>The magrittr pipe (<code>%&gt;%</code>) offers a simple method of avoiding the horrid anonymous function syntax using the <code>.</code> placeholder:</p>
 <div class="cell">
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">wt</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="op">{</span> <span class="va">.</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">}</span> <span class="op">%&gt;%</span> <span class="co"># Double the weight of all the values</span></span>
-<span>  <span class="fu">slice_max</span><span class="op">(</span><span class="va">wt</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">wt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="op">{</span> <span class="va">.</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">}</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># Double the weight of all the values</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">wt</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                        wt
 Lincoln Continental 10.848
@@ -800,7 +940,33 @@ Chrysler Imperial   10.690
 Cadillac Fleetwood  10.500</code></pre>
 </div>
 </div>
-</section></section><section id="resources" class="level2"><h2 class="anchored" data-anchor-id="resources">Resources</h2>
+</section></section><section id="calling-functions-from-lists" class="level2"><h2 class="anchored" data-anchor-id="calling-functions-from-lists">Calling functions from lists</h2>
+<div class="cell">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">funs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  half <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">2</span>,</span>
+<span>  double <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="do.call" class="level2"><h2 class="anchored" data-anchor-id="do.call"><code>do.call()</code></h2>
+<ul>
+<li>For when you want to call a function over a stored set of arguments - e.g.&nbsp;where you have values held as a list:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  a <span class="op">=</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  b <span class="op">=</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, y <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">dfs</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+      x     y
+* &lt;dbl&gt; &lt;dbl&gt;
+1     1     2
+2     3     4</code></pre>
+</div>
+</div>
+</section><section id="resources" class="level2"><h2 class="anchored" data-anchor-id="resources">Resources</h2>
 <ul>
 <li>
 <strong>best = home made!</strong> Refactor something simple in your code today.</li>
