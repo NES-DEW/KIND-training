@@ -1,0 +1,155 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+## Introduction
+
++ plotly is the major alternative to ggplot
++ the code is longer, but easier to understand
++ the basics are better (accessibility and interactivity, especially)
++ but there's a much smaller plotly user base
++ big jump from the ggplot way of thinking
++ the main reason you're not using it already: the documentation is atrocious
+
+## Setup
+
+```{r}
+library(plotly)
+library(ggplot2) # for a bit of compare-and-contrast
+library(dplyr) # bits of data wrangling
+library(palmerpenguins) # sample data
+```
+
+## Starting a plot object
+
+:::{.panel-tabset}
+
+### plotly
+```{r}
+penguins |>
+  plot_ly()
+```
+
+### ggplot
+
+```{r}
+penguins |>
+  ggplot()
+```
+
+:::
+
+## Adding points
+
+Two big differences:
+* plotly will infer a plausible structure if you don't specify one, while ggplot doesn't
+* use `~` to show which variables map onto which axes, rather than `aes()`
+
+:::{.panel-tabset}
+
+### plotly
+```{r}
+penguins |>
+  plot_ly(x = ~bill_length_mm, y = ~ bill_depth_mm) # will infer best structure
+```
+
+### ggplot
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_point(aes(x = bill_length_mm, y = bill_depth_mm))
+```
+
+:::
+
+## Non-spatial representations
+
+:::{.panel-tabset}
+
+### plotly
+```{r}
+penguins |>
+  plot_ly(x = ~bill_length_mm, 
+          y = ~ bill_depth_mm, 
+          color = ~species, 
+          type = "scatter") # specify desired structure
+```
+
+### ggplot
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_point(aes(x = bill_length_mm, 
+                 y = bill_depth_mm,
+                 colour = species))
+```
+
+:::
+
+## Styling
+
+:::{.panel-tabset}
+
+### plotly
+```{r}
+peng_plotly <- penguins |>
+  plot_ly(x = ~bill_length_mm, 
+          y = ~ bill_depth_mm, 
+          color = ~species, 
+          type = "scatter") |> # specify desired structure
+  layout(title = "100% pure plotly penguins",
+         legend = list(title = list(text = "Three penguin species")))
+
+peng_plotly 
+```
+
+### ggplot
+
+```{r}
+peng_ggplot <- penguins |>
+  ggplot(aes(x = bill_length_mm, 
+                 y = bill_depth_mm,
+                 colour = species)) + # move the aesthetics in case we decide to get fancy
+  geom_point() + 
+  ggtitle("Proudly pluralistic about ggplotting penguins") +
+  labs(colour = "A penguin-type trio")
+
+peng_ggplot
+```
+
+:::
+
+## Extra series
+
+:::{.panel-tabset}
+
+### plotly
+```{r}
+penguins |>
+  plot_ly(x = ~bill_length_mm, 
+          y = ~ bill_depth_mm, 
+          color = ~ species,
+          type = "scatter") |> # specify desired structure
+  layout(title = "100% pure plotly penguins",
+         legend = list(title = list(text = "Three penguin species"))) |>
+  add_histogram2dcontour(x = ~ bill_length_mm, 
+          y = ~ bill_depth_mm)
+
+  # plot_ly(x = ~ bill_length_mm, 
+  #         y = ~ bill_depth_mm, 
+  #         type = "histogram2dcontour") 
+
+
+```
+
+### ggplot
+
+```{r}
+peng_ggplot + 
+  stat_density_2d(aes(group = species))
+```
+
+:::
