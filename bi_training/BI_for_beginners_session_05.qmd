@@ -12,11 +12,74 @@ editor_options:
 #| fig-height: 0.6
 #| fig-width: 3
 library(dplyr)
-
+library(readr)
+library(stringr)
+library(writexl)
 source(here::here("R/feed_block.R"))
 feed_block("BI for Beginners")
 
 ```
+
+```{r}
+#| eval: false
+
+# nasty little bits of code for data preparation for this session
+
+# raw data
+
+practices <- read_csv("data/1 - practices.csv")
+
+boards <- read_csv("data/boards_data.csv")
+
+demog <- read_csv("data/3 - demographics.csv")
+
+# joined for list of practices and to see what's what
+ork_gp <- boards |>
+  filter(str_detect(HBName, "Ork")) |>
+  inner_join(practices, by = join_by(HB == HB)) |>
+  select(-c(HBDateArchived, `_id`))
+
+demog_ork <- demog |>
+  select(-contains("QF"), -`_id`, -Date, -HSCP, -HB, -AllAges) |>
+  filter(PracticeCode %in% ork_gp$PracticeCode) |>
+  filter(!Sex == "All") |>
+  pivot_longer(-c(PracticeCode, Sex), values_to = "n_patients", names_to = "age_range") |>
+  mutate(age_range = str_replace_all(age_range, "Ages", "Ages ")) |>
+  mutate(age_range = str_replace_all(age_range, "to", " to "))  |>
+  mutate(age_range = str_replace_all(age_range, "plus", " plus")) |>
+  mutate(age_range = str_replace_all(age_range, " 5", " 05")) 
+
+demog_ork |>
+  writexl::write_xlsx("data/s05_demog_ork.xlsx")
+
+boards_ork <- boards |>
+  filter(str_detect(HBName, "Ork")) |>
+  select(-c(HBDateArchived, `_id`))
+
+boards_ork |>
+  writexl::write_xlsx("data/s05_boards_ork.xlsx")
+
+practices_ork <- practices |>
+  filter(PracticeCode %in% ork_gp$PracticeCode)
+
+practices_ork |>
+  writexl::write_xlsx("data/s05_practices_ork.xlsx")
+
+pop_ork <- readxl::read_xlsx("data/SIMD.xlsx", sheet = "SIMD 2020v2 DZ lookup data") |>
+  select(any_of(c("DZ", "DZname", "SIMD2020v2_Rank", "URname", "Population"))) |>
+  filter(DZ %in% ork_gp$DataZone )
+
+pop_ork |>
+  writexl::write_xlsx("data/s05_pop_ork.xlsx")
+
+practices_ork |>
+  left_join(boards_ork) |>
+  left_join(demog_ork) |>
+  left_join(pop_ork, by = join_by(DataZone == DZ)) |>
+  writexl::write_xlsx("data/s05_full_data.xlsx")
+
+```
+
 
 {{< include "../content/BI for beginners session 05.qmd" >}}
 
