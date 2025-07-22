@@ -1,0 +1,248 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+## What's iteration?
+
+[Iteration](https://r4ds.hadley.nz/iteration.html#introduction) describes code that runs repeatedly, usually with the idea of applying an operation over a group of objects (like tibbles). Iteration is a basic building block of code in almost all programming languages, and you'd usually expect people who work with code to be very familiar with loops from the very beginning of their learning journey. Not so R, which is an oddity with respect to iteration. Iteration is much less important in R than in most languages, and that means that most of us encounter it comparatively infrequently. Leaving aside the reasons why iteration isn't that important for now - although we will return to it later - we'll start with a very basic introduction to loops.
+
+## Basic loop syntax
+
+Let's start by creating a vector of numbers:
+
+```{r}
+vector <- c(1,2,3,4)
+```
+
+Let's now write a simple loop that repeats a symbol - `*` - the number of times described by our vector of numbers. So we should see `*`, then `**`, then `***`... appear in the terminal:
+
+```{r}
+for (i in vector) {
+  rep("*", i) |>
+    paste(collapse = "") |>
+    print()
+}
+```
+If we change the values in our vector:
+
+```{r}
+vector <- c(20,5,15,1)
+```
+
+And then iterate again...
+
+```{r}
+for (i in vector) {
+  rep("*", i) |>
+    paste(collapse = "") |>
+    print()
+}
+```
+We'll generate a different result.
+
+## Simple examples
+```{r}
+
+for (i in 1:4) {
+  print("hello world!")
+}
+
+for (i in LETTERS[5:10]) {
+  print(i)
+}
+
+for (i in 4:1) {
+  print(i)
+}
+```
+
+## While loops
+
+As well as for-loops, which basically iterate along a vector or similar, you can also write a conceptually-similar `while` loop that continues to run while a condition is true. That's particularly useful when you're not certain how many times a process should run. For instance:
+
+```{r}
+i <- 1.1
+
+while(i < 100){ # same idea of an iterator, but using a logical test instead of an in
+  print(i)
+  i <- i ^ 2
+}
+
+```
+
+
+## Why `i`?
+
+Theoretically, you can use any ordinary R variable name (like `EVIL`) for your iterator:
+
+```{r}
+for (EVIL in LETTERS[5:10]) {
+  print(EVIL)
+}
+```
+
+While that's possible, it's highly recommended to stick to the conventional `i` unless you've got an exceptionally good reason to do something different. That's because loops can easily become hard to read and understand. That means that sticking close to the convention is helpful, because it lowers the congitive load for people trying to read and understand your code - including future-you.
+
+## Collecting output
+
+Loops work best when you collect their output by indexing. So we start off by making an empty output vector of the right size, then assigning into that vector within our loop using indexing:
+
+```{r}
+len <- 1:4
+
+output <- vector("character", length(len))
+
+for (i in len) {
+  output[i] <- paste("the number is", i)
+}
+
+output
+```
+
+It's also possible to collect output into a tibble or similar
+
+```{r}
+df_output <- data.frame(num = vector("numeric", length(len)))
+
+for (i in 1:4) {
+  df_output$num[i] <- i
+}
+
+df_output |>
+  knitr::kable()
+```
+
+## Multi-level loops
+
+Let's build a loop within a loop:
+
+```{r}
+output <- vector("numeric", 5)
+
+for (i in 1:5) {
+
+  inner_output <- vector("character", 5)
+  
+  for (j in 1:5) {
+    inner_output[j] <- paste(rep("*", j), collapse = "")
+  }
+  
+  output[i] <- paste(inner_output, collapse = "_")
+}
+
+output
+```
+
+That's a bit more complicated to understand than a single loop, but the principle is similar. We repeat the `*`s within the inner loop, and then repeat the whole process within the outer loop.
+
+## Benchmarking and appending output
+
+You should avoid appending output. It's inefficient owing to R's [copy-on-modify](https://adv-r.hadley.nz/names-values.html#copy-on-modify) behaviour. We'll set up a couple of loops in a function, and use `microbenchmark` to compare what happens with `append` (which uses `c()` to append its output) with `pre-allocate`, which indexes into a vector of the proper length.
+
+
+```{r}
+library(ggplot2)
+library(microbenchmark)
+
+show_diff <- function(len){
+  output <- vector("numeric", 0)
+  output2 <- vector("numeric", len)
+
+bench <- microbenchmark(append = {
+  for (i in 1:len) {
+    output <- c(output, i)
+                    }
+                                  },
+
+pre_allocate = {
+  for (i in 1:len) {
+    output2[i] <- i
+                    }
+                }
+, times = 20)
+
+autoplot(bench) +
+  ggtitle(paste0("Loop from 1:", len))
+}
+
+```
+
+
+The difference isn't that much when dealing with small loops:
+
+```{r}
+show_diff(10)
+```
+
+But huge differences result very quickly as the loop length increases:
+
+```{r}
+show_diff(100)
+```
+
+```{r}
+show_diff(500)
+```
+
+## `seq_along`
+
+`seq_along` is a function helps make iterable vectors from other R objects. Say you had a tibble/df that you wanted to iterate over to average each column. You could manually figure out the number of columns, then iterate on that calculation:
+
+```{r}
+output <- vector("numeric", length(mtcars))
+
+for(i in 1:length(output)){
+  output[i] <- mean(mtcars[,i], na.rm=T)
+}
+
+output
+```
+
+But, you could alternatively use `seq_along` to generate a neat integer vector to iterate over:
+
+```{r}
+output <- vector("numeric", length(mtcars))
+
+for(i in seq_along(mtcars)){
+  output[i] <- mean(mtcars[,i], na.rm=T)
+}
+
+output
+
+```
+
+## R vs basically everything else
+
+In nearly every other programming language, if you want to apply a function to more than one item, you need to loop. You can do this in R too:
+
+```{r}
+output <- vector("numeric", 10)
+
+for(i in 1:10){
+  output[i] <- i * 2
+}
+
+output
+```
+
+As R is vectorised, though, we usually don't need to do this:
+```{r}
+1:10 * 2
+```
+
+The main exceptions are when you encounter one of the occasional *scalar* functions in R. `if`/`else` is the more notorious of these. If you want to apply an `if`/`else` to several objects, one option is to write a loop:
+
+```{r}
+for(i in 1:15){
+  out <- ""
+  if(i %% 3 == 0) out <- c(out, "fizz")
+  if(i %% 5 == 0) out <- c(out, "buzz")
+  out <- paste(out, collapse = "")
+  if(nchar(out) == 0) out <- i
+  print(out)
+}
+```
+
+There's also a completely different family of solutions to problems such as these that we'll explore in the session about [purrr](https://nes-dew.github.io/KIND-training/r_training/purrr_package.html)
+
