@@ -1,0 +1,103 @@
+---
+title: "Non-equi joins with dplyr"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Introduction
+
+simple data sets:
+
+```{r}
+library(dplyr)
+
+a <- tibble(id = 1:5, 
+       score_a = sample(1:10, 5, T))
+
+b <- tibble(id = 1:5, 
+       score_b = sample(1:10, 5, T))
+
+```
+
+
+Standard joins relate rows from datasets by identity. For example, we can join by shared values in the `id` column:
+
+```{r}
+a |>
+  inner_join(b, by = join_by(id))
+```
+
+We could convert this into a non-equi join by adding an inequality:
+
+```{r}
+a |>
+  left_join(b, by = join_by(id, score_a > score_b))
+```
+
+Here, we've added a condition that restricts the join to cases where `score_a` is larger than `score_b`. That's all a non-equi join is: a join based on a non-equality. Usually, we'd use this with an inner join that will drop the `NA`s for us:
+
+```{r}
+a |>
+  inner_join(b, by = join_by(id, score_a > score_b))
+```
+
+Effectively this is equivalent to a `filter` then a join:
+
+```{r}
+a |>
+  left_join(b, by = join_by(id)) |>
+  filter(score_a > score_b)
+```
+
+But faster and more elegant, especially if you're matching a small range of values in the non-equi part of the join.
+
+## A more plausible example
+
+Joining based on date range
+
+```{r}
+library(lubridate)
+
+x <- tibble(id = sample(1000:9999, 30))
+
+y <- x |>
+  mutate(year = year(as_date(sample(19000:21000, 30))))
+
+z <- x |> 
+  mutate(score = sample(1:10, 30, T))
+
+y |>
+  inner_join(z, by = join_by(id))
+
+y |>
+  filter(year > 2026) |>
+  inner_join(z, by = join_by(id))
+
+# z |>
+#   inner_join(y, by = join_by(id, between(year, 2025, 2027)))
+
+patients <- tibble(
+ patient_id = c(1, 2, 3),
+ patient_name = c("Alice", "Bob", "Charlie"),
+ admission_date = as.Date(c("2022-01-01", "2022-02-15", "2022-03-10"))
+)
+# Creating a tibble for medication prescriptions
+medications <- tibble(
+ patient_id = c(1, 1, 2, 3, 3),
+ medication_name = c("Aspirin", "Tylenol", "Ibuprofen", "Amoxicillin", "Vitamin C"),
+ start_date = as.Date(c("2021-12-01", "2022-02-01", "2022-02-20", "2022-01-15", "2022-04-01")),
+ end_date = as.Date(c("2022-01-31", "2022-02-28", "2022-03-15", "2022-02-28", "2022-04-30"))
+)
+
+patients |>
+  inner_join(
+    medications,
+    by = join_by(
+      patient_id,
+      between(admission_date, start_date, end_date)
+    )
+  )
+
+```
+
