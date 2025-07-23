@@ -136,6 +136,73 @@ output
 
 That's a bit more complicated to understand than a single loop, but the principle is similar. We repeat the `*`s within the inner loop, and then repeat the whole process within the outer loop.
 
+## Breaks and next
+
+### `break`
+When encountered, `break` completely stops the execution of the loop. For example, say we have some random numbers:
+```{r}
+
+random_sample <- sample(seq(from=1, to=340, by=sample(1:10, 1, replace=T)), 10)
+
+```
+Say we want to loop through some `random_numbers` and do something until we get to a number larger than a threshold value:
+
+```{r}
+threshold_value <- 150
+
+for(i in random_sample) {
+  print(i)
+} # the basic loop includes values over the threshold
+```
+
+We can use a `break`, which will stop the loop completely when an `if()` condition is met:
+
+```{r}
+for(i in random_sample) {
+  if(i > threshold_value) break
+  print(i)
+}
+```
+
+If you're using nested loops, and a `break` is encountered in the inner loop, it will return you to the outer loop (or the next level up):
+
+```{r}
+for(i in 1:5) {
+  for (j in 1:5) {
+    print(i + j)
+    if (i + j >= 7)
+      break # breaks the inner loop at 7 each time
+  }
+  
+  print("This is where the inner loop breaks, and returns to the outer loop")
+}
+```
+
+
+### `next`
+When encountered, `next` moves on to the next iteration of the loop. It's usual to combine it with a test condition (using an `if()` statement). For example, we could use `next` to write a simple [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) programme:
+
+```{r}
+
+for(i in 1:15) {
+  if(i %% 15 == 0) {
+    print("fizzbuzz")
+    next
+  }
+  if(i %% 3 == 0) {
+    print("fizz")
+    next
+  }
+  if(i %% 5 == 0) {
+    print("buzz")
+    next
+  }
+  print(i)
+}
+
+
+```
+
 ## Benchmarking and appending output
 
 You should avoid appending output. It's inefficient owing to R's [copy-on-modify](https://adv-r.hadley.nz/names-values.html#copy-on-modify) behaviour. We'll set up a couple of loops in a function, and use `microbenchmark` to compare what happens with `append` (which uses `c()` to append its output) with `pre-allocate`, which indexes into a vector of the proper length.
