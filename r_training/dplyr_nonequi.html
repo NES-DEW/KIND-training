@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-07-29">
+<meta name="dcterms.date" content="2025-08-01">
 <title>Non-equi joins with dplyr – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -367,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 29, 2025</p>
+      <p class="date">August 1, 2025</p>
     </div>
   </div>
   
@@ -403,11 +403,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 5 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       1       5
-2     2       1       9
-3     3      10       3
-4     4      10       3
-5     5       1       4</code></pre>
+1     1      10       9
+2     2      10       8
+3     3       1       8
+4     4      10      10
+5     5       2       8</code></pre>
 </div>
 </div>
 <p>We could convert this into a non-equi join by adding an inequality:</p>
@@ -418,11 +418,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 5 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       1      NA
-2     2       1      NA
-3     3      10       3
-4     4      10       3
-5     5       1      NA</code></pre>
+1     1      10       9
+2     2      10       8
+3     3       1      NA
+4     4      10      NA
+5     5       2      NA</code></pre>
 </div>
 </div>
 <p>Here, we’ve added a condition that restricts the join to cases where <code>score_a</code> is larger than <code>score_b</code>. That’s all a non-equi join is: a join based on a non-equality. Usually, we’d use this with an inner join that will drop the <code>NA</code>s for us:</p>
@@ -433,8 +433,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 2 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     3      10       3
-2     4      10       3</code></pre>
+1     1      10       9
+2     2      10       8</code></pre>
 </div>
 </div>
 <p>Effectively this is equivalent to a <code>filter</code> then a join:</p>
@@ -446,8 +446,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 2 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     3      10       3
-2     4      10       3</code></pre>
+1     1      10       9
+2     2      10       8</code></pre>
 </div>
 </div>
 <p>But faster and more elegant, especially if you’re matching a small range of values in the non-equi part of the join.</p>
@@ -470,32 +470,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 30 × 3
       id  year score
    &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
- 1  4844  2022     7
- 2  7747  2025     9
- 3  4798  2024     6
- 4  5454  2027     8
- 5  6230  2027     6
- 6  6464  2027     6
- 7  2519  2024     9
- 8  9916  2026     1
- 9  7558  2025     2
-10  6754  2023     5
+ 1  6595  2024     7
+ 2  1169  2023     8
+ 3  5947  2025     2
+ 4  6983  2022     3
+ 5  9182  2025     3
+ 6  2438  2024     4
+ 7  4968  2024     6
+ 8  4919  2025     7
+ 9  6930  2024     1
+10  8310  2025     6
 # ℹ 20 more rows</code></pre>
 </div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">2026</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">z</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 3
+<pre><code># A tibble: 3 × 3
      id  year score
   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
-1  5454  2027     8
-2  6230  2027     6
-3  6464  2027     6
-4  8807  2027     3
-5  8693  2027     3
-6  1615  2027     3
-7  6152  2027     1</code></pre>
+1  9159  2027    10
+2  7260  2027     4
+3  7651  2027    10</code></pre>
 </div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># z |&gt;</span></span>
 <span><span class="co">#   inner_join(y, by = join_by(id, between(year, 2025, 2027)))</span></span>
