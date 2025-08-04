@@ -1,0 +1,560 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+## Introduction
+
+`data.table` is an enhanced `data.frame`. It's fast and concise, and feels very like an improved version of base-R tools for working with tabular data. This training session gives a compare-and-contrast introduction to `data.table` by running through some core data operations in `data.table` and by comparing those to similar operations in base-R and tidyverse.
+
+There's also a bit of benchmark data here. This was generated in R4.4.1, Rstudio desktop 2025.05.1 on Windows 10, using a fairly new-ish laptop (Intel i7-13850HX, 128Gb RAM).
+
+```{r}
+library(dplyr)
+library(readr)
+library(stringr)
+library(ggplot2)
+library(here)
+library(data.table)
+library(microbenchmark)
+
+local_path <- "r_training/data/flights14.csv"
+
+```
+
+```{r}
+#| echo: false
+bench_dat <- read_rds(here("r_training/data/bench_dat.rds"))
+options(max.print=8) # otherwise endless df previews
+```
+
+## Reading data
+
+::: {.panel-tabset}
+
+### data.frame
+```{r}
+df <- read.csv(here(local_path))
+```
+### tibble
+```{r}
+tb <- read_csv(here(local_path))
+```
+### data.table
+```{r}
+dt <- fread(here(local_path))
+```
+
+### benchmark
+```{r}
+#| echo: false
+autoplot(bench_dat$dat_read)
+```
+
+In case these violin plots are new to you: these are the output of the `microbenchmark` package, which repeatedly runs bits of code while timing their speed of execution. The wider the violin (the white blobs) the greater the number of times the code ran at that speed. The further left the blob, the faster the code. Here, data.table's `fread` ran much much faster than either base-R `read.csv` or tidyverse `read_csv`. There is some code for the benchmarking data here which is included for interest.
+
+```{r}
+#| eval: false
+#| code-fold: true
+
+# data reading ----
+dat_read <- microbenchmark(
+  df <- read.csv(local_path),
+  tb <- read_csv(local_path),
+  dt <- fread(local_path)
+  )
+
+# col to col ----
+
+col_subset <- microbenchmark(
+  df["month"], # base-R ish subsetting
+  tb |>
+    select(month), # tidy
+  dt[,.(month)] # dt
+  )
+
+# col to vec ----
+
+vec_subset2 <- microbenchmark(
+  df$month, # base-R ish subsetting
+  tb |>
+    pull(month), # tidy
+  dt[, month] # usual DT approach
+  )
+
+# rows ----
+
+row_subset <- microbenchmark(
+  df[1:2,], # rows
+  tb |>
+    slice(1:2),
+  dt[1:2]
+  )
+
+# filter ----
+
+filter_subset <- microbenchmark(
+  df[(df$dest == "LAX"),],
+  tb |>
+    filter(dest == "LAX"),
+  dt[dest == "LAX"]
+  )
+
+# ungrouped summarize ----
+
+ungrouped_summaries <- microbenchmark(
+  data.frame(mean = mean(df$hour)),
+
+  tb |>
+    summarise(mean = mean(hour)),
+
+  dt[,.(mean = mean(hour))]
+  )
+
+# grouped summarize ----
+
+grouped_summaries <- microbenchmark(
+  aggregate(hour ~ carrier, data = df, FUN = mean),
+
+  tb |>
+    group_by(carrier) |>
+    summarise(mean(hour)),
+
+  dt[,mean(hour), carrier]
+  )
+
+# subset then group then summarise ----
+
+subset_grouped_summaries <- microbenchmark(
+  aggregate(distance ~ carrier, data = subset(df, month == 9), FUN = "sum"),
+  
+  tb |>
+    filter(month == 9) |>
+    group_by(carrier) |>
+    summarise(sum = sum(distance)),
+  
+  dt[month == 9, sum(distance), carrier]
+)
+
+# arrange ----
+
+arranged <- microbenchmark(
+  df[order(df$dep_delay),],
+  tb |>
+    arrange(dep_delay),
+  dt[order(dep_delay)]
+)
+autoplot(arranged)
+
+# count ----
+
+counts <- microbenchmark(
+  data.frame(table(df$carrier)),
+  tb |>
+    count(carrier),
+  dt[, .(n = .N), by = carrier]
+)
+
+# mutate ----
+
+mutates <- microbenchmark(
+  {df$dist_km <- df$distance * 1.6
+  df[c("dist_km", "carrier", "origin", "dest")]},
+  tidyverse = tb |>
+    mutate(dist_km = distance * 1.6) |>
+    select(dist_km, carrier, origin, dest),
+  dt[,.(dist_km = distance * 1.6, carrier, origin, dest)],
+  dt[,.(dist_km = distance*1.6),.(carrier,origin, dest)]
+  
+)
+
+# subset several cols
+
+col_subset_multiple <- microbenchmark(
+  df[c("day", "month", "year")],
+  tb |>
+    select(day, month, year),
+  dt[, list("day", "month", "year")]
+)
+
+bench_dat <- list(dat_read = dat_read, 
+                  col_subset = col_subset, 
+                  vec_subset = vec_subset, 
+                  row_subset = row_subset, 
+                  filter_subset = filter_subset, 
+                  ungrouped_summaries = ungrouped_summaries, 
+                  grouped_summaries = grouped_summaries, 
+                  subset_grouped_summaries = subset_grouped_summaries, 
+                  arranged = arranged, 
+                  counts = counts, 
+                  mutates = mutates,
+                  col_subset_multiple = col_subset_multiple) 
+ 
+write_rds(bench_dat, "data/bench_dat.rds") 
+```
+
+
+:::
+
+## Objects
+
+Note that the three different csv reading functions create different slightly different objects:
+
+```{r}
+class(tb)
+class(dt)
+class(df)
+```
+
+data.table has its own data structure: obviously enough, the data.table. You can create data.tables using `fread`, or with care, convert data.frames/tibbles using `setDT`. The reason for needing care is that `setDT` (and a few other functions in data.table) modify in place. This is one of the few cases in R where you can change an object without assigning:
+
+```{r}
+test <- tibble(alph = letters) # make a tibble
+class(test) # shows "tbl_df"     "tbl"
+
+setDT(test) # note modify-in-place
+class(test) # that's a data.table
+
+setDF(test) # back into a df
+class(test) # and that's a data.frame
+
+test <- as_tibble(test) # if you need a tibble
+class(test)
+```
+
+## What's the big idea
+
+If you're used to working with tidyverse, data.table takes a radically different approach to working with data. The standard way of representing data.table syntax is as follows:
+
+> dt[i, j, by]
+
+This means:
+
++ take **dt** - a data.table
++ subset or reorder its rows by **i**
++ subset columns or calculate by **j**
++ while grouping by **by**
+
+Unless you've done lots of SQL before, that's likely to be confusing. So let's do some simple operations first, then return to the overview.
+
+## Subset one column to single-column df/tibble/dt 
+
+::: {.panel-tabset}
+
+### data.frame
+```{r}
+df["month"]
+```
+### tibble
+```{r}
+tb |> 
+  select(month)
+```
+### data.table
+```{r}
+dt[,.(month)]
+# or
+print(dt[,"month"])
+```
+
+### benchmark
+```{r}
+#| echo: false
+autoplot(bench_dat$col_subset)
+```
+
+:::
+
+```{r}
+tot <- bench_dat |>
+  purrr::list_rbind()
+
+tot |>
+  mutate(type = case_when(
+    str_detect(expr, "df") ~ "df"
+  ))
+
+```
+
+## Subset several columns to df/tibble/dt 
+
+::: {.panel-tabset}
+### data.frame
+```{r}
+df[c("day", "month", "year")]
+```
+### tibble
+```{r}
+tb |>
+  select(day, month, year)
+```
+### data.table
+```{r}
+dt[, list("day", "month", "year")] # list
+dt[,.("day", "month", "year")] # idiomatic list shorthand
+```
+
+It is also possible to use unquoted column names (so `dt[,.(day, month)]`) too, although this comes at a severe hit to performance.
+
+### benchmark
+```{r}
+#| echo: false
+autoplot(bench_dat$col_subset_multiple)
+```
+
+::: 
+
+
+## Single column to vector
+
+::: {.panel-tabset}
+
+### data.frame
+```{r}
+df$month
+```
+### tibble
+```{r}
+tb |>
+  pull(month)
+```
+### data.table
+```{r}
+dt[["month"]]
+```
+
+### benchmark
+```{r}
+#| echo: false
+autoplot(bench_dat$vec_subset)
+```
+
+::: 
+
+## Subset rows
+
+::: {.panel-tabset}
+
+### data.frame
+```{r}
+df[1:2,] # rows
+```
+
+### tibble
+```{r}
+tb |>
+  slice(1:2)
+```
+
+### data.table
+```{r}
+dt[1:2]
+```
+
+### benchmark
+```{r}
+#| echo: false
+autoplot(bench_dat$row_subset)
+```
+
+::: 
+
+## Filter rows
+
+::: {.panel-tabset}
+
+### data.frame
+```{r}
+df[(df$dest == "LAX"),]
+```
+
+### tibble
+```{r}
+tb |>
+  filter(dest == "LAX")
+```
+
+### data.table
+```{r}
+
+dt[dest == "LAX"]
+```
+
+### benchmark
+```{r}
+#| echo: false
+autoplot(bench_dat$filter_subset)
+```
+
+::: 
+
+## Summarize
+so return a new df/tibble/dt
+
+::: {.panel-tabset}
+
+### data.frame
+```{r}
+data.frame(mean = mean(df$hour))
+```
+### tibble
+```{r}
+tb |>
+  summarise(mean = mean(hour))
+```
+### data.table
+```{r}
+dt[,.(mean = mean(hour))]
+```
+
+### benchmark
+```{r}
+#| echo: false
+autoplot(bench_dat$ungrouped_summaries)
+```
+
+::: 
+
+
+## Group and summarize
+
+::: {.panel-tabset}
+
+### data.frame
+```{r}
+aggregate(hour ~ carrier, data = df, FUN = "mean")
+```
+
+### tibble
+```{r}
+tb |>
+  group_by(carrier) |>
+  summarise(mean(hour))
+```
+
+### data.table
+```{r}
+dt[,mean(hour), carrier]
+```
+
+### benchmark
+
+```{r}
+autoplot(bench_dat$grouped_summaries)
+```
+
+
+:::
+
+## Subset, group, summarise
+
+::: {.panel-tabset}
+
+### data.frame
+```{r}
+aggregate(distance ~ carrier, data = subset(df, month == 9), FUN = "sum")
+```
+### tibble
+```{r}
+tb |>
+  filter(month == 9) |>
+  group_by(carrier) |>
+  summarise(sum = sum(distance))
+```
+### data.table
+```{r}
+dt[month == 9, sum(distance), carrier]
+```
+
+### benchmark
+```{r}
+autoplot(bench_dat$subset_grouped_summaries)
+```
+
+:::
+
+
+
+
+## Arrange
+
+::: {.panel-tabset}
+
+### data.frame
+```{r}
+df[order(df$dep_delay),]
+```
+### tibble
+```{r}
+tb |>
+  arrange(dep_delay)
+```
+### data.table
+```{r}
+
+dt[order(dep_delay)]
+```
+
+
+### benchmark
+```{r}
+autoplot(bench_dat$arranged)
+```
+:::
+
+
+
+## Count
+
+::: {.panel-tabset}
+### data.frame
+```{r}
+data.frame(table(df$carrier))
+```
+### tibble
+```{r}
+tb |>
+  count(carrier)
+```
+### data.table
+```{r}
+dt[, .(n = .N), by = carrier]
+```
+
+### benchmark
+```{r}
+autoplot(bench_dat$counts)
+```
+
+:::
+
+
+## mutate
+
+::: {.panel-tabset}
+### data.frame
+```{r}
+df$dist_km <- df$distance * 1.6
+df[c("dist_km", "carrier", "origin", "dest")]
+```
+### tibble
+```{r}
+tb |>
+  mutate(dist_km = distance * 1.6) |>
+  select(dist_km, carrier, origin, dest)
+```
+### data.table
+```{r}
+dt[,.(dist_km = distance * 1.6, carrier, origin, dest)]
+# or
+dt[,.(dist_km = distance*1.6),.(carrier,origin, dest)]
+```
+
+### benchmark
+```{r}
+autoplot(bench_dat$mutates)
+
+```
+
+:::
+
