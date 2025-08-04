@@ -29,8 +29,9 @@ my_vec * my_vec2
 
 # checking that an item in a sequence equals a particular value
 .2 == .2
+round(1740/600,0) - 2.8
 seq(0, 1, by=0.1)[2] 
-seq(0, 1, by=0.1)[2] == 0.2
+seq(0, 1, by=0.1)[2] == round(1740/600,0) - 2.8
 
 rm(my_n)
 
