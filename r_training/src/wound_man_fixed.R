@@ -27,9 +27,13 @@ my_vec2 <- c(2,5,4) # f11 extra empty item removed and f12 names again
 my_vec * my_vec2 # f13 a potentially complex fix. Easiest to not try and multiply incommensurable vector lengths together. Could do something like expand.grid(my_vec, my_vec2) and then multiply if you did need to catch all the combinations
 
 # checking that an item in a sequence equals a particular value
-.2 == .2
-seq(0, 1, by=0.1)[2] 
-seq(0, 1, by=0.1)[2] = 0.2 # f14 == to check for equality. But f15, the inequality here is expected behaviour owing to floating point errors. There are lots of ways of representing decimal numbers in use in R, but they all give subtly different results. These differences usually don't matter to us, but they do make the exacting == fall over. equal(0.2, 0.2) is less exacting
+.2 == .2 # that's expected. These numbers are exactly equal
+round(1740/600,0) - 2.8 # as we'll see below, this number isn't exactly 0.2
+seq(0, 1, by=0.1)[2] # the wrong index. R is 1 indexed, so this doesn't retrieve 0.2 from the sequence
+seq(0, 1, by=0.1)[3] == round(1740/600,0) - 2.8 # THREE FIXES HERE:
+## f14 == to check for equality, rather than =, and making sure about 1-indexing
+## f15, the inequality here is expected behaviour owing to floating point errors. There are lots of ways of representing decimal numbers in use in R, but they all give subtly different results. These differences usually don't matter to us, but they do make the exacting == fall over. all.equal(0.2, 0.2) is less exacting
+all.equal(seq(0, 1, by=0.1)[3], round(1740/600,0) - 2.8)
 
 # creating a vector of three names
 names <- C("Steve", "Emma", "Bob") # f16 now makes three names, rather than two odd ones
