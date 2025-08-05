@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2025-08-05">
-<title>Tableau for Beginners (session 4) – KIND training pages</title>
+<title>working-with-lists-in-purrr – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -305,25 +305,10 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#session-files" id="toc-session-files" class="nav-link" data-scroll-target="#session-files">Session files</a></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
-  <li><a href="#calculated-fields" id="toc-calculated-fields" class="nav-link" data-scroll-target="#calculated-fields">Calculated Fields</a></li>
-  <li><a href="#max" id="toc-max" class="nav-link" data-scroll-target="#max"><code>MAX()</code></a></li>
-  <li><a href="#finding-your-calculated-fields" id="toc-finding-your-calculated-fields" class="nav-link" data-scroll-target="#finding-your-calculated-fields">Finding your calculated fields</a></li>
-  <li><a href="#min" id="toc-min" class="nav-link" data-scroll-target="#min"><code>MIN()</code></a></li>
-  <li><a href="#count" id="toc-count" class="nav-link" data-scroll-target="#count"><code>COUNT()</code></a></li>
-  <li><a href="#avg" id="toc-avg" class="nav-link" data-scroll-target="#avg"><code>AVG()</code></a></li>
-  <li><a href="#adding-calculated-fields-to-worksheets" id="toc-adding-calculated-fields-to-worksheets" class="nav-link" data-scroll-target="#adding-calculated-fields-to-worksheets">Adding calculated fields to worksheets</a></li>
-  <li><a href="#finding-functions" id="toc-finding-functions" class="nav-link" data-scroll-target="#finding-functions">Finding functions</a></li>
-  <li><a href="#combining-functions" id="toc-combining-functions" class="nav-link" data-scroll-target="#combining-functions">Combining functions</a></li>
-  <li><a href="#brackets" id="toc-brackets" class="nav-link" data-scroll-target="#brackets">Brackets</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><code>+</code></a></li>
-  <li><a href="#str" id="toc-str" class="nav-link" data-scroll-target="#str"><code>STR()</code></a></li>
-  <li><a href="#if-and-friends" id="toc-if-and-friends" class="nav-link" data-scroll-target="#if-and-friends"><code>IF</code> and friends</a></li>
-  <li><a href="#table-calculations" id="toc-table-calculations" class="nav-link" data-scroll-target="#table-calculations">Table calculations</a></li>
-  <li><a href="#quick-table-calculations" id="toc-quick-table-calculations" class="nav-link" data-scroll-target="#quick-table-calculations">Quick table calculations</a></li>
-  <li><a href="#level-of-detail-calculations" id="toc-level-of-detail-calculations" class="nav-link" data-scroll-target="#level-of-detail-calculations">Level of detail calculations</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#a-reminder-about-lists" id="toc-a-reminder-about-lists" class="nav-link" data-scroll-target="#a-reminder-about-lists">A reminder about lists</a></li>
+  <li><a href="#modify" id="toc-modify" class="nav-link" data-scroll-target="#modify"><code>modify()</code></a></li>
+  <li><a href="#reduce" id="toc-reduce" class="nav-link" data-scroll-target="#reduce"><code>reduce()</code></a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -332,12 +317,7 @@ ul.task-list li input[type="checkbox"] {
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Tableau for Beginners (session 4)</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">Tableau</div>
-    <div class="quarto-category">beginner</div>
-  </div>
-  </div>
+</div>
 
 
 
@@ -356,337 +336,48 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>This is currently a <strong>draft</strong> version of the materials for this training session, and so may contain minor errors and inaccuracies.</p>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="left">
-<p>No feedback found for this session</p>
-</div>
-<section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>purrr is mainly used for functional programme, especially making it easier and more consistent to apply a function over a group of items and collect the output:</p>
+<p>$mpg [1] “Loads”</p>
+<p>$cyl [1] “Not much”</p>
+<p>$disp [1] “Loads”</p>
+<p>$hp [1] “Loads”</p>
+<p>$drat [1] “Not much”</p>
+<p>$wt [1] “Not much”</p>
+<p>$qsec [1] “Loads”</p>
+<p>$vs [1] “Not much”</p>
+<p>$am [1] “Not much”</p>
+<p>$gear [1] “Not much”</p>
+<p>$carb [1] “Not much”</p>
+<pre><code>   mpg        cyl       disp         hp       drat         wt       qsec </code></pre>
+<p>“Loads” “Not much” “Loads” “Loads” “Not much” “Not much” “Loads” vs am gear carb “Not much” “Not much” “Not much” “Not much”</p>
+<p>But purrr also has a set of tools for working with lists. This session is an introduction to those functions.</p>
+</section><section id="a-reminder-about-lists" class="level2"><h2 class="anchored" data-anchor-id="a-reminder-about-lists">A reminder about lists</h2>
+<p>Lists are a data structure in R with two very useful properties. Unlike vectors, they can contain data of different classes. Unlike data frames/tibbles, they can be ragged, containing items of different lengths:</p>
+<p>$chars [1] “a” “b” “c” “d” “e”</p>
+<p>$nums [1] 1 2 3</p>
 <ul>
-<li>In this session, we’re going to build out the GP practice size dashboard from last time</li>
-<li>we’re going to use some new features of Tableau to help us with that
-<ul>
-<li>Calculated Fields</li>
-<li>Table calculations</li>
-<li>Level of Detail (LOD) expressions</li>
+<li>subset a list by item/index with <code>[]</code>:</li>
 </ul>
-</li>
-</ul></section><section id="session-files" class="level2"><h2 class="anchored" data-anchor-id="session-files">Session files</h2>
-<ul>
-<li>four .csv files
-<ul>
-<li>
-<a href="data/1 - practices.csv"><code>1 - practices.csv</code></a> from <a href="https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes">PHS’s opendata portal</a>
-</li>
-<li>
-<a href="data/2 - boards.csv"><code>2 - boards.csv</code></a> rom <a href="https://www.opendata.nhs.scot/dataset/geography-codes-and-labels/resource/652ff726-e676-4a20-abda-435b98dd7bdc">PHS’s opendata portal</a>
-</li>
-<li>
-<a href="data/3b - demographics_p.csv"><code>3b - demographics_p.csv</code></a> pivoted data from <a href="https://www.opendata.nhs.scot/dataset/gp-practice-populations">PHS’s opendata portal</a>
-</li>
-<li>
-<a href="data/4 - postcodes.csv"><code>4 - postcodes.csv</code></a> from the <a href="https://www.nrscotland.gov.uk/statistics-and-data/geography/our-products/scottish-postcode-directory/2024-1">Scottish Postcode Directory</a> - although note that the supplied file is a small subset of this larger directory</li>
-</ul>
-</li>
-</ul></section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>
-<a href="https://public.tableau.com/app/profile/brendan.clarke4139/viz/KIND_Tableau_for_beginners_s04/Map">find your dashboard</a> from last time
-<ul>
-<li>or create a new dashboard based on the following four data sources for this week <img src="../src/images/clipboard-2774784522.png" class="img-fluid" alt="data structure">
-</li>
-</ul>
-</li>
-<li>create a new, empty, worksheet</li>
-</ul>
-</div>
-</div>
-</section><section id="calculated-fields" class="level2"><h2 class="anchored" data-anchor-id="calculated-fields">Calculated Fields</h2>
-<ul>
-<li>
-<strong>Calculated Fields</strong> are the basic tool used to summarize data in Tableau</li>
-<li>let’s start with a simple example: how big is the largest GP practice?</li>
-<li>we’ll answer that by writing a simple formula: <code>MAX([Practice List Size])</code>
-<ul>
-<li>
-<code>MAX</code> is a function that finds the largest value in some data</li>
-<li>
-<code>[Practice List Size]</code> refers to one of our columns of data</li>
-</ul>
-</li>
-</ul></section><section id="max" class="level2"><h2 class="anchored" data-anchor-id="max"><code>MAX()</code></h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>right-click your <code>Practice List Size</code> field, and select <code>Create &gt; Calculated Field...</code> <img src="../src/images/clipboard-834204544.png" class="img-fluid" alt="select Create > Calculated Field…">
-</li>
-<li>name your Calculated Field <code>largest_practice</code>
-</li>
-<li>then use the following (case sensitive) formula to calculate the largest practice: <code>MAX([Practice List Size])</code>  <img src="../src/images/clipboard-249424320.png" class="img-fluid" alt="Calculate the largest practice">
-</li>
-</ul>
-</div>
-</div>
-</section><section id="finding-your-calculated-fields" class="level2"><h2 class="anchored" data-anchor-id="finding-your-calculated-fields">Finding your calculated fields</h2>
-<ul>
-<li>note that your new <code>largest_practice</code> field will show up at the very bottom of your sets of data: <img src="../src/images/clipboard-4047316822.png" class="img-fluid" alt="Calculated field location">
-</li>
-<li>note too the equals sign in the icon, indicating a calculated field</li>
-</ul></section><section id="min" class="level2"><h2 class="anchored" data-anchor-id="min"><code>MIN()</code></h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>now repeat to find the smallest practice using <code>MIN()</code><img src="../src/images/clipboard-1865594794.png" class="img-fluid" alt="Smallest practice">
-</li>
-</ul>
-</div>
-</div>
-</section><section id="count" class="level2"><h2 class="anchored" data-anchor-id="count"><code>COUNT()</code></h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>now repeat to find the number of practices using <code>COUNT()</code><img src="../src/images/clipboard-1199492693.png" class="img-fluid" alt="Number of practices">
-</li>
-</ul>
-</div>
-</div>
-</section><section id="avg" class="level2"><h2 class="anchored" data-anchor-id="avg"><code>AVG()</code></h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>finally, find the average practice size using <code>AVG()</code><img src="../src/images/clipboard-3666195275.png" class="img-fluid" alt="Average practice size">
-</li>
-</ul>
-</div>
-</div>
-</section><section id="adding-calculated-fields-to-worksheets" class="level2"><h2 class="anchored" data-anchor-id="adding-calculated-fields-to-worksheets">Adding calculated fields to worksheets</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><p>Drag any one of your new calculated fields to Text Marks, then add <code>HB Name</code> to the column shelf: <img src="../src/images/clipboard-1921124157.png" class="img-fluid" alt="Adding calculated fields to a worksheet"></p></li>
-<li><p>then (in a slightly quirky way) you should be able to add each calculation by double-clicking the name of the calculated field:  <img src="../src/images/clipboard-2599202520.png" class="img-fluid" alt="Double-click the calculated field to add to the worksheet"></p></li>
-</ul>
-</div>
-</div>
-</section><section id="finding-functions" class="level2"><h2 class="anchored" data-anchor-id="finding-functions">Finding functions</h2>
-<ul>
-<li>from the right-click menu, you can edit calculations <img src="../src/images/clipboard-2175626557.png" class="img-fluid" alt="edit calculations">
-</li>
-<li>note that the right-hand edge of the calculation interface contains a mini help section for the available functions <img src="../src/images/clipboard-612511174.png" class="img-fluid" alt="Available functions">
-</li>
-</ul></section><section id="combining-functions" class="level2"><h2 class="anchored" data-anchor-id="combining-functions">Combining functions</h2>
-<ul>
-<li>we can use several functions in a formula to do interesting analytic work</li>
-<li>we’ll look at three helpers for combining functions:
-<ul>
-<li>brackets</li>
-<li><code>+</code></li>
-<li><code>STR()</code></li>
-</ul>
-</li>
-</ul></section><section id="brackets" class="level2"><h2 class="anchored" data-anchor-id="brackets">Brackets</h2>
-<ul>
-<li>you can combine several functions together with brackets</li>
-<li>the functions will run from the inside-out:
-<ul>
-<li>
-<code>ROUND(AVG([dat]))</code> will:
-<ul>
-<li>average <code>[dat]</code>, then</li>
-<li>round that result</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>try making a rounded average of practice list size to the nearest 100</li>
-<li><code>ROUND(AVG([Practice List Size]), -2)</code></li>
-</ul>
-</div>
-</div>
-</section><section id="section" class="level2"><h2 class="anchored" data-anchor-id="section"><code>+</code></h2>
-<ul>
-<li>
-<code>+</code> joins text values together</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>create a new sheet with <code>HB Name</code> on the <code>Rows</code> shelf</li>
-<li>then create a new calculation with the formula <code>"The first practice name is " + MIN([GP Practice Name])</code>
-</li>
-<li>add that calcuation to <code>Text Marks</code>
-</li>
-<li>you may need to play with the <code>Fit</code> menu to see your results: <img src="../src/images/clipboard-2278766619.png" height="200" alt="The Fit menu">
-</li>
-</ul>
-</div>
-</div>
-</section><section id="str" class="level2"><h2 class="anchored" data-anchor-id="str"><code>STR()</code></h2>
-<ul>
-<li>if you try to use <code>+</code> to add text to numeric calculations, you’ll run into a problem</li>
-<li>
-<code>STR()</code> converts numbers to text</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>try <code>"The smallest practice has " + STR(MIN([Practice List Size])) + " patients"</code>
-</li>
-</ul>
-</div>
-</div>
-</section><section id="if-and-friends" class="level2"><h2 class="anchored" data-anchor-id="if-and-friends">
-<code>IF</code> and friends</h2>
-<ul>
-<li><code>IF something THEN action1 ELSE action2 END</code></li>
-<li><code>ELSEIF something else THEN action2</code></li>
-<li><code>IFF(something, action1, action2)</code></li>
-</ul></section><section id="table-calculations" class="level2"><h2 class="anchored" data-anchor-id="table-calculations">Table calculations</h2>
-<ul>
-<li>Table calculations are calculations on visualizations, rather than the underlying data</li>
-<li>We’ll run through a quick table calculation now</li>
-</ul></section><section id="quick-table-calculations" class="level2"><h2 class="anchored" data-anchor-id="quick-table-calculations">Quick table calculations</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>build a new sheet with largest and smallest practices by board <img src="../src/images/clipboard-838239548.png" class="img-fluid" alt="largest and smallest practices by board">
-</li>
-<li>right-click your largest_practice calculation, and select <code>Quick Table Calculation &gt; Rank</code> <img src="../src/images/clipboard-1483597521.png" class="img-fluid" alt="Quick Table Calculation">
-</li>
-<li>that converts largest_practice to display as a rank between 1 and 14</li>
-</ul>
-</div>
-</div>
-<ul>
-<li>clear the table calculations from the right-click menu: <img src="../src/images/clipboard-3011197319.png" class="img-fluid" alt="clear the table calculations">
-</li>
-</ul></section><section id="level-of-detail-calculations" class="level2"><h2 class="anchored" data-anchor-id="level-of-detail-calculations">Level of detail calculations</h2>
-<ul>
-<li>LoD calculations allow you to control the level of detail that your calculations work at</li>
-<li>this is just a taster as this gets into advanced (and messy) territory pretty fast</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>create a table showing the average of each demographic group per NHS board:<img src="../src/images/clipboard-1829421050.png" class="img-fluid" alt="average of each demographic group per NHS board">
-</li>
-<li>now add a LoD calculation that will show the average for each attribute bracket for Scotland overall using <code>{FIXED [Attribute] : AVG([Value])}</code>: <img src="../src/images/clipboard-3770245436.png" class="img-fluid" alt="average for each attribute bracket for Scotland overall">
-</li>
-</ul>
-</div>
-</div>
-<p>That gives us a slightly messy way of benchmarking our average for our bracket within a board to the bracket nationally: <img src="../src/images/clipboard-205489057.png" class="img-fluid" alt="national benchmark"></p>
-<p>We could also try the more ambitious:</p>
-<p><code>AVG([Value]) / ATTR({FIXED [Attribute] : AVG([Value])})</code></p>
-<p>(you need the <code>ATTR</code> function to trick Tableau into mixing and matching these different values)</p>
+<p>$nums [1] 1 2 3</p>
+<p>$chars [1] “a” “b” “c” “d” “e”</p>
+<p>** retrieve the contents of a list item with <code>$</code> or <code>[[]]</code>:</p>
+<p>[1] 1 2 3 [1] “a” “b” “c” “d” “e”</p>
+<p>** subset those list contents with chained square brackets:</p>
+<p>[1] 1 [1] “c”</p>
+<p>** nesting lists within lists</p>
+</section><section id="modify" class="level2"><h2 class="anchored" data-anchor-id="modify"><code>modify()</code></h2>
+<p>Effectively <code>map</code> for list items. <code>modify()</code> applies a function to each list item and returns a structurally-identical modified list:</p>
+<p>$chars [1] “A” “B” “C” “D” “E”</p>
+<p>$nums [1] “1” “2” “3”</p>
+<p>Select list items to modify with <code>modify_at()</code>/<code>modify_if()</code> / <code>modify_depth()</code>:</p>
+<p>$chars [1] “A” “B” “C” “D” “E”</p>
+<p>$nums [1] 1 2 3</p>
+<p>$chars [1] “a” “b” “c” “d” “e”</p>
+<p>$nums [1] 3 4 5</p>
+<p>[[1]] [[1]][[1]] [[1]][[1]]$deepo [1] 30 40 50</p>
+</section><section id="reduce" class="level2"><h2 class="anchored" data-anchor-id="reduce"><code>reduce()</code></h2>
+<p>[1] 55 [1] 1 3 6 10 15 21 28 36 45 55 [1] “a 1” “b 2” “c 3” “d 1” “e 2”</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
