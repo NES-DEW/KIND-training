@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2024-09-23">
+<meta name="dcterms.date" content="2025-08-05">
 <title>Data masking in R – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -372,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 23, 2024</p>
+      <p class="date">August 5, 2025</p>
     </div>
   </div>
   
@@ -400,13 +400,32 @@ Session materials
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nhs-r-community/NHSRdatasets">NHSRdatasets</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>More so than in other programming languages, R functions bias towards helping the user do common tasks easily. One excellent example is the way that tidyverse functions (like dplyr) make assumptions about what users mean when they refer to variables. As an example:</p>
+<p>More so than in other programming languages, R functions bias towards helping the user do common tasks easily. One excellent example is the way that tidyverse functions (like dplyr) make assumptions about what users mean when they refer to variables. As an example, if you want to select a column in base R you’d use a quoted column name in single brackets:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stranded_data</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stranded_data</span><span class="op">[</span><span class="st">"age"</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 768 × 1
+     age
+   &lt;int&gt;
+ 1    50
+ 2    31
+ 3    32
+ 4    69
+ 5    33
+ 6    75
+ 7    26
+ 8    64
+ 9    53
+10    63
+# ℹ 758 more rows</code></pre>
+</div>
+</div>
+<p>Doing that in the tidyverse is easier: use an unquoted column name inside <code>select</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stranded_data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 768 × 1
@@ -425,54 +444,17 @@ Session materials
 # ℹ 758 more rows</code></pre>
 </div>
 </div>
-<p>When we specify the age column in this select function, we don’t need to tell R that we specifically mean the age column in the <code>stranded_data</code> tibble. That’s very helpful, because it saves us having to specify that we want to refer to a specific column in a specific tibble each time we write a line of dplyr. Even if we create another tibble that also has an age column…</p>
+<p>That’s conceptually helpful because we’re used to referring to ordinary R objects using unquoted variable names. When we specify the age column in this select function, we don’t need to tell R that we specifically mean the age column in the <code>stranded_data</code> tibble. That’s very helpful, because it saves us having to specify that we want to refer to a specific column in a specific tibble each time we write a line of dplyr. Even if we create another tibble that also has an age column…</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_stranded_data</span> <span class="op">&lt;-</span> <span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_stranded_data</span> <span class="op">&lt;-</span> <span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">stranded.label</span>, <span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>… we can still just refer to the age column of the original <code>stranded_data</code> without any risk of confusion. This simplification - which we’ll call <strong>data masking</strong> - is a great advantage of using the pipe, and most of the time data masking just works without giving rise to any problems at all. For example, we can write a vector of column names, and then pass it to <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, and R will figure out that we want to use those names as column names without any extra effort on our part:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"care.home.referral"</span>, <span class="st">"medicallysafe"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="va">my_cols</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 768 × 3
-     age care.home.referral medicallysafe
-   &lt;int&gt;              &lt;int&gt;         &lt;int&gt;
- 1    50                  0             0
- 2    31                  1             0
- 3    32                  0             1
- 4    69                  1             1
- 5    33                  0             0
- 6    75                  1             1
- 7    26                  1             0
- 8    64                  0             1
- 9    53                  0             1
-10    63                  1             0
-# ℹ 758 more rows</code></pre>
-</div>
-</div>
-<p>That means that cases where data masking goes wrong can be enormously frustrating, because most of the time we don’t have to think about what are code is <em>really</em> doing very often at all. Here’s an example of such a problem in a function that picks a specified column from <code>stranded_data</code> and displays it:</p>
-<div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">column_displayer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col_name</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="va">col_name</span><span class="op">)</span><span class="op">)</span> </span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>If we try to use this <code>column_displayer()</code> function in the normal way, we’ll receive an error:</p>
-<div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">column_displayer</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error in select(stranded_data, any_of(col_name)) : 
-  ℹ In argument: `any_of(col_name)`.
-Caused by error:
-! object 'age' not found</code></pre>
-</div>
-</div>
-<p>Okay, so we can dodge this error in this case by quoting the column name when we supply it as an argument:</p>
-<div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">column_displayer</span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="va">my_cols</span><span class="op">)</span><span class="op">)</span> <span class="co"># need to use a helper function like any_of since dplyr 1.1.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 768 × 1
      age
@@ -490,7 +472,64 @@ Caused by error:
 # ℹ 758 more rows</code></pre>
 </div>
 </div>
-<p>But this non-standard <a href="https://en.wiktionary.org/wiki/kludge#English">“kludge”</a> leads to trouble when we want to, for instance, use <code>column_displayer()</code> inside another function. A stronger approach is to adjust our function code in the first place, so that we don’t have to call our function in a non-standard way (why write <em>age</em> in some functions, but <em>“age”</em> in others to refer to the same thing).</p>
+<p>However, when that data masking goes wrong it can be very challenging to fix. To demonstrate, let’s start taking the column-selecting code snippets above, and translating them into functions. Base-R first:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">column_pick_base</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">stranded_data</span><span class="op">[</span><span class="va">col</span><span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">column_pick_base</span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 768 × 1
+     age
+   &lt;int&gt;
+ 1    50
+ 2    31
+ 3    32
+ 4    69
+ 5    33
+ 6    75
+ 7    26
+ 8    64
+ 9    53
+10    63
+# ℹ 758 more rows</code></pre>
+</div>
+</div>
+<p>That’s simple - we pass a quoted column name to the function, and it returns us the relevant column of data. But if we do the apparently-simple translation to use <code>select</code>, things start going wrong:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">column_pick_tidy</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>That works almost as expected if we pass a quoted column name:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">column_pick_tidy</span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 768 × 1
+     age
+   &lt;int&gt;
+ 1    50
+ 2    31
+ 3    32
+ 4    69
+ 5    33
+ 6    75
+ 7    26
+ 8    64
+ 9    53
+10    63
+# ℹ 758 more rows</code></pre>
+</div>
+</div>
+<p>Okay, so we get a deprecated warning to the effect that selecting functions expect unquoted column names. So let’s update the function call to do that now:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">column_pick_tidy</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in eval(expr, envir) : object 'age' not found</code></pre>
+</div>
+</div>
+<p>Uh-oh. This has gone wrong. Unfortunately, to explain why it’s gone wrong, we’re going to need to think about how data masking really works. We shouldn’t try to use the non-standard quoted column <a href="https://en.wiktionary.org/wiki/kludge#English">“kludge”</a> as that will complicate e.g.&nbsp;using our new function in another function. A stronger approach is to adjust our function code in the first place, so that we don’t have to call our function in a non-standard way (why write <em>age</em> in some functions, but <em>“age”</em> in others to refer to the same thing).</p>
 <p>In this section, we’ll give a bit of helpful theoretical background about data masking. We’ll then go on to look at four ways of resolving some of the difficulties that data masking can cause.</p>
 </section><section id="background" class="level2"><h2 class="anchored" data-anchor-id="background">Background</h2>
 <p>The <a href="https://rlang.r-lib.org/reference/topic-data-mask.html">rlang page on data-masking</a> is very helpful here in setting out a key distinction between kinds of variables that we’ve previously been using synonymously:</p>
@@ -500,332 +539,193 @@ Caused by error:
 </ul>
 <p>For beginners, this distinction is not that important, particularly because tidyverse functions do lots of helpful blurring between these different types of variable. Note that many base R functions do often require the user to bear this distinction in mind. For instance, in base R you would specify a data variable differently from an environment variable:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span>      <span class="co"># a data variable</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span>      <span class="co"># a data variable</span></span>
 <span><span class="va">cyl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span><span class="op">)</span> <span class="co"># an environment variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Whereas in tidyverse, you can:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="co"># specifying a data variable like an environment variable inside select</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Most of the time, data masking doesn’t cause any problems. However, when you start wanting to include tidyverse functions inside other functions, that blurring raises a problem. We won’t give much of an explanation as to the reasons for this, although do read <a href="https://rlang.r-lib.org/reference/topic-data-mask.html">this introduction to the topic</a> and <a href="https://rlang.r-lib.org/reference/topic-data-mask-ambiguity.html">this more detailed account</a> if you are interested in the technical aspects. Here, we’ll concentrate on four strategies for resolving these kind of data masking problems. These strategies are:</p>
+<p>Most of the time, data masking doesn’t cause any problems. However, when you start wanting to include tidyverse functions inside other functions - say, if you’re trying to <code>purrrr</code> something - that blurring raises a problem. We won’t give much of an explanation as to the reasons for this, although do read <a href="https://rlang.r-lib.org/reference/topic-data-mask.html">this introduction to the topic</a> and <a href="https://rlang.r-lib.org/reference/topic-data-mask-ambiguity.html">this more detailed account</a> if you are interested in the technical aspects. Here, we’ll concentrate on four strategies for resolving these kind of data masking problems. These strategies are:</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 2
-  Problem                              Solution                                 
-  &lt;chr&gt;                                &lt;chr&gt;                                    
-1 data-variable in a function argument **embracing** with `{var}`             
-2 env-variable in a vector             `.data[[var]]` and `.env[[var]]` **prono…
-3 variables in output                  **injection** with **`:=`**              
-4 complex cases                        **quasiquotation** with the injection op…</code></pre>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 58%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">Solution</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">data-variable in a function argument</td>
+<td style="text-align: left;">
+<strong>embracing</strong> with <code>{var}</code>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">env-variable in a vector</td>
+<td style="text-align: left;">
+<code>.data[[var]]</code> and <code>.env[[var]]</code> <strong>pronouns</strong>
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">variables in output</td>
+<td style="text-align: left;">
+<strong>injection</strong> with <strong><code>:=</code></strong>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">complex cases</td>
+<td style="text-align: left;">
+<strong>quasiquotation</strong> with the injection operator <code>!!</code>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section><section id="embracing" class="level2"><h2 class="anchored" data-anchor-id="embracing">Embracing</h2>
-<p>Slightly confusingly, this practice is also referred to [as <em>tunneling</em> data] variables(https://www.tidyverse.org/blog/2020/02/glue-strings-and-tidy-eval/)</p>
-<p>If you want to use a data variable in the argument of a function, you need to <code>{embrace}</code> the argument. Here’s some code to produce a rounded mean of a column in <code>ae_attendances</code> in cases where breaches are over 100:</p>
+<p>Slightly confusingly, this practice is also referred to <a href="https://www.tidyverse.org/blog/2020/02/glue-strings-and-tidy-eval/">as <em>tunneling</em> data variables</a></p>
+<p>If you want to use a data variable in the argument of a function, you need to <code>{embrace}</code> the argument. Let’s add some <code>{{}}</code> to our earlier function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">breaches</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">attendances</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 9314.45</code></pre>
-</div>
-</div>
-<p>We can generalise this to a function, which won’t work properly:</p>
-<div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_means</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">colname</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">breaches</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">colname</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">column_pick_curly</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">col</span><span class="op">}</span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">ae_means</span><span class="op">(</span><span class="va">breaches</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">column_pick_curly</span><span class="op">(</span><span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Error in pull(filter(ae_attendances, breaches &gt; 100), colname) : 
-Caused by error:
-! object 'breaches' not found</code></pre>
-</div>
-</div>
-<p>However, if we embrace the argument in the <code><a href="https://dplyr.tidyverse.org/reference/pull.html">pull()</a></code> call:</p>
-<div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_means</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">colname</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">breaches</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">colname</span><span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We can use that new function in a standard way:</p>
-<div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ae_means</span><span class="op">(</span><span class="va">breaches</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1501.65</code></pre>
-</div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ae_means</span><span class="op">(</span><span class="va">admissions</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2427.32</code></pre>
-</div>
-</div>
-<p>And that’s worthwhile, because (unlike the non-standard quoted version earlier) we can then use that functions e.g.&nbsp;with <code>purrr</code>:</p>
-<div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">orgs</span> <span class="op">&lt;-</span> <span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">orgs</span>, <span class="va">ae_means</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] 9314.45
-
-[[2]]
-[1] 1501.65
-
-[[3]]
-[1] 2427.32</code></pre>
+<pre><code># A tibble: 768 × 1
+     age
+   &lt;int&gt;
+ 1    50
+ 2    31
+ 3    32
+ 4    69
+ 5    33
+ 6    75
+ 7    26
+ 8    64
+ 9    53
+10    63
+# ℹ 758 more rows</code></pre>
 </div>
 </div>
 </section><section id="pronouns" class="level2"><h2 class="anchored" data-anchor-id="pronouns">Pronouns</h2>
-<p>If you want to use an variable that comes from a character vector, then use <strong>pronouns</strong>. Pronouns allow you to specify how a variable should be interpreted. If we create an atomic vector:</p>
+<p>If you want to use quoted strings to select columns, use <strong>pronouns</strong>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"type"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We might then try to use this variable inside <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>, but there are horrors there:</p>
-<div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">column_pick_pronouns</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">col</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">column_pick_curly</span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Error in count(ae_attendances, variable) : 
-  Must group by variables found in `.data`.
-✖ Column `variable` is not found.</code></pre>
+<pre><code># A tibble: 768 × 1
+     age
+   &lt;int&gt;
+ 1    50
+ 2    31
+ 3    32
+ 4    69
+ 5    33
+ 6    75
+ 7    26
+ 8    64
+ 9    53
+10    63
+# ℹ 758 more rows</code></pre>
 </div>
 </div>
-<p>If we now add the <code>.data[[]]</code> pronoun:</p>
+<p>For completeness, we can also play with the <code>.env</code> pronoun, which allows us to explicitly refer to an object in the environment. Let’s do something horrible, and create an <code>age</code> variable in the global environment:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">variable</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fl">50</span></span>
+<span></span>
+<span><span class="va">column_pick_env</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">col</span><span class="op">]</span><span class="op">]</span> <span class="op">&gt;</span> <span class="va">.env</span><span class="op">[[</span><span class="va">col</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">column_pick_env</span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-  type      n
-  &lt;fct&gt; &lt;int&gt;
-1 1      4932
-2 2      1135
-3 other  6698</code></pre>
+<pre><code># A tibble: 440 × 9
+   stranded.label   age care.home.referral medicallysafe  hcop
+   &lt;chr&gt;          &lt;int&gt;              &lt;int&gt;         &lt;int&gt; &lt;int&gt;
+ 1 Not Stranded      69                  1             1     0
+ 2 Stranded          75                  1             1     0
+ 3 Not Stranded      64                  0             1     1
+ 4 Not Stranded      53                  0             1     0
+ 5 Not Stranded      63                  1             0     0
+ 6 Not Stranded      77                  1             1     1
+ 7 Stranded          80                  1             1     0
+ 8 Not Stranded      72                  1             0     0
+ 9 Stranded          60                  0             1     1
+10 Not Stranded      70                  1             1     0
+# ℹ 430 more rows
+# ℹ 4 more variables: mental_health_care &lt;int&gt;, periods_of_previous_care &lt;int&gt;,
+#   admit_date &lt;chr&gt;, frailty_index &lt;chr&gt;</code></pre>
 </div>
 </div>
-<p>The <code>.env[[]]</code> pronoun works in a similar way. Imagine that we happen to have an env-variable that shares the name of one of our data-variables:</p>
-<div class="cell">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">attendances</span> <span class="op">&lt;-</span> <span class="fl">800</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>If we try to use it to filter our data, we’ll run into a problem:</p>
-<div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">breaches</span> <span class="op">&gt;=</span> <span class="va">attendances</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 0 × 6
-# ℹ 6 variables: period &lt;date&gt;, org_code &lt;fct&gt;, type &lt;fct&gt;, attendances &lt;dbl&gt;,
-#   breaches &lt;dbl&gt;, admissions &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<p>(this is based on an actual problem I manufactured for myself while writing the functions training)</p>
-<p>This gives an unexpected result, because there are <em>definitely</em> cases where we have more than 800 breaches. In fact we have something like 3598 cases with more than 800 breaches. And what’s going on here is that there’s an ambiguity - which <code>attendances</code> do we mean? This is where pronouns come in, by allowing us to be precise about where the variable is coming from:</p>
-<div class="cell">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="st">"breaches"</span><span class="op">]</span><span class="op">]</span> <span class="op">&gt;=</span> <span class="va">.env</span><span class="op">[[</span><span class="st">"attendances"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">breaches</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,598 × 6
-   period     org_code type  attendances breaches admissions
-   &lt;date&gt;     &lt;fct&gt;    &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
- 1 2016-04-01 RLT      1            5691      800       1023
- 2 2017-10-01 RYR      1           11741      800       3395
- 3 2018-01-01 RC1      1            6162      802       2121
- 4 2018-01-01 RR7      1            7269      802       1810
- 5 2019-02-01 RQX      1            9955      802       1493
- 6 2017-07-01 RWW      1            7094      803       2620
- 7 2019-03-01 RBZ      1            3925      803       1104
- 8 2016-10-01 RJN      1            4234      805        978
- 9 2018-08-01 RNQ      1            7495      805       2596
-10 2016-10-01 RGR      1            5814      806       2017
-# ℹ 3,588 more rows</code></pre>
-</div>
-</div>
-<p>(you can get away, in this case, without the <code>.data[[]]</code>, but included here as an extra example)</p>
+<p>Okay, like so much in this session this is hardly best practice, but if you do ever need to make 100% super-safety-sure that you’re referring to unfortunately-named data/env variables, this is probably the least-worst way of working.</p>
 </section><section id="injection" class="level2"><h2 class="anchored" data-anchor-id="injection">Injection</h2>
-<p><strong><code>:=</code></strong> lets you inject variables into your output. For example, to ensure that the name of a new summary column matches a supplied column name in a function, we can inject the variable into the newly-created column name:</p>
+<p><code>:=</code> lets you inject variables into your output. Yes, this is what the tidyverse people really call it, and no, this isn’t a very helpful bit of terminology for the rest of us. Say you want to supply an unquoted column name, and return a renamed selection:</p>
 <div class="cell">
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">col_means</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">column</span>, <span class="va">cutoff</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">column_pick_rename</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">stranded_data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="st">"new_{{col}}"</span> <span class="op">:=</span> <span class="op">{</span><span class="op">{</span><span class="va">col</span><span class="op">}</span><span class="op">}</span><span class="op">)</span> </span>
+<span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">ae_attendances</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">column</span><span class="op">}</span><span class="op">}</span> <span class="op">&gt;</span> <span class="op">{</span><span class="op">{</span><span class="va">cutoff</span><span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="st">"mean_{column}"</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">column</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> </span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The column name is created using <code>glue()</code> syntax. <code>glue()</code> is a neat replacement for base-R tools like <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>:</p>
-<div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">column</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"breaches"</span><span class="op">)</span></span>
-<span><span class="va">cutoff</span> <span class="op">&lt;-</span> <span class="fl">400</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"This is how we'd include the column ({column}), and the cutoff ({cutoff}) in Quarto/Rmarkdown using `glue`"</span><span class="op">)</span><span class="op">)</span> <span class="co"># easier to read</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">column_pick_rename</span><span class="op">(</span><span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>This is how we'd include the column (breaches), and the cutoff (400) in Quarto/Rmarkdown using `glue`</code></pre>
+<pre><code># A tibble: 768 × 1
+   new_age
+     &lt;int&gt;
+ 1      50
+ 2      31
+ 3      32
+ 4      69
+ 5      33
+ 6      75
+ 7      26
+ 8      64
+ 9      53
+10      63
+# ℹ 758 more rows</code></pre>
 </div>
 </div>
-<p>The column name is then injected using the <code>:=</code> operator. When we call our <code>col_means()</code> function, the supplied column name is injected into the new summary column:</p>
-<div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">col_means</span><span class="op">(</span><span class="st">"attendances"</span>, <span class="fl">400</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-  type  mean_attendances
-  &lt;fct&gt;            &lt;dbl&gt;
-1 1                9391.
-2 2                1549.
-3 other            3575.</code></pre>
-</div>
-</div>
-<p>Similar injections can be applied across a range of dplyr functions. We’ll demonstrate these below using a vector containing the new column name, but injection is most useful when included as part of a function that you might want to apply across several different aspects of your data:</p>
-<div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_column_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Steve"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="st">"{new_column_name}"</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">attendances</span> <span class="op">^</span> <span class="fl">0.5</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12,765 × 7
-   period     org_code type  attendances breaches admissions Steve
-   &lt;date&gt;     &lt;fct&gt;    &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
- 1 2017-03-01 RF4      1           21289     2879       5060 146. 
- 2 2017-03-01 RF4      2             813       22          0  28.5
- 3 2017-03-01 RF4      other        2850        6          0  53.4
- 4 2017-03-01 R1H      1           30210     5902       6943 174. 
- 5 2017-03-01 R1H      2             807       11          0  28.4
- 6 2017-03-01 R1H      other       11352      136          0 107. 
- 7 2017-03-01 AD913    other        4381        2          0  66.2
- 8 2017-03-01 RYX      other       19562      258          0 140. 
- 9 2017-03-01 RQM      1           17414     2030       3597 132. 
-10 2017-03-01 RQM      other        7817       86          0  88.4
-# ℹ 12,755 more rows</code></pre>
-</div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"{new_column_name}"</span> <span class="op">:=</span> <span class="va">attendances</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12,765 × 6
-   period     org_code type  Steve breaches admissions
-   &lt;date&gt;     &lt;fct&gt;    &lt;fct&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
- 1 2017-03-01 RF4      1     21289     2879       5060
- 2 2017-03-01 RF4      2       813       22          0
- 3 2017-03-01 RF4      other  2850        6          0
- 4 2017-03-01 R1H      1     30210     5902       6943
- 5 2017-03-01 R1H      2       807       11          0
- 6 2017-03-01 R1H      other 11352      136          0
- 7 2017-03-01 AD913    other  4381        2          0
- 8 2017-03-01 RYX      other 19562      258          0
- 9 2017-03-01 RQM      1     17414     2030       3597
-10 2017-03-01 RQM      other  7817       86          0
-# ℹ 12,755 more rows</code></pre>
-</div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">org_code</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="st">"{new_column_name}"</span> <span class="op">:=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">new_column_name</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">org_code</span>, y<span class="op">=</span><span class="va">.data</span><span class="op">[[</span><span class="va">new_column_name</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{new_column_name} by org_code"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="data_masking_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>There’s a bit going on here. First, replacing <code>=</code> with <code>:=</code> injects the supplied column name. Then the new column name is created using <code>glue()</code> syntax. <code>glue()</code> is a neat replacement for base-R tools like <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>. Empirically, though, a quoted string with <code>{{}}</code> containing the function argument will do the work for you.</p>
+<p><code>:=</code> is borrowed from mathematics, and is used when defining something new, which is the apparent logic behind its use here. If you try and use <code>=</code> in this context, it’ll fail because of the consistency checks that tidyverse functions use to check that all’s okay with newly-defined names.</p>
 </section><section id="quasiquotation" class="level2"><h2 class="anchored" data-anchor-id="quasiquotation">Quasiquotation</h2>
-<p>Informally, the <code>:=</code> operator that we explored in the previous subsection functions behaved <em>as if</em> it were adding quotes around the variable that was passed to it. That meant that we could pass a quoted variable to a function, and yet return the result as expected:</p>
-<div class="cell">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">quoted_variable</span> <span class="op">&lt;-</span> <span class="st">"Steve"</span></span>
-<span></span>
-<span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"{quoted_variable}"</span> <span class="op">:=</span> <span class="va">attendances</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12,765 × 6
-   period     org_code type  Steve breaches admissions
-   &lt;date&gt;     &lt;fct&gt;    &lt;fct&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
- 1 2017-03-01 RF4      1     21289     2879       5060
- 2 2017-03-01 RF4      2       813       22          0
- 3 2017-03-01 RF4      other  2850        6          0
- 4 2017-03-01 R1H      1     30210     5902       6943
- 5 2017-03-01 R1H      2       807       11          0
- 6 2017-03-01 R1H      other 11352      136          0
- 7 2017-03-01 AD913    other  4381        2          0
- 8 2017-03-01 RYX      other 19562      258          0
- 9 2017-03-01 RQM      1     17414     2030       3597
-10 2017-03-01 RQM      other  7817       86          0
-# ℹ 12,755 more rows</code></pre>
-</div>
-</div>
-<p>What if we also need to use this variable in an unquoted way? For example, say we now want to use <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> to pick out our Steve column?</p>
-<p>In a function where an argument is supplied quoted, you can unquote it with <code>!!</code>:</p>
-<div class="cell">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ae_attendances</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"{quoted_variable}"</span> <span class="op">:=</span> <span class="va">attendances</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="va">quoted_variable</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12,765 × 1
-   Steve
-   &lt;dbl&gt;
- 1 21289
- 2   813
- 3  2850
- 4 30210
- 5   807
- 6 11352
- 7  4381
- 8 19562
- 9 17414
-10  7817
-# ℹ 12,755 more rows</code></pre>
-</div>
-</div>
-<p>That gives us a useful and clear way of thinking about quasiquotation. To borrow the description from the manual page:</p>
+<p>A lot of this messing around is effectively concerned with switching between quoted- and unquoted-versions of column names. Quasiquotation is the fancy-sounding name for that messing around, and the tools required to do so:</p>
 <blockquote class="blockquote">
 <p>Quasiquotation is the combination of quoting an expression while allowing immediate evaluation (unquoting) of part of that expression. (<a href="https://www.rdocumentation.org/packages/rlang/versions/0.2.1/topics/quasiquotation">rlang quasiquotation manual page</a>)</p>
 </blockquote>
-<p>And the strength of using quasiquotation is that it grants lots of scope for handling variables in comparatively complicated function. For example, if we want to create a function to take a supplied tibble and column name, and generate a bit of Rmarkdown with a header and summary of that column, quasiquotation (and injection) allow us to wrangle our variables so that they are compatible with the tidyverse functions that we’d like to use:</p>
+<p>To give the simplest possible example, <code>!!</code> gives a generic way of unquoting an argument:</p>
 <div class="cell">
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">distinct_entries</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">col_name</span><span class="op">)</span><span class="op">{</span></span>
-<span>  </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"#### Results for {col_name}:  \n  \n"</span><span class="op">)</span><span class="op">)</span> <span class="co"># using glue syntax</span></span>
-<span>  </span>
-<span>  <span class="va">df</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html">sym</a></span><span class="op">(</span><span class="va">col_name</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># using quasiquotation to select the supplied column</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"distinct_{col_name}"</span> <span class="op">:=</span> <span class="va">col_name</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># using injection to rename the column</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span> </span>
-<span><span class="op">}</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">quoted_variable</span> <span class="op">&lt;-</span> <span class="st">"age_from_var"</span></span>
 <span></span>
-<span><span class="fu">distinct_entries</span><span class="op">(</span><span class="va">ae_attendances</span>, <span class="st">"org_code"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">stranded_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"{quoted_variable}"</span> <span class="op">:=</span> <span class="va">age</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="va">quoted_variable</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#### Results for org_code:  
-  </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 274 × 1
-   distinct_org_code
-   &lt;fct&gt;            
- 1 RF4              
- 2 R1H              
- 3 AD913            
- 4 RYX              
- 5 RQM              
- 6 RJ6              
- 7 Y02696           
- 8 NX122            
- 9 RVR              
-10 RJ1              
-# ℹ 264 more rows</code></pre>
+<pre><code># A tibble: 768 × 1
+   age_from_var
+          &lt;int&gt;
+ 1           50
+ 2           31
+ 3           32
+ 4           69
+ 5           33
+ 6           75
+ 7           26
+ 8           64
+ 9           53
+10           63
+# ℹ 758 more rows</code></pre>
 </div>
 </div>
 
