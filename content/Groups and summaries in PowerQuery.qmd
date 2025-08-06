@@ -1,0 +1,28 @@
+## Setup
+
+-   please download the [HACA2023-4 survey data](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2024/05/health-and-care-experience-survey-2023-to-2024-results-by-geography/documents/health-and-care-experience-survey-2023-to-2024-geographical-data/health-and-care-experience-survey-2023-to-2024-geographical-data/govscot%3Adocument/Health%2Band%2BCare%2BExperience%2BSurvey%2B2023%2Bto%2B2024%2B-tables%2Bof%2Bresults%2Bby%2Bgeography.xlsx) and open in Excel
+-   then import the `Information questions` sheet into PowerQuery using `Get data from Table/Range` </br> ![Get data from Table/Range](../src/images/clipboard-2183037797.png)
+
+## Big idea
+
+-   grouping and summarising is possible and desirable in PowerQuery
+-   assuming that your analysis can begin and end with the summarised data
+-   if you need a mix of full- and summarised-data, consider doing something different (like a Pivot table)
+-   and Pivot tables are a good way of understanding PQ's approach to summarising data: take some data, possibly split by other variables, and apply a summary function
+-   it has the advantage that it returns standard Excel data, rather than oddball Pivot tables
+
+## Basic workflow
+
+-   duplicate your Query and rename
+-   put the data into groups
+-   then apply a summary function
+- that produces a new summarised table of data
+-   confusingly, you do all of this by selecting `Group by` 
+
+## First summary
+- duplicate the query and rename to `geography_type`
+- select the `Geography Type` column, then press `Group by` ![Group by](../src/images/clipboard-3037087040.png)
+- then select the function that you'd like to use to summarise - we'll start with `Count rows`</br> ![Count rows](../src/images/pq_count_rows.png)
+- that will return a summarised table</br>![Summarised data](../src/images/pq_summarised.png)
+
+## Sum the summary: total responses per question text
