@@ -392,6 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p><code>data.table</code> is an enhanced <code>data.frame</code>. It’s fast and concise, and feels very like an improved version of base-R tools for working with tabular data. This training session gives a compare-and-contrast introduction to <code>data.table</code> by running through some core data operations in <code>data.table</code> and by comparing those to similar operations in base-R and tidyverse.</p>
+<p>There’s <a href="../home/runner/work/KIND-training/KIND-training/r_training/data/flights14.csv">some sample data</a> that you might like to download and place in your project.</p>
 <p>There’s also a bit of benchmark data here. This was generated in R4.4.1, Rstudio desktop 2025.05.1 on Windows 10, using a fairly new-ish laptop (Intel i7-13850HX, 128Gb RAM).</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
@@ -768,20 +769,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dt</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"month"</span>, <span class="st">"year"</span><span class="op">)</span><span class="op">]</span> <span class="co"># list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dt</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">day</span>, <span class="va">month</span>, <span class="va">year</span><span class="op">)</span><span class="op">]</span> <span class="co"># list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       V1     V2     V3
-   &lt;char&gt; &lt;char&gt; &lt;char&gt;
-1:    day  month   year</code></pre>
+<pre><code>          day month  year
+        &lt;int&gt; &lt;int&gt; &lt;int&gt;
+     1:     1     1  2014
+ [ reached 'max' / getOption("max.print") -- omitted 10 rows ]</code></pre>
 </div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dt</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"month"</span>, <span class="st">"year"</span><span class="op">)</span><span class="op">]</span> <span class="co"># idiomatic list shorthand</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dt</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">day</span>, <span class="va">month</span>, <span class="va">year</span><span class="op">)</span><span class="op">]</span> <span class="co"># idiomatic list shorthand</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       V1     V2     V3
-   &lt;char&gt; &lt;char&gt; &lt;char&gt;
-1:    day  month   year</code></pre>
+<pre><code>          day month  year
+        &lt;int&gt; &lt;int&gt; &lt;int&gt;
+     1:     1     1  2014
+ [ reached 'max' / getOption("max.print") -- omitted 10 rows ]</code></pre>
 </div>
 </div>
-<p>It is also possible to use unquoted column names (so <code>dt[,.(day, month)]</code>) too, although this comes at a severe hit to performance.</p>
 </div>
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
 <div class="cell">
@@ -825,7 +827,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
 <div class="cell">
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dt</span><span class="op">[[</span><span class="st">"month"</span><span class="op">]</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dt</span><span class="op">[[</span><span class="st">"month"</span><span class="op">]</span><span class="op">]</span> <span class="co"># this is just base-R!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 1 1 1 1 1 1 1
  [ reached 'max' / getOption("max.print") -- omitted 253308 entries ]</code></pre>
