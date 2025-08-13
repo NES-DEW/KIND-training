@@ -66,8 +66,7 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><meta name="quarto:status" content="draft">
-<link rel="stylesheet" href="styles.css">
+}</script>
 </head>
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
@@ -234,7 +233,7 @@ ul.task-list li input[type="checkbox"] {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">KIND training pages</span>
@@ -306,11 +305,15 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#big-idea" id="toc-big-idea" class="nav-link" data-scroll-target="#big-idea">Big idea</a></li>
   <li><a href="#basic-workflow" id="toc-basic-workflow" class="nav-link" data-scroll-target="#basic-workflow">Basic workflow</a></li>
   <li><a href="#first-summary" id="toc-first-summary" class="nav-link" data-scroll-target="#first-summary">First summary</a></li>
   <li><a href="#sum-the-summary-total-responses-per-question-text" id="toc-sum-the-summary-total-responses-per-question-text" class="nav-link" data-scroll-target="#sum-the-summary-total-responses-per-question-text">Sum the summary: total responses per question text</a></li>
+  <li><a href="#levels-of-grouping" id="toc-levels-of-grouping" class="nav-link" data-scroll-target="#levels-of-grouping">Levels of grouping</a></li>
+  <li><a href="#levels-of-aggregation" id="toc-levels-of-aggregation" class="nav-link" data-scroll-target="#levels-of-aggregation">Levels of aggregation</a></li>
+  <li><a href="#understanding-pqm" id="toc-understanding-pqm" class="nav-link" data-scroll-target="#understanding-pqm">Understanding PQM</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -348,37 +351,125 @@ ul.task-list li input[type="checkbox"] {
 </header><div class="cell" data-layout-align="left">
 <p>No feedback found for this session</p>
 </div>
-<section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This session will:</p>
+<ul>
+<li>introduce the concept behind groups and summarising</li>
+<li>work through a single-group summary to illustrate the core workflow</li>
+<li>extend that to more complex summary processes to illustrate the scope of the possible</li>
+<li>and spend a little bit of time reviewing some core PQM knowledge useful for those looking to group and summarise in the real world</li>
+</ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
 <li>please download the <a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2024/05/health-and-care-experience-survey-2023-to-2024-results-by-geography/documents/health-and-care-experience-survey-2023-to-2024-geographical-data/health-and-care-experience-survey-2023-to-2024-geographical-data/govscot%3Adocument/Health%2Band%2BCare%2BExperience%2BSurvey%2B2023%2Bto%2B2024%2B-tables%2Bof%2Bresults%2Bby%2Bgeography.xlsx">HACA2023-4 survey data</a> and open in Excel</li>
-<li>then import the <code>Information questions</code> sheet into PowerQuery using <code>Get data from Table/Range</code>  <img src="../src/images/clipboard-2183037797.png" class="img-fluid" alt="Get data from Table/Range">
-</li>
-</ul></section><section id="big-idea" class="level2"><h2 class="anchored" data-anchor-id="big-idea">Big idea</h2>
+<li>then import the <code>Information questions</code> sheet into PowerQuery using <code>Get data from Table/Range</code>  (or press <code>Alt</code>, <code>A</code>, <code>P</code>, <code>T</code>)</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/clipboard-2183037797.png" class="img-fluid figure-img"></p>
+<figcaption>Get data from Table/Range</figcaption></figure>
+</div>
+<p>That should open your data in PowerQuery:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/pq_first_sight.png" class="img-fluid figure-img"></p>
+<figcaption>PowerQuery window</figcaption></figure>
+</div>
+</section><section id="big-idea" class="level2"><h2 class="anchored" data-anchor-id="big-idea">Big idea</h2>
 <ul>
-<li>grouping and summarising is possible and desirable in PowerQuery</li>
-<li>assuming that your analysis can begin and end with the summarised data</li>
-<li>if you need a mix of full- and summarised-data, consider doing something different (like a Pivot table)</li>
+<li>grouping and summarising is possible and desirable in PowerQuery - assuming that your analysis can begin and end with the summarised data</li>
+<li>if you need a mix of full- and summarised-data, consider doing something different (like a Pivot table or DAX formula)</li>
 <li>and Pivot tables are a good way of understanding PQ’s approach to summarising data: take some data, possibly split by other variables, and apply a summary function</li>
-<li>it has the advantage that it returns standard Excel data, rather than oddball Pivot tables</li>
+<li>it has the advantage that it returns standard Excel data, rather than oddball Pivot tables, and is comparatively easy to learn</li>
 </ul></section><section id="basic-workflow" class="level2"><h2 class="anchored" data-anchor-id="basic-workflow">Basic workflow</h2>
-<ul>
+<p>We’ll follow the same basic set of steps in each example:</p>
+<ol type="1">
 <li>duplicate your Query and rename</li>
 <li>put the data into groups</li>
-<li>then apply a summary function</li>
-<li>that produces a new summarised table of data</li>
-<li>confusingly, you do all of this by selecting <code>Group by</code>
-</li>
-</ul></section><section id="first-summary" class="level2"><h2 class="anchored" data-anchor-id="first-summary">First summary</h2>
+<li>then apply a summary function to produce a new summarised table of data</li>
+<li>then return to ordinary PowerQuery work on that new table</li>
+</ol></section><section id="first-summary" class="level2"><h2 class="anchored" data-anchor-id="first-summary">First summary</h2>
 <ul>
-<li>duplicate the query and rename to <code>geography_type</code>
+<li>duplicate your <code>Table1</code> query and rename to <code>geography_type</code>
 </li>
-<li>select the <code>Geography Type</code> column, then press <code>Group by</code> <img src="../src/images/clipboard-3037087040.png" class="img-fluid" alt="Group by">
+<li>select the <code>Geography Type</code> column, then press <code>Group by</code>
 </li>
-<li>then select the function that you’d like to use to summarise - we’ll start with <code>Count rows</code> <img src="../src/images/pq_count_rows.png" class="img-fluid" alt="Count rows">
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/clipboard-3037087040.png" class="img-fluid figure-img"></p>
+<figcaption>Group by</figcaption></figure>
+</div>
+<ul>
+<li>then select the function that you’d like to use to summarise - we’ll start with <code>Count rows</code>
 </li>
-<li>that will return a summarised table<img src="../src/images/pq_summarised.png" class="img-fluid" alt="Summarised data">
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/pq_count_rows.png" class="img-fluid figure-img"></p>
+<figcaption>Count rows</figcaption></figure>
+</div>
+<ul>
+<li>that will return a summarised table where we’ve created a new column (<code>Count</code>) that contains a summary measure - a count of rows - for each of the groups that we specified (<code>Geography Type</code>)</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/pq_summarised.png" class="img-fluid figure-img"></p>
+<figcaption>Summarised data</figcaption></figure>
+</div>
+</section><section id="sum-the-summary-total-responses-per-question-text" class="level2"><h2 class="anchored" data-anchor-id="sum-the-summary-total-responses-per-question-text">Sum the summary: total responses per question text</h2>
+<p>While it can be useful to count rows, we can also use the summary function to total up aspects of our data for us.</p>
+<ul>
+<li>repeat the previous steps - so create a new query named <code>total_responses</code>. Then select <code>Group by</code>, and populate as follows:</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/pq_total_responses.png" class="img-fluid figure-img"></p>
+<figcaption>Sum values</figcaption></figure>
+</div>
+<p>That will produce output that summarises the total responses given to each question:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/pq_total_responses_out.png" class="img-fluid figure-img"></p>
+<figcaption>Summed values per question</figcaption></figure>
+</div>
+</section><section id="levels-of-grouping" class="level2"><h2 class="anchored" data-anchor-id="levels-of-grouping">Levels of grouping</h2>
+<p>Our two examples so far have just used a single layer of grouping. But we could be more ambitious by adding extra grouping variables.</p>
+<ul>
+<li>duplicate to <code>multi_layers</code> and <code>Group by</code> again</li>
+<li>switch to <code>Advanced</code> mode in <code>Group by</code>, then <code>Add grouping</code>
 </li>
-</ul></section><section id="sum-the-summary-total-responses-per-question-text" class="level2"><h2 class="anchored" data-anchor-id="sum-the-summary-total-responses-per-question-text">Sum the summary: total responses per question text</h2>
+<li>repeat the <code>total_responses</code> summary work from the previous example</li>
+<li>that should yield a similar sum of responses, but this time the groups will be per-area and per-question <img src="../src/images/pq_total_responses_multi.png" class="img-fluid" alt="Mult-layer grouping">
+</li>
+</ul></section><section id="levels-of-aggregation" class="level2"><h2 class="anchored" data-anchor-id="levels-of-aggregation">Levels of aggregation</h2>
+<p>You can also, with the help of the <code>Advanced</code> mode, add several aggregation to your summary table. Rename your query to <code>multi_aggregation</code>, select <code>Group by</code> and set the options as follows:</p>
+<p><img src="../src/images/pq_total_responses_multi_agg.png" class="img-fluid" alt="Multiple aggregations"> That should yield multiple summary columns with values for each group:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/pq_total_responses_multi_agg_out.png" class="img-fluid figure-img"></p>
+<figcaption>Multiple aggregation results</figcaption></figure>
+</div>
+</section><section id="understanding-pqm" class="level2"><h2 class="anchored" data-anchor-id="understanding-pqm">Understanding PQM</h2>
+<p>While most of the time we can use the menu, it’s extremely useful to have a basic idea about how the underlying PowerQuery M code works, especially if you think you might be using non-standard summary measures.</p>
+<p>Setup a new query named <code>concat_questions</code>, grouping by <code>Area Name</code> and again summing the number of responses in a new column called <code>total_responses</code>. Then apply the following settings:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/pq_total_responses_custom_start.png" class="img-fluid figure-img"></p>
+<figcaption>Total responses by area name</figcaption></figure>
+</div>
+<p>Once that grouping is applied, look at the formula bar, where you should see an PQM expression:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/pq_total_responses_pqm.png" class="img-fluid figure-img"></p>
+<figcaption>Total responses by area name</figcaption></figure>
+</div>
+<p><code>= Table.Group(#"Changed Type", {"Area Name"}, {{"total_responses", each List.Sum([Number of responses to question]), type nullable number}})</code></p>
+<p>This means that we can start to tweak the PQM expressions to gain more control over groups and summaries. Approximately:</p>
+<ul>
+<li>
+<code>{"Area Name"}</code> is the grouping variable. If you update this to <code>{"Area Name", "Question Number"}</code>, it’ll add the question number as a second layer of grouping</li>
+<li>
+<code>"total_responses"</code> is the name of the new column</li>
+<li>
+<code>each List.Sum([Number of responses to question])</code> describes how the aggregation (sum) takes place. Try tweaking this to <code>each List.Average([Number of responses to question]),</code>
+</li>
+<li>
+<code>type nullable number</code> describes the type of data the summary column contains. Try updating to <code>type text</code>
+</li>
+<li>next, try a different function. In place of <code>List.Average([Number of responses to question])</code>, try <code>Text.Combine(List.Transform([Question Text], Text.From), "_")</code>
+</li>
+<li>finally, add a step to de-duplicate your results</li>
+</ul>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
