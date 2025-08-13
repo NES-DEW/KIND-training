@@ -3,6 +3,11 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r}
+#| include: false
+options(max.print=25) # otherwise endless df previews
+```
+
 ## Introduction
 
 `data.table` is an enhanced `data.frame`. It's fast and concise, and feels very like an improved version of base-R tools for working with tabular data. This training session gives a compare-and-contrast introduction to `data.table` by running through some core data operations in `data.table` and by comparing those to similar operations in base-R and tidyverse.
@@ -10,6 +15,38 @@ editor_options:
 There's [some sample data](https://github.com/arunsrinivasan/flights/wiki/NYCflights14/flights14.csv) that you might like to download and place in your project.
 
 There's also a bit of benchmark data here. This was generated in R4.4.1, Rstudio desktop 2025.05.1 on Windows 10, using a fairly new-ish laptop (Intel i7-13850HX, 128Gb RAM).
+
+## Base R data.frames
+
+In base R, the usual way of holding rectangular data is using a data frame. Perhaps the best-known example is `mtcars`:
+
+```{r}
+mtcars
+```
+
+As a reminder, there are several techniques for manipulating that data frame. For example, we can subset the rows/cols of `mtcars` to discard parts of the data:
+
+```{r}
+mtcars[1] # column by index
+mtcars["mpg"] # column by name
+mtcars[1,] # row by index
+mtcars[1,][1] # value by row and column index
+```
+
+There are also several ways of extracting parts of that data as a vector:
+
+```{r}
+mtcars[,1] # column by index
+mtcars[["mpg"]] # column by name
+mtcars$mpg # alternative, sweetened, way of column by name
+mtcars[1,] |> 
+  unlist() # usual way of taking a row as a vector
+mtcars[3,7] # single value by row and column index
+```
+
+Much of the `data.table` syntax we'll look at in this session has a passing resemblance to these base R ways of working, but with several important differences. It's therefore useful to (re)familiarise yourself with these basics before moving on to the new material. 
+
+## Package loading
 
 ```{r}
 
@@ -25,13 +62,15 @@ local_path <- "r_training/data/flights14.csv"
 
 ```
 
+
 ```{r}
 #| echo: false
 bench_dat <- read_rds(here("r_training/data/bench_dat.rds"))
-options(max.print=8) # otherwise endless df previews
 ```
 
 ## Reading data
+
+This session is based on comparisons of simple tasks between base R, tidyverse, and data.table. We'll start with three different methods for loading csv data which create subtly different objects in the three cases.
 
 ::: {.panel-tabset}
 
@@ -255,9 +294,11 @@ tb |>
 ```
 ### data.table
 ```{r}
-dt[,.(month)]
+dt[, "month"]
 # or
-print(dt[,"month"])
+dt[, list(month)]
+# or
+dt[, .(month)]
 ```
 
 ### benchmark
@@ -310,7 +351,7 @@ tb |>
 ```
 ### data.table
 ```{r}
-dt[["month"]] # this is just base-R!
+dt[, month] 
 ```
 
 ### benchmark
@@ -519,7 +560,9 @@ autoplot(bench_dat$counts)
 :::
 
 
-## mutate
+## Mutate
+
+Mutate is perhaps the area where data.table feels most unlike either base R or tidyverse.
 
 ::: {.panel-tabset}
 ### data.frame
@@ -535,15 +578,22 @@ tb |>
 ```
 ### data.table
 ```{r}
+# by design, dropping un-used columns:
 dt[,.(dist_km = distance * 1.6, carrier, origin, dest)]
-# or
+
+# or you can also effectively specify the columns to be retained as grouping variables
 dt[,.(dist_km = distance*1.6),.(carrier,origin, dest)]
+
+# or the := operator can modify a column in place. This allows you to change a single column in a data.table without having to re-include all the other columns. Note this permanently changes the object:
+
+new_dt <- dt
+new_dt[, dist_km := distance*1.6]
+new_dt
 ```
 
 ### benchmark
 ```{r}
 autoplot(bench_dat$mutates)
-
 ```
 
 :::
