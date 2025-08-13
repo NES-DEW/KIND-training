@@ -1,28 +1,109 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Introduction
+
+This session will:
+
+* introduce the concept behind groups and summarising
+* work through a single-group summary to illustrate the core workflow
+* extend that to more complex summary processes to illustrate the scope of the possible
+* and spend a little bit of time reviewing some core PQM knowledge useful for those looking to group and summarise in the real world
+
 ## Setup
 
 -   please download the [HACA2023-4 survey data](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2024/05/health-and-care-experience-survey-2023-to-2024-results-by-geography/documents/health-and-care-experience-survey-2023-to-2024-geographical-data/health-and-care-experience-survey-2023-to-2024-geographical-data/govscot%3Adocument/Health%2Band%2BCare%2BExperience%2BSurvey%2B2023%2Bto%2B2024%2B-tables%2Bof%2Bresults%2Bby%2Bgeography.xlsx) and open in Excel
--   then import the `Information questions` sheet into PowerQuery using `Get data from Table/Range` </br> ![Get data from Table/Range](../src/images/clipboard-2183037797.png)
+-   then import the `Information questions` sheet into PowerQuery using `Get data from Table/Range`  </br> (or press `Alt`, `A`, `P`, `T`)
+
+![Get data from Table/Range](../src/images/clipboard-2183037797.png)
+
+That should open your data in PowerQuery:
+
+![PowerQuery window](../src/images/pq_first_sight.png)
 
 ## Big idea
 
--   grouping and summarising is possible and desirable in PowerQuery
--   assuming that your analysis can begin and end with the summarised data
--   if you need a mix of full- and summarised-data, consider doing something different (like a Pivot table)
+-   grouping and summarising is possible and desirable in PowerQuery - assuming that your analysis can begin and end with the summarised data
+-   if you need a mix of full- and summarised-data, consider doing something different (like a Pivot table or DAX formula)
 -   and Pivot tables are a good way of understanding PQ's approach to summarising data: take some data, possibly split by other variables, and apply a summary function
--   it has the advantage that it returns standard Excel data, rather than oddball Pivot tables
+-   it has the advantage that it returns standard Excel data, rather than oddball Pivot tables, and is comparatively easy to learn
 
 ## Basic workflow
 
--   duplicate your Query and rename
--   put the data into groups
--   then apply a summary function
-- that produces a new summarised table of data
--   confusingly, you do all of this by selecting `Group by` 
+We'll follow the same basic set of steps in each example:
+
+1. duplicate your Query and rename
+1. put the data into groups
+1. then apply a summary function to produce a new summarised table of data
+1. then return to ordinary PowerQuery work on that new table
 
 ## First summary
-- duplicate the query and rename to `geography_type`
-- select the `Geography Type` column, then press `Group by` ![Group by](../src/images/clipboard-3037087040.png)
-- then select the function that you'd like to use to summarise - we'll start with `Count rows`</br> ![Count rows](../src/images/pq_count_rows.png)
-- that will return a summarised table</br>![Summarised data](../src/images/pq_summarised.png)
+- duplicate your `Table1` query and rename to `geography_type`
+- select the `Geography Type` column, then press `Group by` 
+
+![Group by](../src/images/clipboard-3037087040.png)
+
+- then select the function that you'd like to use to summarise - we'll start with `Count rows`
+
+![Count rows](../src/images/pq_count_rows.png)
+
+- that will return a summarised table where we've created a new column (`Count`) that contains a summary measure - a count of rows - for each of the groups that we specified (`Geography Type`)
+
+![Summarised data](../src/images/pq_summarised.png)
 
 ## Sum the summary: total responses per question text
+
+While it can be useful to count rows, we can also use the summary function to total up aspects of our data for us. 
+
+* repeat the previous steps - so create a new query named `total_responses`. Then select `Group by`, and populate as follows:
+
+![Sum values](../src/images/pq_total_responses.png)
+
+That will produce output that summarises the total responses given to each question:
+
+![Summed values per question](../src/images/pq_total_responses_out.png)
+
+## Levels of grouping
+
+Our two examples so far have just used a single layer of grouping. But we could be more ambitious by adding extra grouping variables.
+
+* duplicate to `multi_layers` and `Group by` again
+* switch to `Advanced` mode in `Group by`, then `Add grouping`
+* repeat the `total_responses` summary work from the previous example
+* that should yield a similar sum of responses, but this time the groups will be per-area and per-question
+![Mult-layer grouping](../src/images/pq_total_responses_multi.png)
+
+## Levels of aggregation
+
+You can also, with the help of the `Advanced` mode, add several aggregation to your summary table. Rename your query to `multi_aggregation`, select `Group by` and set the options as follows:
+
+![Multiple aggregations](../src/images/pq_total_responses_multi_agg.png)
+That should yield multiple summary columns with values for each group:
+
+![Multiple aggregation results](../src/images/pq_total_responses_multi_agg_out.png)
+
+## Understanding PQM
+
+While most of the time we can use the menu, it's extremely useful to have a basic idea about how the underlying PowerQuery M code works, especially if you think you might be using non-standard summary measures.
+
+Setup a new query named `concat_questions`, grouping by `Area Name` and again summing the number of responses in a new column called `total_responses`. Then apply the following settings:
+
+![Total responses by area name](../src/images/pq_total_responses_custom_start.png)
+
+Once that grouping is applied, look at the formula bar, where you should see an PQM expression:
+
+![Total responses by area name](../src/images/pq_total_responses_pqm.png)
+
+`= Table.Group(#"Changed Type", {"Area Name"}, {{"total_responses", each List.Sum([Number of responses to question]), type nullable number}})`
+
+This means that we can start to tweak the PQM expressions to gain more control over groups and summaries. Approximately:
+
+* `{"Area Name"}` is the grouping variable. If you update this to `{"Area Name", "Question Number"}`, it'll add the question number as a second layer of grouping
+* `"total_responses"` is the name of the new column
+* `each List.Sum([Number of responses to question])` describes how the aggregation (sum) takes place. Try tweaking this to `each List.Average([Number of responses to question]),`
+* `type nullable number` describes the type of data the summary column contains. Try updating to `type text`
+* next, try a different function. In place of `List.Average([Number of responses to question])`, try `Text.Combine(List.Transform([Question Text], Text.From), "_")`
+* finally, add a step to de-duplicate your results
