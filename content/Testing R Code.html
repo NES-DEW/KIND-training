@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2024-08-07">
-<title>Testing R code – KIND training pages</title>
+<meta name="dcterms.date" content="2025-08-20">
+<title>testing-r-code – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,8 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-4df3b0c4fafa0f66eafcead0ee6cff11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-f5e5e15afe4d982b64d27dbde10e754f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-4df3b0c4fafa0f66eafcead0ee6cff11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-4df3b0c4fafa0f66eafcead0ee6cff11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -341,32 +340,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link" data-scroll-target="#welcome">Welcome</a></li>
-  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
+<li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
   <li><a href="#introduction-why-test" id="toc-introduction-why-test" class="nav-link" data-scroll-target="#introduction-why-test">Introduction: why test?</a></li>
   <li><a href="#a-note" id="toc-a-note" class="nav-link" data-scroll-target="#a-note">A note</a></li>
   <li><a href="#informal-testing" id="toc-informal-testing" class="nav-link" data-scroll-target="#informal-testing">Informal testing</a></li>
-  <li>
-<a href="#testthat" id="toc-testthat" class="nav-link" data-scroll-target="#testthat"><code>testthat</code></a>
-  <ul class="collapse">
-<li><a href="#first-steps-with-testthat" id="toc-first-steps-with-testthat" class="nav-link" data-scroll-target="#first-steps-with-testthat">First steps with <code>testthat</code></a></li>
+  <li><a href="#example-teams-input" id="toc-example-teams-input" class="nav-link" data-scroll-target="#example-teams-input">Example Teams input</a></li>
+  <li><a href="#informal-testing-1" id="toc-informal-testing-1" class="nav-link" data-scroll-target="#informal-testing-1">Informal testing</a></li>
+  <li><a href="#an-attempt-at-parsing" id="toc-an-attempt-at-parsing" class="nav-link" data-scroll-target="#an-attempt-at-parsing">An attempt at parsing</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
+  <li><a href="#so-does-the-horrible-code-work" id="toc-so-does-the-horrible-code-work" class="nav-link" data-scroll-target="#so-does-the-horrible-code-work">So, does the horrible code work??</a></li>
+  <li><a href="#informal-testing-2" id="toc-informal-testing-2" class="nav-link" data-scroll-target="#informal-testing-2">Informal testing</a></li>
+  <li><a href="#unit-testing" id="toc-unit-testing" class="nav-link" data-scroll-target="#unit-testing">Unit testing</a></li>
+  <li><a href="#first-steps-with-testthat" id="toc-first-steps-with-testthat" class="nav-link" data-scroll-target="#first-steps-with-testthat">First steps with <code>testthat</code></a></li>
+  <li><a href="#hello-world" id="toc-hello-world" class="nav-link" data-scroll-target="#hello-world">Hello world</a></li>
   <li><a href="#functions-and-testthat" id="toc-functions-and-testthat" class="nav-link" data-scroll-target="#functions-and-testthat">Functions and <code>testthat</code></a></li>
   <li><a href="#transform-your-code-into-functions" id="toc-transform-your-code-into-functions" class="nav-link" data-scroll-target="#transform-your-code-into-functions">Transform your code into functions</a></li>
   <li><a href="#test-your-function" id="toc-test-your-function" class="nav-link" data-scroll-target="#test-your-function">Test your function</a></li>
   <li><a href="#raise-your-expectations" id="toc-raise-your-expectations" class="nav-link" data-scroll-target="#raise-your-expectations">Raise your expectations</a></li>
-  <li><a href="#equal-and-identical" id="toc-equal-and-identical" class="nav-link" data-scroll-target="#equal-and-identical">Equal and identical</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#testing-several-values" id="toc-testing-several-values" class="nav-link" data-scroll-target="#testing-several-values">Testing several values</a>
-  <ul class="collapse">
-<li><a href="#testing-tibbles" id="toc-testing-tibbles" class="nav-link" data-scroll-target="#testing-tibbles">Testing tibbles</a></li>
+  <li><a href="#a-gotcha-equal-and-identical" id="toc-a-gotcha-equal-and-identical" class="nav-link" data-scroll-target="#a-gotcha-equal-and-identical">A gotcha: Equal and identical</a></li>
+  <li><a href="#beyond-single-values" id="toc-beyond-single-values" class="nav-link" data-scroll-target="#beyond-single-values">Beyond single values</a></li>
+  <li><a href="#beyond-single-values-1" id="toc-beyond-single-values-1" class="nav-link" data-scroll-target="#beyond-single-values-1">Beyond single values</a></li>
+  <li><a href="#beyond-single-values-again" id="toc-beyond-single-values-again" class="nav-link" data-scroll-target="#beyond-single-values-again">Beyond single values again</a></li>
+  <li><a href="#testing-tibbles" id="toc-testing-tibbles" class="nav-link" data-scroll-target="#testing-tibbles">Testing tibbles</a></li>
   <li><a href="#types-and-classes-etc" id="toc-types-and-classes-etc" class="nav-link" data-scroll-target="#types-and-classes-etc">Types and classes etc</a></li>
-  <li><a href="#tibble-tests" id="toc-tibble-tests" class="nav-link" data-scroll-target="#tibble-tests">Tibble tests</a></li>
+  <li><a href="#testing-tibbles-1" id="toc-testing-tibbles-1" class="nav-link" data-scroll-target="#testing-tibbles-1">Testing tibbles</a></li>
   <li><a href="#last-tip" id="toc-last-tip" class="nav-link" data-scroll-target="#last-tip">Last tip</a></li>
-  </ul>
-</li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -375,12 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Testing R code</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">R</div>
-    <div class="quarto-category">intermediate</div>
-  </div>
-  </div>
+</div>
 
 
 
@@ -390,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 7, 2024</p>
+      <p class="date">August 20, 2025</p>
     </div>
   </div>
   
@@ -399,58 +393,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Session materials
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<ul>
-<li><a href="src/testing.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
-<li>slides <a href="src/testing.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/testing.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<section id="previous-attendees-have-said" class="level2 cell" data-layout-align="left"><h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
-<ul>
-<li>4 previous attendees have left feedback</li>
-<li>100% would recommend this session to a colleague</li>
-<li>100% said that this session was pitched correctly</li>
-</ul>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure"><p><img src="testing_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="288"></p>
-</figure>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Three random comments from previous attendees
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>useful for ideas for implementing better testing in my code. As always, I susally pick up other things unrelated to the session that end up being more useful than the intended content. e.g.&nbsp;package installation/loading - I seem to be doing this all wrong!</li>
-<li>very well pitched and comprehensive session</li>
-<li>While intermediate, this was a great introduction to testing R code and providing plenty of things to think about and go try out</li>
-</ul>
-</div>
-</div>
-</section><section id="welcome" class="level2"><h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
-<ul>
-<li>this session is for 🌶🌶 intermediate users</li>
-<li>you’ll need R + Rstudio / Posit Workbench / posit.cloud to follow along</li>
-</ul></section><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+</header><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
 <ul>
 <li>introduction: why test?</li>
 <li>informal testing</li>
@@ -461,7 +404,15 @@ Three random comments from previous attendees
 <code>testthat</code> walkthrough</li>
 </ul>
 </li>
-</ul></section><section id="introduction-why-test" class="level2"><h2 class="anchored" data-anchor-id="introduction-why-test">Introduction: why test?</h2>
+</ul></section><section id="packages" class="level2"><h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># install.packages("testthat")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://testthat.r-lib.org">testthat</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="introduction-why-test" class="level2"><h2 class="anchored" data-anchor-id="introduction-why-test">Introduction: why test?</h2>
 <ul>
 <li>code goes wrong
 <ul>
@@ -489,57 +440,60 @@ Three random comments from previous attendees
 <ul>
 <li>a real-world example: Teams transcripts</li>
 <li>Teams transcripts can be very useful data-sources</li>
-<li>but they’re absolutely horrible to work with:</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>WEBVTT</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Q1::&gt;</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>00:00:00.000 --&gt; 00:00:14.080</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>&lt;v Brendan Clarke&gt; this was the first question in the transcript</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>00:00:14.080 --&gt; 00:00:32.180</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>&lt;v Someone Else&gt; then someone replied with this answer</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Q2::&gt;</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>00:00:32.180 --&gt; 00:00:48.010</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>&lt;v Brendan Clarke&gt; then there was another question</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>00:00:48.010 --&gt; 00:00:58.010</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>&lt;v Someone Else&gt; and another tedious response</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<li>but they’re absolutely horrible to work with</li>
+</ul></section><section id="example-teams-input" class="level2"><h2 class="anchored" data-anchor-id="example-teams-input">Example Teams input</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_lines.html">read_lines</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">'r_training/data/teams_input.txt'</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[1] “WEBVTT”<br>
+[2] “Q1::&gt;”<br>
+[3] “00:00:00.000 –&gt; 00:00:14.080”<br>
+[4] “<v brendan="" clarke=""> this was the first question in the transcript” [5] “”<br>
+[6] “00:00:14.080 –&gt; 00:00:32.180”<br>
+[7] “<v someone="" else=""> then someone replied with this answer”<br>
+[8] “”<br>
+[9] “Q2::&gt;”<br>
+[10] “00:00:32.180 –&gt; 00:00:48.010”<br>
+[11] “<v brendan="" clarke=""> then there was another question”<br>
+[12] “”<br>
+[13] “00:00:48.010 –&gt; 00:00:58.010”<br>
+[14] “<v someone="" else=""> and another tedious response”</v></v></v></v></p>
+</section><section id="informal-testing-1" class="level2"><h2 class="anchored" data-anchor-id="informal-testing-1">Informal testing</h2>
 <ul>
-<li>imagine that you’ve written a (horrible) Teams transcript parser:</li>
+<li>imagine that you’ve written a (horrible) Teams transcript parser</li>
 <li>how would you test this code to make sure it behaves itself?</li>
-</ul>
-<div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"data/input.txt"</span></span>
+</ul></section><section id="an-attempt-at-parsing" class="level2"><h2 class="anchored" data-anchor-id="an-attempt-at-parsing">An attempt at parsing</h2>
+<div class="cell" data-output-location="slide">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">'r_training/data/teams_input.txt'</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">value</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">value</span> <span class="op">==</span> <span class="st">"WEBVTT"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>question <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">value</span>, <span class="st">"^(Q.*?)::&gt;$"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/fill.html">fill</a></span><span class="op">(</span><span class="va">question</span>, .direction <span class="op">=</span> <span class="st">'down'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">value</span>,  <span class="st">"^(Q.*?)::&gt;$"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,length.out <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">ind</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/spread.html">spread</a></span><span class="op">(</span><span class="va">ind</span>, <span class="va">value</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"start_time"</span>, <span class="st">"end_time"</span><span class="op">)</span>, <span class="st">" --&gt; "</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="st">"2"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"comment"</span><span class="op">)</span>, <span class="st">"&gt;"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>source <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"\\.txt"</span><span class="op">)</span>,</span>
-<span>           name <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">"\\&lt;v "</span><span class="op">)</span>, </span>
-<span>           comment <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_trim</a></span><span class="op">(</span><span class="va">comment</span><span class="op">)</span>, </span>
-<span>           question <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">question</span>, <span class="st">"::&gt;"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">value</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">value</span> <span class="op">==</span> <span class="st">"WEBVTT"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>question <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">value</span>, <span class="st">"^(Q.*?)::&gt;$"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/fill.html">fill</a></span><span class="op">(</span><span class="va">question</span>, .direction <span class="op">=</span> <span class="st">'down'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">value</span>,  <span class="st">"^(Q.*?)::&gt;$"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,length.out <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">ind</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/spread.html">spread</a></span><span class="op">(</span><span class="va">ind</span>, <span class="va">value</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"start_time"</span>, <span class="st">"end_time"</span><span class="op">)</span>, <span class="st">" --&gt; "</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="st">"2"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"comment"</span><span class="op">)</span>, <span class="st">"&gt;"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>source <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">file</span>, <span class="st">"\\.txt"</span><span class="op">)</span>,</span>
+<span>           name <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">"\\&lt;v "</span><span class="op">)</span>, </span>
+<span>           comment <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_trim</a></span><span class="op">(</span><span class="va">comment</span><span class="op">)</span>, </span>
+<span>           question <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">question</span>, <span class="st">"::&gt;"</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="output" class="level2"><h2 class="anchored" data-anchor-id="output">Output</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">output</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <colgroup>
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 7%">
 <col style="width: 8%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 42%">
-<col style="width: 10%">
+<col style="width: 27%">
+<col style="width: 43%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">question</th>
@@ -556,7 +510,7 @@ Three random comments from previous attendees
 <td style="text-align: left;">00:00:14.080</td>
 <td style="text-align: left;">Brendan Clarke</td>
 <td style="text-align: left;">this was the first question in the transcript</td>
-<td style="text-align: left;">data/input</td>
+<td style="text-align: left;">/home/runner/work/KIND-training/KIND-training/r_training/data/teams_input</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Q1</td>
@@ -564,7 +518,7 @@ Three random comments from previous attendees
 <td style="text-align: left;">00:00:32.180</td>
 <td style="text-align: left;">Someone Else</td>
 <td style="text-align: left;">then someone replied with this answer</td>
-<td style="text-align: left;">data/input</td>
+<td style="text-align: left;">/home/runner/work/KIND-training/KIND-training/r_training/data/teams_input</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Q2</td>
@@ -572,7 +526,7 @@ Three random comments from previous attendees
 <td style="text-align: left;">00:00:48.010</td>
 <td style="text-align: left;">Brendan Clarke</td>
 <td style="text-align: left;">then there was another question</td>
-<td style="text-align: left;">data/input</td>
+<td style="text-align: left;">/home/runner/work/KIND-training/KIND-training/r_training/data/teams_input</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Q2</td>
@@ -580,12 +534,13 @@ Three random comments from previous attendees
 <td style="text-align: left;">00:00:58.010</td>
 <td style="text-align: left;">Someone Else</td>
 <td style="text-align: left;">and another tedious response</td>
-<td style="text-align: left;">data/input</td>
+<td style="text-align: left;">/home/runner/work/KIND-training/KIND-training/r_training/data/teams_input</td>
 </tr>
 </tbody>
-</table>
-</div>
-</div>
+</table></section><section id="so-does-the-horrible-code-work" class="level2"><h2 class="anchored" data-anchor-id="so-does-the-horrible-code-work">So, does the horrible code work??</h2>
+<ul>
+<li>as ever, it depends how low your standards are…</li>
+</ul></section><section id="informal-testing-2" class="level2"><h2 class="anchored" data-anchor-id="informal-testing-2">Informal testing</h2>
 <ul>
 <li>we could change the inputs, and look at the outputs
 <ul>
@@ -598,58 +553,46 @@ Three random comments from previous attendees
 </ul>
 </li>
 <li>but that gets tedious and erratic very quickly</li>
-</ul></section><section id="testthat" class="level2"><h2 class="anchored" data-anchor-id="testthat"><code>testthat</code></h2>
+<li>and you need to document it somehow</li>
+</ul></section><section id="unit-testing" class="level2"><h2 class="anchored" data-anchor-id="unit-testing">Unit testing</h2>
 <ul>
-<li>Unit testing = automated, standardised, testing</li>
-<li>the best place to start is with <code>testthat</code>:</li>
-</ul>
-<div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://testthat.r-lib.org">testthat</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li><a href="https://testthat.r-lib.org/">helpful man pages</a></li>
-<li><a href="https://combine-australia.github.io/r-pkg-dev/testing.html">nice vignette</a></li>
-<li><a href="https://batteriesnotincluded.rbind.io/post/2017/08/ad-hoc-testing/">more ambitious guide to ad hoc testing with <code>testthat</code></a></li>
-</ul>
-<section id="first-steps-with-testthat" class="level3"><h3 class="anchored" data-anchor-id="first-steps-with-testthat">First steps with <code>testthat</code>
-</h3>
+<li>= small-scale, automated, standardised, self-documenting testing</li>
+<li>test how the different sections of your code work separately - think functions or subroutines or modules</li>
+<li>how? <code>testthat</code>
+</li>
+</ul></section><section id="first-steps-with-testthat" class="level2"><h2 class="anchored" data-anchor-id="first-steps-with-testthat">First steps with <code>testthat</code>
+</h2>
 <ul>
 <li>built for R package developers</li>
 <li>but readily usable for non-package people</li>
-</ul>
-<div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"multiplication works"</span>, <span class="op">{</span></span>
+<li><a href="https://testthat.r-lib.org/">helpful man pages</a></li>
+<li><a href="https://combine-australia.github.io/r-pkg-dev/testing.html">nice vignette</a></li>
+<li><a href="https://batteriesnotincluded.rbind.io/post/2017/08/ad-hoc-testing/">more ambitious guide to ad hoc testing with <code>testthat</code></a></li>
+</ul></section><section id="hello-world" class="level2"><h2 class="anchored" data-anchor-id="hello-world">Hello world</h2>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"multiplication works"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😸</code></pre>
-</div>
-</div>
-</section><section id="functions-and-testthat" class="level3"><h3 class="anchored" data-anchor-id="functions-and-testthat">Functions and <code>testthat</code>
-</h3>
+<p>Test passed 🎊</p>
+</section><section id="functions-and-testthat" class="level2"><h2 class="anchored" data-anchor-id="functions-and-testthat">Functions and <code>testthat</code>
+</h2>
 <ul>
 <li>
 <code>testthat</code> works best when you’re testing functions</li>
 <li>functions in R are easy:</li>
 </ul>
-<div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arg1</span> <span class="op">=</span> <span class="va">default1</span>, <span class="va">arg2</span> <span class="op">=</span> <span class="va">default2</span><span class="op">)</span><span class="op">{</span></span>
 <span>     <span class="va">arg1</span> <span class="op">*</span> <span class="va">arg2</span> <span class="co"># using our argument names</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>or include the body inline for simple functions:</p>
-<div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arg1</span> <span class="op">=</span> <span class="va">default1</span>, <span class="va">arg2</span> <span class="op">=</span> <span class="va">default2</span><span class="op">)</span> <span class="va">arg1</span> <span class="op">*</span> <span class="va">arg2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section><section id="transform-your-code-into-functions" class="level3"><h3 class="anchored" data-anchor-id="transform-your-code-into-functions">Transform your code into functions</h3>
-<div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arg1</span> <span class="op">=</span> <span class="va">default1</span>, <span class="va">arg2</span> <span class="op">=</span> <span class="va">default2</span><span class="op">)</span> <span class="va">arg1</span> <span class="op">*</span> <span class="va">arg2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="transform-your-code-into-functions" class="level2"><h2 class="anchored" data-anchor-id="transform-your-code-into-functions">Transform your code into functions</h2>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">n1</span> <span class="op">*</span> <span class="va">n2</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section><section id="test-your-function" class="level3"><h3 class="anchored" data-anchor-id="test-your-function">Test your function</h3>
+</section><section id="test-your-function" class="level2"><h2 class="anchored" data-anchor-id="test-your-function">Test your function</h2>
 <ul>
-<li>then test. We think that <code>multo(2,2)</code> should equal 4, so we use:
+<li>
+<code>multo(2,2)</code> should equal 4, so we use:
 <ul>
 <li>
 <code><a href="https://testthat.r-lib.org/reference/test_that.html">test_that()</a></code> to set up our test environment</li>
@@ -658,78 +601,56 @@ Three random comments from previous attendees
 </ul>
 </li>
 </ul>
-<div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># then run as a test</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># then run as a test</span></span>
 <span></span>
 <span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"multo works with 2 and 2"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">multo</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
-</div>
-</div>
-</section><section id="raise-your-expectations" class="level3"><h3 class="anchored" data-anchor-id="raise-your-expectations">Raise your expectations</h3>
+<p>Test passed 😀</p>
+</section><section id="raise-your-expectations" class="level2"><h2 class="anchored" data-anchor-id="raise-your-expectations">Raise your expectations</h2>
 <ul>
-<li>we can add more expectations</li>
+<li>we can add more expectations…</li>
 </ul>
-<div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"multo works in general"</span>, <span class="op">{</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"multo works in general"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">multo</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_identical</a></span><span class="op">(</span><span class="fu">multo</span><span class="op">(</span><span class="fl">2</span>,<span class="fl">0.01</span><span class="op">)</span>, <span class="fl">0.02</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/inheritance-expectations.html">expect_type</a></span><span class="op">(</span><span class="fu">multo</span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span>, <span class="st">"double"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_length.html">expect_length</a></span><span class="op">(</span><span class="fu">multo</span><span class="op">(</span><span class="fl">9</span>,<span class="fl">2</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/comparison-expectations.html">expect_gte</a></span><span class="op">(</span><span class="fu">multo</span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span>, <span class="fl">15</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🥳</code></pre>
-</div>
-</div>
-</section><section id="equal-and-identical" class="level3"><h3 class="anchored" data-anchor-id="equal-and-identical">Equal and identical</h3>
+<p>Test passed 🥳</p>
+</section><section id="a-gotcha-equal-and-identical" class="level2"><h2 class="anchored" data-anchor-id="a-gotcha-equal-and-identical">A gotcha: Equal and identical</h2>
 <ul>
 <li>beware the <a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html#Why-doesn_0027t-R-think-these-numbers-are-equal_003f">floating point error</a>
 </li>
 </ul>
-<div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span> <span class="op">-</span> <span class="fl">2.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1</code></pre>
-</div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span> <span class="op">-</span> <span class="fl">2.9</span> <span class="op">==</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE</code></pre>
-</div>
-</div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span> <span class="op">-</span> <span class="fl">2.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[1] 0.1</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span> <span class="op">-</span> <span class="fl">2.9</span> <span class="op">==</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[1] FALSE</p>
 <ul>
 <li>happily, there’s a sufficiently sloppy way of checking equality:</li>
 </ul>
-<div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"pedants corner"</span>, <span class="op">{</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"pedants corner"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">multo</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0.01</span><span class="op">)</span>, <span class="fl">0.020000001</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_identical</a></span><span class="op">(</span><span class="fu">multo</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0.01</span><span class="op">)</span>, <span class="fl">0.02</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Test passed 😸</code></pre>
-</div>
-</div>
-</section></section><section id="testing-several-values" class="level2"><h2 class="anchored" data-anchor-id="testing-several-values">Testing several values</h2>
+<p>Test passed 😀</p>
+</section><section id="beyond-single-values" class="level2"><h2 class="anchored" data-anchor-id="beyond-single-values">Beyond single values</h2>
 <ul>
 <li>if you want to work with vectors, there are a number of tools for checking their contents:</li>
 </ul>
-<div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">eurodist</span>, labels<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># odd built in dataset</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">eurodist</span>, labels<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># odd built in dataset</span></span>
 <span></span>
 <span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"check my vec"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Athens"</span>, <span class="st">"Barcelona"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎊</code></pre>
-</div>
-</div>
+<span><span class="op">}</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Test passed 😀</p>
+</section><section id="beyond-single-values-1" class="level2"><h2 class="anchored" data-anchor-id="beyond-single-values-1">Beyond single values</h2>
 <ul>
 <li>you can get <strong>much</strong> more fancy with a bit of set theory (not really <a href="https://plato.stanford.edu/entries/set-theory/basic-set-theory.html">set theory</a>):</li>
 </ul>
-<div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span></span>
 <span></span>
 <span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"check my vec sets"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_success.html">expect_success</a></span><span class="op">(</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_setequal.html">expect_setequal</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="co"># all x in y</span></span>
@@ -737,17 +658,10 @@ Three random comments from previous attendees
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_success.html">show_failure</a></span><span class="op">(</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_setequal.html">expect_contains</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span><span class="op">]</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="co"># y proper subset x)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_success.html">expect_success</a></span><span class="op">(</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_setequal.html">expect_in</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="co"># x proper subset y</span></span>
 <span><span class="op">}</span><span class="op">)</span>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Failed expectation:
-x[1:19] (`actual`) doesn't fully contain all the values in `y` (`expected`).
-* Missing from `actual`: "Stockholm", "Vienna"
-* Present in `actual`:   "Athens", "Barcelona", "Brussels", "Calais", "Cherbourg", "Cologne", "Copenhagen", "Geneva", "Gibraltar", ...
-
-Test passed 🎊</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span></span>
+<p>Failed expectation: x[1:19] (<code>actual</code>) doesn’t fully contain all the values in <code>y</code> (<code>expected</code>). * Missing from <code>actual</code>: “Stockholm”, “Vienna” * Present in <code>actual</code>: “Athens”, “Barcelona”, “Brussels”, “Calais”, “Cherbourg”, “Cologne”, “Copenhagen”, “Geneva”, “Gibraltar”, …</p>
+<p>Test passed 🌈</p>
+</section><section id="beyond-single-values-again" class="level2"><h2 class="anchored" data-anchor-id="beyond-single-values-again">Beyond single values again</h2>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"check my vec sets"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_success.html">expect_failure</a></span><span class="op">(</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_setequal.html">expect_setequal</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="co"># all x in y</span></span>
@@ -755,59 +669,35 @@ Test passed 🎊</code></pre>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_success.html">expect_success</a></span><span class="op">(</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_setequal.html">expect_contains</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="co"># y proper subset x)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_success.html">expect_failure</a></span><span class="op">(</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_setequal.html">expect_in</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="co"># x is a proper subset y</span></span>
 <span><span class="op">}</span><span class="op">)</span>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🥳</code></pre>
-</div>
-</div>
-<section id="testing-tibbles" class="level3"><h3 class="anchored" data-anchor-id="testing-tibbles">Testing tibbles</h3>
+<p>Test passed 😀</p>
+</section><section id="testing-tibbles" class="level2"><h2 class="anchored" data-anchor-id="testing-tibbles">Testing tibbles</h2>
 <ul>
 <li>because most of the tests are powered by <a href="https://www.tidyverse.org/blog/2020/10/waldo/"><code>waldo</code></a>, you shouldn’t have to do anything fancy to test on tibbles:</li>
 </ul>
-<div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">my_pengs</span> <span class="op">&lt;-</span> <span class="va">penguins</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_pengs</span> <span class="op">&lt;-</span> <span class="va">penguins</span></span>
 <span></span>
 <span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"penguin experiments"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="va">my_pengs</span>, <span class="va">penguins</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🎉</code></pre>
-</div>
-</div>
-</section><section id="types-and-classes-etc" class="level3"><h3 class="anchored" data-anchor-id="types-and-classes-etc">Types and classes etc</h3>
+<p>Test passed 😸</p>
+</section><section id="types-and-classes-etc" class="level2"><h2 class="anchored" data-anchor-id="types-and-classes-etc">Types and classes etc</h2>
 <ul>
 <li>one <em>massive</em> corollary to that: if you don’t do a lot of base-R, expect a fiercely stringent test of your <a href="https://adv-r.hadley.nz/base-types.html">understanding of types and classes</a>.</li>
 </ul>
-<div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "list"</code></pre>
-</div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
-</div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/is.object.html">is.object</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">)</span> <span class="co"># vectors are base types</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE</code></pre>
-</div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>, <span class="st">"class"</span><span class="op">)</span> <span class="co"># base types have no class</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>NULL</code></pre>
-</div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/is.object.html">is.object</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="co"># this is some kind of object</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="st">"class"</span><span class="op">)</span> <span class="co"># so it definitely does have a class</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
-</div>
-</div>
-</section><section id="tibble-tests" class="level3"><h3 class="anchored" data-anchor-id="tibble-tests">Tibble tests</h3>
-<div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"penguin types"</span>, <span class="op">{</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[1] “list”</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[1] “tbl_df” “tbl” “data.frame”</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/is.object.html">is.object</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">)</span> <span class="co"># vectors are base types</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[1] FALSE</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>, <span class="st">"class"</span><span class="op">)</span> <span class="co"># base types have no class</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>NULL</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/is.object.html">is.object</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="co"># this is some kind of object</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[1] TRUE</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="st">"class"</span><span class="op">)</span> <span class="co"># so it definitely does have a class</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[1] “tbl_df” “tbl” “data.frame”</p>
+</section><section id="testing-tibbles-1" class="level2"><h2 class="anchored" data-anchor-id="testing-tibbles-1">Testing tibbles</h2>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"penguin types"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/inheritance-expectations.html">expect_type</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="st">"list"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/inheritance-expectations.html">expect_s3_class</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="st">"tbl_df"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/inheritance-expectations.html">expect_s3_class</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="st">"tbl"</span><span class="op">)</span></span>
@@ -815,25 +705,20 @@ Test passed 🎊</code></pre>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/inheritance-expectations.html">expect_type</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">island</span>, <span class="st">"integer"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/inheritance-expectations.html">expect_s3_class</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">island</span>, <span class="st">"factor"</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Test passed 🥳</code></pre>
-</div>
-</div>
+<p>Test passed 😀</p>
 <ul>
 <li>there’s also an <code>expect_s4_class</code> for those with that high clear mercury sound ringing in their ears</li>
-</ul></section><section id="last-tip" class="level3"><h3 class="anchored" data-anchor-id="last-tip">Last tip</h3>
+</ul></section><section id="last-tip" class="level2"><h2 class="anchored" data-anchor-id="last-tip">Last tip</h2>
 <ul>
 <li>you can put bare expectations in pipes if you’re looking for something specific</li>
 </ul>
-<div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/inheritance-expectations.html">expect_type</a></span><span class="op">(</span><span class="st">"list"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_length.html">expect_length</a></span><span class="op">(</span><span class="fl">344</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
