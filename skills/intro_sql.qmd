@@ -1,0 +1,289 @@
+---
+title: "An introduction to SQL"
+date: 2025-08-20
+execute: 
+  echo: true
+draft: true
+output: markup
+categories: [SQL, beginner]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+#| echo: false
+
+source(here::here("R/feed_block.R"))
+feed_block("An introduction to SQL")
+```
+
+
+## Introduction
+
+* This course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams
+* It's intended as a light introduction for users with good general digital skills (broadly level 2 in the [Digital and Data Capability Framework](https://learn.nes.nhs.scot/76134))
+* It's heavily based on the excellent W3 schools introductory SQL course
+    * If you're looking for a resource to use to support independent study, W3 schools is a better option than this page
+    * this material is largely intended to support our live interactive training sessions
+* we use * [posit.cloud](https://posit.cloud/) for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills
+    
+## Setup
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
+* In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png)
+
+* Copy and paste the following R code into that script:
+
+```{r r-script}
+#| eval: false
+install.packages("dbplyr")
+install.packages("RSQLite")
+install.packages("palmerpenguins")
+library(dbplyr)
+library(dplyr)
+library(palmerpenguins)
+
+conn <- src_memdb() # create an sqlite db in memory
+copy_to(conn, penguins) # populate that db from R
+```
+
+
+```{r}
+#| echo: false
+library(dbplyr)
+library(dplyr)
+library(palmerpenguins)
+
+conn <- src_memdb() # create an sqlite db in memory
+copy_to(conn, penguins) # populate that db from R
+```
+
+* with that code in place, please select all the code, and click the `Run` button
+    * that will create a simple SQL database in memory
+* now create a new SQL script (again, from the `File` menu), and replace the first line with the following: `-- !preview conn=src_memdb()$con`
+    * that will connect our SQL script to the db we created in memory
+* finally, save your SQL script
+
+## Getting started
+
+Our db has one table, named `penguins`. A table is similar to an Excel sheet - a rectangular set of rows and columns containing our data. To preview our data, we'll need to write a first line of SQL. Please add the following to your SQL script:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins;
+```
+
+* SQL queries usually start with the `SELECT` keyword, which retrieves data from the database
+* `*` means "show me everything!"
+* `FROM penguins` specifies that we want everything from the penguins table. That specification is important, because most real-life SQL set-ups will have multiple tables of data
+* `;` ends the line. Not essential, but good practice
+
+## Playing with that query
+
+* We'll now change that one query to do something slightly different
+* Unlike most other languages, you'll write SQL queries one at a time
+* Add a new keyword `LIMIT 5` at the end of your query to produce a shorter preview of our data:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins LIMIT 5;
+```
+* SQL is case insensitive - including for column names etc - but it's customary to use capitals for the keywords. It makes your SQL easier to read, too.
+
+
+## Comments
+
+* If you want to turn off some of your SQL, or add notes, you can include comments
+* `--` double-dash to comment a line, or part of a line
+* `/*` and then `*/` slash-star to comment a multi-line chunk
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins LIMIT 5; -- comment in the line
+
+/* or a longer chunk
+  古池や蛙飛び込む水の音
+  ふるいけやかわずとびこむみずのおと
+*/  
+```
+
+## Columns
+
+```{sql connection=src_memdb()$con}
+SELECT species, island AS landmass
+    FROM penguins
+```
+
+* columns are returned in the order you ask for them
+* use the `AND` keyword to rename columns
+* SQL is insensitive to whitespace, so you can generally split up longer queries over many lines
+
+## Distinct values
+
+```{sql connection=src_memdb()$con}
+SELECT DISTINCT species FROM penguins
+```
+
+* `DISTINCT` gathers the unique values in a column, or unique combinations of values across multiple columns
+* this second query gives you all the combinations of penguins and islands that exist in our data:
+    
+```{sql connection=src_memdb()$con}
+SELECT DISTINCT island, species FROM penguins
+```
+
+## Finding matching rows
+
+We can filter rows by values with the `WHERE` keyword. For example:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE flipper_length_mm=181
+```
+
+or
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE species='Adelie' -- single quotes for preference
+```
+
+These filters are combinable. So we can find combinations where several conditions are all true using the `AND` keyword:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE species = 'Adelie' AND sex = 'male' AND island = 'Biscoe'
+```
+
+Or combinations where either are true using `OR`:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' -- <> = not equal
+```
+
+## `WHERE` helpers
+
+There are several keywords to sweeten the job of building a `WHERE` query:
+
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE bill_length_mm BETWEEN 37.8 AND 38 
+-- find in range with BETWEEN
+```
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE island LIKE 'Tor%' 
+/*  wildcards!
+    % = any n characters
+    _ = 1 character
+*/
+```
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE island IN ('Dream', 'Biscoe') 
+-- select from a specified group of values
+```
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE (flipper_length_mm * bill_depth_mm) = 3628.4 
+-- build simple expressions inside the WHERE
+```
+
+## Combining keywords
+
+We can combine keywords together to build up more complex SQL queries. For example:
+
+```{sql connection=src_memdb()$con}
+SELECT flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe'
+```
+
+SQL keywords have an order in which they must be written. The keywords that we'll cover here need to be used in the following order:
+
+* `SELECT`
+* `FROM`
+* `WHERE`
+* `GROUP BY`
+* `ORDER BY`
+
+## Ordering
+
+For example, `ORDER BY` is written at the end of the query:
+
+```{sql connection=src_memdb()$con}
+SELECT species, flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' ORDER BY flipper_length_mm
+```
+
+Or we could reverse-order:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY bill_depth_mm DESC
+```
+
+Or order by multiple columns in different directions:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY island ASC, bill_depth_mm DESC
+```
+
+## Aggregation
+
+Effectively, we apply a keyword to the columns specified in the `SELECT` to aggregate:
+
+```{sql connection=src_memdb()$con}
+SELECT MIN(bill_depth_mm) FROM penguins
+```
+
+Rename your summary columns using `AS`:
+
+```{sql connection=src_memdb()$con}
+SELECT MAX(bill_depth_mm) AS big_bill FROM penguins
+```
+
+Alternatively, for the brave, you can try implicit renaming
+```{sql connection=src_memdb()$con}
+SELECT island landmass FROM penguins
+```
+
+You can specify a column to group your data by - beware of the keyword order!
+```{sql connection=src_memdb()$con}
+SELECT species, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species
+```
+
+You can chain together multiple aggregation keywords to produce more complex results:
+```{sql connection=src_memdb()$con}
+SELECT species, ROUND(AVG(bill_depth_mm), 1) AS average_bill_depth FROM penguins GROUP BY species
+```
+
+`COUNT` is especially useful to count the number of rows in a filtered dataset. There are several ways of doing this, which you may need to experiment with depending on the type of SQL you're working in. My preference is the concise shorthand using `DISTINCT`, but unfortunately this won't work everywhere
+
+```{sql connection=src_memdb()$con}
+SELECT COUNT(DISTINCT island) FROM penguins
+
+```
+
+Or, with a rename in place:
+
+```{sql connection=src_memdb()$con}
+SELECT COUNT(DISTINCT island) AS peng_count FROM penguins
+```
+
+Probably more widely applicable, and allowing several categories to be counted:
+
+```{sql connection=src_memdb()$con}
+SELECT COUNT(*) AS peng_count FROM (SELECT DISTINCT island, species FROM penguins)
+```
+
+Or, failing that:
+```{sql connection=src_memdb()$con}
+SELECT island AS landmass, COUNT(*) AS [male n] FROM penguins WHERE sex = 'male' GROUP BY island 
+```
+
+Matching missing data is simple: use the `NULL` keyword:
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE bill_length_mm IS NULL -- really important if you're aggregating
+```
+
+And there are some shortcuts for concatenating columns:
+```{sql connection=src_memdb()$con}
+SELECT CONCAT(species,', ', island) AS species_land from penguins 
+-- but be aware this can be very quirky across different SQL dialects
+```
+
