@@ -1,0 +1,301 @@
+---
+execute: 
+  warning: false
+  echo: true
+editor_options: 
+  chunk_output_type: console
+---
+
+## Session outline
+
++ introduction: why test?
++ informal testing
++ unit testing
+    + introduction - why automate your tests?
+    + `testthat` walkthrough
+
+
+## Packages
+```{r}
+# install.packages("testthat")
+library(testthat)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(palmerpenguins)
+```
+
+
+## Introduction: why test?
+
++ code goes wrong       
+    + functions change
+    + data sources change
+    + usage changes
++ testing guards against the commonest problems
++ that makes for more reliable code
+    + more reliable code opens the way to nicer development patterns
+
+## A note
+
++ most discussions about testing come about as part of package development 
+    + we'll avoid that area here, but please see the [three excellent chapters in the R packages book](https://r-pkgs.org/testing-basics.html)  for guidance
+    + we'll also steer clear of Shiny/Rmarkdown/Quarto, as things can be a bit more tricky to test there
++ we also won't talk about debugging here (although do look out for the future training session on that)
+
+## Informal testing
+
++ a real-world example: Teams transcripts
++ Teams transcripts can be very useful data-sources
++ but they're absolutely horrible to work with
+
+## Example Teams input
+
+```{embed, file = "data/teams_input.txt"}
+```
+
+## Informal testing
++ imagine that you've written a (horrible) Teams transcript parser
++ how would you test this code to make sure it behaves itself?
+
+## An attempt at parsing
+
+```{r}
+#| echo: true
+#| output-location: slide
+
+file <- "data/teams_input.txt"
+
+output <- readLines(file) |>
+    as_tibble() |>
+    filter(!value == "") |>
+    filter(!value == "WEBVTT") |>
+    mutate(question = str_extract(value, "^(Q.*?)::>$")) |>
+    fill(question, .direction = 'down') |>
+    filter(!str_detect(value,  "^(Q.*?)::>$")) |>
+    mutate(ind = rep(c(1, 2),length.out = n())) |>
+    group_by(ind) |>
+    mutate(id = row_number()) |>
+    spread(ind, value) |>
+    select(-id) |>
+    separate("1", c("start_time", "end_time"), " --> ") |>
+    separate("2", c("name", "comment"), ">") |>
+    mutate(source = str_remove_all(file, "\\.txt"),
+           name = str_remove_all(name, "\\<v "), 
+           comment = str_trim(comment), 
+           question = str_remove_all(question, "::>")) 
+```
+
+## Output
+
+```{r}
+output |>
+    knitr::kable()
+```
+
+## So, does the horrible code work??
+
++ as ever, it depends how low your standards are...
+
+## Informal testing
+
++ we could change the inputs, and look at the outputs
+    + so twiddle our input file, and manually check the output
++ maybe we could also change the background conditions
+    + change the R environment, or package versions, or whatever
++ but that gets tedious and erratic very quickly
++ and you need to document it somehow
+
+## Unit testing
+
++ = small-scale, automated, standardised, self-documenting testing
++ test how the different sections of your code work separately - think functions or subroutines or modules
++ how? `testthat`
+
+## First steps with `testthat`
+
++ built for R package developers
++ but readily usable for non-package people
++ [helpful man pages](https://testthat.r-lib.org/)
++ [nice vignette](https://combine-australia.github.io/r-pkg-dev/testing.html) 
++ [more ambitious guide to ad hoc testing with `testthat`](https://batteriesnotincluded.rbind.io/post/2017/08/ad-hoc-testing/)
+
+## Hello world
+
+```{r}
+test_that("multiplication works", {
+  expect_equal(2 * 2, 4)
+})
+```
+
+## Functions and `testthat`
+
++ `testthat` works best when you're testing functions
++ functions in R are easy:
+
+```{r}
+#| eval: false
+
+function_name <- function(arg1 = default1, arg2 = default2){
+     arg1 * arg2 # using our argument names
+}
+
+function_name <- function(arg1 = default1, arg2 = default2) arg1 * arg2
+```
+
+## Transform your code into functions
+
+```{r}
+multo <- function(n1, n2){
+  n1 * n2
+}
+```
+
+## Test your function
+
++ `multo(2,2)` should equal 4, so we use:
+    + `test_that()` to set up our test environment
+    + `expect_equal()` inside the test environment to check for equality
+    
+```{r}
+# then run as a test
+
+test_that("multo works with 2 and 2", {
+    expect_equal(multo(2, 2), 4)
+})
+
+```
+
+## Raise your expectations
+
++ we can add more expectations...
+
+```{r}
+test_that("multo works in general", {
+    expect_equal(multo(2, 2), 4)
+    expect_identical(multo(2,0.01), 0.02)
+    expect_type(multo(0,2), "double")
+    expect_length(multo(9,2), 1)
+    expect_gte(multo(4,4), 15)
+})
+
+```
+
+## A gotcha: Equal and identical
+
++ beware the [floating point error](https://cran.r-project.org/doc/FAQ/R-FAQ.html#Why-doesn_0027t-R-think-these-numbers-are-equal_003f)
+
+```{r}
+3 - 2.9
+3 - 2.9 == 0.1
+```
+
++ happily, there's a sufficiently sloppy way of checking equality:
+
+```{r}
+test_that("pedants corner", {
+  expect_equal(multo(2, 0.01), 0.020000001)
+  expect_identical(multo(2, 0.01), 0.02)
+})
+```
+
+## Beyond single values
+
++ if you want to work with vectors, there are a number of tools for checking their contents:
+
+
+```{r}
+x <- rownames(as.matrix(eurodist, labels=TRUE)) # odd built in dataset
+
+test_that("check my vec", {
+    expect_equal(x[1:2], c("Athens", "Barcelona"))
+}) 
+```
+
+## Beyond single values
+
++ you can get **much** more fancy with a bit of set theory (not really [set theory](https://plato.stanford.edu/entries/set-theory/basic-set-theory.html)):
+
+```{r}
+y <- x
+
+test_that("check my vec sets", {
+    expect_success(expect_setequal(x, y)) # all x in y
+    expect_failure(expect_mapequal(x, y)) # same names, y is proper subset x) # all x in y)
+    show_failure(expect_contains(x[1:19], y)) # y proper subset x)
+    expect_success(expect_in(x, y)) # x proper subset y
+})    
+    
+```
+
+## Beyond single values again
+
+
+```{r}
+y <- sample(x, length(x)-2)
+
+test_that("check my vec sets", {
+    expect_failure(expect_setequal(x, y)) # all x in y
+    expect_failure(expect_mapequal(x, y)) # same names, y is proper subset x) # all x in y)
+    expect_success(expect_contains(x, y)) # y proper subset x)
+    expect_failure(expect_in(x, y)) # x is a proper subset y
+})    
+    
+```
+
+## Testing tibbles
+
++ because most of the tests are powered by [`waldo`](https://www.tidyverse.org/blog/2020/10/waldo/), you shouldn't have to do anything fancy to test on tibbles:
+
+```{r}
+my_pengs <- penguins
+
+test_that("penguin experiments", {
+    expect_equal(my_pengs, penguins)
+})
+```
+
+## Types and classes etc
+
++ one *massive* corollary to that: if you don't do a lot of base-R, expect a fiercely stringent test of your [understanding of types and classes](https://adv-r.hadley.nz/base-types.html).
+
+```{r}
+typeof(penguins)
+class(penguins) 
+
+is.object(names(penguins)) # vectors are base types
+attr(names(penguins), "class") # base types have no class
+
+is.object(penguins) # this is some kind of object
+attr(penguins, "class") # so it definitely does have a class
+```
+
+## Testing tibbles
+
+```{r}
+
+test_that("penguin types", {
+    expect_type(penguins, "list")
+    expect_s3_class(penguins, "tbl_df")
+    expect_s3_class(penguins, "tbl")
+    expect_s3_class(penguins, "data.frame")
+    expect_type(penguins$island, "integer")
+    expect_s3_class(penguins$island, "factor")
+})
+
+```
+
++ there's also an `expect_s4_class` for those with that high clear mercury sound ringing in their ears
+
+## Last tip
+
++ you can put bare expectations in pipes if you're looking for something specific
+
+```{r}
+penguins |>
+  expect_type("list") |>
+  pull(island) |>
+  expect_length(344)
+```
+
