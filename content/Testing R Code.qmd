@@ -192,12 +192,12 @@ test_that("multo works in general", {
 3 - 2.9 == 0.1
 ```
 
-+ happily, there's a sufficiently sloppy way of checking equality:
++ happily, there are a couple of different methods of checking equality. The standard `expect_equal` is more sloppy than the exacting `expect_identical`:
 
 ```{r}
 test_that("pedants corner", {
-  expect_equal(multo(2, 0.01), 0.020000001)
-  expect_identical(multo(2, 0.01), 0.02)
+  expect_equal(multo(2, 0.01), 0.020000001) # more relaxed
+  expect_identical(multo(2, 0.01), 0.02) # more precise
 })
 ```
 
