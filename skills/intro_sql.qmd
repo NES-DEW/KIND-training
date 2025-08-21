@@ -26,10 +26,16 @@ feed_block("An introduction to SQL")
 
 * This course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams
 * It's intended as a light introduction for users with good general digital skills (broadly level 2 in the [Digital and Data Capability Framework](https://learn.nes.nhs.scot/76134))
-* It's heavily based on the excellent W3 schools introductory SQL course
-    * If you're looking for a resource to use to support independent study, W3 schools is a better option than this page
+* It's heavily based on the excellent [W3 schools introductory SQL course](https://www.w3schools.com/sql/)
+    * If you're looking for a resource to use to support independent study, [W3 schools](https://www.w3schools.com/sql/) is a better option than this page
     * this material is largely intended to support our live interactive training sessions
-* we use * [posit.cloud](https://posit.cloud/) for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills
+* we use [posit.cloud](https://posit.cloud/) for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills
+
+## Note!
+
+* This is a pre-delivery draft of the material: expect to encounter problems
+* It's not properly scheduled yet: this will ultimately be delivered over multiple sessions, which usually entails a bit of chopping and changing the order of material
+* Finally, it's incomplete: there's more to come here
     
 ## Setup
 
@@ -61,6 +67,7 @@ library(palmerpenguins)
 
 conn <- src_memdb() # create an sqlite db in memory
 copy_to(conn, penguins) # populate that db from R
+?src_memdb
 ```
 
 * with that code in place, please select all the code, and click the `Run` button
@@ -91,8 +98,8 @@ SELECT * FROM penguins;
 ```{sql connection=src_memdb()$con}
 SELECT * FROM penguins LIMIT 5;
 ```
-* SQL is case insensitive - including for column names etc - but it's customary to use capitals for the keywords. It makes your SQL easier to read, too.
 
+* SQL is case insensitive - including for column names etc - but it's customary to use capitals for the keywords. It makes your SQL easier to read, too.
 
 ## Comments
 
@@ -117,7 +124,7 @@ SELECT species, island AS landmass
 ```
 
 * columns are returned in the order you ask for them
-* use the `AND` keyword to rename columns
+* use the `AS` keyword to rename columns
 * SQL is insensitive to whitespace, so you can generally split up longer queries over many lines
 
 ## Distinct values
@@ -162,7 +169,6 @@ SELECT * FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' -- <> = not equa
 ## `WHERE` helpers
 
 There are several keywords to sweeten the job of building a `WHERE` query:
-
 
 ```{sql connection=src_memdb()$con}
 SELECT * FROM penguins WHERE bill_length_mm BETWEEN 37.8 AND 38 
@@ -211,7 +217,13 @@ For example, `ORDER BY` is written at the end of the query:
 SELECT species, flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' ORDER BY flipper_length_mm
 ```
 
-Or we could reverse-order:
+It's good practice to be explicit about order direction, so you might add the `ASC` keyword to specify that you want to order your data in ascending order:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE sex <> 'male' ORDER BY flipper_length_mm ASC
+```
+
+Or we could reverse-order using `DESC`:
 
 ```{sql connection=src_memdb()$con}
 SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY bill_depth_mm DESC
@@ -222,6 +234,8 @@ Or order by multiple columns in different directions:
 ```{sql connection=src_memdb()$con}
 SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY island ASC, bill_depth_mm DESC
 ```
+
+
 
 ## Aggregation
 
@@ -287,3 +301,6 @@ SELECT CONCAT(species,', ', island) AS species_land from penguins
 -- but be aware this can be very quirky across different SQL dialects
 ```
 
+## Acknowledgements
+
+Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland).
