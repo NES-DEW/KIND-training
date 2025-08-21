@@ -101,6 +101,29 @@ SELECT * FROM penguins LIMIT 5;
 
 * SQL is case insensitive - including for column names etc - but it's customary to use capitals for the keywords. It makes your SQL easier to read, too.
 
+## SQL dialects
+
+* There are several slightly different dialects of SQL
+* We'll largely ignore those differences in this beginner's training
+* But, just to illustrate, the `LIMIT` keyword is one that only works in some types of SQL
+* If you were using Microsoft's dialect of SQL, you'd need to write something slightly different:
+
+```{}
+SELECT * TOP 3 from penguins; -- Microsoft
+```
+
+Or if you were using Oracle's dialect of SQL, you'd write either:
+
+```{}
+SELECT * FROM penguins FETCH FIRST 3 ROWS ONLY; -- Oracle
+```
+
+Or:
+
+```{}
+SELECT * FROM penguins WHERE ROWNUM <= 3; -- nicer Oracle way?
+```
+
 ## Comments
 
 * If you want to turn off some of your SQL, or add notes, you can include comments
