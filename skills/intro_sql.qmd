@@ -67,7 +67,6 @@ library(palmerpenguins)
 
 conn <- src_memdb() # create an sqlite db in memory
 copy_to(conn, penguins) # populate that db from R
-?src_memdb
 ```
 
 * with that code in place, please select all the code, and click the `Run` button
@@ -108,20 +107,23 @@ SELECT * FROM penguins LIMIT 5;
 * But, just to illustrate, the `LIMIT` keyword is one that only works in some types of SQL
 * If you were using Microsoft's dialect of SQL, you'd need to write something slightly different:
 
-```{}
-SELECT * TOP 3 from penguins; -- Microsoft
+```{sql}
+#| eval: false
+SELECT * TOP 5 from penguins;
 ```
 
-Or if you were using Oracle's dialect of SQL, you'd write either:
+Or if you were using Oracle's newest dialect of SQL, you'd write either:
 
-```{}
-SELECT * FROM penguins FETCH FIRST 3 ROWS ONLY; -- Oracle
+```{sql}
+#| eval: false
+SELECT * FROM penguins FETCH FIRST 5 ROWS ONLY;
 ```
 
-Or:
+Or, an older - but possibly neater - way of writing Oracle SQL:
 
-```{}
-SELECT * FROM penguins WHERE ROWNUM <= 3; -- nicer Oracle way?
+```{sql}
+#| eval: false
+SELECT * FROM penguins WHERE ROWNUM <= 5;
 ```
 
 ## Comments
