@@ -671,11 +671,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>But, just to illustrate, the <code>LIMIT</code> keyword is one that only works in some types of SQL</li>
 <li>If you were using Microsoft’s dialect of SQL, you’d need to write something slightly different:</li>
 </ul>
-<pre><code>SELECT * TOP 3 from penguins; -- Microsoft</code></pre>
-<p>Or if you were using Oracle’s dialect of SQL, you’d write either:</p>
-<pre><code>SELECT * FROM penguins FETCH FIRST 3 ROWS ONLY; -- Oracle</code></pre>
-<p>Or:</p>
-<pre><code>SELECT * FROM penguins WHERE ROWNUM &lt;= 3; -- nicer Oracle way?</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> TOP <span class="dv">5</span> <span class="kw">from</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or if you were using Oracle’s newest dialect of SQL, you’d write either:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins FETCH <span class="fu">FIRST</span> <span class="dv">5</span> <span class="kw">ROWS</span> <span class="kw">ONLY</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or, an older - but possibly neater - way of writing Oracle SQL:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> <span class="kw">ROWNUM</span> <span class="op">&lt;=</span> <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section><section id="comments" class="level2"><h2 class="anchored" data-anchor-id="comments">Comments</h2>
 <ul>
 <li>If you want to turn off some of your SQL, or add notes, you can include comments</li>
