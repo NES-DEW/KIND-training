@@ -1,3 +1,9 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+date: 2025-08-25
+---
 ## A brief overview of Excel
 
 ![Excel might be the cement of the universe](../src/images/clipboard-965547330.png){width="60%"}
@@ -78,7 +84,8 @@
 
 ## References
 
--   every cell in Excel has a **reference** - like its address
+-   every cell in Excel has a **reference** 
+-  that's effectively the address of the cell
 -   references look like this: `E7` <br> ![example references](../src/images/cols.png){height="250"}
     -   `E` refers to a vertical column
     -   `7` to a horizontal row
@@ -89,39 +96,36 @@
 -   we can type into the cells </br> ![add data by typing into cells](../src/images/clipboard-1771455666.png)
 -   that data appears in the formula bar too
 
-## An example: school holidays
+## An example: island populations
 
--   Here are some [school holiday dates](https://www.scotborders.gov.uk/schools-learning/term-holiday-closure-dates/2)
--   make three headings in row 1: `name`, `start_date`, `end_date` </br> ![add three headings in row 1](../src/images/clipboard-1395187747.png)
+-   The national records of Scotland has [public data on island populations](https://www.nrscotland.gov.uk/publications/other-geographies-mid-2022-2011-data-zone-based/)
+-   make three headings in row 1: `island`, `males`, `females` </br> ![add three headings in row 1](../src/images/clipboard-1395187747.png)
 
 ## Values
 
--   let's add some values from the [school holiday dates](https://www.scotborders.gov.uk/schools-learning/term-holiday-closure-dates/2)
--   name of holiday
--   start date
--   end date
-    -   dates usually go `DD/MM/YYYY` 
-    - as we'll see, Excel does lots of helping when we enter dates...
-    -   ...😱
--   we'll only need a few rows of data
+-   let's add some values from the  [island populations data](https://www.nrscotland.gov.uk/publications/other-geographies-mid-2022-2011-data-zone-based/):
 
-::: notes
-name start_date end_date Mid-term holidays 14/10/2024 18/10/2024 In service day 21/10/2024 21/10/2024 St Andrew's Day 02/12/2024 02/12/2024
-:::
+```{r}
+tibble::tibble(
+  island = c("Argyll Islands", "Arran, Bute and the Cumbraes", "Highland Islands", "Lewis and Harris, Great Bernera and Scalpay", "Orkney - Mainland and connected"),
+  males = c(4427, 6218, 5415, 10166, 9862),
+  females = c(4052, 5716, 5249, 10006, 9450)) |>
+  knitr::kable()
+```
 
 ## Tidy data
 
 -   keep things consistent - spelling, case, formats, etc
     -   one piece of data per cell
-    -   one instance per row (one school holiday per row)
-    -   one variable per column (a column of names, one of start dates...)
+    -   one instance per row (one island per row)
+    -   one variable per column (a column of male counts, and and a column of female)
 
 ## Tables
 
 -   we can convert this group of cells into a proper **table**
 -   click in one of your cells of data </br> ![Click a cell in your data](../src/images/clipboard-1117112977.png)
 -   `Insert` \> `Table` (or `Ctrl` + `T`) </br> ![Convert to table](../src/images/clipboard-166790706.png)
--   click `OK`</br>![](../src/images/clipboard-77557231.png)
+-   click `OK`</br>![Click OK](../src/images/clipboard-77557231.png)
 
 ## Lots of new things to see
 
@@ -129,9 +133,9 @@ name start_date end_date Mid-term holidays 14/10/2024 18/10/2024 In service day 
 
 ## Autofill
 
--   we'll add a formula to calculate how long our holidays are
--   add a new column called `days`
--   paste `= 1 + (C2 - B2)` into the first cell of that new column
+-   we'll add a formula to calculate the total population
+-   add a new column called `total`
+-   paste or type `= B2 + C2` into the first cell of that new column
     -   and look out for our session on formulas...
 -   double-click the green fill handle to fill the rest of the column </br> ![fill handle](../src/images/clipboard-1731283483.png)
 
@@ -149,10 +153,9 @@ name start_date end_date Mid-term holidays 14/10/2024 18/10/2024 In service day 
 
 ## Number formatting
 
--   our dates are **number formatted**
--   Excel dates are actually numbers (like `45583`) formatted to look like dates
--   1900 dates!
--   percentages, £, ...
+-   we can format the numbers in our sheet to change their appearance
+-  we'll demonstrate some examples during the session where we make our values work as percentages, currency, dates, etc
+- that's done using the number formatting area of the ribbon menu </br> ![Number formatting area](../src/images/number_format.png)
 
 ## Conditional formatting
 
