@@ -1,0 +1,211 @@
+---
+date: 2025-08-26
+editor_options: 
+  chunk_output_type: console
+title: "Applications of AI"
+---
+
+## Introduction
+
++ this is a session designed to cut through the hype about AI by looking at what people like you **actually use AI for**
+* at present (late 2025), that's strongly oriented towards working with text
+* we'll give some practical work-throughs of real-life AI tasks using the free version of Microsoft Co-Pilot
+* and discuss some strengths and weaknesses of using AI to do this work
++ it's largely practical, so much of what we cover today will be about practical use of AI models, and isn't documented step-by-step here
+
+:::{.callout-warning collapse=false appearance='default' icon=true}
+## Watch out!
++ the term AI is problematic - see our [companion session for more information about that](an_introduction_to_ai_and_why_you_might_avoid_that_term.qmd)
++ we should probably avoid the term all together, but that feels very un-natural when the rest of the world calls it AI
++ specifically, discussing generative large-language models (OpenAI's ChatGPT, and Microsoft's Co-Pilot products, largely)
+:::
+
+## LLM veganism and related ideas
+
++ there are serious potential consequences of our current envisaged use of LLMs
+  + environmental: they're much more resource-hungry than other related tech
+  + political: an oligopoly of main players, and worries about AI as a fig-leaf for e.g. malfescient employment practices
+  + creative: who consented to their stuff going into training data
+  + bias: who is accountable for the errors and biases of models
++ there are seriously-held convictions that LLM use might cause more harm than good
++ this session doesn't look at these issues in depth - but please watch this space
+
+
+```{r}
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(tidyr)
+
+dat <- readxl::read_xlsx(here::here("skills/data/KIND_AI_purposes.xlsx")) |>
+  select(used = `Have you used AI for anything at work?`,
+  when = `When roughly did you first use an AI tool at work`,
+  tasks = `Thinking about tasks, what did you use AI to do? Select as many as you like!`,
+  area = `Are you mainly at work in...`) |>
+  mutate(when = as_date(when))
+
+n_health <- sum(dat$area == "health", na.rm = T)
+
+monthz <- dat |>
+  mutate(dur = today() - when) |>
+  summarise(da = mean(dur, na.rm = T)) |>
+  pull(da) |>
+  time_length("months") |>
+  round(1)
+
+tasks <- dat |>
+  separate_longer_delim(tasks, ";") |>
+  filter(tasks != "") |>
+  count(tasks, sort = T) |>
+  filter(n > 30)
+
+```
+
+## Survey
+
++ this session originates in an informal survey in the KIND network during August 2025
++ investigating workplace uses of AI, by asking:
+    + Have you used AI for anything at work?
+    + When you first used AI at work?
+    + What you used AI to do, with choices of:
+```{r}
+#| output: asis
+cat(paste("+", tasks$tasks, collapse = "  \n"))
+```
+    + Where you work (with a choice of   `r paste(sort(unique(dat$area)), collapse = ", ")`)
++ we received `r nrow(dat)` responses - so a small sample that needs careful interpretation
+    + and strongly biased towards workers in heath, with `r n_health` (`r scales::percent(n_health/nrow(dat))`) responses from health workers
+    
+## Using AI
+
+* most people had used AI at work
++ but most are comparatively recent first-users (mean of `r monthz` months since first use)
+
+```{r}
+dat |>
+  count(used) |>
+  rename(response = used) |>
+  mutate(percent = scales::percent(n/sum(n))) |>
+  arrange(-n) |>
+  knitr::kable(caption = "Have you used AI for anything at work?")
+```
+
+## Trend
+
++ small sample, so care, but there's an upward trend in new users
+
+```{r}
+g_dat <- dat |>
+  filter(used == "Yes") |>
+  mutate(when = floor_date(when, "quarters")) |>
+  filter(!is.na(when))
+
+last_date <- max(dat$when, na.rm = T) - ymd("2025-07-01")
+
+n_g_dat <- nrow(g_dat)
+
+g_dat|>
+  count(when, sort = T) |>
+  arrange(desc(when)) |>
+  mutate(rate = when - lag(when)) |>
+  filter(when > ymd("2023-01-01")) |>
+  tidyr::replace_na(list(rate = last_date)) |>
+  mutate(rate = n/ as.numeric(abs(rate))) |>
+  ggplot(aes(x = when, y = rate)) +
+  geom_col() +
+  geom_smooth() +
+  ggtitle(paste0("Reported first use of AI at work, quarterly user-per-day rate (n = ", n_g_dat, ")")) +
+  scale_x_date(date_labels = "%b %y") +
+  theme_minimal()
+  # ylim(c(0, 70))
+
+rm(g_dat)
+rm(n_g_dat)
+```
+
+That means that most of the responses here are from users with limited experience in using AI, so please interpret the tasks and results with that in mind.
+
+## Tasks
+
+For the provided list of standard responses provided, drafting and summarising text were by far the most frequent uses:
+
+```{r}
+tasks |>
+  knitr::kable()
+```
+
+
+```{r}
+#| include: false
+n_resp <- dat |>
+  separate_longer_delim(tasks, ";") |>
+  filter(tasks != "") |>
+  count(tasks, sort = T) |>
+  filter(n < 2) |>
+  select(-n) |>
+  nrow()
+```
+
+`r n_resp` one-off responses were returned, which can be broadly grouped into:
+
+```{r}
+readxl::read_xlsx(here::here("skills/data/free_summaries.xlsx")) |>
+  arrange(-n) |>
+  knitr::kable()
+```
+
+## Task examples
+
+:::{.callout-warning collapse=false appearance='default' icon=true}
+## Warning
+Your information governance, cybersecurity, and other governance teams will have a strong opinion about the permissible uses of these models in your work. Just because we're doing it here, doesn't mean you can do the same at work.
+:::
+
+
+
+## Redrafting text - live Co-Pilot demo
+
++ LLMs are fantastic at re-drafting text
++ some examples:
+    * take these bullet points and...
+    * reduce the reading age of...
+    * summarise this text to...
+* but...
+    * they'll often soften important points. LLMs tend to be agreeable, and that's a problem
+    * there's a bland and agreeable LLM house-style, and it's hard to represent yourself authentically via LLM
+    * summaries especially can miss the brief - but vital - point
++ top tips:
+  + iterating - asking the model to re-work it's response can be very effective (take this text and x. Now soften the y. Add z.)
+  + everything needs careful review. Okay, the model won't make spelling mistakes - but it's much more likely to alter what you set out to say than you might think. Make sure you're still telling people what you want to tell them
+  + try not to be impressed by production. LLMs tend to produce long and windy blocks of text. As standard, I ask them to make text more concise.
+
+## An interjection about ethics
+
+## learning new skills - live Co-Pilot demo
+
++ LLMs are good for learning new work skills
+    + Because of the large quantity of technical training data (StackOverflow and co), basically everything is in there
+    + you can iterate: so ask the model to demonstrate a simple solution, tweak, increase the complexity as necessary
+      + that's very helpful if you're keen on harnessing the power of a rubbish (but improvable) prototype
+    + and - assuming data governance is okay - you can potentially seed with real data (take this, and give me back that)
++ but...
+    + they're not equally good at everything: PowerQuery (anecdote)
+    + hallucinations are especially bad/annoying for code
+    + hard to know if you're learning the right way, or the wrong way
++ top tips:
+    + start small, and keep the steps short
+    + cross-check: I use a reference source and the model wherever possible
+    + use technical terms: I try and ask for a description of "list comprehension" or whatever, rather than sticking to ordinary language if possible
+
+
+## Transcribing meetings - live Teams demo
+
+* we'll record a bit of the meeting now...with hilarious consequences...
+
+## Data analysis
+
++ we'll do this, largely to suggest that it's a brave-even-foolhardy thing to attempt
++ help interpreting is great, chuck it in the model and see is negligent
+
+
+
