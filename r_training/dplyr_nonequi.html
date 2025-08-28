@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-08-27">
+<meta name="dcterms.date" content="2025-08-28">
 <title>Non-equi joins with dplyr – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -73,9 +73,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4df3b0c4fafa0f66eafcead0ee6cff11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-f5e5e15afe4d982b64d27dbde10e754f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-4df3b0c4fafa0f66eafcead0ee6cff11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-6afab9c3bf6556c536f2e34ed27c5dd0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -366,7 +366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 27, 2025</p>
+      <p class="date">August 28, 2025</p>
     </div>
   </div>
   
@@ -402,11 +402,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 5 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       4       9
-2     2       8       1
-3     3       8       9
-4     4       6       3
-5     5       1       2</code></pre>
+1     1       3       7
+2     2       6       9
+3     3      10       3
+4     4       7       1
+5     5       5       1</code></pre>
 </div>
 </div>
 <p>We could convert this into a non-equi join by adding an inequality:</p>
@@ -417,11 +417,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 5 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       4      NA
-2     2       8       1
-3     3       8      NA
-4     4       6       3
-5     5       1      NA</code></pre>
+1     1       3      NA
+2     2       6      NA
+3     3      10       3
+4     4       7       1
+5     5       5       1</code></pre>
 </div>
 </div>
 <p>Here, we’ve added a condition that restricts the join to cases where <code>score_a</code> is larger than <code>score_b</code>. That’s all a non-equi join is: a join based on a non-equality. Usually, we’d use this with an inner join that will drop the <code>NA</code>s for us:</p>
@@ -429,11 +429,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">score_a</span> <span class="op">&gt;</span> <span class="va">score_b</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
+<pre><code># A tibble: 3 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     2       8       1
-2     4       6       3</code></pre>
+1     3      10       3
+2     4       7       1
+3     5       5       1</code></pre>
 </div>
 </div>
 <p>Effectively this is equivalent to a <code>filter</code> then a join:</p>
@@ -442,11 +443,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">score_a</span> <span class="op">&gt;</span> <span class="va">score_b</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
+<pre><code># A tibble: 3 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     2       8       1
-2     4       6       3</code></pre>
+1     3      10       3
+2     4       7       1
+3     5       5       1</code></pre>
 </div>
 </div>
 <p>But faster and more elegant, especially if you’re matching a small range of values in the non-equi part of the join.</p>
@@ -469,16 +471,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 30 × 3
       id  year score
    &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
- 1  1541  2027     8
- 2  5193  2024     7
- 3  8280  2024     9
- 4  9749  2023     1
- 5  1836  2023    10
- 6  7446  2022     7
- 7  3502  2023     5
- 8  8543  2023     9
- 9  5207  2024     1
-10  6501  2025     4
+ 1  6919  2024     8
+ 2  8845  2022     1
+ 3  9998  2024     5
+ 4  6609  2026    10
+ 5  1946  2025     2
+ 6  1500  2023     3
+ 7  5385  2022     1
+ 8  2441  2027     7
+ 9  3569  2026     7
+10  9795  2025     2
 # ℹ 20 more rows</code></pre>
 </div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">|&gt;</span></span>
@@ -488,10 +490,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 4 × 3
      id  year score
   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
-1  1541  2027     8
-2  4574  2027    10
-3  6661  2027     6
-4  4389  2027     9</code></pre>
+1  2441  2027     7
+2  4922  2027     9
+3  6508  2027     5
+4  8207  2027     1</code></pre>
 </div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># z |&gt;</span></span>
 <span><span class="co">#   inner_join(y, by = join_by(id, between(year, 2025, 2027)))</span></span>
