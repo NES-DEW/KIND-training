@@ -32,7 +32,7 @@ feed_block <- function(title){
     theme_void()
   
   if (nrow(dat) == 0) {
-    return(cat("No feedback found for this session"))
+    return(cat("No feedback found for this session  \n"))
   } else {
 
     rite <- scales::percent((sum(dat$describe == "About right", na.rm = T) / nrow(dat)))

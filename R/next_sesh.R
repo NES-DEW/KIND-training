@@ -7,6 +7,8 @@ next_sesh <- function(page_title){
   
   if(nrow(forthcoming) > 0){
     
+    cat("  \n")
+    
     cat("::: {.callout-tip collapse=false appearance='default' icon=true}  \n")
     
     cat("## Forthcoming session(s)  \n")
