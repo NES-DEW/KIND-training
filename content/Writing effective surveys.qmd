@@ -1,0 +1,304 @@
+---
+editor_options: 
+  chunk_output_type: console
+execute: 
+  echo: false
+---
+## Introduction
+
+* surveys: groups of questions designed to help you understand something in a population
+* a  quick and low-tech way of gathering information about a topic
+* definitely different from 'proper' qualitative research, etc
+* not tech-specific: paper, in-person, web form...
+* *usually* completed by the members of that sample directly (or their advocate) rather than by a professional
+
+## The population
+
++ the key idea to build useful surveys: what's the population?
+* population: some specified group of people - service users, general public, left-handed furriers from Dundee...
+* surveys will usually be asked of a sample of a population (unlike a census, where everyone replies)
+
+## Core survey ideas
+
+* **topic**: what's the survey about?
+* **coverage:** who can fill in the survey?
+* **sample:** who actually did fill in the survey?
+* **completion:** who completed the survey questions?
+* **discrimination:** what did the different answers tell us about our topic?
+
+## An example: favourite TV show
+
+* surveys are often about complicated topics
+    * if it's easy, you don't need a survey!
+* we're going to start with a simple topic: **what TV programmes do people like?**
+
+## Before we start...
+
+Some questions for you:
+* do we really understand our topic well enough to turn it into questions?
+* what's the population we're interested in?
+* how should we get good coverage (and what does good look like for us?)
+
+:::{.callout-important collapse=false appearance='default' icon=true}
+## Exercise 1: quick survey plan
+
++ we'll work in small groups
++ 3 minutes to sketch out a survey that:
+  * investigates part of our favourite TV show **topic**
+  * in a specific **population**
+  * and how you're going to achieve **coverage**
++ report back in the chat
+
+:::
+
+
+
+
+## Quick wins
+
+* be specific
+* identify a specific population, and tailor the survey to them
+* worry about completion (and include that in your results)
+* have a plan about how to use the results (and maybe work backwards from that)
+
+## Questions
+
+* what questions do we need to ask people to find out about our topic?
+* how do they need to be adapted to work for our population?
+* what does it tell us about our topic?
+* what are we trying to discriminate?
+ 
+## A few (contradictory) suggestions
+
++ big idea 1: align your questions with your topic
++ big idea 2: make your questions discriminate
++ big idea 3: absolutely as few questions as humanly possible
+
+## Why so short?
+
++ long surveys have poor discrimination (because people get bored)
++ long surveys have poor response rates
++ worse, long surveys probably have sampling problems, where only the most motivated will complete
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Reminder
+* **sample:** who actually did fill in the survey?
+* **completion:** who completed the survey questions?
+* **discrimination:** what did the different answers tell us about our topic?
+:::
+
+::::{.callout-important collapse=false appearance='default' icon=true}
+## Exercise 2: design a few questions
+
++ again, in small groups...
++ 1 minute to review your earlier topic/population/coverage note
++ 3 minutes to sketch 2 questions to:
+    + be informative about your topic
+    + discriminate different views about important parts of your topic
+    + but be as simple as possible
++ report back in the chat
+
+::::
+
+
+## Then, after the data collection...
+
+* what sort of sample did we get?
+  * how does that compare with our planned coverage?
+  * what did our completion look like?
+* analysis (non-technical!)
+* what do we do with the results?
+
+## That's a lot to think about!
+
++ so let's try to look at the core analytical decisions by looking at a **terrible** survey
+
+:::{.callout-note collapse=TRUE appearance='default' icon=true}
+## SURVEY QUESTIONS
++ What’s your favourite TV programme (free text)
++ Do you like comedy or drama? (exclusive choice between yes and no)
++ an un-directed Lickert-like set of responses for
+    + I like longer programmes
+    + I like shorter programmes
+    + I have a TV
+    + I am under seven feet tall
++ Do you have a second favourite TV programme? (free text)
++ How long have you watched your favourite programme for? (exclusive choice between less than a year, less than two years, more than three years)
++ Who are you? (long free text)
+:::
+
+
+## What did we learn?
+
++ even with a terrible survey, we can definitely learn something
++ for example, we've got information about people's favourite TV programmes:
+
+```{r}
+# echo: false
+library(dplyr)
+library(readr)
+library(tidyr)
+
+bad <- readxl::read_xlsx(here::here("skills/data/KIND_effective_surveys_bad.xlsx"))
+
+recodo <- list(
+"What's your favourite TV programme" = "fave",                 
+"Do you like comedy or drama?"  = "comedy",                          
+"I like longer programmes"  = "long",                              
+"I like shorter programmes"    = "short",                           
+"I have a TV"  = "tv",                                           
+"I am under seven feet tall"  = "seven",                            
+"Do you have a second favourite TV programme?"   = "second",         
+"How long have you watched your favourite programme for?" = "second_long",
+"Who are you?"   = "who")
+
+nom <- names(recodo)
+
+long_bad <- bad |>
+  select(-c(2:6)) |>
+  tidyr::pivot_longer(-ID) |>
+  # mutate(name = recode(name, !!!recodo, .default = "Not a scooby")) |>
+  group_by(name) |>
+  count(value, sort = T)
+
+
+
+long_bad |>
+  filter(name == nom[1]) |>
+  slice(1:7) |>
+  knitr::kable(caption = "Top 7 TV programmes")
+
+```
+
+Note that these favourite programmes are free-text responses. In cases like these, free text (where people can reply however they choose) are really the only way that a question like this could be structured - unless you somehow have a tidy list of all the top TV programmes that people might choose. 
+
+Free text is though much harder to analyse than yes/no choices, or numeric ratings, or similar ways of collecting information. They can also put people off if overused, and we might start to worry about sampling in a survey with lots of long free text.
+
+This example shows a very specific gotcha: many analytical tools are case-sensitive, so "SLOW HORSES" would be grouped differently might be different from "slow horses". We'll find similar difficulties with variant punctuation too, so "Grey's Anatomy" and "Greys Anatomy" might become separated. Let's show that now in our data:
+
+```{r}
+library(stringr)
+
+long_bad_tc <- bad |>
+  select(-c(2:6)) |>
+  tidyr::pivot_longer(-ID) |>
+  # mutate(name = recode(name, !!!recodo, .default = "Not a scooby")) |>
+  group_by(name) |>
+  mutate(value = str_replace(value, "'", "")) |>
+  mutate(value = stringr::str_squish(snakecase::to_title_case(value))) |>
+  count(value, sort = T)
+  
+# long_bad_tc |>
+  # filter(stringr::str_detect(value, "(?i)anatomy"))
+
+long_bad_tc |>
+  filter(name == nom[1]) |>
+  slice(1:7) |>
+  knitr::kable(caption = "Top 7 TV programmes")
+```
+
+Personally, I'm delighted to see Slow Horses creeping up the list. And that's a cause for serious concern: all free text will definitely need some kind of tidy-up at the analysis stage. It's hard not to favour your favourites there, and it took me a while to realise that e.g. we had "Grays Anatomy" and "Gray's Anatomy" in our data. To avoid that sort of bias, I'd be keen to try and pre-designate what text fixing you're planning to do before you collect the data (so all lower-case without punctuation, and with manual tidying-up of spelling, for example).
+
+```{r}
+n <- bad |>
+  nrow() 
+```
+
+## n
+
+n is probably the most important single number in surveys, because it tell us how many responses we received as part of our sample. So our sample consists of `r n` responses. Related, we could also estimate a response rate from that figure. Our coverage - so the number of people invited to fill in the survey - was approximately 2000 people, because that's the daily average number of active users on the KIND network at present. Dividing n by that number gives us a response rate of approximately `r scales::percent(n/2000)`. That's pretty fair for a casual survey like this which has gone out online, and many thanks to the network members - our population - for volunteering their time.
+
+## Discrimination
+
+What else can we learn? Most of the questions here don't really tell us anything at all, other than our sample being really quite diligent, and keen to try and fill-in questions that made no sense at all. In other words, these answers fail to discriminate anything from anything else: we don't know what either response really means here: 🎭 which do people like best?
+
+```{r}
+long_bad_tc |>
+    filter(name == nom[2])|> 
+    knitr::kable()
+```
+
+Oh dear, that's not very helpful. Unfortunately, there are several similar questions where - although our long-suffering army of survey volunteers have diligently completed responses - because the responses aren't clearly specified, we're unable to understand what those users might have thought. Another example:
+
+```{r}
+long_bad_tc |>
+    filter(name == nom[3]) |>
+    knitr::kable()
+```
+
+This is quite an important one, because it demonstrates the (faulty) use of an important kind of preference-scale known as a Likert. That's (usually) a five-point scale that's useful for assessing agreement/disagreement. So the usual format would be to pose a question - "how do you feel about slapstick"
+
+::::{.callout-important collapse=false appearance='default' icon=true}
+## Exercise 3: rework!
+
++ working alone this time, please come up with a better group of questions to probe these issues
++ two minutes, and then please paste them into the chat
+
+::::
+
+## Missing data
+
+```{r}
+long_bad_tc |>
+  filter(name == nom[4]) |>
+  knitr::kable()
+```
+
+Expect missing data (the `NA` values, here). You can potentially force users to answer all your questions, but that comes at the risk of potentially 
+
+## Alignment
+
+Some of your questions should probably be used to find out about your sample. Again, think carefully about both the theme of the question, and its ability to actually distinguish what you need to know:
+
+```{r}
+long_bad_tc |>
+  filter(name == nom[6]) |>
+  knitr::kable()
+```
+
+You should also think about the likely scope of responses, especially if you're unwise enough to ask hugely vague "who are you"-type questions
+
+```{r}
+long_bad_tc |>
+  filter(name == nom[9]) |>
+  slice(1:5) |>
+  knitr::kable(caption = "Top five responses to the question 'Who are you'?")
+```
+
+We almost always will need to aggregate responses: this sort of question leads to impossible to aggregate responses. This question needed some honing down (e.g. into age group or occupation or similar) and replaced with a couple of closed questions. 
+
+
+## Answer options
+
+Make the alternatives as standard and coherent as possible in exactly the way that the example below isn't. I'd have thought that asking for a number of years would have been a better way of writing this question. It's worth mentioning that iteratively developing and testing questions is probably a good idea if you're doing this sort of work at larger scales.
+
+```{r}
+long_bad_tc |>
+  filter(name == nom[8]) |>
+  knitr::kable()
+```
+
+## Wording options
+
+It's probably a good idea to group similar questions together. We'd also suggest trying to word similar questions as similarly as possible. For example, in our terrible survey we received quite different responses when we asked "What’s your favourite TV programme" as compared to the follow-up "Do you have a second favourite TV programme?", which received large numbers of (facetious) yes/no answers:
+
+```{r}
+long_bad_tc |>
+  filter(name == nom[7]) |>
+  slice(1:5) |>
+  knitr::kable(caption = "Top five responses from a follow-up question about a second-favourite")
+```
+
+
+I'm not certain why the follow-up about second-favourite shows didn't seem to have any groups in it, but I do wonder if it's because it came at the end of the survey when we'd exhausted the patience of our poor sample population:
+
+```{r}
+long_bad_tc |>
+  filter(name == nom[7]) |>
+  slice_sample(n = 5) |>
+  knitr::kable(caption = "5 random responses from a follow-up question about a second-favourite")
+```
+
+## Acknowledgments
+
+Many thanks to the several hundred members of the KIND network who donated their time and brain-power to trying to complete deliberately badly-built surveys.
