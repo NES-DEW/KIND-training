@@ -35,6 +35,7 @@ execute:
 ## Before we start...
 
 Some questions for you:
+
 * do we really understand our topic well enough to turn it into questions?
 * what's the population we're interested in?
 * how should we get good coverage (and what does good look like for us?)
@@ -68,17 +69,22 @@ Some questions for you:
 * what does it tell us about our topic?
 * what are we trying to discriminate?
  
-## A few (contradictory) suggestions
+## Contradictory suggestions about questions
 
-+ big idea 1: align your questions with your topic
-+ big idea 2: make your questions discriminate
-+ big idea 3: absolutely as few questions as humanly possible
+A personal rationale for these contradictory bits of advice: keeping users happy and engaged is key to writing good survey questions. It should be obvious what a question is getting at, why it's being asked.
+
++ suggestion: align your questions with your topic, and make it obvious. Don't leave users pondering questions like "I wonder why they're interested in that??"
++ suggestion: make your questions discriminate between different options, and make each of your questions obviously different. Avoid 29 fractionally-different questions about basically the same thing
++ suggestion: include absolutely as few questions as possible
 
 ## Why so short?
 
+Most people have some degree of survey fatigue. Don't make that worse by writing a three-volume epic. Tread lightly on your respondent's time, and make it clear what the benefit of answering is.
+
 + long surveys have poor discrimination (because people get bored)
 + long surveys have poor response rates
-+ worse, long surveys probably have sampling problems, where only the most motivated will complete
++ let users pick options rather than generate text themselves wherever possible
++ long surveys produce sampling problems, where only the most motivated will complete. And the views of the most motivated don't reflect the views of most people.
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Reminder
@@ -255,6 +261,21 @@ long_bad_tc |>
   filter(name == nom[6]) |>
   knitr::kable()
 ```
+
+In fact, from this and the other three questions using the same un-useful scale, all we see is that people irrationally prefer some points of the scale to others:
+
+```{r}
+library(ggplot2)
+bad |>
+  select(ID, any_of(nom[3:6])) |>
+  pivot_longer(-ID) |> 
+  filter(!is.na(value)) |>
+  ggplot() +
+  geom_histogram(aes(x = value), stat = "count")
+  count(value) 
+```
+
+## Scope of responses
 
 You should also think about the likely scope of responses, especially if you're unwise enough to ask hugely vague "who are you"-type questions
 
