@@ -144,6 +144,7 @@ Most people have some degree of survey fatigue. Don't make that worse by writing
 library(dplyr)
 library(readr)
 library(tidyr)
+library(ggplot2)
 
 bad <- readxl::read_xlsx(here::here("skills/data/KIND_effective_surveys_bad.xlsx"))
 
@@ -167,7 +168,7 @@ long_bad <- bad |>
   group_by(name) |>
   count(value, sort = T)
 
-
+# long_bad_ind |>
 
 long_bad |>
   filter(name == nom[1]) |>
@@ -250,7 +251,27 @@ long_bad_tc |>
   knitr::kable()
 ```
 
-Expect missing data (the `NA` values, here). You can potentially force users to answer all your questions, but that comes at the risk of potentially 
+Expect missing data (the `NA` values, here). You can potentially force users to answer all your questions, but that comes at the risk of potentially tempting them to send you a lot of quickly-generated gibberish.
+
+## Drop-off
+
+Interestingly, our respondents managed to stick with the terrible survey, and nearly everyone answered nearly every question:
+
+```{r}
+long_bad |>
+  mutate(q = match(name, names(recodo))) |>
+  filter(!is.na(value)) |>
+  group_by(q) |>
+  summarise(n = sum(n)) |>
+  ggplot() +
+  geom_col(aes(x = q, y = n)) +
+  scale_x_continuous(breaks = 1:9) +
+  xlab("Question number") +
+  ylab("Number of responses")
+```
+
+That's likely to be a result of me asking people, as politely as I could, to please *please* stick with the terrible survey and answer as diligently as possible. I suspect a real survey like this one would show a much stronger drop-off towards the later questions.
+
 
 ## Alignment
 
@@ -265,14 +286,12 @@ long_bad_tc |>
 In fact, from this and the other three questions using the same un-useful scale, all we see is that people irrationally prefer some points of the scale to others:
 
 ```{r}
-library(ggplot2)
 bad |>
   select(ID, any_of(nom[3:6])) |>
   pivot_longer(-ID) |> 
   filter(!is.na(value)) |>
   ggplot() +
   geom_histogram(aes(x = value), stat = "count")
-  count(value) 
 ```
 
 ## Scope of responses
@@ -322,4 +341,4 @@ long_bad_tc |>
 
 ## Acknowledgments
 
-Many thanks to the several hundred members of the KIND network who donated their time and brain-power to trying to complete deliberately badly-built surveys.
+Many thanks to the several hundred members of the KIND network who donated their time and brain-power to trying to complete deliberately badly-built surveys. I'm especially indebted to Kenneth Mack (Healthcare Improvement Scotland) who suggested that TV programme preferences would be a good venue to explore issues about building effective surveys.
