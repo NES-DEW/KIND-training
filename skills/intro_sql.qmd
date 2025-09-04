@@ -47,15 +47,16 @@ feed_block("An introduction to SQL")
 
 ```{r r-script}
 #| eval: false
-install.packages("dbplyr")
-install.packages("RSQLite")
-install.packages("palmerpenguins")
+
+## install and attach R packages
+pkg <- c("dbplyr", "RSQLite", "palmerpenguins")
+install.packages(setdiff(pkg, rownames(installed.packages())))  
 library(dbplyr)
 library(dplyr)
 library(palmerpenguins)
 
 conn <- src_memdb() # create an sqlite db in memory
-copy_to(conn, penguins) # populate that db from R
+copy_to(conn, penguins, overwrite = T) # populate that db from R
 ```
 
 
@@ -69,16 +70,22 @@ conn <- src_memdb() # create an sqlite db in memory
 copy_to(conn, penguins) # populate that db from R
 ```
 
-* with that code in place, please select all the code, and click the `Run` button
+* save your script and click the `Source` button
     * that will create a simple SQL database in memory
-* now create a new SQL script (again, from the `File` menu). That new script will contain some pre-populated lines of code, as follows: </br>![Pre-populated code in new SQL script](src/images/new_sql.png)
-* now replace that pre-existing first line with the following: `-- !preview conn=src_memdb()$con`
-    * that will connect our SQL script to the db we created in memory
+* now create a new SQL script (again, from the `File` menu)
+* delete all the pre-populated lines of code, as follows: </br>![Pre-populated code in new SQL script](src/images/new_sql.png)
+* to connect with our SQL db in memory, add the following line to the head of your SQL script:
+
+```{sql connection=src_memdb()$con}
+#| eval: false
+-- !preview conn=src_memdb()$con
+```
+
 * finally, save your SQL script (any file name is fine)
 
 ## Getting started
 
-Our db has one table, named `penguins`. A table is similar to an Excel sheet - a rectangular set of rows and columns containing our data. To preview our data, we'll need to write a first line of SQL. Please add the following to your SQL script:
+Our db has one table, named `penguins`. A table is similar to an Excel sheet - a rectangular set of rows and columns containing our data. To preview our data, we'll need to write a first line of SQL. Please add the following to the bottom of your SQL script:
 
 ```{sql connection=src_memdb()$con}
 SELECT * FROM penguins;
