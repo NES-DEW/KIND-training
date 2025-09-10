@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.34">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-08-25">
-<title>PowerQuery - a practical introduction – KIND training pages</title>
+<meta name="dcterms.date" content="2025-09-10">
+<title>tidy-data-in-excel – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -40,8 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-6afab9c3bf6556c536f2e34ed27c5dd0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -306,27 +305,17 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link" data-scroll-target="#welcome">Welcome</a></li>
-  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#what-is-powerquery" id="toc-what-is-powerquery" class="nav-link" data-scroll-target="#what-is-powerquery">What is PowerQuery?</a></li>
-  <li><a href="#how-i-think-of-powerquery" id="toc-how-i-think-of-powerquery" class="nav-link" data-scroll-target="#how-i-think-of-powerquery">How I think of PowerQuery</a></li>
-  <li><a href="#why-might-you-use-it" id="toc-why-might-you-use-it" class="nav-link" data-scroll-target="#why-might-you-use-it">Why might you use it?</a></li>
-  <li><a href="#getting-data-into-powerquery" id="toc-getting-data-into-powerquery" class="nav-link" data-scroll-target="#getting-data-into-powerquery">Getting data into PowerQuery</a></li>
-  <li><a href="#preview-your-data" id="toc-preview-your-data" class="nav-link" data-scroll-target="#preview-your-data">Preview your Data</a></li>
-  <li><a href="#first-view-of-powerquery" id="toc-first-view-of-powerquery" class="nav-link" data-scroll-target="#first-view-of-powerquery">First view of PowerQuery</a></li>
-  <li><a href="#basic-data-wrangling" id="toc-basic-data-wrangling" class="nav-link" data-scroll-target="#basic-data-wrangling">Basic data wrangling</a></li>
-  <li><a href="#replacing-values" id="toc-replacing-values" class="nav-link" data-scroll-target="#replacing-values">Replacing values</a></li>
-  <li><a href="#reshaping-data" id="toc-reshaping-data" class="nav-link" data-scroll-target="#reshaping-data">Reshaping data</a></li>
-  <li><a href="#add-columns" id="toc-add-columns" class="nav-link" data-scroll-target="#add-columns">Add columns</a></li>
-  <li><a href="#close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi" id="toc-close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi" class="nav-link" data-scroll-target="#close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi">Close and load / Close and Apply sends your data back to Excel/Power BI</a></li>
-  <li><a href="#getting-more-fancy-a-bigger-dataset" id="toc-getting-more-fancy-a-bigger-dataset" class="nav-link" data-scroll-target="#getting-more-fancy-a-bigger-dataset">Getting more fancy: a bigger dataset</a></li>
-  <li>
-<a href="#a-challenge" id="toc-a-challenge" class="nav-link" data-scroll-target="#a-challenge">A challenge</a>
-  <ul class="collapse">
-<li><a href="#some-hints" id="toc-some-hints" class="nav-link" data-scroll-target="#some-hints">Some hints</a></li>
-  </ul>
-</li>
+<li><a href="#a-word-of-warning" id="toc-a-word-of-warning" class="nav-link active" data-scroll-target="#a-word-of-warning">A word of warning</a></li>
+  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data">Tidy data</a></li>
+  <li><a href="#entering-values" id="toc-entering-values" class="nav-link" data-scroll-target="#entering-values">Entering values</a></li>
+  <li><a href="#more-values" id="toc-more-values" class="nav-link" data-scroll-target="#more-values">More values</a></li>
+  <li><a href="#another-column" id="toc-another-column" class="nav-link" data-scroll-target="#another-column">Another column</a></li>
+  <li><a href="#back-to-tidy-data" id="toc-back-to-tidy-data" class="nav-link" data-scroll-target="#back-to-tidy-data">Back to tidy data</a></li>
+  <li><a href="#fixing-several-values-per-cell" id="toc-fixing-several-values-per-cell" class="nav-link" data-scroll-target="#fixing-several-values-per-cell">Fixing several values per cell</a></li>
+  <li><a href="#exercise-many-values-per-cell" id="toc-exercise-many-values-per-cell" class="nav-link" data-scroll-target="#exercise-many-values-per-cell">Exercise: many values per cell</a></li>
+  <li><a href="#whats-the-solution" id="toc-whats-the-solution" class="nav-link" data-scroll-target="#whats-the-solution">What’s the solution?</a></li>
+  <li><a href="#text-to-columns" id="toc-text-to-columns" class="nav-link" data-scroll-target="#text-to-columns">Text to Columns</a></li>
+  <li><a href="#exercise-transposed-data" id="toc-exercise-transposed-data" class="nav-link" data-scroll-target="#exercise-transposed-data">Exercise: transposed data</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -335,12 +324,7 @@ ul.task-list li input[type="checkbox"] {
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">PowerQuery - a practical introduction</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">excel</div>
-    <div class="quarto-category">intermediate</div>
-  </div>
-  </div>
+</div>
 
 
 
@@ -350,7 +334,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 25, 2025</p>
+      <p class="date">September 10, 2025</p>
     </div>
   </div>
   
@@ -359,216 +343,214 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Session materials
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
+</header><section id="a-word-of-warning" class="level2"><h2 class="anchored" data-anchor-id="a-word-of-warning">A word of warning</h2>
 <ul>
-<li><a href="src/powerquery_intro.zip">all materials <iconify-icon inline="" icon="ph:file-zip" style="font-size: 2em;" aria-label="Icon file-zip from ph Iconify.design set." title="Icon file-zip from ph Iconify.design set."></iconify-icon></a></li>
-<li>slides <a href="src/powerquery_intro.html"><iconify-icon inline="" icon="ph:file-html" style="font-size: 2em;" aria-label="Icon file-html from ph Iconify.design set." title="Icon file-html from ph Iconify.design set."></iconify-icon> html</a> / <a href="src/powerquery_intro.pdf"><iconify-icon inline="" icon="ph:file-pdf" style="font-size: 2em;" aria-label="Icon file-pdf from ph Iconify.design set." title="Icon file-pdf from ph Iconify.design set."></iconify-icon> pdf</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<section id="previous-attendees-have-said" class="level2 cell" data-layout-align="left"><h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
-<ul>
-<li>11 previous attendees have left feedback</li>
-<li>100% would recommend this session to a colleague</li>
-<li>82% said that this session was pitched correctly</li>
-</ul>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure"><p><img src="power_query_a_practical_introduction_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="288"></p>
-</figure>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Three random comments from previous attendees
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>you don’t know what you don’t know - I know more about what is possible now</li>
-<li>Really helpful to have a play in realtime, good way of taking in the practical use of the tools</li>
-<li>Thought it was delivered well. Information in laymen’s terms which is really helpful. thank you</li>
-</ul>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Forthcoming session(s)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<table>
-<thead><tr>
-<th style="text-align:left;">
-Booking link
-</th>
-<th style="text-align:left;">
-Date
-</th>
-</tr></thead>
-<tbody><tr></tr></tbody>
-</table>
-</div>
-</div>
-</div>
-</section><section id="welcome" class="level2"><h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
-<ul>
-<li>🌶 this session is a beginner-level introduction to PowerQuery</li>
-<li>you’ll either Excel desktop (&gt;2007) or Power BI desktop</li>
-<li>you’ll also need to have basic competency in Excel or Power BI</li>
-<li>this session is based on our <a href="https://learn.nes.nhs.scot/70921">Power BI for Beginners</a> course</li>
-<li>but PowerQuery isn’t specific to Power BI - it’s brilliant for Excel too</li>
-</ul></section><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
-<ul>
-<li>what is PowerQuery, and why might you use it?</li>
-<li>getting data into PowerQuery</li>
-<li>basic data wrangling</li>
-<li>joins (merges)</li>
-<li>pivots</li>
-</ul></section><section id="what-is-powerquery" class="level2"><h2 class="anchored" data-anchor-id="what-is-powerquery">What is PowerQuery?</h2>
-<ul>
-<li>Microsoft call it a <a href="https://learn.microsoft.com/en-us/power-query/power-query-what-is-power-query">“data transformation and data preparation engine”</a>
-</li>
-<li>it’s been around since 2010, initially in Excel, and then in both Excel and Power BI</li>
-<li>uses code (<a href="https://en.wikipedia.org/wiki/Power_Query">M Formula language</a>) but has GUI tools for most tasks</li>
-</ul></section><section id="how-i-think-of-powerquery" class="level2"><h2 class="anchored" data-anchor-id="how-i-think-of-powerquery">How I think of PowerQuery</h2>
-<ul>
-<li>the right way to load any real data into Excel</li>
-</ul></section><section id="why-might-you-use-it" class="level2"><h2 class="anchored" data-anchor-id="why-might-you-use-it">Why might you use it?</h2>
-<ul>
-<li>powerful</li>
-<li>easy, to start with at least…</li>
-<li>allows you to standardise data loading from different sources</li>
-<li>allows you to repeat data loading</li>
-</ul></section><section id="getting-data-into-powerquery" class="level2"><h2 class="anchored" data-anchor-id="getting-data-into-powerquery">Getting data into PowerQuery</h2>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Excel</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Power BI</a></li>
-</ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<ol type="1">
-<li>Open Excel and create a new, blank, workbook</li>
+<li>tidying data can be very slow and complicated</li>
+<li>in Excel, there are lots of advanced tools that can speed things up</li>
+<li>this is a beginner’s session, so we’ll avoid the more fancy tools</li>
 <li>
-<code>Data</code> &gt; <code>Get &amp; Transform Data</code>  <img src="../src/images/clipboard-2636372440.png" class="img-fluid" alt="Get &amp; Transform Data">
-</li>
-<li>Pick <code>From Web</code> and supply the following URL - <code>https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv</code>
-</li>
-<li>From the preview, select <code>Transform data</code> to open PowerQuery</li>
-</ol>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<ol type="1">
-<li>Open Power BI and start a new report</li>
-<li>Select <code>Get data</code> &gt; <code>From Web</code> button in the ribbon <img src="../src/images/clipboard-2012149707.png" height="200" alt="Get data from web">
-</li>
-<li>Supply the following URL - <code>https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-07-25/scurvy.csv</code> <img src="../src/images/clipboard-1484642386.png" class="img-fluid" alt="supply a URL">
-</li>
-<li>From the preview, select <code>Transform data</code> to open PowerQuery  <img src="../src/images/clipboard-4163607856.png" class="img-fluid" alt="Select Transform data to open PowerQuery">
-</li>
-<li>If you’ve already got some data in your report that you’d like to transform, use <code>Tranform data</code> in the ribbon to open PowerQuery:  <img src="../src/images/clipboard-1924567552.png" class="img-fluid" alt="Tranform data in the ribbon">
-</li>
-</ol>
-</div>
-</div>
-</div>
+<strong>but</strong> if your process takes lots of manual work, it’s definitely worth exploring alternative ways of working</li>
+</ul></section><section id="tidy-data" class="level2"><h2 class="anchored" data-anchor-id="tidy-data">Tidy data</h2>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">year</th>
+<th style="text-align: right;">25-29yrs</th>
+<th style="text-align: right;">30-34yrs</th>
+<th style="text-align: right;">35-39yrs</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2018</td>
+<td style="text-align: right;">73.4</td>
+<td style="text-align: right;">90.9</td>
+<td style="text-align: right;">54.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">71.0</td>
+<td style="text-align: right;">88.6</td>
+<td style="text-align: right;">52.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">66.8</td>
+<td style="text-align: right;">83.4</td>
+<td style="text-align: right;">49.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021</td>
+<td style="text-align: right;">69.6</td>
+<td style="text-align: right;">85.9</td>
+<td style="text-align: right;">52.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2022</td>
+<td style="text-align: right;">66.7</td>
+<td style="text-align: right;">84.4</td>
+<td style="text-align: right;">52.0</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>this is historical data about scurvy testing from the <a href="https://cran.r-project.org/web/packages/medicaldata/index.html">medicaldata r package</a>
+<li>one value per cell</li>
+<li>each column contains all the values of one measurement</li>
+<li>each row shows all the values for one year</li>
+</ul></section><section id="entering-values" class="level2"><h2 class="anchored" data-anchor-id="entering-values">Entering values</h2>
+<ul>
+<li>imagine that we want to measure something across several years: <code>2018, 2019, 2020, 2021, 2022</code>?</li>
+<li>practical:
+<ul>
+<li>open Excel</li>
+<li>start a new workbook</li>
+<li>add a column header <code>year</code> in cell <code>A1</code>
 </li>
-</ul></section><section id="preview-your-data" class="level2"><h2 class="anchored" data-anchor-id="preview-your-data">Preview your Data</h2>
-<p><img src="../src/images/clipboard-2984247945.png" class="img-fluid" alt="make sure to click Transform data"> (make sure to click <code>Transform data</code>)</p>
-</section><section id="first-view-of-powerquery" class="level2"><h2 class="anchored" data-anchor-id="first-view-of-powerquery">First view of PowerQuery</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="../src/images/clipboard-1738142120.png" class="img-fluid figure-img"></p>
-<figcaption>First view of PowerQuery</figcaption></figure>
-</div>
+<li>then add each of those five years values in the five cells underneath (down to <code>A6</code>)</li>
+</ul>
+</li>
+</ul></section><section id="more-values" class="level2"><h2 class="anchored" data-anchor-id="more-values">More values</h2>
 <ul>
-<li>Queries (= datasets) on the left</li>
-<li>ribbon menu at the top</li>
-<li>Query settings (= the changes you’ll make to your data) on the right</li>
-<li>Excel-ish data preview in the middle</li>
-</ul></section><section id="basic-data-wrangling" class="level2"><h2 class="anchored" data-anchor-id="basic-data-wrangling">Basic data wrangling</h2>
+<li>we’re going to be using some <a href="https://www.nrscotland.gov.uk/publications/births-time-series-data/">birthrate data from the NRS</a> for this session. We’ll start by adding some birth rate data</li>
+<li>this is given as births per 1,000 women in five year age brackets. We’ll start with 25-29 year old mothers</li>
+<li>please add the header <code>25-29yrs</code> in cell <code>B1</code>
+</li>
+<li>here are the values for our five years: <code>73.4, 71, 66.8, 69.6, 66.7</code>
+</li>
+</ul></section><section id="another-column" class="level2"><h2 class="anchored" data-anchor-id="another-column">Another column</h2>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>30-34yrs</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>90.9</td>
+</tr>
+<tr class="even">
+<td>88.6</td>
+</tr>
+<tr class="odd">
+<td>83.4</td>
+</tr>
+<tr class="even">
+<td>85.9</td>
+</tr>
+<tr class="odd">
+<td>84.4</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>right click the <code>study_id</code> column and select <code>Remove</code>
+<li>please could you add some new data to your table showing births for another age group</li>
+</ul></section><section id="back-to-tidy-data" class="level2"><h2 class="anchored" data-anchor-id="back-to-tidy-data">Back to tidy data</h2>
 <ul>
-<li>the column will disappear</li>
-<li>but you’ll also gain a step in your Applied Steps field <img src="../src/images/clipboard-1788638263.png" class="img-fluid">
+<li>we’ve now got some data with:
+<ul>
+<li>each value in a cell</li>
+<li>each variable in a column
+<ul>
+<li>here, this is a maternal age bracket</li>
+</ul>
+</li>
+<li>each observation in a row
+<ul>
+<li>here, this is a year</li>
+</ul>
 </li>
 </ul>
 </li>
-<li>you can edit this step
+</ul></section><section id="fixing-several-values-per-cell" class="level2"><h2 class="anchored" data-anchor-id="fixing-several-values-per-cell">Fixing several values per cell</h2>
 <ul>
-<li>if you’re code-confident, you can edit the formula to read <code>= Table.RemoveColumns(#"Changed Type",{"study_id", "treatment"})</code> to also remove the treatment column</li>
-<li>and you can remove the step using the X next to the step name <img src="../src/images/clipboard-3939638955.png" class="img-fluid">
+<li>We often find useful data with more than one value per cell</li>
+<li>this can be helpful for humans  <img src="../src/images/clipboard-1363924537.png" class="img-fluid" alt="multiple values is good for humans, but bad for Excel">
 </li>
-</ul>
-</li>
-<li>you should also try renaming and reordering your columns in the same way</li>
-<li>once you’ve had a play, please remove the steps until you’re left with the data you started with (so delete back to “Changed Type”)</li>
-</ul></section><section id="replacing-values" class="level2"><h2 class="anchored" data-anchor-id="replacing-values">Replacing values</h2>
+<li>Excel can’t do anything with this data</li>
+</ul></section><section id="exercise-many-values-per-cell" class="level2"><h2 class="anchored" data-anchor-id="exercise-many-values-per-cell">Exercise: many values per cell</h2>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>35-39</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>54.2 (21%)</td>
+</tr>
+<tr class="even">
+<td>52.7 (20%)</td>
+</tr>
+<tr class="odd">
+<td>49.4 (19%)</td>
+</tr>
+<tr class="even">
+<td>52.8 (20%)</td>
+</tr>
+<tr class="odd">
+<td>52 (20%)</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>we can also work with individual values</li>
-<li>our values are a number, then an underscore, then a word</li>
-<li>we can <code>Split column</code> at the underscore</li>
-<li>we could also replace the odd underscores in the treatment column</li>
-</ul></section><section id="reshaping-data" class="level2"><h2 class="anchored" data-anchor-id="reshaping-data">Reshaping data</h2>
+<li>please add this column of data to your table</li>
+<li>does it look similar to your existing data?</li>
+</ul></section><section id="whats-the-solution" class="level2"><h2 class="anchored" data-anchor-id="whats-the-solution">What’s the solution?</h2>
 <ul>
-<li>we could go column by column here splitting, but an easier approach would be to re-shape the data</li>
-<li>select the first three columns, and select <code>Unpivot Other Columns</code> <img src="../src/images/clipboard-1884864280.png" class="img-fluid">
+<li>make this data have <strong>one value per cell</strong>
 </li>
-<li>then split, change type, and generally tidy up</li>
-</ul></section><section id="add-columns" class="level2"><h2 class="anchored" data-anchor-id="add-columns">Add columns</h2>
-<p>Our treatment and dosing columns are annoying. Let’s make a new, joined, column for them:</p>
+<li>we could remove all the percentages by hand</li>
+<li>
+<code>Text to Columns</code> gives us a better tool for the job <img src="../src/images/clipboard-3594403318.png" class="img-fluid" alt="Text to Columns gives us a better tool for the job">
+</li>
+</ul></section><section id="text-to-columns" class="level2"><h2 class="anchored" data-anchor-id="text-to-columns">Text to Columns</h2>
 <ul>
-<li>select <code>Custom Column</code><img src="../src/images/clipboard-1596515682.png" class="img-fluid" alt="Custom Column">
+<li>select a column</li>
+<li>in the <code>Data</code> tab of the ribbon, you should find the <code>Text to Columns</code> tool  <img src="../src/images/clipboard-3002655192.png" class="img-fluid" alt="Text to Columns tool">
 </li>
-<li>you can click the gearwheel next to the step if you’d like to go back and tweak</li>
-</ul></section><section id="close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi" class="level2"><h2 class="anchored" data-anchor-id="close-and-load-close-and-apply-sends-your-data-back-to-excelpower-bi">Close and load / Close and Apply sends your data back to Excel/Power BI</h2>
-<p><img src="../src/images/clipboard-2525392040.png" class="img-fluid"></p>
-</section><section id="getting-more-fancy-a-bigger-dataset" class="level2"><h2 class="anchored" data-anchor-id="getting-more-fancy-a-bigger-dataset">Getting more fancy: a bigger dataset</h2>
+<li>note that you can keep, or remove, the percentage column. We’ll <strong>skip</strong> it, to keep things simple  <img src="../src/images/clipboard-4061284093.png" class="img-fluid" alt="keep, or remove, the percentage column">
+</li>
+</ul></section><section id="exercise-transposed-data" class="level2"><h2 class="anchored" data-anchor-id="exercise-transposed-data">Exercise: transposed data</h2>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Bracket</th>
+<th>2018</th>
+<th>2019</th>
+<th>2020</th>
+<th>2021</th>
+<th>2022</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>25-29yrs</td>
+<td>73.4</td>
+<td>71.0</td>
+<td>66.8</td>
+<td>69.6</td>
+<td>66.7</td>
+</tr>
+<tr class="even">
+<td>30-34yrs</td>
+<td>90.9</td>
+<td>88.6</td>
+<td>83.4</td>
+<td>85.9</td>
+<td>84.4</td>
+</tr>
+<tr class="odd">
+<td>35-39yrs</td>
+<td>54.2</td>
+<td>52.7</td>
+<td>49.4</td>
+<td>52.8</td>
+<td>52.0</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>please load the <a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2024/05/health-and-care-experience-survey-2023-to-2024-results-by-geography/documents/health-and-care-experience-survey-2023-to-2024-geographical-data/health-and-care-experience-survey-2023-to-2024-geographical-data/govscot%3Adocument/Health%2Band%2BCare%2BExperience%2BSurvey%2B2023%2Bto%2B2024%2B-tables%2Bof%2Bresults%2Bby%2Bgeography.xlsx">Health and Care Experience survey results from 2023-4</a> <img src="../src/images/clipboard-738553132.png" class="img-fluid">
-</li>
-<li>or <a href="https://github.com/NES-DEW/KIND-training/raw/main/excel/src/HACE_2023-4.xlsx">alternative local version</a>
-</li>
-<li>please load both the proper datasets (and ignore the background) <img src="../src/images/clipboard-4050914485.png" height="200" alt="Load both the proper datasets">
-</li>
-</ul></section><section id="a-challenge" class="level2"><h2 class="anchored" data-anchor-id="a-challenge">A challenge</h2>
-<p>Can you find the number of responses to each question for your local NHS board? You should be able to re-work this data to give something like: <img src="../src/images/clipboard-3334683078.png" class="img-fluid"></p>
-<section id="some-hints" class="level3"><h3 class="anchored" data-anchor-id="some-hints">Some hints</h3>
-<ul>
-<li>filtering works like Excel, but is destructive</li>
-<li>unpivoting, doing something to all the rows, then re-pivoting is a great way to work across lots of columns</li>
-<li>you can join structurally similar datasets using <code>Append Queries as New</code><img src="../src/images/clipboard-3061387544.png" class="img-fluid" alt="Append Queries as New">
-</li>
-<li>you can deduplicate entire datasets by selecting all the columns and using <code>Remove Rows</code> &gt; <code>Remove Duplicates</code>
+<li>sometimes you’ll find data where the columns and rows have been flipped</li>
+<li>that’s slow to fix by hand, but luckily you can <strong>transpose it</strong>, which swaps rows and columns</li>
+<li>select your data, and copy/paste into a new cell</li>
+<li>then use the transpose option <br><img src="../src/images/clipboard-3580893754.png" class="img-fluid" alt="transpose option">
 </li>
 </ul>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
