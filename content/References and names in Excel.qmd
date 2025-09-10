@@ -1,0 +1,131 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+## Some sample data
+
+| user   | pre-training score  | post-training score  | session |
+|--------|---------------------|----------------------|---------|
+| Steve  | 4                   | 6                    | Excel 1 |
+| Emma   | 7                   | 6                    | Excel 2 |
+| Bhavin | 3                   | 9                    | Excel 1 |
+
+## References
+
+-   Excel sheets are made up of cells
+-   cells are arranged in rows and columns
+    -   columns have letters - like `C`
+    -   rows have numbers - like `3`
+-   references are the 'address' of a particular cell - like `C3`
+    -   you can 'point' at a cell by using its reference
+
+## Finding a reference
+
+-   from the **name box**: </br> ![Name box](../src/images/clipboard-1746127255.png)
+-   or work out from the column and row labels
+    -   always column letter, then row number
+    -   **C3**, not **3C**
+
+## Using a reference
+
+-   we can write a formula that copies the value from C3 into another cell
+-   formulas start with an `=`
+-   so we'll use `= C3` to get Emma's visit date (or whatever value you referenced)
+
+## References in formulas
+
+-   we use references to allow us to pass data around our spreadsheet
+- an example: how much did Emma's score improve during the session?
+-  calculate this with `= C3 - C2`
+
+## References move
+
+-   by default, Excel references are **relative**
+-   when you move a reference, the cell that reference points to also moves </br> ![References are relative](../src/images/clipboard-754991469.png){width="200"}
+-   it is possible to 'fix' references so that they not move
+    -   we call these **absolute** references
+    -   the `$` fixes a reference, so `$C$3` is absolute
+![Using Absolute References](../src/images/absolute_reference_image.png)
+
+## You can name things
+
+-   almost everything in Excel can be named
+-   the easy way to start with that is using the **name box**
+-   names can replace references in formulas
+-   this is valuable when things get more complicated
+
+## You can use and manage names
+
+-   via the **Name manager** (`Ctrl` + `F3`)
+-   **Go to** (`F5`)
+
+# Practical
+
+## Using a reference
+
+-   we can write a formula that copies the value from `C3` into another cell
+
+::: {.callout-tip appearance="default" icon="true"}
+-   go to an empty cell, type `= C3`, and press `Enter/⏎`
+-   that cell should now have Emma's post-training score (or whatever value you referenced)
+:::
+
+## References in formulas
+
+-   how much did people improve during the training session?
+
+::: {.callout-tip appearance="default" icon="true"}
+## Task
+
+-   add a new column called `improvement`
+-   in the first row of that column, add the formula: `= C2 - B2`
+    -   that calculates the post-training score minus the pre-training score</br> ![](../src/images/clipboard-2200716982.png){height="120"}
+- then copy/fill down
+:::
+
+## References move
+
+::: {.callout-tip appearance="default" icon="true"}
+## Task
+
+-   try copying your new block of `improvement` cells around your sheet
+-   their value should change (almost certainly to a `#VALUE` error)
+-   now try clicking those cells to see where the updated reference points to </br> ![where does the updated reference point to?](../src/images/clipboard-754991469.png)
+:::
+
+## Absolute references
+
+::: {.callout-tip appearance="default" icon="true"}
+## Task
+
+-   delete your copied blocks of cells from the last step
+-   now update your references by adding `$` before the letter and number
+    -   so `C2` becomes `$C$2`
+    -   you might prefer to press `F4` instead
+-   now copy and paste those blocks of cells again. What's different this time?
+-   please delete those new blocks of cells when you're finished
+:::
+
+## You can name things
+
+::: {.callout-tip appearance="default" icon="true"}
+## Task
+
+-   let's average the `post-training score` column
+-   in a new cell (`C5` perhaps?) add this formula:
+    -   `=AVERAGE(C2, C3, C4)`
+-   now name that new cell `av_score` and try using it in a formula
+    -   `= INT(av_length)` would round that to the nearest whole number
+:::
+
+## You can manage those names
+
+::: {.callout-tip appearance="default" icon="true"}
+## Task
+
+-   find the **Name manager** (or press `Ctrl` + `F3`) </br> ![Name manager](../src/images/clipboard-3382288451.png)
+-   try renaming your `av_score` cell
+-   try making a new named **range** from your three `pre-training score` cells
+-   try using the `F5` Go to interface to navigate between your named cells
+:::
