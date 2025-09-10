@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.34">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-02-19">
+<meta name="dcterms.date" content="2025-09-10">
 <title>Intermediate Power BI (session 2) – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -312,6 +312,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#column-functions" id="toc-column-functions" class="nav-link" data-scroll-target="#column-functions">Column functions</a></li>
   <li><a href="#column-vs-measure" id="toc-column-vs-measure" class="nav-link" data-scroll-target="#column-vs-measure">Column vs measure</a></li>
   <li><a href="#dax-defaults" id="toc-dax-defaults" class="nav-link" data-scroll-target="#dax-defaults">DAX defaults</a></li>
+  <li><a href="#date-tables" id="toc-date-tables" class="nav-link" data-scroll-target="#date-tables">Date tables</a></li>
   <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><code>FILTER()</code></a></li>
   <li><a href="#filter-context" id="toc-filter-context" class="nav-link" data-scroll-target="#filter-context">Filter context</a></li>
   <li><a href="#iterator-functions" id="toc-iterator-functions" class="nav-link" data-scroll-target="#iterator-functions">Iterator functions</a></li>
@@ -349,7 +350,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 19, 2025</p>
+      <p class="date">September 10, 2025</p>
     </div>
   </div>
   
@@ -433,17 +434,15 @@ Date
 </div>
 </div>
 <section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+<p>In this session, we’ll concentrate on DAX. Specifically, we’ll:</p>
 <ul>
-<li>look at the foundations of DAX</li>
-<li>iterator functions</li>
-<li>filter context
-<ul>
-<li><code>FILTER()</code></li>
-<li><code>CALCULATE()</code></li>
-</ul>
+<li>look at the foundations of DAX, especially concentrating on the differences between measures and tables</li>
+<li>look in more detail at date tables</li>
+<li>discuss iterator functions</li>
+<li>think about the filter context, and the ways you can use (and modify) it with <code>FILTER()</code> and <code>CALCULATE()</code>
 </li>
-<li>variables</li>
-<li>calculation groups</li>
+<li>introduce variables as a way of simplifying some DAX expressions</li>
+<li>and finish with a brief introduction to calculation groups as a means of reducing the number of DAX measures you need to write</li>
 </ul></section><section id="data" class="level2"><h2 class="anchored" data-anchor-id="data">Data</h2>
 <ul>
 <li>this session uses a bit of synthetic data extending the Dundee traffic dataset from the previous session  <img src="../src/images/clipboard-1392993828.png" class="img-fluid" alt="New traffic dataset">
@@ -505,7 +504,39 @@ Task
 <ul>
 <li>an important result: DAX column functions default to row-wise filter context</li>
 <li>if you try the same formula in <code>temp_measure</code> you’ll cause an error: Power BI won’t know which row you want to change the case of</li>
-</ul></section><section id="filter" class="level2"><h2 class="anchored" data-anchor-id="filter"><code>FILTER()</code></h2>
+</ul></section><section id="date-tables" class="level2"><h2 class="anchored" data-anchor-id="date-tables">Date tables</h2>
+<p>We briefly discussed and implemented a date table in the previous session. Date tables are good practice, because they help you deal with patchy data (especially when you have missing dates), and prevent repetition by consolidating all your date info into one place.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>create a <code>dates</code> table now using the <code>MIN</code> and <code>MAX</code> values from <code>traffic[date]</code>
+<ul>
+<li>note that <code>date</code> is a reserved keyword, so probably better avoided as a table name</li>
+</ul>
+</li>
+<li>now add some columns:
+<ul>
+<li>a day of the week, using <code>WEEKDAY</code>
+</li>
+<li>a day name, using <code>FORMAT</code>
+</li>
+<li>a quarter, using <code>qrt</code>
+</li>
+</ul>
+</li>
+<li>finally, check the model to ensure that your date table is linked to your traffic table</li>
+</ul>
+</div>
+</div>
+</section><section id="filter" class="level2"><h2 class="anchored" data-anchor-id="filter"><code>FILTER()</code></h2>
 <div class="callout callout-style-default callout-tip callout-titled" title="Task">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -603,11 +634,17 @@ Task
 </div>
 </div>
 <ul>
-<li><p>all four values will now disagree:  <img src="../src/images/clipboard-1039448726.png" class="img-fluid" alt="Four different values">…</p></li>
-<li><p><code>col_sum</code> is showing the total for the entire column</p></li>
-<li><p><code>meas_sum</code> is showing the total for the filtered column (so <code>traffic[time]</code> = morning)</p></li>
-<li><p><code>col_sumx</code> is showing the total for the filtered column (values of <code>traffic[number]</code> &gt; 15 only)</p></li>
-<li><p><code>meas_sumx</code> is showing the total for the doubly-filtered column (values of <code>traffic[number]</code> &gt; 15 where <code>traffic[time]</code> = morning)</p></li>
+<li>all four values will now disagree:  <img src="../src/images/clipboard-1039448726.png" class="img-fluid" alt="Four different values"><ul>
+<li>
+<code>col_sum</code> is showing the total for the entire column</li>
+<li>
+<code>meas_sum</code> is showing the total for the filtered column (so <code>traffic[time]</code> = morning)</li>
+<li>
+<code>col_sumx</code> is showing the total for the filtered column (values of <code>traffic[number]</code> &gt; 15 only)</li>
+<li>
+<code>meas_sumx</code> is showing the total for the doubly-filtered column (values of <code>traffic[number]</code> &gt; 15 where <code>traffic[time]</code> = morning)</li>
+</ul>
+</li>
 </ul></section><section id="sumx-is-an-iterator" class="level2"><h2 class="anchored" data-anchor-id="sumx-is-an-iterator">
 <code>SUMX()</code> is an iterator</h2>
 <ul>
