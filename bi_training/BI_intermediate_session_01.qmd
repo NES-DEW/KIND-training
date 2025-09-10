@@ -1,6 +1,6 @@
 ---
 title: "Intermediate Power BI (session 1)"
-date: "2025-08-25"
+date: "2025-09-10"
 categories: [Power BI, intermediate, Intermediate Power BI course]
 ---
 
@@ -112,10 +112,13 @@ next_sesh(rmarkdown::metadata$title)
     -   e.g. the `.[Year]`, `.[Month]`, etc values that pop up when writing functions about a date column in DAX
 -   those work best when the dates are continuous. We have some missing data here, so we'll add a proper date table
 -   `New Table`, then `date_table = CALENDAR(min(cctv[Date]), max(cctv[Date]))` - creates a row per day in the range of dates
+- we'll talk more about date tables in the next session
 
 ## DAX query view
 
--   `EVALUATE()`
+This is a new way of building and testing DAX expressions without having to add them to your model/report. As of September 2025, it's available to about 75% of staff in the network (from our informal polling). You might update your Power BI desktop if you'd like to try it. You can find it in the left-hand menu bar: </br> ![DAX query view](../src/images/daxqv.png) 
+
+-   `EVALUATE()` as a wrapper to any DAX expression, allowing you to run it in the DAX query view
 -   `F5` to run
 -   `.[Year]` syntax
 -   `SUMMARIZECOLUMNS(group, name, expression)`

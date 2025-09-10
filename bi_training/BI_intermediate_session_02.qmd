@@ -1,7 +1,7 @@
 ---
 title: "Intermediate Power BI (session 2)"
 categories: [Power BI, intermediate, Intermediate Power BI course, DAX]
-date: "2025-02-19"
+date: "2025-09-10"
 ---
 This is part of our intermediate-level Power BI desktop course. The course structure is as follows:
 
@@ -32,13 +32,14 @@ next_sesh(rmarkdown::metadata$title)
 
 ## Session outline
 
-- look at the foundations of DAX
-- iterator functions
-- filter context
-    -   `FILTER()`
-    -   `CALCULATE()`
--   variables
--   calculation groups
+In this session, we'll concentrate on DAX. Specifically, we'll:
+
+- look at the foundations of DAX, especially concentrating on the differences between measures and tables
+- look in more detail at date tables
+- discuss iterator functions
+- think about the filter context, and the ways you can use (and modify) it with `FILTER()` and `CALCULATE()`
+- introduce variables as a way of simplifying some DAX expressions
+- and finish with a brief introduction to calculation groups as a means of reducing the number of DAX measures you need to write
 
 ## Data
 
@@ -56,8 +57,6 @@ next_sesh(rmarkdown::metadata$title)
 
 -   Many DAX functions can return either columns or measures
 -   let's try a practical example:
-
-
 
 ::: {.callout-tip title="Task"}
 -   in the `traffic` data, select `New column` then add the DAX formula `temp_col = 66`
@@ -80,6 +79,21 @@ next_sesh(rmarkdown::metadata$title)
 
 - an important result: DAX column functions default to row-wise filter context
 - if you try the same formula in `temp_measure` you'll cause an error: Power BI won't know which row you want to change the case of
+
+## Date tables
+
+We briefly discussed and implemented a date table in the previous session. Date tables are good practice, because they help you deal with patchy data (especially when you have missing dates), and prevent repetition by consolidating all your date info into one place.
+
+::: {.callout-tip title="Task"}
+-   create a `dates` table now using the `MIN` and `MAX` values from `traffic[date]`
+    - note that `date` is a reserved keyword, so probably better avoided as a table name
+- now add some columns: 
+    - a day of the week, using `WEEKDAY`
+    - a day name, using `FORMAT`
+    - a quarter, using `qrt`
+- finally, check the model to ensure that your date table is linked to your traffic table
+:::
+
 
 ## `FILTER()`
 
@@ -124,12 +138,11 @@ next_sesh(rmarkdown::metadata$title)
 -   to illustrate, change both `SUMX` calculations to `SUMX(filter(traffic, traffic[number] < 15), traffic[number])`
 :::
 
--   all four values will now disagree: </br> ![Four different values](../src/images/clipboard-1039448726.png)...
-
--   `col_sum` is showing the total for the entire column
--   `meas_sum` is showing the total for the filtered column (so `traffic[time]` = morning)
--   `col_sumx` is showing the total for the filtered column (values of `traffic[number]` \> 15 only)
--   `meas_sumx` is showing the total for the doubly-filtered column (values of `traffic[number]` \> 15 where `traffic[time]` = morning)
+-   all four values will now disagree: </br> ![Four different values](../src/images/clipboard-1039448726.png)
+    -   `col_sum` is showing the total for the entire column
+    -   `meas_sum` is showing the total for the filtered column (so `traffic[time]` = morning)
+    -   `col_sumx` is showing the total for the filtered column (values of `traffic[number]` \> 15 only)
+    -   `meas_sumx` is showing the total for the doubly-filtered column (values of `traffic[number]` \> 15 where `traffic[time]` = morning)
 
 ## `SUMX()` is an iterator
 
@@ -160,14 +173,10 @@ next_sesh(rmarkdown::metadata$title)
 
 -   `ALLEXCEPT()` allows you to remove part of the filter context
 
-
-
 ::: {.callout-tip title="Task"}
 -   add an additional slicer to your report slicing on `traffic[Type]`
 -   add a new measure with `meas_sum_time = CALCULATE(SUM(traffic[number]), ALLEXCEPT(traffic, traffic[time]))` and add to a card
 :::
-
-
 
 -   that should give you a measure that reponds to `time`, but not to `Type`
 -   this could be extended - e.g. to `meas_sum_type_time = CALCULATE(SUM(traffic[number]), ALLEXCEPT (traffic, traffic[Type], traffic[time]))`
@@ -193,8 +202,6 @@ temp_var =
 ## Calculation groups
 
 -   calculation groups are a way of applying functions to many measures at once
-
-
 
 ::: {.callout-tip title="Task"}
 -   in the model view, select `Calculation group` </br>![Calculation group](../src/images/clipboard-2635822059.png)
