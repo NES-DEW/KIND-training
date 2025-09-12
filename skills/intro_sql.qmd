@@ -1,9 +1,9 @@
 ---
 title: "An introduction to SQL"
-date: 2025-08-20
+date: 2025-09-12
 execute: 
   echo: true
-draft: true
+draft: false
 output: markup
 categories: [SQL, beginner]
 editor_options: 
@@ -19,6 +19,9 @@ editor_options:
 
 source(here::here("R/feed_block.R"))
 feed_block("An introduction to SQL")
+
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh("An introduction to SQL")
 ```
 
 
@@ -31,12 +34,6 @@ feed_block("An introduction to SQL")
     * this material is largely intended to support our live interactive training sessions
 * we use [posit.cloud](https://posit.cloud/) for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills
 
-## Note!
-
-* This is a pre-delivery draft of the material: expect to encounter problems
-* It's not properly scheduled yet: this will ultimately be delivered over multiple sessions, which usually entails a bit of chopping and changing the order of material
-* Finally, it's incomplete: there's more to come here
-    
 ## Setup
 
 * You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
@@ -109,9 +106,16 @@ SELECT * FROM penguins LIMIT 5;
 
 * SQL is case insensitive - including for column names etc - but it's customary to use capitals for the keywords. It makes your SQL easier to read, too.
 
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Exercise
++ please could you modify your SQL statement to preview the first 10 rows of the data
+:::
+
+
 ## SQL dialects
 
-* There are several slightly different dialects of SQL
+* SQL has been around for a [very long time](https://en.wikipedia.org/wiki/SQL), and has been used in lots of different ways
+* That means there are several slightly different dialects of SQL which are (unfortunately) incompatible
 * We'll largely ignore those differences in this beginner's training
 * But, just to illustrate, the `LIMIT` keyword is one that only works in some types of SQL
 * If you were using Microsoft's dialect of SQL, you'd need to write something slightly different:
@@ -121,14 +125,14 @@ SELECT * FROM penguins LIMIT 5;
 SELECT * TOP 5 from penguins;
 ```
 
-Or if you were using Oracle's newest dialect of SQL, you'd write either:
+* Or if you were using Oracle's newest dialect of SQL, you'd write either:
 
 ```{sql}
 #| eval: false
 SELECT * FROM penguins FETCH FIRST 5 ROWS ONLY;
 ```
 
-Or, an older - but possibly neater - way of writing Oracle SQL:
+* Or, an older - but possibly neater - way of writing Oracle SQL:
 
 ```{sql}
 #| eval: false
@@ -152,189 +156,49 @@ SELECT * FROM penguins LIMIT 5; -- comment in the line
 
 ## Columns
 
+* you can select some of your columns by changing the `SELECT *` keyword
+    - the `*` we've been using so far is a wildcard, which shows all the columns in your table
+* add column name(s) to retrieve just parts of your data
+
 ```{sql connection=src_memdb()$con}
-SELECT species, island AS landmass
-    FROM penguins
+SELECT species, island FROM penguins;
 ```
 
-* columns are returned in the order you ask for them
-* use the `AS` keyword to rename columns
-* SQL is insensitive to whitespace, so you can generally split up longer queries over many lines
++ note that columns are returned in the order you ask for them
++ you can also rename selected columns using `AS`:
+
+```{sql connection=src_memdb()$con}
+SELECT species, island AS landmass
+    FROM penguins;
+```
+
+* note too that SQL is insensitive to whitespace, so you can generally split up longer queries over many lines
+* an alternative strategy (if you're brave) is to use implicit renaming:
+
+```{sql connection=src_memdb()$con}
+SELECT island landmass FROM penguins;
+```
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Exercise
++ please select the `species` and `flipper_length_mm` columns with new names of your choice
+:::
+
 
 ## Distinct values
 
 ```{sql connection=src_memdb()$con}
-SELECT DISTINCT species FROM penguins
+SELECT DISTINCT species FROM penguins;
 ```
 
 * `DISTINCT` gathers the unique values in a column, or unique combinations of values across multiple columns
 * this second query gives you all the combinations of penguins and islands that exist in our data:
     
 ```{sql connection=src_memdb()$con}
-SELECT DISTINCT island, species FROM penguins
+SELECT DISTINCT island, species FROM penguins;
 ```
 
-## Finding matching rows
-
-We can filter rows by values with the `WHERE` keyword. For example:
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE flipper_length_mm=181
-```
-
-or
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE species='Adelie' -- single quotes for preference
-```
-
-These filters are combinable. So we can find combinations where several conditions are all true using the `AND` keyword:
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE species = 'Adelie' AND sex = 'male' AND island = 'Biscoe'
-```
-
-Or combinations where either are true using `OR`:
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' -- <> = not equal
-```
-
-## `WHERE` helpers
-
-There are several keywords to sweeten the job of building a `WHERE` query:
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE bill_length_mm BETWEEN 37.8 AND 38 
--- find in range with BETWEEN
-```
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE island LIKE 'Tor%' 
-/*  wildcards!
-    % = any n characters
-    _ = 1 character
-*/
-```
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE island IN ('Dream', 'Biscoe') 
--- select from a specified group of values
-```
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE (flipper_length_mm * bill_depth_mm) = 3628.4 
--- build simple expressions inside the WHERE
-```
-
-## Combining keywords
-
-We can combine keywords together to build up more complex SQL queries. For example:
-
-```{sql connection=src_memdb()$con}
-SELECT flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe'
-```
-
-SQL keywords have an order in which they must be written. The keywords that we'll cover here need to be used in the following order:
-
-* `SELECT`
-* `FROM`
-* `WHERE`
-* `GROUP BY`
-* `ORDER BY`
-
-## Ordering
-
-For example, `ORDER BY` is written at the end of the query:
-
-```{sql connection=src_memdb()$con}
-SELECT species, flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' ORDER BY flipper_length_mm
-```
-
-It's good practice to be explicit about order direction, so you might add the `ASC` keyword to specify that you want to order your data in ascending order:
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE sex <> 'male' ORDER BY flipper_length_mm ASC
-```
-
-Or we could reverse-order using `DESC`:
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY bill_depth_mm DESC
-```
-
-Or order by multiple columns in different directions:
-
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY island ASC, bill_depth_mm DESC
-```
-
-
-
-## Aggregation
-
-Effectively, we apply a keyword to the columns specified in the `SELECT` to aggregate:
-
-```{sql connection=src_memdb()$con}
-SELECT MIN(bill_depth_mm) FROM penguins
-```
-
-Rename your summary columns using `AS`:
-
-```{sql connection=src_memdb()$con}
-SELECT MAX(bill_depth_mm) AS big_bill FROM penguins
-```
-
-Alternatively, for the brave, you can try implicit renaming
-```{sql connection=src_memdb()$con}
-SELECT island landmass FROM penguins
-```
-
-You can specify a column to group your data by - beware of the keyword order!
-```{sql connection=src_memdb()$con}
-SELECT species, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species
-```
-
-You can chain together multiple aggregation keywords to produce more complex results:
-```{sql connection=src_memdb()$con}
-SELECT species, ROUND(AVG(bill_depth_mm), 1) AS average_bill_depth FROM penguins GROUP BY species
-```
-
-`COUNT` is especially useful to count the number of rows in a filtered dataset. There are several ways of doing this, which you may need to experiment with depending on the type of SQL you're working in. My preference is the concise shorthand using `DISTINCT`, but unfortunately this won't work everywhere
-
-```{sql connection=src_memdb()$con}
-SELECT COUNT(DISTINCT island) FROM penguins
-
-```
-
-Or, with a rename in place:
-
-```{sql connection=src_memdb()$con}
-SELECT COUNT(DISTINCT island) AS peng_count FROM penguins
-```
-
-Probably more widely applicable, and allowing several categories to be counted:
-
-```{sql connection=src_memdb()$con}
-SELECT COUNT(*) AS peng_count FROM (SELECT DISTINCT island, species FROM penguins)
-```
-
-Or, failing that:
-```{sql connection=src_memdb()$con}
-SELECT island AS landmass, COUNT(*) AS [male n] FROM penguins WHERE sex = 'male' GROUP BY island 
-```
-
-Matching missing data is simple: use the `NULL` keyword:
-```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE bill_length_mm IS NULL -- really important if you're aggregating
-```
-
-And there are some shortcuts for concatenating columns:
-```{sql connection=src_memdb()$con}
-SELECT CONCAT(species,', ', island) AS species_land from penguins 
--- but be aware this can be very quirky across different SQL dialects
-```
 
 ## Acknowledgements
 
-Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland).
+Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.
