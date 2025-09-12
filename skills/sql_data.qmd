@@ -1,0 +1,232 @@
+---
+title: "Getting data into and out of SQL"
+date: 2025-09-12
+execute: 
+  echo: true
+draft: true
+output: markup
+categories: [SQL, beginner]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+#| echo: false
+
+source(here::here("R/feed_block.R"))
+feed_block("Getting data into and out of SQL")
+
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh("Getting data into and out of SQL")
+```
+
+
+## Introduction
+
+* This course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams
+* It's intended as a light introduction for users with good general digital skills (broadly level 2 in the [Digital and Data Capability Framework](https://learn.nes.nhs.scot/76134))
+* It's heavily based on the excellent [W3 schools introductory SQL course](https://www.w3schools.com/sql/)
+    * If you're looking for a resource to use to support independent study, [W3 schools](https://www.w3schools.com/sql/) is a better option than this page
+    * this material is largely intended to support our live interactive training sessions
+* we use [posit.cloud](https://posit.cloud/) for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills
+
+## This session
++ all about getting data into, and out of SQL
+
+
+## Setup 
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
+* In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png)
+
+* Copy and paste the following R code into that script:
+
+```{r r-script}
+#| eval: false
+
+## install and attach R packages
+pkg <- c("dbplyr", "RSQLite", "palmerpenguins")
+install.packages(setdiff(pkg, rownames(installed.packages())))  
+library(dbplyr)
+library(dplyr)
+library(palmerpenguins)
+
+conn <- src_memdb() # create an sqlite db in memory
+```
+
+
+```{r}
+#| echo: false
+library(dbplyr)
+library(dplyr)
+library(palmerpenguins)
+
+conn <- src_memdb() # create an sqlite db in memory
+```
+
+* save your script and click the `Source` button
+    * that will create a simple SQL database in memory
+* now create a new SQL script (again, from the `File` menu)
+* delete all the pre-populated lines of code, as follows: </br>![Pre-populated code in new SQL script](src/images/new_sql.png)
+* to connect with our SQL db in memory, add the following line to the head of your SQL script:
+
+```{sql connection=src_memdb()$con}
+#| eval: false
+-- !preview conn=src_memdb()$con
+```
+
+* finally, save your SQL script (any file name is fine)
+
+## Getting started
+
++ in this session, unlike the previous one, we'll start with an empty SQL database
++ we'll create a table in that db, and add some data to it
+
+```{sql connection=src_memdb()$con}
+CREATE TABLE clients (chi varchar(10) NOT NULL,
+                      name varchar(255),
+                      birthdate date,
+                      PRIMARY KEY (chi));
+```
+
+what's a table? the container for some data
+
+need to set data types - SQL is typed
+
+| type    | what                |
+| ----    | ----                |
+| CHAR    | fixed length char   |
+| VARCHAR | variable length char|
+| INT     | whole number        |
+| DOUBLE  | decimal number      |
+| DATE    | date                |
+| DATETIME| date-time           | 
+
+then test:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+should be empty, that's just fine for now. Let's add some data to that table to make it more useful:
+
+
+## Adding data
+
+insert data into your table using the `INSERT INTO` keyword:
+
+```{sql connection=src_memdb()$con}
+INSERT INTO clients VALUES ("1204851425", "Mr Odds", "1985-04-12");
+```
+
+and then check:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+It's good practice to specify the columns by name, especially if you need to include partial data:
+```{sql connection=src_memdb()$con}
+INSERT INTO clients (chi, birthdate) VALUES ("0701720842", "1972-01-07");
+```
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+## Primary keys
+then something about keys
++ when we wrote `PRIMARY KEY (chi)` while creating our table, we made the chi column special
++ your SQL will fall over if you try and repeat chi values
+
+
+## Adding multiple rows of data
+
++ largely just a matter of chaining to gether multiple sets of values
+```{sql connection=src_memdb()$con}
+INSERT INTO clients VALUES 
+  ("0411016548", "The Moog", "2001-11-04"),
+  ("3003627534", "One McIrey", "1962-03-30"),
+  ("2407864568", "Dr Stamps", "1986-07-24");
+```
+
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+## Updating
+
++ one of our clients has no name...
+
+```{sql connection=src_memdb()$con}
+UPDATE clients
+  SET name = "David Lemon"
+  WHERE chi = "0701720842"
+```
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+## Adding cols
+
++ let's add some extra columns:
+
+```{sql connection=src_memdb()$con}
+ALTER TABLE clients ADD length INT(2);
+```
+
++ we can set a single value for this new column
+```{sql connection=src_memdb()$con}
+UPDATE clients
+  SET length = (10)
+  
+```
+
+```{sql connection=src_memdb()$con}
+#| echo: false
+SELECT * FROM clients;
+```
+
++ setting individual values is much more messy:
+
+```{sql connection=src_memdb()$con}
+UPDATE clients
+  SET length = 12
+  WHERE name = "Mr Odds" OR name = "Dr Stamps"
+```
+
+
+```{sql connection=src_memdb()$con}
+#| echo: false
+SELECT * FROM clients;
+```
+
+## Remove a column
+
+```{sql connection=src_memdb()$con}
+ALTER TABLE clients DROP length;
+```
+
+
+```{sql connection=src_memdb()$con}
+#| echo: false
+SELECT * FROM clients;
+```
+
+## Renaming cols
+
++ not as easy as might be liked, and highly dialect-y
+
+
+
+
+## Acknowledgements
+
+Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.

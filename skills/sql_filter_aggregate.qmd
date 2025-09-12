@@ -1,0 +1,265 @@
+---
+title: "Filtering and aggregating data with SQL"
+date: 2025-09-12
+execute: 
+  echo: true
+draft: true
+output: markup
+categories: [SQL, beginner]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+#| echo: false
+
+source(here::here("R/feed_block.R"))
+feed_block("Filtering and aggregating data with SQL")
+
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh("Filtering and aggregating data with SQL")
+```
+
+## Introduction
+
+* This course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams
+* It's intended as a light introduction for users with good general digital skills (broadly level 2 in the [Digital and Data Capability Framework](https://learn.nes.nhs.scot/76134))
+* It's heavily based on the excellent [W3 schools introductory SQL course](https://www.w3schools.com/sql/)
+    * If you're looking for a resource to use to support independent study, [W3 schools](https://www.w3schools.com/sql/) is a better option than this page
+    * this material is largely intended to support our live interactive training sessions
+* we use [posit.cloud](https://posit.cloud/) for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills
+
+## This session
++ all about finding matching data
++ and then summarising that data into fewer rows
+
+## Setup
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
+* In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png)
+
+* Copy and paste the following R code into that script:
+
+```{r r-script}
+#| eval: false
+
+## install and attach R packages
+pkg <- c("dbplyr", "RSQLite", "palmerpenguins")
+install.packages(setdiff(pkg, rownames(installed.packages())))  
+library(dbplyr)
+library(dplyr)
+library(palmerpenguins)
+
+conn <- src_memdb() # create an sqlite db in memory
+copy_to(conn, penguins, overwrite = T) # populate that db from R
+```
+
+
+```{r}
+#| echo: false
+library(dbplyr)
+library(dplyr)
+library(palmerpenguins)
+
+conn <- src_memdb() # create an sqlite db in memory
+copy_to(conn, penguins) # populate that db from R
+```
+
+* save your script and click the `Source` button
+    * that will create a simple SQL database in memory
+* now create a new SQL script (again, from the `File` menu)
+* delete all the pre-populated lines of code, as follows: </br>![Pre-populated code in new SQL script](src/images/new_sql.png)
+* to connect with our SQL db in memory, add the following line to the head of your SQL script:
+
+```{sql connection=src_memdb()$con}
+#| eval: false
+-- !preview conn=src_memdb()$con
+```
+
+* finally, save your SQL script (any file name is fine)
+
+
+## Finding matching rows
+
+* we can filter rows by values with the `WHERE` keyword. For example:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE flipper_length_mm=181;
+```
+
+* or:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE species='Adelie'; -- single quotes for preference
+```
+
+* these filters are combinable. So we can find combinations where several conditions are all true using the `AND` keyword:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE species = 'Adelie' AND sex = 'male' AND island = 'Biscoe';
+```
+
+* or combinations where either are true using `OR`:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE sex <> 'male' OR island = 'Biscoe'; -- <> = not equal
+```
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Exercise
++ are there any Adelie penguins not from Torgersen Island that weight less than 3500g with flippers that are at least 190mm long?  
+:::
+
+## `WHERE` helpers
+
+* there are several keywords to sweeten the job of building a `WHERE` query. First, there's a `BETWEEN` keyword to help find values in ranges:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE bill_length_mm BETWEEN 37.8 AND 38;
+```
+
+* for text columns, you might find `LIKE` with wildcards helpful. `%` stands for one or more character, while `_` stands for exactly one character:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE island LIKE 'Tor%' 
+```
+
+* or, possibly, you could select from a group of values using `IN`:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE island IN ('Dream', 'Biscoe') 
+```
+
+* you can also build simple expressions inside the `WHERE` statement to help capture more complex segments of your data:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE (flipper_length_mm * bill_depth_mm) = 3628.4 
+```
+
+## Keyword order
+
+* we've already looked at several examples where we've combined together keywords. For example, we can use `SELECT`, `FROM`, `WHERE` and `OR` together to retrieve all the flipper lengths for all the non-male penguins and/or all the penguins that live on Biscoe island:
+
+```{sql connection=src_memdb()$con}
+SELECT flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe'
+```
+
+* this order is important: SQL keywords have an order in which they **must** be written
+* for our purposes, we'll need to build each of our queries in the following order:
+
+* `SELECT`
+* `FROM`
+* `WHERE`
+* `GROUP BY`
+* `ORDER BY`
+
+## Ordering
+
+* for example, `ORDER BY` is written at the end of the query:
+
+```{sql connection=src_memdb()$con}
+SELECT species, flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' ORDER BY flipper_length_mm
+```
+
+* it's good practice to be explicit about order direction, so you might add the `ASC` keyword to specify that you want to order your data in ascending order:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE sex <> 'male' ORDER BY flipper_length_mm ASC
+```
+
+* or we could reverse-order using `DESC`:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY bill_depth_mm DESC
+```
+
+* or order by multiple columns in different directions:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY island ASC, bill_depth_mm DESC
+```
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Exercise
++ as an experiment, try re-ordering the previous SQL query so that the `WHERE` and `ORDER BY` sections occur in reverse order
++ it will cause an error, and that's to be expected  \n ![Re-ordering keywords causes SQL queries to fail](../src/images/order_error.png)
+:::
+
+## Aggregation
+
+* effectively, we apply a keyword to the columns specified in the `SELECT` to aggregate:
+
+```{sql connection=src_memdb()$con}
+SELECT MIN(bill_depth_mm) FROM penguins
+```
+
+* rename your summary columns using `AS`:
+
+```{sql connection=src_memdb()$con}
+SELECT MAX(bill_depth_mm) AS big_bill FROM penguins
+```
+
+* you can specify a column to group your data by - just beware of the keyword order!
+```{sql connection=src_memdb()$con}
+SELECT species, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species;
+```
+
+* and you can group by multiple variables at once:
+
+```{sql connection=src_memdb()$con}
+SELECT species, sex, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species, sex;
+```
+
+* it's possible (but confusing) to group by an implicit group. If we remove `sex` from the `SELECT` part of the above query, for example, we end up with (apparently) multiple rows per group:
+
+```{sql connection=src_memdb()$con}
+SELECT species, sex, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species, sex
+```
+
+* you can chain together multiple aggregation keywords to produce more complex results:
+```{sql connection=src_memdb()$con}
+SELECT species, ROUND(AVG(bill_depth_mm), 1) AS average_bill_depth FROM penguins GROUP BY species
+```
+
+* `COUNT` is especially useful to count the number of rows in a filtered dataset
+* do note there can be dialect issues here, with several possible approaches to counting rows that may (or may not) work in your dialect of SQL
+* for example, the lovely concise `DISTINCT` shorthand is great, but unfortunately won't work everywhere:
+
+```{sql connection=src_memdb()$con}
+SELECT COUNT(DISTINCT island) FROM penguins
+
+```
+
+* this could also be used with a rename in place:
+
+```{sql connection=src_memdb()$con}
+SELECT COUNT(DISTINCT island) AS peng_count FROM penguins
+```
+
+* as a longer, but probably safer, alternative, and permitting several categories to be counted together:
+
+```{sql connection=src_memdb()$con}
+SELECT COUNT(*) AS peng_count FROM (SELECT DISTINCT island, species FROM penguins)
+```
+
+* or, failing that:
+```{sql connection=src_memdb()$con}
+SELECT island AS landmass, COUNT(*) AS [male n] FROM penguins WHERE sex = 'male' GROUP BY island 
+```
+
+* if you're trying to understand missing data, you should use the `NULL` keyword:
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE bill_length_mm IS NULL -- really important if you're aggregating
+```
+
+* and there are some shortcuts for concatenating multiple columns together:
+```{sql connection=src_memdb()$con}
+SELECT CONCAT(species,', ', island) AS species_land from penguins 
+-- but be aware this can be very quirky across different SQL dialects
+```
+
