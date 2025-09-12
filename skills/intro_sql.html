@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-08-20">
+<meta name="dcterms.date" content="2025-09-12">
 <title>An introduction to SQL – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -64,18 +64,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-befe23ebd2f54d8af2c8a89d1a1611f1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-6afab9c3bf6556c536f2e34ed27c5dd0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-d68be38d83eca2bb035acf846ffba811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-1713c1db1ad41a796903378fc9ac7b2b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bc1329a5d30e5fe94f050c11d12d678e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1713c1db1ad41a796903378fc9ac7b2b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -101,7 +102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><meta name="quarto:status" content="draft">
+}</script><link rel="stylesheet" href="styles.css">
 </head>
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
@@ -268,8 +269,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo light-content"><img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo dark-content"></a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">KIND training pages</span>
     </a>
@@ -341,7 +344,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#note" id="toc-note" class="nav-link" data-scroll-target="#note">Note!</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
   <li><a href="#playing-with-that-query" id="toc-playing-with-that-query" class="nav-link" data-scroll-target="#playing-with-that-query">Playing with that query</a></li>
@@ -349,11 +351,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a></li>
   <li><a href="#columns" id="toc-columns" class="nav-link" data-scroll-target="#columns">Columns</a></li>
   <li><a href="#distinct-values" id="toc-distinct-values" class="nav-link" data-scroll-target="#distinct-values">Distinct values</a></li>
-  <li><a href="#finding-matching-rows" id="toc-finding-matching-rows" class="nav-link" data-scroll-target="#finding-matching-rows">Finding matching rows</a></li>
-  <li><a href="#where-helpers" id="toc-where-helpers" class="nav-link" data-scroll-target="#where-helpers"><code>WHERE</code> helpers</a></li>
-  <li><a href="#combining-keywords" id="toc-combining-keywords" class="nav-link" data-scroll-target="#combining-keywords">Combining keywords</a></li>
-  <li><a href="#ordering" id="toc-ordering" class="nav-link" data-scroll-target="#ordering">Ordering</a></li>
-  <li><a href="#aggregation" id="toc-aggregation" class="nav-link" data-scroll-target="#aggregation">Aggregation</a></li>
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -378,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 20, 2025</p>
+      <p class="date">September 12, 2025</p>
     </div>
   </div>
   
@@ -401,11 +398,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </li>
 <li>we use <a href="https://posit.cloud/">posit.cloud</a> for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills</li>
-</ul></section><section id="note" class="level2"><h2 class="anchored" data-anchor-id="note">Note!</h2>
-<ul>
-<li>This is a pre-delivery draft of the material: expect to encounter problems</li>
-<li>It’s not properly scheduled yet: this will ultimately be delivered over multiple sessions, which usually entails a bit of chopping and changing the order of material</li>
-<li>Finally, it’s incomplete: there’s more to come here</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
 <li><p>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</p></li>
@@ -414,7 +406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Copy and paste the following R code into that script:</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## install and attach R packages</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## install and attach R packages</span></span>
 <span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dbplyr"</span>, <span class="st">"RSQLite"</span>, <span class="st">"palmerpenguins"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  </span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbplyr.tidyverse.org/">dbplyr</a></span><span class="op">)</span></span>
@@ -422,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/memdb_frame.html">src_memdb</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create an sqlite db in memory</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">penguins</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co"># populate that db from R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">penguins</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co"># populate that db from R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>save your script and click the <code>Source</code> button
@@ -436,14 +428,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>to connect with our SQL db in memory, add the following line to the head of your SQL script:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>finally, save your SQL script (any file name is fine)</li>
 </ul></section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <p>Our db has one table, named <code>penguins</code>. A table is similar to an Excel sheet - a rectangular set of rows and columns containing our data. To preview our data, we’ll need to write a first line of SQL. Please add the following to the bottom of your SQL script:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
@@ -589,7 +581,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Add a new keyword <code>LIMIT 5</code> at the end of your query to produce a shorter preview of our data:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">LIMIT</span> <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">LIMIT</span> <span class="dv">5</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
@@ -670,23 +662,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <ul>
 <li>SQL is case insensitive - including for column names etc - but it’s customary to use capitals for the keywords. It makes your SQL easier to read, too.</li>
-</ul></section><section id="sql-dialects" class="level2"><h2 class="anchored" data-anchor-id="sql-dialects">SQL dialects</h2>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <ul>
-<li>There are several slightly different dialects of SQL</li>
+<li>please could you modify your SQL statement to preview the first 10 rows of the data</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="sql-dialects" class="level2"><h2 class="anchored" data-anchor-id="sql-dialects">SQL dialects</h2>
+<ul>
+<li>SQL has been around for a <a href="https://en.wikipedia.org/wiki/SQL">very long time</a>, and has been used in lots of different ways</li>
+<li>That means there are several slightly different dialects of SQL which are (unfortunately) incompatible</li>
 <li>We’ll largely ignore those differences in this beginner’s training</li>
 <li>But, just to illustrate, the <code>LIMIT</code> keyword is one that only works in some types of SQL</li>
 <li>If you were using Microsoft’s dialect of SQL, you’d need to write something slightly different:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> TOP <span class="dv">5</span> <span class="kw">from</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> TOP <span class="dv">5</span> <span class="kw">from</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Or if you were using Oracle’s newest dialect of SQL, you’d write either:</p>
+<ul>
+<li>Or if you were using Oracle’s newest dialect of SQL, you’d write either:</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins FETCH <span class="fu">FIRST</span> <span class="dv">5</span> <span class="kw">ROWS</span> <span class="kw">ONLY</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins FETCH <span class="fu">FIRST</span> <span class="dv">5</span> <span class="kw">ROWS</span> <span class="kw">ONLY</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Or, an older - but possibly neater - way of writing Oracle SQL:</p>
+<ul>
+<li>Or, an older - but possibly neater - way of writing Oracle SQL:</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> <span class="kw">ROWNUM</span> <span class="op">&lt;=</span> <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> <span class="kw">ROWNUM</span> <span class="op">&lt;=</span> <span class="dv">5</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="comments" class="level2"><h2 class="anchored" data-anchor-id="comments">Comments</h2>
 <ul>
@@ -697,12 +713,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <code>/*</code> and then <code>*/</code> slash-star to comment a multi-line chunk</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">LIMIT</span> <span class="dv">5</span>; <span class="co">-- comment in the line</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">LIMIT</span> <span class="dv">5</span>; <span class="co">-- comment in the line</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* or a longer chunk</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">  古池や蛙飛び込む水の音</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">  ふるいけやかわずとびこむみずのおと</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
@@ -782,9 +798,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section><section id="columns" class="level2"><h2 class="anchored" data-anchor-id="columns">Columns</h2>
+<ul>
+<li>you can select some of your columns by changing the <code>SELECT *</code> keyword
+<ul>
+<li>the <code>*</code> we’ve been using so far is a wildcard, which shows all the columns in your table</li>
+</ul>
+</li>
+<li>add column name(s) to retrieve just parts of your data</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">AS</span> landmass</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<thead><tr class="header">
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">island</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>note that columns are returned in the order you ask for them</li>
+<li>you can also rename selected columns using <code>AS</code>:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">AS</span> landmass</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
@@ -838,12 +920,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <ul>
-<li>columns are returned in the order you ask for them</li>
-<li>use the <code>AS</code> keyword to rename columns</li>
-<li>SQL is insensitive to whitespace, so you can generally split up longer queries over many lines</li>
-</ul></section><section id="distinct-values" class="level2"><h2 class="anchored" data-anchor-id="distinct-values">Distinct values</h2>
+<li>note too that SQL is insensitive to whitespace, so you can generally split up longer queries over many lines</li>
+<li>an alternative strategy (if you’re brave) is to use implicit renaming:</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> species <span class="kw">FROM</span> penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island landmass <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<thead><tr class="header">
+<th style="text-align: left;">landmass</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>please select the <code>species</code> and <code>flipper_length_mm</code> columns with new names of your choice</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="distinct-values" class="level2"><h2 class="anchored" data-anchor-id="distinct-values">Distinct values</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> species <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>3 records</caption>
@@ -870,7 +1013,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>this second query gives you all the combinations of penguins and islands that exist in our data:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
@@ -903,1709 +1046,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-</section><section id="finding-matching-rows" class="level2"><h2 class="anchored" data-anchor-id="finding-matching-rows">Finding matching rows</h2>
-<p>We can filter rows by values with the <code>WHERE</code> keyword. For example:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> flipper_length_mm<span class="op">=</span><span class="dv">181</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>7 records</caption>
-<colgroup>
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 16%">
-<col style="width: 15%">
-<col style="width: 19%">
-<col style="width: 13%">
-<col style="width: 7%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.1</td>
-<td style="text-align: right;">18.7</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3750</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">38.9</td>
-<td style="text-align: right;">17.8</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3625</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">37.6</td>
-<td style="text-align: right;">19.3</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3300</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">36.5</td>
-<td style="text-align: right;">16.6</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">2850</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">38.1</td>
-<td style="text-align: right;">17.0</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3175</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2009</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">58.0</td>
-<td style="text-align: right;">17.8</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3700</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">42.4</td>
-<td style="text-align: right;">17.3</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3600</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>or</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> species<span class="op">=</span><span class="st">'Adelie'</span> <span class="co">-- single quotes for preference</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 8%">
-<col style="width: 11%">
-<col style="width: 16%">
-<col style="width: 15%">
-<col style="width: 20%">
-<col style="width: 13%">
-<col style="width: 7%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.1</td>
-<td style="text-align: right;">18.7</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3750</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.5</td>
-<td style="text-align: right;">17.4</td>
-<td style="text-align: right;">186</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">40.3</td>
-<td style="text-align: right;">18.0</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: right;">3250</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">36.7</td>
-<td style="text-align: right;">19.3</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">3450</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.3</td>
-<td style="text-align: right;">20.6</td>
-<td style="text-align: right;">190</td>
-<td style="text-align: right;">3650</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">38.9</td>
-<td style="text-align: right;">17.8</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3625</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.2</td>
-<td style="text-align: right;">19.6</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: right;">4675</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">34.1</td>
-<td style="text-align: right;">18.1</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">3475</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">42.0</td>
-<td style="text-align: right;">20.2</td>
-<td style="text-align: right;">190</td>
-<td style="text-align: right;">4250</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2007</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>These filters are combinable. So we can find combinations where several conditions are all true using the <code>AND</code> keyword:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> species <span class="op">=</span> <span class="st">'Adelie'</span> <span class="kw">AND</span> sex <span class="op">=</span> <span class="st">'male'</span> <span class="kw">AND</span> island <span class="op">=</span> <span class="st">'Biscoe'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 9%">
-<col style="width: 8%">
-<col style="width: 17%">
-<col style="width: 16%">
-<col style="width: 21%">
-<col style="width: 14%">
-<col style="width: 5%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.7</td>
-<td style="text-align: right;">18.7</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3600</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">38.2</td>
-<td style="text-align: right;">18.1</td>
-<td style="text-align: right;">185</td>
-<td style="text-align: right;">3950</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">38.8</td>
-<td style="text-align: right;">17.2</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">40.6</td>
-<td style="text-align: right;">18.6</td>
-<td style="text-align: right;">183</td>
-<td style="text-align: right;">3550</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">40.5</td>
-<td style="text-align: right;">18.9</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3950</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">40.1</td>
-<td style="text-align: right;">18.9</td>
-<td style="text-align: right;">188</td>
-<td style="text-align: right;">4300</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">42.0</td>
-<td style="text-align: right;">19.5</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">4050</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">41.4</td>
-<td style="text-align: right;">18.6</td>
-<td style="text-align: right;">191</td>
-<td style="text-align: right;">3700</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">40.6</td>
-<td style="text-align: right;">18.8</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.6</td>
-<td style="text-align: right;">19.1</td>
-<td style="text-align: right;">194</td>
-<td style="text-align: right;">3750</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Or combinations where either are true using <code>OR</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span> <span class="co">-- &lt;&gt; = not equal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 8%">
-<col style="width: 11%">
-<col style="width: 16%">
-<col style="width: 15%">
-<col style="width: 20%">
-<col style="width: 13%">
-<col style="width: 7%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.5</td>
-<td style="text-align: right;">17.4</td>
-<td style="text-align: right;">186</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">40.3</td>
-<td style="text-align: right;">18.0</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: right;">3250</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">36.7</td>
-<td style="text-align: right;">19.3</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">3450</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">38.9</td>
-<td style="text-align: right;">17.8</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3625</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">41.1</td>
-<td style="text-align: right;">17.6</td>
-<td style="text-align: right;">182</td>
-<td style="text-align: right;">3200</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">36.6</td>
-<td style="text-align: right;">17.8</td>
-<td style="text-align: right;">185</td>
-<td style="text-align: right;">3700</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">38.7</td>
-<td style="text-align: right;">19.0</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: right;">3450</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">34.4</td>
-<td style="text-align: right;">18.4</td>
-<td style="text-align: right;">184</td>
-<td style="text-align: right;">3325</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.8</td>
-<td style="text-align: right;">18.3</td>
-<td style="text-align: right;">174</td>
-<td style="text-align: right;">3400</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.7</td>
-<td style="text-align: right;">18.7</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3600</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section><section id="where-helpers" class="level2"><h2 class="anchored" data-anchor-id="where-helpers">
-<code>WHERE</code> helpers</h2>
-<p>There are several keywords to sweeten the job of building a <code>WHERE</code> query:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_length_mm <span class="kw">BETWEEN</span> <span class="fl">37.8</span> <span class="kw">AND</span> <span class="dv">38</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- find in range with BETWEEN</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>7 records</caption>
-<colgroup>
-<col style="width: 8%">
-<col style="width: 11%">
-<col style="width: 16%">
-<col style="width: 15%">
-<col style="width: 20%">
-<col style="width: 13%">
-<col style="width: 7%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">37.8</td>
-<td style="text-align: right;">17.1</td>
-<td style="text-align: right;">186</td>
-<td style="text-align: right;">3300</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">37.8</td>
-<td style="text-align: right;">17.3</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3700</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.8</td>
-<td style="text-align: right;">18.3</td>
-<td style="text-align: right;">174</td>
-<td style="text-align: right;">3400</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.9</td>
-<td style="text-align: right;">18.6</td>
-<td style="text-align: right;">172</td>
-<td style="text-align: right;">3150</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.8</td>
-<td style="text-align: right;">20.0</td>
-<td style="text-align: right;">190</td>
-<td style="text-align: right;">4250</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2009</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.9</td>
-<td style="text-align: right;">18.6</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">2925</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2009</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">37.8</td>
-<td style="text-align: right;">18.1</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">3750</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2009</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">LIKE</span> <span class="st">'Tor%'</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">/*  wildcards!</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">    % = any n characters</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">    _ = 1 character</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 8%">
-<col style="width: 11%">
-<col style="width: 16%">
-<col style="width: 15%">
-<col style="width: 20%">
-<col style="width: 13%">
-<col style="width: 7%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.1</td>
-<td style="text-align: right;">18.7</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3750</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.5</td>
-<td style="text-align: right;">17.4</td>
-<td style="text-align: right;">186</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">40.3</td>
-<td style="text-align: right;">18.0</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: right;">3250</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">36.7</td>
-<td style="text-align: right;">19.3</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">3450</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.3</td>
-<td style="text-align: right;">20.6</td>
-<td style="text-align: right;">190</td>
-<td style="text-align: right;">3650</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">38.9</td>
-<td style="text-align: right;">17.8</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3625</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">39.2</td>
-<td style="text-align: right;">19.6</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: right;">4675</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">34.1</td>
-<td style="text-align: right;">18.1</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">3475</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">42.0</td>
-<td style="text-align: right;">20.2</td>
-<td style="text-align: right;">190</td>
-<td style="text-align: right;">4250</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2007</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">IN</span> (<span class="st">'Dream'</span>, <span class="st">'Biscoe'</span>) </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- select from a specified group of values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 9%">
-<col style="width: 8%">
-<col style="width: 17%">
-<col style="width: 16%">
-<col style="width: 20%">
-<col style="width: 13%">
-<col style="width: 8%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.8</td>
-<td style="text-align: right;">18.3</td>
-<td style="text-align: right;">174</td>
-<td style="text-align: right;">3400</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.7</td>
-<td style="text-align: right;">18.7</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3600</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">35.9</td>
-<td style="text-align: right;">19.2</td>
-<td style="text-align: right;">189</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">38.2</td>
-<td style="text-align: right;">18.1</td>
-<td style="text-align: right;">185</td>
-<td style="text-align: right;">3950</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">38.8</td>
-<td style="text-align: right;">17.2</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">35.3</td>
-<td style="text-align: right;">18.9</td>
-<td style="text-align: right;">187</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">40.6</td>
-<td style="text-align: right;">18.6</td>
-<td style="text-align: right;">183</td>
-<td style="text-align: right;">3550</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">40.5</td>
-<td style="text-align: right;">17.9</td>
-<td style="text-align: right;">187</td>
-<td style="text-align: right;">3200</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.9</td>
-<td style="text-align: right;">18.6</td>
-<td style="text-align: right;">172</td>
-<td style="text-align: right;">3150</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">40.5</td>
-<td style="text-align: right;">18.9</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3950</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> (flipper_length_mm <span class="op">*</span> bill_depth_mm) <span class="op">=</span> <span class="fl">3628.4</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- build simple expressions inside the WHERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>1 records</caption>
-<colgroup>
-<col style="width: 9%">
-<col style="width: 8%">
-<col style="width: 17%">
-<col style="width: 16%">
-<col style="width: 21%">
-<col style="width: 14%">
-<col style="width: 5%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">40.6</td>
-<td style="text-align: right;">18.8</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-</section><section id="combining-keywords" class="level2"><h2 class="anchored" data-anchor-id="combining-keywords">Combining keywords</h2>
-<p>We can combine keywords together to build up more complex SQL queries. For example:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<thead><tr class="header">
-<th style="text-align: right;">flipper_length_mm</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">186</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">195</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">193</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">181</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">182</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">185</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">195</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">184</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">174</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">180</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>SQL keywords have an order in which they must be written. The keywords that we’ll cover here need to be used in the following order:</p>
-<ul>
-<li><code>SELECT</code></li>
-<li><code>FROM</code></li>
-<li><code>WHERE</code></li>
-<li><code>GROUP BY</code></li>
-<li><code>ORDER BY</code></li>
-</ul></section><section id="ordering" class="level2"><h2 class="anchored" data-anchor-id="ordering">Ordering</h2>
-<p>For example, <code>ORDER BY</code> is written at the end of the query:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: right;">flipper_length_mm</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Gentoo</td>
-<td style="text-align: right;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">172</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">174</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">176</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">178</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">178</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: right;">178</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">180</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">180</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">180</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>It’s good practice to be explicit about order direction, so you might add the <code>ASC</code> keyword to specify that you want to order your data in ascending order:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm <span class="kw">ASC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 16%">
-<col style="width: 15%">
-<col style="width: 19%">
-<col style="width: 13%">
-<col style="width: 7%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.9</td>
-<td style="text-align: right;">18.6</td>
-<td style="text-align: right;">172</td>
-<td style="text-align: right;">3150</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">37.8</td>
-<td style="text-align: right;">18.3</td>
-<td style="text-align: right;">174</td>
-<td style="text-align: right;">3400</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">40.2</td>
-<td style="text-align: right;">17.0</td>
-<td style="text-align: right;">176</td>
-<td style="text-align: right;">3450</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2009</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">39.5</td>
-<td style="text-align: right;">16.7</td>
-<td style="text-align: right;">178</td>
-<td style="text-align: right;">3250</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">33.1</td>
-<td style="text-align: right;">16.1</td>
-<td style="text-align: right;">178</td>
-<td style="text-align: right;">2900</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">46.1</td>
-<td style="text-align: right;">18.2</td>
-<td style="text-align: right;">178</td>
-<td style="text-align: right;">3250</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">42.2</td>
-<td style="text-align: right;">18.5</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3550</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">38.9</td>
-<td style="text-align: right;">17.8</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3625</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">37.6</td>
-<td style="text-align: right;">19.3</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">3300</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">36.5</td>
-<td style="text-align: right;">16.6</td>
-<td style="text-align: right;">181</td>
-<td style="text-align: right;">2850</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2008</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Or we could reverse-order using <code>DESC</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> bill_depth_mm <span class="kw">DESC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 16%">
-<col style="width: 15%">
-<col style="width: 19%">
-<col style="width: 13%">
-<col style="width: 7%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">46.0</td>
-<td style="text-align: right;">21.5</td>
-<td style="text-align: right;">194</td>
-<td style="text-align: right;">4200</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">38.6</td>
-<td style="text-align: right;">21.2</td>
-<td style="text-align: right;">191</td>
-<td style="text-align: right;">3800</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">42.3</td>
-<td style="text-align: right;">21.2</td>
-<td style="text-align: right;">191</td>
-<td style="text-align: right;">4150</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">34.6</td>
-<td style="text-align: right;">21.1</td>
-<td style="text-align: right;">198</td>
-<td style="text-align: right;">4400</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">39.2</td>
-<td style="text-align: right;">21.1</td>
-<td style="text-align: right;">196</td>
-<td style="text-align: right;">4150</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">41.3</td>
-<td style="text-align: right;">21.1</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: right;">4400</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">54.2</td>
-<td style="text-align: right;">20.8</td>
-<td style="text-align: right;">201</td>
-<td style="text-align: right;">4300</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">42.5</td>
-<td style="text-align: right;">20.7</td>
-<td style="text-align: right;">197</td>
-<td style="text-align: right;">4500</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">39.6</td>
-<td style="text-align: right;">20.7</td>
-<td style="text-align: right;">191</td>
-<td style="text-align: right;">3900</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2009</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">52.0</td>
-<td style="text-align: right;">20.7</td>
-<td style="text-align: right;">210</td>
-<td style="text-align: right;">4800</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Or order by multiple columns in different directions:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> island <span class="kw">ASC</span>, bill_depth_mm <span class="kw">DESC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 11%">
-<col style="width: 7%">
-<col style="width: 17%">
-<col style="width: 15%">
-<col style="width: 20%">
-<col style="width: 13%">
-<col style="width: 7%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">41.3</td>
-<td style="text-align: right;">21.1</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: right;">4400</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">39.6</td>
-<td style="text-align: right;">20.7</td>
-<td style="text-align: right;">191</td>
-<td style="text-align: right;">3900</td>
-<td style="text-align: left;">female</td>
-<td style="text-align: right;">2009</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">45.6</td>
-<td style="text-align: right;">20.3</td>
-<td style="text-align: right;">191</td>
-<td style="text-align: right;">4600</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2009</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">42.3</td>
-<td style="text-align: right;">21.2</td>
-<td style="text-align: right;">191</td>
-<td style="text-align: right;">4150</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">39.2</td>
-<td style="text-align: right;">21.1</td>
-<td style="text-align: right;">196</td>
-<td style="text-align: right;">4150</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">54.2</td>
-<td style="text-align: right;">20.8</td>
-<td style="text-align: right;">201</td>
-<td style="text-align: right;">4300</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">52.0</td>
-<td style="text-align: right;">20.7</td>
-<td style="text-align: right;">210</td>
-<td style="text-align: right;">4800</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">41.3</td>
-<td style="text-align: right;">20.3</td>
-<td style="text-align: right;">194</td>
-<td style="text-align: right;">3550</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2008</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">51.7</td>
-<td style="text-align: right;">20.3</td>
-<td style="text-align: right;">194</td>
-<td style="text-align: right;">3775</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">40.2</td>
-<td style="text-align: right;">20.1</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">3975</td>
-<td style="text-align: left;">male</td>
-<td style="text-align: right;">2009</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section><section id="aggregation" class="level2"><h2 class="anchored" data-anchor-id="aggregation">Aggregation</h2>
-<p>Effectively, we apply a keyword to the columns specified in the <code>SELECT</code> to aggregate:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MIN</span>(bill_depth_mm) <span class="kw">FROM</span> penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>1 records</caption>
-<thead><tr class="header">
-<th style="text-align: right;">MIN(bill_depth_mm)</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">13.1</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-<p>Rename your summary columns using <code>AS</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(bill_depth_mm) <span class="kw">AS</span> big_bill <span class="kw">FROM</span> penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>1 records</caption>
-<thead><tr class="header">
-<th style="text-align: right;">big_bill</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">21.5</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-<p>Alternatively, for the brave, you can try implicit renaming</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island landmass <span class="kw">FROM</span> penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<thead><tr class="header">
-<th style="text-align: left;">landmass</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Torgersen</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>You can specify a column to group your data by - beware of the keyword order!</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>3 records</caption>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: right;">total_bill_depth</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">2770.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: right;">1252.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Gentoo</td>
-<td style="text-align: right;">1842.8</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>You can chain together multiple aggregation keywords to produce more complex results:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">ROUND</span>(<span class="fu">AVG</span>(bill_depth_mm), <span class="dv">1</span>) <span class="kw">AS</span> average_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>3 records</caption>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: right;">average_bill_depth</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">18.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: right;">18.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Gentoo</td>
-<td style="text-align: right;">15.0</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><code>COUNT</code> is especially useful to count the number of rows in a filtered dataset. There are several ways of doing this, which you may need to experiment with depending on the type of SQL you’re working in. My preference is the concise shorthand using <code>DISTINCT</code>, but unfortunately this won’t work everywhere</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">FROM</span> penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>1 records</caption>
-<thead><tr class="header">
-<th style="text-align: right;">COUNT(DISTINCT island)</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">3</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-<p>Or, with a rename in place:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>1 records</caption>
-<thead><tr class="header">
-<th style="text-align: right;">peng_count</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">3</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-<p>Probably more widely applicable, and allowing several categories to be counted:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> (<span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>1 records</caption>
-<thead><tr class="header">
-<th style="text-align: right;">peng_count</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">5</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-<p>Or, failing that:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island <span class="kw">AS</span> landmass, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> [male n] <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">=</span> <span class="st">'male'</span> <span class="kw">GROUP</span> <span class="kw">BY</span> island </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>3 records</caption>
-<thead><tr class="header">
-<th style="text-align: left;">landmass</th>
-<th style="text-align: right;">male n</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">83</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Dream</td>
-<td style="text-align: right;">62</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">23</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Matching missing data is simple: use the <code>NULL</code> keyword:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_length_mm <span class="kw">IS</span> <span class="kw">NULL</span> <span class="co">-- really important if you're aggregating</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>2 records</caption>
-<colgroup>
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 17%">
-<col style="width: 16%">
-<col style="width: 20%">
-<col style="width: 13%">
-<col style="width: 4%">
-<col style="width: 5%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">island</th>
-<th style="text-align: right;">bill_length_mm</th>
-<th style="text-align: right;">bill_depth_mm</th>
-<th style="text-align: right;">flipper_length_mm</th>
-<th style="text-align: right;">body_mass_g</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">year</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2007</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Gentoo</td>
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">2009</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>And there are some shortcuts for concatenating columns:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">CONCAT</span>(species,<span class="st">', '</span>, island) <span class="kw">AS</span> species_land <span class="kw">from</span> penguins </span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- but be aware this can be very quirky across different SQL dialects</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<thead><tr class="header">
-<th style="text-align: left;">species_land</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie, Torgersen</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland).</p>
+<p>Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -2672,13 +1114,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
