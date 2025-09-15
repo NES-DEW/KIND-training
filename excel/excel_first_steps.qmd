@@ -4,8 +4,22 @@ categories: [excel, beginner, Excel for beginners]
 execute:
   freeze: auto
   echo: false
-date: 2025-08-28
+params:
+  sl_date: 2025-09-15
+  fn: "Excel first steps (Excel for beginners session 1)"
+format: 
+  html:
+     embed-resources: false
+  revealjs:
+    embed-resources: true
+    brand: ../src/_brand.yml
+date: "`r params$sl_date`"
+
 ---
+
+::: {.content-visible unless-format="revealjs"}
+
+
 This session is part of our Excel for beginners course. That's a series of six linked sessions, delivered on Teams, that give an introduction to Excel for people working in health and social care. The sessions are:
 
 + [Excel first steps](excel_first_steps.qmd) (this session)
@@ -38,7 +52,31 @@ next_sesh(rmarkdown::metadata$title)
 
 <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1090077544?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="KIND network - Excel first steps"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
+:::
+
+
+::: {.content-visible when-format="revealjs"}
+
+## Welcome
++ this session is 🌶: for beginners
++ it aims to introduce Excel, and give you an overview of the core Excel skills we'll explore during this course
+
+## Future sessions {.smaller}
+
+```{r}
+KINDR::training_sessions(tr_type = "Excel",start_date = params$sl_date, n = 5, hide_area = T, session_level = "beginner")
+```
+
+:::
 
 {{< include "../content/Excel first steps.qmd" >}}
 
+::: {.content-visible when-format="revealjs"}
+
+## Feedback
+
+Please can you [spare us one minute of your time to give feedback](`r KINDR::feedback_url(params$fn, date = params$sl_date)`)?
+  
+## 
+:::
 
