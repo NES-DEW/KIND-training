@@ -1,10 +1,22 @@
 ---
-title: "Tidy data in Excel (Excel for beginners session 2)"
-date: 2025-09-10
 categories: [excel, beginner, Excel for beginners]
 execute:
+  freeze: auto
   echo: false
+params:
+  sl_date: 2025-09-10
+  fn: "Tidy data in Excel (Excel for beginners session 2)"
+format: 
+  html:
+     embed-resources: false
+  revealjs:
+    embed-resources: true
+    brand: ../src/_brand.yml
+date: "`r params$sl_date`"
+title: "`r params$fn`"
 ---
+
+::: {.content-visible unless-format="revealjs"}
 
 This session is part of our Excel for beginners course. That's a series of six linked sessions, delivered on Teams, that give an introduction to Excel for people working in health and social care. The sessions are:
 
@@ -39,9 +51,19 @@ next_sesh(rmarkdown::metadata$title)
 
 ```
 
-## Session outline
+## Video overview
 
 <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1090088474?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="KIND network - Tidy data in Excel"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+:::
+
+::: {.content-visible when-format="revealjs"}
+```{r}
+KINDR::training_sessions(tr_type = "Excel",start_date = params$sl_date, n = 5, hide_area = T, session_level = "beginner")
+```
+:::
+
+## Session outline
 
 - a word of warning
 - understanding tidy data
@@ -49,7 +71,124 @@ next_sesh(rmarkdown::metadata$title)
 - text to columns
 - transposing
 
-{{< include "../content/Tidy data in Excel.qmd" >}}
+## A word of warning
+
+-   tidying data can be very slow and complicated
+-   in Excel, there are lots of advanced tools that can speed things up
+-   this is a beginner's session, so we'll avoid the more fancy tools
+-   **but** if your process takes lots of manual work, it's definitely worth exploring alternative ways of working
+
+## Tidy data 
+
+```{r}
+tibble::tibble(year = c("2018", "2019", "2020", "2021", "2022"),
+       `25-29yrs` = c(73.4, 71.0, 66.8, 69.6, 66.7),
+       `30-34yrs` = c(90.9, 88.6, 83.4, 85.9, 84.4),
+       `35-39yrs` = c(54.2, 52.7, 49.4, 52.8, 52.0)) |>
+  knitr::kable()
+```
+
+* one value per cell
+* each column contains all the values of one measurement
+* each row shows all the values for one year
 
 
+## Entering values
+
+-   imagine that we want to measure something across several years: `2018, 2019, 2020, 2021, 2022`?
+-   practical:
+    -   open Excel
+    -   start a new workbook
+    -   add a column header `year` in cell `A1`
+    -   then add each of those five years values in the five cells underneath (down to `A6`)
+
+## More values
+
+-   we're going to be using some [birthrate data from the NRS](https://www.nrscotland.gov.uk/publications/births-time-series-data/) for this session. We'll start by adding some birth rate data
+-   this is given as births per 1,000 women in five year age brackets. We'll start with 25-29 year old mothers
+-   please add the header `25-29yrs` in cell `B1`
+-   here are the values for our five years: `73.4, 71, 66.8, 69.6, 66.7`
+
+## Another column
+
+| 30-34yrs |
+|----------|
+| 90.9     |
+| 88.6     |
+| 83.4     |
+| 85.9     |
+| 84.4     |
+
+-   please could you add some new data to your table showing births for another age group
+
+## Back to tidy data
+
+-   we've now got some data with:
+    -   each value in a cell
+    -   each variable in a column
+        -   here, this is a maternal age bracket
+    -   each observation in a row
+        -   here, this is a year
+
+
+## Fixing several values per cell
+
+-   We often find useful data with more than one value per cell
+-   this can be helpful for humans </br> ![multiple values is good for humans, but bad for Excel](../src/images/clipboard-1363924537.png)
+-   Excel can't do anything with this data
+
+## Exercise: many values per cell
+
+| 35-39	    |
+|-----------|
+| 54.2 (21%)|
+| 52.7 (20%)|
+| 49.4 (19%)|
+| 52.8 (20%)|
+| 52	(20%) |
+
+- please add this column of data to your table
+- does it look similar to your existing data?
+
+
+## What's the solution?
+
+-   make this data have **one value per cell**
+-   we could remove all the percentages by hand
+-   `Text to Columns` gives us a better tool for the job </br>![Text to Columns gives us a better tool for the job](../src/images/clipboard-3594403318.png)
+
+## Text to Columns
+
+-   select a column
+-   in the `Data` tab of the ribbon, you should find the `Text to Columns` tool </br> ![Text to Columns tool](../src/images/clipboard-3002655192.png)
+-   note that you can keep, or remove, the percentage column. We'll **skip** it, to keep things simple </br> ![keep, or remove, the percentage column](../src/images/clipboard-4061284093.png)
+
+
+## Exercise: transposed data
+
+| Bracket | 2018| 2019| 2020| 2021| 2022|
+|---------|-----|-----|-----|-----|-----|
+| 25-29yrs|73.4 |71.0	|66.8	|69.6	|66.7 |
+| 30-34yrs|90.9	|88.6	|83.4	|85.9	|84.4 |
+| 35-39yrs|54.2	|52.7	|49.4	|52.8	|52.0 |
+
+-   sometimes you'll find data where the columns and rows have been flipped 
+-   that's slow to fix by hand, but luckily you can **transpose it**, which swaps rows and columns
+-   select your data, and copy/paste into a new cell
+-   then use the transpose option <br>![transpose option](../src/images/clipboard-3580893754.png)
+
+
+::: {.content-visible when-format="revealjs"}
+
+## Forthcoming sessions
+
+```{r}
+KINDR::training_sessions(tr_type = "Excel",start_date = params$sl_date, n = 5, hide_area = T, session_level = "beginner")
+```
+
+## Feedback
+
+Please can you [spare us one minute of your time to give feedback](`r KINDR::feedback_url(params$fn, date = params$sl_date)`)?
+
+:::
 
