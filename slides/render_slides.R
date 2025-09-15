@@ -2,9 +2,6 @@
 # created an appropriately dated version of the slides in this slide subdirectory
 
 render_slides <- function(file_path, session_date){
-  # fn <- "excel/references_and_names_in_excel.qmd" # path relative to project wd
-  session_date <- "2025-09-17" #in this format, don't fool with it
-  
   out_fn <- paste0("slides_",
                    tools::file_path_sans_ext(basename(file_path)),
                    ".html")
@@ -22,4 +19,4 @@ render_slides <- function(file_path, session_date){
   file.copy(site_fn, paste0("slides/", out_fn), overwrite = T)
   unlink(site_fn)
 }
-render_slides("excel/references_and_names_in_excel.qmd", "2025-09-17")
+render_slides("skills/neural_nets.qmd", "2025-09-18")

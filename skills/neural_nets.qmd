@@ -1,12 +1,18 @@
 ---
-title: Neural Networks made ridiculously simple
-date: "2025-09-15"
+format: html
+params:
+  sl_date: 2025-09-15
+  fn: "Neural nets made ridiculously simple"
 execute: 
   echo: false
   output: true
   freeze: false
 categories: [AI/ML, beginner]
+date: "`r params$sl_date`"
+title: "`r params$fn`"
 ---
+
+::: {.content-visible unless-format="revealjs"}
 
 ```{r}
 #| echo: false
@@ -24,8 +30,18 @@ library(sigmoid)
 source(here::here("R/feed_block.R"))
 feed_block("Neural Networks made ridiculously simple")
 source(here::here("R/next_sesh.R"), local = T)
-next_sesh(rmarkdown::metadata$title)
+next_sesh(rmarkdown::metadata$params$fn)
 ```
+
+:::
+
+::: {.content-visible when-format="revealjs"}
+```{r}
+KINDR::training_sessions(tr_type = c("Skills", "AI/ML"), start_date = params$sl_date, n = 5, hide_area = T)
+```
+:::
+
+
 
 ## Welcome
 * this session is 🌶: for beginners
@@ -139,7 +155,9 @@ A user supplies some input. That input is fed into an input node(s), which proce
 + continuous
   + linear
   + non-linear (like sigmoid, ReLU)
++ different activation = different node behaviour = different network functions
 
+## Sigmoid activation
 
 ```{r}
 ggplot() +
@@ -149,6 +167,7 @@ ggplot() +
   ggtitle("Sigmoid")
 ```
 
+## ReLU activation
 
 ```{r}
 ggplot() +
@@ -250,4 +269,19 @@ mnist_plot <- function(n){
 gridExtra::grid.arrange(grobs = purrr::map(1:36, mnist_plot), nrow = 6, top="Some MNIST examples")
 
 ```
+
+::: {.content-visible when-format="revealjs"}
+
+## Forthcoming sessions
+
+```{r}
+KINDR::training_sessions(tr_type = c("Skills", "AI/ML"), start_date = params$sl_date, n = 5, hide_area = T)
+```
+
+## Feedback
+
+Please can you [spare us one minute of your time to give feedback](`r KINDR::feedback_url(params$fn, date = params$sl_date)`)?
+
+
+:::
 
