@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.22">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="dcterms.date" content="2024-07-12">
+<title>A Data-Centric Introduction to Python – KIND training pages</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-a5cd134f9b40a21b85be3e62cd27a8fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b4406b7675125bc2ba204020e191172.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-dark-67e0afcc5eab4b3aa9d10cc8bf721eae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-bb5f9278568ae542f8467bdb635b70ac.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo"></a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">KIND training pages</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../excel_main.html"> 
+<span class="menu-text">Excel</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r_main.html"> 
+<span class="menu-text">R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../BI_main.html"> 
+<span class="menu-text">Power Platform</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tableau_main.html"> 
+<span class="menu-text">Tableau</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../skills_main.html"> 
+<span class="menu-text">Skills</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">📅 Training schedule</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training/issues">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
+  <li><a href="#a-data-centric-introduction-to-python" id="toc-a-data-centric-introduction-to-python" class="nav-link" data-scroll-target="#a-data-centric-introduction-to-python">A data-centric introduction to Python</a></li>
+  <li>
+<a href="#session-structure" id="toc-session-structure" class="nav-link" data-scroll-target="#session-structure">Session structure</a>
+  <ul class="collapse">
+<li><a href="#python-introduction" id="toc-python-introduction" class="nav-link" data-scroll-target="#python-introduction">Python introduction</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#reading-and-writing-python" id="toc-reading-and-writing-python" class="nav-link" data-scroll-target="#reading-and-writing-python">Reading and writing Python</a>
+  <ul class="collapse">
+<li><a href="#excel-python" id="toc-excel-python" class="nav-link" data-scroll-target="#excel-python">Excel Python</a></li>
+  <li><a href="#python-for-r-people" id="toc-python-for-r-people" class="nav-link" data-scroll-target="#python-for-r-people">Python for R people</a></li>
+  <li><a href="#hello-world" id="toc-hello-world" class="nav-link" data-scroll-target="#hello-world">“hello world!”</a></li>
+  <li><a href="#indents" id="toc-indents" class="nav-link" data-scroll-target="#indents">Indents</a></li>
+  <li><a href="#rmarkdownquarto-vs-jupyter" id="toc-rmarkdownquarto-vs-jupyter" class="nav-link" data-scroll-target="#rmarkdownquarto-vs-jupyter">Rmarkdown/Quarto vs Jupyter</a></li>
+  <li><a href="#packages-vs-modules" id="toc-packages-vs-modules" class="nav-link" data-scroll-target="#packages-vs-modules">Packages vs modules</a></li>
+  <li><a href="#fun-with-tabular-data" id="toc-fun-with-tabular-data" class="nav-link" data-scroll-target="#fun-with-tabular-data">Fun with tabular data</a></li>
+  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types">Data types</a></li>
+  <li><a href="#loops-list-comprehensions-and-vectorization" id="toc-loops-list-comprehensions-and-vectorization" class="nav-link" data-scroll-target="#loops-list-comprehensions-and-vectorization">Loops, list comprehensions, and vectorization</a></li>
+  <li><a href="#tabular-data-basics" id="toc-tabular-data-basics" class="nav-link" data-scroll-target="#tabular-data-basics">Tabular data basics</a></li>
+  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots">Plots</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
+</p>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    window.setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        disableStylesheet(primaryStylesheets)
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      window.setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    window.hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(darkModeDefault) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const darkModeDefault = false;
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !window.hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (window.hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">A Data-Centric Introduction to Python</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">beginner</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 12, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="previous-attendees-have-said" class="level2 cell" data-layout-align="left"><h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
+<ul>
+<li>14 previous attendees have left feedback</li>
+<li>93% would recommend this session to a colleague</li>
+<li>100% said that this session was pitched correctly</li>
+</ul>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure"><p><img src="a_data_centric_introduction_to_python_pg_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="288"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Three random comments from previous attendees
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Clear and important topic</li>
+<li>useful warts and all demonstration of python for python novices</li>
+<li>could have provided more examples of when to use python over r</li>
+</ul>
+</div>
+</div>
+</section><p>A note on this mixed R/Python Quarto file: the text and Python sections were written in a Jupyter notebook, then converted into a Quarto document by:</p>
+<p><code>quarto convert a_data_centric_introduction_to_python.ipynb</code></p>
+<p>R sections, and the tabsets were added, and the document was then knitted using R Quarto in Rstudio by attaching the reticulate <span class="citation" data-cites="reticulate">(<a href="#ref-reticulate" role="doc-biblioref">Ushey, Allaire, and Tang 2024</a>)</span> package:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/reticulate/">reticulate</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="a-data-centric-introduction-to-python" class="level1"><h1>A data-centric introduction to Python</h1>
+<p>This is a friendly beginner session introducing users to Python. It’s health-and-social-care opinionated, assumes no previous Python knowledge, and will have lots of scope for practical demonstrations. Given that lots of users in the KIND network will have some prior experience of R, we’ll introduce some key Python features by comparison with R</p>
+</section><section id="session-structure" class="level1"><h1>Session structure</h1>
+<ul>
+<li>a brief general-purpose chat for intro to the language</li>
+<li>how to read and write Python (jupyter/VS Code/Posit workbench/positron)</li>
+<li>a side-note about Excel Python</li>
+<li>Python for R developers - a practical demonstration</li>
+</ul>
+<section id="python-introduction" class="level2"><h2 class="anchored" data-anchor-id="python-introduction">Python introduction</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Python_(programming_language)">“Python is a high-level, general-purpose programming language.”</a></li>
+<li>massive user-base</li>
+<li>highly extensible and flexible (<span class="math inline">\(10^5\)</span> modules)<br>
+</li>
+<li>the <a href="https://www.youtube.com/watch?v=OkuGfa3zcL8">second-best language for everything</a>
+</li>
+<li>multi-paradigm (oop, structured, …)</li>
+</ul></section></section><section id="reading-and-writing-python" class="level1"><h1>Reading and writing Python</h1>
+<ul>
+<li>you’ll need:
+<ul>
+<li>Python, <a href="https://docs.python.org/release/3.12.4/">currently at 3.12</a>
+</li>
+<li>(almost certainly) something to manage modules - like <a href="https://pypi.org/project/pip/">pip</a> or <a href="https://conda.io/projects/conda/en/latest/user-guide/install/index.html">conda</a>
+</li>
+<li>(almost certainly) an integrated development environment. Loads of options:
+<ul>
+<li>practical demo of <a href="https://jupyter.org/">Jupyter labs</a>
+</li>
+<li>non-free use in <a href="https://posit.cloud">posit.cloud</a>
+</li>
+<li>Rstudio via <a href="https://cran.r-project.org/web/packages/reticulate/index.html">reticulate</a> / Jupyter</li>
+<li>
+<a href="https://code.visualstudio.com/">VSCode</a>, which is pretty well industry standard for the wider Python ecosystem</li>
+<li>
+<a href="https://github.com/posit-dev/positron">positron</a>, which is the new kid for data-flavoured Python work</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="excel-python" class="level2"><h2 class="anchored" data-anchor-id="excel-python">Excel Python</h2>
+<ul>
+<li>Python is coming to Excel, apparently…
+<ul>
+<li>roll-out slower than expected</li>
+</ul>
+</li>
+<li>gives an alternative to VBA etc</li>
+<li>code gets executed in the cloud, so no infrastructure faff…
+<ul>
+<li>but a potential information governance headache</li>
+</ul>
+</li>
+<li>on the offchance that you have it available, <code>=PY()</code> is the key function
+<ul>
+<li>see <a href="https://support.microsoft.com/en-gb/office/get-started-with-python-in-excel-a33fbcbe-065b-41d3-82cf-23d05397f53d">“hello world!”-type walkthrough</a>
+</li>
+</ul>
+</li>
+</ul></section><section id="python-for-r-people" class="level2"><h2 class="anchored" data-anchor-id="python-for-r-people">Python for R people</h2>
+<p>You’re welcome to follow along using the free basic Python set-up at <a href="https://www.w3schools.com/python/trypython.asp?filename=demo_default">W3schools</a></p>
+<ul>
+<li>“hello world!”</li>
+<li>indents vs brackets</li>
+<li>Rmarkdown vs Jupyter</li>
+<li>packages vs modules - for data from csv comparison</li>
+<li>basic work with tabular data - for methods</li>
+<li>vector/tibble/list vs list/tuple/dict/set - for vectorisation vs list comps</li>
+<li>pandas for tabular data</li>
+<li>plotting comparison</li>
+</ul></section><section id="hello-world" class="level2"><h2 class="anchored" data-anchor-id="hello-world">“hello world!”</h2>
+<p>Initially, there’s very little to choose between R and Python, and everything is likely to feel very familiar..</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">R</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"hello world!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>hello world!</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>hw <span class="op">=</span> <span class="st">"hello "</span> <span class="op">+</span> <span class="st">"world"</span> <span class="op">+</span> <span class="st">"!"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>hw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'hello world!'</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">"hello world"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello world"</code></pre>
+</div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="st">"world"</span>, <span class="st">"!"</span><span class="op">)</span></span>
+<span><span class="va">hw</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hello world !"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="indents" class="level2"><h2 class="anchored" data-anchor-id="indents">Indents</h2>
+<ul>
+<li>a first big difference: indents <em>matter</em> in Python</li>
+<li>they’re non-optional with proper syntactic function
+<ul>
+<li>broadly correspond to curly brackets in R</li>
+</ul>
+</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">R</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>word <span class="op">=</span> <span class="st">"care"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> word <span class="op">==</span> <span class="st">"care"</span>:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I have found someone from care"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No, I haven't found anyone from care"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>I have found someone from care</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word</span> <span class="op">&lt;-</span> <span class="st">"care"</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">word</span> <span class="op">==</span> <span class="st">"care"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"I have found someone from care"</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"No, I haven't found anyone from care"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "I have found someone from care"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="rmarkdownquarto-vs-jupyter" class="level2"><h2 class="anchored" data-anchor-id="rmarkdownquarto-vs-jupyter">Rmarkdown/Quarto vs Jupyter</h2>
+<ul>
+<li>Jupyter provides interactive code- and markdown editing. Compare to the render/knit-based workflow of qmd/Rmd</li>
+<li>web-based, so perhaps more like posit.cloud / workbench than Rstudio</li>
+<li>comparatively harder to edit .ipynb files than .Rmd/.qmd in other tools</li>
+</ul></section><section id="packages-vs-modules" class="level2"><h2 class="anchored" data-anchor-id="packages-vs-modules">Packages vs modules</h2>
+<p>We’ll load the <a href="https://pandas.pydata.org/docs/reference/api/pandas.Index.html">pandas</a> module in Python, and the readr package in R <span class="citation" data-cites="readr">(<a href="#ref-readr" role="doc-biblioref">Wickham, Hester, and Bryan 2024</a>)</span> to compare and contrast loading external functions. We’ll use those to read some sample data (the KIND book of the week dataset).</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">R</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>botw_dat <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/NES-DEW/KIND-community-standards/main/data/KIND_book_of_the_week.csv"</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> pandas.read_csv(botw_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>But we also have a lot of options for loading modules. We can alias, most usefully to give us short names for commonly-used functions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> pd.read_csv(botw_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We could even load an individual function from a module:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas <span class="im">import</span> read_csv <span class="im">as</span> read_csv</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> read_csv(botw_dat)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># one minor bit of cheating - we'll coerce the Year column to numeric</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> botw.replace(<span class="st">"1979 (1935)"</span>, <span class="dv">1979</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>botw <span class="op">=</span> botw.replace(<span class="st">"2015 / 2017"</span>, <span class="dv">2015</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Year"</span>] <span class="op">=</span> pandas.to_numeric(botw[<span class="st">"Year"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>There are comparatively fewer options for package loading in R. You’d traditionally attach a whole package using <code>library</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">botw_dat</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/NES-DEW/KIND-community-standards/main/data/KIND_book_of_the_week.csv"</span></span>
+<span></span>
+<span><span class="va">botw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">botw_dat</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can load individual functions by namespacing via <code>::</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">botw_dat</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It is also possible, although non-standard, to alias individual functions:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">steve</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="va"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span></span>
+<span><span class="va">botw</span> <span class="op">&lt;-</span> <span class="fu">steve</span><span class="op">(</span><span class="va">botw_dat</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="fun-with-tabular-data" class="level2"><h2 class="anchored" data-anchor-id="fun-with-tabular-data">Fun with tabular data</h2>
+<p>Doing some basic playing with our tabular data shows that Python uses methods - like a local version of a functions that are specific to certain types of object. While methods <a href="https://stat.ethz.ch/R-manual/R-devel/library/methods/html/Methods_Details.html">can be used in R</a>, in practice most R code relies on functions.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">R</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>Both <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"><code>shape</code></a> and <a href="https://pandas.pydata.org/docs/reference/api/pandas.Index.html"><code>index</code></a> are methods that we’ve imported from pandas. They’ll only work in pandas objects, which we’ll talk about more below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>botw.shape <span class="co"># shape is a method</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(40, 8)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(botw.index) <span class="co"># as is index</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>40</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>botw.shape[<span class="dv">0</span>] <span class="co"># Python is 0-indexed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>40</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">botw</span><span class="op">)</span> <span class="co"># dim is a function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 40  8</code></pre>
+</div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">botw</span><span class="op">)</span> <span class="co"># as is nrow</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 40</code></pre>
+</div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">botw</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co"># Python is 1-indexed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 40</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="data-types" class="level2"><h2 class="anchored" data-anchor-id="data-types">Data types</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">R</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<ul>
+<li>there are four basic data types in Python</li>
+<li>list</li>
+<li>tuple</li>
+<li>dict</li>
+<li>set</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>numbers_list <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>] <span class="co"># changeable</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>numbers_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1, 2, 3, 4, 5]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>numbers_tuple <span class="op">=</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># unchangeable</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>numbers_tuple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(1, 2, 3, 4, 5)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>numbers_dict <span class="op">=</span> {<span class="st">"one"</span>:<span class="dv">1</span>, <span class="st">"two"</span>:<span class="dv">2</span>, <span class="st">"three"</span>:<span class="dv">3</span>} <span class="co"># changeable (now), no duplicates</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>numbers_dict</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'one': 1, 'two': 2, 'three': 3}</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>numbers_set <span class="op">=</span> {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>} <span class="co"># unchangeable, no duplicates</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>numbers_set</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{1, 2, 3, 4, 5}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify in place semantics</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>numbers_list.reverse()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<ul>
+<li>R has <a href="http://adv-r.had.co.nz/Data-structures.html">several basic data types</a>, but in practice only three are commonly encountered. These are the vector, the data frame, and the list (confusing!):</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">numbers_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">numbers_vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">numbers_dataframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>nums <span class="op">=</span> <span class="va">numbers_vector</span><span class="op">)</span></span>
+<span><span class="va">numbers_dataframe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  nums
+1    1
+2    2
+3    3
+4    4
+5    5</code></pre>
+</div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">numbers_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">numbers_vector</span>, <span class="va">numbers_dataframe</span><span class="op">)</span></span>
+<span><span class="va">numbers_list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1 2 3 4 5
+
+[[2]]
+  nums
+1    1
+2    2
+3    3
+4    4
+5    5</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="loops-list-comprehensions-and-vectorization" class="level2"><h2 class="anchored" data-anchor-id="loops-list-comprehensions-and-vectorization">Loops, list comprehensions, and vectorization</h2>
+<p>There are various methods for repeatedly running code. We’ll demonstrate a couple of simple methods here. Note that both Python and R have rich and powerful functional programming tools available (like <code>map</code>), but we’ll park those for now.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">R</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<p>You’ll need to use loops, or (much nicer) list comprehension in Python. There’s no exact counterpart of R’s vectorized functions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>double_numbers_loop <span class="op">=</span> []</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> numbers_list:</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    double_numbers_loop.append(n <span class="op">*</span> <span class="dv">2</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>double_numbers_loop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[10, 8, 6, 4, 2]</code></pre>
+</div>
+</div>
+<section id="list-comprehension" class="level2"><h2 class="anchored" data-anchor-id="list-comprehension">List comprehension</h2>
+<p>Like a lovely lightweight loop syntax</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>double_numbers_list <span class="op">=</span>  [n<span class="op">*</span><span class="dv">2</span> <span class="cf">for</span> n <span class="kw">in</span> numbers_list]</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>double_numbers_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[10, 8, 6, 4, 2]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and, more fancy...</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>double_even_numbers_list <span class="op">=</span>  [n<span class="op">*</span><span class="dv">2</span> <span class="cf">for</span> n <span class="kw">in</span> numbers_list <span class="cf">if</span> (n<span class="op">%</span><span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>) ]</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>double_even_numbers_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[8, 4]</code></pre>
+</div>
+</div>
+</section>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p>By and large, R is at its best with vectorized functions:</p>
+<div class="cell">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">double_numbers_vector</span> <span class="op">&lt;-</span> <span class="va">numbers_vector</span> <span class="op">*</span> <span class="fl">2</span></span>
+<span><span class="va">double_numbers_vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  4  6  8 10</code></pre>
+</div>
+</div>
+<p>Loops are possible too</p>
+<div class="cell">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">double_numbers_loop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"numeric"</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">numbers_vector</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">numbers_vector</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">double_numbers_loop</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span> <span class="op">*</span> <span class="fl">2</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>R has <a href="https://stackoverflow.com/questions/15759117/what-exactly-is-copy-on-modify-semantics-in-r-and-where-is-the-canonical-source">copy-on-modify semantics</a>, and so care needs to be taken to avoid writing poorly-performing loops. That means that loops are used comparatively rarely in R.</p>
+</div>
+</div>
+</div>
+</section><section id="tabular-data-basics" class="level2"><h2 class="anchored" data-anchor-id="tabular-data-basics">Tabular data basics</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">R</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<ul>
+<li>we’ll do a quick overview of pandas, based on <a href="https://pandas.pydata.org/docs/user_guide/10min.html">their excellent 10 minute overview</a>
+</li>
+<li>our <code>botw</code> object is a DataFrame, which is based on a dict
+<ul>
+<li>like tibbles, DataFrames can contain columns of different types</li>
+</ul>
+</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>botw.dtypes <span class="co"># find out what we're dealing with</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Date                object
+Author              object
+Year                 int64
+Title               object
+ISBN                object
+Worldcat            object
+KnowledgeNetwork    object
+Description         object
+dtype: object</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>botw.head() <span class="co"># shows first few rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Date  ...                                        Description
+0  06/03/2024  ...  The Code Book: The Secret History of Codes and...
+1  13/03/2024  ...  Here's a book of the week suggestion following...
+2  20/03/2024  ...                                                NaN
+3  27/03/2024  ...                                                NaN
+4  24/04/2024  ...  We're looking at regular expressions in the co...
+
+[5 rows x 8 columns]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>botw.index <span class="co"># effectively counts rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>RangeIndex(start=0, stop=40, step=1)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>botw.columns <span class="co"># gives column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Index(['Date', 'Author', 'Year', 'Title', 'ISBN', 'Worldcat',
+       'KnowledgeNetwork', 'Description'],
+      dtype='object')</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>botw.describe() <span class="co"># simple summary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Year
+count    40.000000
+mean   2009.450000
+std      13.254801
+min    1954.000000
+25%    2005.500000
+50%    2012.000000
+75%    2018.000000
+max    2023.000000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>botw.sort_values(<span class="st">"Year"</span>) <span class="co"># sorting by column values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Date  ...                                        Description
+20  21/08/2024  ...  This week's book of the week was suggested by ...
+9   29/05/2024  ...  If last week's book was a paean to the use of ...
+2   20/03/2024  ...                                                NaN
+6   08/05/2024  ...  After the discussion last week about the troub...
+0   06/03/2024  ...  The Code Book: The Secret History of Codes and...
+15  10/07/2024  ...  There are a lot of statistics textbooks out th...
+13  26/06/2024  ...  We're still on a mini-exploration of manufactu...
+12  19/06/2024  ...  Last week's recommendation about agnotology sp...
+26  02/10/2024  ...  How do you communicate risks? For many of us w...
+10  05/06/2024  ...  It's now close to twenty years old, and deals ...
+28  06/11/2024  ...  This week's recommendation comes from Alupha C...
+39  21/02/2025  ...  We're running a hints-and-tips training sessio...
+21  28/08/2024  ...  This week's book of the week was suggested by ...
+7   15/05/2024  ...  If I was posh enough to have a Latin motto, it...
+32  04/12/2024  ...  Nicholas Fethers, a Senior Information Analyst...
+1   13/03/2024  ...  Here's a book of the week suggestion following...
+22  04/09/2024  ...  This week's book of the week was suggested by ...
+38  14/02/2025  ...  This is a remarkable book, which gathers toget...
+18  07/08/2024  ...  This is an excellent introduction to disease g...
+16  17/07/2024  ...  This book suggestion comes from a conversation...
+34  17/01/2025  ...  This week's book of the week is a personal rec...
+11  12/06/2024  ...  While the word [agnotology](https://simple.wik...
+19  14/08/2024  ...  This is a fun and thought-provoking set of ess...
+35  24/01/2025  ...  Ebrahim Ghaderi, a healthcare scientist at Pub...
+3   27/03/2024  ...                                                NaN
+17  31/07/2024  ...  If you've ever been stunned by an unexpectedly...
+36  31/01/2025  ...  Brian Orpin, a team manager from PHS writes wi...
+31  27/11/2024  ...  Colin Smith, an information analyst at NHS GGC...
+4   24/04/2024  ...  We're looking at regular expressions in the co...
+8   22/05/2024  ...  A love-letter to the power of domain knowledge...
+14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...
+5   01/05/2024  ...  Anyone who works with data knows that our data...
+23  11/09/2024  ...  Rosalyn Pearson, a Senior Information Analyst ...
+24  18/09/2024  ...  A possibly-controversial choice this week, wit...
+29  13/11/2024  ...  This is a high-risk recommendation, because I'...
+30  20/11/2024  ...  This week's recommendation comes from Louise S...
+25  25/09/2024  ...  A recommendation this week from Vasudha Singh,...
+27  30/10/2024  ...  This week's recommendation comes from Kelsey P...
+33  10/01/2025  ...   Rita Nogueira,  a Senior Information Analyst ...
+37  07/02/2025  ...  We get asked for helpful R resources very regu...
+
+[40 rows x 8 columns]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Date"</span>] <span class="co"># selecting a column and creating a series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0     06/03/2024
+1     13/03/2024
+2     20/03/2024
+3     27/03/2024
+4     24/04/2024
+5     01/05/2024
+6     08/05/2024
+7     15/05/2024
+8     22/05/2024
+9     29/05/2024
+10    05/06/2024
+11    12/06/2024
+12    19/06/2024
+13    26/06/2024
+14    03/07/2024
+15    10/07/2024
+16    17/07/2024
+17    31/07/2024
+18    07/08/2024
+19    14/08/2024
+20    21/08/2024
+21    28/08/2024
+22    04/09/2024
+23    11/09/2024
+24    18/09/2024
+25    25/09/2024
+26    02/10/2024
+27    30/10/2024
+28    06/11/2024
+29    13/11/2024
+30    20/11/2024
+31    27/11/2024
+32    04/12/2024
+33    10/01/2025
+34    17/01/2025
+35    24/01/2025
+36    31/01/2025
+37    07/02/2025
+38    14/02/2025
+39    21/02/2025
+Name: Date, dtype: object</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="dv">2</span>:<span class="dv">4</span>] <span class="co"># subsetting by index using a slice and returning a DataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Date          Author  ...  KnowledgeNetwork Description
+2  20/03/2024   David Oldroyd  ...               NaN         NaN
+3  27/03/2024  Katrine Marcal  ...               NaN         NaN
+
+[2 rows x 8 columns]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>botw[[<span class="st">"Date"</span>]] <span class="co"># subsetting entire columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Date
+0   06/03/2024
+1   13/03/2024
+2   20/03/2024
+3   27/03/2024
+4   24/04/2024
+5   01/05/2024
+6   08/05/2024
+7   15/05/2024
+8   22/05/2024
+9   29/05/2024
+10  05/06/2024
+11  12/06/2024
+12  19/06/2024
+13  26/06/2024
+14  03/07/2024
+15  10/07/2024
+16  17/07/2024
+17  31/07/2024
+18  07/08/2024
+19  14/08/2024
+20  21/08/2024
+21  28/08/2024
+22  04/09/2024
+23  11/09/2024
+24  18/09/2024
+25  25/09/2024
+26  02/10/2024
+27  30/10/2024
+28  06/11/2024
+29  13/11/2024
+30  20/11/2024
+31  27/11/2024
+32  04/12/2024
+33  10/01/2025
+34  17/01/2025
+35  24/01/2025
+36  31/01/2025
+37  07/02/2025
+38  14/02/2025
+39  21/02/2025</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>botw.loc[<span class="dv">4</span>] <span class="co"># subsetting by index using a slice and returning a series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Date                                                       24/04/2024
+Author                                                       Tom Lean
+Year                                                             2016
+Title               Electronic Dreams: How 1980s Britain Learned t...
+ISBN                                                   978-1472918338
+Worldcat                  https://search.worldcat.org/title/907966036
+KnowledgeNetwork                                                  NaN
+Description         We're looking at regular expressions in the co...
+Name: 4, dtype: object</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>botw.loc[<span class="dv">4</span>, [<span class="st">"Author"</span>, <span class="st">"Year"</span>]] <span class="co"># subsetting by index and columns and returning a DataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Author    Tom Lean
+Year          2016
+Name: 4, dtype: object</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>botw[botw[<span class="st">"Year"</span>] <span class="op">&gt;</span> <span class="dv">2010</span>].sort_values(<span class="st">"Year"</span>) <span class="co"># subsetting by years, and sorting</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Date  ...                                        Description
+1   13/03/2024  ...  Here's a book of the week suggestion following...
+18  07/08/2024  ...  This is an excellent introduction to disease g...
+22  04/09/2024  ...  This week's book of the week was suggested by ...
+38  14/02/2025  ...  This is a remarkable book, which gathers toget...
+16  17/07/2024  ...  This book suggestion comes from a conversation...
+11  12/06/2024  ...  While the word [agnotology](https://simple.wik...
+34  17/01/2025  ...  This week's book of the week is a personal rec...
+19  14/08/2024  ...  This is a fun and thought-provoking set of ess...
+35  24/01/2025  ...  Ebrahim Ghaderi, a healthcare scientist at Pub...
+17  31/07/2024  ...  If you've ever been stunned by an unexpectedly...
+4   24/04/2024  ...  We're looking at regular expressions in the co...
+36  31/01/2025  ...  Brian Orpin, a team manager from PHS writes wi...
+31  27/11/2024  ...  Colin Smith, an information analyst at NHS GGC...
+3   27/03/2024  ...                                                NaN
+14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...
+8   22/05/2024  ...  A love-letter to the power of domain knowledge...
+5   01/05/2024  ...  Anyone who works with data knows that our data...
+23  11/09/2024  ...  Rosalyn Pearson, a Senior Information Analyst ...
+24  18/09/2024  ...  A possibly-controversial choice this week, wit...
+29  13/11/2024  ...  This is a high-risk recommendation, because I'...
+30  20/11/2024  ...  This week's recommendation comes from Louise S...
+25  25/09/2024  ...  A recommendation this week from Vasudha Singh,...
+27  30/10/2024  ...  This week's recommendation comes from Kelsey P...
+33  10/01/2025  ...   Rita Nogueira,  a Senior Information Analyst ...
+37  07/02/2025  ...  We get asked for helpful R resources very regu...
+
+[25 rows x 8 columns]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>botw[botw[<span class="st">"Author"</span>].isin([<span class="st">"Katrine Marçal"</span>, <span class="st">"Caroline Criado Perez"</span>])] <span class="co"># finding matching values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Date  ...                                        Description
+5  01/05/2024  ...  Anyone who works with data knows that our data...
+
+[1 rows x 8 columns]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>botw.dropna() <span class="co"># removes any missing values in the whole DataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Date  ...                                        Description
+11  12/06/2024  ...  While the word [agnotology](https://simple.wik...
+14  03/07/2024  ...  This week's BotW suggestion comes from Anna Sc...
+15  10/07/2024  ...  There are a lot of statistics textbooks out th...
+17  31/07/2024  ...  If you've ever been stunned by an unexpectedly...
+20  21/08/2024  ...  This week's book of the week was suggested by ...
+22  04/09/2024  ...  This week's book of the week was suggested by ...
+23  11/09/2024  ...  Rosalyn Pearson, a Senior Information Analyst ...
+26  02/10/2024  ...  How do you communicate risks? For many of us w...
+30  20/11/2024  ...  This week's recommendation comes from Louise S...
+
+[9 rows x 8 columns]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Title"</span>].<span class="bu">str</span>.lower() <span class="co"># returning the title column as a lower-case series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0                                         the code book
+1                                    ghost in the wires
+2                                 the arch of knowledge
+3                        who cooked adam smith's dinner
+4     electronic dreams: how 1980s britain learned t...
+5     invisible women: exposing data bias in a world...
+6                        the mismeasure of man (2nd ed)
+7        being wrong: adventures in the margin of error
+8     bad blood: secrets and lies in a silicon valle...
+9          genesis and development of a scientific fact
+10    in the beginning was the worm: finding the sec...
+11                                   merchants of doubt
+12    harvey's heart: the discovery of blood circula...
+13    dark remedy: the impact of thalidomide and its...
+14                                how emotions are made
+15                       medical statistics at a glance
+16                               the half-life of facts
+17                          weapons of math destruction
+18                disease maps: epidemics on the ground
+19    the utopia of rules: on technology, stupidity,...
+20                           how to lie with statistics
+21     "clean code: a handbook of agile software cra...
+22                              thinking, fast and slow
+23                      the 7 deadly sins of psychology
+24    what tech calls thinking: an inquiry into the ...
+25    how do you know if you are making a difference...
+26    reckoning with risk: learning to live with unc...
+27    hybrid humans: dispatches from the frontiers o...
+28    asking the right questions: a guide to critica...
+29                                the alignment problem
+30    the devil you know - encounters in forensic ps...
+31    the end of alchemy: money, banking and the fut...
+32                              the checklist manifesto
+33                                      technofeudalism
+34                                   the geek manifesto
+35    'sapiens: a brief history of humankind' and 'h...
+36                           never split the difference
+37                     r for data science (2nd edition)
+38                      field notes on science &amp; nature
+39                                   how to write a lot
+Name: Title, dtype: object</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>botw[<span class="st">"Date"</span>] <span class="op">=</span> pandas.to_datetime(botw[<span class="st">"Date"</span>],<span class="bu">format</span><span class="op">=</span><span class="st">'</span><span class="sc">%d</span><span class="st">/%m/%Y'</span>) <span class="co"># fixing publication dates</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>botw.groupby(pd.DatetimeIndex(botw[<span class="st">'Date'</span>]).month)[[<span class="st">"Year"</span>]].mean(<span class="st">"Year"</span>) <span class="co"># average year of publication by month of botw</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Year
+Date             
+1     2016.500000
+2     2013.666667
+3     2003.000000
+4     2016.000000
+5     2004.400000
+6     2004.500000
+7     2011.500000
+8     1997.000000
+9     2018.000000
+10    2012.000000
+11    2015.750000
+12    2010.000000</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># we'll need dplyr for this work</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">botw</span><span class="op">)</span> <span class="co"># shows data types etc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [40 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Date            : chr [1:40] "06/03/2024" "13/03/2024" "20/03/2024" "27/03/2024" ...
+ $ Author          : chr [1:40] "Simon Singh" "Kevin Mitnick" "David Oldroyd" "Katrine Marcal" ...
+ $ Year            : chr [1:40] "1999" "2011" "1986" "2016" ...
+ $ Title           : chr [1:40] "The Code Book" "Ghost in the Wires" "The Arch of Knowledge" "Who Cooked Adam Smith's Dinner" ...
+ $ ISBN            : chr [1:40] "978-1857028898" "978-0316037723" "978-0416013313" "978-1846275661" ...
+ $ Worldcat        : chr [1:40] "https://search.worldcat.org/title/59579840" "https://search.worldcat.org/title/773175688" "https://search.worldcat.org/title/12663957" "https://search.worldcat.org/title/933444501" ...
+ $ KnowledgeNetwork: chr [1:40] NA NA NA NA ...
+ $ Description     : chr [1:40] "The Code Book: The Secret History of Codes and Code-Breaking a book by . (bookshop.org) (to buy online but supp"| __truncated__ "Here's a book of the week suggestion following on from the codes theme from last time. It's the autobiography o"| __truncated__ NA NA ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Date = col_character(),
+  ..   Author = col_character(),
+  ..   Year = col_character(),
+  ..   Title = col_character(),
+  ..   ISBN = col_character(),
+  ..   Worldcat = col_character(),
+  ..   KnowledgeNetwork = col_character(),
+  ..   Description = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">botw</span><span class="op">)</span> <span class="co"># shows first few rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  Date       Author      Year  Title ISBN  Worldcat KnowledgeNetwork Description
+  &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+1 06/03/2024 Simon Singh 1999  The … 978-… https:/… &lt;NA&gt;             The Code B…
+2 13/03/2024 Kevin Mitn… 2011  Ghos… 978-… https:/… &lt;NA&gt;             Here's a b…
+3 20/03/2024 David Oldr… 1986  The … 978-… https:/… &lt;NA&gt;             &lt;NA&gt;       
+4 27/03/2024 Katrine Ma… 2016  Who … 978-… https:/… &lt;NA&gt;             &lt;NA&gt;       
+5 24/04/2024 Tom Lean    2016  Elec… 978-… https:/… &lt;NA&gt;             We're look…
+6 01/05/2024 Caroline C… 2019  Invi… 978-… https:/… &lt;NA&gt;             Anyone who…</code></pre>
+</div>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">botw</span><span class="op">)</span> <span class="co"># counts rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 40</code></pre>
+</div>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">botw</span><span class="op">)</span> <span class="co"># column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Date"             "Author"           "Year"             "Title"           
+[5] "ISBN"             "Worldcat"         "KnowledgeNetwork" "Description"     </code></pre>
+</div>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">botw</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Date              Author              Year              Title          
+ Length:40          Length:40          Length:40          Length:40         
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+     ISBN             Worldcat         KnowledgeNetwork   Description       
+ Length:40          Length:40          Length:40          Length:40         
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  </code></pre>
+</div>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="co"># native pipe operator in R. Piped code in Python requires modules</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40 × 8
+   Date       Author     Year  Title ISBN  Worldcat KnowledgeNetwork Description
+   &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+ 1 21/08/2024 Darrell H… 1954  How … 978-… https:/… https://nhs.pri… "This week…
+ 2 29/05/2024 Ludwig Fl… 1979… Gene… 978-… https:/… &lt;NA&gt;             "If last w…
+ 3 20/03/2024 David Old… 1986  The … 978-… https:/… &lt;NA&gt;              &lt;NA&gt;      
+ 4 08/05/2024 Stephen J… 1996  The … 978-… https:/… &lt;NA&gt;             "After the…
+ 5 06/03/2024 Simon Sin… 1999  The … 978-… https:/… &lt;NA&gt;             "The Code …
+ 6 10/07/2024 Aviva Pet… 2000  Medi… 978-… https:/… https://nhs.pri… "There are…
+ 7 19/06/2024 Andrew Gr… 2001  Harv… 978-… https:/… &lt;NA&gt;             "Last week…
+ 8 26/06/2024 Trent D. … 2001  Dark… 978-… https:/… &lt;NA&gt;             "We're sti…
+ 9 02/10/2024 Gerd Gige… 2002  Reck… 978-… https:/… https://nhs.pri… "How do yo…
+10 05/06/2024 Andrew Br… 2004  In t… 978-… https:/… &lt;NA&gt;             "It's now …
+# ℹ 30 more rows</code></pre>
+</div>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span><span class="op">$</span><span class="va">Date</span> <span class="co"># selecting a column as a vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "06/03/2024" "13/03/2024" "20/03/2024" "27/03/2024" "24/04/2024"
+ [6] "01/05/2024" "08/05/2024" "15/05/2024" "22/05/2024" "29/05/2024"
+[11] "05/06/2024" "12/06/2024" "19/06/2024" "26/06/2024" "03/07/2024"
+[16] "10/07/2024" "17/07/2024" "31/07/2024" "07/08/2024" "14/08/2024"
+[21] "21/08/2024" "28/08/2024" "04/09/2024" "11/09/2024" "18/09/2024"
+[26] "25/09/2024" "02/10/2024" "30/10/2024" "06/11/2024" "13/11/2024"
+[31] "20/11/2024" "27/11/2024" "04/12/2024" "10/01/2025" "17/01/2025"
+[36] "24/01/2025" "31/01/2025" "07/02/2025" "14/02/2025" "21/02/2025"</code></pre>
+</div>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="co"># subsetting by index using slice and returning a tibble Note different indexing behaviour</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 8
+  Date       Author      Year  Title ISBN  Worldcat KnowledgeNetwork Description
+  &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+1 20/03/2024 David Oldr… 1986  The … 978-… https:/… &lt;NA&gt;             &lt;NA&gt;       
+2 27/03/2024 Katrine Ma… 2016  Who … 978-… https:/… &lt;NA&gt;             &lt;NA&gt;       </code></pre>
+</div>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span> <span class="co"># subsetting entire columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40 × 1
+   Date      
+   &lt;chr&gt;     
+ 1 06/03/2024
+ 2 13/03/2024
+ 3 20/03/2024
+ 4 27/03/2024
+ 5 24/04/2024
+ 6 01/05/2024
+ 7 08/05/2024
+ 8 15/05/2024
+ 9 22/05/2024
+10 29/05/2024
+# ℹ 30 more rows</code></pre>
+</div>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">botw</span><span class="op">[</span><span class="fl">5</span>,<span class="op">]</span><span class="op">)</span> <span class="co"># subsetting by index and coercing to a vector. This is pretty non-idiomatic in R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "24/04/2024"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+[2] "Tom Lean"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+[3] "2016"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+[4] "Electronic Dreams: How 1980s Britain Learned to Love the Computer"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+[5] "978-1472918338"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+[6] "https://search.worldcat.org/title/907966036"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+[7] NA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+[8] "We're looking at regular expressions in the community meetup today. Regex, as the wikipedia page suggests, have been around for ages - positively archaeological in computing terms. So for the book of the week this week, I wanted to show off one of the most interesting bits of social history I've read: Tom Lean's Electronic Dreams. Lots of the history of computing is either primarily about the technical details, or is a broadly nostalgic look at obsolete tech. This book doesn't do either of those, instead spending its time giving a concise account of how personal computing worked as a social phenomenon. For example, how did people start getting paid to write computer games? What happened when the BBC got involved in personal computing? What happened to the various promises of digital revolutions as a replacement for manufacturing industries."</code></pre>
+</div>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span><span class="op">[</span><span class="fl">5</span>,<span class="op">]</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Author</span>, <span class="va">Year</span><span class="op">)</span> <span class="co"># subsetting by index and columns and returning a tibble</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  Author   Year 
+  &lt;chr&gt;    &lt;chr&gt;
+1 Tom Lean 2016 </code></pre>
+</div>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">&gt;</span> <span class="fl">2010</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="co"># subsetting by filtering years, then sorting using dplyr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 25 × 8
+   Date       Author     Year  Title ISBN  Worldcat KnowledgeNetwork Description
+   &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+ 1 13/03/2024 Kevin Mit… 2011  Ghos… 978-… https:/… &lt;NA&gt;             Here's a b…
+ 2 07/08/2024 Tom Koch   2011  Dise… 978-… https:/… &lt;NA&gt;             This is an…
+ 3 04/09/2024 Daniel Ka… 2011  Thin… 978-… https:/… https://nhs.pri… This week'…
+ 4 14/02/2025 Michael C… 2011  Fiel… 978-… https:/… &lt;NA&gt;             This is a …
+ 5 12/06/2024 Naomi Ore… 2012  Merc… 978-… https:/… https://nhs.pri… While the …
+ 6 17/07/2024 Samuel Ar… 2012  The … 978-… https:/… &lt;NA&gt;             This book …
+ 7 17/01/2025 Mark Hend… 2012  The … 978-… https:/… &lt;NA&gt;             This week'…
+ 8 14/08/2024 David Gra… 2015  The … 978-… https:/… &lt;NA&gt;             This is a …
+ 9 24/01/2025 Yuval Noa… 2015… 'Sap… 978-… https:/… &lt;NA&gt;             Ebrahim Gh…
+10 27/03/2024 Katrine M… 2016  Who … 978-… https:/… &lt;NA&gt;             &lt;NA&gt;       
+# ℹ 15 more rows</code></pre>
+</div>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">botw</span><span class="op">$</span><span class="va">Author</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Katrine Marçal"</span>, <span class="st">"Caroline Criado Perez"</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span> <span class="co"># finding matching values using base R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  Date       Author      Year  Title ISBN  Worldcat KnowledgeNetwork Description
+  &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+1 01/05/2024 Caroline C… 2019  Invi… 978-… https:/… &lt;NA&gt;             Anyone who…</code></pre>
+</div>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># removes any missing values in the whole tibble</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 8
+  Date       Author      Year  Title ISBN  Worldcat KnowledgeNetwork Description
+  &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      
+1 12/06/2024 Naomi Ores… 2012  Merc… 978-… https:/… https://nhs.pri… While the …
+2 03/07/2024 Lisa Feldm… 2018  How … 978-… https:/… https://nhs.pri… This week'…
+3 10/07/2024 Aviva Petr… 2000  Medi… 978-… https:/… https://nhs.pri… There are …
+4 31/07/2024 Cathy O'Ne… 2016  Weap… 978-… https:/… https://nhs.pri… If you've …
+5 21/08/2024 Darrell Hu… 1954  How … 978-… https:/… https://nhs.pri… This week'…
+6 04/09/2024 Daniel Kah… 2011  Thin… 978-… https:/… https://nhs.pri… This week'…
+7 11/09/2024 Chris Cham… 2019  The … 978-… https:/… https://nhs.pri… Rosalyn Pe…
+8 02/10/2024 Gerd Giger… 2002  Reck… 978-… https:/… https://nhs.pri… How do you…
+9 20/11/2024 Gwen Adshe… 2021  The … 978-… https:/… https://nhs.pri… This week'…</code></pre>
+</div>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span><span class="op">$</span><span class="va">Title</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># returning the title column as a lower-case vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "the code book"                                                                                        
+ [2] "ghost in the wires"                                                                                   
+ [3] "the arch of knowledge"                                                                                
+ [4] "who cooked adam smith's dinner"                                                                       
+ [5] "electronic dreams: how 1980s britain learned to love the computer"                                    
+ [6] "invisible women: exposing data bias in a world designed for men"                                      
+ [7] "the mismeasure of man (2nd ed)"                                                                       
+ [8] "being wrong: adventures in the margin of error"                                                       
+ [9] "bad blood: secrets and lies in a silicon valley startup"                                              
+[10] "genesis and development of a scientific fact"                                                         
+[11] "in the beginning was the worm: finding the secrets of life in a tiny hermaphrodite"                   
+[12] "merchants of doubt"                                                                                   
+[13] "harvey's heart: the discovery of blood circulation"                                                   
+[14] "dark remedy: the impact of thalidomide and its revival as a vital medicine"                           
+[15] "how emotions are made"                                                                                
+[16] "medical statistics at a glance"                                                                       
+[17] "the half-life of facts"                                                                               
+[18] "weapons of math destruction"                                                                          
+[19] "disease maps: epidemics on the ground"                                                                
+[20] "the utopia of rules: on technology, stupidity, and the secret joys of bureaucracy"                    
+[21] "how to lie with statistics"                                                                           
+[22] "\"clean code: a handbook of agile software craftsmanship\""                                           
+[23] "thinking, fast and slow"                                                                              
+[24] "the 7 deadly sins of psychology"                                                                      
+[25] "what tech calls thinking: an inquiry into the intellectual bedrock of silicon valley"                 
+[26] "how do you know if you are making a difference? a practical handbook for public service organisations"
+[27] "reckoning with risk: learning to live with uncertainty"                                               
+[28] "hybrid humans: dispatches from the frontiers of man and machine"                                      
+[29] "asking the right questions: a guide to critical thinking"                                             
+[30] "the alignment problem"                                                                                
+[31] "the devil you know - encounters in forensic psychiatry"                                               
+[32] "the end of alchemy: money, banking and the future of the global economy"                              
+[33] "the checklist manifesto"                                                                              
+[34] "technofeudalism"                                                                                      
+[35] "the geek manifesto"                                                                                   
+[36] "'sapiens: a brief history of humankind' and 'homo deus: a brief history of tomorrow'"                 
+[37] "never split the difference"                                                                           
+[38] "r for data science (2nd edition)"                                                                     
+[39] "field notes on science &amp; nature"                                                                      
+[40] "how to write a lot"                                                                                   </code></pre>
+</div>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">botw</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Date <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># fixing publication dates</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span>month <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">Date</span>, unit <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="co"># average year of publication by month of botw</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   month      mean_year
+   &lt;date&gt;         &lt;dbl&gt;
+ 1 2024-03-01     2003 
+ 2 2024-04-01     2016 
+ 3 2024-05-01     2011.
+ 4 2024-06-01     2004.
+ 5 2024-07-01     2012.
+ 6 2024-08-01     1997 
+ 7 2024-09-01     2018 
+ 8 2024-10-01     2012 
+ 9 2024-11-01     2016.
+10 2024-12-01     2010 
+11 2025-01-01     2017 
+12 2025-02-01     2014.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="plots" class="level2"><h2 class="anchored" data-anchor-id="plots">Plots</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">R</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<p>Using <a href="https://matplotlib.org/3.1.1/index.html">matplotlib</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>plt.hist(botw[<span class="st">"Year"</span>], bins <span class="op">=</span> [<span class="dv">1970</span>, <span class="dv">1980</span>, <span class="dv">1990</span>, <span class="dv">2000</span>, <span class="dv">2010</span>, <span class="dv">2020</span>])</span>
+<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"The KIND network BotW is biased towards newer books"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="a_data_centric_introduction_to_python_pg_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">botw</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Year <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span>, fill<span class="op">=</span><span class="st">"#1F77B4"</span>, binwidth <span class="op">=</span> <span class="fl">10</span>, center <span class="op">=</span> <span class="fl">1985</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"The KIND network BotW is biased towards newer books"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="a_data_centric_introduction_to_python_pg_files/figure-html/unnamed-chunk-27-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</section></section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-reticulate" class="csl-entry" role="listitem">
+Ushey, Kevin, JJ Allaire, and Yuan Tang. 2024. <span>“Reticulate: Interface to ’Python’.”</span> <a href="https://CRAN.R-project.org/package=reticulate">https://CRAN.R-project.org/package=reticulate</a>.
+</div>
+<div id="ref-readr" class="csl-entry" role="listitem">
+Wickham, Hadley, Jim Hester, and Jennifer Bryan. 2024. <span>“Readr: Read Rectangular Text Data.”</span> <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>.
+</div>
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+</body></html>

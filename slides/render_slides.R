@@ -9,7 +9,7 @@ render_slides <- function(file_path, session_date){
                    tools::file_path_sans_ext(basename(file_path)),
                    ".html")
   
-  site_fn <- paste0("_site/", 
+  site_fn <- paste0("docs/", 
                     stringr::str_extract(file_path, ".*\\/"),
                     out_fn)
   
@@ -22,3 +22,4 @@ render_slides <- function(file_path, session_date){
   file.copy(site_fn, paste0("slides/", out_fn), overwrite = T)
   unlink(site_fn)
 }
+render_slides("excel/references_and_names_in_excel.qmd", "2025-09-17")
