@@ -147,10 +147,10 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#dax-reminders" id="toc-dax-reminders" class="nav-link" data-scroll-target="#dax-reminders">DAX reminders</a></li>
+  <li><a href="#a-warmup-date-tables" id="toc-a-warmup-date-tables" class="nav-link" data-scroll-target="#a-warmup-date-tables">A warmup: date tables</a></li>
   <li><a href="#column-functions" id="toc-column-functions" class="nav-link" data-scroll-target="#column-functions">Column functions</a></li>
   <li><a href="#column-vs-measure" id="toc-column-vs-measure" class="nav-link" data-scroll-target="#column-vs-measure">Column vs measure</a></li>
   <li><a href="#dax-defaults" id="toc-dax-defaults" class="nav-link" data-scroll-target="#dax-defaults">DAX defaults</a></li>
-  <li><a href="#date-tables" id="toc-date-tables" class="nav-link" data-scroll-target="#date-tables">Date tables</a></li>
   <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><code>FILTER()</code></a></li>
   <li><a href="#filter-context" id="toc-filter-context" class="nav-link" data-scroll-target="#filter-context">Filter context</a></li>
   <li><a href="#iterator-functions" id="toc-iterator-functions" class="nav-link" data-scroll-target="#iterator-functions">Iterator functions</a></li>
@@ -409,24 +409,14 @@ Booking link
 Date
 </th>
 </tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<a href="https://events.teams.microsoft.com/event/6e55ea2f-e478-43dc-a67b-3c88da4b4f3a@10efe0bd-a030-4bca-809c-b5e6745e499a">Intermediate Power BI (session 2)</a>
-</td>
-<td style="text-align:left;">
-14:00-16:00 Tue 16th September 2025
-</td>
-</tr>
-<tr>
+<tbody><tr>
 <td style="text-align:left;">
 <a href="https://events.teams.microsoft.com/event/7fac2c23-6cf7-40cd-afa7-832482c9263b@10efe0bd-a030-4bca-809c-b5e6745e499a">Intermediate Power BI (session 2)</a>
 </td>
 <td style="text-align:left;">
 13:00-15:00 Wed 12th November 2025
 </td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 </div>
@@ -435,8 +425,8 @@ Date
 <section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
 <p>In this session, we’ll concentrate on DAX. Specifically, we’ll:</p>
 <ul>
+<li>look in more detail at date tables as a warmup</li>
 <li>look at the foundations of DAX, especially concentrating on the differences between measures and tables</li>
-<li>look in more detail at date tables</li>
 <li>discuss iterator functions</li>
 <li>think about the filter context, and the ways you can use (and modify) it with <code>FILTER()</code> and <code>CALCULATE()</code>
 </li>
@@ -446,14 +436,46 @@ Date
 <ul>
 <li>this session uses a bit of synthetic data extending the Dundee traffic dataset from the previous session  <img src="../src/images/clipboard-1392993828.png" class="img-fluid" alt="New traffic dataset">
 </li>
-<li>please <a href="https://nes-dew.github.io/KIND-training/bi_training/src/traffic_detail.xlsx">download the data from this link</a>, and import into Power BI</li>
+<li>please <a href="https://nes-dew.github.io/KIND-training/bi_training/src/traffic_detail.xlsx">use this link</a> to import into Power BI. You should be able to do that directly from the Excel connector.</li>
 </ul></section><section id="dax-reminders" class="level2"><h2 class="anchored" data-anchor-id="dax-reminders">DAX reminders</h2>
 <ul>
 <li>functions vs formulas</li>
 <li>arguments and return values</li>
 <li>references</li>
 <li>columns vs measures</li>
-</ul></section><section id="column-functions" class="level2"><h2 class="anchored" data-anchor-id="column-functions">Column functions</h2>
+</ul></section><section id="a-warmup-date-tables" class="level2"><h2 class="anchored" data-anchor-id="a-warmup-date-tables">A warmup: date tables</h2>
+<p>We briefly discussed and implemented a date table in the previous session. Date tables are good practice, because they help you deal with patchy data (especially when you have missing dates), and prevent repetition by consolidating all your date info into one place.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>create a <code>dates</code> table now using the <code>MIN</code> and <code>MAX</code> values from <code>traffic[date]</code>
+<ul>
+<li>note that <code>date</code> is a reserved keyword, so probably better avoided as a table name</li>
+</ul>
+</li>
+<li>now add some columns:
+<ul>
+<li>a day of the week, using <code>WEEKDAY</code>
+</li>
+<li>a day name, using <code>FORMAT</code>
+</li>
+<li>a quarter, using <code>QUARTER</code>
+</li>
+</ul>
+</li>
+<li>finally, check the model to ensure that your date table is linked to your traffic table</li>
+</ul>
+</div>
+</div>
+</section><section id="column-functions" class="level2"><h2 class="anchored" data-anchor-id="column-functions">Column functions</h2>
 <ul>
 <li>Many DAX functions can return either columns or measures</li>
 <li>let’s try a practical example:</li>
@@ -502,40 +524,10 @@ Task
 </div>
 <ul>
 <li>an important result: DAX column functions default to row-wise filter context</li>
-<li>if you try the same formula in <code>temp_measure</code> you’ll cause an error: Power BI won’t know which row you want to change the case of</li>
-</ul></section><section id="date-tables" class="level2"><h2 class="anchored" data-anchor-id="date-tables">Date tables</h2>
-<p>We briefly discussed and implemented a date table in the previous session. Date tables are good practice, because they help you deal with patchy data (especially when you have missing dates), and prevent repetition by consolidating all your date info into one place.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>create a <code>dates</code> table now using the <code>MIN</code> and <code>MAX</code> values from <code>traffic[date]</code>
-<ul>
-<li>note that <code>date</code> is a reserved keyword, so probably better avoided as a table name</li>
-</ul>
+<li>if you try the same formula in <code>temp_measure</code> you’ll cause an error: Power BI won’t know which row you want to change the case of <img src="../src/images/BI_inter_single_val.png" class="img-fluid" alt="Different filter context for the measure">
 </li>
-<li>now add some columns:
-<ul>
-<li>a day of the week, using <code>WEEKDAY</code>
-</li>
-<li>a day name, using <code>FORMAT</code>
-</li>
-<li>a quarter, using <code>qrt</code>
-</li>
-</ul>
-</li>
-<li>finally, check the model to ensure that your date table is linked to your traffic table</li>
-</ul>
-</div>
-</div>
-</section><section id="filter" class="level2"><h2 class="anchored" data-anchor-id="filter"><code>FILTER()</code></h2>
+<li>this indicates a different <strong>filter context</strong> at play in this DAX formula when used as either a column or as a measure</li>
+</ul></section><section id="filter" class="level2"><h2 class="anchored" data-anchor-id="filter"><code>FILTER()</code></h2>
 <div class="callout callout-style-default callout-tip callout-titled" title="Task">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

@@ -34,8 +34,8 @@ next_sesh(rmarkdown::metadata$title)
 
 In this session, we'll concentrate on DAX. Specifically, we'll:
 
+- look in more detail at date tables as a warmup
 - look at the foundations of DAX, especially concentrating on the differences between measures and tables
-- look in more detail at date tables
 - discuss iterator functions
 - think about the filter context, and the ways you can use (and modify) it with `FILTER()` and `CALCULATE()`
 - introduce variables as a way of simplifying some DAX expressions
@@ -44,7 +44,7 @@ In this session, we'll concentrate on DAX. Specifically, we'll:
 ## Data
 
 -   this session uses a bit of synthetic data extending the Dundee traffic dataset from the previous session </br> ![New traffic dataset](../src/images/clipboard-1392993828.png)
--   please [download the data from this link](https://nes-dew.github.io/KIND-training/bi_training/src/traffic_detail.xlsx), and import into Power BI
+-   please [use this link](https://nes-dew.github.io/KIND-training/bi_training/src/traffic_detail.xlsx) to import into Power BI. You should be able to do that directly from the Excel connector.
 
 ## DAX reminders
 
@@ -52,6 +52,20 @@ In this session, we'll concentrate on DAX. Specifically, we'll:
 -   arguments and return values
 -   references
 -   columns vs measures
+
+## A warmup: date tables
+
+We briefly discussed and implemented a date table in the previous session. Date tables are good practice, because they help you deal with patchy data (especially when you have missing dates), and prevent repetition by consolidating all your date info into one place.
+
+::: {.callout-tip title="Task"}
+-   create a `dates` table now using the `MIN` and `MAX` values from `traffic[date]`
+    - note that `date` is a reserved keyword, so probably better avoided as a table name
+- now add some columns: 
+    - a day of the week, using `WEEKDAY`
+    - a day name, using `FORMAT`
+    - a quarter, using `QUARTER`
+- finally, check the model to ensure that your date table is linked to your traffic table
+:::
 
 ## Column functions
 
@@ -78,21 +92,8 @@ In this session, we'll concentrate on DAX. Specifically, we'll:
 :::
 
 - an important result: DAX column functions default to row-wise filter context
-- if you try the same formula in `temp_measure` you'll cause an error: Power BI won't know which row you want to change the case of
-
-## Date tables
-
-We briefly discussed and implemented a date table in the previous session. Date tables are good practice, because they help you deal with patchy data (especially when you have missing dates), and prevent repetition by consolidating all your date info into one place.
-
-::: {.callout-tip title="Task"}
--   create a `dates` table now using the `MIN` and `MAX` values from `traffic[date]`
-    - note that `date` is a reserved keyword, so probably better avoided as a table name
-- now add some columns: 
-    - a day of the week, using `WEEKDAY`
-    - a day name, using `FORMAT`
-    - a quarter, using `qrt`
-- finally, check the model to ensure that your date table is linked to your traffic table
-:::
+- if you try the same formula in `temp_measure` you'll cause an error: Power BI won't know which row you want to change the case of  \n ![Different filter context for the measure](../src/images/BI_inter_single_val.png)
+- this indicates a different **filter context** at play in this DAX formula when used as either a column or as a measure
 
 
 ## `FILTER()`

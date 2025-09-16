@@ -4750,21 +4750,21 @@
     "href": "bi_training/BI_intermediate_session_02.html",
     "title": "Intermediate Power BI (session 2)",
     "section": "",
-    "text": "This is part of our intermediate-level Power BI desktop course. The course structure is as follows:\nNo feedback found for this session\n\n\n\n\n\n\nForthcoming session(s)\n\n\n\n\n\n\n\n\nBooking link\n\n\nDate\n\n\n\n\n\nIntermediate Power BI (session 2)\n\n\n14:00-16:00 Tue 16th September 2025\n\n\n\n\nIntermediate Power BI (session 2)\n\n\n13:00-15:00 Wed 12th November 2025"
+    "text": "This is part of our intermediate-level Power BI desktop course. The course structure is as follows:\nNo feedback found for this session\n\n\n\n\n\n\nForthcoming session(s)\n\n\n\n\n\n\n\n\nBooking link\n\n\nDate\n\n\n\n\nIntermediate Power BI (session 2)\n\n\n13:00-15:00 Wed 12th November 2025"
   },
   {
     "objectID": "bi_training/BI_intermediate_session_02.html#session-outline",
     "href": "bi_training/BI_intermediate_session_02.html#session-outline",
     "title": "Intermediate Power BI (session 2)",
     "section": "Session outline",
-    "text": "Session outline\nIn this session, we’ll concentrate on DAX. Specifically, we’ll:\n\nlook at the foundations of DAX, especially concentrating on the differences between measures and tables\nlook in more detail at date tables\ndiscuss iterator functions\nthink about the filter context, and the ways you can use (and modify) it with FILTER() and CALCULATE()\n\nintroduce variables as a way of simplifying some DAX expressions\nand finish with a brief introduction to calculation groups as a means of reducing the number of DAX measures you need to write"
+    "text": "Session outline\nIn this session, we’ll concentrate on DAX. Specifically, we’ll:\n\nlook in more detail at date tables as a warmup\nlook at the foundations of DAX, especially concentrating on the differences between measures and tables\ndiscuss iterator functions\nthink about the filter context, and the ways you can use (and modify) it with FILTER() and CALCULATE()\n\nintroduce variables as a way of simplifying some DAX expressions\nand finish with a brief introduction to calculation groups as a means of reducing the number of DAX measures you need to write"
   },
   {
     "objectID": "bi_training/BI_intermediate_session_02.html#data",
     "href": "bi_training/BI_intermediate_session_02.html#data",
     "title": "Intermediate Power BI (session 2)",
     "section": "Data",
-    "text": "Data\n\nthis session uses a bit of synthetic data extending the Dundee traffic dataset from the previous session  \n\nplease download the data from this link, and import into Power BI"
+    "text": "Data\n\nthis session uses a bit of synthetic data extending the Dundee traffic dataset from the previous session  \n\nplease use this link to import into Power BI. You should be able to do that directly from the Excel connector."
   },
   {
     "objectID": "bi_training/BI_intermediate_session_02.html#dax-reminders",
@@ -4792,7 +4792,7 @@
     "href": "bi_training/BI_intermediate_session_02.html#dax-defaults",
     "title": "Intermediate Power BI (session 2)",
     "section": "DAX defaults",
-    "text": "DAX defaults\n\n\n\n\n\n\nTask\n\n\n\n\nnow tweak your temp_col formula to use the UPPER function on the [Detail] column: temp = UPPER(traffic[Detail])\n\ninspect the result\n\n\n\n\nan important result: DAX column functions default to row-wise filter context\nif you try the same formula in temp_measure you’ll cause an error: Power BI won’t know which row you want to change the case of"
+    "text": "DAX defaults\n\n\n\n\n\n\nTask\n\n\n\n\nnow tweak your temp_col formula to use the UPPER function on the [Detail] column: temp = UPPER(traffic[Detail])\n\ninspect the result\n\n\n\n\nan important result: DAX column functions default to row-wise filter context\nif you try the same formula in temp_measure you’ll cause an error: Power BI won’t know which row you want to change the case of \n\nthis indicates a different filter context at play in this DAX formula when used as either a column or as a measure"
   },
   {
     "objectID": "bi_training/BI_intermediate_session_02.html#date-tables",
@@ -12122,5 +12122,12 @@
     "title": "Tableau for Beginners (session 4)",
     "section": "Level of detail calculations",
     "text": "Level of detail calculations\n\nLoD calculations allow you to control the level of detail that your calculations work at\nthis is just a taster as this gets into advanced (and messy) territory pretty fast\n\n\n\n\n\n\n\nTask\n\n\n\n\ncreate a table showing the average of each demographic group per NHS board:\n\nnow add a LoD calculation that will show the average for each attribute bracket for Scotland overall using {FIXED [Attribute] : AVG([Value])}: \n\n\n\n\nThat gives us a slightly messy way of benchmarking our average for our bracket within a board to the bracket nationally: \nWe could also try the more ambitious:\nAVG([Value]) / ATTR({FIXED [Attribute] : AVG([Value])})\n(you need the ATTR function to trick Tableau into mixing and matching these different values)"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_02.html#a-warmup-date-tables",
+    "href": "bi_training/BI_intermediate_session_02.html#a-warmup-date-tables",
+    "title": "Intermediate Power BI (session 2)",
+    "section": "A warmup: date tables",
+    "text": "A warmup: date tables\nWe briefly discussed and implemented a date table in the previous session. Date tables are good practice, because they help you deal with patchy data (especially when you have missing dates), and prevent repetition by consolidating all your date info into one place.\n\n\n\n\n\n\nTask\n\n\n\n\ncreate a dates table now using the MIN and MAX values from traffic[date]\n\nnote that date is a reserved keyword, so probably better avoided as a table name\n\n\nnow add some columns:\n\na day of the week, using WEEKDAY\n\na day name, using FORMAT\n\na quarter, using QUARTER\n\n\n\nfinally, check the model to ensure that your date table is linked to your traffic table"
   }
 ]
