@@ -19,4 +19,4 @@ render_slides <- function(file_path, session_date){
   file.copy(site_fn, paste0("slides/", out_fn), overwrite = T)
   unlink(site_fn)
 }
-render_slides("skills/neural_nets.qmd", "2025-09-18")
+# render_slides("skills/neural_nets.qmd", "2025-09-18")
