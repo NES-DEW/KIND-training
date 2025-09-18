@@ -9,7 +9,9 @@ execute:
   freeze: false
 categories: [AI/ML, beginner]
 date: "`r params$sl_date`"
-title: "`r params$fn`"
+title: "Neural nets made ridiculously simple"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ::: {.content-visible unless-format="revealjs"}
@@ -31,11 +33,15 @@ source(here::here("R/feed_block.R"))
 feed_block("Neural Networks made ridiculously simple")
 source(here::here("R/next_sesh.R"), local = T)
 next_sesh(rmarkdown::metadata$params$fn)
+
+  
 ```
 
 :::
 
 ::: {.content-visible when-format="revealjs"}
+
+## Forthcoming sessions
 ```{r}
 KINDR::training_sessions(tr_type = c("Skills", "AI/ML"), start_date = params$sl_date, n = 5, hide_area = T)
 ```
@@ -116,7 +122,7 @@ node(TRUE)
 
 ## Machines: networks of nodes
 
-![](../src/images/net3.png)
+![Networks of nodes](../src/images/net3.png)
 
 ## Machines: networks of nodes
 
@@ -141,12 +147,20 @@ A user supplies some input. That input is fed into an input node(s), which proce
 + most fancy ANNs are currently architecturally simple
 
 ## Why ANNs?
-+ ANNs can can potentially replicate *any* input-output ransformation
++ ANNs can can potentially replicate *any* input-output transformation
 + we do that by a) increasing complexity and b) allowing them to 'learn'
 
-. . .
 
-![](../src/images/net4.png)
+![Example of hidden layers](../src/images/net4.png)
+
+## How do hidden layers help?
+
++ all this complexity allows input to be processed differently
++ like neurones, downstream nodes either fire (activate) or do not fire depending on their inputs
++ to understand how that takes place, we need three new ideas:
+  + an **activation function** which determines how a node fires in response to its input input
+  + a set of input **weights** which set the strength of each input. Higher weighted inputs are more likely to activate
+  + **bias** = the strength of a node's output. Higher bias = higher chance of our node's output firing the downstream node
 
 
 ## Different activation functions
@@ -188,8 +202,29 @@ ggplot() +
     + modify the ANN based on that evaluation
     + repeat until done/bored/perfect
   + finally, test your model with your unlabelled test data and evaluate
-  
-## MNIST
+
+## Training is about weights and biases
+
++ varying weights and biases changes how our network responds to input
+
++ you might start with random weights/biases, or with everything set to 1, or [something more complicated](https://www.coursera.org/articles/neural-network-weights) 
+
++ training works by varying weights and biases across the network, and evaluating the overall response across the training data. Call that an **epoch**
+
+::: {.notes}
+LeCun initialization: In this method, you would follow a formula that considers the number of inputs and outputs to create random weights that represent a series of numbers, all with an equal probability of being the starting weight. 
+
+
+Xavier initialization: This method is similar to the LeCun method but is used in Keras and takes a square root of the initialization values you would get from a LeCun method. 
+
+
+He initialization: A method useful for deep learning, He initialization uses an activation function to assign weights. 
+:::
+
+
+## Example uses
+
+## Handwriting recognition with MNIST
 
 + a [classic dataset](https://upload.wikimedia.org/wikipedia/commons/f/f7/MnistExamplesModified.png) </br>![](../src/images/MnistExamplesModified.png)
 + recognizing handwritten numbers = actually-important task
@@ -269,6 +304,13 @@ mnist_plot <- function(n){
 gridExtra::grid.arrange(grobs = purrr::map(1:36, mnist_plot), nrow = 6, top="Some MNIST examples")
 
 ```
+
+## X-ray anomaly detection
+
+![A surprise while reviewing the content](../src/images/retracto.png)  \n
+
++ [Planned example not so good](https://pmc.ncbi.nlm.nih.gov/articles/PMC9338857/)
++ [CoroNet](https://www.sciencedirect.com/science/article/pii/S0169260720314140) might be a safer example now!
 
 ::: {.content-visible when-format="revealjs"}
 

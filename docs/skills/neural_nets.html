@@ -193,15 +193,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#machines-networks-of-nodes-1" id="toc-machines-networks-of-nodes-1" class="nav-link" data-scroll-target="#machines-networks-of-nodes-1">Machines: networks of nodes</a></li>
   <li><a href="#several-kinds-of-networks" id="toc-several-kinds-of-networks" class="nav-link" data-scroll-target="#several-kinds-of-networks">Several kinds of networks</a></li>
   <li><a href="#why-anns" id="toc-why-anns" class="nav-link" data-scroll-target="#why-anns">Why ANNs?</a></li>
+  <li><a href="#how-do-hidden-layers-help" id="toc-how-do-hidden-layers-help" class="nav-link" data-scroll-target="#how-do-hidden-layers-help">How do hidden layers help?</a></li>
   <li><a href="#different-activation-functions" id="toc-different-activation-functions" class="nav-link" data-scroll-target="#different-activation-functions">Different activation functions</a></li>
   <li><a href="#sigmoid-activation" id="toc-sigmoid-activation" class="nav-link" data-scroll-target="#sigmoid-activation">Sigmoid activation</a></li>
   <li><a href="#relu-activation" id="toc-relu-activation" class="nav-link" data-scroll-target="#relu-activation">ReLU activation</a></li>
   <li><a href="#training-in-neural-networks" id="toc-training-in-neural-networks" class="nav-link" data-scroll-target="#training-in-neural-networks">Training in neural networks</a></li>
-  <li><a href="#mnist" id="toc-mnist" class="nav-link" data-scroll-target="#mnist">MNIST</a></li>
+  <li><a href="#training-is-about-weights-and-biases" id="toc-training-is-about-weights-and-biases" class="nav-link" data-scroll-target="#training-is-about-weights-and-biases">Training is about weights and biases</a></li>
+  <li><a href="#example-uses" id="toc-example-uses" class="nav-link" data-scroll-target="#example-uses">Example uses</a></li>
+  <li><a href="#handwriting-recognition-with-mnist" id="toc-handwriting-recognition-with-mnist" class="nav-link" data-scroll-target="#handwriting-recognition-with-mnist">Handwriting recognition with MNIST</a></li>
   <li><a href="#mnist-data-example" id="toc-mnist-data-example" class="nav-link" data-scroll-target="#mnist-data-example">MNIST data example</a></li>
   <li><a href="#train-for-mnist" id="toc-train-for-mnist" class="nav-link" data-scroll-target="#train-for-mnist">Train for MNIST</a></li>
   <li><a href="#mnist-examples" id="toc-mnist-examples" class="nav-link" data-scroll-target="#mnist-examples">MNIST examples</a></li>
   <li><a href="#mnist-in-r" id="toc-mnist-in-r" class="nav-link" data-scroll-target="#mnist-in-r">MNIST in R</a></li>
+  <li><a href="#x-ray-anomaly-detection" id="toc-x-ray-anomaly-detection" class="nav-link" data-scroll-target="#x-ray-anomaly-detection">X-ray anomaly detection</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -416,9 +420,9 @@ Three random comments from previous attendees
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>A very accessible introduction to a very complicated topic; highly recommended for anyone interested in learning more but unsure where to begin.</li>
-<li>engaging. Good balance of principles and examples</li>
 <li>Really interesting intro into neural networks, good explanation about the history and development. Good level of info for an introduction session which has made me want to look up more about neural networks and AI</li>
+<li>I won’t pretend I ‘got’ everything but a fascinating and helpful window into this topic!</li>
+<li>interesting introduction to ground all the current frenzied excitement around AI/ML</li>
 </ul>
 </div>
 </div>
@@ -532,7 +536,10 @@ Date
 </div>
 </div>
 </section><section id="machines-networks-of-nodes" class="level2"><h2 class="anchored" data-anchor-id="machines-networks-of-nodes">Machines: networks of nodes</h2>
-<p><img src="../src/images/net3.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/net3.png" class="img-fluid figure-img"></p>
+<figcaption>Networks of nodes</figcaption></figure>
+</div>
 </section><section id="machines-networks-of-nodes-1" class="level2"><h2 class="anchored" data-anchor-id="machines-networks-of-nodes-1">Machines: networks of nodes</h2>
 <ul>
 <li>nodes are usually found in networks</li>
@@ -558,12 +565,26 @@ Date
 <li>most fancy ANNs are currently architecturally simple</li>
 </ul></section><section id="why-anns" class="level2"><h2 class="anchored" data-anchor-id="why-anns">Why ANNs?</h2>
 <ul>
-<li>ANNs can can potentially replicate <em>any</em> input-output ransformation</li>
+<li>ANNs can can potentially replicate <em>any</em> input-output transformation</li>
 <li>we do that by a) increasing complexity and b) allowing them to ‘learn’</li>
 </ul>
-<p>. . .</p>
-<p><img src="../src/images/net4.png" class="img-fluid"></p>
-</section><section id="different-activation-functions" class="level2"><h2 class="anchored" data-anchor-id="different-activation-functions">Different activation functions</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/net4.png" class="img-fluid figure-img"></p>
+<figcaption>Example of hidden layers</figcaption></figure>
+</div>
+</section><section id="how-do-hidden-layers-help" class="level2"><h2 class="anchored" data-anchor-id="how-do-hidden-layers-help">How do hidden layers help?</h2>
+<ul>
+<li>all this complexity allows input to be processed differently</li>
+<li>like neurones, downstream nodes either fire (activate) or do not fire depending on their inputs</li>
+<li>to understand how that takes place, we need three new ideas:
+<ul>
+<li>an <strong>activation function</strong> which determines how a node fires in response to its input input</li>
+<li>a set of input <strong>weights</strong> which set the strength of each input. Higher weighted inputs are more likely to activate</li>
+<li>
+<strong>bias</strong> = the strength of a node’s output. Higher bias = higher chance of our node’s output firing the downstream node</li>
+</ul>
+</li>
+</ul></section><section id="different-activation-functions" class="level2"><h2 class="anchored" data-anchor-id="different-activation-functions">Different activation functions</h2>
 <ul>
 <li>binary (true/false)</li>
 <li>continuous
@@ -611,7 +632,19 @@ Date
 <li>finally, test your model with your unlabelled test data and evaluate</li>
 </ul>
 </li>
-</ul></section><section id="mnist" class="level2"><h2 class="anchored" data-anchor-id="mnist">MNIST</h2>
+</ul></section><section id="training-is-about-weights-and-biases" class="level2"><h2 class="anchored" data-anchor-id="training-is-about-weights-and-biases">Training is about weights and biases</h2>
+<ul>
+<li><p>varying weights and biases changes how our network responds to input</p></li>
+<li><p>you might start with random weights/biases, or with everything set to 1, or <a href="https://www.coursera.org/articles/neural-network-weights">something more complicated</a></p></li>
+<li><p>training works by varying weights and biases across the network, and evaluating the overall response across the training data. Call that an <strong>epoch</strong></p></li>
+</ul>
+<div class="notes">
+<p>LeCun initialization: In this method, you would follow a formula that considers the number of inputs and outputs to create random weights that represent a series of numbers, all with an equal probability of being the starting weight.</p>
+<p>Xavier initialization: This method is similar to the LeCun method but is used in Keras and takes a square root of the initialization values you would get from a LeCun method.</p>
+<p>He initialization: A method useful for deep learning, He initialization uses an activation function to assign weights.</p>
+</div>
+</section><section id="example-uses" class="level2"><h2 class="anchored" data-anchor-id="example-uses">Example uses</h2>
+</section><section id="handwriting-recognition-with-mnist" class="level2"><h2 class="anchored" data-anchor-id="handwriting-recognition-with-mnist">Handwriting recognition with MNIST</h2>
 <ul>
 <li>a <a href="https://upload.wikimedia.org/wikipedia/commons/f/f7/MnistExamplesModified.png">classic dataset</a> <img src="../src/images/MnistExamplesModified.png" class="img-fluid">
 </li>
@@ -778,6 +811,13 @@ Date
 </div>
 </div>
 </div>
+</section><section id="x-ray-anomaly-detection" class="level2"><h2 class="anchored" data-anchor-id="x-ray-anomaly-detection">X-ray anomaly detection</h2>
+<p><img src="../src/images/retracto.png" class="img-fluid" alt="A surprise while reviewing the content"></p>
+<ul>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9338857/">Planned example not so good</a></li>
+<li>
+<a href="https://www.sciencedirect.com/science/article/pii/S0169260720314140">CoroNet</a> might be a safer example now!</li>
+</ul>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

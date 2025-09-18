@@ -13,7 +13,7 @@ next_sesh <- function(page_title){
     
     cat("## Forthcoming session(s)  \n")
     
-    KINDR::training_sessions(output_type = "tibble") |>
+    KINDR::training_sessions(output_type = "tibble", start_date = as.character(lubridate::today()-1)) |>
       dplyr::filter(title %in% forthcoming$`session title`,
                     start >= min(forthcoming$start)) |>
       dplyr::mutate(title = paste0("<a href='", url, "'>", title, "</a>")) |>
