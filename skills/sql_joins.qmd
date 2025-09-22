@@ -1,0 +1,46 @@
+---
+execute: 
+  echo: false
+  freeze: auto
+params:
+  sl_date: 2025-09-17
+  fn: "SQL joins (pilot version)"
+draft: true
+format: html
+date: '`r params[["sl_date"]]`'
+title: SQL joins
+---
+
+::: {.content-visible unless-format="revealjs"}
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("SQL joins")
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh("SQL joins")
+```
+:::
+
+::: {.content-visible when-format="revealjs"}
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(start_date = params[["sl_date"]], n = 5, hide_area = T)
+```
+:::
+
+
+```{r}
+library(readr)
+
+main <- read_rds("data/prescribing_data.rds")
+
+main$gp_practices |>
+  knitr::kable()
+```
+
