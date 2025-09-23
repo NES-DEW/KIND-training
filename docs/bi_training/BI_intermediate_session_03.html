@@ -144,7 +144,6 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
 <li><a href="#session-aim" id="toc-session-aim" class="nav-link active" data-scroll-target="#session-aim">Session aim</a></li>
-  <li><a href="#where-does-this-fit-in" id="toc-where-does-this-fit-in" class="nav-link" data-scroll-target="#where-does-this-fit-in">Where does this fit in?</a></li>
   <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
   <li><a href="#data-for-this-session" id="toc-data-for-this-session" class="nav-link" data-scroll-target="#data-for-this-session">Data for this session</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
@@ -166,6 +165,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#create-national-data-for-benchmarking" id="toc-create-national-data-for-benchmarking" class="nav-link" data-scroll-target="#create-national-data-for-benchmarking">Create national data for benchmarking</a></li>
   <li><a href="#more-data-same-source" id="toc-more-data-same-source" class="nav-link" data-scroll-target="#more-data-same-source">More data, same source</a></li>
   <li><a href="#make-a-population-table" id="toc-make-a-population-table" class="nav-link" data-scroll-target="#make-a-population-table">Make a population table</a></li>
+  <li><a href="#relationships" id="toc-relationships" class="nav-link" data-scroll-target="#relationships">Relationships</a></li>
   <li><a href="#additional-data-sources" id="toc-additional-data-sources" class="nav-link" data-scroll-target="#additional-data-sources">Additional data sources</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -421,22 +421,17 @@ Date
 <section id="session-aim" class="level2"><h2 class="anchored" data-anchor-id="session-aim">Session aim</h2>
 <ul>
 <li>to cover core Power Query (PQ) functions and techniques</li>
-</ul></section><section id="where-does-this-fit-in" class="level2"><h2 class="anchored" data-anchor-id="where-does-this-fit-in">Where does this fit in?</h2>
-<ul>
-<li>session 1: a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices</li>
-<li>session 2: DAX language foundations, including FILTER and CALCULATE</li>
-<li>session 3: core PowerQuery functions to manage sources, join data sets, pivot, and tidy values</li>
-<li>session 4: PowerQuery M language foundations, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility</li>
-<li>session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice</li>
 </ul></section><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
 <ul>
-<li>thinking about queries - sources, connections, code folding, duplicating/referencing</li>
+<li>understanding PQ queries - sources, connections, code folding, duplicating/referencing</li>
 <li>data formats for Power BI - tidy data, and key-value pairs, and interconverting with pivots</li>
 <li>joins and relationships</li>
 <li>normalising and the star schema</li>
 </ul></section><section id="data-for-this-session" class="level2"><h2 class="anchored" data-anchor-id="data-for-this-session">Data for this session</h2>
 <ul>
-<li><a href="https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx">NRS vital events data for Q3 2024</a></li>
+<li>we’ll use the <a href="https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx">NRS vital events data for Q3 2024</a>
+</li>
+<li>that’s a complex Excel spreadsheet containing national birth, death, and marriage information</li>
 </ul></section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
 <li>open Power BI</li>
@@ -446,7 +441,7 @@ Date
 <ul>
 <li>all the Power BI connectors are available in PQ</li>
 <li>
-<code>New query &gt; Web</code><img src="../src/images/clipboard-3224181959.png" class="img-fluid" alt="Load data from web">
+<code>New query &gt; Web</code> <img src="../src/images/clipboard-3224181959.png" class="img-fluid" alt="Load data from web">
 </li>
 <li>supply the link for the NRS vital events data for Q3 2024: <a href="https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx" class="uri">https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx</a>
 </li>
@@ -457,10 +452,14 @@ Date
 <li>please import that from the navigator</li>
 </ul></section><section id="tidying-up" class="level2"><h2 class="anchored" data-anchor-id="tidying-up">Tidying up</h2>
 <ul>
-<li>remove the three <code>All</code> rows <img src="../src/images/clipboard-623679649.png" class="img-fluid" alt="Filter out the three all rows">
-</li>
 <li>check the data types</li>
 <li>fix the query name to <code>cause_death</code> <img src="../src/images/clipboard-1287398295.png" class="img-fluid" alt="Rename to cause_death">
+</li>
+<li>rename <code>ICD 10 Summary List</code> to <code>ICD10</code>
+</li>
+<li>rename <code>Cause of death</code> to <code>cause_death</code>
+</li>
+<li>remove the three <code>All</code> rows <img src="../src/images/clipboard-623679649.png" class="img-fluid" alt="Filter out the three all rows">
 </li>
 </ul></section><section id="this-data-isnt-quite-tidy" class="level2"><h2 class="anchored" data-anchor-id="this-data-isnt-quite-tidy">This data isn’t quite tidy</h2>
 <div class="quarto-figure quarto-figure-center">
@@ -669,25 +668,24 @@ Date
 <ul>
 <li>we’ll break out the cause of death parts of the data into a new table</li>
 <li>we’ll use the <a href="https://icd.who.int/browse10/2019/en">ICD 10 codes</a> as a key</li>
-<li>duplicate query and rename that query to <code>ICD10</code>
+<li>duplicate the <code>cause_death</code> query and rename to <code>ICD</code>
 </li>
-<li>remove anything other than ICD10 data in <code>ICD10</code> (and a note about <code>Table.SelectColumns</code>)</li>
+<li>remove everything but <code>ICD10</code> and <code>cause_death</code> from <code>ICD</code>
+</li>
 <li>remove duplicates via <code>Remove Rows &gt; Remove Duplicates</code>
 </li>
-<li>rename <code>ICD 10 Summary List</code> to <code>ICD10</code>
-</li>
-<li>then remove the <code>Cause of death</code> column in <code>cause_death</code>, and rename the <code>ICD10</code> column to link with the new table</li>
 </ul></section><section id="duplicating-vs-referencing-queries" class="level2"><h2 class="anchored" data-anchor-id="duplicating-vs-referencing-queries">Duplicating vs referencing queries</h2>
 <ul>
 <li>a duplicate query is an independent copy of a query that can be tweaked/extended</li>
 <li>a referenced query takes the output of a query, and uses it as the starting-point for additional work</li>
 </ul></section><section id="reshape-cause_death-to-key-value" class="level2"><h2 class="anchored" data-anchor-id="reshape-cause_death-to-key-value">Reshape <code>cause_death</code> to key-value</h2>
 <ul>
-<li>remove the <code>Scotland</code> column</li>
+<li>remove the <code>cause_death</code> column</li>
 <li>then unpivot everything but <code>ICD10</code> and <code>Sex</code> <img src="../src/images/clipboard-279191218.png" class="img-fluid" alt="Unpivot">
 </li>
 <li>rename your new Attribute/Value columns to <code>board</code> and <code>n</code>
 </li>
+<li>filter out the <code>Scotland</code> values from your board column</li>
 </ul></section><section id="create-national-data-for-benchmarking" class="level2"><h2 class="anchored" data-anchor-id="create-national-data-for-benchmarking">Create national data for benchmarking</h2>
 <ul>
 <li>duplicate <code>cause_death</code>
@@ -696,26 +694,36 @@ Date
 </li>
 <li>remove everything but the national data with <code>= Table.SelectColumns(#"Filtered Rows",{"ICD 10 Summary List", "Scotland", "Sex"})</code>
 </li>
+<li>then go back to the earlier filter, where you removed the total rows, and re-add them to your dataset</li>
 </ul></section><section id="more-data-same-source" class="level2"><h2 class="anchored" data-anchor-id="more-data-same-source">More data, same source</h2>
 <ul>
 <li>go back to source step of the <code>cause_death</code> query</li>
 <li>find the table data in the row <code>TableQ2b_Vital_events_by_NHS_Board_area</code>
 </li>
-<li>right-click the <code>Table</code>, and select <code>Add as New Query</code><img src="../src/images/clipboard-4014078747.png" class="img-fluid" alt="Add as New Query">
+<li>right-click the <code>Table</code>, and select <code>Add as New Query</code> <img src="../src/images/clipboard-4014078747.png" class="img-fluid" alt="Add as New Query">
 </li>
 <li>rename that new query <code>population</code>
 </li>
 </ul></section><section id="make-a-population-table" class="level2"><h2 class="anchored" data-anchor-id="make-a-population-table">Make a population table</h2>
 <ul>
-<li>remove everything but the first three columns  <img src="../src/images/clipboard-3972508190.png" class="img-fluid" alt="First three columns">
+<li>remove the top three rows</li>
+<li>then <code>Use First Row as Headers</code>
 </li>
-<li>remove the <code>null</code> row and the <code>SCOTLAND</code> row</li>
-<li>rename <code>NHS Board area</code> to <code>board</code>
+<li>remove everything but the females and males columns <img src="../src/images/clipboard-3972508190.png" class="img-fluid" alt="First three columns">
+</li>
+<li>remove the <code>null</code> row</li>
+<li>replace <code>SCOTLAND</code> with <code>Scotland</code>
+</li>
+<li>rename <code>NHS Board area</code> to <code>Board</code>
 </li>
 <li>clean and trim the <code>board</code> values</li>
-<li>unpivot the population columns to <code>sex</code> and <code>population</code>
+<li>unpivot the population columns to <code>Sex</code> and <code>Population</code>
 </li>
-<li>replace values and change case in the <code>sex</code> column to leave <code>Male</code> and <code>Female</code> values</li>
+<li>replace values and change case in the <code>Sex</code> column to leave <code>Male</code> and <code>Female</code> values</li>
+</ul></section><section id="relationships" class="level2"><h2 class="anchored" data-anchor-id="relationships">Relationships</h2>
+<ul>
+<li>Power BI works best when single columns are used for relationships</li>
+<li>create merged <code>board-sex</code> columns for relationships</li>
 </ul></section><section id="additional-data-sources" class="level2"><h2 class="anchored" data-anchor-id="additional-data-sources">Additional data sources</h2>
 <ul>
 <li>you might like to add in a second data source at this point for practice</li>

@@ -1,6 +1,6 @@
 ---
 execute: 
-  echo: false
+  echo: true
   freeze: auto
 params:
   sl_date: 2025-09-17
@@ -35,12 +35,94 @@ KINDR::training_sessions(start_date = params[["sl_date"]], n = 5, hide_area = T)
 :::
 
 
+<!-- + [test link](data/prescribing_data.rds) -->
+
+
+## Introduction
+
++ this is a session about joins in SQL
++ what are joins? 
+
+## Setup 
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
+* In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png)
+
+* Copy and paste the following R code into that script:
+
 ```{r}
+#| echo: true
+#| warning: false
+library(dbplyr)
+library(dplyr)
 library(readr)
 
-main <- read_rds("data/prescribing_data.rds")
+read_rds("https://nes-dew.github.io/KIND-training/skills/data/prescribing_data.rds") |>
+  list2env(.GlobalEnv)
 
-main$gp_practices |>
-  knitr::kable()
+conn <- src_memdb() # create an sqlite db in memory
+copy_to(conn, ab_city_presc, overwrite = T)
+copy_to(conn, bnf_data, overwrite = T)
+copy_to(conn, gp_practices, overwrite = T)
+copy_to(conn, hbt, overwrite = T)
+copy_to(conn, practice_names, overwrite = T)
+copy_to(conn, practice_lists, overwrite = T)
 ```
+
+* save your script and click the `Source` button
+    * that will create a simple SQL database in memory
+* now create a new SQL script (again, from the `File` menu)
+* delete all the pre-populated lines of code, as follows: </br>![Pre-populated code in new SQL script](src/images/new_sql.png)
+* to connect with our SQL db in memory, add the following line to the head of your SQL script:
+
+```{sql connection=src_memdb()$con}
+#| eval: false
+-- !preview conn=src_memdb()$con
+```
+
+* we've now got a series of SQL tables in memory
+* in one way and another those tables are all about pharmaceutical prescribing
+* we'll start with two very simple tables, before moving on to experiment with some more real-world data
+* the first, `practice_names` contains the names and ID codes for a few GP practices:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM practice_names;
+```
+
+* the second contains some practice list sizes for these GP practices - which tell you how many patients are registered for each practice
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM practice_lists;
+```
+
+* both datasets share a column: `PracticeCode`
+* joins in SQL will generally use one-or-more columns to relate parts of our data together
+* in these tables, each `PracticeCode` is a unique ID for each GP practice
+* when we join, we match my those unique IDs, and then bring in data from an external source
+* for example, we could take our `practice_names` table, and join on the additional column found in the `practice_lists` table:
+
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM practice_names 
+  JOIN practice_lists 
+  ON practice_names.PracticeCode = practice_lists.PracticeCode
+
+-- take our practice_names table, and for every matching PracticeCode bring in the other column(s) from practice_lists
+```
+
+* to note:
+  * there are two parts to a join. A join keyword, like `LEFT JOIN` which determines the logic of the join
+  * `ON` which describes how the columns in our data should relate to one another. Note the `table_name.column_name` syntax. Call that the **key**
+* we can do several kinds of SQL join by using a different join keyword
++ for a table `x` to which we're joining `y`:
+  + `JOIN`: includes all rows in x and y. Also known as `INNER JOIN`  \n ![Inner join](../src/images/inner.png){height="250px"}
+  + `LEFT JOIN`: includes all rows in x  \n ![Left join](../src/images/left.png){height="250px"}
+  + `RIGHT JOIN`: includes all rows in y  \n ![Right join](../src/images/right.png){height="250px"}
+  + `FULL JOIN`: includes all rows in x or y   \n![Full join](../src/images/full.png){height="250px"}
+
+*If a row in x matches multiple rows in y, all the rows in y will be returned once for each matching row in x.*
+
+## Prescribing data
+
 

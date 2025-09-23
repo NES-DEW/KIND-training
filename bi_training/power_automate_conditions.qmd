@@ -1,25 +1,39 @@
 ---
-title: Conditions in Power Automate
-date: "2025-02-27"
+categories: [skills, intermediate, Power Automate]
 execute: 
   echo: false
-  output: true
-  freeze: false
-categories: [skills, intermediate, Power Automate]
-editor_options: 
-  chunk_output_type: console
+  freeze: auto
+params:
+  sl_date: 2025-09-1
+  fn: Conditions in Power Automate
+format: html
+date: '`r params[["sl_date"]]`'
+title: Conditions in Power Automate
 ---
 
+::: {.content-visible unless-format="revealjs"}
+
 ```{r}
+#| echo: false
 #| results: asis
 #| fig-align: left
 #| fig-height: 0.6
 #| fig-width: 3
 
 source(here::here("R/feed_block.R"))
-feed_block("Conditions in Power Automate")
-
+feed_block("Groups and summaries in PowerQuery")
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh(rmarkdown::metadata[["title"]])
 ```
+:::
+
+::: {.content-visible when-format="revealjs"}
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Power Platform", start_date = params[["sl_date"]], n = 5, hide_area = T)
+```
+:::
+
 
 ## Prerequisites for this session
 
@@ -48,7 +62,6 @@ feed_block("Conditions in Power Automate")
 
 + we'll start with a very basic Flow that connects to a directory of files
 in your OneDrive.
-
 
 
 :::{.callout-note collapse=false appearance='default' icon=true}
@@ -148,3 +161,14 @@ test Team...
 + we could now add another variable to our flow
 + this will set a value based on the time of day</br>![Variable based on time of day](../src/images/ce_struct_11.png)
 + we can set our condition to use this variable instead of `file_count`
+
+::: {.content-visible when-format="revealjs"}
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Power Platform", start_date = params[["sl_date"]], n = 5, hide_area = T)
+```
+
+## Feedback
+
+Please can you [spare us one minute of your time to give feedback](`r KINDR::feedback_url(params[["fn"]], date = params[["sl_date"]]) `)?
+:::

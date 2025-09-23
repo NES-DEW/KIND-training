@@ -1,10 +1,39 @@
 ---
-title: "Excel formatting (Excel for beginners session 4)"
 categories: [excel, beginner, Excel for beginners]
 execute:
   freeze: auto
   echo: false
+params:
+  sl_date: 2025-09-17
+  fn: "Excel formatting (Excel for beginners session 4)"
+format: html
+date: '`r params[["sl_date"]]`'
+title: "Excel formatting (Excel for beginners session 4)"
 ---
+
+::: {.content-visible unless-format="revealjs"}
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block("Excel formatting")
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh("Excel formatting")
+```
+:::
+
+::: {.content-visible when-format="revealjs"}
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Excel", start_date = params[["sl_date"]], n = 5, hide_area = T)
+```
+:::
+
 
 This session is part of our Excel for beginners course. That's a series of six linked sessions, delivered on Teams, that give an introduction to Excel for people working in health and social care. The sessions are:
 
@@ -178,3 +207,14 @@ next_sesh(rmarkdown::metadata$title)
 -   Consider using validation to make sure that cells only contain what you expect them to contain
 -   Consider locking cells to protect formatting when that formatting is really important
 -   Use conditional formatting sparingly
+
+::: {.content-visible when-format="revealjs"}
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Excel", start_date = params[["sl_date"]], n = 5, hide_area = T)
+```
+
+## Feedback
+
+Please can you [spare us one minute of your time to give feedback](`r KINDR::feedback_url(params[["fn"]], date = params[["sl_date"]]) `)?
+:::

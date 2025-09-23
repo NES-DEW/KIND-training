@@ -30,24 +30,17 @@ next_sesh(rmarkdown::metadata$title)
 
 -   to cover core Power Query (PQ) functions and techniques
 
-## Where does this fit in?
-
--   session 1: a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices
--   session 2: DAX language foundations, including FILTER and CALCULATE
--   session 3: core PowerQuery functions to manage sources, join data sets, pivot, and tidy values
--   session 4: PowerQuery M language foundations, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility
--   session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
-
 ## Session outline
 
--   thinking about queries - sources, connections, code folding, duplicating/referencing
--   data formats for Power BI - tidy data, and key-value pairs, and interconverting with pivots
--   joins and relationships
--   normalising and the star schema
+- understanding PQ queries - sources, connections, code folding, duplicating/referencing
+- data formats for Power BI - tidy data, and key-value pairs, and interconverting with pivots
+- joins and relationships
+- normalising and the star schema
 
 ## Data for this session
 
--   [NRS vital events data for Q3 2024](https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx)
++ we'll use the [NRS vital events data for Q3 2024](https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx)
++ that's a complex Excel spreadsheet containing national birth, death, and marriage information
 
 ## Getting started
 
@@ -58,19 +51,21 @@ next_sesh(rmarkdown::metadata$title)
 ## Loading data from Power Query
 
 -   all the Power BI connectors are available in PQ
--   `New query > Web`</br>![Load data from web](../src/images/clipboard-3224181959.png)
+-   `New query > Web`  \n![Load data from web](../src/images/clipboard-3224181959.png)
 -   supply the link for the NRS vital events data for Q3 2024: <https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx>
 
 ## Tables and sheets
 
--   we want table 6 </br>(`TableQ6_Deaths_by_sex_cause_and_NHS_Board_area`) ![Table 6](../src/images/clipboard-849064723.png)
+-   we want table 6   \n(`TableQ6_Deaths_by_sex_cause_and_NHS_Board_area`) ![Table 6](../src/images/clipboard-849064723.png)
 -   please import that from the navigator
 
 ## Tidying up
 
--   remove the three `All` rows </br>![Filter out the three all rows](../src/images/clipboard-623679649.png)
 -   check the data types
--   fix the query name to `cause_death` </br>![Rename to cause_death](../src/images/clipboard-1287398295.png)
+-   fix the query name to `cause_death`   \n![Rename to cause_death](../src/images/clipboard-1287398295.png)
+- rename `ICD 10 Summary List` to `ICD10`
+- rename `Cause of death` to `cause_death`
+-   remove the three `All` rows   \n![Filter out the three all rows](../src/images/clipboard-623679649.png)
 
 ## This data isn't quite tidy
 
@@ -148,17 +143,16 @@ Data from [sja.org.uk](https://www.sja.org.uk/first-aid-supplies/defibrillators-
 
 ## Star schema
 
--   you might also see Power BI data described as a star schema </br>![Star schema](../src/images/clipboard-2583516447.png) image: [Wikimedia](https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4_%D1%81%D1%85%D0%B5%D0%BC%D0%B8_%D0%B7%D1%96%D1%80%D0%BA%D0%B8.png)
+-   you might also see Power BI data described as a star schema   \n![Star schema](../src/images/clipboard-2583516447.png) image: [Wikimedia](https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4_%D1%81%D1%85%D0%B5%D0%BC%D0%B8_%D0%B7%D1%96%D1%80%D0%BA%D0%B8.png)
 
 ## Reshaping our data
 
 -   we'll break out the cause of death parts of the data into a new table
 -   we'll use the [ICD 10 codes](https://icd.who.int/browse10/2019/en) as a key
--   duplicate query and rename that query to `ICD10`
--   remove anything other than ICD10 data in `ICD10` (and a note about `Table.SelectColumns`)
+-   duplicate the `cause_death` query and rename to `ICD`
+-   remove everything but `ICD10` and `cause_death` from `ICD`
 -   remove duplicates via `Remove Rows > Remove Duplicates`
--   rename `ICD 10 Summary List` to `ICD10`
--   then remove the `Cause of death` column in `cause_death`, and rename the `ICD10` column to link with the new table
+
 
 ## Duplicating vs referencing queries
 
@@ -167,31 +161,41 @@ Data from [sja.org.uk](https://www.sja.org.uk/first-aid-supplies/defibrillators-
 
 ## Reshape `cause_death` to key-value
 
--   remove the `Scotland` column
--   then unpivot everything but `ICD10` and `Sex`</br> ![Unpivot](../src/images/clipboard-279191218.png)
+-   remove the `cause_death` column
+-   then unpivot everything but `ICD10` and `Sex`  \n ![Unpivot](../src/images/clipboard-279191218.png)
 -   rename your new Attribute/Value columns to `board` and `n`
+- filter out the `Scotland` values from your board column
 
 ## Create national data for benchmarking
 
 -   duplicate `cause_death`
 -   name that new query `national`
 -   remove everything but the national data with `= Table.SelectColumns(#"Filtered Rows",{"ICD 10 Summary List", "Scotland", "Sex"})`
+- then go back to the earlier filter, where you removed the total rows, and re-add them to your dataset
 
 ## More data, same source
 
 -   go back to source step of the `cause_death` query
 -   find the table data in the row `TableQ2b_Vital_events_by_NHS_Board_area`
--   right-click the `Table`, and select `Add as New Query`</br>![Add as New Query](../src/images/clipboard-4014078747.png)
+-   right-click the `Table`, and select `Add as New Query`  \n![Add as New Query](../src/images/clipboard-4014078747.png)
 -   rename that new query `population`
 
 ## Make a population table
 
--   remove everything but the first three columns </br> ![First three columns](../src/images/clipboard-3972508190.png)
-- remove the `null` row and the `SCOTLAND` row
-- rename `NHS Board area` to `board`
+- remove the top three rows
+- then `Use First Row as Headers`
+-   remove everything but the females and males columns   \n ![First three columns](../src/images/clipboard-3972508190.png)
+- remove the `null` row 
+- replace `SCOTLAND` with `Scotland`
+- rename `NHS Board area` to `Board`
 - clean and trim the `board` values 
-- unpivot the population columns to `sex` and `population`
-- replace values and change case in the `sex` column to leave `Male` and `Female` values
+- unpivot the population columns to `Sex` and `Population`
+- replace values and change case in the `Sex` column to leave `Male` and `Female` values
+
+## Relationships
+
+- Power BI works best when single columns are used for relationships
+- create merged `board-sex` columns for relationships
 
 ## Additional data sources
 

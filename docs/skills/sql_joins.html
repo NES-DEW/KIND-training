@@ -18,6 +18,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -65,12 +100,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script><script src="../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<meta name="quarto:status" content="draft">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo"></a>
@@ -141,7 +177,13 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#prescribing-data" id="toc-prescribing-data" class="nav-link" data-scroll-target="#prescribing-data">Prescribing data</a></li>
+  </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
@@ -333,510 +375,187 @@ ul.task-list li input[type="checkbox"] {
 </header><div class="cell" data-layout-align="left">
 <p>No feedback found for this session</p>
 </div>
+<!-- + [test link](data/prescribing_data.rds) -->
+<section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <ul>
-<li><a href="data/prescribing_data.rds">test link</a></li>
+<li>this is a session about joins in SQL</li>
+<li>what are joins?</li>
+</ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<ul>
+<li><p>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</p></li>
+<li><p>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project"></p></li>
+<li><p>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu"></p></li>
+<li><p>Copy and paste the following R code into that script:</p></li>
 </ul>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbplyr.tidyverse.org/">dbplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"https://nes-dew.github.io/KIND-training/skills/data/prescribing_data.rds"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list2env.html">list2env</a></span><span class="op">(</span><span class="va">.GlobalEnv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>&lt;environment: R_GlobalEnv&gt;</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/memdb_frame.html">src_memdb</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create an sqlite db in memory</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">ab_city_presc</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">bnf_data</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">gp_practices</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">hbt</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">practice_names</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">practice_lists</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>save your script and click the <code>Source</code> button
+<ul>
+<li>that will create a simple SQL database in memory</li>
+</ul>
+</li>
+<li>now create a new SQL script (again, from the <code>File</code> menu)</li>
+<li>delete all the pre-populated lines of code, as follows: <img src="src/images/new_sql.png" class="img-fluid" alt="Pre-populated code in new SQL script">
+</li>
+<li>to connect with our SQL db in memory, add the following line to the head of your SQL script:</li>
+</ul>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>we’ve now got a series of SQL tables in memory</li>
+<li>in one way and another those tables are all about pharmaceutical prescribing</li>
+<li>we’ll start with two very simple tables, before moving on to experiment with some more real-world data</li>
+<li>the first, <code>practice_names</code> contains the names and ID codes for a few GP practices:</li>
+</ul>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> practice_names;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 <table class="caption-top table">
+<caption>4 records</caption>
+<thead><tr class="header">
+<th style="text-align: right;">PracticeCode</th>
+<th style="text-align: left;">GPPracticeName</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">30951</td>
+<td style="text-align: left;">Rubislaw Place Medical Group</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30909</td>
+<td style="text-align: left;">Albyn Medical Practice</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">31206</td>
+<td style="text-align: left;">Scotstown Medical Group</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30627</td>
+<td style="text-align: left;">Links Medical Practice</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>the second contains some practice list sizes for these GP practices - which tell you how many patients are registered for each practice</li>
+</ul>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> practice_lists;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table">
+<caption>3 records</caption>
+<thead><tr class="header">
+<th style="text-align: right;">PracticeCode</th>
+<th style="text-align: right;">PracticeListSize</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">30951</td>
+<td style="text-align: right;">8038</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30909</td>
+<td style="text-align: right;">11891</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">31206</td>
+<td style="text-align: right;">12344</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>both datasets share a column: <code>PracticeCode</code>
+</li>
+<li>joins in SQL will generally use one-or-more columns to relate parts of our data together</li>
+<li>in these tables, each <code>PracticeCode</code> is a unique ID for each GP practice</li>
+<li>when we join, we match my those unique IDs, and then bring in data from an external source</li>
+<li>for example, we could take our <code>practice_names</code> table, and join on the additional column found in the <code>practice_lists</code> table:</li>
+</ul>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> practice_names </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> practice_lists </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> practice_names.PracticeCode <span class="op">=</span> practice_lists.PracticeCode</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- take our practice_names table, and for every matching PracticeCode bring in the other column(s) from practice_lists</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table">
+<caption>3 records</caption>
 <colgroup>
-<col style="width: 4%">
-<col style="width: 10%">
-<col style="width: 5%">
-<col style="width: 15%">
-<col style="width: 14%">
-<col style="width: 7%">
-<col style="width: 4%">
-<col style="width: 3%">
-<col style="width: 6%">
-<col style="width: 4%">
-<col style="width: 3%">
-<col style="width: 3%">
-<col style="width: 3%">
-<col style="width: 3%">
-<col style="width: 7%">
+<col style="width: 18%">
+<col style="width: 40%">
+<col style="width: 18%">
+<col style="width: 23%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: right;">PracticeCode</th>
 <th style="text-align: left;">GPPracticeName</th>
+<th style="text-align: right;">PracticeCode</th>
 <th style="text-align: right;">PracticeListSize</th>
-<th style="text-align: left;">AddressLine1</th>
-<th style="text-align: left;">AddressLine2</th>
-<th style="text-align: left;">AddressLine3</th>
-<th style="text-align: left;">AddressLine4</th>
-<th style="text-align: left;">Postcode</th>
-<th style="text-align: left;">TelephoneNumber</th>
-<th style="text-align: left;">PracticeType</th>
-<th style="text-align: left;">Dispensing</th>
-<th style="text-align: left;">HB</th>
-<th style="text-align: left;">HSCP</th>
-<th style="text-align: left;">DataZone</th>
-<th style="text-align: left;">GPCluster</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">30030</td>
-<td style="text-align: left;">Garthdee Medical Group</td>
-<td style="text-align: right;">9898</td>
-<td style="text-align: left;">Garthdee Medical Group</td>
-<td style="text-align: left;">Health Centre Garthdee Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">Aberdeenshire</td>
-<td style="text-align: left;">AB10 7QQ</td>
-<td style="text-align: left;">01224 208 312</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006528</td>
-<td style="text-align: left;">Aberdeen City South</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">30059</td>
-<td style="text-align: left;">Holburn Medical Group</td>
-<td style="text-align: right;">9144</td>
-<td style="text-align: left;">Holburn Medical Group</td>
-<td style="text-align: left;">7 Albyn Place</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">AB10 1YE</td>
-<td style="text-align: left;">01224 400 800</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006571</td>
-<td style="text-align: left;">Aberdeen City South</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">30078</td>
-<td style="text-align: left;">Newburn Health Centre</td>
-<td style="text-align: right;">20170</td>
-<td style="text-align: left;">Newburn Health Centre</td>
-<td style="text-align: left;">Carden House</td>
-<td style="text-align: left;">Carden Place</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB10 1UT</td>
-<td style="text-align: left;">0345 013 0740</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006584</td>
-<td style="text-align: left;">Aberdeen City Central</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">30097</td>
-<td style="text-align: left;">Whinhill Medical Practice</td>
-<td style="text-align: right;">10152</td>
-<td style="text-align: left;">Whinhill Medical Practice (One Medical)</td>
-<td style="text-align: left;">20 Whinhill Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">AB11 7XH</td>
-<td style="text-align: left;">0345 337 6201</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006602</td>
-<td style="text-align: left;">Aberdeen City South</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">30203</td>
-<td style="text-align: left;">Elmbank Group Practice</td>
-<td style="text-align: right;">11797</td>
-<td style="text-align: left;">Elmbank Group Practice</td>
-<td style="text-align: left;">Foresterhill Health Centre</td>
-<td style="text-align: left;">Westburn Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB25 2AY</td>
-<td style="text-align: left;">0345 337 0710</td>
-<td style="text-align: left;">17C</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006563</td>
-<td style="text-align: left;">Aberdeen City Central</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">30218</td>
-<td style="text-align: left;">Hamilton Medical Group</td>
-<td style="text-align: right;">9411</td>
-<td style="text-align: left;">Hamilton Medical Group</td>
-<td style="text-align: left;">4 Queens Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">AB15 4ZT</td>
-<td style="text-align: left;">01224 562 888</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006571</td>
-<td style="text-align: left;">Aberdeen City West</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">30256</td>
-<td style="text-align: left;">Bucksburn Medical Practice</td>
-<td style="text-align: right;">6378</td>
-<td style="text-align: left;">Bucksburn Medical Practice</td>
-<td style="text-align: left;">Bucksburn Clinic</td>
-<td style="text-align: left;">Kepplehills Road</td>
-<td style="text-align: left;">Bucksburn</td>
-<td style="text-align: left;">AB21 9DG</td>
-<td style="text-align: left;">01224 713 927</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006745</td>
-<td style="text-align: left;">Aberdeen City North</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">30261</td>
-<td style="text-align: left;">Westburn Medical Group</td>
-<td style="text-align: right;">6465</td>
-<td style="text-align: left;">Westburn Medical Group</td>
-<td style="text-align: left;">Foresterhill Health Centre, Westburn Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">Aberdeenshire</td>
-<td style="text-align: left;">AB25 2XE</td>
-<td style="text-align: left;">0345 099 5757</td>
-<td style="text-align: left;">17C</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006563</td>
-<td style="text-align: left;">Aberdeen City Central</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">30280</td>
-<td style="text-align: left;">New Dyce Medical Practice</td>
-<td style="text-align: right;">9830</td>
-<td style="text-align: left;">New Dyce Medical Practice</td>
-<td style="text-align: left;">Dyce Health Centre</td>
-<td style="text-align: left;">23a Altonrea Gardens</td>
-<td style="text-align: left;">Dyce Aberdeen</td>
-<td style="text-align: left;">AB21 7NQ</td>
-<td style="text-align: left;">0345 337 9922</td>
-<td style="text-align: left;">17C</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006754</td>
-<td style="text-align: left;">Aberdeen City North</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">30311</td>
-<td style="text-align: left;">Torry Medical Practice</td>
-<td style="text-align: right;">6891</td>
-<td style="text-align: left;">Torry Medical Practice (River Dee)</td>
-<td style="text-align: left;">Torry Neighbourhood Centre</td>
-<td style="text-align: left;">Oscar Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB11 8ER</td>
-<td style="text-align: left;">0345 337 9977</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006625</td>
-<td style="text-align: left;">Aberdeen City South</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">30326</td>
-<td style="text-align: left;">Great Western Medical Practice</td>
-<td style="text-align: right;">9728</td>
-<td style="text-align: left;">Great Western Medical Practice (One Medical)</td>
-<td style="text-align: left;">Seafield Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">AB15 7YT</td>
-<td style="text-align: left;">0345 337 0540</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006545</td>
-<td style="text-align: left;">Aberdeen City West</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">30401</td>
-<td style="text-align: left;">Kincorth Medical Practice</td>
-<td style="text-align: right;">14643</td>
-<td style="text-align: left;">Kincorth Medical Practice</td>
-<td style="text-align: left;">Kincorth Community Health Centre</td>
-<td style="text-align: left;">Provost Watt Drive</td>
-<td style="text-align: left;">Kincorth</td>
-<td style="text-align: left;">AB12 5NA</td>
-<td style="text-align: left;">0345 337 1170</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006607</td>
-<td style="text-align: left;">Aberdeen City South</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">30504</td>
-<td style="text-align: left;">Old Machar Medical Practice</td>
-<td style="text-align: right;">18266</td>
-<td style="text-align: left;">Old Machar Medical Practice</td>
-<td style="text-align: left;">526 King Street</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">AB24 5RS</td>
-<td style="text-align: left;">0345 337 0510</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006667</td>
-<td style="text-align: left;">Aberdeen City North</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">30561</td>
-<td style="text-align: left;">Marywell Healthcare Centre</td>
-<td style="text-align: right;">156</td>
-<td style="text-align: left;">Marywell Healthcare Centre</td>
-<td style="text-align: left;">Timmermarket Building</td>
-<td style="text-align: left;">1 East North Street</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB24 5HT</td>
-<td style="text-align: left;">01224 651 132</td>
-<td style="text-align: left;">2C</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006639</td>
-<td style="text-align: left;">Aberdeen City South</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">30627</td>
-<td style="text-align: left;">Links Medical Practice</td>
-<td style="text-align: right;">8094</td>
-<td style="text-align: left;">Links Medical Practice</td>
-<td style="text-align: left;">City Hospital</td>
-<td style="text-align: left;">Park Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB24 5AU</td>
-<td style="text-align: left;">0345 337 6340</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006641</td>
-<td style="text-align: left;">Aberdeen City Central</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">30701</td>
-<td style="text-align: left;">Calsayseat Medical Group</td>
-<td style="text-align: right;">11667</td>
-<td style="text-align: left;">Calsayseat Medical Group</td>
-<td style="text-align: left;">44 Powis Place</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">AB25 3TX</td>
-<td style="text-align: left;">0345 337 6370</td>
-<td style="text-align: left;">17C</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006651</td>
-<td style="text-align: left;">Aberdeen City Central</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">30909</td>
-<td style="text-align: left;">Albyn Medical Practice</td>
-<td style="text-align: right;">11891</td>
-<td style="text-align: left;">Albyn Medical Practice</td>
-<td style="text-align: left;">The Albyn Medical Practice</td>
-<td style="text-align: left;">30 Albyn Place</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB10 1NW</td>
-<td style="text-align: left;">01224 586 829</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006571</td>
-<td style="text-align: left;">Aberdeen City West</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">30928</td>
-<td style="text-align: left;">King’s Medical Practice</td>
-<td style="text-align: right;">25288</td>
-<td style="text-align: left;">King’s Medical Practice</td>
-<td style="text-align: left;">12 Sunnybank Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">AB24 3NG</td>
-<td style="text-align: left;">0345 013 0740</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006664</td>
-<td style="text-align: left;">Aberdeen City North</td>
-</tr>
-<tr class="odd">
 <td style="text-align: right;">30951</td>
 <td style="text-align: left;">Rubislaw Place Medical Group</td>
+<td style="text-align: right;">30951</td>
 <td style="text-align: right;">8038</td>
-<td style="text-align: left;">Rubislaw Place Medical Group</td>
-<td style="text-align: left;">Rubislaw Medical Group</td>
-<td style="text-align: left;">7 Rubislaw Place</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB10 1QB</td>
-<td style="text-align: left;">01224 641 968</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006571</td>
-<td style="text-align: left;">Aberdeen City South</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">31009</td>
-<td style="text-align: left;">Kingswells Medical Practice</td>
-<td style="text-align: right;">7438</td>
-<td style="text-align: left;">Kingswells Medical Practice</td>
-<td style="text-align: left;">Kingswood Drive</td>
-<td style="text-align: left;">Kingswells</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">AB15 8TB</td>
-<td style="text-align: left;">01224 745 800</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006734</td>
-<td style="text-align: left;">Aberdeen City West</td>
+<td style="text-align: right;">30909</td>
+<td style="text-align: left;">Albyn Medical Practice</td>
+<td style="text-align: right;">30909</td>
+<td style="text-align: right;">11891</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">31141</td>
-<td style="text-align: left;">Woodside Medical Group</td>
-<td style="text-align: right;">13483</td>
-<td style="text-align: left;">Woodside Medical Group</td>
-<td style="text-align: left;">Woodside Fountain Health Centre</td>
-<td style="text-align: left;">Great Northern Road</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB24 2AS</td>
-<td style="text-align: left;">01224 492 828</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006684</td>
-<td style="text-align: left;">Aberdeen City Central</td>
-</tr>
-<tr class="even">
 <td style="text-align: right;">31206</td>
 <td style="text-align: left;">Scotstown Medical Group</td>
+<td style="text-align: right;">31206</td>
 <td style="text-align: right;">12344</td>
-<td style="text-align: left;">Scotstown Medical Group</td>
-<td style="text-align: left;">Cairnfold Road</td>
-<td style="text-align: left;">Bridge Of Don</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB22 8LD</td>
-<td style="text-align: left;">0345 189 7070</td>
-<td style="text-align: left;">17C</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006779</td>
-<td style="text-align: left;">Aberdeen City North</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">31211</td>
-<td style="text-align: left;">Gilbert Road Medical Group</td>
-<td style="text-align: right;">10031</td>
-<td style="text-align: left;">Gilbert Road Medical Group</td>
-<td style="text-align: left;">39 Gilbert Road</td>
-<td style="text-align: left;">Bucksburn</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB21 9AN</td>
-<td style="text-align: left;">01224 712 138</td>
-<td style="text-align: left;">17C</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006738</td>
-<td style="text-align: left;">Aberdeen City North</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">31230</td>
-<td style="text-align: left;">Cults Medical Group</td>
-<td style="text-align: right;">9497</td>
-<td style="text-align: left;">Cults Medical Group</td>
-<td style="text-align: left;">South Avenue</td>
-<td style="text-align: left;">Cults</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB15 9LQ</td>
-<td style="text-align: left;">0345 337 1140</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006524</td>
-<td style="text-align: left;">Aberdeen City West</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">31244</td>
-<td style="text-align: left;">Peterculter Medical Practice</td>
-<td style="text-align: right;">7842</td>
-<td style="text-align: left;">Peterculter Medical Practice</td>
-<td style="text-align: left;">Peterculter Health Centre</td>
-<td style="text-align: left;">Coronation Road</td>
-<td style="text-align: left;">Peterculter</td>
-<td style="text-align: left;">AB14 0RP</td>
-<td style="text-align: left;">01224 733 535</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006511</td>
-<td style="text-align: left;">Aberdeen City West</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">31259</td>
-<td style="text-align: left;">Danestone Medical Practice</td>
-<td style="text-align: right;">6984</td>
-<td style="text-align: left;">Danestone Medical Practice</td>
-<td style="text-align: left;">Fairview Street</td>
-<td style="text-align: left;">Danestone</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB22 8ZP</td>
-<td style="text-align: left;">01224 822 866</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006757</td>
-<td style="text-align: left;">Aberdeen City North</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">31348</td>
-<td style="text-align: left;">Camphill Medical Practice</td>
-<td style="text-align: right;">2218</td>
-<td style="text-align: left;">Camphill Medical Practice (River Dee)</td>
-<td style="text-align: left;">Murtle Estate</td>
-<td style="text-align: left;">Bieldside</td>
-<td style="text-align: left;">Aberdeen</td>
-<td style="text-align: left;">AB15 9EP</td>
-<td style="text-align: left;">0345 375 2020</td>
-<td style="text-align: left;">17J</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">S08000020</td>
-<td style="text-align: left;">S37000001</td>
-<td style="text-align: left;">S01006516</td>
-<td style="text-align: left;">Aberdeen City West</td>
 </tr>
 </tbody>
 </table>
+</div>
+<ul>
+<li>to note:
+<ul>
+<li>there are two parts to a join. A join keyword, like <code>LEFT JOIN</code> which determines the logic of the join</li>
+<li>
+<code>ON</code> which describes how the columns in our data should relate to one another. Note the <code>table_name.column_name</code> syntax. Call that the <strong>key</strong>
+</li>
+</ul>
+</li>
+<li>we can do several kinds of SQL join by using a different join keyword</li>
+<li>for a table <code>x</code> to which we’re joining <code>y</code>:
+<ul>
+<li>
+<code>JOIN</code>: includes all rows in x and y. Also known as <code>INNER JOIN</code> <img src="../src/images/inner.png" height="250" alt="Inner join">
+</li>
+<li>
+<code>LEFT JOIN</code>: includes all rows in x <img src="../src/images/left.png" height="250" alt="Left join">
+</li>
+<li>
+<code>RIGHT JOIN</code>: includes all rows in y <img src="../src/images/right.png" height="250" alt="Right join">
+</li>
+<li>
+<code>FULL JOIN</code>: includes all rows in x or y <img src="../src/images/full.png" height="250" alt="Full join">
+</li>
+</ul>
+</li>
+</ul>
+<p><em>If a row in x matches multiple rows in y, all the rows in y will be returned once for each matching row in x.</em></p>
+</section><section id="prescribing-data" class="level2"><h2 class="anchored" data-anchor-id="prescribing-data">Prescribing data</h2>
 
 
-
-</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
