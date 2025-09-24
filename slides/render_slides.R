@@ -23,11 +23,6 @@ render_slides <- function(file_path, session_date){
 # render_slides("skills/an_introduction_to_ai_and_why_you_might_avoid_that_term.qmd", "2025-09-24")
 
 list.files("../", recursive = T, pattern = "*.qmd") |>
-  stringr::str_subset(pattern = "avoid") |>
-  stringr::str_remove("KIND-training/") |>
-  render_slides(session_date = "2025-09-24")
-
-list.files("../", recursive = T, pattern = "*.qmd") |>
-  stringr::str_subset(pattern = "formatting") |>
+  stringr::str_subset(pattern = "applications") |>
   stringr::str_remove("KIND-training/") |>
   render_slides(session_date = "2025-09-24")
