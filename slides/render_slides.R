@@ -26,3 +26,9 @@ list.files("../", recursive = T, pattern = "*.qmd") |>
   stringr::str_subset(pattern = "applications") |>
   stringr::str_remove("KIND-training/") |>
   render_slides(session_date = "2025-09-24")
+
+
+# listo <- list.files("../", recursive = T, pattern = "*.qmd")
+# sessiono <- KINDR::training_sessions(output_type = "tibble")$URL[6]
+# library(stringdist)
+# listo[which(!is.na(stringdist::amatch(listo, sessiono, maxDist = 30)))]
