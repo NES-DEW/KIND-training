@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.22">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-09-17">
+<meta name="dcterms.date" content="2025-09-29">
 <title>SQL joins – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -363,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 17, 2025</p>
+      <p class="date">September 29, 2025</p>
     </div>
   </div>
   
@@ -385,6 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</p></li>
 <li><p>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project"></p></li>
 <li><p>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu"></p></li>
+<li><p>that uses some <a href="skills/data/prescribing_data.rds">sample data</a></p></li>
 <li><p>Copy and paste the following R code into that script:</p></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbplyr.tidyverse.org/">dbplyr</a></span><span class="op">)</span></span>
@@ -392,15 +393,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"https://nes-dew.github.io/KIND-training/skills/data/prescribing_data.rds"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list2env.html">list2env</a></span><span class="op">(</span><span class="va">.GlobalEnv</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>&lt;environment: R_GlobalEnv&gt;</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/memdb_frame.html">src_memdb</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create an sqlite db in memory</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list2env.html">list2env</a></span><span class="op">(</span><span class="va">.GlobalEnv</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/memdb_frame.html">src_memdb</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create an sqlite db in memory</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">ab_city_presc</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">bnf_data</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">gp_practices</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">hbt</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">practice_names</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">practice_lists</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>&lt;environment: R_GlobalEnv&gt;</p>
 <ul>
 <li>save your script and click the <code>Source</code> button
 <ul>
@@ -412,14 +414,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>to connect with our SQL db in memory, add the following line to the head of your SQL script:</li>
 </ul>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>we’ve now got a series of SQL tables in memory</li>
 <li>in one way and another those tables are all about pharmaceutical prescribing</li>
 <li>we’ll start with two very simple tables, before moving on to experiment with some more real-world data</li>
 <li>the first, <code>practice_names</code> contains the names and ID codes for a few GP practices:</li>
 </ul>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> practice_names;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> practice_names;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>4 records</caption>
@@ -450,7 +452,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>the second contains some practice list sizes for these GP practices - which tell you how many patients are registered for each practice</li>
 </ul>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> practice_lists;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> practice_lists;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>3 records</caption>
@@ -482,11 +484,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>when we join, we match my those unique IDs, and then bring in data from an external source</li>
 <li>for example, we could take our <code>practice_names</code> table, and join on the additional column found in the <code>practice_lists</code> table:</li>
 </ul>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> practice_names </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> practice_lists </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> practice_names.PracticeCode <span class="op">=</span> practice_lists.PracticeCode</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- take our practice_names table, and for every matching PracticeCode bring in the other column(s) from practice_lists</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> practice_names </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> practice_lists </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> practice_names.PracticeCode <span class="op">=</span> practice_lists.PracticeCode</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- take our practice_names table, and for every matching PracticeCode bring in the other column(s) from practice_lists</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>3 records</caption>

@@ -3,8 +3,9 @@ execute:
   echo: true
   freeze: auto
 params:
-  sl_date: 2025-09-17
+  sl_date: 2025-09-29
   fn: "SQL joins (pilot version)"
+  id: KS17
 draft: true
 format: html
 date: '`r params[["sl_date"]]`'
@@ -41,19 +42,25 @@ KINDR::training_sessions(start_date = params[["sl_date"]], n = 5, hide_area = T)
 ## Introduction
 
 + this is a session about joins in SQL
-+ what are joins? 
++ we'll introduce joins in general terms
++ we'll then go on to talk about different types of join in SQL 
 
 ## Setup 
 
 * You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
 * Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
 * In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png)
-
+* This session uses some [sample data](data/prescribing_data.rds), which we'll load directly from the web in our R script
 * Copy and paste the following R code into that script:
 
 ```{r}
 #| echo: true
 #| warning: false
+#| eval: false
+
+pkg <- c("dbplyr", "RSQLite", "dplyr", "readr")
+install.packages(setdiff(pkg, rownames(installed.packages())))  
+
 library(dbplyr)
 library(dplyr)
 library(readr)
@@ -69,6 +76,28 @@ copy_to(conn, hbt, overwrite = T)
 copy_to(conn, practice_names, overwrite = T)
 copy_to(conn, practice_lists, overwrite = T)
 ```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| eval: true
+library(dbplyr)
+library(dplyr)
+library(readr)
+
+read_rds("data/prescribing_data.rds") |>
+  list2env(.GlobalEnv)
+
+conn <- src_memdb() # create an sqlite db in memory
+copy_to(conn, ab_city_presc, overwrite = T)
+copy_to(conn, bnf_data, overwrite = T)
+copy_to(conn, gp_practices, overwrite = T)
+copy_to(conn, hbt, overwrite = T)
+copy_to(conn, practice_names, overwrite = T)
+copy_to(conn, practice_lists, overwrite = T)
+```
+
 
 * save your script and click the `Source` button
     * that will create a simple SQL database in memory
@@ -124,5 +153,18 @@ SELECT * FROM practice_names
 *If a row in x matches multiple rows in y, all the rows in y will be returned once for each matching row in x.*
 
 ## Prescribing data
+
++ as well as our practice_names and practice_lists tables, we've got some more interesting data set up in our SQL database about prescriptions
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Exercise
+- inspect the following tables:
+  - `gp_practices`
+  - `hbt`
+  - `ab_city_presc`
+  - `bnf_data`
+- there are several possible joins we might attempt here: please make a suggestion about a join you'd be interesting in trying in the chat
+:::
+
 
 
