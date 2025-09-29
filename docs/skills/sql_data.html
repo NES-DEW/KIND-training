@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.22">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-09-12">
+<meta name="dcterms.date" content="2025-09-29">
 <title>Getting data into SQL – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -377,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 12, 2025</p>
+      <p class="date">September 29, 2025</p>
     </div>
   </div>
   
@@ -410,16 +410,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu"></p></li>
 <li><p>Copy and paste the following R code into that script:</p></li>
 </ul>
-<div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## install and attach R packages</span></span>
 <span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dbplyr"</span>, <span class="st">"RSQLite"</span>, <span class="st">"palmerpenguins"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  </span>
+<span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbplyr.tidyverse.org/">dbplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/memdb_frame.html">src_memdb</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create an sqlite db in memory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <ul>
 <li>save your script and click the <code>Source</code> button
 <ul>
@@ -431,9 +430,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>to connect with our SQL db in memory, add the following line to the head of your SQL script:</li>
 </ul>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <ul>
 <li>finally, save your SQL script (any file name is fine)</li>
 </ul></section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
@@ -441,12 +438,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>in this session, unlike the previous one, we’ll start with an empty SQL database</li>
 <li>we’ll create a table in that db, and add some data to it</li>
 </ul>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> clients (chi <span class="dt">varchar</span>(<span class="dv">10</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                      name <span class="dt">varchar</span>(<span class="dv">255</span>),</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                      birthdate <span class="dt">date</span>,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                      <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (chi));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>what’s a table? the container for some data</p>
 <p>need to set data types - SQL is typed</p>
 <table class="caption-top table">
@@ -482,7 +477,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>then test:</p>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top">
@@ -495,18 +489,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody></tbody>
 </table>
 </div>
-</div>
 <p>should be empty, that’s just fine for now. Let’s add some data to that table to make it more useful:</p>
 </section><section id="adding-data" class="level2"><h2 class="anchored" data-anchor-id="adding-data">Adding data</h2>
 <p>insert data into your table using the <code>INSERT INTO</code> keyword:</p>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> clients <span class="kw">VALUES</span> (<span class="ot">"1204851425"</span>, <span class="ot">"Mr Odds"</span>, <span class="ot">"1985-04-12"</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>and then check:</p>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>1 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">chi</th>
@@ -520,15 +510,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr></tbody>
 </table>
 </div>
-</div>
 <p>It’s good practice to specify the columns by name, especially if you need to include partial data:</p>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> clients (chi, birthdate) <span class="kw">VALUES</span> (<span class="ot">"0701720842"</span>, <span class="ot">"1972-01-07"</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>2 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">chi</th>
@@ -549,23 +535,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 </section><section id="primary-keys" class="level2"><h2 class="anchored" data-anchor-id="primary-keys">Primary keys</h2>
 <p>then something about keys + when we wrote <code>PRIMARY KEY (chi)</code> while creating our table, we made the chi column special + your SQL will fall over if you try and repeat chi values</p>
 </section><section id="adding-multiple-rows-of-data" class="level2"><h2 class="anchored" data-anchor-id="adding-multiple-rows-of-data">Adding multiple rows of data</h2>
 <ul>
 <li>largely just a matter of chaining to gether multiple sets of values</li>
 </ul>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> clients <span class="kw">VALUES</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"0411016548"</span>, <span class="ot">"The Moog"</span>, <span class="ot">"2001-11-04"</span>),</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"3003627534"</span>, <span class="ot">"One McIrey"</span>, <span class="ot">"1962-03-30"</span>),</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"2407864568"</span>, <span class="ot">"Dr Stamps"</span>, <span class="ot">"1986-07-24"</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>5 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">chi</th>
@@ -601,20 +583,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 </section><section id="updating" class="level2"><h2 class="anchored" data-anchor-id="updating">Updating</h2>
 <ul>
 <li>one of our clients has no name…</li>
 </ul>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> name <span class="op">=</span> <span class="ot">"David Lemon"</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> chi <span class="op">=</span> <span class="ot">"0701720842"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>5 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">chi</th>
@@ -649,26 +627,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </section><section id="adding-cols" class="level2"><h2 class="anchored" data-anchor-id="adding-cols">Adding cols</h2>
 <ul>
 <li>let’s add some extra columns:</li>
 </ul>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> clients <span class="kw">ADD</span> <span class="fu">length</span> <span class="dt">INT</span>(<span class="dv">2</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <ul>
 <li>we can set a single value for this new column</li>
 </ul>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> <span class="fu">length</span> <span class="op">=</span> (<span class="dv">10</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>5 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">chi</th>
@@ -709,19 +681,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 <ul>
 <li>setting individual values is much more messy:</li>
 </ul>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> <span class="fu">length</span> <span class="op">=</span> <span class="dv">12</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> name <span class="op">=</span> <span class="ot">"Mr Odds"</span> <span class="kw">OR</span> name <span class="op">=</span> <span class="ot">"Dr Stamps"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>5 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">chi</th>
@@ -763,14 +731,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 </section><section id="remove-a-column" class="level2"><h2 class="anchored" data-anchor-id="remove-a-column">Remove a column</h2>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> clients <span class="kw">DROP</span> <span class="fu">length</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>5 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">chi</th>
@@ -805,7 +769,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </section><section id="renaming-cols" class="level2"><h2 class="anchored" data-anchor-id="renaming-cols">Renaming cols</h2>
 <ul>
@@ -813,8 +776,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></section><section id="note-about-uploading" class="level2"><h2 class="anchored" data-anchor-id="note-about-uploading">Note about uploading</h2>
 <ul>
 <li>depends on your local system, no generic SQL advice</li>
+<li>refer to the R and SQL session</li>
 </ul></section><section id="create-tables" class="level2"><h2 class="anchored" data-anchor-id="create-tables">Create tables</h2>
-<p>Link to join session - most real SQL projects are multi-table</p>
+<ul>
+<li>most real-life SQL projects are multi-table</li>
+<li>we’ll explore this in more detail in the joins session</li>
+<li>but as an introduction, creating additional tables is exactly the same as creating a first table</li>
+</ul>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> gps (chi <span class="dt">varchar</span>(<span class="dv">10</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                      gp <span class="dt">varchar</span>(<span class="dv">255</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                      <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (chi));</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                      </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> gps <span class="kw">VALUES</span> </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"1204851425"</span>, <span class="ot">"Dr Smith"</span>),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"0701720842"</span>, <span class="ot">"Dr Patel"</span>),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"0411016548"</span>, <span class="ot">"Dr Hamoda"</span>),</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"3003627534"</span>, <span class="ot">"Dr Clarke"</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"2407864568"</span>, <span class="ot">"Dr Johal"</span>);</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> gps;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
 <p>Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.</p>
 

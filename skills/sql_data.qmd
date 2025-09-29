@@ -1,14 +1,17 @@
 ---
-title: "Getting data into SQL"
-date: 2025-09-12
+params:
+  sl_date: 2025-09-29
+  fn: Getting data into SQL (pilot version)
+  id: KS15
 execute: 
   echo: true
+  freeze: auto
 draft: true
-output: markup
 categories: [SQL, beginner]
-editor_options: 
-  chunk_output_type: console
+date: '`r params[["sl_date"]]`'
+title: Getting data into SQL
 ---
+
 
 ```{r}
 #| results: asis
@@ -52,6 +55,7 @@ next_sesh("Getting data into SQL")
 ## install and attach R packages
 pkg <- c("dbplyr", "RSQLite", "palmerpenguins")
 install.packages(setdiff(pkg, rownames(installed.packages())))  
+
 library(dbplyr)
 library(dplyr)
 library(palmerpenguins)
@@ -227,10 +231,29 @@ SELECT * FROM clients;
 ## Note about uploading
 
 + depends on your local system, no generic SQL advice
++ refer to the R and SQL session
 
 ## Create tables
 
-Link to join session - most real SQL projects are multi-table
++ most real-life SQL projects are multi-table
++ we'll explore this in more detail in the joins session
++ but as an introduction, creating additional tables is exactly the same as creating a first table
+
+```{sql connection=src_memdb()$con}
+
+CREATE TABLE gps (chi varchar(10) NOT NULL,
+                      gp varchar(255),
+                      PRIMARY KEY (chi));
+                      
+INSERT INTO gps VALUES 
+  ("1204851425", "Dr Smith"),
+  ("0701720842", "Dr Patel"),
+  ("0411016548", "Dr Hamoda"),
+  ("3003627534", "Dr Clarke"),
+  ("2407864568", "Dr Johal");
+  
+SELECT * FROM gps;
+```
 
 
 ## Acknowledgements

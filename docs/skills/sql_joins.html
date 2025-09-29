@@ -183,6 +183,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#prescribing-data" id="toc-prescribing-data" class="nav-link" data-scroll-target="#prescribing-data">Prescribing data</a></li>
+  <li><a href="#a-starting-join" id="toc-a-starting-join" class="nav-link" data-scroll-target="#a-starting-join">A starting join</a></li>
+  <li><a href="#reminder" id="toc-reminder" class="nav-link" data-scroll-target="#reminder">Reminder!</a></li>
+  <li><a href="#the-as-keyword" id="toc-the-as-keyword" class="nav-link" data-scroll-target="#the-as-keyword">The <code>AS</code> keyword</a></li>
+  <li><a href="#multiple-joins" id="toc-multiple-joins" class="nav-link" data-scroll-target="#multiple-joins">Multiple joins</a></li>
+  <li><a href="#prescribing-data-info" id="toc-prescribing-data-info" class="nav-link" data-scroll-target="#prescribing-data-info">Prescribing data info</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -379,16 +384,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <ul>
 <li>this is a session about joins in SQL</li>
-<li>what are joins?</li>
+<li>we’ll introduce joins in general terms</li>
+<li>we’ll then go on to talk about different types of join in SQL</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
-<li><p>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</p></li>
-<li><p>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project"></p></li>
-<li><p>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu"></p></li>
-<li><p>that uses some <a href="skills/data/prescribing_data.rds">sample data</a></p></li>
-<li><p>Copy and paste the following R code into that script:</p></li>
+<li>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</li>
+<li>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project">
+</li>
+<li>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu">
+</li>
+<li>This session uses some <a href="data/prescribing_data.rds">sample data</a>, which we’ll load directly from the web in our R script</li>
+<li>Copy and paste the following R code into that script:</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbplyr.tidyverse.org/">dbplyr</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dbplyr"</span>, <span class="st">"RSQLite"</span>, <span class="st">"dplyr"</span>, <span class="st">"readr"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  </span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbplyr.tidyverse.org/">dbplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
 <span></span>
@@ -402,7 +413,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">hbt</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">practice_names</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">practice_lists</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>&lt;environment: R_GlobalEnv&gt;</p>
 <ul>
 <li>save your script and click the <code>Source</code> button
 <ul>
@@ -555,7 +565,652 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><em>If a row in x matches multiple rows in y, all the rows in y will be returned once for each matching row in x.</em></p>
 </section><section id="prescribing-data" class="level2"><h2 class="anchored" data-anchor-id="prescribing-data">Prescribing data</h2>
-
+<ul>
+<li>as well as our practice_names and practice_lists tables, we’ve got some more interesting data set up in our SQL database about prescriptions</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>inspect the following tables:
+<ul>
+<li><code>gp_practices</code></li>
+<li><code>hbt</code></li>
+<li><code>ab_city_presc</code></li>
+<li><code>bnf_data</code></li>
+</ul>
+</li>
+<li>there are several possible joins we might attempt here: please make a suggestion about a join you’d be interesting in trying in the chat</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="a-starting-join" class="level2"><h2 class="anchored" data-anchor-id="a-starting-join">A starting join</h2>
+<ul>
+<li>look at the <code>ab_city_presc</code> table, which is contains data about prescriptions in the Aberdeen City area</li>
+<li>but it’s hard to read because the drug information in the <code>BNFItemCode</code> column is expressed as codes (like <code>1202010Y0BBAAAA</code>) rather than drug names</li>
+<li>luckily, <code>bnf_data</code> is a lookup: the corresponding column in that table is <code>bnf_presentation_code</code>
+</li>
+</ul>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> ab_city_presc <span class="kw">JOIN</span> bnf_data <span class="kw">ON</span> ab_city_presc.BNFItemCode <span class="op">=</span> bnf_data.bnf_presentation_code;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table">
+<caption>Displaying records 1 - 10</caption>
+<colgroup>
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 10%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 3%">
+<col style="width: 10%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">GPPractice</th>
+<th style="text-align: right;">PaidDateMonth</th>
+<th style="text-align: left;">BNFItemCode</th>
+<th style="text-align: left;">PrescribedType</th>
+<th style="text-align: right;">NumberOfPaidItems</th>
+<th style="text-align: right;">PaidQuantity</th>
+<th style="text-align: right;">GrossIngredientCost</th>
+<th style="text-align: left;">bnf_presentation_code</th>
+<th style="text-align: left;">bnf_chapter</th>
+<th style="text-align: left;">bnf_chapter_code</th>
+<th style="text-align: left;">bnf_section</th>
+<th style="text-align: left;">bnf_section_code</th>
+<th style="text-align: left;">bnf_paragraph</th>
+<th style="text-align: left;">bnf_paragraph_code</th>
+<th style="text-align: left;">bnf_subparagraph</th>
+<th style="text-align: left;">bnf_subparagraph_code</th>
+<th style="text-align: left;">bnf_chemical_substance</th>
+<th style="text-align: left;">bnf_chemical_substance_code</th>
+<th style="text-align: left;">bnf_product</th>
+<th style="text-align: left;">bnf_product_code</th>
+<th style="text-align: left;">bnf_presentation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">1202010U0AAAAAA</td>
+<td style="text-align: left;">VMP</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">6160</td>
+<td style="text-align: right;">404.80</td>
+<td style="text-align: left;">1202010U0AAAAAA</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the nose</td>
+<td style="text-align: left;">1202</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">120201</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">1202010</td>
+<td style="text-align: left;">Mometasone furoate</td>
+<td style="text-align: left;">1202010U0</td>
+<td style="text-align: left;">Mometasone furoate (Nasal)</td>
+<td style="text-align: left;">1202010U0AA</td>
+<td style="text-align: left;">Mometasone 50micrograms/dose nasal spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">1203010E0AAABAB</td>
+<td style="text-align: left;">VMP</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">9.63</td>
+<td style="text-align: left;">1203010E0AAABAB</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the oropharynx</td>
+<td style="text-align: left;">1203</td>
+<td style="text-align: left;">Drugs for oral ulceration and inflammation</td>
+<td style="text-align: left;">120301</td>
+<td style="text-align: left;">Drugs for oral ulceration and inflammation</td>
+<td style="text-align: left;">1203010</td>
+<td style="text-align: left;">Benzydamine hydrochloride</td>
+<td style="text-align: left;">1203010E0</td>
+<td style="text-align: left;">Benzydamine hydrochloride (Mouthwash)</td>
+<td style="text-align: left;">1203010E0AA</td>
+<td style="text-align: left;">Benzydamine 0.15% oromucosal spray sugar free</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">1202010W0BBAAAA</td>
+<td style="text-align: left;">AMP</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">360</td>
+<td style="text-align: right;">19.32</td>
+<td style="text-align: left;">1202010W0BBAAAA</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the nose</td>
+<td style="text-align: left;">1202</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">120201</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">1202010</td>
+<td style="text-align: left;">Fluticasone furoate</td>
+<td style="text-align: left;">1202010W0</td>
+<td style="text-align: left;">Avamys</td>
+<td style="text-align: left;">1202010W0BB</td>
+<td style="text-align: left;">Avamys 27.5micrograms/dose nasal spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">1202010W0BBAAAA</td>
+<td style="text-align: left;">VMP</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1200</td>
+<td style="text-align: right;">64.40</td>
+<td style="text-align: left;">1202010W0BBAAAA</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the nose</td>
+<td style="text-align: left;">1202</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">120201</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">1202010</td>
+<td style="text-align: left;">Fluticasone furoate</td>
+<td style="text-align: left;">1202010W0</td>
+<td style="text-align: left;">Avamys</td>
+<td style="text-align: left;">1202010W0BB</td>
+<td style="text-align: left;">Avamys 27.5micrograms/dose nasal spray</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">1203010E0BBAAAA</td>
+<td style="text-align: left;">AMP</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">6.50</td>
+<td style="text-align: left;">1203010E0BBAAAA</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the oropharynx</td>
+<td style="text-align: left;">1203</td>
+<td style="text-align: left;">Drugs for oral ulceration and inflammation</td>
+<td style="text-align: left;">120301</td>
+<td style="text-align: left;">Drugs for oral ulceration and inflammation</td>
+<td style="text-align: left;">1203010</td>
+<td style="text-align: left;">Benzydamine hydrochloride</td>
+<td style="text-align: left;">1203010E0</td>
+<td style="text-align: left;">Difflam (Mouthwash)</td>
+<td style="text-align: left;">1203010E0BB</td>
+<td style="text-align: left;">Difflam Oral Rinse 0.15% solution</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">1202010Y0BBAAAA</td>
+<td style="text-align: left;">AMP</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1200</td>
+<td style="text-align: right;">148.00</td>
+<td style="text-align: left;">1202010Y0BBAAAA</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the nose</td>
+<td style="text-align: left;">1202</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">120201</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">1202010</td>
+<td style="text-align: left;">Fluticasone propionate/azelastine hydrochloride (Nasal)</td>
+<td style="text-align: left;">1202010Y0</td>
+<td style="text-align: left;">Dymista</td>
+<td style="text-align: left;">1202010Y0BB</td>
+<td style="text-align: left;">Dymista 137micrograms/dose / 50micrograms/dose nasal spray</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">1202010Y0BBAAAA</td>
+<td style="text-align: left;">VMP</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">14.80</td>
+<td style="text-align: left;">1202010Y0BBAAAA</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the nose</td>
+<td style="text-align: left;">1202</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">120201</td>
+<td style="text-align: left;">Drugs used in nasal allergy</td>
+<td style="text-align: left;">1202010</td>
+<td style="text-align: left;">Fluticasone propionate/azelastine hydrochloride (Nasal)</td>
+<td style="text-align: left;">1202010Y0</td>
+<td style="text-align: left;">Dymista</td>
+<td style="text-align: left;">1202010Y0BB</td>
+<td style="text-align: left;">Dymista 137micrograms/dose / 50micrograms/dose nasal spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">1201010Q0BCAAAC</td>
+<td style="text-align: left;">AMP</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">7.45</td>
+<td style="text-align: left;">1201010Q0BCAAAC</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the ear</td>
+<td style="text-align: left;">1201</td>
+<td style="text-align: left;">Otitis externa</td>
+<td style="text-align: left;">120101</td>
+<td style="text-align: left;">Otitis externa</td>
+<td style="text-align: left;">1201010</td>
+<td style="text-align: left;">Hydrocortisone</td>
+<td style="text-align: left;">1201010Q0</td>
+<td style="text-align: left;">Otosporin</td>
+<td style="text-align: left;">1201010Q0BC</td>
+<td style="text-align: left;">Otosporin ear drops</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">1202020L0AACCCC</td>
+<td style="text-align: left;">VMP</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">9.50</td>
+<td style="text-align: left;">1202020L0AACCCC</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the nose</td>
+<td style="text-align: left;">1202</td>
+<td style="text-align: left;">Topical nasal decongestants</td>
+<td style="text-align: left;">120202</td>
+<td style="text-align: left;">Topical nasal decongestants</td>
+<td style="text-align: left;">1202020</td>
+<td style="text-align: left;">Sodium chloride</td>
+<td style="text-align: left;">1202020L0</td>
+<td style="text-align: left;">Sodium chloride (Nasal)</td>
+<td style="text-align: left;">1202020L0AA</td>
+<td style="text-align: left;">Sodium chloride 0.9% neb liq 2.5ml unit dose ampoules</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: left;">120101050BCAAAB</td>
+<td style="text-align: left;">AMP</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">13.08</td>
+<td style="text-align: left;">120101050BCAAAB</td>
+<td style="text-align: left;">Ear, Nose and Oropharynx</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Drugs acting on the ear</td>
+<td style="text-align: left;">1201</td>
+<td style="text-align: left;">Otitis externa</td>
+<td style="text-align: left;">120101</td>
+<td style="text-align: left;">Otitis externa</td>
+<td style="text-align: left;">1201010</td>
+<td style="text-align: left;">Dexamethasone</td>
+<td style="text-align: left;">120101050</td>
+<td style="text-align: left;">Otomize</td>
+<td style="text-align: left;">120101050BC</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="reminder" class="level2"><h2 class="anchored" data-anchor-id="reminder">Reminder!</h2>
+<ul>
+<li>you can subset the columns returned by a query via <code>SELECT</code>:</li>
+</ul>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> GPPractice, PaidDateMonth, PaidQuantity, bnf_presentation </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> ab_city_presc </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> bnf_data </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> ab_city_presc.BNFItemCode <span class="op">=</span> bnf_data.bnf_presentation_code;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table">
+<caption>Displaying records 1 - 10</caption>
+<colgroup>
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 13%">
+<col style="width: 60%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">GPPractice</th>
+<th style="text-align: right;">PaidDateMonth</th>
+<th style="text-align: right;">PaidQuantity</th>
+<th style="text-align: left;">bnf_presentation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">6160</td>
+<td style="text-align: left;">Mometasone 50micrograms/dose nasal spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: left;">Benzydamine 0.15% oromucosal spray sugar free</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">360</td>
+<td style="text-align: left;">Avamys 27.5micrograms/dose nasal spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">1200</td>
+<td style="text-align: left;">Avamys 27.5micrograms/dose nasal spray</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: left;">Difflam Oral Rinse 0.15% solution</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">1200</td>
+<td style="text-align: left;">Dymista 137micrograms/dose / 50micrograms/dose nasal spray</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: left;">Dymista 137micrograms/dose / 50micrograms/dose nasal spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Otosporin ear drops</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Sodium chloride 0.9% neb liq 2.5ml unit dose ampoules</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="the-as-keyword" class="level2"><h2 class="anchored" data-anchor-id="the-as-keyword">The <code>AS</code> keyword</h2>
+<ul>
+<li>as you might have noticed above, you end up writing the names of tables a couple of times during a join</li>
+<li>our tables have slightly long and tricky names</li>
+<li>you can temporarily rename tables using <code>AS</code>:</li>
+</ul>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> GPPractice, PaidDateMonth, PaidQuantity, bnf_presentation </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> ab_city_presc <span class="kw">AS</span> ab</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> bnf_data <span class="kw">AS</span> bnf</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> ab.BNFItemCode <span class="op">=</span> bnf.bnf_presentation_code;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table">
+<caption>Displaying records 1 - 10</caption>
+<colgroup>
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 13%">
+<col style="width: 60%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">GPPractice</th>
+<th style="text-align: right;">PaidDateMonth</th>
+<th style="text-align: right;">PaidQuantity</th>
+<th style="text-align: left;">bnf_presentation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">6160</td>
+<td style="text-align: left;">Mometasone 50micrograms/dose nasal spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: left;">Benzydamine 0.15% oromucosal spray sugar free</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">360</td>
+<td style="text-align: left;">Avamys 27.5micrograms/dose nasal spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">1200</td>
+<td style="text-align: left;">Avamys 27.5micrograms/dose nasal spray</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: left;">Difflam Oral Rinse 0.15% solution</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">1200</td>
+<td style="text-align: left;">Dymista 137micrograms/dose / 50micrograms/dose nasal spray</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: left;">Dymista 137micrograms/dose / 50micrograms/dose nasal spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Otosporin ear drops</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Sodium chloride 0.9% neb liq 2.5ml unit dose ampoules</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30030</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="multiple-joins" class="level2"><h2 class="anchored" data-anchor-id="multiple-joins">Multiple joins</h2>
+<ul>
+<li>say you’d like more information about the GP practices. That can be brought in from the <code>gp_practices</code> table with a second join:</li>
+</ul>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> GPPracticeName, PaidDateMonth, PaidQuantity, bnf_presentation </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> ab_city_presc <span class="kw">AS</span> ab</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> bnf_data <span class="kw">AS</span> bnf</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> ab.BNFItemCode <span class="op">=</span> bnf.bnf_presentation_code</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> gp_practices <span class="kw">AS</span> gp <span class="kw">ON</span> ab.GPPractice <span class="op">=</span> gp.PracticeCode</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table">
+<caption>Displaying records 1 - 10</caption>
+<colgroup>
+<col style="width: 31%">
+<col style="width: 19%">
+<col style="width: 17%">
+<col style="width: 31%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">GPPracticeName</th>
+<th style="text-align: right;">PaidDateMonth</th>
+<th style="text-align: right;">PaidQuantity</th>
+<th style="text-align: left;">bnf_presentation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">20148</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Sofradex ear/eye drops</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">20179</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Sofradex ear/eye drops</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">20209</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Sofradex ear/eye drops</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">19875</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">19905</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">19936</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">19967</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">19997</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">20028</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Garthdee Medical Group</td>
+<td style="text-align: right;">20058</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Otomize ear spray</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="prescribing-data-info" class="level2"><h2 class="anchored" data-anchor-id="prescribing-data-info">Prescribing data info</h2>
+<details class="code-fold"><summary>Show data creation script</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># this script takes open data about prescribing in Scotland, and produces a small and interesting subset of ENT prescriptions from Aberdeen City GPs June 2024-May 2025 </span></span>
+<span><span class="co"># it's designed purely for training purposes. In the KIND network we're using it for our introductory SQL course, for example.</span></span>
+<span><span class="co"># this dataset starts with the twelve monthly files by prescriber location covering June 2024-May 2025: https://www.opendata.nhs.scot/dataset/prescriptions-in-the-community. These are downloaded locally - see note below</span></span>
+<span><span class="co"># you can find supporting information in the data glossary https://publichealthscotland.scot/media/34209/open_data_glossary_of_terms.pdf</span></span>
+<span><span class="co"># you may also find the openprescribing site helpful about BNF codes: https://openprescribing.net/bnf/040702/</span></span>
+<span><span class="co"># and more BNF info from the NHSBSA website - https://applications.nhsbsa.nhs.uk/infosystems/welcome (guest login needed but free and open to all)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## bnf info ----</span></span>
+<span><span class="va">bnf</span> <span class="op">&lt;-</span> <span class="st">"https://opendata.nhsbsa.net/dataset/29d25de3-02cd-4755-9dee-cdc37e37b5f3/resource/b1ce568d-37c4-4dd6-8bf4-57e4b044bf6c/download/bnf_code_current_202507_version_88.csv"</span></span>
+<span></span>
+<span><span class="va">bnf_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">bnf</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">BNF_CHAPTER</span> <span class="op">==</span> <span class="st">"Ear, Nose and Oropharynx"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span><span class="va">tolower</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">year_month</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">bnf_presentation_code</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ent</span> <span class="op">&lt;-</span> <span class="va">bnf_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">bnf_presentation_code</span><span class="op">)</span> <span class="co"># subset of ENT-specific codes</span></span>
+<span></span>
+<span><span class="co">## get the GP practice info for Aberdeen city----</span></span>
+<span><span class="va">jul_2025</span> <span class="op">&lt;-</span> <span class="st">"https://www.opendata.nhs.scot/dataset/f23655c3-6e23-4103-a511-a80d998adb90/resource/30b06220-17ad-44e8-b6c5-658d41ec1ea5/download/practice_contactdetails_jul2025-open-data.csv"</span></span>
+<span></span>
+<span><span class="va">gp_practices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">jul_2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">GPCluster</span>, <span class="st">"Aberdeen City"</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">gps</span> <span class="op">&lt;-</span> <span class="va">gp_practices</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">PracticeCode</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## get the health board lookup----</span></span>
+<span></span>
+<span><span class="va">hbt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://www.opendata.nhs.scot/dataset/9f942fdb-e59e-44f5-b534-d6e17229cc7b/resource/652ff726-e676-4a20-abda-435b98dd7bdc/download/hb14_hb19.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">HB</span>, <span class="va">HBName</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## build the dataset ----</span></span>
+<span><span class="va">ab_city_presc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data/community_presc/"</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># directory of monthly files downloaded from https://www.opendata.nhs.scot/dataset/prescriptions-in-the-community</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">GPPractice</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">gps</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">BNFItemCode</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">ent</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">GPPractice</span>, <span class="va">PaidDateMonth</span>, <span class="va">BNFItemCode</span>, <span class="va">PrescribedType</span>, <span class="va">NumberOfPaidItems</span>, <span class="va">PaidQuantity</span>, <span class="va">GrossIngredientCost</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>PaidDateMonth <span class="op">=</span> <span class="fu">ym</span><span class="op">(</span><span class="va">PaidDateMonth</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>PaidDateMonth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">PaidDateMonth</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ab_mini</span> <span class="op">&lt;-</span> <span class="va">gp_practices</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">PracticeCode</span>, <span class="va">GPPracticeName</span>, <span class="va">PracticeListSize</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">practice_names</span> <span class="op">&lt;-</span> <span class="va">ab_mini</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">PracticeListSize</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>PracticeCode <span class="op">=</span> <span class="fl">30627</span>, </span>
+<span>                   GPPracticeName <span class="op">=</span> <span class="st">"Links Medical Practice"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">practice_lists</span> <span class="op">&lt;-</span> <span class="va">ab_mini</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">GPPracticeName</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">practice_names</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">practice_lists</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>ab_city_presc <span class="op">=</span> <span class="va">ab_city_presc</span>, bnf_data <span class="op">=</span> <span class="va">bnf_data</span>, gp_practices <span class="op">=</span> <span class="va">gp_practices</span>, hbt <span class="op">=</span> <span class="va">hbt</span>, practice_lists <span class="op">=</span> <span class="va">practice_lists</span>, practice_names <span class="op">=</span> <span class="va">practice_names</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds</a></span><span class="op">(</span><span class="st">"data/prescribing_data.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
