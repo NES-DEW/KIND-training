@@ -2,11 +2,17 @@
 title: "Excel formulas (Excel for beginners session 6)"
 categories: [excel, beginner, Excel for beginners]
 execute:
-  freeze: auto
   echo: false
 editor_options: 
   chunk_output_type: console
+params:
+  sl_date: 2025-10-08
+  fn: "Excel formulas (Excel for beginners session 6)"
+date: '`r params[["sl_date"]]`'
 ---
+
+
+:::: {.content-visible unless-format="revealjs"}
 
 ## Introduction
 
@@ -49,9 +55,16 @@ next_sesh(rmarkdown::metadata$title)
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Session materials
-+ [all materials {{< iconify ph:file-zip size=2x >}}](src/excel_formulas.zip)
-+ slides [{{< iconify ph:file-html size=2x >}} html](src/excel_formulas.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/excel_formulas.pdf)
 + sample file [{{< iconify ph:file-xls size=2x >}}.xlsx](src/excel_formulas.xlsx)
+:::
+
+::::
+
+::: {.content-visible when-format="revealjs"}
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Excel", start_date = params[["sl_date"]], n = 5, hide_area = T, session_level = "beginner")
+```
 :::
 
 
@@ -146,4 +159,13 @@ next_sesh(rmarkdown::metadata$title)
 -   `#REF!` = "I don't recognise that reference"
 -   `#DIV/0!` = "You've divided by zero"
 
+::: {.content-visible when-format="revealjs"}
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Excel", start_date = params[["sl_date"]], n = 5, hide_area = T, session_level = "beginner")
+```
 
+## Feedback
+
+Please can you [spare us one minute of your time to give feedback](`r KINDR::feedback_url(params[["fn"]], date = params[["sl_date"]]) `)?
+:::
