@@ -1,12 +1,18 @@
 ---
-title: "Why bother with Power BI?"
-date: "2024-06-13"
 execute: 
     echo: false
     warning: false
-    freeze: auto
-categories: [Power BI, overview]
+categories: [Power BI, pre-beginner]
+params:
+  sl_date: 2025-10-10
+  fn: Why bother with Power BI?
+  id: KP18
+format: html
+date: '`r params[["sl_date"]]`'
+title: Why bother with Power BI?
 ---
+
+::: {.content-visible unless-format="revealjs"}
 
 ```{r}
 #| echo: false
@@ -20,29 +26,49 @@ feed_block("why bother with…Power BI?")
 
 ```
 
+:::
+
+::: {.content-visible when-format="revealjs"}
+
 ## Welcome
 
 -   welcome to **Why bother with Power BI?**
 -   this session is 🥬 - a non-technical introduction for pre-beginners
--   if you can't access the chat, you might need to join our Teams channel: **tinyurl.com/kindnetwork**
+
+
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Power BI", start_date = params[["sl_date"]], n = 5, hide_area = T)
+```
+
 
 ## The KIND network
 
--   a social learning space for staff working with **k**nowledge, **i**nformation, and **d**ata across health, social care, and housing in Scotland
--   we offer social support, free training, mentoring, community events, ...
--   [Teams channel](https://teams.microsoft.com/l/team/19%3AQZ7-PbFVcziG2piHLt1_ifey3I2cwFL0yBuTSS8vVao1%40thread.tacv2/conversations?groupId=106d08f3-9026-40e2-b3c7-87cd87304d58&tenantId=10efe0bd-a030-4bca-809c-b5e6745e499a) / [mailing list](https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5JmpopIZB9ynRJnrPUHVFccipURjM2NkZJUkhGOFlQRjQxRFhVUTgwT0UwVyQlQCN0PWcu)
+```{r}
+KINDR::kind_links()
+```
+
+
+:::
+
+
+
+
+
+
 
 ## Session outline
 
--   two minute overview of Power BI
--   strengths and weaknesses
--   making Power BI work for you
--   next steps and training
+- an overview of Power BI
+- practice demo
+- strengths and weaknesses
+- how to use Power BI for good?
+- next steps and training
 
 ## A brief overview of Power BI
 
--   new
--   integrates several existing Microsoft products (bits of Excel, PowerPivot, PowerQuery...)
+-   new-ish, c.2015
+-   integrates several existing Microsoft products (bits of Excel, PowerPivot, PowerQuery, various SQL reporting tools)
 -   produces interactive dashboards
 -   proprietary, closed-source, paid-for
 
@@ -64,56 +90,85 @@ feed_block("why bother with…Power BI?")
 ## Power BI
 
 -   lets users re-arrange their data to suit (interactive)
--   provides a standard way of accessing data from lots of sources ([data hub](https://app.powerbi.com/view?r=eyJrIjoiODMwNjRjMGMtZDhhZC00ZjQzLTgzYWItZTA3ZWM0ZDcyOGY2IiwidCI6IjUwZjYwNzFmLWJiZmUtNDAxYS04ODAzLTY3Mzc0OGU2MjllMiIsImMiOjh9))
+-   provides a standard way of accessing data from lots of sources ([data hub](https://app.powerbi.com/view?r=eyJrIjoiMDlhZGU4OWQtZTNmMi00MzNhLTllYzQtNmFjZjg5MTI4YTBkIiwidCI6IjM3YzM1NGIyLTg1YjAtNDdmNS1iMjIyLTA3YjQ4ZDc3NGVlMyJ9))
 -   scales really well ([dashboard example](https://app.powerbi.com/view?r=eyJrIjoiODJjOGE3ZDUtM2ViNy00YjBlLTllMjktOTNjZjlkODJhODU4IiwidCI6ImU3YTEzYWVhLTk0MzctNGRiNy1hMjJiLWNmYWE0Y2UzM2I2ZSJ9))
 
 ## Power BI demo
 
-### take [a spreadsheet](data/gp_pract.xlsx) and load that data </br>
+## take [a spreadsheet](data/gp_pract.xlsx) and load that data </br>
 ![Import data from Excel](../src/images/clipboard-1773606480.png) 
 
-### preview the data </br>
+## preview the data </br>
 ![Data preview](../src/images/clipboard-3750020719.png)
 
-### work with the data in Power BI </br> 
+## work with the data in Power BI </br> 
 ![Table view in Power BI](../src/images/clipboard-887422480.png)
 
-### tidy/wrangle the data in Power Query </br> 
+## tidy/wrangle the data in Power Query </br>
+
 ![Transform data](../src/images/clipboard-2135432491.png)
-### add a map visual </br> 
+
+## add a map visual </br> 
+
 ![Add a map visual](../src/images/clipboard-4289264945.png)
 
-### populate with our data </br> 
+## populate with our data </br> 
 ![Bubble map of Scotland's GP practices](../src/images/clipboard-4285049290.png)
 
-### add a column graph </br> 
+## add a column graph </br> 
 ![Column graph](../src/images/clipboard-4221248636.png)
 
-### populate with drag and drop </br> 
+## populate with drag and drop </br> 
 ![Column graph of Scotland's largest GP practices](../src/images/clipboard-1883827365.png)
 
-### add slicer </br> 
+## add slicer </br> 
 ![Slice to show specific NHS boards](../src/images/clipboard-1767130583.png) 
 
-### slicers change our visualisations </br> 
+## slicers change our visualisations </br> 
 ![Resulting filtered bubble map for NHS Dumfries and Galloway](../src/images/clipboard-2628441850.png)
 
-### add a numeric summary </br> 
+## add a numeric summary </br> 
 ![Add cards containing quantitative summaries of data](../src/images/clipboard-3093070697.png)
 
-### publish
+## publish
 See [preview](https://app.powerbi.com/groups/me/reports/3fef0f33-7d64-47b8-9e1c-ae0129db6720/ReportSection?experience=power-bi) - although note that access might require permission
 
-## Five top tips
+## Strengths
 
 - potentially has the power to get lots of new good out of existing data
+- much easier to build simple dashboards compared to competitors
+- good (but often non-free) scaling journey from individual to group
+- good journey towards real-time data
+
+## Weaknesses
+
 - Power BI needs tidy input data - so use Excel tables etc
 - don't believe the no-code lies - you'll need some [DAX](https://learn.microsoft.com/en-us/dax/) and [Power Query M](https://learn.microsoft.com/en-us/powerquery-m/)
-- [publishing is complicated and potentially expensive](https://www.microsoft.com/en-us/power-platform/products/power-bi/pricing), so needs investigating before building a product
+- [publishing is complicated and potentially expensive](https://www.microsoft.com/en-us/power-platform/products/power-bi/pricing) and requires investigating before building a product
 - complex IG picture across Scotland, so please get official guidance early
 
-## Chat, queries, questions
 
--   Teams channel: **tinyurl.com/kindnetwork**
--   weekly email update: **tinyurl.com/kindupdate**
--   Training mini-site: **tinyurl.com/kindtrain**
+## Power BI for good
+
+- a terminal analysis product, so don't plan to take data from Power BI
+- best with simple statistics - a specific warning here about QI
+- great for sharing with a well-defined group
+- an excellent way of guarding your spreadsheets
+- useful for moving away from holding data on shared drives etc
+
+::: {.content-visible when-format="revealjs"}
+
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Power BI", start_date = params[["sl_date"]], n = 5, hide_area = T)
+```
+
+## The KIND network
+
+```{r}
+KINDR::kind_links()
+```
+
+
+
+:::
