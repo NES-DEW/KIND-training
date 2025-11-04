@@ -1,10 +1,18 @@
 ---
-title: "Excel foundations 1 (intermediate Excel session 1)"
 execute: 
   echo: false
   freeze: false
 categories: [excel, intermediate, Excel skill-builder]
+params:
+  sl_date: 2025-11-04
+  fn: Excel foundations 1 (intermediate Excel session 1)
+  id: KE11
+format: html
+date: '`r params[["sl_date"]]`'
+title: Excel foundations 1 (intermediate Excel session 1)
 ---
+
+::: {.content-visible unless-format="revealjs"}
 
 This is a session in our intermediate-level Excel skill builder course. This consists of five practical training sessions, designed to be taken together, that are aimed at helping users with some prior Excel experience build and consolidate their skills. The sessions are:
 
@@ -36,6 +44,29 @@ next_sesh(rmarkdown::metadata$title)
 
 ```
 
+:::
+
+::: {.content-visible when-format="revealjs"}
+
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Excel", start_date = params[["sl_date"]], n = 5, hide_area = T, session_level = "Intermediate")
+```
+
+
+## The KIND network
+
+```{r}
+KINDR::kind_links()
+```
+
+## Setup
+
++ download this workbook: [https://nes-dew.github.io/KIND-training/excel/src/KIND_excel_skills_s01_exercises.xlsx](https://nes-dew.github.io/KIND-training/excel/src/KIND_excel_skills_s01_exercises.xlsx)
++ open in Excel (M365 desktop, for preference)
++ if applicable, make sure you `Enable Editing` </br> ![Enable Editing](../src/images/excel_enable_editing.png)
+
+:::
 
 ## Session outline
 
@@ -57,6 +88,8 @@ next_sesh(rmarkdown::metadata$title)
 2. this is the next step
 :::
 
+::: {.content-visible unless-format="revealjs"}
+
 ## Getting started
 + this course is written for M365 Excel (desktop)
 + other versions of Excel are available, and will work in a similar way
@@ -64,7 +97,9 @@ next_sesh(rmarkdown::metadata$title)
     + `s01_exercises.xlsx` is a starting-point for the exercises today
     + `s01_exercises_final.xlsx` is the end-point for the exercises today - it's there to help if you get stuck or lost
 
+:::
 
+## A first task
 
 ::: {.callout-tip title="Task"}
 1. open the sample spreadsheet `s01_exercises.xlsx` and have a look around
@@ -73,7 +108,7 @@ next_sesh(rmarkdown::metadata$title)
 
 ## Terminology
 
-![](../src/images/interface.png)
+![Excel interface](../src/images/interface.png)
 
 + worksheet / workbook distinction
 + `Ctrl` + `F1` to hide the ribbon
@@ -97,18 +132,24 @@ next_sesh(rmarkdown::metadata$title)
 3. cells can be formatted
     a. sometimes that's just text formatting, like size, colour, etc
     b. sometimes that's **number format**, which changes the value in the cell
-4. Formatting can be **conditional**, where formatting changes based on cell values. We talk about this in session 5
+4. formatting can be **conditional**, where formatting changes based on cell values. We talk about this in a later session
+
+## Rows and columns
+
+1. cells are arranged in rows and columns </br> ![Rows and columns](../src/images/cols.png)
+1. columns usually have letters, and rows have numbers
+
+## Date task
 
 ::: {.callout-tip title="Task"}
-1. look at the values in the first 15 rows of the **date** column </br>![](../src/images/1900.png)
-1. Excel [generally](https://support.microsoft.com/en-us/office/date-systems-in-excel-e7fe7167-48a9-4b96-bb53-5612a800b487) stores dates using the *1900 date system*, which is the number of days since Jan 1st 1900
-1. so `44570` stands for the 9th of January 2022
-1. we can format these into something human-readable. Please select all the cells in that date column and change the number format to **Short date** </br>![](../src/images/format.png) 
+1. look at the values in the first 15 rows of the **date** column </br>![1900 dates](../src/images/1900.png)
+1. Excel [generally](https://support.microsoft.com/en-us/office/date-systems-in-excel-e7fe7167-48a9-4b96-bb53-5612a800b487) stores dates using the *1900 date system*, which is the number of days since Jan 1st 1900 - so `44570` stands for the 9th of January 2022
+1. we can format these into something human-readable. Please select all the cells in that date column and change the number format to **Short date** </br>![Change number format to Short Date](../src/images/format.png){height="100px"}
 		1. or use `Alt`, `H`, `N`, `S`
 		1. or `Ctrl` + `1` and select from the dropdown
 :::
 
-+ cells are arranged in rows and columns </br> ![Rows and columns](../src/images/cols.png)
+
 
 ## Ranges and tables
 
@@ -119,15 +160,18 @@ next_sesh(rmarkdown::metadata$title)
     + auto filters
     + flash fill
     + ...
+
+## Table exercise
+
 + let's turn a range into a table
 
 ::: {.callout-tip title="Task"}
 1. the first 15 rows and 5 columns of our exercise worksheet contain a range
 2. please select all of those cells
-3. then select **Format as Table** from the ribbon (or `Ctrl` + `T`) </br>![](../src/images/table.png)
+3. then select **Format as Table** from the ribbon (or `Ctrl` + `T`) </br>![Format as table](../src/images/table.png)
 :::
 
-+ you can also convert a table back into a range using the `Convert to Range` tool </br>![](../src/images/01_converttorange.png)
++ you can also convert a table back into a range using the `Convert to Range` tool </br>![Convert to range](../src/images/01_converttorange.png)
 
 ## Selecting tables
 
@@ -144,26 +188,28 @@ next_sesh(rmarkdown::metadata$title)
 + we can use those references in formulas
   + `=A1` will copy the values from A1 into the current cell
 
+## Reference task
+
 ::: {.callout-tip title="Task"}
-1. using A1 reference, can you populate the first three rows of the summary table? </br>![](../src/images/ref_task.png)
+1. using A1 reference, can you populate the first three rows of the summary table? </br>![Populate the summary table](../src/images/ref_task.png)
     a. Start date
     b. End date
     c. First duty manager
-1. you might need to switch off **Calculated Columns** from the floatie </br>![](../src/images/01_stop_calc.png)
+1. you might need to switch off **Calculated Columns** from the floatie </br>![Switch off calculated columns](../src/images/01_stop_calc.png)
 :::
+
+## Useful tools for references
+
++ select a range of cells using `:` - so `=A1:C3` will select the nine cells at the top left-hand corner of the sheet
++ to select everything in a column(s), you can use a column letter and the range operator - so `=SUM(D:D)` would be a quick way of summing every value in the D column
++ you can also use `.` to trim blank values from this range. More info on the [Microsoft learn pages](https://support.microsoft.com/en-us/office/trimrange-function-d7812248-3bc5-4c6b-901c-1afa9564f999).
+
+
 
 ## Absolute vs relative references
 
 + by default, A1 references are **relative**
   + if the formula moves, the reference will change
-
-::: {.callout-tip title="Task"}
-1. the data accidentally includes the last day of the previous year</br>![](../src/images/01_last_yr.png)
-2. please remove that first row of data (click the row number, then `Ctrl` + `-`), and see how the references change
-:::
-
-![Relative references](../src/images/refs.png)
-
 + as you've seen, relative references can cause problems
 + you can change relative references to absolute (=fixed) references using `$`
   + `$A$1` refers to A1 **no matter what**
@@ -203,13 +249,16 @@ next_sesh(rmarkdown::metadata$title)
 1. please repeat for the other two value cells in the summary table
 :::
 
-+ we can then use those names in formulas
+## Why bother naming things?
+
++ we can use those names in formulas
 
 ::: {.callout-tip title="Task"}
 1. in a random cell, use `TEXT()` to find the days of the week from each of your start and end dates
 1. for example, my start date is named `start_date`, so `=TEXT(start_date, "dddd")` gives me `Saturday`
 :::
 
++ they have semantic content: it's easier to understand what `start_date` means compared to `B17`
 + naming important values helps lower the complexity of formulas by:
     + making it obvious what is being referred to
     + allowing you to change the location of a cell - as long as the name is retained, the formulas will continue to work
@@ -244,3 +293,17 @@ next_sesh(rmarkdown::metadata$title)
 ## Thank yous
 
 I'm grateful to Jennifer Watt, John Mackintosh, Duncan Sage, David Coigach, Michael Robb, Angela Godfrey, Spela Oberstar, Andrew Christopherson, and other members of the KIND network for their valuable suggestions and corrections to these training materials
+
+::: {.content-visible when-format="revealjs"}
+
+## Forthcoming sessions
+```{r}
+KINDR::training_sessions(tr_type = "Excel", start_date = params[["sl_date"]], n = 5, hide_area = T, session_level = "Intermediate")
+```
+
+
+## Feedback
+
+Please can you [spare us one minute of your time to give feedback](`r KINDR::feedback_url(params[["fn"]], date = params[["sl_date"]]) `)?
+
+:::
