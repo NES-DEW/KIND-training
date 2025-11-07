@@ -342,11 +342,11 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 5 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       6       2
-2     2       4      10
-3     3       1       3
-4     4       9       9
-5     5       9       7</code></pre>
+1     1       2       4
+2     2       7       6
+3     3       8       5
+4     4       9       2
+5     5       9       2</code></pre>
 </div>
 </div>
 <p>We could convert this into a non-equi join by adding an inequality:</p>
@@ -355,31 +355,35 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 5 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       6       2
-2     2       4      NA
-3     3       1      NA
-4     4       9      NA
-5     5       9       7</code></pre>
+1     1       2      NA
+2     2       7       6
+3     3       8       5
+4     4       9       2
+5     5       9       2</code></pre>
 </div>
 </div>
 <p>Here, we’ve added a condition that restricts the join to cases where <code>score_a</code> is larger than <code>score_b</code>. That’s all a non-equi join is: a join based on a non-equality. Usually, we’d use this with an inner join that will drop the <code>NA</code>s for us:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
+<pre><code># A tibble: 4 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       6       2
-2     5       9       7</code></pre>
+1     2       7       6
+2     3       8       5
+3     4       9       2
+4     5       9       2</code></pre>
 </div>
 </div>
 <p>Effectively this is equivalent to a <code>filter</code> then a join:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
+<pre><code># A tibble: 4 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       6       2
-2     5       9       7</code></pre>
+1     2       7       6
+2     3       8       5
+3     4       9       2
+4     5       9       2</code></pre>
 </div>
 </div>
 <p>But faster and more elegant, especially if you’re matching a small range of values in the non-equi part of the join.</p>
@@ -390,26 +394,24 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 30 × 3
       id  year score
    &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
- 1  3681  2024     7
- 2  1671  2022     9
- 3  4915  2023     5
- 4  7987  2023     3
- 5  4793  2025     6
- 6  7728  2026     7
- 7  5833  2022     2
- 8  4898  2027     1
- 9  9191  2025     9
-10  2329  2026     2
+ 1  1995  2025    10
+ 2  2129  2026     9
+ 3  4401  2023    10
+ 4  3606  2027    10
+ 5  9120  2025     2
+ 6  3974  2026     8
+ 7  1932  2024     5
+ 8  6881  2024     9
+ 9  8317  2026     7
+10  5480  2024     6
 # ℹ 20 more rows</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 3
+<pre><code># A tibble: 2 × 3
      id  year score
   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
-1  4898  2027     1
-2  9375  2027     1
-3  6951  2027     4
-4  8461  2027     6</code></pre>
+1  3606  2027    10
+2  6792  2027     4</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
