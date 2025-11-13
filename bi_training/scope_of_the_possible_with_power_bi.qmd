@@ -1,17 +1,10 @@
 ---
 title: "Scope of the possible with Power BI"
-date: "2024-11-04"
+date: 2025-11-13
 execute: 
   echo: false
-  freeze: auto
 categories: [Power BI, overview]
 ---
-
-::: {.callout-note collapse="false" appearance="default" icon="true"}
-## Session materials
-
-[{{< iconify ph:file-pdf size=2x >}} pdf slides](src/scope_of_the_possible_with_power_bi.pdf)
-:::
 
 ```{r}
 #| echo: false
@@ -57,14 +50,15 @@ feed_block("Scope of the possible with Power BI")
 
 ## Power BI demo
 
--   using tidied of the [GP practice size dataset](https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes) from April 2024
-    -   [GP practice size data](%22data/apr_2024_clean.xlsx%22)
-    -   [Demographic data](%22data/3%20-%20demographics.csv%22)
+We'll use a pair of Excel files. These are based on three datasets from the [Scottish Health and Social Care Open Data portal](https://www.opendata.nhs.scot/):
+
+- [GP practice size data](data/apr_2024_clean.xlsx) - which is based on the [GP practice details dataset](https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes) and the [Health Board 2014 - 2019 dataset](https://www.opendata.nhs.scot/datastore/dump/652ff726-e676-4a20-abda-435b98dd7bdc?bom=True)
+- [Demographic data](data/3 - demographics.csv) - which is based on the [GP practice populations dataset](https://www.opendata.nhs.scot/dataset/e3300e98-cdd2-4f4e-a24e-06ee14fcc66c/resource/3306ab5a-cd22-494a-be76-ee6753cef92d/download/practice_listsizes_apr2024-open-data.csv)
 
 ```{r}
 readxl::read_xlsx("data/apr_2024_clean.xlsx") |>
     dplyr::slice_sample(n = 3) |>
-    knitr::kable(caption = "Note this data is cleaned")
+    knitr::kable(caption = "GP practice data")
 ```
 
 ## Load some data
