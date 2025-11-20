@@ -21,4 +21,4 @@ render_slides <- function(file_path, session_date){
   unlink(site_fn)
 }
 
-render_slides("excel/excel_foundations_02.qmd", "2025-11-11")
+render_slides("skills/writing_effective_surveys.qmd", "2025-11-20")
