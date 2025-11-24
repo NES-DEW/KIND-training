@@ -1,7 +1,7 @@
 ---
 title: "Intermediate Power BI (session 3)"
 categories: [Power BI, intermediate, Intermediate Power BI course, DAX]
-date: "2025-02-26"
+date: "2025-11-24"
 ---
 
 This is part of our intermediate-level Power BI desktop course. The course structure is as follows:
@@ -28,19 +28,20 @@ next_sesh(rmarkdown::metadata$title)
 
 ## Session aim
 
--   to cover core Power Query (PQ) functions and techniques
+This session will revise some core Power Query (PQ) functions. We'll spend most of the session then using those techniques to remodel a dataset so that it performs well in Power BI. In the next session, we'll cover a basic introduction to PQM, which is the formula language used in Power Query.
 
 ## Session outline
 
-- understanding PQ queries - sources, connections, code folding, duplicating/referencing
-- data formats for Power BI - tidy data, and key-value pairs, and interconverting with pivots
+- reminder about the core PQ workflow: sources and connections, data types, working with queries, filtering, and query steps
 - joins and relationships
+- data formats for Power BI - tidy data, and key-value pairs, and inter-converting with pivots
 - normalising and the star schema
 
 ## Data for this session
 
 + we'll use the [NRS vital events data for Q3 2024](https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx)
 + that's a complex Excel spreadsheet containing national birth, death, and marriage information
++ we'll talk about how to load it during the first few minutes of the session
 
 ## Getting started
 
@@ -50,28 +51,64 @@ next_sesh(rmarkdown::metadata$title)
 
 ## Loading data from Power Query
 
--   all the Power BI connectors are available in PQ
--   `New query > Web`  \n![Load data from web](../src/images/clipboard-3224181959.png)
--   supply the link for the NRS vital events data for Q3 2024: <https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx>
+-   all the Power BI connectors are available within Power Query
+- that's especially helpful if you have lots of data loading to do
+- for this session, please make a new query using `New query > Web`, and supply the link for the NRS vital events data for Q3 2024: <https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx>
+
+![Load data from web](../src/images/clipboard-3224181959.png)
 
 ## Tables and sheets
 
--   we want table 6   \n(`TableQ6_Deaths_by_sex_cause_and_NHS_Board_area`) ![Table 6](../src/images/clipboard-849064723.png)
--   please import that from the navigator
+-   we want to load table 6, so please import that table from the navigator
+(`TableQ6_Deaths_by_sex_cause_and_NHS_Board_area`) ![Table 6](../src/images/clipboard-849064723.png)
 
-## Tidying up
+## Revision
 
--   check the data types
--   fix the query name to `cause_death`   \n![Rename to cause_death](../src/images/clipboard-1287398295.png)
-- rename `ICD 10 Summary List` to `ICD10`
-- rename `Cause of death` to `cause_death`
--   remove the three `All` rows   \n![Filter out the three all rows](../src/images/clipboard-623679649.png)
+### Names
 
-## This data isn't quite tidy
+PQ query names matter, because they'll produce your table name in Power BI
+  - fix the query name to `cause_death`   \n![Rename to cause_death](../src/images/clipboard-1287398295.png)
+
+Column names are also important in PQ, because most functions work by referencing column names. Single-word strongly preferred to keep things simple.
+  - rename `ICD 10 Summary List` to `ICD10`
+  - rename `Cause of death` to `cause_death`
+
+
+### Data types
+
+[Data types](https://learn.microsoft.com/en-us/power-query/data-types) matter in PQ: functions often need the correct data types. PQ will generally correctly infer data types, but it pays to manually double-check the data types in the column headers
+
+### Filtering
+
+A reminder that filtering rows is destructive in PQ, unlike Excel 
+  - remove the three `All` rows   \n![Filter out the three all rows](../src/images/clipboard-623679649.png)
+
+## Duplicating vs referencing queries
+-   a duplicate query is an independent copy of a query that can be tweaked/extended
+-   a referenced query takes the output of a query, and uses it as the starting-point for additional work
+- duplicate your `cause_death` query, and rename to `cause_death_long`
+
+## Long vs wide data
+
+* Here's an example table of made-up data about defibrillators (with thanks to [sja.org.uk](https://www.sja.org.uk/first-aid-supplies/defibrillators-accessories-and-training-models/defibrillator-models/):
+
+| HB | HBName | AED count | AED product code | Manufacturer | AED model name | Unit cost | Weight (kg) |
+|---|---|---|---|---|---|---|---|
+| S08000015 | NHS Ayrshire and Arran | 4 | H81004 | Philips | Philips HeartStart FRx Semi-Automatic Defibrillator with Carry Case | 1250 | 1.6 |
+| S08000016 | NHS Borders | 3 | H81004 | Philips | Philips HeartStart FRx Semi-Automatic Defibrillator with Carry Case | 1250 | 1.6 |
+| S08000015 | NHS Ayrshire and Arran | 9 | H41000 | ZOLL | ZOLL AED 3 Fully Automatic Defibrillator | 1305 | 2.5 |
+
+Call this **wide-format data**, meaning that it follows the following rules:
+
+* one value per cell
+* observations in rows
+* variables in columns
 
 ![Tidy data](../src/images/clipboard-3584154739.png)
 
 ## Shaping your data
+
+Wide data is common, especially if you're coming from Excel, and for simple applications, Power BI can work with it reasonably well. However, for more complex dashboards, it's worth thinking differently about your data.
 
 -   two main approaches found in Power BI:
     -   Excel-like tidy data
@@ -83,9 +120,60 @@ next_sesh(rmarkdown::metadata$title)
 -   more performant
 -   easier to manage complex datasets
 
-## Tidy data
 
--   largely covered in session one, but a quick reminder about splitting and merging
+## Relational data in two minutes
+
+-   break your data into multiple tables
+-   make sure each item has an appropriate key
+-   build [relationships](https://en.wikipedia.org/wiki/Relational_database) between those keys
+
+## Excel example
+
++ open [the sample Excel spreadsheet](src/Inter_bi_s03.xlsx)
++ that's got this full AED dataset in wide format on the `Wide_aed_data` tab
++ then a set of three tables showing how that dataset can be broken into relational tables with keys
++ we're going to work in Excel to repeat that process of breaking into tables
+
+## Break into tables
+
+| HB        | HBName    |
+|-----------|-----------|
+|    |         |
+|  |        |
+|    |       |
+
+| HB | AED count | AED product code |
+|------------------------|------------------------|------------------------|
+|   |   |   |
+|   |   |   |
+|   |   |   |
+
+| AED product code | Manufacturer | AED model name | Unit cost | Weight (kg) |
+|----|----|----|----|----|
+|    |    |    |    |    |
+|    |    |    |    |    |
+|    |    |    |    |    |
+
+## A note on efficiency
+
+* Many aspects of Power BI are intended to use this sort of relational data
+* That often means better performance, and less messing around
+  * estimate how many pieces of data are in your three tables, vs the one big table
+* But it does require you to think about more tables, and more relationships, in your model
+
+## Star schema
+
+-   you might also see Power BI data described as a star schema   \n![Star schema](../src/images/clipboard-2583516447.png) image: [Wikimedia](https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4_%D1%81%D1%85%D0%B5%D0%BC%D0%B8_%D0%B7%D1%96%D1%80%D0%BA%D0%B8.png)
+
+## Reshaping our causes of death data in Power Query
+
+- basic workflow: duplicate, check/add keys, delete columns, filter to unique rows
+-   we'll break out the cause of death parts of the data into a new table
+-   we'll use the [ICD 10 codes](https://icd.who.int/browse10/2019/en) as a key
+-   duplicate the `cause_death` query and rename to `ICD`
+-   remove everything but `ICD10` and `cause_death` from `ICD`
+-   remove duplicates via `Remove Rows > Remove Duplicates`
+
 
 ## Key-value pair data
 
@@ -95,69 +183,6 @@ next_sesh(rmarkdown::metadata$title)
 | Asthma      | 20    |
 | Influenza 3 | 2     |
 
-: Key-value pair data
-
-## Relational data in two minutes
-
--   break your data into multiple tables
--   give each item a key
--   build [relationships](https://en.wikipedia.org/wiki/Relational_database) between those keys
-
-## Take some wide data
-
-| NHS Board | AED count | AED model | Manufacturer | Cost |
-|---------------|---------------|---------------|---------------|---------------|
-| NHS A&A | 3 | AED Plus Fully Automatic Defibrillator | ZOLL | 1305 |
-| NHS A&A | 4 | AED Plus Fully Automatic Defibrillator | ZOLL | 975 |
-| NHS A&A | 5 | Philips HeartStart FRx Semi-Automatic Defibrillator with Carry Case | Philips | 1200 |
-
-Data from [sja.org.uk](https://www.sja.org.uk/first-aid-supplies/defibrillators-accessories-and-training-models/defibrillator-models/)
-
-## Break into tables
-
-| NHS Board | AED count |
-|-----------|-----------|
-| NHS A&A   | 3         |
-| NHS A&A   | 4         |
-| NHS A&A   | 5         |
-
-| AED model | Manufacturer | Cost |
-|------------------------|------------------------|------------------------|
-| AED Plus Fully Automatic Defibrillator | ZOLL | 1305 |
-| AED Plus Fully Automatic Defibrillator | ZOLL | 975 |
-| Philips HeartStart FRx Semi-Automatic Defibrillator with Carry Case | Philips | 1200 |
-
-## Add unique keys
-
-| NHS Board | AED count | AED key |
-|-----------|-----------|---------|
-| NHS A&A   | 3         | ZOLL-1  |
-| NHS A&A   | 4         | ZOLL-2  |
-| NHS A&A   | 5         | PHIL-1  |
-
-| AED key | AED model | Manufacturer | Cost |
-|------------------|------------------|------------------|------------------|
-| ZOLL-1 | AED Plus Fully Automatic Defibrillator | ZOLL | 1305 |
-| ZOLL-2 | AED Plus Fully Automatic Defibrillator | ZOLL | 975 |
-| PHIL-1 | Philips HeartStart FRx Semi-Automatic Defibrillator with Carry Case | Philips | 1200 |
-
-## Star schema
-
--   you might also see Power BI data described as a star schema   \n![Star schema](../src/images/clipboard-2583516447.png) image: [Wikimedia](https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4_%D1%81%D1%85%D0%B5%D0%BC%D0%B8_%D0%B7%D1%96%D1%80%D0%BA%D0%B8.png)
-
-## Reshaping our data
-
--   we'll break out the cause of death parts of the data into a new table
--   we'll use the [ICD 10 codes](https://icd.who.int/browse10/2019/en) as a key
--   duplicate the `cause_death` query and rename to `ICD`
--   remove everything but `ICD10` and `cause_death` from `ICD`
--   remove duplicates via `Remove Rows > Remove Duplicates`
-
-
-## Duplicating vs referencing queries
-
--   a duplicate query is an independent copy of a query that can be tweaked/extended
--   a referenced query takes the output of a query, and uses it as the starting-point for additional work
 
 ## Reshape `cause_death` to key-value
 
