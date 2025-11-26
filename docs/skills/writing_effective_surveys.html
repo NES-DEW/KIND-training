@@ -802,7 +802,7 @@ Rework!
 <p>Expect missing data (the <code>NA</code> values, here). You can potentially force users to answer all your questions, but that comes at the risk of potentially tempting them to send you a lot of quickly-generated gibberish.</p>
 </section><section id="drop-off" class="level2"><h2 class="anchored" data-anchor-id="drop-off">Drop-off</h2>
 <p>Interestingly, our respondents managed to stick with the terrible survey, and nearly everyone answered nearly every question:</p>
-<p><img src="writing_effective_surveys_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="writing_effective_surveys_files/figure-revealjs/unnamed-chunk-11-1.png" class="img-fluid" width="960"></p>
 <p>That’s likely to be a result of me asking people, as politely as I could, to please <em>please</em> stick with the terrible survey and answer as diligently as possible. I suspect a real survey like this one would show a much stronger drop-off towards the later questions.</p>
 </section><section id="alignment" class="level2"><h2 class="anchored" data-anchor-id="alignment">Alignment</h2>
 <p>Some of your questions should probably be used to find out about your sample. Again, think carefully about both the theme of the question, and its ability to actually distinguish what you need to know:</p>
@@ -846,7 +846,7 @@ Rework!
 </tbody>
 </table>
 <p>In fact, from this and the other three questions using the same un-useful scale, all we see is that people irrationally prefer some points of the scale to others:</p>
-<p><img src="writing_effective_surveys_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="writing_effective_surveys_files/figure-revealjs/unnamed-chunk-13-1.png" class="img-fluid" width="960"></p>
 </section><section id="scope-of-responses" class="level2"><h2 class="anchored" data-anchor-id="scope-of-responses">Scope of responses</h2>
 <p>You should also think about the likely scope of responses, especially if you’re unwise enough to ask hugely vague “who are you”-type questions</p>
 <table class="caption-top table">
@@ -961,9 +961,9 @@ Rework!
 <table class="caption-top table">
 <caption>5 random responses from a follow-up question about a second-favourite</caption>
 <colgroup>
-<col style="width: 62%">
-<col style="width: 33%">
-<col style="width: 4%">
+<col style="width: 50%">
+<col style="width: 46%">
+<col style="width: 3%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">name</th>
@@ -973,27 +973,27 @@ Rework!
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Do you have a second favourite TV programme?</td>
-<td style="text-align: left;">Friday Night Dinner</td>
+<td style="text-align: left;">Severance</td>
 <td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Do you have a second favourite TV programme?</td>
-<td style="text-align: left;">The Weather</td>
+<td style="text-align: left;">Fashion Photo Ruview with Raja and Raven</td>
 <td style="text-align: right;">1</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Do you have a second favourite TV programme?</td>
-<td style="text-align: left;">Ulysses 31</td>
+<td style="text-align: left;">The Expanse</td>
 <td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Do you have a second favourite TV programme?</td>
-<td style="text-align: left;">Tomorrow People</td>
+<td style="text-align: left;">Your Home Made Perfect</td>
 <td style="text-align: right;">1</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Do you have a second favourite TV programme?</td>
-<td style="text-align: left;">There is Only Peep Show</td>
+<td style="text-align: left;">How Its Made</td>
 <td style="text-align: right;">1</td>
 </tr>
 </tbody>
@@ -1001,7 +1001,42 @@ Rework!
 <p>Many thanks to the several hundred members of the KIND network who donated their time and brain-power to trying to complete deliberately badly-built surveys. I’m especially indebted to Kenneth Mack (Healthcare Improvement Scotland) who suggested that TV programme preferences would be a good venue to explore issues about building effective surveys.</p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
