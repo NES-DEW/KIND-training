@@ -2004,7 +2004,7 @@
   {
     "objectID": "skills/intro_sql.html",
     "href": "skills/intro_sql.html",
-    "title": "An introduction to SQL (pilot version)",
+    "title": "An introduction to SQL",
     "section": "",
     "text": "No feedback found for this session"
   },
@@ -2018,56 +2018,56 @@
   {
     "objectID": "skills/intro_sql.html#setup",
     "href": "skills/intro_sql.html#setup",
-    "title": "An introduction to SQL (pilot version)",
+    "title": "An introduction to SQL",
     "section": "Setup",
-    "text": "Setup\n\nYou will need a free posit.cloud account. Please set this up and check that you have access before the session begins\nOnce you’ve logged-in to posit.cloud, please create a new Rstudio project \nIn that project, create a new R script: \nCopy and paste the following R code into that script:\n\n\n## install and attach R packages\npkg &lt;- c(\"dbplyr\", \"RSQLite\", \"palmerpenguins\")\ninstall.packages(setdiff(pkg, rownames(installed.packages())))  \nlibrary(dbplyr)\nlibrary(dplyr)\nlibrary(palmerpenguins)\n\nconn &lt;- src_memdb() # create an sqlite db in memory\ncopy_to(conn, penguins, overwrite = T) # populate that db from R\n\n\nsave your script and click the Source button\n\nthat will create a simple SQL database in memory\n\n\nnow create a new SQL script (again, from the File menu)\ndelete all the pre-populated lines of code, as follows: \n\nto connect with our SQL db in memory, add the following line to the head of your SQL script:\n\n\n-- !preview conn=src_memdb()$con\n\n\nfinally, save your SQL script (any file name is fine)"
+    "text": "Setup\n\nYou will need a free posit.cloud account. Please set this up and check that you have access before the session begins\nOnce you’ve logged-in to posit.cloud, please create a new Rstudio project \n\nIn that project, create a new R script: \n\nCopy and paste the following R code into that script:\n\n\n## install and attach R packages\npkg &lt;- c(\"dbplyr\", \"RSQLite\", \"palmerpenguins\")\ninstall.packages(setdiff(pkg, rownames(installed.packages())))  \nlibrary(dbplyr)\nlibrary(dplyr)\nlibrary(palmerpenguins)\n\nconn &lt;- src_memdb() # create an sqlite db in memory\ncopy_to(conn, penguins, overwrite = T) # populate that db from R\n\n\nsave your script and click the Source button\n\nthat will create a simple SQL database in memory\n\n\nnow create a new SQL script (again, from the File menu)\ndelete all the pre-populated lines of code, as follows: \n\nto connect with our SQL db in memory, add the following line to the head of your SQL script:\n\n\n-- !preview conn=src_memdb()$con\n\n\nfinally, save your SQL script (any file name is fine)"
   },
   {
     "objectID": "skills/intro_sql.html#getting-started",
     "href": "skills/intro_sql.html#getting-started",
-    "title": "An introduction to SQL (pilot version)",
+    "title": "An introduction to SQL",
     "section": "Getting started",
     "text": "Getting started\nOur db has one table, named penguins. A table is similar to an Excel sheet - a rectangular set of rows and columns containing our data. To preview our data, we’ll need to write a first line of SQL. Please add the following to the bottom of your SQL script:\n\nSELECT * FROM penguins;\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale\n2007\n\n\nAdelie\nTorgersen\n38.9\n17.8\n181\n3625\nfemale\n2007\n\n\nAdelie\nTorgersen\n39.2\n19.6\n195\n4675\nmale\n2007\n\n\nAdelie\nTorgersen\n34.1\n18.1\n193\n3475\nNA\n2007\n\n\nAdelie\nTorgersen\n42.0\n20.2\n190\n4250\nNA\n2007\n\n\n\n\n\n\nSQL queries usually start with the SELECT keyword, which retrieves data from the database\n\n* means “show me everything!”\n\nFROM penguins specifies that we want everything from the penguins table. That specification is important, because most real-life SQL set-ups will have multiple tables of data\n\n; ends the line. Not essential, but good practice\n\nImportant: press Ctrl + Shift + Enter in the source code pane to run your SQL script"
   },
   {
     "objectID": "skills/intro_sql.html#playing-with-that-query",
     "href": "skills/intro_sql.html#playing-with-that-query",
-    "title": "An introduction to SQL (pilot version)",
+    "title": "An introduction to SQL",
     "section": "Playing with that query",
     "text": "Playing with that query\n\nWe’ll now change that one query to do something slightly different\nUnlike most other languages, you’ll write SQL queries one at a time\nAdd a new keyword LIMIT 5 at the end of your query to produce a shorter preview of our data:\n\n\nSELECT * FROM penguins LIMIT 5;\n\n\n5 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007\n\n\n\n\n\n\nSQL is case insensitive - including for column names etc - but it’s customary to use capitals for the keywords. It makes your SQL easier to read, too.\n\n\n\n\n\n\n\nExercise\n\n\n\n\n\n\nplease could you modify your SQL statement to preview the first 10 rows of the data"
   },
   {
     "objectID": "skills/intro_sql.html#sql-dialects",
     "href": "skills/intro_sql.html#sql-dialects",
-    "title": "An introduction to SQL (pilot version)",
+    "title": "An introduction to SQL",
     "section": "SQL dialects",
     "text": "SQL dialects\n\nSQL has been around for a very long time, and has been used in lots of different ways\nThat means there are several slightly different dialects of SQL which are (unfortunately) incompatible\nWe’ll largely ignore those differences in this beginner’s training\nBut, just to illustrate, the LIMIT keyword is one that only works in some types of SQL\nIf you were using Microsoft’s dialect of SQL, you’d need to write something slightly different:\n\n\nSELECT * TOP 5 from penguins;\n\n\nOr if you were using Oracle’s newest dialect of SQL, you’d write either:\n\n\nSELECT * FROM penguins FETCH FIRST 5 ROWS ONLY;\n\n\nOr, an older - but possibly neater - way of writing Oracle SQL:\n\n\nSELECT * FROM penguins WHERE ROWNUM &lt;= 5;"
   },
   {
     "objectID": "skills/intro_sql.html#comments",
     "href": "skills/intro_sql.html#comments",
-    "title": "An introduction to SQL (pilot version)",
+    "title": "An introduction to SQL",
     "section": "Comments",
     "text": "Comments\n\nIf you want to turn off some of your SQL, or add notes, you can include comments\n\n-- double-dash to comment a line, or part of a line\n\n/* and then */ slash-star to comment a multi-line chunk\n\n\nSELECT * FROM penguins LIMIT 5; -- comment in the line\n\n/* or a longer chunk\n  古池や蛙飛び込む水の音\n  ふるいけやかわずとびこむみずのおと\n*/  \n\n\n5 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007"
   },
   {
     "objectID": "skills/intro_sql.html#columns",
     "href": "skills/intro_sql.html#columns",
-    "title": "An introduction to SQL (pilot version)",
+    "title": "An introduction to SQL",
     "section": "Columns",
     "text": "Columns\n\nyou can select some of your columns by changing the SELECT * keyword\n\nthe * we’ve been using so far is a wildcard, which shows all the columns in your table\n\n\nadd column name(s) to retrieve just parts of your data\n\n\nSELECT species, island FROM penguins;\n\n\nDisplaying records 1 - 10\n\nspecies\nisland\n\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\n\n\n\n\nnote that columns are returned in the order you ask for them\nyou can also rename selected columns using AS:\n\n\nSELECT species, island AS landmass\n    FROM penguins;\n\n\nDisplaying records 1 - 10\n\nspecies\nlandmass\n\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\n\n\n\n\nnote too that SQL is insensitive to whitespace, so you can generally split up longer queries over many lines\nan alternative strategy (if you’re brave) is to use implicit renaming:\n\n\nSELECT island landmass FROM penguins;\n\n\nDisplaying records 1 - 10\n\nlandmass\n\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\n\n\n\n\n\n\n\n\n\nExercise\n\n\n\n\n\n\nplease select the species and flipper_length_mm columns with new names of your choice"
   },
   {
     "objectID": "skills/intro_sql.html#distinct-values",
     "href": "skills/intro_sql.html#distinct-values",
-    "title": "An introduction to SQL (pilot version)",
+    "title": "An introduction to SQL",
     "section": "Distinct values",
     "text": "Distinct values\n\nSELECT DISTINCT species FROM penguins;\n\n\n3 records\n\nspecies\n\n\n\nAdelie\n\n\nGentoo\n\n\nChinstrap\n\n\n\n\n\n\n\nDISTINCT gathers the unique values in a column, or unique combinations of values across multiple columns\nthis second query gives you all the combinations of penguins and islands that exist in our data:\n\n\nSELECT DISTINCT island, species FROM penguins;\n\n\n5 records\n\nisland\nspecies\n\n\n\nTorgersen\nAdelie\n\n\nBiscoe\nAdelie\n\n\nDream\nAdelie\n\n\nBiscoe\nGentoo\n\n\nDream\nChinstrap"
   },
   {
     "objectID": "skills/intro_sql.html#acknowledgements",
     "href": "skills/intro_sql.html#acknowledgements",
-    "title": "An introduction to SQL (pilot version)",
+    "title": "An introduction to SQL",
     "section": "Acknowledgements",
     "text": "Acknowledgements\nLike all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session."
   },
@@ -2910,5 +2910,600 @@
     "title": "Presenting like a person - an unofficial guide to talking in public",
     "section": "A note about trust",
     "text": "A note about trust\n\nmost of us find presenting hard\nin this course, please be gentle and professional:\n\ndon’t mock or undermine\ndon’t play devil’s advocate\ngive people time to speak, and space to think\n\n\nexpressly, don’t record any of this session in any way\n\n\n\nSession one: this isn’t about personality\nSession two: planning your topic\nSession three: from plan to script\nSession four: practice and tips\n\n\n\n\n\n\n\n\n\nSession objective\n\n\n\n\n\nTo understand that presentation skills aren’t innate: they’re learn-able, and teachable\n\n\n\nSession outline\n\nwhy think about presentation skills?\nfind a topic\na minimal set of advice\nan opportunity to practice\nadditional advice, questions, and chatter\nSample script\nHere’s a sample script for this session\nPresentations are just conversations with extra steps\nFind a topic!\n\nhere’s something I experienced\nhere’s something I love\nhere’s something I read\nTopic suggestions\n\nhobby, sport, personal best\nnew work achievements\nnew skills and talents\nTopics aren’t talks!\n\nwhat would you be curious about\nthink conversation: what’s your first question?\ntopic = anticipating questions and starting a conversation\nTurning a topic into talk\n\ntell me why you’re talking about your topic\nwhat’s interesting, specifically\ninclude specific engagement (provocation/mystery/anti-common knowledge)\ninclude interaction\nWhy think about presentation skills?\n\npossibly the ultimate in transferable skills\nmost people are terrible at presenting\n\npresenting differs from listening in non-obvious ways\n\n\nbut you can improve easily and cheaply\nA minimal set of advice\n\nBe simple\nBe keen\nBe human\n\n\n\n\n\n\n\n\n\nSession objective\n\n\n\n\n\nTo identify a presentation topic, and start developing a plan for your presentation\n\n\n\nKey presentation advice: be simple\n\ngood presentations concentrate on the most interesting material\n\nif in doubt, take it out\n\n\nin this session, we’re going to cover a recipe for finding that interesting material from a topic\nWhy not just say everything?\n\nthe asymmetry of presentation:\n\nyou’ll know much more than your audience\nso you’ll worry about details, not basics\nbut your audience will need the basics, not the details\n\n\nsimple = clear = interesting\na reminder about Kahler’s drivers\n\n“Be perfect” vs “Please people”\n\n\nA demonstration of what we’re doing today: ‘Thinking partner’ conversations\n\nstart with a topic\nsit with a partner for a few minutes to discuss\n\nwhat that topic means to the partner (background knowledge)\nhow to make that interesting for the audience\nwhat the key points are to include\nany suitable interactions you might use\n\n\nTask: thinking partner conversations\n\nyou need a topic (from the homework from last week)\nin pairs, please:\n\ngive the partner a 1-2 sentence introduction to the topic\nask what that topic means to the partner (find out about their likely background knowledge)\nthen ask questions to find out what’s most interesting\nwhat the key points are to include that require explanation etc\nany suitable interactions you might use\n\n\nFeedback\n\nWhat did you find surprising about those conversations?\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\nYou’ve now (hopefully) had a good discussion about your theme. Your homework task for the week is to write that down, and think about the points you want to make, and the interactions you’ll want to include, in your talk.\nNext week, We’re going to start turning that plan into a script.\n\n\n\n\n\n\n\n\n\n\n\n\nSession objective\n\n\n\n\n\nSession aim: take a plan around your topic, and turn it into a script that you can use for a short presentation on a topic of your choice\n\n\n\nA word of warning\n\nthere are lots of different schools of thought about how to plan talks\n\nsome emphasise the art of building something engaging\nothers emphasise the craft of making sure everything is in its right place\n\n\nin this session, we’re doing a bit of both, but leaning towards the craft\n\nthere’s a risk here of making planning seem more mechanical than it actually is\nbecause this is presenting like a person rather than presenting like a robot we’ll do some work to push back on excessive craftiness next time\n\n\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nfrom last time, write down a sentence describing your topic\nthen add:\n\nany essential ideas you wanted to include\nany interactions you fancied\nany ideas you had about your audience\n\n\n\n\n\n\nRecursive planning\n\na way of taking your topic, and making sure that all the things you say about it fit together properly\ndefinitely on the craft side of the planning spectrum\nRecursive planning\n\nyou now need 3-5 points that:\n\nsupport/explain/make up your main point\neach point should be a simple sentence\n\n\nif you’re writing a very long/complicated talk, then you might go again (and again)\n\nbut you should almost certainly stop one layer of detail before you think you’ve said enough\n\n\nExample\n\n“I managed to fix my booking system”\n\n“booking clinic slots was done manually”\n“that was slow and error-prone”\n“I used Power Automate + very strong language to automate it”\n“I had to learn to use Apply to Each to get that to work”\n“I am now thinking about automating my other clinic bookings”\n\n\nStructuring\n\nthere are several different ways to structure your points\nchronological - talking about things in the order they happened - is usually a sensible default\nbut you could do problem-to-solution, or particular-to abstract too\n\n\n\n\n\n\n\nTask: support your sentence\n\n\n\n\n\n\nsolo, right here, and we’ll spend c.5/6 minutes\ntake your topic, and break it down into 3-5 points that you fancy talking about\ntry and order them sensibly\ntry and think about fitting the points to your intended audience\nif in doubt, take it out\n\n\n\n\nHow did you get on?\nConstraints\n\ntake your plan, and chop it down to size by considering:\n\nhow long do you have to speak, exactly?\n\none point every two minutes is pretty good going\n\n\nhow long do you have to prepare?\nwho are your audience?\n\nthe less closely they’re related to your work, the less material you’re going to cover\n\n\nhow big is the audience?\n\nbigger = messier = less detail\n\n\n\n\nThen make it interesting\n\nback to the art-side!\nthink of this (probably quite boring) plan as a framework that you can hang enticing bits on\nsome suggestions:\n\nyour interactions\nstructural clues: something telling the audience what to expect\na hook: something at the beginning that interests/annoys/entertains people (and tells them what your topic is about)\na punchline: something at the end that sums up what you’ve been saying\n\n\nPrep time\n\nif you’re new at this, or it’s important, I would budget a huge amount of time to prepare\n\none hour preparation per minute of speaking (seriously)\n\n\nthis time isn’t for doing the work you’re presenting\n\nit’s just for planning the presentation\n\n\nbeware procrastination by optimization (especially making slides before you’ve decided what you’re going to say)\nSlides\n\nwe’re not going to get you to make slides for this course\nbut if you do need slides, your recursive plan is solid gold:\n\nrecursive plan + pictures = slides\n\n\ngeneral advice:\n\nfewer than 20 words per slide\nusual advice is 2 minutes per slide\nput your details at the start and end\n\n\n\n\n\n\n\n\n\n\n\nSession objective\n\n\n\n\n\nSession aim: deliver your presentation and receive feedback, and be a good audience for other presentations\n\n\n\n\n\n\n\n\n\nPractice time!\n\n\n\n\n\n\nwe’ll work in pairs\nyou’ve got a sentence, and 3-5 supporting bits\nwe’re going to get you to present for two minutes only, no visual aids - just chat\nwe’ll pause here to let everyone put their sentences in order\nthen into pairs:\n\none minute to find your feet\ntwo minutes presenting\none minute of gentle, constructive, and positive feedback\nthen swap\n\n\n\n\n\n\nHow to be simple?\n\napply a hierarchy\nrecursive planning\nuse your constraints\nThe hierarchy\n\nyou’ll need a single sentence that sums up your presentation\n\neverything else comes from this\n\n\nideally you’ll have it in mind before you start\n\nbut it often changes\n\n\nthis is non-negotiable, and much harder than it looks\nBe human\n\ndon’t try and cover everything\nabsolutely leave time for Q+A (and ideally a bit of random chat) at the end\ndon’t apologise, but do admit when things go wrong\n\nthere’s asymmetry here too: your clunker will look like a mini-hitch to the audience\n\n\nDon’t be bland!\n\nthink about a memorable talk: personable speaker engaging with the audience\nthe most unprofessional thing = to squander people’s time and attention\nbeing a person is allowed, beneficial, great\nMake it easy for yourself\n\n\nExample presenting setup\n\nTech\n\nit’s hard to give general advice, but think carefully about your specific tech\ntech often malfunctions during presentations, so you might have a backup (e.g. what to do if you can’t show your slides?)\nyou’ll also be more likely to make mistakes with the tech when speaking\nBe keen\n\nenthusiasm for your work, for your audience, and for what you’re presenting about is the easiest way to come off as knowledgeable and interesting\nplenty of preparation helps\nbut for most of us this is scary\nfake it with socially-approved cheating!\n\nexcited vs scared\nsmile, eye contact, and a bit of hand gesturing\nbuild yourself a few lines to say at the start. Introductions work well. Don’t be afraid of being blunt!\ngive yourself a sentence in and out of each slide/section\nbuild yourself some go-tos if you get stuck or the tech explodes\n\n\nit’s better to…\n\nmake the odd error of expression vs robotically reading off a sheet\nenthusiastic messiness is preferable to bland precision\nbullet points &gt;&gt; script\nless, but step-by-step, rather than more-but-schematic\nchecking you’re bringing people with you, rather than assuming\nbringing things to an end, rather than squeezing everything in"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html",
+    "href": "bi_training/BI_intermediate_session_04.html",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "",
+    "text": "This is part of our intermediate-level Power BI desktop course. The course structure is as follows:\nNo feedback found for this session\n\n\n\n\n\n\nForthcoming session(s)\n\n\n\n\n\n\n\n\nBooking link\n\n\nDate\n\n\n\n\nIntermediate Power BI (session 4)\n\n\n14:00-16:00 Thu 5th February 2026"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#session-aim",
+    "href": "bi_training/BI_intermediate_session_04.html#session-aim",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Session aim",
+    "text": "Session aim\n\nto introduce the PowerQuery M language"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#where-does-this-fit-in",
+    "href": "bi_training/BI_intermediate_session_04.html#where-does-this-fit-in",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Where does this fit in?",
+    "text": "Where does this fit in?\n\nsession 1: a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices\nsession 2: DAX language foundations, including FILTER and CALCULATE\nsession 3: core PowerQuery functions to manage sources, join data sets, pivot, and tidy values\nsession 4: PowerQuery M language foundations, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility\nsession 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#session-outline",
+    "href": "bi_training/BI_intermediate_session_04.html#session-outline",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Session outline",
+    "text": "Session outline\n\nwhat’s PQM?\nsetting values and creating lists\nthe Advanced Editor\nbasic syntax: let/in\n\ndefining and using functions"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#whats-pqm",
+    "href": "bi_training/BI_intermediate_session_04.html#whats-pqm",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "What’s PQM?",
+    "text": "What’s PQM?\n\nformula language used in Power Query\nsimilar to Excel formulas"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#getting-started",
+    "href": "bi_training/BI_intermediate_session_04.html#getting-started",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Getting started",
+    "text": "Getting started\n\nopen Power BI\ncreate a blank report\nthen click Tranform data to open PQ\nadd a blank query"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#add-a-value-to-that-query",
+    "href": "bi_training/BI_intermediate_session_04.html#add-a-value-to-that-query",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Add a value to that query",
+    "text": "Add a value to that query\n\nyou can edit PQM in the formula bar\nlet’s start with the traditional expression: Hello world!\n\nyou don’t need quotes\n\n\ncall this a primitive value\n\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nadd \"Hello world\" to the formula bar"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#lists",
+    "href": "bi_training/BI_intermediate_session_04.html#lists",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Lists",
+    "text": "Lists\n\nan especially-useful kind of value: the list\n\n\n\n\n\n\n\n\nNote\n\n\n\n\n\n\nmake a new blank query\nin the formula bar, after the equals-sign, type a {, then some comma-separated numbers, then a closing }"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#functions",
+    "href": "bi_training/BI_intermediate_session_04.html#functions",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Functions",
+    "text": "Functions\n\nPQM has 700+ functions\nsome can be used directly on values\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nupdate your hello world to = Text.Lower(\"Hello world\") in the formula bar"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#warning",
+    "href": "bi_training/BI_intermediate_session_04.html#warning",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Warning",
+    "text": "Warning\n\nPQM is case-sensitive, unlike basically all the other Microsoft formula languages:"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#query-steps",
+    "href": "bi_training/BI_intermediate_session_04.html#query-steps",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Query steps",
+    "text": "Query steps\n\nyou can add query steps using the Add Step (\\(fx\\)) button: \n\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nAdd a step, and insert the formula = Text.Proper(Source)  \n\n\n\n\n\n\n\nSource in the formula is the name of your first step\nThat should create a new step named Custom1"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#advanced-editor",
+    "href": "bi_training/BI_intermediate_session_04.html#advanced-editor",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Advanced editor",
+    "text": "Advanced editor\n\nyou can do more interesting work in PQM using the Advanced Editor  \n\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nplease open the Advanced Editor now"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#advanced-editor-1",
+    "href": "bi_training/BI_intermediate_session_04.html#advanced-editor-1",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Advanced editor",
+    "text": "Advanced editor\n\nthe advanced editor should contain your two query steps:\n\nlet\n    Source = Text.Lower(\"Hello world!\"),\n    Custom1 = Text.Proper(Source)\nin\n    Custom1"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#letin",
+    "href": "bi_training/BI_intermediate_session_04.html#letin",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "\nlet/in\n",
+    "text": "let/in\n\n\nlet statements are the basic structural building-block of PQM\nthe let part contains a series of steps\nthe in part returns the result of those steps"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#let",
+    "href": "bi_training/BI_intermediate_session_04.html#let",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "let",
+    "text": "let\n\neach line of the let has a step name, and an expression:\n\nname = expression\n\n\neach expression (apart from the source) refers to a previous step\nin our example, we make a step named Source, which contains our lowercase \"hello world\"\n\nwe then pass it to a second step named Custom1 where we transform it into Proper Case\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nrename the second step to proper_case"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#in",
+    "href": "bi_training/BI_intermediate_session_04.html#in",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "in",
+    "text": "in\n\nthe in section is where we return a result from our query\nyou’ll need to match the name in in to the correct stage of your query - almost always the last value\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nupdate line 5 (after the in) to use your new name for Custom1\n\nthen select Done to return to Power Query - you should see your new step name in the Applied Steps menu"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#query-steps-1",
+    "href": "bi_training/BI_intermediate_session_04.html#query-steps-1",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Query steps",
+    "text": "Query steps\n\nwe can use the Advanced Editor to change the sequence of query steps\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nopen the advanced editor\n\nbreak down your source step into two steps:\n\na Source step, where we input the “Hello world” primitive value\na lower_case step, where we use the Text.Lower function on Source\n\n\n\nmake sure your lines end with , (except the final line of let and in)\nmake sure your names link up correctly, and then apply the changes.\nyou should see the change in your Applied Steps pane"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#query-steps-2",
+    "href": "bi_training/BI_intermediate_session_04.html#query-steps-2",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Query steps",
+    "text": "Query steps\n\nyour query should now read: \n\nthose names should be reflected in the query steps view:"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#nested-let",
+    "href": "bi_training/BI_intermediate_session_04.html#nested-let",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Nested let",
+    "text": "Nested let\n\nwe could re-arrange our expression to use nested lets\nthis is helpful when things grow more complex\n\nlet \n    lower_case = \n        let \n            Source = \"Hello world!\"\n        in \n            Text.Lower(Source), \n            proper_case = Text.Proper(lower_case)\nin \n    proper_case"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#defining-functions",
+    "href": "bi_training/BI_intermediate_session_04.html#defining-functions",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Defining functions",
+    "text": "Defining functions\n\nwe can define functions of our own\nlet’s make one now that prints “Hello world!” for us\n\n\n\n\n\n\n\nTask\n\n\n\n\n\n\nmake a new blank query and open it in the advanced editor populate with the code below\n\n\n\n\nlet\n    hw = () =&gt; \"Hello world!\"\nin\n    hw\n\n\nhw here is an ordinary step name\n\n() will contain our parameters\n\n=&gt; defines this as containing a function"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#naming-functions",
+    "href": "bi_training/BI_intermediate_session_04.html#naming-functions",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Naming functions",
+    "text": "Naming functions\n\nthat creates a new function\nnote that the function name will correspond with our query name (it’s not the step name): \n\nwe could use that function as-is: \n\nbut properly-named functions are much more useful: do that by renaming the query as a whole to hw"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#using-functions",
+    "href": "bi_training/BI_intermediate_session_04.html#using-functions",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Using functions",
+    "text": "Using functions\n\nfunctions defined in this way are global: we can use them in any other query\n\nso hw() will work in Query1 to generate our Hello world! text: Source = hw()\n\nthe order of queries (Query1, Query2, etc) doesn’t affect function definitions and use\n\n\nbut within a query, you’ll need to define a function before you can use it"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#defining-functions-within-queries",
+    "href": "bi_training/BI_intermediate_session_04.html#defining-functions-within-queries",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Defining functions within queries",
+    "text": "Defining functions within queries\nlet \n    hw2 = () =&gt; \"Hello world!\",\n    Source = hw2(),\n    lower_case = Text.Lower(Source),\n    proper_case = Text.Proper(lower_case)\nin \n    proper_case\n\n\nhw2() has local scope: you can’t use it in other queries"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#add-a-parameter",
+    "href": "bi_training/BI_intermediate_session_04.html#add-a-parameter",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Add a parameter",
+    "text": "Add a parameter\n\n\n\n\n\n\nNote\n\n\n\n\n\n\nmake a new blank query and name it lower_proper\n\nin the formula bar, define the function = (x) =&gt; Text.Proper(Text.Lower(x))\n\ncheck the parameter option that should appear below the formula bar:"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#re-edit-your-original-query",
+    "href": "bi_training/BI_intermediate_session_04.html#re-edit-your-original-query",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Re-edit your original query",
+    "text": "Re-edit your original query\n\nto use lower_proper instead of Text.Lower etc\n\nlet\n    Source = hw(),\n    proper_case = lower_proper(Source)\nin \n    proper_case"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#bonus-types",
+    "href": "bi_training/BI_intermediate_session_04.html#bonus-types",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Bonus: types",
+    "text": "Bonus: types\n\nyou can specify types in your function:\n\n= (x as text) as text =&gt; Text.Proper(Text.Lower(x))"
+  },
+  {
+    "objectID": "bi_training/BI_intermediate_session_04.html#resources",
+    "href": "bi_training/BI_intermediate_session_04.html#resources",
+    "title": "Intermediate Power BI (session 4)",
+    "section": "Resources",
+    "text": "Resources\n\nan especially-helpful introduction to PQM"
+  },
+  {
+    "objectID": "skills/sql_joins.html",
+    "href": "skills/sql_joins.html",
+    "title": "SQL joins",
+    "section": "",
+    "text": "No feedback found for this session\n\n\n\n\n\n\nForthcoming session(s)\n\n\n\n\n\n\n\n\nBooking link\n\n\nDate\n\n\n\n\nSQL joins\n\n\n10:00-11:30 Tue 10th February 2026"
+  },
+  {
+    "objectID": "skills/sql_joins.html#introduction",
+    "href": "skills/sql_joins.html#introduction",
+    "title": "SQL joins",
+    "section": "Introduction",
+    "text": "Introduction\n\nthis is a session about joins in SQL\nwe’ll introduce joins in general terms\nwe’ll then go on to talk about different types of join in SQL\nthen we’ll do lots of practice of basic joins\nand finish with a couple of helpful points for simplifying your work with joins"
+  },
+  {
+    "objectID": "skills/sql_joins.html#setup",
+    "href": "skills/sql_joins.html#setup",
+    "title": "SQL joins",
+    "section": "Setup",
+    "text": "Setup\n\nYou will need a free posit.cloud account. Please set this up and check that you have access before the session begins\nOnce you’ve logged-in to posit.cloud, please create a new Rstudio project \n\nIn that project, create a new R script:"
+  },
+  {
+    "objectID": "skills/sql_joins.html#prescribing-data",
+    "href": "skills/sql_joins.html#prescribing-data",
+    "title": "SQL joins",
+    "section": "Prescribing data",
+    "text": "Prescribing data\n\nas well as our practice_names and practice_lists tables, we’ve got some more interesting data set up in our SQL database about prescriptions\n\n\n\n\n\n\n\nExercise\n\n\n\n\n\n\ninspect the following tables:\n\ngp_practices\nhbt\nab_city_presc\nbnf_data\n\n\nthere are several possible joins we might attempt here: please make a suggestion about a join you’d be interesting in trying in the chat"
+  },
+  {
+    "objectID": "skills/sql_joins.html#a-starting-join",
+    "href": "skills/sql_joins.html#a-starting-join",
+    "title": "SQL joins",
+    "section": "A starting join",
+    "text": "A starting join\n\nlook at the ab_city_presc table, which is contains data about prescriptions in the Aberdeen City area\nthis is hard to read because the drug information in the BNFItemCode column is expressed as codes (like 1202010Y0BBAAAA) rather than drug names\nluckily, bnf_data is a lookup: the corresponding column in that table is bnf_presentation_code\n\n\nSELECT * FROM ab_city_presc JOIN bnf_data ON ab_city_presc.BNFItemCode = bnf_data.bnf_presentation_code;\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGPPractice\nPaidDateMonth\nBNFItemCode\nPrescribedType\nNumberOfPaidItems\nPaidQuantity\nGrossIngredientCost\nbnf_presentation_code\nbnf_chapter\nbnf_chapter_code\nbnf_section\nbnf_section_code\nbnf_paragraph\nbnf_paragraph_code\nbnf_subparagraph\nbnf_subparagraph_code\nbnf_chemical_substance\nbnf_chemical_substance_code\nbnf_product\nbnf_product_code\nbnf_presentation\n\n\n\n30030\n19875\n1202010U0AAAAAA\nVMP\n39\n6160\n404.80\n1202010U0AAAAAA\nEar, Nose and Oropharynx\n12\nDrugs acting on the nose\n1202\nDrugs used in nasal allergy\n120201\nDrugs used in nasal allergy\n1202010\nMometasone furoate\n1202010U0\nMometasone furoate (Nasal)\n1202010U0AA\nMometasone 50micrograms/dose nasal spray\n\n\n30030\n19875\n1203010E0AAABAB\nVMP\n3\n90\n9.63\n1203010E0AAABAB\nEar, Nose and Oropharynx\n12\nDrugs acting on the oropharynx\n1203\nDrugs for oral ulceration and inflammation\n120301\nDrugs for oral ulceration and inflammation\n1203010\nBenzydamine hydrochloride\n1203010E0\nBenzydamine hydrochloride (Mouthwash)\n1203010E0AA\nBenzydamine 0.15% oromucosal spray sugar free\n\n\n30030\n19875\n1202010W0BBAAAA\nAMP\n3\n360\n19.32\n1202010W0BBAAAA\nEar, Nose and Oropharynx\n12\nDrugs acting on the nose\n1202\nDrugs used in nasal allergy\n120201\nDrugs used in nasal allergy\n1202010\nFluticasone furoate\n1202010W0\nAvamys\n1202010W0BB\nAvamys 27.5micrograms/dose nasal spray\n\n\n30030\n19875\n1202010W0BBAAAA\nVMP\n7\n1200\n64.40\n1202010W0BBAAAA\nEar, Nose and Oropharynx\n12\nDrugs acting on the nose\n1202\nDrugs used in nasal allergy\n120201\nDrugs used in nasal allergy\n1202010\nFluticasone furoate\n1202010W0\nAvamys\n1202010W0BB\nAvamys 27.5micrograms/dose nasal spray\n\n\n30030\n19875\n1203010E0BBAAAA\nAMP\n1\n300\n6.50\n1203010E0BBAAAA\nEar, Nose and Oropharynx\n12\nDrugs acting on the oropharynx\n1203\nDrugs for oral ulceration and inflammation\n120301\nDrugs for oral ulceration and inflammation\n1203010\nBenzydamine hydrochloride\n1203010E0\nDifflam (Mouthwash)\n1203010E0BB\nDifflam Oral Rinse 0.15% solution\n\n\n30030\n19875\n1202010Y0BBAAAA\nAMP\n8\n1200\n148.00\n1202010Y0BBAAAA\nEar, Nose and Oropharynx\n12\nDrugs acting on the nose\n1202\nDrugs used in nasal allergy\n120201\nDrugs used in nasal allergy\n1202010\nFluticasone propionate/azelastine hydrochloride (Nasal)\n1202010Y0\nDymista\n1202010Y0BB\nDymista 137micrograms/dose / 50micrograms/dose nasal spray\n\n\n30030\n19875\n1202010Y0BBAAAA\nVMP\n1\n120\n14.80\n1202010Y0BBAAAA\nEar, Nose and Oropharynx\n12\nDrugs acting on the nose\n1202\nDrugs used in nasal allergy\n120201\nDrugs used in nasal allergy\n1202010\nFluticasone propionate/azelastine hydrochloride (Nasal)\n1202010Y0\nDymista\n1202010Y0BB\nDymista 137micrograms/dose / 50micrograms/dose nasal spray\n\n\n30030\n19875\n1201010Q0BCAAAC\nAMP\n1\n10\n7.45\n1201010Q0BCAAAC\nEar, Nose and Oropharynx\n12\nDrugs acting on the ear\n1201\nOtitis externa\n120101\nOtitis externa\n1201010\nHydrocortisone\n1201010Q0\nOtosporin\n1201010Q0BC\nOtosporin ear drops\n\n\n30030\n19875\n1202020L0AACCCC\nVMP\n1\n20\n9.50\n1202020L0AACCCC\nEar, Nose and Oropharynx\n12\nDrugs acting on the nose\n1202\nTopical nasal decongestants\n120202\nTopical nasal decongestants\n1202020\nSodium chloride\n1202020L0\nSodium chloride (Nasal)\n1202020L0AA\nSodium chloride 0.9% neb liq 2.5ml unit dose ampoules\n\n\n30030\n19875\n120101050BCAAAB\nAMP\n4\n20\n13.08\n120101050BCAAAB\nEar, Nose and Oropharynx\n12\nDrugs acting on the ear\n1201\nOtitis externa\n120101\nOtitis externa\n1201010\nDexamethasone\n120101050\nOtomize\n120101050BC\nOtomize ear spray"
+  },
+  {
+    "objectID": "skills/sql_joins.html#reminder",
+    "href": "skills/sql_joins.html#reminder",
+    "title": "SQL joins",
+    "section": "Reminder!",
+    "text": "Reminder!\n\nyou can subset the columns returned by a query via SELECT:\n\nSELECT GPPractice, PaidDateMonth, PaidQuantity, bnf_presentation \n  FROM ab_city_presc \n  JOIN bnf_data \n  ON ab_city_presc.BNFItemCode = bnf_data.bnf_presentation_code;\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\nGPPractice\nPaidDateMonth\nPaidQuantity\nbnf_presentation\n\n\n\n30030\n19875\n6160\nMometasone 50micrograms/dose nasal spray\n\n\n30030\n19875\n90\nBenzydamine 0.15% oromucosal spray sugar free\n\n\n30030\n19875\n360\nAvamys 27.5micrograms/dose nasal spray\n\n\n30030\n19875\n1200\nAvamys 27.5micrograms/dose nasal spray\n\n\n30030\n19875\n300\nDifflam Oral Rinse 0.15% solution\n\n\n30030\n19875\n1200\nDymista 137micrograms/dose / 50micrograms/dose nasal spray\n\n\n30030\n19875\n120\nDymista 137micrograms/dose / 50micrograms/dose nasal spray\n\n\n30030\n19875\n10\nOtosporin ear drops\n\n\n30030\n19875\n20\nSodium chloride 0.9% neb liq 2.5ml unit dose ampoules\n\n\n30030\n19875\n20\nOtomize ear spray"
+  },
+  {
+    "objectID": "skills/sql_joins.html#the-as-keyword",
+    "href": "skills/sql_joins.html#the-as-keyword",
+    "title": "SQL joins",
+    "section": "The AS keyword",
+    "text": "The AS keyword\n\nas you might have noticed above, you end up writing the names of tables a couple of times during a join\nour tables have slightly long and tricky names\nyou can temporarily rename tables using AS:\n\nSELECT GPPractice, PaidDateMonth, PaidQuantity, bnf_presentation \n  FROM ab_city_presc AS ab\n  JOIN bnf_data AS bnf\n  ON ab.BNFItemCode = bnf.bnf_presentation_code;\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\nGPPractice\nPaidDateMonth\nPaidQuantity\nbnf_presentation\n\n\n\n30030\n19875\n6160\nMometasone 50micrograms/dose nasal spray\n\n\n30030\n19875\n90\nBenzydamine 0.15% oromucosal spray sugar free\n\n\n30030\n19875\n360\nAvamys 27.5micrograms/dose nasal spray\n\n\n30030\n19875\n1200\nAvamys 27.5micrograms/dose nasal spray\n\n\n30030\n19875\n300\nDifflam Oral Rinse 0.15% solution\n\n\n30030\n19875\n1200\nDymista 137micrograms/dose / 50micrograms/dose nasal spray\n\n\n30030\n19875\n120\nDymista 137micrograms/dose / 50micrograms/dose nasal spray\n\n\n30030\n19875\n10\nOtosporin ear drops\n\n\n30030\n19875\n20\nSodium chloride 0.9% neb liq 2.5ml unit dose ampoules\n\n\n30030\n19875\n20\nOtomize ear spray"
+  },
+  {
+    "objectID": "skills/sql_joins.html#multiple-joins",
+    "href": "skills/sql_joins.html#multiple-joins",
+    "title": "SQL joins",
+    "section": "Multiple joins",
+    "text": "Multiple joins\n\nsay you’d like more information about the GP practices. That can be brought in from the gp_practices table with a second join:\n\nSELECT GPPracticeName, PaidDateMonth, PaidQuantity, bnf_presentation \n  FROM ab_city_presc AS ab\n  JOIN bnf_data AS bnf\n  ON ab.BNFItemCode = bnf.bnf_presentation_code\n  JOIN gp_practices AS gp ON ab.GPPractice = gp.PracticeCode\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\nGPPracticeName\nPaidDateMonth\nPaidQuantity\nbnf_presentation\n\n\n\nGarthdee Medical Group\n20148\n8\nSofradex ear/eye drops\n\n\nGarthdee Medical Group\n20179\n20\nSofradex ear/eye drops\n\n\nGarthdee Medical Group\n20209\n10\nSofradex ear/eye drops\n\n\nGarthdee Medical Group\n19875\n20\nOtomize ear spray\n\n\nGarthdee Medical Group\n19905\n5\nOtomize ear spray\n\n\nGarthdee Medical Group\n19936\n15\nOtomize ear spray\n\n\nGarthdee Medical Group\n19967\n5\nOtomize ear spray\n\n\nGarthdee Medical Group\n19997\n10\nOtomize ear spray\n\n\nGarthdee Medical Group\n20028\n30\nOtomize ear spray\n\n\nGarthdee Medical Group\n20058\n5\nOtomize ear spray"
+  },
+  {
+    "objectID": "skills/sql_joins.html#prescribing-data-info",
+    "href": "skills/sql_joins.html#prescribing-data-info",
+    "title": "SQL joins",
+    "section": "Prescribing data info",
+    "text": "Prescribing data info\nShow data creation script# this script takes open data about prescribing in Scotland, and produces a small and interesting subset of ENT prescriptions from Aberdeen City GPs June 2024-May 2025 \n# it's designed purely for training purposes. In the KIND network we're using it for our introductory SQL course, for example.\n# this dataset starts with the twelve monthly files by prescriber location covering June 2024-May 2025: https://www.opendata.nhs.scot/dataset/prescriptions-in-the-community. These are downloaded locally - see note below\n# you can find supporting information in the data glossary https://publichealthscotland.scot/media/34209/open_data_glossary_of_terms.pdf\n# you may also find the openprescribing site helpful about BNF codes: https://openprescribing.net/bnf/040702/\n# and more BNF info from the NHSBSA website - https://applications.nhsbsa.nhs.uk/infosystems/welcome (guest login needed but free and open to all)\n\nlibrary(dplyr)\nlibrary(readr)\n\n\n## bnf info ----\nbnf &lt;- \"https://opendata.nhsbsa.net/dataset/29d25de3-02cd-4755-9dee-cdc37e37b5f3/resource/b1ce568d-37c4-4dd6-8bf4-57e4b044bf6c/download/bnf_code_current_202507_version_88.csv\"\n\nbnf_data &lt;- read_csv(bnf) |&gt;\n  filter(BNF_CHAPTER == \"Ear, Nose and Oropharynx\") |&gt;\n  rename_with(tolower) |&gt;\n  select(-year_month) |&gt;\n  relocate(bnf_presentation_code)\n\nent &lt;- bnf_data |&gt;\n  pull(bnf_presentation_code) # subset of ENT-specific codes\n\n## get the GP practice info for Aberdeen city----\njul_2025 &lt;- \"https://www.opendata.nhs.scot/dataset/f23655c3-6e23-4103-a511-a80d998adb90/resource/30b06220-17ad-44e8-b6c5-658d41ec1ea5/download/practice_contactdetails_jul2025-open-data.csv\"\n\ngp_practices &lt;- read_csv(jul_2025) |&gt;\n  filter(str_detect(GPCluster, \"Aberdeen City\")) \n\ngps &lt;- gp_practices |&gt;\n  pull(PracticeCode)\n\n## get the health board lookup----\n\nhbt &lt;- read_csv(\"https://www.opendata.nhs.scot/dataset/9f942fdb-e59e-44f5-b534-d6e17229cc7b/resource/652ff726-e676-4a20-abda-435b98dd7bdc/download/hb14_hb19.csv\") |&gt;\n  select(HB, HBName)\n\n## build the dataset ----\nab_city_presc &lt;- read_csv(list.files(\"data/community_presc/\", full.names = T)) |&gt; # directory of monthly files downloaded from https://www.opendata.nhs.scot/dataset/prescriptions-in-the-community\n  filter(GPPractice %in% gps) |&gt;\n  filter(BNFItemCode %in% ent) |&gt;\n  select(GPPractice, PaidDateMonth, BNFItemCode, PrescribedType, NumberOfPaidItems, PaidQuantity, GrossIngredientCost) |&gt;\n  mutate(PaidDateMonth = ym(PaidDateMonth)) |&gt;\n  mutate(PaidDateMonth = as.character(PaidDateMonth))\n\nab_mini &lt;- gp_practices |&gt;\n  select(PracticeCode, GPPracticeName, PracticeListSize) |&gt;\n  slice_sample(n = 3)\n\npractice_names &lt;- ab_mini |&gt;\n  select(-PracticeListSize) |&gt;\n  bind_rows(tibble(PracticeCode = 30627, \n                   GPPracticeName = \"Links Medical Practice\"))\n\npractice_lists &lt;- ab_mini |&gt;\n  select(-GPPracticeName)\n\npractice_names |&gt;\n  inner_join(practice_lists)\n\nlist(ab_city_presc = ab_city_presc, bnf_data = bnf_data, gp_practices = gp_practices, hbt = hbt, practice_lists = practice_lists, practice_names = practice_names) |&gt;\n  write_rds(\"data/prescribing_data.rds\")"
+  },
+  {
+    "objectID": "skills/sql_data.html",
+    "href": "skills/sql_data.html",
+    "title": "Getting data into SQL",
+    "section": "",
+    "text": "No feedback found for this session\n\n\n\n\n\n\nForthcoming session(s)\n\n\n\n\n\n\n\n\nBooking link\n\n\nDate\n\n\n\n\nGetting data into SQL\n\n\n10:00-11:30 Tue 27th January 2026"
+  },
+  {
+    "objectID": "skills/sql_data.html#introduction",
+    "href": "skills/sql_data.html#introduction",
+    "title": "Getting data into SQL",
+    "section": "Introduction",
+    "text": "Introduction\n\nThis course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams\nIt’s intended as a light introduction for users with good general digital skills (broadly level 2 in the Digital and Data Capability Framework)\nIt’s heavily based on the excellent W3 schools introductory SQL course\n\nIf you’re looking for a resource to use to support independent study, W3 schools is a better option than this page\nthis material is largely intended to support our live interactive training sessions\n\n\nwe use posit.cloud for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills"
+  },
+  {
+    "objectID": "skills/sql_data.html#this-session",
+    "href": "skills/sql_data.html#this-session",
+    "title": "Getting data into SQL",
+    "section": "This session",
+    "text": "This session\n\nall about getting data into, and out of SQL"
+  },
+  {
+    "objectID": "skills/sql_data.html#setup",
+    "href": "skills/sql_data.html#setup",
+    "title": "Getting data into SQL",
+    "section": "Setup",
+    "text": "Setup\n\nYou will need a free posit.cloud account. Please set this up and check that you have access before the session begins\nOnce you’ve logged-in to posit.cloud, please create a new Rstudio project \nIn that project, create a new R script: \nCopy and paste the following R code into that script:\n\n## install and attach R packages\npkg &lt;- c(\"dbplyr\", \"RSQLite\", \"palmerpenguins\")\ninstall.packages(setdiff(pkg, rownames(installed.packages())))  \n\nlibrary(dbplyr)\nlibrary(dplyr)\nlibrary(palmerpenguins)\n\nconn &lt;- src_memdb() # create an sqlite db in memory\n\nsave your script and click the Source button\n\nthat will create a simple SQL database in memory\n\n\nnow create a new SQL script (again, from the File menu)\ndelete all the pre-populated lines of code, as follows: \n\nto connect with our SQL db in memory, add the following line to the head of your SQL script:\n\n-- !preview conn=src_memdb()$con\n\nfinally, save your SQL script (any file name is fine)"
+  },
+  {
+    "objectID": "skills/sql_data.html#getting-started",
+    "href": "skills/sql_data.html#getting-started",
+    "title": "Getting data into SQL",
+    "section": "Getting started",
+    "text": "Getting started\n\nin this session, unlike the previous one, we’ll start with an empty SQL database\nwe’ll create a table in that db, and add some data to it\n\nCREATE TABLE clients (chi varchar(10) NOT NULL,\n                      name varchar(255),\n                      birthdate date,\n                      PRIMARY KEY (chi));\nwhat’s a table? the container for some data\nneed to set data types - SQL is typed\n\n\ntype\nwhat\n\n\n\nCHAR\nfixed length char\n\n\nVARCHAR\nvariable length char\n\n\nINT\nwhole number\n\n\nDOUBLE\ndecimal number\n\n\nDATE\ndate\n\n\nDATETIME\ndate-time\n\n\n\nthen test:\nSELECT * FROM clients;\n\n\n0 records\n\nchi\nname\nbirthdate\n\n\n\n\nshould be empty, that’s just fine for now. Let’s add some data to that table to make it more useful:"
+  },
+  {
+    "objectID": "skills/sql_data.html#adding-data",
+    "href": "skills/sql_data.html#adding-data",
+    "title": "Getting data into SQL",
+    "section": "Adding data",
+    "text": "Adding data\ninsert data into your table using the INSERT INTO keyword:\nINSERT INTO clients VALUES (\"1204851425\", \"Mr Odds\", \"1985-04-12\");\nand then check:\nSELECT * FROM clients;\n\n\n1 records\n\nchi\nname\nbirthdate\n\n\n1204851425\nMr Odds\n1985-04-12\n\n\n\nIt’s good practice to specify the columns by name, especially if you need to include partial data:\nINSERT INTO clients (chi, birthdate) VALUES (\"0701720842\", \"1972-01-07\");\nSELECT * FROM clients;\n\n\n2 records\n\nchi\nname\nbirthdate\n\n\n\n1204851425\nMr Odds\n1985-04-12\n\n\n0701720842\nNA\n1972-01-07"
+  },
+  {
+    "objectID": "skills/sql_data.html#primary-keys",
+    "href": "skills/sql_data.html#primary-keys",
+    "title": "Getting data into SQL",
+    "section": "Primary keys",
+    "text": "Primary keys\n\nwhen we wrote PRIMARY KEY (chi) while creating our table, we made the chi column special: this is the primary key of the table lives\nprimary keys are unique: they identify the distinct rows of the table\nyour SQL will fall over if you try and repeat chi values"
+  },
+  {
+    "objectID": "skills/sql_data.html#adding-multiple-rows-of-data",
+    "href": "skills/sql_data.html#adding-multiple-rows-of-data",
+    "title": "Getting data into SQL",
+    "section": "Adding multiple rows of data",
+    "text": "Adding multiple rows of data\n\nlargely just a matter of chaining to gether multiple sets of values\n\nINSERT INTO clients VALUES \n  (\"0411016548\", \"The Moog\", \"2001-11-04\"),\n  (\"3003627534\", \"One McIrey\", \"1962-03-30\"),\n  (\"2407864568\", \"Dr Stamps\", \"1986-07-24\");\nSELECT * FROM clients;\n\n\n5 records\n\nchi\nname\nbirthdate\n\n\n\n1204851425\nMr Odds\n1985-04-12\n\n\n0701720842\nNA\n1972-01-07\n\n\n0411016548\nThe Moog\n2001-11-04\n\n\n3003627534\nOne McIrey\n1962-03-30\n\n\n2407864568\nDr Stamps\n1986-07-24"
+  },
+  {
+    "objectID": "skills/sql_data.html#updating",
+    "href": "skills/sql_data.html#updating",
+    "title": "Getting data into SQL",
+    "section": "Updating",
+    "text": "Updating\n\none of our clients has no name…\n\nUPDATE clients\n  SET name = \"David Lemon\"\n  WHERE chi = \"0701720842\"\nSELECT * FROM clients;\n\n\n5 records\n\nchi\nname\nbirthdate\n\n\n\n1204851425\nMr Odds\n1985-04-12\n\n\n0701720842\nDavid Lemon\n1972-01-07\n\n\n0411016548\nThe Moog\n2001-11-04\n\n\n3003627534\nOne McIrey\n1962-03-30\n\n\n2407864568\nDr Stamps\n1986-07-24"
+  },
+  {
+    "objectID": "skills/sql_data.html#adding-cols",
+    "href": "skills/sql_data.html#adding-cols",
+    "title": "Getting data into SQL",
+    "section": "Adding cols",
+    "text": "Adding cols\n\nlet’s add some extra columns:\n\nALTER TABLE clients ADD length INT(2);\n\nwe can set a single value for this new column\n\nUPDATE clients\n  SET length = (10)\n  \n\n\n5 records\n\nchi\nname\nbirthdate\nlength\n\n\n\n1204851425\nMr Odds\n1985-04-12\n10\n\n\n0701720842\nDavid Lemon\n1972-01-07\n10\n\n\n0411016548\nThe Moog\n2001-11-04\n10\n\n\n3003627534\nOne McIrey\n1962-03-30\n10\n\n\n2407864568\nDr Stamps\n1986-07-24\n10\n\n\n\n\n\nsetting individual values is much more messy:\n\nUPDATE clients\n  SET length = 12\n  WHERE name = \"Mr Odds\" OR name = \"Dr Stamps\"\n\n\n5 records\n\nchi\nname\nbirthdate\nlength\n\n\n\n1204851425\nMr Odds\n1985-04-12\n12\n\n\n0701720842\nDavid Lemon\n1972-01-07\n10\n\n\n0411016548\nThe Moog\n2001-11-04\n10\n\n\n3003627534\nOne McIrey\n1962-03-30\n10\n\n\n2407864568\nDr Stamps\n1986-07-24\n12"
+  },
+  {
+    "objectID": "skills/sql_data.html#remove-a-column",
+    "href": "skills/sql_data.html#remove-a-column",
+    "title": "Getting data into SQL",
+    "section": "Remove a column",
+    "text": "Remove a column\nALTER TABLE clients DROP length;\n\n\n5 records\n\nchi\nname\nbirthdate\n\n\n\n1204851425\nMr Odds\n1985-04-12\n\n\n0701720842\nDavid Lemon\n1972-01-07\n\n\n0411016548\nThe Moog\n2001-11-04\n\n\n3003627534\nOne McIrey\n1962-03-30\n\n\n2407864568\nDr Stamps\n1986-07-24"
+  },
+  {
+    "objectID": "skills/sql_data.html#renaming-cols",
+    "href": "skills/sql_data.html#renaming-cols",
+    "title": "Getting data into SQL",
+    "section": "Renaming cols",
+    "text": "Renaming cols\n\nnot as easy as might be liked, and highly dialect-y"
+  },
+  {
+    "objectID": "skills/sql_data.html#note-about-uploading",
+    "href": "skills/sql_data.html#note-about-uploading",
+    "title": "Getting data into SQL",
+    "section": "Note about uploading",
+    "text": "Note about uploading\n\ndepends on your local system, no generic SQL advice\nrefer to the R and SQL session"
+  },
+  {
+    "objectID": "skills/sql_data.html#create-tables",
+    "href": "skills/sql_data.html#create-tables",
+    "title": "Getting data into SQL",
+    "section": "Create tables",
+    "text": "Create tables\n\nmost real-life SQL projects are multi-table\nwe’ll explore this in more detail in the joins session\nbut as an introduction, creating additional tables is exactly the same as creating a first table\n\n\nCREATE TABLE gps (chi varchar(10) NOT NULL,\n                      gp varchar(255),\n                      PRIMARY KEY (chi));\n                      \nINSERT INTO gps VALUES \n  (\"1204851425\", \"Dr Smith\"),\n  (\"0701720842\", \"Dr Patel\"),\n  (\"0411016548\", \"Dr Hamoda\"),\n  (\"3003627534\", \"Dr Clarke\"),\n  (\"2407864568\", \"Dr Johal\");\n  \nSELECT * FROM gps;"
+  },
+  {
+    "objectID": "skills/sql_data.html#acknowledgements",
+    "href": "skills/sql_data.html#acknowledgements",
+    "title": "Getting data into SQL",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nLike all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session."
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html",
+    "href": "skills/sql_filter_aggregate.html",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "",
+    "text": "No feedback found for this session\n\n\n\n\n\n\nForthcoming session(s)\n\n\n\n\n\n\n\n\nBooking link\n\n\nDate\n\n\n\n\nFiltering and aggregating data with SQL\n\n\n10:00-11:30 Tue 3rd February 2026"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#introduction",
+    "href": "skills/sql_filter_aggregate.html#introduction",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "Introduction",
+    "text": "Introduction\n\nThis course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams\nIt’s intended as a light introduction for users with good general digital skills (broadly level 2 in the Digital and Data Capability Framework)\nIt’s heavily based on the excellent W3 schools introductory SQL course\n\nIf you’re looking for a resource to use to support independent study, W3 schools is a better option than this page\nthis material is largely intended to support our live interactive training sessions\n\n\nwe use posit.cloud for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#this-session",
+    "href": "skills/sql_filter_aggregate.html#this-session",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "This session",
+    "text": "This session\n\nall about finding matching data\nand then summarising that data into fewer rows"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#setup",
+    "href": "skills/sql_filter_aggregate.html#setup",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "Setup",
+    "text": "Setup\n\nYou will need a free posit.cloud account. Please set this up and check that you have access before the session begins\nOnce you’ve logged-in to posit.cloud, please create a new Rstudio project \nIn that project, create a new R script: \nCopy and paste the following R code into that script:\n\n## install and attach R packages\npkg &lt;- c(\"dbplyr\", \"RSQLite\", \"palmerpenguins\")\ninstall.packages(setdiff(pkg, rownames(installed.packages())))  \nlibrary(dbplyr)\nlibrary(dplyr)\nlibrary(palmerpenguins)\n\nconn &lt;- src_memdb() # create an sqlite db in memory\ncopy_to(conn, penguins, overwrite = T) # populate that db from R\n\nsave your script and click the Source button\n\nthat will create a simple SQL database in memory\n\n\nnow create a new SQL script (again, from the File menu)\ndelete all the pre-populated lines of code, as follows: \n\nto connect with our SQL db in memory, add the following line to the head of your SQL script:\n\n-- !preview conn=src_memdb()$con\n\nfinally, save your SQL script (any file name is fine)"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#finding-matching-rows",
+    "href": "skills/sql_filter_aggregate.html#finding-matching-rows",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "Finding matching rows",
+    "text": "Finding matching rows\n\nwe can filter rows by values with the WHERE keyword. For example:\n\nSELECT * FROM penguins WHERE flipper_length_mm=181;\n\n\n7 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n38.9\n17.8\n181\n3625\nfemale\n2007\n\n\nAdelie\nDream\n37.6\n19.3\n181\n3300\nfemale\n2007\n\n\nAdelie\nBiscoe\n36.5\n16.6\n181\n2850\nfemale\n2008\n\n\nAdelie\nBiscoe\n38.1\n17.0\n181\n3175\nfemale\n2009\n\n\nChinstrap\nDream\n58.0\n17.8\n181\n3700\nfemale\n2007\n\n\nChinstrap\nDream\n42.4\n17.3\n181\n3600\nfemale\n2007\n\n\n\n\n\nor:\n\nSELECT * FROM penguins WHERE species='Adelie'; -- single quotes for preference\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale\n2007\n\n\nAdelie\nTorgersen\n38.9\n17.8\n181\n3625\nfemale\n2007\n\n\nAdelie\nTorgersen\n39.2\n19.6\n195\n4675\nmale\n2007\n\n\nAdelie\nTorgersen\n34.1\n18.1\n193\n3475\nNA\n2007\n\n\nAdelie\nTorgersen\n42.0\n20.2\n190\n4250\nNA\n2007\n\n\n\n\n\nthese filters are combinable. So we can find combinations where several conditions are all true using the AND keyword:\n\nSELECT * FROM penguins WHERE species = 'Adelie' AND sex = 'male' AND island = 'Biscoe';\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nBiscoe\n37.7\n18.7\n180\n3600\nmale\n2007\n\n\nAdelie\nBiscoe\n38.2\n18.1\n185\n3950\nmale\n2007\n\n\nAdelie\nBiscoe\n38.8\n17.2\n180\n3800\nmale\n2007\n\n\nAdelie\nBiscoe\n40.6\n18.6\n183\n3550\nmale\n2007\n\n\nAdelie\nBiscoe\n40.5\n18.9\n180\n3950\nmale\n2007\n\n\nAdelie\nBiscoe\n40.1\n18.9\n188\n4300\nmale\n2008\n\n\nAdelie\nBiscoe\n42.0\n19.5\n200\n4050\nmale\n2008\n\n\nAdelie\nBiscoe\n41.4\n18.6\n191\n3700\nmale\n2008\n\n\nAdelie\nBiscoe\n40.6\n18.8\n193\n3800\nmale\n2008\n\n\nAdelie\nBiscoe\n37.6\n19.1\n194\n3750\nmale\n2008\n\n\n\n\n\nor combinations where either are true using OR:\n\nSELECT * FROM penguins WHERE sex &lt;&gt; 'male' OR island = 'Biscoe'; -- &lt;&gt; = not equal\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007\n\n\nAdelie\nTorgersen\n38.9\n17.8\n181\n3625\nfemale\n2007\n\n\nAdelie\nTorgersen\n41.1\n17.6\n182\n3200\nfemale\n2007\n\n\nAdelie\nTorgersen\n36.6\n17.8\n185\n3700\nfemale\n2007\n\n\nAdelie\nTorgersen\n38.7\n19.0\n195\n3450\nfemale\n2007\n\n\nAdelie\nTorgersen\n34.4\n18.4\n184\n3325\nfemale\n2007\n\n\nAdelie\nBiscoe\n37.8\n18.3\n174\n3400\nfemale\n2007\n\n\nAdelie\nBiscoe\n37.7\n18.7\n180\n3600\nmale\n2007\n\n\n\n\n\n\n\n\n\n\nExercise\n\n\n\n\n\n\nare there any Adelie penguins not from Torgersen Island that weight less than 3500g with flippers that are at least 190mm long?"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#where-helpers",
+    "href": "skills/sql_filter_aggregate.html#where-helpers",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "\nWHERE helpers",
+    "text": "WHERE helpers\n\nthere are several keywords to sweeten the job of building a WHERE query. First, there’s a BETWEEN keyword to help find values in ranges:\n\nSELECT * FROM penguins WHERE bill_length_mm BETWEEN 37.8 AND 38;\n\n\n7 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n37.8\n17.1\n186\n3300\nNA\n2007\n\n\nAdelie\nTorgersen\n37.8\n17.3\n180\n3700\nNA\n2007\n\n\nAdelie\nBiscoe\n37.8\n18.3\n174\n3400\nfemale\n2007\n\n\nAdelie\nBiscoe\n37.9\n18.6\n172\n3150\nfemale\n2007\n\n\nAdelie\nBiscoe\n37.8\n20.0\n190\n4250\nmale\n2009\n\n\nAdelie\nBiscoe\n37.9\n18.6\n193\n2925\nfemale\n2009\n\n\nAdelie\nDream\n37.8\n18.1\n193\n3750\nmale\n2009\n\n\n\n\n\nfor text columns, you might find LIKE with wildcards helpful. % stands for one or more character, while _ stands for exactly one character:\n\nSELECT * FROM penguins WHERE island LIKE 'Tor%' \n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale\n2007\n\n\nAdelie\nTorgersen\n38.9\n17.8\n181\n3625\nfemale\n2007\n\n\nAdelie\nTorgersen\n39.2\n19.6\n195\n4675\nmale\n2007\n\n\nAdelie\nTorgersen\n34.1\n18.1\n193\n3475\nNA\n2007\n\n\nAdelie\nTorgersen\n42.0\n20.2\n190\n4250\nNA\n2007\n\n\n\n\n\nor, possibly, you could select from a group of values using IN:\n\nSELECT * FROM penguins WHERE island IN ('Dream', 'Biscoe') \n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nBiscoe\n37.8\n18.3\n174\n3400\nfemale\n2007\n\n\nAdelie\nBiscoe\n37.7\n18.7\n180\n3600\nmale\n2007\n\n\nAdelie\nBiscoe\n35.9\n19.2\n189\n3800\nfemale\n2007\n\n\nAdelie\nBiscoe\n38.2\n18.1\n185\n3950\nmale\n2007\n\n\nAdelie\nBiscoe\n38.8\n17.2\n180\n3800\nmale\n2007\n\n\nAdelie\nBiscoe\n35.3\n18.9\n187\n3800\nfemale\n2007\n\n\nAdelie\nBiscoe\n40.6\n18.6\n183\n3550\nmale\n2007\n\n\nAdelie\nBiscoe\n40.5\n17.9\n187\n3200\nfemale\n2007\n\n\nAdelie\nBiscoe\n37.9\n18.6\n172\n3150\nfemale\n2007\n\n\nAdelie\nBiscoe\n40.5\n18.9\n180\n3950\nmale\n2007\n\n\n\n\n\nyou can also build simple expressions inside the WHERE statement to help capture more complex segments of your data:\n\nSELECT * FROM penguins WHERE (flipper_length_mm * bill_depth_mm) = 3628.4 \n\n\n1 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\nAdelie\nBiscoe\n40.6\n18.8\n193\n3800\nmale\n2008"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#keyword-order",
+    "href": "skills/sql_filter_aggregate.html#keyword-order",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "Keyword order",
+    "text": "Keyword order\n\nwe’ve already looked at several examples where we’ve combined together keywords. For example, we can use SELECT, FROM, WHERE and OR together to retrieve all the flipper lengths for all the non-male penguins and/or all the penguins that live on Biscoe island:\n\nSELECT flipper_length_mm FROM penguins WHERE sex &lt;&gt; 'male' OR island = 'Biscoe'\n\n\nDisplaying records 1 - 10\n\nflipper_length_mm\n\n\n\n186\n\n\n195\n\n\n193\n\n\n181\n\n\n182\n\n\n185\n\n\n195\n\n\n184\n\n\n174\n\n\n180\n\n\n\n\n\nthis order is important: SQL keywords have an order in which they must be written\nfor our purposes, we’ll need to build each of our queries in the following order:\nSELECT\nFROM\nWHERE\nGROUP BY\nORDER BY"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#ordering",
+    "href": "skills/sql_filter_aggregate.html#ordering",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "Ordering",
+    "text": "Ordering\n\nfor example, ORDER BY is written at the end of the query:\n\nSELECT species, flipper_length_mm FROM penguins WHERE sex &lt;&gt; 'male' OR island = 'Biscoe' ORDER BY flipper_length_mm\n\n\nDisplaying records 1 - 10\n\nspecies\nflipper_length_mm\n\n\n\nGentoo\nNA\n\n\nAdelie\n172\n\n\nAdelie\n174\n\n\nAdelie\n176\n\n\nAdelie\n178\n\n\nAdelie\n178\n\n\nChinstrap\n178\n\n\nAdelie\n180\n\n\nAdelie\n180\n\n\nAdelie\n180\n\n\n\n\n\nit’s good practice to be explicit about order direction, so you might add the ASC keyword to specify that you want to order your data in ascending order:\n\nSELECT * FROM penguins WHERE sex &lt;&gt; 'male' ORDER BY flipper_length_mm ASC\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nBiscoe\n37.9\n18.6\n172\n3150\nfemale\n2007\n\n\nAdelie\nBiscoe\n37.8\n18.3\n174\n3400\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.2\n17.0\n176\n3450\nfemale\n2009\n\n\nAdelie\nDream\n39.5\n16.7\n178\n3250\nfemale\n2007\n\n\nAdelie\nDream\n33.1\n16.1\n178\n2900\nfemale\n2008\n\n\nChinstrap\nDream\n46.1\n18.2\n178\n3250\nfemale\n2007\n\n\nAdelie\nDream\n42.2\n18.5\n180\n3550\nfemale\n2007\n\n\nAdelie\nTorgersen\n38.9\n17.8\n181\n3625\nfemale\n2007\n\n\nAdelie\nDream\n37.6\n19.3\n181\n3300\nfemale\n2007\n\n\nAdelie\nBiscoe\n36.5\n16.6\n181\n2850\nfemale\n2008\n\n\n\n\n\nor we could reverse-order using DESC:\n\nSELECT * FROM penguins WHERE bill_depth_mm &gt; 20 ORDER BY bill_depth_mm DESC\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n46.0\n21.5\n194\n4200\nmale\n2007\n\n\nAdelie\nTorgersen\n38.6\n21.2\n191\n3800\nmale\n2007\n\n\nAdelie\nDream\n42.3\n21.2\n191\n4150\nmale\n2007\n\n\nAdelie\nTorgersen\n34.6\n21.1\n198\n4400\nmale\n2007\n\n\nAdelie\nDream\n39.2\n21.1\n196\n4150\nmale\n2007\n\n\nAdelie\nBiscoe\n41.3\n21.1\n195\n4400\nmale\n2008\n\n\nChinstrap\nDream\n54.2\n20.8\n201\n4300\nmale\n2008\n\n\nAdelie\nTorgersen\n42.5\n20.7\n197\n4500\nmale\n2007\n\n\nAdelie\nBiscoe\n39.6\n20.7\n191\n3900\nfemale\n2009\n\n\nChinstrap\nDream\n52.0\n20.7\n210\n4800\nmale\n2008\n\n\n\n\n\nor order by multiple columns in different directions:\n\nSELECT * FROM penguins WHERE bill_depth_mm &gt; 20 ORDER BY island ASC, bill_depth_mm DESC\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nBiscoe\n41.3\n21.1\n195\n4400\nmale\n2008\n\n\nAdelie\nBiscoe\n39.6\n20.7\n191\n3900\nfemale\n2009\n\n\nAdelie\nBiscoe\n45.6\n20.3\n191\n4600\nmale\n2009\n\n\nAdelie\nDream\n42.3\n21.2\n191\n4150\nmale\n2007\n\n\nAdelie\nDream\n39.2\n21.1\n196\n4150\nmale\n2007\n\n\nChinstrap\nDream\n54.2\n20.8\n201\n4300\nmale\n2008\n\n\nChinstrap\nDream\n52.0\n20.7\n210\n4800\nmale\n2008\n\n\nAdelie\nDream\n41.3\n20.3\n194\n3550\nmale\n2008\n\n\nChinstrap\nDream\n51.7\n20.3\n194\n3775\nmale\n2007\n\n\nAdelie\nDream\n40.2\n20.1\n200\n3975\nmale\n2009\n\n\n\n\n\n\n\n\n\n\nExercise\n\n\n\n\n\n\nas an experiment, try re-ordering the previous SQL query so that the WHERE and ORDER BY sections occur in reverse order\nit will cause an error, and that’s to be expected"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#aggregation",
+    "href": "skills/sql_filter_aggregate.html#aggregation",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "Aggregation",
+    "text": "Aggregation\n\neffectively, we apply a keyword to the columns specified in the SELECT to aggregate:\n\nSELECT MIN(bill_depth_mm) FROM penguins\n\n\n1 records\n\nMIN(bill_depth_mm)\n\n\n13.1\n\n\n\n\nrename your summary columns using AS:\n\nSELECT MAX(bill_depth_mm) AS big_bill FROM penguins\n\n\n1 records\n\nbig_bill\n\n\n21.5\n\n\n\n\nyou can specify a column to group your data by - just beware of the keyword order!\n\nSELECT species, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species;\n\n\n3 records\n\nspecies\ntotal_bill_depth\n\n\n\nAdelie\n2770.3\n\n\nChinstrap\n1252.6\n\n\nGentoo\n1842.8\n\n\n\n\n\nand you can group by multiple variables at once:\n\nSELECT species, sex, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species, sex;\n\n\n8 records\n\nspecies\nsex\ntotal_bill_depth\n\n\n\nAdelie\nNA\n91.6\n\n\nAdelie\nfemale\n1286.4\n\n\nAdelie\nmale\n1392.3\n\n\nChinstrap\nfemale\n598.0\n\n\nChinstrap\nmale\n654.6\n\n\nGentoo\nNA\n58.2\n\n\nGentoo\nfemale\n825.8\n\n\nGentoo\nmale\n958.8\n\n\n\n\n\nit’s possible (but confusing) to group by an implicit group. If we remove sex from the SELECT part of the above query, for example, we end up with (apparently) multiple rows per group:\n\nSELECT species, sex, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species, sex\n\n\n8 records\n\nspecies\nsex\ntotal_bill_depth\n\n\n\nAdelie\nNA\n91.6\n\n\nAdelie\nfemale\n1286.4\n\n\nAdelie\nmale\n1392.3\n\n\nChinstrap\nfemale\n598.0\n\n\nChinstrap\nmale\n654.6\n\n\nGentoo\nNA\n58.2\n\n\nGentoo\nfemale\n825.8\n\n\nGentoo\nmale\n958.8\n\n\n\n\n\nyou can chain together multiple aggregation keywords to produce more complex results:\n\nSELECT species, ROUND(AVG(bill_depth_mm), 1) AS average_bill_depth FROM penguins GROUP BY species\n\n\n3 records\n\nspecies\naverage_bill_depth\n\n\n\nAdelie\n18.3\n\n\nChinstrap\n18.4\n\n\nGentoo\n15.0\n\n\n\n\n\n\nCOUNT is especially useful to count the number of rows in a filtered dataset\ndo note there can be dialect issues here, with several possible approaches to counting rows that may (or may not) work in your dialect of SQL\nfor example, the lovely concise DISTINCT shorthand is great, but unfortunately won’t work everywhere:\n\nSELECT COUNT(DISTINCT island) FROM penguins\n\n\n1 records\n\nCOUNT(DISTINCT island)\n\n\n3\n\n\n\n\nthis could also be used with a rename in place:\n\nSELECT COUNT(DISTINCT island) AS peng_count FROM penguins\n\n\n1 records\n\npeng_count\n\n\n3\n\n\n\n\nas a longer, but probably safer, alternative, and permitting several categories to be counted together:\n\nSELECT COUNT(*) AS peng_count FROM (SELECT DISTINCT island, species FROM penguins)\n\n\n1 records\n\npeng_count\n\n\n5\n\n\n\n\nor, failing that:\n\nSELECT island AS landmass, COUNT(*) AS [male n] FROM penguins WHERE sex = 'male' GROUP BY island \n\n\n3 records\n\nlandmass\nmale n\n\n\n\nBiscoe\n83\n\n\nDream\n62\n\n\nTorgersen\n23\n\n\n\n\n\nif you’re trying to understand missing data, you should use the NULL keyword:\n\nSELECT * FROM penguins WHERE bill_length_mm IS NULL -- really important if you're aggregating\n\n\n2 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nGentoo\nBiscoe\nNA\nNA\nNA\nNA\nNA\n2009\n\n\n\n\n\nand there are some shortcuts for concatenating multiple columns together:\n\nSELECT CONCAT(species,', ', island) AS species_land from penguins \n-- but be aware this can be very quirky across different SQL dialects\n\n\nDisplaying records 1 - 10\n\nspecies_land\n\n\n\nAdelie, Torgersen\n\n\nAdelie, Torgersen\n\n\nAdelie, Torgersen\n\n\nAdelie, Torgersen\n\n\nAdelie, Torgersen\n\n\nAdelie, Torgersen\n\n\nAdelie, Torgersen\n\n\nAdelie, Torgersen\n\n\nAdelie, Torgersen\n\n\nAdelie, Torgersen"
+  },
+  {
+    "objectID": "skills/sql_joins.html#data",
+    "href": "skills/sql_joins.html#data",
+    "title": "SQL joins",
+    "section": "Data",
+    "text": "Data\n\nThis session uses some sample data, which we’ll load directly from the web in our R script\nCopy and paste the following R code into that script:\n\npkg &lt;- c(\"dbplyr\", \"RSQLite\", \"dplyr\", \"readr\")\ninstall.packages(setdiff(pkg, rownames(installed.packages())))  \n\nlibrary(dbplyr)\nlibrary(dplyr)\nlibrary(readr)\n\nread_rds(\"https://nes-dew.github.io/KIND-training/skills/data/prescribing_data.rds\") |&gt;\n  list2env(.GlobalEnv)\n\nconn &lt;- src_memdb() # create an sqlite db in memory\ncopy_to(conn, ab_city_presc, overwrite = T)\ncopy_to(conn, bnf_data, overwrite = T)\ncopy_to(conn, gp_practices, overwrite = T)\ncopy_to(conn, hbt, overwrite = T)\ncopy_to(conn, practice_names, overwrite = T)\ncopy_to(conn, practice_lists, overwrite = T)"
+  },
+  {
+    "objectID": "skills/sql_joins.html#creating-our-sql-database",
+    "href": "skills/sql_joins.html#creating-our-sql-database",
+    "title": "SQL joins",
+    "section": "Creating our SQL database",
+    "text": "Creating our SQL database\n\nsave your script and click the Source button\n\nthat will create a simple SQL database in memory\n\n\nnow create a new SQL script (again, from the File menu)\ndelete all the pre-populated lines of code, as follows: \n\nto connect with our SQL db in memory, add the following line to the head of your SQL script:\n\n-- !preview conn=src_memdb()$con"
+  },
+  {
+    "objectID": "skills/sql_joins.html#data-structure",
+    "href": "skills/sql_joins.html#data-structure",
+    "title": "SQL joins",
+    "section": "Data structure",
+    "text": "Data structure\n\nwe’ve now got a series of SQL tables in memory\nin one way and another those tables are all about pharmaceutical prescribing\nwe’ll start with two very simple tables, before moving on to experiment with some more real-world data\nthe first, practice_names contains the names and ID codes for a few GP practices:\n\nSELECT * FROM practice_names;\n\n\n4 records\n\nPracticeCode\nGPPracticeName\n\n\n\n30951\nRubislaw Place Medical Group\n\n\n30909\nAlbyn Medical Practice\n\n\n31206\nScotstown Medical Group\n\n\n30627\nLinks Medical Practice\n\n\n\n\n\nthe second contains some practice list sizes for these GP practices - which tell you how many patients are registered for each practice\n\nSELECT * FROM practice_lists;\n\n\n3 records\n\nPracticeCode\nPracticeListSize\n\n\n\n30951\n8038\n\n\n30909\n11891\n\n\n31206\n12344"
+  },
+  {
+    "objectID": "skills/sql_joins.html#shared-columns",
+    "href": "skills/sql_joins.html#shared-columns",
+    "title": "SQL joins",
+    "section": "Shared columns",
+    "text": "Shared columns\n\nboth datasets share a column: PracticeCode\n\njoins in SQL need shared column(s) to relate parts of our data together\nin these tables, each PracticeCode is a unique ID for each GP practice\nwhen we join, we match my those unique IDs, and then bring in data from an external source"
+  },
+  {
+    "objectID": "skills/sql_joins.html#a-first-join",
+    "href": "skills/sql_joins.html#a-first-join",
+    "title": "SQL joins",
+    "section": "A first join",
+    "text": "A first join\n\nfor example, we could take our practice_names table, and join on the additional column found in the practice_lists table:\n\nSELECT * FROM practice_names \n  JOIN practice_lists \n  ON practice_names.PracticeCode = practice_lists.PracticeCode\n\n-- take our practice_names table, and for every matching PracticeCode bring in the other column(s) from practice_lists\n\n\n3 records\n\n\n\n\n\n\n\nPracticeCode\nGPPracticeName\nPracticeCode\nPracticeListSize\n\n\n\n30951\nRubislaw Place Medical Group\n30951\n8038\n\n\n30909\nAlbyn Medical Practice\n30909\n11891\n\n\n31206\nScotstown Medical Group\n31206\n12344\n\n\n\n\n\nto note:\n\nthere are two parts to a join. A join keyword, like LEFT JOIN which determines the logic of the join\n\nON which describes how the columns in our data should relate to one another. Note the table_name.column_name syntax. Call that the key\n\n\n\nwe can do several kinds of SQL join by using a different join keyword\nfor a table x to which we’re joining y:\n\n\nJOIN: includes all rows in x and y. Also known as INNER JOIN"
+  },
+  {
+    "objectID": "skills/sql_joins.html#types-of-join",
+    "href": "skills/sql_joins.html#types-of-join",
+    "title": "SQL joins",
+    "section": "Types of join",
+    "text": "Types of join\nAn inner join is not the only way we can join in SQL. We can also:\n\n\nLEFT JOIN: includes all rows in x \n\n\nRIGHT JOIN: includes all rows in y \n\n\nFULL JOIN: includes all rows in x or y \n\n\nIf a row in x matches multiple rows in y, all the rows in y will be returned once for each matching row in x."
+  },
+  {
+    "objectID": "skills/intro_sql.html#about-this-course",
+    "href": "skills/intro_sql.html#about-this-course",
+    "title": "An introduction to SQL",
+    "section": "About this course",
+    "text": "About this course\n\nThis course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams\nIt’s intended as a light introduction for users with good general digital skills (broadly level 2 in the Digital and Data Capability Framework)\nIt’s heavily based on the excellent W3 schools introductory SQL course\n\nIf you’re looking for a resource to use to support independent study, W3 schools is a better option than this page\nthis material is largely intended to support our live interactive training sessions\n\n\nwe use posit.cloud for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills"
+  },
+  {
+    "objectID": "skills/intro_sql.html#about-this-session",
+    "href": "skills/intro_sql.html#about-this-session",
+    "title": "An introduction to SQL",
+    "section": "About this session",
+    "text": "About this session\nThis introductory session aims to give you a quick and easy introduction to SQL. That will include:\n\nhow data is held in SQL (as tables)\nhow you can investigate that data using SQL queries\nand showing some of the basic tools that you can use to query and reshape data in SQL"
+  },
+  {
+    "objectID": "skills/sql_data.html#about-this-course",
+    "href": "skills/sql_data.html#about-this-course",
+    "title": "Getting data into SQL",
+    "section": "About this course",
+    "text": "About this course\n\nThis course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams\nIt’s intended as a light introduction for users with good general digital skills (broadly level 2 in the Digital and Data Capability Framework)\nIt’s heavily based on the excellent W3 schools introductory SQL course\n\nIf you’re looking for a resource to use to support independent study, W3 schools is a better option than this page\nthis material is largely intended to support our live interactive training sessions\n\n\nwe use posit.cloud for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills"
+  },
+  {
+    "objectID": "skills/sql_data.html#about-this-session",
+    "href": "skills/sql_data.html#about-this-session",
+    "title": "Getting data into SQL",
+    "section": "About this session",
+    "text": "About this session\nThis session is all about getting data into, and out of SQL. We’ll look at:\n\nadding data to an existing table, either row-by-row, or at larger scale\ndiscussing how to update data, including adding, removing, and renaming columns\nand showing how to create new tables"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#about-this-course",
+    "href": "skills/sql_filter_aggregate.html#about-this-course",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "About this course",
+    "text": "About this course\n\nThis course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams\nIt’s intended as a light introduction for users with good general digital skills (broadly level 2 in the Digital and Data Capability Framework)\nIt’s heavily based on the excellent W3 schools introductory SQL course\n\nIf you’re looking for a resource to use to support independent study, W3 schools is a better option than this page\nthis material is largely intended to support our live interactive training sessions\n\n\nwe use posit.cloud for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills"
+  },
+  {
+    "objectID": "skills/sql_filter_aggregate.html#about-this-session",
+    "href": "skills/sql_filter_aggregate.html#about-this-session",
+    "title": "Filtering and aggregating data with SQL",
+    "section": "About this session",
+    "text": "About this session\nThis session is all about using two key patterns in SQL:\n\nfiltering to find matching rows of data in a table\nthen aggregating that data to produce useful summaries"
+  },
+  {
+    "objectID": "skills/sql_joins.html#about-this-course",
+    "href": "skills/sql_joins.html#about-this-course",
+    "title": "SQL joins",
+    "section": "About this course",
+    "text": "About this course\n\nThis course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams\nIt’s intended as a light introduction for users with good general digital skills (broadly level 2 in the Digital and Data Capability Framework)\nIt’s heavily based on the excellent W3 schools introductory SQL course\n\nIf you’re looking for a resource to use to support independent study, W3 schools is a better option than this page\nthis material is largely intended to support our live interactive training sessions\n\n\nwe use posit.cloud for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills"
+  },
+  {
+    "objectID": "skills/sql_joins.html#about-this-session",
+    "href": "skills/sql_joins.html#about-this-session",
+    "title": "SQL joins",
+    "section": "About this session",
+    "text": "About this session\nThis is a session about joins in SQL:\n\nwe’ll introduce joins in general terms\nwe’ll then go on to talk about different types of join in SQL\nthen we’ll do lots of practice of basic joins\nand finish with a couple of helpful points for simplifying your work with joins"
+  },
+  {
+    "objectID": "skills/src/sql_about.html",
+    "href": "skills/src/sql_about.html",
+    "title": "KIND training pages",
+    "section": "",
+    "text": "About this course\n\n\n\n\n\n\nThis course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams\nIt’s intended as a light introduction for users with good general digital skills (broadly level 2 in the Digital and Data Capability Framework)\nIt’s heavily based on the excellent W3 schools introductory SQL course\n\nIf you’re looking for a resource to use to support independent study, W3 schools is a better option than this page\nthis material is largely intended to support our live interactive training sessions\n\nwe use posit.cloud for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills"
+  },
+  {
+    "objectID": "skills/sql_intro.html",
+    "href": "skills/sql_intro.html",
+    "title": "An introduction to SQL",
+    "section": "",
+    "text": "No feedback found for this session\n\n\n\n\n\n\nForthcoming session(s)\n\n\n\n\n\n\n\n\nBooking link\n\n\nDate\n\n\n\n\nAn introduction to SQL\n\n\n10:00-11:30 Tue 20th January 2026"
+  },
+  {
+    "objectID": "skills/sql_intro.html#about-this-session",
+    "href": "skills/sql_intro.html#about-this-session",
+    "title": "An introduction to SQL",
+    "section": "About this session",
+    "text": "About this session\nThis introductory session aims to give you a quick and easy introduction to SQL. That will include:\n\nhow data is held in SQL (as tables)\nhow you can investigate that data using SQL queries\nand showing some of the basic tools that you can use to query and reshape data in SQL"
+  },
+  {
+    "objectID": "skills/sql_intro.html#setup",
+    "href": "skills/sql_intro.html#setup",
+    "title": "An introduction to SQL",
+    "section": "Setup",
+    "text": "Setup\n\nYou will need a free posit.cloud account. Please set this up and check that you have access before the session begins\nOnce you’ve logged-in to posit.cloud, please create a new Rstudio project \n\nIn that project, create a new R script: \n\nCopy and paste the following R code into that script:\n\n\n## install and attach R packages\npkg &lt;- c(\"dbplyr\", \"RSQLite\", \"palmerpenguins\")\ninstall.packages(setdiff(pkg, rownames(installed.packages())))  \nlibrary(dbplyr)\nlibrary(dplyr)\nlibrary(palmerpenguins)\n\nconn &lt;- src_memdb() # create an sqlite db in memory\ncopy_to(conn, penguins, overwrite = T) # populate that db from R\n\n\nsave your script and click the Source button\n\nthat will create a simple SQL database in memory\n\n\nnow create a new SQL script (again, from the File menu)\ndelete all the pre-populated lines of code, as follows: \n\nto connect with our SQL db in memory, add the following line to the head of your SQL script:\n\n\n-- !preview conn=src_memdb()$con\n\n\nfinally, save your SQL script (any file name is fine)"
+  },
+  {
+    "objectID": "skills/sql_intro.html#getting-started",
+    "href": "skills/sql_intro.html#getting-started",
+    "title": "An introduction to SQL",
+    "section": "Getting started",
+    "text": "Getting started\nOur db has one table, named penguins. A table is similar to an Excel sheet - a rectangular set of rows and columns containing our data. To preview our data, we’ll need to write a first line of SQL. Please add the following to the bottom of your SQL script:\n\nSELECT * FROM penguins;\n\n\nDisplaying records 1 - 10\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale\n2007\n\n\nAdelie\nTorgersen\n38.9\n17.8\n181\n3625\nfemale\n2007\n\n\nAdelie\nTorgersen\n39.2\n19.6\n195\n4675\nmale\n2007\n\n\nAdelie\nTorgersen\n34.1\n18.1\n193\n3475\nNA\n2007\n\n\nAdelie\nTorgersen\n42.0\n20.2\n190\n4250\nNA\n2007\n\n\n\n\n\n\nSQL queries usually start with the SELECT keyword, which retrieves data from the database\n\n* means “show me everything!”\n\nFROM penguins specifies that we want everything from the penguins table. That specification is important, because most real-life SQL set-ups will have multiple tables of data\n\n; ends the line. Not essential, but good practice\n\nImportant: press Ctrl + Shift + Enter in the source code pane to run your SQL script"
+  },
+  {
+    "objectID": "skills/sql_intro.html#playing-with-that-query",
+    "href": "skills/sql_intro.html#playing-with-that-query",
+    "title": "An introduction to SQL",
+    "section": "Playing with that query",
+    "text": "Playing with that query\n\nWe’ll now change that one query to do something slightly different\nUnlike most other languages, you’ll write SQL queries one at a time\nAdd a new keyword LIMIT 5 at the end of your query to produce a shorter preview of our data:\n\n\nSELECT * FROM penguins LIMIT 5;\n\n\n5 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007\n\n\n\n\n\n\nSQL is case insensitive - including for column names etc - but it’s customary to use capitals for the keywords. It makes your SQL easier to read, too.\n\n\n\n\n\n\n\nExercise\n\n\n\n\n\n\nplease could you modify your SQL statement to preview the first 10 rows of the data"
+  },
+  {
+    "objectID": "skills/sql_intro.html#sql-dialects",
+    "href": "skills/sql_intro.html#sql-dialects",
+    "title": "An introduction to SQL",
+    "section": "SQL dialects",
+    "text": "SQL dialects\n\nSQL has been around for a very long time, and has been used in lots of different ways\nThat means there are several slightly different dialects of SQL which are (unfortunately) incompatible\nWe’ll largely ignore those differences in this beginner’s training\nBut, just to illustrate, the LIMIT keyword is one that only works in some types of SQL\nIf you were using Microsoft’s dialect of SQL, you’d need to write something slightly different:\n\n\nSELECT * TOP 5 from penguins;\n\n\nOr if you were using Oracle’s newest dialect of SQL, you’d write either:\n\n\nSELECT * FROM penguins FETCH FIRST 5 ROWS ONLY;\n\n\nOr, an older - but possibly neater - way of writing Oracle SQL:\n\n\nSELECT * FROM penguins WHERE ROWNUM &lt;= 5;"
+  },
+  {
+    "objectID": "skills/sql_intro.html#comments",
+    "href": "skills/sql_intro.html#comments",
+    "title": "An introduction to SQL",
+    "section": "Comments",
+    "text": "Comments\n\nIf you want to turn off some of your SQL, or add notes, you can include comments\n\n-- double-dash to comment a line, or part of a line\n\n/* and then */ slash-star to comment a multi-line chunk\n\n\nSELECT * FROM penguins LIMIT 5; -- comment in the line\n\n/* or a longer chunk\n  古池や蛙飛び込む水の音\n  ふるいけやかわずとびこむみずのおと\n*/  \n\n\n5 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007"
+  },
+  {
+    "objectID": "skills/sql_intro.html#columns",
+    "href": "skills/sql_intro.html#columns",
+    "title": "An introduction to SQL",
+    "section": "Columns",
+    "text": "Columns\n\nyou can select some of your columns by changing the SELECT * keyword\n\nthe * we’ve been using so far is a wildcard, which shows all the columns in your table\n\n\nadd column name(s) to retrieve just parts of your data\n\n\nSELECT species, island FROM penguins;\n\n\nDisplaying records 1 - 10\n\nspecies\nisland\n\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\n\n\n\n\nnote that columns are returned in the order you ask for them\nyou can also rename selected columns using AS:\n\n\nSELECT species, island AS landmass\n    FROM penguins;\n\n\nDisplaying records 1 - 10\n\nspecies\nlandmass\n\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\nAdelie\nTorgersen\n\n\n\n\n\n\nnote too that SQL is insensitive to whitespace, so you can generally split up longer queries over many lines\nan alternative strategy (if you’re brave) is to use implicit renaming:\n\n\nSELECT island landmass FROM penguins;\n\n\nDisplaying records 1 - 10\n\nlandmass\n\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\nTorgersen\n\n\n\n\n\n\n\n\n\n\n\nExercise\n\n\n\n\n\n\nplease select the species and flipper_length_mm columns with new names of your choice"
+  },
+  {
+    "objectID": "skills/sql_intro.html#distinct-values",
+    "href": "skills/sql_intro.html#distinct-values",
+    "title": "An introduction to SQL",
+    "section": "Distinct values",
+    "text": "Distinct values\n\nSELECT DISTINCT species FROM penguins;\n\n\n3 records\n\nspecies\n\n\n\nAdelie\n\n\nGentoo\n\n\nChinstrap\n\n\n\n\n\n\n\nDISTINCT gathers the unique values in a column, or unique combinations of values across multiple columns\nthis second query gives you all the combinations of penguins and islands that exist in our data:\n\n\nSELECT DISTINCT island, species FROM penguins;\n\n\n5 records\n\nisland\nspecies\n\n\n\nTorgersen\nAdelie\n\n\nBiscoe\nAdelie\n\n\nDream\nAdelie\n\n\nBiscoe\nGentoo\n\n\nDream\nChinstrap"
+  },
+  {
+    "objectID": "skills/sql_intro.html#acknowledgements",
+    "href": "skills/sql_intro.html#acknowledgements",
+    "title": "An introduction to SQL",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nLike all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session."
   }
 ]

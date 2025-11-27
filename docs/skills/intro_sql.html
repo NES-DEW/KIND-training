@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.22">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-09-29">
-<title>An introduction to SQL (pilot version) – KIND training pages</title>
+<meta name="dcterms.date" content="2025-11-27">
+<title>An introduction to SQL – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -178,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+<li><a href="#about-this-session" id="toc-about-this-session" class="nav-link active" data-scroll-target="#about-this-session">About this session</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
   <li><a href="#playing-with-that-query" id="toc-playing-with-that-query" class="nav-link" data-scroll-target="#playing-with-that-query">Playing with that query</a></li>
@@ -356,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       toggleColorMode(false);
     }
   </script><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">An introduction to SQL (pilot version)</h1>
+<h1 class="title">An introduction to SQL</h1>
   <div class="quarto-categories">
     <div class="quarto-category">SQL</div>
     <div class="quarto-category">beginner</div>
@@ -371,7 +371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 29, 2025</p>
+      <p class="date">November 27, 2025</p>
     </div>
   </div>
   
@@ -383,7 +383,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><div class="cell" data-layout-align="left">
 <p>No feedback found for this session</p>
 </div>
-<section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+About this course
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <ul>
 <li>This course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams</li>
 <li>It’s intended as a light introduction for users with good general digital skills (broadly level 2 in the <a href="https://learn.nes.nhs.scot/76134">Digital and Data Capability Framework</a>)</li>
@@ -394,12 +405,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </li>
 <li>we use <a href="https://posit.cloud/">posit.cloud</a> for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="about-this-session" class="level2"><h2 class="anchored" data-anchor-id="about-this-session">About this session</h2>
+<p>This introductory session aims to give you a quick and easy introduction to SQL. That will include:</p>
+<ul>
+<li>how data is held in SQL (as tables)</li>
+<li>how you can investigate that data using SQL queries</li>
+<li>and showing some of the basic tools that you can use to query and reshape data in SQL</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
-<li><p>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</p></li>
-<li><p>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project"></p></li>
-<li><p>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu"></p></li>
-<li><p>Copy and paste the following R code into that script:</p></li>
+<li>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</li>
+<li>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project">
+</li>
+<li>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu">
+</li>
+<li>Copy and paste the following R code into that script:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## install and attach R packages</span></span>
@@ -660,7 +683,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>SQL is case insensitive - including for column names etc - but it’s customary to use capitals for the keywords. It makes your SQL easier to read, too.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -669,7 +692,7 @@ Exercise
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>please could you modify your SQL statement to preview the first 10 rows of the data</li>
@@ -963,7 +986,7 @@ Exercise
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -972,7 +995,7 @@ Exercise
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>please select the <code>species</code> and <code>flipper_length_mm</code> columns with new names of your choice</li>

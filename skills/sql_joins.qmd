@@ -3,13 +3,14 @@ execute:
   echo: true
   freeze: auto
 params:
-  sl_date: 2025-09-29
-  fn: "SQL joins (pilot version)"
+  sl_date: 2025-11-27
+  fn: "SQL joins"
   id: KS17
-draft: true
+draft: false
 format: html
 date: '`r params[["sl_date"]]`'
 title: SQL joins
+categories: [SQL, beginner]
 ---
 
 ::: {.content-visible unless-format="revealjs"}
@@ -35,21 +36,25 @@ KINDR::training_sessions(start_date = params[["sl_date"]], n = 5, hide_area = T)
 ```
 :::
 
+{{< include src/sql_about.qmd >}}
 
-<!-- + [test link](data/prescribing_data.rds) -->
+## About this session
 
+This is a session about joins in SQL:
 
-## Introduction
-
-+ this is a session about joins in SQL
 + we'll introduce joins in general terms
 + we'll then go on to talk about different types of join in SQL 
++ then we'll do lots of practice of basic joins
++ and finish with a couple of helpful points for simplifying your work with joins
 
 ## Setup 
 
 * You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
 * Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
 * In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png)
+
+## Data
+
 * This session uses some [sample data](data/prescribing_data.rds), which we'll load directly from the web in our R script
 * Copy and paste the following R code into that script:
 
@@ -99,6 +104,8 @@ copy_to(conn, practice_lists, overwrite = T)
 ```
 
 
+## Creating our SQL database
+
 * save your script and click the `Source` button
     * that will create a simple SQL database in memory
 * now create a new SQL script (again, from the `File` menu)
@@ -109,6 +116,8 @@ copy_to(conn, practice_lists, overwrite = T)
 #| eval: false
 -- !preview conn=src_memdb()$con
 ```
+
+## Data structure
 
 * we've now got a series of SQL tables in memory
 * in one way and another those tables are all about pharmaceutical prescribing
@@ -125,10 +134,15 @@ SELECT * FROM practice_names;
 SELECT * FROM practice_lists;
 ```
 
+## Shared columns
+
 * both datasets share a column: `PracticeCode`
-* joins in SQL will generally use one-or-more columns to relate parts of our data together
+* joins in SQL need shared column(s) to relate parts of our data together
 * in these tables, each `PracticeCode` is a unique ID for each GP practice
 * when we join, we match my those unique IDs, and then bring in data from an external source
+
+## A first join
+
 * for example, we could take our `practice_names` table, and join on the additional column found in the `practice_lists` table:
 
 
@@ -146,9 +160,14 @@ SELECT * FROM practice_names
 * we can do several kinds of SQL join by using a different join keyword
 + for a table `x` to which we're joining `y`:
   + `JOIN`: includes all rows in x and y. Also known as `INNER JOIN`  \n ![Inner join](../src/images/inner.png){height="250px"}
-  + `LEFT JOIN`: includes all rows in x  \n ![Left join](../src/images/left.png){height="250px"}
-  + `RIGHT JOIN`: includes all rows in y  \n ![Right join](../src/images/right.png){height="250px"}
-  + `FULL JOIN`: includes all rows in x or y   \n![Full join](../src/images/full.png){height="250px"}
+  
+## Types of join
+
+An inner join is not the only way we can join in SQL. We can also:
+
++ `LEFT JOIN`: includes all rows in x  \n ![Left join](../src/images/left.png){height="250px"}
++ `RIGHT JOIN`: includes all rows in y  \n ![Right join](../src/images/right.png){height="250px"}
++ `FULL JOIN`: includes all rows in x or y   \n![Full join](../src/images/full.png){height="250px"}
 
 *If a row in x matches multiple rows in y, all the rows in y will be returned once for each matching row in x.*
 
@@ -170,7 +189,7 @@ SELECT * FROM practice_names
 ## A starting join
 
 + look at the `ab_city_presc` table, which is contains data about prescriptions in the Aberdeen City area
-+ but it's hard to read because the drug information in the `BNFItemCode` column is expressed as codes (like `1202010Y0BBAAAA`) rather than drug names
++ this is hard to read because the drug information in the `BNFItemCode` column is expressed as codes (like `1202010Y0BBAAAA`) rather than drug names
 + luckily, `bnf_data` is a lookup: the corresponding column in that table is `bnf_presentation_code`
 
 ```{sql connection=src_memdb()$con}
@@ -227,7 +246,9 @@ SELECT GPPracticeName, PaidDateMonth, PaidQuantity, bnf_presentation
 # you may also find the openprescribing site helpful about BNF codes: https://openprescribing.net/bnf/040702/
 # and more BNF info from the NHSBSA website - https://applications.nhsbsa.nhs.uk/infosystems/welcome (guest login needed but free and open to all)
 
-library(tidyverse)
+library(dplyr)
+library(readr)
+
 
 ## bnf info ----
 bnf <- "https://opendata.nhsbsa.net/dataset/29d25de3-02cd-4755-9dee-cdc37e37b5f3/resource/b1ce568d-37c4-4dd6-8bf4-57e4b044bf6c/download/bnf_code_current_202507_version_88.csv"

@@ -1,15 +1,14 @@
 ---
+title: Getting data into SQL
 params:
-  sl_date: 2025-09-29
-  fn: Getting data into SQL (pilot version)
+  sl_date: 2025-11-27
+  fn: Getting data into SQL
   id: KS15
 execute: 
   echo: true
-  freeze: auto
-draft: true
-categories: [SQL, beginner]
+draft: false
 date: '`r params[["sl_date"]]`'
-title: Getting data into SQL
+categories: [SQL, beginner]
 ---
 
 
@@ -28,18 +27,15 @@ next_sesh("Getting data into SQL")
 ```
 
 
-## Introduction
+{{< include src/sql_about.qmd >}}
 
-* This course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams
-* It's intended as a light introduction for users with good general digital skills (broadly level 2 in the [Digital and Data Capability Framework](https://learn.nes.nhs.scot/76134))
-* It's heavily based on the excellent [W3 schools introductory SQL course](https://www.w3schools.com/sql/)
-    * If you're looking for a resource to use to support independent study, [W3 schools](https://www.w3schools.com/sql/) is a better option than this page
-    * this material is largely intended to support our live interactive training sessions
-* we use [posit.cloud](https://posit.cloud/) for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills
+## About this session
 
-## This session
-+ all about getting data into, and out of SQL
+This session is all about getting data into, and out of SQL. We'll look at:
 
+* adding data to an existing table, either row-by-row, or at larger scale
+* discussing how to update data, including adding, removing, and renaming columns
+* and showing how to create new tables
 
 ## Setup 
 
@@ -144,8 +140,9 @@ SELECT * FROM clients;
 ```
 
 ## Primary keys
-then something about keys
-+ when we wrote `PRIMARY KEY (chi)` while creating our table, we made the chi column special
+
++ when we wrote `PRIMARY KEY (chi)` while creating our table, we made the chi column special: this is the primary key of the table lives
++ primary keys are unique: they identify the distinct rows of the table
 + your SQL will fall over if you try and repeat chi values
 
 

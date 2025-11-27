@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.7.22">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2025-11-27">
-<title>Getting data into SQL – KIND training pages</title>
+<title>An introduction to SQL – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -181,15 +181,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#about-this-session" id="toc-about-this-session" class="nav-link active" data-scroll-target="#about-this-session">About this session</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
-  <li><a href="#adding-data" id="toc-adding-data" class="nav-link" data-scroll-target="#adding-data">Adding data</a></li>
-  <li><a href="#primary-keys" id="toc-primary-keys" class="nav-link" data-scroll-target="#primary-keys">Primary keys</a></li>
-  <li><a href="#adding-multiple-rows-of-data" id="toc-adding-multiple-rows-of-data" class="nav-link" data-scroll-target="#adding-multiple-rows-of-data">Adding multiple rows of data</a></li>
-  <li><a href="#updating" id="toc-updating" class="nav-link" data-scroll-target="#updating">Updating</a></li>
-  <li><a href="#adding-cols" id="toc-adding-cols" class="nav-link" data-scroll-target="#adding-cols">Adding cols</a></li>
-  <li><a href="#remove-a-column" id="toc-remove-a-column" class="nav-link" data-scroll-target="#remove-a-column">Remove a column</a></li>
-  <li><a href="#renaming-cols" id="toc-renaming-cols" class="nav-link" data-scroll-target="#renaming-cols">Renaming cols</a></li>
-  <li><a href="#note-about-uploading" id="toc-note-about-uploading" class="nav-link" data-scroll-target="#note-about-uploading">Note about uploading</a></li>
-  <li><a href="#create-tables" id="toc-create-tables" class="nav-link" data-scroll-target="#create-tables">Create tables</a></li>
+  <li><a href="#playing-with-that-query" id="toc-playing-with-that-query" class="nav-link" data-scroll-target="#playing-with-that-query">Playing with that query</a></li>
+  <li><a href="#sql-dialects" id="toc-sql-dialects" class="nav-link" data-scroll-target="#sql-dialects">SQL dialects</a></li>
+  <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a></li>
+  <li><a href="#columns" id="toc-columns" class="nav-link" data-scroll-target="#columns">Columns</a></li>
+  <li><a href="#distinct-values" id="toc-distinct-values" class="nav-link" data-scroll-target="#distinct-values">Distinct values</a></li>
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -360,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       toggleColorMode(false);
     }
   </script><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Getting data into SQL</h1>
+<h1 class="title">An introduction to SQL</h1>
   <div class="quarto-categories">
     <div class="quarto-category">SQL</div>
     <div class="quarto-category">beginner</div>
@@ -409,10 +405,10 @@ Date
 </tr></thead>
 <tbody><tr>
 <td style="text-align:left;">
-<a href="https://events.teams.microsoft.com/event/8552f209-59d2-431b-b6a0-28ec329bb9fa@10efe0bd-a030-4bca-809c-b5e6745e499a">Getting data into SQL</a>
+<a href="https://events.teams.microsoft.com/event/1951c8bf-dd7f-4c2f-8991-b30316602b43@10efe0bd-a030-4bca-809c-b5e6745e499a">An introduction to SQL</a>
 </td>
 <td style="text-align:left;">
-10:00-11:30 Tue 27th January 2026
+10:00-11:30 Tue 20th January 2026
 </td>
 </tr></tbody>
 </table>
@@ -447,27 +443,31 @@ About this course
 </div>
 </div>
 <section id="about-this-session" class="level2"><h2 class="anchored" data-anchor-id="about-this-session">About this session</h2>
-<p>This session is all about getting data into, and out of SQL. We’ll look at:</p>
+<p>This introductory session aims to give you a quick and easy introduction to SQL. That will include:</p>
 <ul>
-<li>adding data to an existing table, either row-by-row, or at larger scale</li>
-<li>discussing how to update data, including adding, removing, and renaming columns</li>
-<li>and showing how to create new tables</li>
+<li>how data is held in SQL (as tables)</li>
+<li>how you can investigate that data using SQL queries</li>
+<li>and showing some of the basic tools that you can use to query and reshape data in SQL</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
-<li><p>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</p></li>
-<li><p>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project"></p></li>
-<li><p>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu"></p></li>
-<li><p>Copy and paste the following R code into that script:</p></li>
+<li>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</li>
+<li>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project">
+</li>
+<li>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu">
+</li>
+<li>Copy and paste the following R code into that script:</li>
 </ul>
+<div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## install and attach R packages</span></span>
 <span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dbplyr"</span>, <span class="st">"RSQLite"</span>, <span class="st">"palmerpenguins"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  </span>
-<span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbplyr.tidyverse.org/">dbplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/memdb_frame.html">src_memdb</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create an sqlite db in memory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/memdb_frame.html">src_memdb</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create an sqlite db in memory</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">penguins</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co"># populate that db from R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li>save your script and click the <code>Source</code> button
 <ul>
@@ -479,375 +479,625 @@ About this course
 </li>
 <li>to connect with our SQL db in memory, add the following line to the head of your SQL script:</li>
 </ul>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li>finally, save your SQL script (any file name is fine)</li>
 </ul></section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<ul>
-<li>in this session, unlike the previous one, we’ll start with an empty SQL database</li>
-<li>we’ll create a table in that db, and add some data to it</li>
-</ul>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> clients (chi <span class="dt">varchar</span>(<span class="dv">10</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                      name <span class="dt">varchar</span>(<span class="dv">255</span>),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                      birthdate <span class="dt">date</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                      <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (chi));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>what’s a table? the container for some data</p>
-<p>need to set data types - SQL is typed</p>
-<table class="caption-top table">
+<p>Our db has one table, named <code>penguins</code>. A table is similar to an Excel sheet - a rectangular set of rows and columns containing our data. To preview our data, we’ll need to write a first line of SQL. Please add the following to the bottom of your SQL script:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 5%">
+</colgroup>
 <thead><tr class="header">
-<th>type</th>
-<th>what</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">island</th>
+<th style="text-align: right;">bill_length_mm</th>
+<th style="text-align: right;">bill_depth_mm</th>
+<th style="text-align: right;">flipper_length_mm</th>
+<th style="text-align: right;">body_mass_g</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: right;">year</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>CHAR</td>
-<td>fixed length char</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.1</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3750</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="even">
-<td>VARCHAR</td>
-<td>variable length char</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">17.4</td>
+<td style="text-align: right;">186</td>
+<td style="text-align: right;">3800</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="odd">
-<td>INT</td>
-<td>whole number</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">40.3</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">3250</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="even">
-<td>DOUBLE</td>
-<td>decimal number</td>
-</tr>
-<tr class="odd">
-<td>DATE</td>
-<td>date</td>
-</tr>
-<tr class="even">
-<td>DATETIME</td>
-<td>date-time</td>
-</tr>
-</tbody>
-</table>
-<p>then test:</p>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top">
-<caption>0 records</caption>
-<thead><tr class="header">
-<th style="text-align: left;">chi</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: right;">birthdate</th>
-</tr></thead>
-<tbody></tbody>
-</table>
-</div>
-<p>should be empty, that’s just fine for now. Let’s add some data to that table to make it more useful:</p>
-</section><section id="adding-data" class="level2"><h2 class="anchored" data-anchor-id="adding-data">Adding data</h2>
-<p>insert data into your table using the <code>INSERT INTO</code> keyword:</p>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> clients <span class="kw">VALUES</span> (<span class="ot">"1204851425"</span>, <span class="ot">"Mr Odds"</span>, <span class="ot">"1985-04-12"</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>and then check:</p>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table">
-<caption>1 records</caption>
-<thead><tr class="header">
-<th style="text-align: left;">chi</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">birthdate</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: left;">1204851425</td>
-<td style="text-align: left;">Mr Odds</td>
-<td style="text-align: left;">1985-04-12</td>
-</tr></tbody>
-</table>
-</div>
-<p>It’s good practice to specify the columns by name, especially if you need to include partial data:</p>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> clients (chi, birthdate) <span class="kw">VALUES</span> (<span class="ot">"0701720842"</span>, <span class="ot">"1972-01-07"</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table">
-<caption>2 records</caption>
-<thead><tr class="header">
-<th style="text-align: left;">chi</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">birthdate</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1204851425</td>
-<td style="text-align: left;">Mr Odds</td>
-<td style="text-align: left;">1985-04-12</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">0701720842</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">1972-01-07</td>
+<td style="text-align: right;">2007</td>
 </tr>
-</tbody>
-</table>
-</div>
-</section><section id="primary-keys" class="level2"><h2 class="anchored" data-anchor-id="primary-keys">Primary keys</h2>
-<ul>
-<li>when we wrote <code>PRIMARY KEY (chi)</code> while creating our table, we made the chi column special: this is the primary key of the table lives</li>
-<li>primary keys are unique: they identify the distinct rows of the table</li>
-<li>your SQL will fall over if you try and repeat chi values</li>
-</ul></section><section id="adding-multiple-rows-of-data" class="level2"><h2 class="anchored" data-anchor-id="adding-multiple-rows-of-data">Adding multiple rows of data</h2>
-<ul>
-<li>largely just a matter of chaining to gether multiple sets of values</li>
-</ul>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> clients <span class="kw">VALUES</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"0411016548"</span>, <span class="ot">"The Moog"</span>, <span class="ot">"2001-11-04"</span>),</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"3003627534"</span>, <span class="ot">"One McIrey"</span>, <span class="ot">"1962-03-30"</span>),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"2407864568"</span>, <span class="ot">"Dr Stamps"</span>, <span class="ot">"1986-07-24"</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table">
-<caption>5 records</caption>
-<thead><tr class="header">
-<th style="text-align: left;">chi</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">birthdate</th>
-</tr></thead>
-<tbody>
 <tr class="odd">
-<td style="text-align: left;">1204851425</td>
-<td style="text-align: left;">Mr Odds</td>
-<td style="text-align: left;">1985-04-12</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">36.7</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3450</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">0701720842</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.3</td>
+<td style="text-align: right;">20.6</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">3650</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">38.9</td>
+<td style="text-align: right;">17.8</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3625</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.2</td>
+<td style="text-align: right;">19.6</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">4675</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">34.1</td>
+<td style="text-align: right;">18.1</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3475</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">1972-01-07</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">0411016548</td>
-<td style="text-align: left;">The Moog</td>
-<td style="text-align: left;">2001-11-04</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">3003627534</td>
-<td style="text-align: left;">One McIrey</td>
-<td style="text-align: left;">1962-03-30</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2407864568</td>
-<td style="text-align: left;">Dr Stamps</td>
-<td style="text-align: left;">1986-07-24</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">42.0</td>
+<td style="text-align: right;">20.2</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">4250</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2007</td>
 </tr>
 </tbody>
 </table>
 </div>
-</section><section id="updating" class="level2"><h2 class="anchored" data-anchor-id="updating">Updating</h2>
+</div>
 <ul>
-<li>one of our clients has no name…</li>
+<li>SQL queries usually start with the <code>SELECT</code> keyword, which retrieves data from the database</li>
+<li>
+<code>*</code> means “show me everything!”</li>
+<li>
+<code>FROM penguins</code> specifies that we want everything from the penguins table. That specification is important, because most real-life SQL set-ups will have multiple tables of data</li>
+<li>
+<code>;</code> ends the line. Not essential, but good practice</li>
+<li>
+<strong>Important:</strong> press <code>Ctrl</code> + <code>Shift</code> + <code>Enter</code> in the source code pane to run your SQL script</li>
+</ul></section><section id="playing-with-that-query" class="level2"><h2 class="anchored" data-anchor-id="playing-with-that-query">Playing with that query</h2>
+<ul>
+<li>We’ll now change that one query to do something slightly different</li>
+<li>Unlike most other languages, you’ll write SQL queries one at a time</li>
+<li>Add a new keyword <code>LIMIT 5</code> at the end of your query to produce a shorter preview of our data:</li>
 </ul>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> name <span class="op">=</span> <span class="ot">"David Lemon"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> chi <span class="op">=</span> <span class="ot">"0701720842"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">LIMIT</span> <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table">
+<table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 5%">
+</colgroup>
 <thead><tr class="header">
-<th style="text-align: left;">chi</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">birthdate</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">island</th>
+<th style="text-align: right;">bill_length_mm</th>
+<th style="text-align: right;">bill_depth_mm</th>
+<th style="text-align: right;">flipper_length_mm</th>
+<th style="text-align: right;">body_mass_g</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: right;">year</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1204851425</td>
-<td style="text-align: left;">Mr Odds</td>
-<td style="text-align: left;">1985-04-12</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.1</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3750</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">0701720842</td>
-<td style="text-align: left;">David Lemon</td>
-<td style="text-align: left;">1972-01-07</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">17.4</td>
+<td style="text-align: right;">186</td>
+<td style="text-align: right;">3800</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">0411016548</td>
-<td style="text-align: left;">The Moog</td>
-<td style="text-align: left;">2001-11-04</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">40.3</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">3250</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">3003627534</td>
-<td style="text-align: left;">One McIrey</td>
-<td style="text-align: left;">1962-03-30</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2407864568</td>
-<td style="text-align: left;">Dr Stamps</td>
-<td style="text-align: left;">1986-07-24</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">36.7</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3450</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
 </tr>
 </tbody>
 </table>
 </div>
-</section><section id="adding-cols" class="level2"><h2 class="anchored" data-anchor-id="adding-cols">Adding cols</h2>
+</div>
 <ul>
-<li>let’s add some extra columns:</li>
+<li>SQL is case insensitive - including for column names etc - but it’s customary to use capitals for the keywords. It makes your SQL easier to read, too.</li>
 </ul>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> clients <span class="kw">ADD</span> <span class="fu">length</span> <span class="dt">INT</span>(<span class="dv">2</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <ul>
-<li>we can set a single value for this new column</li>
+<li>please could you modify your SQL statement to preview the first 10 rows of the data</li>
 </ul>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> <span class="fu">length</span> <span class="op">=</span> (<span class="dv">10</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section><section id="sql-dialects" class="level2"><h2 class="anchored" data-anchor-id="sql-dialects">SQL dialects</h2>
+<ul>
+<li>SQL has been around for a <a href="https://en.wikipedia.org/wiki/SQL">very long time</a>, and has been used in lots of different ways</li>
+<li>That means there are several slightly different dialects of SQL which are (unfortunately) incompatible</li>
+<li>We’ll largely ignore those differences in this beginner’s training</li>
+<li>But, just to illustrate, the <code>LIMIT</code> keyword is one that only works in some types of SQL</li>
+<li>If you were using Microsoft’s dialect of SQL, you’d need to write something slightly different:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> TOP <span class="dv">5</span> <span class="kw">from</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Or if you were using Oracle’s newest dialect of SQL, you’d write either:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins FETCH <span class="fu">FIRST</span> <span class="dv">5</span> <span class="kw">ROWS</span> <span class="kw">ONLY</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Or, an older - but possibly neater - way of writing Oracle SQL:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> <span class="kw">ROWNUM</span> <span class="op">&lt;=</span> <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="comments" class="level2"><h2 class="anchored" data-anchor-id="comments">Comments</h2>
+<ul>
+<li>If you want to turn off some of your SQL, or add notes, you can include comments</li>
+<li>
+<code>--</code> double-dash to comment a line, or part of a line</li>
+<li>
+<code>/*</code> and then <code>*/</code> slash-star to comment a multi-line chunk</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">LIMIT</span> <span class="dv">5</span>; <span class="co">-- comment in the line</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* or a longer chunk</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">  古池や蛙飛び込む水の音</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">  ふるいけやかわずとびこむみずのおと</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table">
+<table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 5%">
+</colgroup>
 <thead><tr class="header">
-<th style="text-align: left;">chi</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">birthdate</th>
-<th style="text-align: right;">length</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">island</th>
+<th style="text-align: right;">bill_length_mm</th>
+<th style="text-align: right;">bill_depth_mm</th>
+<th style="text-align: right;">flipper_length_mm</th>
+<th style="text-align: right;">body_mass_g</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: right;">year</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1204851425</td>
-<td style="text-align: left;">Mr Odds</td>
-<td style="text-align: left;">1985-04-12</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.1</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3750</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">0701720842</td>
-<td style="text-align: left;">David Lemon</td>
-<td style="text-align: left;">1972-01-07</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">17.4</td>
+<td style="text-align: right;">186</td>
+<td style="text-align: right;">3800</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">0411016548</td>
-<td style="text-align: left;">The Moog</td>
-<td style="text-align: left;">2001-11-04</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">40.3</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">3250</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">3003627534</td>
-<td style="text-align: left;">One McIrey</td>
-<td style="text-align: left;">1962-03-30</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2007</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2407864568</td>
-<td style="text-align: left;">Dr Stamps</td>
-<td style="text-align: left;">1986-07-24</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">36.7</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3450</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+</section><section id="columns" class="level2"><h2 class="anchored" data-anchor-id="columns">Columns</h2>
 <ul>
-<li>setting individual values is much more messy:</li>
+<li>you can select some of your columns by changing the <code>SELECT *</code> keyword
+<ul>
+<li>the <code>*</code> we’ve been using so far is a wildcard, which shows all the columns in your table</li>
 </ul>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> <span class="fu">length</span> <span class="op">=</span> <span class="dv">12</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> name <span class="op">=</span> <span class="ot">"Mr Odds"</span> <span class="kw">OR</span> name <span class="op">=</span> <span class="ot">"Dr Stamps"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</li>
+<li>add column name(s) to retrieve just parts of your data</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table">
-<caption>5 records</caption>
+<table class="caption-top table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
 <thead><tr class="header">
-<th style="text-align: left;">chi</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">birthdate</th>
-<th style="text-align: right;">length</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">island</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1204851425</td>
-<td style="text-align: left;">Mr Odds</td>
-<td style="text-align: left;">1985-04-12</td>
-<td style="text-align: right;">12</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">0701720842</td>
-<td style="text-align: left;">David Lemon</td>
-<td style="text-align: left;">1972-01-07</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">0411016548</td>
-<td style="text-align: left;">The Moog</td>
-<td style="text-align: left;">2001-11-04</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">3003627534</td>
-<td style="text-align: left;">One McIrey</td>
-<td style="text-align: left;">1962-03-30</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2407864568</td>
-<td style="text-align: left;">Dr Stamps</td>
-<td style="text-align: left;">1986-07-24</td>
-<td style="text-align: right;">12</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 </tbody>
 </table>
 </div>
-</section><section id="remove-a-column" class="level2"><h2 class="anchored" data-anchor-id="remove-a-column">Remove a column</h2>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> clients <span class="kw">DROP</span> <span class="fu">length</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>note that columns are returned in the order you ask for them</li>
+<li>you can also rename selected columns using <code>AS</code>:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">AS</span> landmass</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table">
-<caption>5 records</caption>
+<table class="caption-top table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
 <thead><tr class="header">
-<th style="text-align: left;">chi</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">birthdate</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">landmass</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1204851425</td>
-<td style="text-align: left;">Mr Odds</td>
-<td style="text-align: left;">1985-04-12</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">0701720842</td>
-<td style="text-align: left;">David Lemon</td>
-<td style="text-align: left;">1972-01-07</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">0411016548</td>
-<td style="text-align: left;">The Moog</td>
-<td style="text-align: left;">2001-11-04</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">3003627534</td>
-<td style="text-align: left;">One McIrey</td>
-<td style="text-align: left;">1962-03-30</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2407864568</td>
-<td style="text-align: left;">Dr Stamps</td>
-<td style="text-align: left;">1986-07-24</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
 </tr>
 </tbody>
 </table>
 </div>
-</section><section id="renaming-cols" class="level2"><h2 class="anchored" data-anchor-id="renaming-cols">Renaming cols</h2>
+</div>
 <ul>
-<li>not as easy as might be liked, and highly dialect-y</li>
-</ul></section><section id="note-about-uploading" class="level2"><h2 class="anchored" data-anchor-id="note-about-uploading">Note about uploading</h2>
-<ul>
-<li>depends on your local system, no generic SQL advice</li>
-<li>refer to the R and SQL session</li>
-</ul></section><section id="create-tables" class="level2"><h2 class="anchored" data-anchor-id="create-tables">Create tables</h2>
-<ul>
-<li>most real-life SQL projects are multi-table</li>
-<li>we’ll explore this in more detail in the joins session</li>
-<li>but as an introduction, creating additional tables is exactly the same as creating a first table</li>
+<li>note too that SQL is insensitive to whitespace, so you can generally split up longer queries over many lines</li>
+<li>an alternative strategy (if you’re brave) is to use implicit renaming:</li>
 </ul>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> gps (chi <span class="dt">varchar</span>(<span class="dv">10</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                      gp <span class="dt">varchar</span>(<span class="dv">255</span>),</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                      <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (chi));</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                      </span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> gps <span class="kw">VALUES</span> </span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"1204851425"</span>, <span class="ot">"Dr Smith"</span>),</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"0701720842"</span>, <span class="ot">"Dr Patel"</span>),</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"0411016548"</span>, <span class="ot">"Dr Hamoda"</span>),</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"3003627534"</span>, <span class="ot">"Dr Clarke"</span>),</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"2407864568"</span>, <span class="ot">"Dr Johal"</span>);</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> gps;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island landmass <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Displaying records 1 - 10</caption>
+<thead><tr class="header">
+<th style="text-align: left;">landmass</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Torgersen</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>please select the <code>species</code> and <code>flipper_length_mm</code> columns with new names of your choice</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="distinct-values" class="level2"><h2 class="anchored" data-anchor-id="distinct-values">Distinct values</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> species <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>3 records</caption>
+<thead><tr class="header">
+<th style="text-align: left;">species</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gentoo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Chinstrap</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>
+<code>DISTINCT</code> gathers the unique values in a column, or unique combinations of values across multiple columns</li>
+<li>this second query gives you all the combinations of penguins and islands that exist in our data:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>5 records</caption>
+<thead><tr class="header">
+<th style="text-align: left;">island</th>
+<th style="text-align: left;">species</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adelie</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Biscoe</td>
+<td style="text-align: left;">Adelie</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dream</td>
+<td style="text-align: left;">Adelie</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Biscoe</td>
+<td style="text-align: left;">Gentoo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dream</td>
+<td style="text-align: left;">Chinstrap</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
 <p>Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.</p>
 
