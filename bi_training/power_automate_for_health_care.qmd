@@ -6,6 +6,8 @@ execute:
   output: true
   freeze: false
 categories: [skills, beginner, Power Automate]
+params:
+  id: KP14
 ---
 
 ```{r}
@@ -15,7 +17,8 @@ categories: [skills, beginner, Power Automate]
 #| fig-width: 3
 
 source(here::here("R/feed_block.R"))
-feed_block("Power Automate for health and care")
+# feed_block("Power Automate for health and care")
+feed_block(params$id)
 source(here::here("R/next_sesh.R"), local = T)
 next_sesh(rmarkdown::metadata$title)
 ```

@@ -3,6 +3,7 @@ format: html
 params:
   sl_date: 2025-09-15
   fn: "Neural nets made ridiculously simple"
+  id: KA03
 execute: 
   echo: false
   output: true
@@ -30,7 +31,8 @@ library(ggplot2)
 library(sigmoid)
 
 source(here::here("R/feed_block.R"))
-feed_block("Neural Networks made ridiculously simple")
+feed_block(params$id)
+#feed_block("Neural Networks made ridiculously simple")
 source(here::here("R/next_sesh.R"), local = T)
 next_sesh(rmarkdown::metadata$params$fn)
 

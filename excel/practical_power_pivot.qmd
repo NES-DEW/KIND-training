@@ -5,6 +5,10 @@ execute:
   echo: true
   freeze: auto
 categories: [excel, intermediate]
+params:
+  sl_date: 2025-03-06
+  fn: "Practical Power Pivot"
+  id: KE17
 
 ---
 
@@ -16,7 +20,8 @@ categories: [excel, intermediate]
 #| fig-width: 3
 
 source(here::here("R/feed_block.R"))
-feed_block("Practical PowerPivot")
+# feed_block("Practical PowerPivot")
+feed_block(params$id)
 source(here::here("R/next_sesh.R"), local = T)
 next_sesh(rmarkdown::metadata$title)
 ```

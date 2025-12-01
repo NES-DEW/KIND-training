@@ -7,6 +7,7 @@ execute:
 params:
   sl_date: 2025-09-17
   fn: "Excel tables (Excel for beginners session 5)"
+  id: KE05
 date: '`r params[["sl_date"]]`'
 ---
 
@@ -39,7 +40,8 @@ Together, they aim to help you develop an appropriate set of Excel skills to hel
 #| fig-width: 3
 
 source(here::here("R/feed_block.R"))
-feed_block("Excel tables")
+# feed_block("Excel tables")
+feed_block(params$id)
 source(here::here("R/next_sesh.R"), local = T)
 next_sesh(rmarkdown::metadata$title)
 

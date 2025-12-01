@@ -5,6 +5,7 @@ execute:
 params:
   sl_date: 2025-09-17
   fn: Applications of AI (pilot version)
+  id: KA04
 format: html
 date: '`r params[["sl_date"]]`'
 title: Applications of AI
@@ -21,7 +22,8 @@ draft: true
 #| fig-width: 3
 
 source(here::here("R/feed_block.R"))
-feed_block("Applications of AI")
+feed_block(params$id)
+#feed_block("Applications of AI")
 source(here::here("R/next_sesh.R"), local = T)
 next_sesh("Applications of AI (pilot version)")
 ```

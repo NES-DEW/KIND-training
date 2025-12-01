@@ -6,6 +6,10 @@ execute:
 categories: [excel, advanced]
 editor_options: 
   chunk_output_type: console
+params:
+  sl_date: 2025-09-15
+  fn: "Logic in Excel"
+  id: KE20
 ---
 
 ::: {.callout-note collapse="false" appearance="default" icon="true"}
@@ -23,7 +27,8 @@ editor_options:
 #| fig-width: 3
 
 source(here::here("R/feed_block.R"))
-feed_block("Logic in Excel")
+# feed_block("Logic in Excel")
+feed_block(params$id)
 source(here::here("R/next_sesh.R"), local = T)
 next_sesh(rmarkdown::metadata$title)
 ```

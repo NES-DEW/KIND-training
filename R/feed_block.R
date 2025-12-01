@@ -1,9 +1,9 @@
-feed_block <- function(title){
+feed_block <- function(id){
   source(here::here("R/bullet_list.R"))
   library(ggplot2)
   
   dat <- readxl::read_excel(here::here("data/KIND_training_feedback.xlsx")) |>
-    dplyr::filter(stringr::str_detect(session_title, title))
+    dplyr::filter(stringr::str_detect(ID, id))
   
   vars <- c("Too easy", "About right", "Too hard")
   
@@ -22,19 +22,19 @@ feed_block <- function(title){
   plot <- tibble::tibble(xmin = -1, xmax = 1, ymin=0, ymax=.5) |>
     ggplot() +
     geom_rect(aes(xmin = xmin,
-                                     xmax = xmax,
-                                     ymin = ymin,
-                                     ymax = ymax), fill = "#78afed") +
+                  xmax = xmax,
+                  ymin = ymin,
+                  ymax = ymax), fill = "#78afed") +
     geom_vline(aes(xintercept = pitcho), colour = "#fd8d3c", linewidth = 4) +
     geom_label(aes(x = -.5, y = .25, label = "← Too easy")) +
-  geom_label(aes(x = .5, y = .25, label = "Too hard →")) +
+    geom_label(aes(x = .5, y = .25, label = "Too hard →")) +
     ylim(-0.01,.51) +
     theme_void()
   
   if (nrow(dat) == 0) {
     return(cat("No feedback found for this session  \n"))
   } else {
-
+    
     rite <- scales::percent((sum(dat$describe == "About right", na.rm = T) / nrow(dat)))
     rec <- scales::percent((sum(dat$recommend == "Yes", na.rm = T) / nrow(dat)))
     
@@ -46,7 +46,7 @@ feed_block <- function(title){
     cat("  \n")
     
     bullet_list(vec)
-
+    
     cat("  \n")
     print(plot)
     cat("  \n")
@@ -63,11 +63,6 @@ feed_block <- function(title){
     cat("  \n")
     cat(":::")
     cat("  \n")
-  
-    }
+    
+  }
 }
-
-
-
-
-

@@ -8,6 +8,7 @@ execute:
 params:
   sl_date: 2025-09-19
   fn: "An introduction to AI (...and why you might avoid that term)"
+  id: KA01
 format: html
 date: "`r params$sl_date`"
 ---
@@ -22,7 +23,8 @@ date: "`r params$sl_date`"
 #| fig-width: 3
 
 source(here::here("R/feed_block.R"))
-feed_block("An introduction to AI")
+feed_block(params$id)
+#feed_block("An introduction to AI")
 source(here::here("R/next_sesh.R"), local = T)
 next_sesh("An introduction to AI")
 ```

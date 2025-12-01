@@ -6,6 +6,7 @@ execute:
 params:
   sl_date: 2025-09-1
   fn: Conditions in Power Automate
+  id: KP22
 format: html
 date: '`r params[["sl_date"]]`'
 title: Conditions in Power Automate
@@ -21,7 +22,8 @@ title: Conditions in Power Automate
 #| fig-width: 3
 
 source(here::here("R/feed_block.R"))
-feed_block("Groups and summaries in PowerQuery")
+# feed_block("Groups and summaries in PowerQuery")
+feed_block(params$id)
 source(here::here("R/next_sesh.R"), local = T)
 next_sesh(rmarkdown::metadata[["title"]])
 ```
