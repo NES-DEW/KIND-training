@@ -1,11 +1,11 @@
 ---
 categories: [Power BI, beginner]
-editor_options: 
-  chunk_output_type: console
 params:
-  sl_date: 2025-09-15
-  fn: "BI for beginners (session 5)"
+  sl_date: 2025-12-02
+  fn: BI for beginners (session 5)
   id: KP05
+title: "`r params[['fn']]`"
+date: "`r params[['sl_date']]`"
 ---
 
 
@@ -24,7 +24,7 @@ source(here::here("R/feed_block.R"))
 # feed_block("BI for Beginners")
 feed_block(params$id)
 source(here::here("R/next_sesh.R"), local = T)
-next_sesh("BI for beginners (session 5)")
+next_sesh(params[['fn']])
 
 ```
 
@@ -89,6 +89,151 @@ practices_ork |>
 ```
 
 
-{{< include "../content/BI for beginners session 05.qmd" >}}
+
+
+::: {.callout-note collapse="false" appearance="default" icon="true"}
+## Session materials
+
+There are **two** Excel datasets for this session
+
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx full data](src/s05_full_data.xlsx)
+-   [{{< iconify ph:file-xls size=2x >}}.xlsx split data](src/s05_split_data.xlsx)
+
+:::
+
+
+## Session outline
+
+<!-- here's where a video might go -->
+
++ In this session, we're going to think about data modelling for Power BI
++ we'll start with a sub-set of the GP data we were working with over the past couple of sessions
++ as we'll see, the simplest (and most Excel-like) way of holding that data isn't a natural fit for work in Power BI
++ we'll use the model to explore that data
++ we'll introduce the idea of a [star schema](https://learn.microsoft.com/en-us/power-bi/guidance/star-schema) as the usual way that you'll need to organise your data for Power BI
++ and we'll conclude with an optional practical Power Query session showing how to turn flat data into star schema'd data
+
+## Setup
+
++ download both datasets ([.xlsx full data](src/s05_full_data.xlsx) and [.xlsx split data](src/s05_split_data.xlsx)) to somewhere sensible on your computer
++ connect to the [full data Excel file](src/s05_full_data.xlsx), and load the single table
++ recreate a simple starting dashboard as a warm-up exercise </br> ![Starting dashboard](../src/images/bfb_s05_start_dash.png)
+
+## What's the problem?
+
++ this data is held as a single flat file
++ while easy to understand, it's highly repetitious: the seven GP practices in Orkney require 25 columns and 112 rows of data - so 2800 values in total
++ this causes performance issues (as well as brain-ache)
+
+## What's the solution?
+
++ we can break this data into several related tables
++ that reduces repetition and makes the data easier to understand
++ this has the useful side-effect of speeding-up Power BI
+
+## Jumping ahead: a second bout of data loading
+
++ create a new report
++ connect to the [.xlsx split data](src/s05_split_data.xlsx) and load all four tables </br> ![Four tables](../src/images/bfb_s05_four_tables.png)
++ have a look at the data - you'll see that it's much more concise (582 values in total - so approx a fifth of the size of the full data)
++ now inspect your new data in the model
+
+## The model
+
++ we should see our data tables as blocks in the model</br>![Data model](../src/images/bfb_s05_model.png)
++ there are also connections between some of those blocks
+
+::: {.callout-tip title="Task"}
+1.  Mouse-over the relationships in the model view
+2.  What's the difference between ![star](../src/images/star.png) and ![one](../src/images/one.png)?
+3.  Now expand the **Properties** pane
+:::
+
+## Relational data
+
++ instead of a single complex file, our data is now held as several related tables
++ relationships - the lines between the blobs - show how the parts of our data are connected together
++ for example, in the practices table, the HB column (which contains the health board code S08000025 each time) relates to the boards table HB column, which contains matching values
++ that means that we can use the data from the boards table - like the name of the Health Board - in our Power BI work
+
+## Relationships
+
++ you can see details of your relationships in the properties pane in the model view </br> ![Relationships pane](../src/images/bfb_s05_relationships.png)
+
+::: {.callout-tip title="Task"}
++ make sure the practices-to-boards relationship is set to **active** - take care to click `Apply`
++ re-create your original map using the postcodes from the practices table and the HBName column from the boards table </br> ![Simple map using relationships](../src/images/bfb_s05_relationships_map.png)
+:::
+
+## Creating a relationship
++ if you look carefully at the model, you'll see a missing relationship
++ Power BI guesses which columns might share a relationship by looking for identical column names
++ but the population table has a different column name from the practices table. Luckily, we can manually create a relationship:
+
+::: {.callout-tip title="Task"}
++ drag the `DataZone` column from practices to the `DZ` column in the population table
++ that should open the `New relationship` dialogue: </br> ![New relationship](../src/images/bfb_s05_relationships_new.png)
++ make sure the cardinality is set to `Many to one (*:1)`, and make the relationship active
+
+:::
+
+## Cardinality
+
++ cardinality describes one feature of a data relationship: how many items should we expect at each end of the relationship?
++ the simplest case is 1:1. We'd find that where each value is unique. So if we have two data sets like this, showing something like sports players, with their heights in one table and the number of goals they score in a second table:
+
+```{r}
+#| results: markup
+
+library(dplyr)
+tibble(name = c("Emma", "Rani", "Sven"),
+       height = c(1.6, 1.4, 1.5)) |>
+  knitr::kable()
+```
+
+and
+
+```{r}
+#| results: markup
+
+tibble(name = c("Emma", "Rani", "Sven"),
+       goals = c(5,8,6))|>
+  knitr::kable()
+```
+
+Think of the values in the name columns as keys that show us which rows of data correspond to each other. Using these names as keys, we'd expect a 1:1 relationship between the tables. Each key value is unique in each table, and so we'll get exactly one value for Rani's goals and height, for example. If we had several different rows for each player's goals...
+
+```{r}
+#| results: markup
+
+tibble(name = c("Emma", "Rani", "Sven", "Emma", "Rani", "Sven"),
+       goals = c(5, 8, 6, 4, 7, 6))|>
+  knitr::kable()
+```
+
+This would give us a 1:many (which Power BI calls `1:*`) relationship, where we'd expect to get several rows from the goals table for each row in the height table.
+
+## The star schema
+
+If you look at our data, we've got a single central table (with the practice details), and then a group of three lookup tables that contain fine-print details about each one of the practices. That's starting to approximate a [star schema](https://learn.microsoft.com/en-us/power-bi/guidance/star-schema) </br> ![Star schema](../src/images/bfb_s05_relationships_star.png)
+
+## Starring your data
+
++ we'll leave this as an optional section (either at the end of the main session, or as homework) for people who'd like to practice their Power Query
++ we'll work through how to transform the flat file into properly Star schema'd data </br> ![Star schema](../src/images/bfb_s05_relationships_star_2.png)
+
++ in outline, the steps are to:
+    + take the full data query and duplicate five times (one per final table)
+    + rename each query (`main_table`, `demographics`, `boards`, `population`, `practice_details`)
+    + select the columns you need for each table:
+        + PracticeCode, DataZone, HB in the main table
+        + PracticeCode through to GPCluster in the practices_details table
+        + PracticeCode, age_range, n_patients, and Sex in the demographics table
+        + DataZone, Population, SIMD2020v2_Rank	and URname in the population table
+        + HB, HBName, HBDateEnacted in the boards table
+    + remove duplicate rows in each table
+    + then check the relationships to make sure the keys and cardinalities match up!
+
+
 
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.22">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-08-26">
+<meta name="dcterms.date" content="2025-12-02">
 <title>BI for beginners (session 5) – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -341,7 +341,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-08-26</p>
+      <p class="date">December 2, 2025</p>
     </div>
   </div>
   
@@ -372,8 +372,8 @@ Three random comments from previous attendees
 <div class="callout-body-container callout-body">
 <ul>
 <li>Great to see the benefit of multiple small tables rather than 1 big one and run through using Power Query to produce them. Another excellent session, thank you very much Brendan.</li>
-<li>Good to be able to compare how data can be compressed in different ways but give the same outcome. Shows you don’t need reams of repeating data to get good quality!</li>
-<li>I think this would fit really well as session 5 of the beginners sessions. It’s a good way to consolidate what is covered in the other 4 and highlight ways in which to practically use power BI in “real” life. Thank you!</li>
+<li>Excellent</li>
+<li>I think I could still use a little more regarding the data wrangling</li>
 </ul>
 </div>
 </div>
@@ -447,7 +447,8 @@ Session materials
 <li>we’ll start with a sub-set of the GP data we were working with over the past couple of sessions</li>
 <li>as we’ll see, the simplest (and most Excel-like) way of holding that data isn’t a natural fit for work in Power BI</li>
 <li>we’ll use the model to explore that data</li>
-<li>we’ll introduce the idea of a star schema as the usual way that you’ll need to organise your data for Power BI</li>
+<li>we’ll introduce the idea of a <a href="https://learn.microsoft.com/en-us/power-bi/guidance/star-schema">star schema</a> as the usual way that you’ll need to organise your data for Power BI</li>
+<li>and we’ll conclude with an optional practical Power Query session showing how to turn flat data into star schema’d data</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
 <li>download both datasets (<a href="src/s05_full_data.xlsx">.xlsx full data</a> and <a href="src/s05_split_data.xlsx">.xlsx split data</a>) to somewhere sensible on your computer</li>
@@ -643,8 +644,11 @@ Task
 <p>If you look at our data, we’ve got a single central table (with the practice details), and then a group of three lookup tables that contain fine-print details about each one of the practices. That’s starting to approximate a <a href="https://learn.microsoft.com/en-us/power-bi/guidance/star-schema">star schema</a>  <img src="../src/images/bfb_s05_relationships_star.png" class="img-fluid" alt="Star schema"></p>
 </section><section id="starring-your-data" class="level2"><h2 class="anchored" data-anchor-id="starring-your-data">Starring your data</h2>
 <ul>
-<li>we’ll leave this as a post-session exercise, but roughly, the steps are:  <img src="../src/images/bfb_s05_relationships_star_2.png" class="img-fluid" alt="Star schema">
-</li>
+<li><p>we’ll leave this as an optional section (either at the end of the main session, or as homework) for people who’d like to practice their Power Query</p></li>
+<li><p>we’ll work through how to transform the flat file into properly Star schema’d data  <img src="../src/images/bfb_s05_relationships_star_2.png" class="img-fluid" alt="Star schema"></p></li>
+<li>
+<p>in outline, the steps are to:</p>
+<ul>
 <li>take the full data query and duplicate five times (one per final table)</li>
 <li>rename each query (<code>main_table</code>, <code>demographics</code>, <code>boards</code>, <code>population</code>, <code>practice_details</code>)</li>
 <li>select the columns you need for each table:
@@ -658,6 +662,8 @@ Task
 </li>
 <li>remove duplicate rows in each table</li>
 <li>then check the relationships to make sure the keys and cardinalities match up!</li>
+</ul>
+</li>
 </ul>
 
 
