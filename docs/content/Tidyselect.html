@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.22">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="dcterms.date" content="2025-09-15">
+<title>Tidyselect – KIND training pages</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-a5cd134f9b40a21b85be3e62cd27a8fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b4406b7675125bc2ba204020e191172.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-dark-67e0afcc5eab4b3aa9d10cc8bf721eae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-bb5f9278568ae542f8467bdb635b70ac.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo"></a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">KIND training pages</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../excel_main.html"> 
+<span class="menu-text">Excel</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r_main.html"> 
+<span class="menu-text">R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../BI_main.html"> 
+<span class="menu-text">Power Platform</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tableau_main.html"> 
+<span class="menu-text">Tableau</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../skills_main.html"> 
+<span class="menu-text">Skills</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">📅 Training schedule</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training/issues">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#logical-operators" id="toc-logical-operators" class="nav-link" data-scroll-target="#logical-operators">Logical operators</a></li>
+  <li><a href="#a-tibble-768-4" id="toc-a-tibble-768-4" class="nav-link" data-scroll-target="#a-tibble-768-4">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-4-1" id="toc-a-tibble-768-4-1" class="nav-link" data-scroll-target="#a-tibble-768-4-1">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-8" id="toc-a-tibble-768-8" class="nav-link" data-scroll-target="#a-tibble-768-8">A tibble: 768 × 8</a></li>
+  <li><a href="#a-tibble-768-7" id="toc-a-tibble-768-7" class="nav-link" data-scroll-target="#a-tibble-768-7">A tibble: 768 × 7</a></li>
+  <li><a href="#a-tibble-768-3" id="toc-a-tibble-768-3" class="nav-link" data-scroll-target="#a-tibble-768-3">A tibble: 768 × 3</a></li>
+  <li><a href="#a-tibble-768-2" id="toc-a-tibble-768-2" class="nav-link" data-scroll-target="#a-tibble-768-2">A tibble: 768 × 2</a></li>
+  <li>
+<a href="#a-tibble-768-5" id="toc-a-tibble-768-5" class="nav-link" data-scroll-target="#a-tibble-768-5">A tibble: 768 × 5</a>
+  <ul class="collapse">
+<li><a href="#contains" id="toc-contains" class="nav-link" data-scroll-target="#contains"><code>contains()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#a-tibble-768-3-1" id="toc-a-tibble-768-3-1" class="nav-link" data-scroll-target="#a-tibble-768-3-1">A tibble: 768 × 3</a></li>
+  <li><a href="#a-tibble-768-4-2" id="toc-a-tibble-768-4-2" class="nav-link" data-scroll-target="#a-tibble-768-4-2">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-4-3" id="toc-a-tibble-768-4-3" class="nav-link" data-scroll-target="#a-tibble-768-4-3">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-4-4" id="toc-a-tibble-768-4-4" class="nav-link" data-scroll-target="#a-tibble-768-4-4">A tibble: 768 × 4</a></li>
+  <li><a href="#a-tibble-768-5-1" id="toc-a-tibble-768-5-1" class="nav-link" data-scroll-target="#a-tibble-768-5-1">A tibble: 768 × 5</a></li>
+  <li><a href="#a-tibble-768-1" id="toc-a-tibble-768-1" class="nav-link" data-scroll-target="#a-tibble-768-1">A tibble: 768 × 1</a></li>
+  <li>
+<a href="#a-tibble-317-6" id="toc-a-tibble-317-6" class="nav-link" data-scroll-target="#a-tibble-317-6">A tibble: 317 × 6</a>
+  <ul class="collapse">
+<li><a href="#matches" id="toc-matches" class="nav-link" data-scroll-target="#matches"><code>matches()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-tibble-768-3-2" id="toc-a-tibble-768-3-2" class="nav-link" data-scroll-target="#a-tibble-768-3-2">A tibble: 768 × 3</a>
+  <ul class="collapse">
+<li><a href="#where" id="toc-where" class="nav-link" data-scroll-target="#where"><code>where()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-tibble-768-3-3" id="toc-a-tibble-768-3-3" class="nav-link" data-scroll-target="#a-tibble-768-3-3">A tibble: 768 × 3</a>
+  <ul class="collapse">
+<li><a href="#any_of" id="toc-any_of" class="nav-link" data-scroll-target="#any_of"><code>any_of()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#a-tibble-768-4-5" id="toc-a-tibble-768-4-5" class="nav-link" data-scroll-target="#a-tibble-768-4-5">A tibble: 768 × 4</a></li>
+  <li>
+<a href="#a-tibble-768-5-2" id="toc-a-tibble-768-5-2" class="nav-link" data-scroll-target="#a-tibble-768-5-2">A tibble: 768 × 5</a>
+  <ul class="collapse">
+<li><a href="#everything" id="toc-everything" class="nav-link" data-scroll-target="#everything"><code>everything()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-tibble-3072-2" id="toc-a-tibble-3072-2" class="nav-link" data-scroll-target="#a-tibble-3072-2">A tibble: 3,072 × 2</a>
+  <ul class="collapse">
+<li><a href="#last_col" id="toc-last_col" class="nav-link" data-scroll-target="#last_col"><code>last_col()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-tibble-768-10" id="toc-a-tibble-768-10" class="nav-link" data-scroll-target="#a-tibble-768-10">A tibble: 768 × 10</a>
+  <ul class="collapse">
+<li><a href="#if_any-if_all-across-and-pick" id="toc-if_any-if_all-across-and-pick" class="nav-link" data-scroll-target="#if_any-if_all-across-and-pick"><code>if_any()</code>, <code>if_all()</code>, <code>across()</code>, and <code>pick()</code></a></li>
+  </ul>
+</li>
+  <li><a href="#a-tibble-723-9" id="toc-a-tibble-723-9" class="nav-link" data-scroll-target="#a-tibble-723-9">A tibble: 723 × 9</a></li>
+  <li><a href="#a-tibble-768-9" id="toc-a-tibble-768-9" class="nav-link" data-scroll-target="#a-tibble-768-9">A tibble: 768 × 9</a></li>
+  <li><a href="#a-tibble-37-3" id="toc-a-tibble-37-3" class="nav-link" data-scroll-target="#a-tibble-37-3">A tibble: 37 × 3</a></li>
+  <li><a href="#a-tibble-768-3-4" id="toc-a-tibble-768-3-4" class="nav-link" data-scroll-target="#a-tibble-768-3-4">A tibble: 768 × 3</a></li>
+  </ul></nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
+</p>
+<div style="text-align:center;">
+<a href="https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMUpENjBJOENINDRFMUlYQTlCM1RVNzRSRy4u&amp;route=shorturl" style="display:inline-block;max-width:250px;padding:8px 16px;background:#2C3792;color:#ffffff;font-family:'Segoe UI','Helvetica Neue',sans-serif;font-weight:700;font-size:16px;text-align:center;text-decoration:none;border-radius:20px;border:2px solid #A12693;cursor:pointer;transition:all .3s ease;" onmouseover="this.style.background='#A12693';this.style.color='#fff';this.style.borderColor='#fff'" onmouseout="this.style.background='#2C3792';this.style.color='#ffffff';this.style.borderColor='#A12693'">Join the KIND network</a>
+</div>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    window.setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        disableStylesheet(primaryStylesheets)
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      window.setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    window.hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(darkModeDefault) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const darkModeDefault = false;
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !window.hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (window.hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Tidyselect</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 15, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This session is an 🌶🌶 <strong>intermediate practical</strong> designed for those with some R experience. The aim of this session is to explore dplyr’s built-in language for selecting columns: tidyselect.</p>
+<p>Package loading is just:</p>
+</section><section id="logical-operators" class="level2"><h2 class="anchored" data-anchor-id="logical-operators">Logical operators</h2>
+<p>The four operators that we’ll introduce here are found all over R, and aren’t in any way specific to the tidyverse, so we’ll review them very briefly before moving on to the more idiosyncratic aspects of tidyselect.</p>
+<p><code>:</code> allows you to select a range of columns. So to select the second to the fifth columns in the <code>stranded_data</code> set by name:</p>
+</section><section id="a-tibble-768-4" class="level1"><h1>A tibble: 768 × 4</h1>
+<pre><code> age care.home.referral medicallysafe  hcop</code></pre>
+<p><int><int><int><int> 1 50 0 0 0 2 31 1 0 1 3 32 0 1 0 4 69 1 1 0 5 33 0 0 1 6 75 1 1 0 7 26 1 0 1 8 64 0 1 1 9 53 0 1 0 10 63 1 0 0 # ℹ 758 more rows</int></int></int></int></p>
+<p>Similarly, by index:</p>
+</section><section id="a-tibble-768-4-1" class="level1"><h1>A tibble: 768 × 4</h1>
+<pre><code> age care.home.referral medicallysafe  hcop</code></pre>
+<p><int><int><int><int> 1 50 0 0 0 2 31 1 0 1 3 32 0 1 0 4 69 1 1 0 5 33 0 0 1 6 75 1 1 0 7 26 1 0 1 8 64 0 1 1 9 53 0 1 0 10 63 1 0 0 # ℹ 758 more rows</int></int></int></int></p>
+<p><code>!</code> allows you to select the complement - in other words, everything but the specified column:</p>
+</section><section id="a-tibble-768-8" class="level1"><h1>A tibble: 768 × 8</h1>
+<pre><code> age care.home.referral medicallysafe  hcop mental_health_care</code></pre>
+<p><int><int><int><int><int> 1 50 0 0 0 0 2 31 1 0 1 0 3 32 0 1 0 1 4 69 1 1 0 1 5 33 0 0 1 1 6 75 1 1 0 1 7 26 1 0 1 0 8 64 0 1 1 0 9 53 0 1 0 0 10 63 1 0 0 1 # ℹ 758 more rows # ℹ 3 more variables: periods_of_previous_care <int>, admit_date <chr>, # frailty_index <chr></chr></chr></int></int></int></int></int></int></p>
+<p>Use <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> if you want to drop multiple columns using <code>!</code>:</p>
+</section><section id="a-tibble-768-7" class="level1"><h1>A tibble: 768 × 7</h1>
+<p>care.home.referral medicallysafe hcop mental_health_care <int><int><int><int> 1 0 0 0 0 2 1 0 1 0 3 0 1 0 1 4 1 1 0 1 5 0 0 1 1 6 1 1 0 1 7 1 0 1 0 8 0 1 1 0 9 0 1 0 0 10 1 0 0 1 # ℹ 758 more rows # ℹ 3 more variables: periods_of_previous_care <int>, admit_date <chr>, # frailty_index <chr></chr></chr></int></int></int></int></int></p>
+<p><code>&amp;</code> lets you group together selection helpers. If you’re selecting many columns by name, <code>&amp;</code> isn’t needed. Instead, you can just specify what you need to keep:</p>
+</section><section id="a-tibble-768-3" class="level1"><h1>A tibble: 768 × 3</h1>
+<p>stranded.label hcop age <chr><int><int> 1 Not Stranded 0 50 2 Not Stranded 1 31 3 Not Stranded 0 32 4 Not Stranded 0 69 5 Not Stranded 1 33 6 Stranded 0 75 7 Not Stranded 1 26 8 Not Stranded 1 64 9 Not Stranded 0 53 10 Not Stranded 0 63 # ℹ 758 more rows</int></int></chr></p>
+<p>Where <code>&amp;</code> is really useful is in combination with pattern matching helpers, which we’ll look at in more detail in the next subsection:</p>
+</section><section id="a-tibble-768-2" class="level1"><h1>A tibble: 768 × 2</h1>
+<p>medicallysafe mental_health_care <int><int> 1 0 0 2 0 0 3 1 1 4 1 1 5 0 1 6 1 1 7 0 0 8 1 0 9 1 0 10 0 1 # ℹ 758 more rows</int></int></p>
+<p><code>&amp;</code> returns the columns where both of the patterns are matched. Compare and contrast the <code>|</code> operator, which gives the union of both helpers:</p>
+</section><section id="a-tibble-768-5" class="level1"><h1>A tibble: 768 × 5</h1>
+<p>medicallysafe mental_health_care age periods_of_previous_care admit_date <int><int><int><int><chr><br>
+1 0 0 50 1 29/12/2020 2 0 0 31 1 11/12/2020 3 1 1 32 1 19/01/2021 4 1 1 69 1 07/01/2021 5 0 1 33 1 15/01/2021 6 1 1 75 1 02/01/2021 7 0 0 26 1 02/01/2021 8 1 0 64 1 29/12/2020 9 1 0 53 5 04/01/2021 10 0 1 63 1 30/12/2020 # ℹ 758 more rows</chr></int></int></int></int></p>
+<section id="contains" class="level2"><h2 class="anchored" data-anchor-id="contains"><code>contains()</code></h2>
+<p><code>contains()</code> is a good example of tidyselect functions that are based on pattern matching. There are several related functions that work in the same way, including:</p>
+<ul>
+<li><code>starts_with()</code></li>
+<li><code>ends_with()</code></li>
+<li><code>matches()</code></li>
+<li><code>num_range()</code></li>
+</ul>
+<p>Here, we’ll concentrate on <code>contains()</code> as an exemplar for this family, because the other functions in the family work in a very similar way. <code>contains()</code> allows you to pick columns based on their names. So to <code>select()</code> all the columns in <code>stranded_data</code> whose names contain the string “care”:</p>
+</section></section><section id="a-tibble-768-3-1" class="level1"><h1>A tibble: 768 × 3</h1>
+<p>care.home.referral mental_health_care periods_of_previous_care <int><int><int> 1 0 0 1 2 1 0 1 3 0 1 1 4 1 1 1 5 0 1 1 6 1 1 1 7 1 0 1 8 0 0 1 9 0 0 5 10 1 1 1 # ℹ 758 more rows</int></int></int></p>
+<p>Note that by default this string matching is case insensitive, so “care” will match columns called “CARE”, “Care”, and “cArE”. You can also combine the <code>contains()</code> statement with other <code>select()</code> criteria:</p>
+</section><section id="a-tibble-768-4-2" class="level1"><h1>A tibble: 768 × 4</h1>
+<pre><code> age care.home.referral mental_health_care periods_of_previous_care</code></pre>
+<p><int><int><int><int> 1 50 0 0 1 2 31 1 0 1 3 32 0 1 1 4 69 1 1 1 5 33 0 1 1 6 75 1 1 1 7 26 1 0 1 8 64 0 0 1 9 53 0 0 5 10 63 1 1 1 # ℹ 758 more rows</int></int></int></int></p>
+<p>And you can match over a vector of strings:</p>
+</section><section id="a-tibble-768-4-3" class="level1"><h1>A tibble: 768 × 4</h1>
+<p>care.home.referral mental_health_care periods_of_previous_care age <int><int><int><int> 1 0 0 1 50 2 1 0 1 31 3 0 1 1 32 4 1 1 1 69 5 0 1 1 33 6 1 1 1 75 7 1 0 1 26 8 0 0 1 64 9 0 0 5 53 10 1 1 1 63 # ℹ 758 more rows</int></int></int></int></p>
+<p>The order of strings in your vector will determine the order of columns returned:</p>
+</section><section id="a-tibble-768-4-4" class="level1"><h1>A tibble: 768 × 4</h1>
+<pre><code> age care.home.referral mental_health_care periods_of_previous_care</code></pre>
+<p><int><int><int><int> 1 50 0 0 1 2 31 1 0 1 3 32 0 1 1 4 69 1 1 1 5 33 0 1 1 6 75 1 1 1 7 26 1 0 1 8 64 0 0 1 9 53 0 0 5 10 63 1 1 1 # ℹ 758 more rows</int></int></int></int></p>
+<p>And you can negate the <code>contains()</code> to give the complement:</p>
+</section><section id="a-tibble-768-5-1" class="level1"><h1>A tibble: 768 × 5</h1>
+<p>stranded.label medicallysafe hcop admit_date frailty_index<br><chr><int><int><chr><chr><br>
+1 Not Stranded 0 0 29/12/2020 No index item<br>
+2 Not Stranded 0 1 11/12/2020 No index item<br>
+3 Not Stranded 1 0 19/01/2021 No index item<br>
+4 Not Stranded 1 0 07/01/2021 Mobility problems<br>
+5 Not Stranded 0 1 15/01/2021 No index item<br>
+6 Stranded 1 0 02/01/2021 Mobility problems<br>
+7 Not Stranded 0 1 02/01/2021 No index item<br>
+8 Not Stranded 1 1 29/12/2020 Fall patient history 9 Not Stranded 1 0 04/01/2021 No index item<br>
+10 Not Stranded 0 0 30/12/2020 Activity Limitation # ℹ 758 more rows</chr></chr></int></int></chr></p>
+<p><code>starts_with()</code> and <code>ends_with()</code> work in exactly the same way - but will only match strings at the beginning and end of the column name respectively:</p>
+</section><section id="a-tibble-768-1" class="level1"><h1>A tibble: 768 × 1</h1>
+<p>care.home.referral <int> 1 0 2 1 3 0 4 1 5 0 6 1 7 1 8 0 9 0 10 1 # ℹ 758 more rows # A tibble: 768 × 2 mental_health_care periods_of_previous_care <int><int> 1 0 1 2 0 1 3 1 1 4 1 1 5 1 1 6 1 1 7 0 1 8 0 1 9 0 5 10 1 1 # ℹ 758 more rows</int></int></int></p>
+<p><code>num_range()</code> matches columns with numeric ranges. For example, in the <a href="https://cran.r-project.org/web/packages/billboard/billboard.pdf">billboard</a> dataset, there are a large number of columns named <code>wk1</code>, <code>wk2</code>… representing weeks. To select <code>wk10</code> to <code>wk15</code>:</p>
+</section><section id="a-tibble-317-6" class="level1"><h1>A tibble: 317 × 6</h1>
+<pre><code>wk10  wk11  wk12  wk13  wk14  wk15</code></pre>
+<p><dbl><dbl><dbl><dbl><dbl><dbl> 1 NA NA NA NA NA NA 2 NA NA NA NA NA NA 3 51 51 51 47 44 38 4 61 61 59 61 66 72 5 57 64 70 75 76 78 6 6 7 22 29 36 47 7 NA NA NA NA NA NA 8 36 37 37 38 49 61 9 10 9 8 6 1 2 10 59 66 68 61 67 59 # ℹ 307 more rows</dbl></dbl></dbl></dbl></dbl></dbl></p>
+<section id="matches" class="level2"><h2 class="anchored" data-anchor-id="matches"><code>matches()</code></h2>
+<p>While <code>starts_with()</code> and <code>ends_with()</code> match supplied strings, <code>matches()</code> uses <a href="https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html">regular expressions</a> (regex). Regular expressions are a way of matching all kinds of strings by specifying a pattern. For example, you can use regex to search through a piece of text for all the email addresses that it contains. In pseudocode, the regex would work like this:</p>
+<ul>
+<li>look for an @</li>
+<li>look for the start and ends of the word that contains that @</li>
+<li>make sure that the word doesn’t contain any forbidden characters</li>
+</ul>
+<p>Getting to grips with regex is a bit forbidding, because the syntax used is very concise and impenetrable. For instance, the above pseudocode translates into:</p>
+<blockquote class="blockquote">
+<p>[[:alnum:].-_]+@[[:alnum:].-]+</p>
+</blockquote>
+<p>Luckily, there are some great tools to help the beginner - such as <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/regex.pdf">the Rstudio cheatsheet</a>, or the interactive tool <a href="https://regex101.com/">regular expressions 101</a>. There are also a few very simple examples below that cover some of the common cases:</p>
+<p>Match one of a group of letters using <code>[]</code>: # A tibble: 768 × 2 medicallysafe mental_health_care <int><int> 1 0 0 2 0 0 3 1 1 4 1 1 5 0 1 6 1 1 7 0 0 8 1 0 9 1 0 10 0 1 # ℹ 758 more rows This returns columns containing either “med” or “men”.</int></int></p>
+<p>To match characters at the start of a word use <code>^</code>: # A tibble: 768 × 4 age medicallysafe mental_health_care admit_date <int><int><int><chr><br>
+1 50 0 0 29/12/2020 2 31 0 0 11/12/2020 3 32 1 1 19/01/2021 4 69 1 1 07/01/2021 5 33 0 1 15/01/2021 6 75 1 1 02/01/2021 7 26 0 0 02/01/2021 8 64 1 0 29/12/2020 9 53 1 0 04/01/2021 10 63 0 1 30/12/2020 # ℹ 758 more rows</chr></int></int></int></p>
+<p><code>.</code> matches any character:</p>
+</section></section><section id="a-tibble-768-3-2" class="level1"><h1>A tibble: 768 × 3</h1>
+<p>care.home.referral medicallysafe mental_health_care <int><int><int> 1 0 0 0 2 1 0 0 3 0 1 1 4 1 1 1 5 0 0 1 6 1 1 1 7 1 0 0 8 0 1 0 9 0 1 0 10 1 0 1 # ℹ 758 more rows</int></int></int></p>
+<p>To match columns containing a literal full stop use <code>\\</code> to escape the character: # A tibble: 768 × 2 stranded.label care.home.referral <chr><int> 1 Not Stranded 0 2 Not Stranded 1 3 Not Stranded 0 4 Not Stranded 1 5 Not Stranded 0 6 Stranded 1 7 Not Stranded 1 8 Not Stranded 0 9 Not Stranded 0 10 Not Stranded 1 # ℹ 758 more rows</int></chr></p>
+<section id="where" class="level2"><h2 class="anchored" data-anchor-id="where"><code>where()</code></h2>
+<p>There’s a bit more to explain with <code>where()</code> than the other tidyselect helpers. Broadly, <code>where()</code> lets us use a function to match columns. Let’s start simply. We’ll use the base R function <code><a href="https://rdrr.io/r/base/character.html">is.character()</a></code>. This is simple - it returns <code>TRUE</code> when a column (or vector, but not whole tibble) contains character data. Let’s look at the stranded.label column in stranded_data:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>This should return true. So we can see how we might use is.character as the basis of selecting all the character columns from this data using <code>where()</code>.</p>
+</section></section><section id="a-tibble-768-3-3" class="level1"><h1>A tibble: 768 × 3</h1>
+<p>stranded.label admit_date frailty_index<br><chr><chr><chr><br>
+1 Not Stranded 29/12/2020 No index item<br>
+2 Not Stranded 11/12/2020 No index item<br>
+3 Not Stranded 19/01/2021 No index item<br>
+4 Not Stranded 07/01/2021 Mobility problems<br>
+5 Not Stranded 15/01/2021 No index item<br>
+6 Stranded 02/01/2021 Mobility problems<br>
+7 Not Stranded 02/01/2021 No index item<br>
+8 Not Stranded 29/12/2020 Fall patient history 9 Not Stranded 04/01/2021 No index item<br>
+10 Not Stranded 30/12/2020 Activity Limitation # ℹ 758 more rows</chr></chr></chr></p>
+<section id="any_of" class="level2"><h2 class="anchored" data-anchor-id="any_of"><code>any_of()</code></h2>
+<p><code>any_of()</code> matches <strong>full</strong> column names from a vector of names. Let’s set up some names:</p>
+<p>[1] “stranded.label” “age” “care.home.referral” [4] “medicallysafe”</p>
+<p>If we supply <code>any_of()</code> with this vector of names, <code>any_of()</code> will match any column names that appear in the vector, and ignore those that do not:</p>
+</section></section><section id="a-tibble-768-4-5" class="level1"><h1>A tibble: 768 × 4</h1>
+<p>stranded.label age care.home.referral medicallysafe <chr><int><int><int> 1 Not Stranded 50 0 0 2 Not Stranded 31 1 0 3 Not Stranded 32 0 1 4 Not Stranded 69 1 1 5 Not Stranded 33 0 0 6 Stranded 75 1 1 7 Not Stranded 26 1 0 8 Not Stranded 64 0 1 9 Not Stranded 53 0 1 10 Not Stranded 63 1 0 # ℹ 758 more rows</int></int></int></chr></p>
+<p>Compared to <code>contains()</code>, <code>any_of()</code> will match the entire name, while <code>contains()</code> will match any part of the name.</p>
+<p>There’s a great tip on the <code>all_of()</code> man page - <code>any_of()</code> is an especially clever way to drop columns from a tibble because calling it more than once does not cause an error:</p>
+</section><section id="a-tibble-768-5-2" class="level1"><h1>A tibble: 768 × 5</h1>
+<pre><code>hcop mental_health_care periods_of_previous_care admit_date frailty_index   </code></pre>
+<p><int><int><int><chr><chr><br>
+1 0 0 1 29/12/2020 No index item<br>
+2 1 0 1 11/12/2020 No index item<br>
+3 0 1 1 19/01/2021 No index item<br>
+4 0 1 1 07/01/2021 Mobility proble… 5 1 1 1 15/01/2021 No index item<br>
+6 0 1 1 02/01/2021 Mobility proble… 7 1 0 1 02/01/2021 No index item<br>
+8 1 0 1 29/12/2020 Fall patient hi… 9 0 0 5 04/01/2021 No index item<br>
+10 0 1 1 30/12/2020 Activity Limita… # ℹ 758 more rows</chr></chr></int></int></int></p>
+<p>Trying to do something similar using <code>select()</code> will cause an error:</p>
+<p>Error in select(select(stranded_data, -age), -age) : Can’t select columns that don’t exist. ✖ Column <code>age</code> doesn’t exist.</p>
+<section id="everything" class="level2"><h2 class="anchored" data-anchor-id="everything"><code>everything()</code></h2>
+<p><code>everything()</code> selects all columns. This is less useful in combination with <code>select()</code> itself, but simplifies some other functions well - particularly with <code>pivot_longer()</code>.</p>
+</section></section><section id="a-tibble-3072-2" class="level1"><h1>A tibble: 3,072 × 2</h1>
+<p>name value <chr><int> 1 age 50 2 care.home.referral 0 3 medicallysafe 0 4 hcop 0 5 age 31 6 care.home.referral 1 7 medicallysafe 0 8 hcop 1 9 age 32 10 care.home.referral 0 # ℹ 3,062 more rows</int></chr></p>
+<section id="last_col" class="level2"><h2 class="anchored" data-anchor-id="last_col"><code>last_col()</code></h2>
+<p>Last col selects the right-most column in your data. That’s especially useful in concert with <code>mutate()</code>, as by default new columns are created at the right-hand edge of your tibble. This gives you an easy way of previewing changes in new columns:</p>
+</section></section><section id="a-tibble-768-10" class="level1"><h1>A tibble: 768 × 10</h1>
+<p>decade stranded.label age care.home.referral medicallysafe hcop <dbl><chr><int><int><int><int> 1 50 Not Stranded 50 0 0 0 2 30 Not Stranded 31 1 0 1 3 30 Not Stranded 32 0 1 0 4 70 Not Stranded 69 1 1 0 5 30 Not Stranded 33 0 0 1 6 80 Stranded 75 1 1 0 7 30 Not Stranded 26 1 0 1 8 60 Not Stranded 64 0 1 1 9 50 Not Stranded 53 0 1 0 10 60 Not Stranded 63 1 0 0 # ℹ 758 more rows # ℹ 4 more variables: mental_health_care <int>, periods_of_previous_care <int>, # admit_date <chr>, frailty_index <chr></chr></chr></int></int></int></int></int></int></chr></dbl></p>
+<section id="if_any-if_all-across-and-pick" class="level2"><h2 class="anchored" data-anchor-id="if_any-if_all-across-and-pick">
+<code>if_any()</code>, <code>if_all()</code>, <code>across()</code>, and <code>pick()</code>
+</h2>
+<p>Although not technically part of the <a href="https://tidyselect.r-lib.org/index.html">tidyselect</a> family, the final topic for this session is to explore a group of functions that work similarly: <code>if_any()</code> / <code>if_all()</code>, which allow you to effectively integrate basic filtering with selection, and <code>across()</code> / <code>pick()</code>, which allows you to apply functions across many columns.</p>
+</section></section><section id="a-tibble-723-9" class="level1"><h1>A tibble: 723 × 9</h1>
+<p>stranded.label age care.home.referral medicallysafe hcop <chr><int><int><int><int> 1 Not Stranded 50 0 0 0 2 Not Stranded 31 1 0 1 3 Not Stranded 32 0 1 0 4 Not Stranded 69 1 1 0 5 Not Stranded 33 0 0 1 6 Stranded 75 1 1 0 7 Not Stranded 26 1 0 1 8 Not Stranded 64 0 1 1 9 Not Stranded 63 1 0 0 10 Not Stranded 30 1 1 0 # ℹ 713 more rows # ℹ 4 more variables: mental_health_care <int>, periods_of_previous_care <int>, # admit_date <chr>, frailty_index <chr> # A tibble: 768 × 4 care.home.referral mental_health_care periods_of_previous_care care_found <int><int><int><chr><br>
+1 0 0 1 Nope<br>
+2 1 0 1 Nope<br>
+3 0 1 1 Nope<br>
+4 1 1 1 Yup<br>
+5 0 1 1 Nope<br>
+6 1 1 1 Yup<br>
+7 1 0 1 Nope<br>
+8 0 0 1 Nope<br>
+9 0 0 5 Nope<br>
+10 1 1 1 Yup<br>
+# ℹ 758 more rows</chr></int></int></int></chr></chr></int></int></int></int></int></int></chr></p>
+<p><code>across()</code> is used inside <code>summarise()</code> or <code>mutate()</code>:</p>
+</section><section id="a-tibble-768-9" class="level1"><h1>A tibble: 768 × 9</h1>
+<p>stranded.label age care.home.referral medicallysafe hcop <chr><int><int><int><int> 1 NOT STRANDED 50 0 0 0 2 NOT STRANDED 31 1 0 1 3 NOT STRANDED 32 0 1 0 4 NOT STRANDED 69 1 1 0 5 NOT STRANDED 33 0 0 1 6 STRANDED 75 1 1 0 7 NOT STRANDED 26 1 0 1 8 NOT STRANDED 64 0 1 1 9 NOT STRANDED 53 0 1 0 10 NOT STRANDED 63 1 0 0 # ℹ 758 more rows # ℹ 4 more variables: mental_health_care <int>, periods_of_previous_care <int>, # admit_date <chr>, frailty_index <chr> # A tibble: 768 × 9 stranded.label age care.home.referral medicallysafe hcop <chr><int><int><dbl><dbl> 1 Not Stranded 50 0 0 0 2 Not Stranded 31 1 0 20 3 Not Stranded 32 0 20 0 4 Not Stranded 69 1 20 0 5 Not Stranded 33 0 0 20 6 Stranded 75 1 20 0 7 Not Stranded 26 1 0 20 8 Not Stranded 64 0 20 20 9 Not Stranded 53 0 20 0 10 Not Stranded 63 1 0 0 # ℹ 758 more rows # ℹ 4 more variables: mental_health_care <int>, periods_of_previous_care <int>, # admit_date <chr>, frailty_index <chr> mpg cyl disp hp drat wt qsec vs am gear carb Mazda RX4 21 6 160.0 110 4 2.620 16.46 0 1 4 4 Mazda RX4 Wag 21 6 160.0 110 4 2.875 17.02 0 1 4 4 Datsun 710 23 4 108.0 93 4 2.320 18.61 1 1 4 1 Hornet 4 Drive 21 6 258.0 110 3 3.215 19.44 1 0 3 1 Hornet Sportabout 19 8 360.0 175 3 3.440 17.02 0 0 3 2 Valiant 18 6 225.0 105 3 3.460 20.22 1 0 3 1 Duster 360 14 8 360.0 245 3 3.570 15.84 0 0 3 4 Merc 240D 24 4 146.7 62 4 3.190 20.00 1 0 4 2 Merc 230 23 4 140.8 95 4 3.150 22.90 1 0 4 2 Merc 280 19 6 167.6 123 4 3.440 18.30 1 0 4 4 Merc 280C 18 6 167.6 123 4 3.440 18.90 1 0 4 4 Merc 450SE 16 8 275.8 180 3 4.070 17.40 0 0 3 3 Merc 450SL 17 8 275.8 180 3 3.730 17.60 0 0 3 3 Merc 450SLC 15 8 275.8 180 3 3.780 18.00 0 0 3 3 Cadillac Fleetwood 10 8 472.0 205 3 5.250 17.98 0 0 3 4 Lincoln Continental 10 8 460.0 215 3 5.424 17.82 0 0 3 4 Chrysler Imperial 15 8 440.0 230 3 5.345 17.42 0 0 3 4 Fiat 128 32 4 78.7 66 4 2.200 19.47 1 1 4 1 Honda Civic 30 4 75.7 52 5 1.615 18.52 1 1 4 2 Toyota Corolla 34 4 71.1 65 4 1.835 19.90 1 1 4 1 Toyota Corona 22 4 120.1 97 4 2.465 20.01 1 0 3 1 Dodge Challenger 16 8 318.0 150 3 3.520 16.87 0 0 3 2 AMC Javelin 15 8 304.0 150 3 3.435 17.30 0 0 3 2 Camaro Z28 13 8 350.0 245 4 3.840 15.41 0 0 3 4 Pontiac Firebird 19 8 400.0 175 3 3.845 17.05 0 0 3 2 Fiat X1-9 27 4 79.0 66 4 1.935 18.90 1 1 4 1 Porsche 914-2 26 4 120.3 91 4 2.140 16.70 0 1 5 2 Lotus Europa 30 4 95.1 113 4 1.513 16.90 1 1 5 2 Ford Pantera L 16 8 351.0 264 4 3.170 14.50 0 1 5 4 Ferrari Dino 20 6 145.0 175 4 2.770 15.50 0 1 5 6 Maserati Bora 15 8 301.0 335 4 3.570 14.60 0 1 5 8 Volvo 142E 21 4 121.0 109 4 2.780 18.60 1 1 4 2 # A tibble: 2 × 11 care.home.referral age_mean age_sd medicallysafe_mean medicallysafe_sd <int><dbl><dbl><dbl><dbl> 1 0 53.1 20.7 0.475 0.500 2 1 52.3 20.5 0.471 0.500 # ℹ 6 more variables: hcop_mean <dbl>, hcop_sd <dbl>, # mental_health_care_mean <dbl>, mental_health_care_sd <dbl>, # periods_of_previous_care_mean <dbl>, periods_of_previous_care_sd <dbl> # A tibble: 2 × 6 care.home.referral average_age average_medicallysafe average_hcop <int><dbl><dbl><dbl> 1 0 53.1 0.475 0.496 2 1 52.3 0.471 0.506 # ℹ 2 more variables: average_mental_health_care <dbl>, # average_periods_of_previous_care <dbl></dbl></dbl></dbl></dbl></dbl></int></dbl></dbl></dbl></dbl></dbl></dbl></dbl></dbl></dbl></dbl></int></chr></chr></int></int></dbl></dbl></int></int></chr></chr></chr></int></int></int></int></int></int></chr></p>
+<p><code>pick()</code> effectively allows you to sub-set a tibble inside a data masking function. Effectively an integrated <code>select()</code>:</p>
+</section><section id="a-tibble-37-3" class="level1"><h1>A tibble: 37 × 3</h1>
+<p>care.home.referral mental_health_care periods_of_previous_care <int><int><int> 1 0 0 1 2 1 0 1 3 0 1 1 4 1 1 1 5 0 0 5 6 0 0 4 7 1 1 2 8 1 1 4 9 0 1 3 10 1 0 2 # ℹ 27 more rows # A tibble: 19 × 3 mental_health_care periods_of_previous_care n <int><int><int> 1 0 1 293 2 1 1 286 3 1 NA 42 4 0 NA 27 5 1 2 18 6 0 2 17 7 0 3 17 8 1 3 16 9 1 4 8 10 0 10 7 11 1 10 7 12 0 8 5 13 1 7 5 14 0 4 4 15 0 5 4 16 0 7 4 17 0 6 3 18 1 8 3 19 1 5 2</int></int></int></int></int></int></p>
+<p>Especially useful when you’re effectively working with a tibble sub-set of your data:</p>
+</section><section id="a-tibble-768-3-4" class="level1"><h1>A tibble: 768 × 3</h1>
+<pre><code>rank   age periods_of_previous_care</code></pre>
+<p><int><int><int> 1 152 75 10 2 151 71 10 3 150 68 10 4 149 66 10 5 148 65 10 6 148 65 10 7 147 63 10 8 146 61 10 9 145 51 10 10 144 42 10 # ℹ 758 more rows</int></int></int></p>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+</body></html>
