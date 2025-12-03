@@ -1,0 +1,83 @@
+---
+categories: [Power BI, intermediate, Intermediate Power BI course, PQM]
+
+params:
+  sl_date: 2025-12-03
+  fn: Intermediate Power BI (session 5)
+  id: KP27
+title: "`r params$fn`"
+date: "`r params$sl_date`"
+---
+
+This is part of our intermediate-level Power BI desktop course. The course structure is as follows:
+
+-   session 1 (this session): [a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices](BI_intermediate_session_01.qmd)
+-   session 2: [DAX language foundations, including FILTER and CALCULATE](BI_intermediate_session_02.qmd)
+-   session 3: [core PowerQuery functions](BI_intermediate_session_03.qmd) to manage sources, join data sets, pivot, and tidy values
+-   session 4 (this session): [PowerQuery M language foundations](BI_intermediate_session_04.qmd), including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility
+-   session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block(params$id)
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh(params$fn)
+
+```
+
+## Session aim
+
+-   we've had four content-heavy training sessions so far
+-   session five = about putting your new skills into practice
+
+## Session outline
+
+-   an entirely practical build-a-dashboard session
+-   we'll use The Care Inspectorate's public datastore, which contains a lot of rich data about Scotland's care sector
+-   you'll be putting your Power BI skills to the test on this data: what can you show us?
+-   you'll be working in small groups, doing [team programming](https://en.wikipedia.org/wiki/Pair_programming)
+
+## Setup
+
+-   Select `Get data from web` and supply the link: <https://github.com/NES-DEW/KIND-training/raw/refs/heads/main/bi_training/data/MDSF_data_30%20November%202024.xlsx>
+-   load the `data` table and the `Field Definitions List` worksheet</br>![Load data and the Field Definitions List](images/clipboard-2485149392.png)
+
+## Setup
+
+-   then use `Transform data` to fix the `Field Defintions List`
+    -   remove the top 4 rows
+    -   promote the headers
+    -   Fill down the category column
+
+## Schedule
+
+-   15 minutes: initial exploration of the data, and idea generation
+-   5-10 minutes: re-join for troubleshoot and chat
+-   15 minutes: data wrangling
+-   10 minutes: break
+-   20 minutes: report draft
+-   10 minutes: re-join for chat
+-   10 minute: polish and refine
+-   until session end: showing off and suggestions
+
+## Ideas
+
+-   national, regional, local?
+-   snapshot, or showing change over time?
+-   self-contained, or linking to other open data?
+-   about care in general, or something more specific?
+-   about inspections, service organisers, service users?
+
+## Conduct
+
+-   be kind: we're all here to learn
+-   I'm here throughout: message me in case of any difficulties
+-   nominate one person to share their screen, and work on the report
+-   other people navigate, direct, suggest, and look up
+-   start small and iterate
