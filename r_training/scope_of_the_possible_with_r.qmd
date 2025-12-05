@@ -1,24 +1,117 @@
 ---
-title: "Scope of the possible with R"
 execute:
     echo: true
     freeze: auto
 categories: [R, overview]
 params:
-  # sl_date: 2025-09-15
-  fn: "Scope of the possible with R"
+  sl_date: 2025-12-04
+  fn: Scope of the possible with R
   id: KR25
-
+date: "`r params$sl_date`"
+title: "`r params$fn`"
 ---
 
-:::{.callout-note collapse=false appearance='default' icon=true}
-## Session materials
-+ [all materials {{< iconify ph:file-zip size=2x >}}](src/scope_of_the_possible_with_r.zip)
-+ slides [{{< iconify ph:file-html size=2x >}} html](src/scope_of_the_possible_with_r.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/scope_of_the_possible_with_r.pdf)
-:::
+```{r}
+#| include: false
+#| eval: false
+
+"Hello world!"
+
+library(readr)
+
+url <- "https://www.opendata.nhs.scot/dataset/0d57311a-db66-4eaa-bd6d-cc622b6cbdfa/resource/a5f7ca94-c810-41b5-a7c9-25c18d43e5a4/download/weekly_ae_activity_20251123.csv"
+
+ae_activity <- read_csv(url)
+
+names(ae_activity)
+
+names(ae_activity) <- c("date", "country", "hb", "loc", "type", "attend", "n", "n_in_4", "n_4", "perc_4", "n_8", "perc_8", "n_12", "perc_12")
+
+ae_activity
+
+library(dplyr)
+
+# cols
+ae_activity |>
+  select(-country)
+
+# rows
+ae_activity |>
+  filter(attend == "All")
+
+# combining
+ae_activity |>
+  select(-country) |>
+  filter(attend == "All") |>
+  select(date, hb, n)
+  
+# boards from https://www.opendata.nhs.scot/dataset/geography-codes-and-labels/resource/652ff726-e676-4a20-abda-435b98dd7bdc
+
+boards <- read_csv("https://www.opendata.nhs.scot/dataset/9f942fdb-e59e-44f5-b534-d6e17229cc7b/resource/652ff726-e676-4a20-abda-435b98dd7bdc/download/hb14_hb19.csv")
+
+library(lubridate)
+library(ggplot2)
+
+# nhs locations
+# https://www.opendata.nhs.scot/dataset/nhs-scotland-accident-emergency-sites
+
+locs <- read_csv("https://www.opendata.nhs.scot/dataset/a877470a-06a9-492f-b9e8-992f758894d0/resource/1a4e3f48-3d9b-4769-80e9-3ef6d27852fe/download/ae_hospital_site_list_09_09_2025.csv") |>
+  select(2:4)
+
+names(locs) <- c("loc_name", "loc", "postcode")
+
+locs <- locs |>
+  rowwise() |>
+  mutate(long = PostcodesioR::postcode_lookup(postcode)$longitude,
+         lat = PostcodesioR::postcode_lookup(postcode)$latitude)
+
+ae_activity_locs <- ae_activity |>
+  select(-country) |>
+  filter(attend == "All") |>
+  left_join(boards, by = join_by(hb == HB)) |>
+  select(date, HBName, loc, type, n) |>
+  mutate(date = ymd(date)) |>
+  left_join(locs) 
+
+ae_activity_locs |>
+  filter(HBName == "NHS Highland") |>
+  ggplot() +
+  geom_line(aes(x = date, y = n, colour = loc_name))
+
+# make reusable
+graphmo <- function(hbname = "NHS Highland"){
+  
+  ae_activity |>
+    select(-country) |>
+    filter(attend == "All") |>
+    left_join(boards, by = join_by(hb == HB)) |>
+    select(date, HBName, loc, type, n) |>
+    filter(HBName %in% hbname) |>
+    mutate(date = ymd(date)) |>
+    left_join(locs) |>
+    ggplot() +
+    geom_line(aes(x = date, y = n, colour = loc_name))+
+    theme(legend.position = "bottom")
+}
 
 
-[Slides for this session](src/scope_of_the_possible_with_r.html) / [.pdf slides for this session](src/scope_of_the_possible_with_r.pdf)
+graphmo(boards$HBName)
+
+# maps are just graphs
+ae_activity_locs |>
+  ggplot(aes(x = long, y = lat, label = loc_name, colour = HBName)) +
+  geom_point()
+
+
+# but also interactive maps are fun
+ae_activity_locs |>
+  distinct(long, lat, loc_name) |>
+  leaflet::leaflet() |>
+  leaflet::addTiles() |>
+  leaflet::addMarkers(~long, ~lat, label = ~loc_name)
+
+```
+
 
 ```{r}
 #| echo: false
@@ -38,17 +131,17 @@ feed_block(params$id)
 
 ## Session outline
 
--   Why R, and why this session?
--   R demo - take some data, load, tidy, analyse
+-   Introducing R, and a bit of chat about the aims of this session
+-   Practical demo - take some data, load, tidy, analyse, produce outputs
 -   Strengths and weaknesses
     -   obvious
     -   less obvious
 -   Alternatives
 -   Skill development
 
-## R
+## Introducing R
 
--   free and open-source
+-   free and open-source statistical programming language
 -   multi-platform
 -   large user base
 -   prominent in health, industry, biosciences
@@ -65,6 +158,7 @@ feed_block(params$id)
     -   not *that* hard to learn
     -   extensible and flexible
     -   capable of enterprise-y, fancy uses
+- yet there's signficant resistant to using R in parts of Scotland's health and care sector
 
 ## R demo
 
@@ -72,17 +166,47 @@ feed_block(params$id)
 -   we won't explain code in detail during this session
 -   using [live open data](https://www.opendata.nhs.scot/dataset/weekly-accident-and-emergency-activity-and-waiting-times) </br> ![https://www.opendata.nhs.scot/dataset/weekly-accident-and-emergency-activity-and-waiting-times](../src/images/clipboard-776150275.png)
 
-## Load that data
+## Hello world!
+
+There are lots of ways to run R. In this session, we'll demonstrate using the Rstudio Desktop IDE on Windows.
 
 ```{r}
-library(readr)
-ae_activity <- read_csv("data/weekly_ae_activity_20240609.csv")
+"Hello world!"
+```
+
+## Packages
+
+R is highly extensible using packages: collections of useful code
+
+```{r}
+library(readr) # plus, nice to see R's folksy daft names for things in action
+```
+
+## Create variables
+
+```{r}
+url <- "https://www.opendata.nhs.scot/dataset/0d57311a-db66-4eaa-bd6d-cc622b6cbdfa/resource/a5f7ca94-c810-41b5-a7c9-25c18d43e5a4/download/weekly_ae_activity_20251123.csv"
+```
+
+## Load some open data
+
+That's a link to data about weekly A+E activity. It's large-ish (approximately 40000 rows)
+
+```{r}
+#| eval: false
+ae_activity <- read_csv(url)
+```
+
+```{r}
+#| echo: false
+# cheating to avoid burdening the open data every time this is rendered
+ae_activity <- read_csv("data/weekly_ae_activity_20251123.csv")
 ```
 
 ## One small bit of cheating: renaming
 
 ```{r}
-names(ae_activity) <- c("date", "country", "hb", "loc", "type", "attend", "n_within", "n_4", "perc_4", "n_8", "perc_8", "n_12", "perc_12")
+names(ae_activity) <- c("date", "country", "hb", "loc", "type", "attend", "n", "n_in_4", "n_4", "perc_4", "n_8", "perc_8", "n_12", "perc_12")
 ```
 
 ## Preview
@@ -230,8 +354,6 @@ ae_activity_loc |>
 
 
 ![](../src/images/clipboard-4119151148.png)
-
-## Then add to reports, dashboards...
 
 ## Strengths
 
