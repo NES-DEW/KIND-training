@@ -8,7 +8,6 @@ title: "`r params[['fn']]`"
 date: "`r params[['sl_date']]`"
 ---
 
-
 ```{r}
 #| echo: false
 #| results: asis
@@ -88,9 +87,6 @@ practices_ork |>
 
 ```
 
-
-
-
 ::: {.callout-note collapse="false" appearance="default" icon="true"}
 ## Session materials
 
@@ -98,50 +94,48 @@ There are **two** Excel datasets for this session
 
 -   [{{< iconify ph:file-xls size=2x >}}.xlsx full data](src/s05_full_data.xlsx)
 -   [{{< iconify ph:file-xls size=2x >}}.xlsx split data](src/s05_split_data.xlsx)
-
 :::
-
 
 ## Session outline
 
 <!-- here's where a video might go -->
 
-+ In this session, we're going to think about data modelling for Power BI
-+ we'll start with a sub-set of the GP data we were working with over the past couple of sessions
-+ as we'll see, the simplest (and most Excel-like) way of holding that data isn't a natural fit for work in Power BI
-+ we'll use the model to explore that data
-+ we'll introduce the idea of a [star schema](https://learn.microsoft.com/en-us/power-bi/guidance/star-schema) as the usual way that you'll need to organise your data for Power BI
-+ and we'll conclude with an optional practical Power Query session showing how to turn flat data into star schema'd data
+-   In this session, we're going to think about data modelling for Power BI
+-   we'll start with a sub-set of the GP data we were working with over the past couple of sessions
+-   as we'll see, the simplest (and most Excel-like) way of holding that data isn't a natural fit for work in Power BI
+-   we'll use the model to explore that data
+-   we'll introduce the idea of a [star schema](https://learn.microsoft.com/en-us/power-bi/guidance/star-schema) as the usual way that you'll need to organise your data for Power BI
+-   and we'll conclude with a practical exercise in Power Query showing how to turn flat data into star schema'd data
 
 ## Setup
 
-+ download both datasets ([.xlsx full data](src/s05_full_data.xlsx) and [.xlsx split data](src/s05_split_data.xlsx)) to somewhere sensible on your computer
-+ connect to the [full data Excel file](src/s05_full_data.xlsx), and load the single table
-+ recreate a simple starting dashboard as a warm-up exercise </br> ![Starting dashboard](../src/images/bfb_s05_start_dash.png)
+-   download both datasets ([.xlsx full data](src/s05_full_data.xlsx) and [.xlsx split data](src/s05_split_data.xlsx)) to somewhere sensible on your computer
+-   connect to the [full data Excel file](src/s05_full_data.xlsx), and load the single table
+-   recreate a simple starting dashboard as a warm-up exercise </br> ![Starting dashboard](../src/images/bfb_s05_start_dash.png)
 
 ## What's the problem?
 
-+ this data is held as a single flat file
-+ while easy to understand, it's highly repetitious: the seven GP practices in Orkney require 25 columns and 112 rows of data - so 2800 values in total
-+ this causes performance issues (as well as brain-ache)
+-   this data is held as a single flat file
+-   while easy to understand, it's highly repetitious: the seven GP practices in Orkney require 25 columns and 112 rows of data - so 2800 values in total
+-   this causes performance issues (as well as brain-ache)
 
 ## What's the solution?
 
-+ we can break this data into several related tables
-+ that reduces repetition and makes the data easier to understand
-+ this has the useful side-effect of speeding-up Power BI
+-   we can break this data into several related tables
+-   that reduces repetition and makes the data easier to understand
+-   this has the useful side-effect of speeding-up Power BI
 
 ## Jumping ahead: a second bout of data loading
 
-+ create a new report
-+ connect to the [.xlsx split data](src/s05_split_data.xlsx) and load all four tables </br> ![Four tables](../src/images/bfb_s05_four_tables.png)
-+ have a look at the data - you'll see that it's much more concise (582 values in total - so approx a fifth of the size of the full data)
-+ now inspect your new data in the model
+-   create a new report
+-   connect to the [.xlsx split data](src/s05_split_data.xlsx) and load all four tables </br> ![Four tables](../src/images/bfb_s05_four_tables.png)
+-   have a look at the data - you'll see that it's much more concise (582 values in total - so approx a fifth of the size of the full data)
+-   now inspect your new data in the model
 
 ## The model
 
-+ we should see our data tables as blocks in the model</br>![Data model](../src/images/bfb_s05_model.png)
-+ there are also connections between some of those blocks
+-   we should see our data tables as blocks in the model</br>![Data model](../src/images/bfb_s05_model.png)
+-   there are also connections between some of those blocks
 
 ::: {.callout-tip title="Task"}
 1.  Mouse-over the relationships in the model view
@@ -151,36 +145,36 @@ There are **two** Excel datasets for this session
 
 ## Relational data
 
-+ instead of a single complex file, our data is now held as several related tables
-+ relationships - the lines between the blobs - show how the parts of our data are connected together
-+ for example, in the practices table, the HB column (which contains the health board code S08000025 each time) relates to the boards table HB column, which contains matching values
-+ that means that we can use the data from the boards table - like the name of the Health Board - in our Power BI work
+-   instead of a single complex file, our data is now held as several related tables
+-   relationships - the lines between the blobs - show how the parts of our data are connected together
+-   for example, in the practices table, the HB column (which contains the health board code S08000025 each time) relates to the boards table HB column, which contains matching values
+-   that means that we can use the data from the boards table - like the name of the Health Board - in our Power BI work
 
 ## Relationships
 
-+ you can see details of your relationships in the properties pane in the model view </br> ![Relationships pane](../src/images/bfb_s05_relationships.png)
+-   you can see details of your relationships in the properties pane in the model view </br> ![Relationships pane](../src/images/bfb_s05_relationships.png)
 
 ::: {.callout-tip title="Task"}
-+ make sure the practices-to-boards relationship is set to **active** - take care to click `Apply`
-+ re-create your original map using the postcodes from the practices table and the HBName column from the boards table </br> ![Simple map using relationships](../src/images/bfb_s05_relationships_map.png)
+-   make sure the practices-to-boards relationship is set to **active** - take care to click `Apply`
+-   re-create your original map using the postcodes from the practices table and the HBName column from the boards table </br> ![Simple map using relationships](../src/images/bfb_s05_relationships_map.png)
 :::
 
 ## Creating a relationship
-+ if you look carefully at the model, you'll see a missing relationship
-+ Power BI guesses which columns might share a relationship by looking for identical column names
-+ but the population table has a different column name from the practices table. Luckily, we can manually create a relationship:
+
+-   if you look carefully at the model, you'll see a missing relationship
+-   Power BI guesses which columns might share a relationship by looking for identical column names
+-   but the population table has a different column name from the practices table. Luckily, we can manually create a relationship:
 
 ::: {.callout-tip title="Task"}
-+ drag the `DataZone` column from practices to the `DZ` column in the population table
-+ that should open the `New relationship` dialogue: </br> ![New relationship](../src/images/bfb_s05_relationships_new.png)
-+ make sure the cardinality is set to `Many to one (*:1)`, and make the relationship active
-
+-   drag the `DataZone` column from practices to the `DZ` column in the population table
+-   that should open the `New relationship` dialogue: </br> ![New relationship](../src/images/bfb_s05_relationships_new.png)
+-   make sure the cardinality is set to `Many to one (*:1)`, and make the relationship active
 :::
 
 ## Cardinality
 
-+ cardinality describes one feature of a data relationship: how many items should we expect at each end of the relationship?
-+ the simplest case is 1:1. We'd find that where each value is unique. So if we have two data sets like this, showing something like sports players, with their heights in one table and the number of goals they score in a second table:
+-   cardinality describes one feature of a data relationship: how many items should we expect at each end of the relationship?
+-   the simplest case is 1:1. We'd find that where each value is unique. So if we have two data sets like this, showing something like sports players, with their heights in one table and the number of goals they score in a second table:
 
 ```{r}
 #| results: markup
@@ -213,27 +207,75 @@ tibble(name = c("Emma", "Rani", "Sven", "Emma", "Rani", "Sven"),
 
 This would give us a 1:many (which Power BI calls `1:*`) relationship, where we'd expect to get several rows from the goals table for each row in the height table.
 
+::: {.callout-tip title="Task"}
+-   add table with `GPPracticeName` and `Population`
+
+    ![](images/clipboard-3828125250.png)
+:::
+
+## Cross-filter direction
+
+Cross-filtering is the behaviour that you see when one visual filters another visual. For example, if you click on one of the practices on the map, your population table should update appropriately. Similarly, click on the population table, and your map should update too to reflect the selected areas. This type of two-way filtering behaviour is the default, and (slightly confusingly) the cross-filter direction toggle in the Properties pane of the relationship won't change it.
+
+Cross-filtering should nearly always be one-way to avoid vagueness in your model. But there is one case where it might be useful to demonstrate a two-way cross-filter on a relationship, which is where you want two slicers to filter each other. We'll demonstrate that using two slicers, with one using `GPPracticeName`, and the other `DZ`.
+
 ## The star schema
 
-If you look at our data, we've got a single central table (with the practice details), and then a group of three lookup tables that contain fine-print details about each one of the practices. That's starting to approximate a [star schema](https://learn.microsoft.com/en-us/power-bi/guidance/star-schema) </br> ![Star schema](../src/images/bfb_s05_relationships_star.png)
+If you look at our data, we've got a single central table (with the practice details), and then a group of three lookup tables that contain fine-print details about each one of the practices. That's starting to approximate a [star schema](https://learn.microsoft.com/en-us/power-bi/guidance/star-schema)\
+\
+![Star schema](../src/images/bfb_s05_relationships_star.png)
+
+In a star schema, your data is broken into several tables which are joined by relationships. Most of the data is held in dimension tables, which contain data on a theme. For example, our population table above is effectively a dimension table, because it holds all the information about the population in some datazone. That data is organised by primary key - here, the datazone codes in the `DZ` column - which uniquely identify rows in the table.
+
+Each dimension table is then joined by a relationship to a single [fact table](https://stackoverflow.com/questions/20036905/difference-between-fact-table-and-dimension-table). The fact table contains only the unique combinations of the primary keys from the dimensions table. So, if we were star schema-ing our GP data, our fact table would contain the following:
+
+![](images/clipboard-2703747982.png)
+
+That's one row per practice, with the unique PracticeCodes in one column, their health board in the HB column - that's boring because all our practices in this dataset are in Orkney, but would be more interesting and useful if we were dealing with practices from several NHS boards - and the non-unique datazone of each GP practice.
 
 ## Starring your data
 
-+ we'll leave this as an optional section (either at the end of the main session, or as homework) for people who'd like to practice their Power Query
-+ we'll work through how to transform the flat file into properly Star schema'd data </br> ![Star schema](../src/images/bfb_s05_relationships_star_2.png)
+-   we'll leave this as an optional section (either at the end of the main session, or as homework) for people who'd like to practice their Power Query
 
-+ in outline, the steps are to:
-    + take the full data query and duplicate five times (one per final table)
-    + rename each query (`main_table`, `demographics`, `boards`, `population`, `practice_details`)
-    + select the columns you need for each table:
-        + PracticeCode, DataZone, HB in the main table
-        + PracticeCode through to GPCluster in the practices_details table
-        + PracticeCode, age_range, n_patients, and Sex in the demographics table
-        + DataZone, Population, SIMD2020v2_Rank	and URname in the population table
-        + HB, HBName, HBDateEnacted in the boards table
-    + remove duplicate rows in each table
-    + then check the relationships to make sure the keys and cardinalities match up!
+-   we'll work through how to transform the flat file into properly Star schema'd data </br> ![Star schema](../src/images/bfb_s05_relationships_star_2.png)
 
+-   in outline, the steps are to:
 
+    -   take the full data query and duplicate five times (one per final table)
+    -   rename each query (`main_table`, `demographics`, `boards`, `population`, `practice_details`)
+    -   select the columns you need for each table:
+        -   PracticeCode, DataZone, HB in the main table
+        -   PracticeCode through to GPCluster in the practices_details table
+        -   PracticeCode, age_range, n_patients, and Sex in the demographics table
+        -   DataZone, Population, SIMD2020v2_Rank, DZname, and URname in the population table
+        -   HB, HBName, HBDateEnacted in the boards table
+    -   remove duplicate rows in each table
+    -   then check the relationships to make sure the keys and cardinalities match up
 
+### Duplicate your query
 
+There are a couple of ways of creating a copy of a query. We discuss these more fully in our intermediate Power BI sessions, but approximately you can:
+
+-   duplicate a query, which re-creates the whole process from scratch by loading the data from source again. This is slower, because you need to duplicate a lot of work, but makes for fully-independent queries. You can, for example, duplicate a query and then safely delete the original query without causing trouble
+
+-   or you can reference a query, which takes a snapshot of an existing query. This is faster than duplicating, but means that your daughter query depends on the original query, and if you change the original then your daughter query will potentially change/break too
+
+For this practice session, keep things simple. Create four duplicates of your `s05_full_data` query, and rename them `main_table`, `demographics`, `boards`, `population`, `practice_details`. Don't try and leave a spare copy of your original data hanging around, because that'll complicate building relationships later.
+
+### Selecting columns
+
+-   start with the main table. Here, this table will only contain keys, which are the unique values that describe our different GP practices, health board(s), and datazones
+
+-   the `Choose Columns` tool is definitely the most friendly way of doing this selection ![](images/clipboard-1805989215.png)
+
+### Duplicate rows
+
+![The `Remove Duplicates` function is tricky, because it changes its behaviour depending on the selected columns. If you select a single column, `Remove Duplicates` will remove any duplicates **in that column only** and will ignore other columns, meaning that you can potentially miss combinations in your data. So given this sort of raw data, which contains no duplicated rows:](images/clipboard-853901138.png)
+
+![](images/clipboard-636177111.png)
+
+`Remove Duplicates` on `var1` (with the formula `= Table.Distinct(#"Changed Type", {"var1"})`) will incorrectly remove some rows:
+
+![](images/clipboard-2721525963.png)
+
+That clearly misses some unique combinations of `var1` and `var2` in the data. Make sure you select all the columns (ideally using `Ctrl` + `A`) before running `Remove Duplicates`. Note that reading the formula is useful here, because the correct formula (``` = Table.Distinct(#"``Changed Type``") ```) doesn't specify any column names.
