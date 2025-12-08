@@ -1,0 +1,155 @@
+---
+categories: [excel, beginner, Excel for beginners]
+author: Vay Ly, NHS Education for Scotland
+execute:
+  freeze: auto
+  echo: false
+params:
+  sl_date: 2025-12-08
+  fn: Excel practical review (Excel for beginners session 7)
+  id: KE07
+title: '`r params[["fn"]]`'
+date: '`r params[["sl_date"]]`'
+---
+
+::: {.content-visible unless-format="revealjs"}
+This session is part of our Excel for beginners course. That's a series of seven linked sessions, delivered on Teams, that give an introduction to Excel for people working in health and social care. The sessions are:
+
+-   [Excel first steps](excel_first_steps.qmd)
+-   [Tidy data in Excel](tidy_data_in_excel.qmd)
+-   [References and names in Excel](references_and_names_in_excel.qmd)
+-   [Excel formatting](excel_formatting.qmd)
+-   [Excel tables](excel_tables.qmd)
+-   [Excel formulas](excel_formulas.qmd)\
+-   and a final [practical review](excel_practical_review.qmd) session to help you put your new skills to work (this session)
+
+Together, they aim to help you develop an appropriate set of Excel skills to help your work.
+
+![KIND Excel beginner skill tree](../src/images/clipboard-3911010684.png)
+
+-   in this session, we'll give you a chance to practice the material from the earlier sessions
+-   we'll do that using six practice tasks based on real work tasks we've experienced
+-   you might find it helpful to use the links above to view material from earlier sessions to help you today
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+# source(here::here("R/feed_block.R"))
+# feed_block(params$id)
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh(params$fn)
+
+```
+:::
+
+## Background
+
+-   You are a member of a team at a Local Authority office. Your supervisor tells you that they have received population data for three separate years, across two Council Areas
+-   Using Excel, we'll start by recording the data you have been given
+-   We need that data to be easy to understand, and accessible, to allow for later work
+-   but **beware**: your supervisor *thinks* they know how to use Excel, but might not always give you the best instructions...
+
+## Task 1: data entry
+
+Another long day at work, and your supervisor is pestering you to create a spreadsheet of population data.
+
+1.  Open a new Excel workbook, and save it as `Population Data` in an appropriate location
+2.  Add the data that your supervisor has sent you to your spreadsheet:
+
+| City          |                |                |                |
+|---------------|----------------|----------------|----------------|
+| Aberdeen City | 212,125 (2001) | 222,793 (2011) | 224,021 (2022) |
+| Glasgow City  | 577,869 (2001) | 593,245 (2011) | 620,756 (2022) |
+
+## Task 2: tidy data
+
+On reflection, that data doesn't look quite right.
+
+1.  Please edit it to make sure it follows the [tidy data rules](tidy_data_in_excel.html#back-to-tidy-data)
+
+## Task 3: extra data
+
+Just as things are looking tidy, your supervisor comes to you with more data to add
+
+1.  Follow your earlier format and add an extra row containing the following values:
+
+`Fife: 349,429 (2001), 365,198 (2011), 371,781 (2022)`
+
+## Task 4: transposing
+
+Disaster! your supervisor has changed their mind about what should go in the rows, and what should go in the columns.
+
+1.  Please transpose your data/range of cells so that your Council Areas are the columns, and the years are the rows
+2.  You'll need to manually rename the column with the years in to `year`
+
+## Check in 1
+
+Your data should now look like this:
+
+![Example data format](images/clipboard-4142087920.png)
+
+You can delete any other data from your working out as we won't need it later on. You might also like to use the `Clear formats` tool to remove any odd bits of formatting left over from transposing etc.
+
+## Task 5: tables
+
+Your supervisor is now worried that someone will sort parts of the data and break it. You remember that you can use a table to prevent that from happening.
+
+1.  Turn this data into a proper table with headers
+2.  Name your table ‘population_data’
+
+## Task 6: even more data
+
+As your supervisor clearly doesn't know when to stop, they come to you with more data:
+
+`Falkirk: 145,191 (2001), 155,990 (2011), 158,404 (2022)`
+
+1.  Please enter that data into your table, extending as necessary
+2.  You might like to use `Paste values only`, or the `Clear formatting` tool to make sure the new values look like the existing values
+
+## Task 7: formatting
+
+Let’s make our table easier to read.
+
+1.  Make the values in the `year` column bold
+2.  Then left-align the values in the `year` column
+
+## Check in 2
+
+Your data should now look like this:
+
+![Data now help in table with formatting](images/clipboard-2366192056.png)\
+
+## Task 8: a total
+
+From giving you data, your supervisor has now decided to start asking you questions about the data. First, they wonder what the total population was for each of the three years:
+
+1.  Add a `Total` column to your table
+2.  In the first cell of that column, write a formula to add together the four population values. You can do that with `SUM`, or using `+` to add values together
+3.  Then copy your formula down to fill the remaining cells in the `total` column
+
+## Task 9: an average
+
+Although there's only a minute or two left of the working day, your supervisor is still at it, with what they promise to be the last request: can you calculate an average for each of the three years too:
+
+1.  Add an `average` column to your table
+2.  In the first cell of that new column, write a formula using the `AVERAGE` function to find the average population in each of the three years
+3.  Then copy your formula down to fill the remaining cells in the `average` column
+
+## Completed!
+
+Well done for getting through a trying afternoon. Here's how the spreadsheet should look:
+
+![Finished spreadsheet](images/clipboard-3684608896.png)
+
+If you're stuck with the formulas, you can also use these examples:
+
+::: {.callout-note collapse="true" appearance="default" icon="true"}
+## Formulas
+
+-   the `total` formula is `=SUM(population_data[@[Aberdeen City]:[Falkirk]])`
+-   the `average` formula is `=AVERAGE(population_data[@[Aberdeen City]:[Falkirk]])`
+:::
