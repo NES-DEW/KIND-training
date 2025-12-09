@@ -10196,42 +10196,42 @@
     "href": "r_training/scope_of_the_possible_with_r.html#preview",
     "title": "Scope of the possible with R",
     "section": "Preview",
-    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn\nn_in_4\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n20200531\nS92000003\nS08000030\nT202H\nType 1\nUnplanned\n367\n339\n28\n92.4\n1\n0.3\n0\n0.0\n\n\n20190929\nS92000003\nS08000022\nH202H\nType 1\nAll\n790\n723\n67\n91.5\n3\n0.4\n0\n0.0\n\n\n20240107\nS92000003\nS08000016\nB120H\nType 1\nUnplanned\n608\n357\n251\n58.7\n119\n19.6\n96\n15.8\n\n\n20220320\nS92000003\nS08000031\nG107H\nType 1\nUnplanned\n1688\n1033\n655\n61.2\n94\n5.6\n4\n0.2\n\n\n20150510\nS92000003\nS08000031\nG306H\nType 1\nAll\n1044\n925\n119\n88.6\n5\n0.5\n0\n0.0"
+    "text": "Preview\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\ncountry\nhb\nloc\ntype\nattend\nn\nn_in_4\nn_4\nperc_4\nn_8\nperc_8\nn_12\nperc_12\n\n\n\n20230910\nS92000003\nS08000031\nG513H\nType 1\nAll\n1493\n1415\n78\n94.8\n1\n0.1\n0\n0.0\n\n\n20220529\nS92000003\nS08000022\nH103H\nType 1\nUnplanned\n229\n195\n34\n85.2\n15\n6.6\n9\n3.9\n\n\n20250504\nS92000003\nS08000029\nF704H\nType 1\nNew planned\n68\n57\n11\n83.8\n3\n4.4\n0\n0.0\n\n\n20240331\nS92000003\nS08000024\nS319H\nType 1\nAll\n1130\n1033\n97\n91.4\n5\n0.4\n0\n0.0\n\n\n20221120\nS92000003\nS08000016\nB120H\nType 1\nAll\n604\n472\n132\n78.1\n47\n7.8\n31\n5.1"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "href": "r_training/scope_of_the_possible_with_r.html#removing-data",
     "title": "Scope of the possible with R",
     "section": "Removing data",
-    "text": "Removing data\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn\nn_in_4\nn_4\nn_8\nn_12\n\n\n\n20220501\nS08000026\nZ102H\nType 1\nUnplanned\n148\n138\n10\n1\n0\n\n\n20180506\nS08000022\nH103H\nType 1\nUnplanned\n160\n156\n4\n0\n0\n\n\n20210207\nS08000017\nY144H\nType 1\nAll\n132\n120\n12\n1\n0\n\n\n20150628\nS08000016\nB120H\nType 1\nAll\n517\n504\n13\n0\n0\n\n\n20150614\nS08000024\nS314H\nType 1\nAll\n2193\n2120\n73\n2\n0"
+    "text": "Removing data\nlibrary(dplyr)\n\nae_activity &lt;- ae_activity |&gt;\n    select(!c(country, contains(\"perc_\")))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn\nn_in_4\nn_4\nn_8\nn_12\n\n\n\n20150816\nS08000020\nN101H\nType 1\nUnplanned\n1146\n1026\n120\n7\n0\n\n\n20220306\nS08000019\nV217H\nType 1\nAll\n1151\n795\n356\n68\n3\n\n\n20170611\nS08000031\nG107H\nType 1\nAll\n1741\n1599\n142\n2\n0\n\n\n20150607\nS08000022\nH202H\nType 1\nAll\n587\n560\n27\n3\n0\n\n\n20240107\nS08000028\nW107H\nType 1\nUnplanned\n114\n103\n11\n0\n0"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "href": "r_training/scope_of_the_possible_with_r.html#tidying-data",
     "title": "Scope of the possible with R",
     "section": "Tidying data",
-    "text": "Tidying data\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = lubridate::ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn\nn_in_4\nn_4\nn_8\nn_12\n\n\n\n2016-12-11\nS08000031\nG513H\nType 1\nUnplanned\n1140\n1114\n26\n0\n0\n\n\n2018-12-09\nS08000031\nC313H\nType 1\nAll\n725\n626\n99\n3\n0\n\n\n2018-08-12\nS08000024\nS314H\nType 1\nAll\n2520\n1915\n605\n47\n6\n\n\n2018-08-05\nS08000028\nW107H\nType 1\nUnplanned\n134\n134\n0\n0\n0\n\n\n2017-12-31\nS08000031\nG513H\nType 1\nAll\n1142\n1071\n71\n0\n0"
+    "text": "Tidying data\nlibrary(lubridate)\n\nae_activity &lt;- ae_activity |&gt;\n    mutate(date = ymd(date))\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn\nn_in_4\nn_4\nn_8\nn_12\n\n\n\n2016-11-13\nS08000031\nG107H\nType 1\nUnplanned\n1726\n1457\n269\n22\n0\n\n\n2021-07-04\nS08000024\nS314H\nType 1\nAll\n2247\n1794\n453\n25\n2\n\n\n2020-07-19\nS08000022\nH212H\nType 1\nAll\n175\n171\n4\n0\n0\n\n\n2017-11-05\nS08000030\nT101H\nType 1\nAll\n1010\n970\n40\n1\n0\n\n\n2021-08-08\nS08000024\nS314H\nType 1\nAll\n2465\n1423\n1042\n215\n59"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "href": "r_training/scope_of_the_possible_with_r.html#subset-data",
     "title": "Scope of the possible with R",
     "section": "Subset data",
-    "text": "Subset data\n\nwe’ll take a random selection of 5 health boards to keep things tidy\n\nae_activity &lt;- ae_activity |&gt;\n    filter(hb %in% boards)\n\nPreview of data\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nhb\nloc\ntype\nattend\nn\nn_in_4\nn_4\nn_8\nn_12\n\n\n\n2018-07-08\nS08000031\nC418H\nType 1\nUnplanned\n1276\n1150\n126\n10\n0\n\n\n2022-12-18\nS08000015\nA210H\nType 1\nAll\n635\n369\n266\n136\n78\n\n\n2022-06-05\nS08000025\nR103H\nType 1\nNew planned\n10\n9\n1\n0\n0\n\n\n2017-03-05\nS08000031\nG107H\nType 1\nUnplanned\n1720\n1379\n341\n24\n3\n\n\n2025-06-22\nS08000031\nC418H\nType 1\nAll\n1121\n735\n386\n99\n11"
+    "text": "Subset data\nWe’ll take a selection of 5 health boards to keep things tidy:\nboards_sample &lt;- c(\"NHS Borders\", \"NHS Fife\", \"NHS Grampian\", \"NHS Highland\", \"NHS Lanarkshire\")"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#basic-plots",
     "href": "r_training/scope_of_the_possible_with_r.html#basic-plots",
     "title": "Scope of the possible with R",
     "section": "Basic plots",
-    "text": "Basic plots\nlibrary(ggplot2)\nae_activity |&gt;\n    ggplot() +\n    geom_line(aes(x = date, y = attend, colour = hb, group = loc))"
+    "text": "Basic plots\nlibrary(ggplot2)\n\nae_activity_locs |&gt;\n  filter(HBName == \"NHS Highland\") |&gt;\n  ggplot() +\n  geom_line(aes(x = date, y = n, colour = loc_name))"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#joining-data",
     "href": "r_training/scope_of_the_possible_with_r.html#joining-data",
     "title": "Scope of the possible with R",
     "section": "Joining data",
-    "text": "Joining data\nae_activity |&gt;\n    left_join(read_csv(\"data/boards_data.csv\"), by = c(\"hb\" = \"HB\")) |&gt;\n    select(!any_of(c(\"_id\", \"HB\", \"HBDateEnacted\", \"HBDateArchived\", \"Country\"))) |&gt;\n    ggplot() +\n    geom_line(aes(x = date, y = attend, colour = HBName, group = loc))"
+    "text": "Joining data\nThose board codes (like S08000020) aren’t very easy to read. Luckily, we can add the proper “NHS Thing & Thing” board names from another data source.\nboards &lt;- read_csv(\"https://www.opendata.nhs.scot/dataset/9f942fdb-e59e-44f5-b534-d6e17229cc7b/resource/652ff726-e676-4a20-abda-435b98dd7bdc/download/hb14_hb19.csv\")\n\nNHS boards\n\n\n\n\n\n\n\n\nHB\nHBName\nHBDateEnacted\nHBDateArchived\nCountry\n\n\n\nS08000024\nNHS Lothian\n20140401\nNA\nS92000003\n\n\nS08000021\nNHS Greater Glasgow and Clyde\n20140401\n20190331\nS92000003\n\n\nS08000031\nNHS Greater Glasgow and Clyde\n20190401\nNA\nS92000003\n\n\nS08000023\nNHS Lanarkshire\n20140401\n20190331\nS92000003\n\n\nS08000016\nNHS Borders\n20140401\nNA\nS92000003\n\n\n\nWe can do something very similar with the A&E locations:\nlocs &lt;- read_csv(\"https://www.opendata.nhs.scot/dataset/a877470a-06a9-492f-b9e8-992f758894d0/resource/1a4e3f48-3d9b-4769-80e9-3ef6d27852fe/download/ae_hospital_site_list_09_09_2025.csv\") |&gt;\n  select(2:4)\n\nnames(locs) &lt;- c(\"loc_name\", \"loc\", \"postcode\") # a bit of renaming to make the names easier\nAnd we can add the postcodes:\nlocs &lt;- locs |&gt;\n  rowwise() |&gt;\n  mutate(long = PostcodesioR::postcode_lookup(postcode)$longitude,\n         lat = PostcodesioR::postcode_lookup(postcode)$latitude) # adding in some location information\nWe can then join our three datasets together to give us data with the NHS Board names, A&E names, and locations:\nae_activity_locs &lt;- ae_activity |&gt;\n  filter(attend == \"All\") |&gt;\n  left_join(boards, by = join_by(hb == HB)) |&gt;\n  filter(HBName %in% boards_sample) |&gt;\n  select(date, HBName, loc, type, n, contains(\"n_\")) |&gt;\n  mutate(date = ymd(date)) |&gt;\n  left_join(locs) \n\nData with NHS board, location, and location names\n\n\n\n\n\n\n\n\n\n\n\n\ndate\nHBName\nloc\ntype\nn\nloc_name\npostcode\nlong\nlat\n\n\n\n2021-03-07\nNHS Borders\nB120H\nType 1\n467\nBorders General Hospital\nTD6 9BS\n-2.741945\n55.59548\n\n\n2019-12-01\nNHS Grampian\nN411H\nType 1\n569\nDr Gray’s Hospital\nIV301SN\n-3.329946\n57.64538\n\n\n2016-07-24\nNHS Lanarkshire\nL308H\nType 1\n1275\nUniversity Hospital Wishaw\nML2 0DP\n-3.941738\n55.77369\n\n\n2025-09-21\nNHS Highland\nH212H\nType 1\n196\nBelford Hospital\nPH336BS\n-5.104701\n56.81941\n\n\n2022-11-13\nNHS Fife\nF704H\nType 1\n1381\nVictoria Hospital (NHS Fife)\nKY2 5AH\n-3.160138\n56.12511"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#and-again",
@@ -10245,28 +10245,28 @@
     "href": "r_training/scope_of_the_possible_with_r.html#add-to-a-map",
     "title": "Scope of the possible with R",
     "section": "Add to a map",
-    "text": "Add to a map\nae_activity_loc |&gt;\n    leaflet::leaflet() |&gt;\n    leaflet::addTiles() |&gt;\n    leaflet::addMarkers(~longitude, ~latitude, label = ~HospitalName)"
+    "text": "Add to a map\nae_activity_locs |&gt;\n    leaflet::leaflet() |&gt;\n    leaflet::addTiles() |&gt;\n    leaflet::addMarkers(~long, ~lat, label = ~loc_name)"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#then-make-that-map-more-useful",
     "href": "r_training/scope_of_the_possible_with_r.html#then-make-that-map-more-useful",
     "title": "Scope of the possible with R",
     "section": "Then make that map more useful",
-    "text": "Then make that map more useful\nae_activity_loc |&gt;\n    group_by(HospitalName) |&gt;\n    summarise(attend = sum(attend), n_within = sum(n_within), longitude = min(longitude), latitude = min(latitude)) |&gt;\n    mutate(rate = paste(HospitalName, \"averages\", scales::percent(round(n_within / attend, 1)))) |&gt;\n    leaflet::leaflet() |&gt;\n    leaflet::addTiles() |&gt;\n    leaflet::addMarkers(~longitude, ~latitude, label = ~rate)"
+    "text": "Then make that map more useful\nae_activity_locs |&gt;\n    group_by(loc_name) |&gt;\n    summarise(n = sum(n), long = min(long), lat = min(lat)) |&gt;\n    mutate(rate = paste(loc_name, \"averages\", n, \"attendees\")) |&gt;\n    leaflet::leaflet() |&gt;\n    leaflet::addTiles() |&gt;\n    leaflet::addMarkers(~long, ~lat, label = ~rate)"
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#strengths",
     "href": "r_training/scope_of_the_possible_with_r.html#strengths",
     "title": "Scope of the possible with R",
     "section": "Strengths",
-    "text": "Strengths\n\nenormous scope and flexibility\na force-multiplier for fancier data work\n\nhelps collaboration within teams, between teams, between orgs\nreproducible analytics\nmodular approaches to large projects\n\n\ndecreasing pain curve: the fancier the project, the better"
+    "text": "Strengths\nR offers enormous scope and flexibility, largely because of two features. First, R is based on the idea of packages, where you’re encouraged to outsource specialist functions to your R installation in a repeatable and standard way. There’s basically a package for everything - something over 20000 at present. Second, R encourages reproducible analytics: the idea being you write your script once, and then run it many times as your data changes, producing standardised outputs by design.\nTogether, that design makes R a force-multiplier for fancier data work: use packages to replicate your existing work in a reproducible way, then use the time saved in your routine reporting to improve and extend the work. There are other features of code-based analytics which make collaborating and developing more complex projects typically much smoother than they would be in non-code tools like Excel."
   },
   {
     "objectID": "r_training/scope_of_the_possible_with_r.html#weaknesses",
     "href": "r_training/scope_of_the_possible_with_r.html#weaknesses",
     "title": "Scope of the possible with R",
     "section": "Weaknesses",
-    "text": "Weaknesses\n\nharder to learn than competitors\nvery patchy expertise across H+SC Scotland\ncomplex IG landscape\nmessy skills development journey"
+    "text": "Weaknesses\n\nit’s code, and it takes some time (months to years) to achieve real fluency\npotentially harder to learn than some competitor languages and tools (Power BI, Python)\nvery patchy expertise across H+SC Scotland\ncomplex IG landscape\nmessy skills development journey"
   },
   {
     "objectID": "r_training/src/rmd/01_qmd.html",
@@ -12129,5 +12129,26 @@
     "title": "Tableau for Beginners (session 4)",
     "section": "Level of detail calculations",
     "text": "Level of detail calculations\n\nLoD calculations allow you to control the level of detail that your calculations work at\nthis is just a taster as this gets into advanced (and messy) territory pretty fast\n\n\n\n\n\n\n\nTask\n\n\n\n\ncreate a table showing the average of each demographic group per NHS board:\n\nnow add a LoD calculation that will show the average for each attribute bracket for Scotland overall using {FIXED [Attribute] : AVG([Value])}: \n\n\n\n\nThat gives us a slightly messy way of benchmarking our average for our bracket within a board to the bracket nationally: \nWe could also try the more ambitious:\nAVG([Value]) / ATTR({FIXED [Attribute] : AVG([Value])})\n(you need the ATTR function to trick Tableau into mixing and matching these different values)"
+  },
+  {
+    "objectID": "r_training/scope_of_the_possible_with_r.html#making-that-re-usable",
+    "href": "r_training/scope_of_the_possible_with_r.html#making-that-re-usable",
+    "title": "Scope of the possible with R",
+    "section": "Making that re-usable",
+    "text": "Making that re-usable\ngraphmo &lt;- function(hbname = \"NHS Highland\"){\n  \n  ae_activity_locs |&gt;\n    filter(HBName %in% hbname) |&gt;\n    ggplot() +\n    geom_line(aes(x = date, y = n, colour = loc_name)) +\n    theme(legend.position = \"bottom\") +\n    xlab(\"Location\") +\n    labs(colour = \"\") # hide the label\n\n}\n\ngraphmo(c(\"NHS Grampian\", \"NHS Fife\"))"
+  },
+  {
+    "objectID": "r_training/scope_of_the_possible_with_r.html#a-rubbish-map",
+    "href": "r_training/scope_of_the_possible_with_r.html#a-rubbish-map",
+    "title": "Scope of the possible with R",
+    "section": "A rubbish map",
+    "text": "A rubbish map\nWe’ve got latitude and longitude information for our A&E sites, which means we can plot them on a map:\nae_activity_locs |&gt;\n  ggplot(aes(x = long, y = lat, label = loc_name, colour = HBName)) +\n  geom_point() +\n  theme_void() +\n  theme(legend.position = \"none\")\n\nThat’s not the most useful map I’ve ever seen. Luckily, there’s a package to help us:"
+  },
+  {
+    "objectID": "r_training/scope_of_the_possible_with_r.html#looking-across-different-measures",
+    "href": "r_training/scope_of_the_possible_with_r.html#looking-across-different-measures",
+    "title": "Scope of the possible with R",
+    "section": "Looking across different measures",
+    "text": "Looking across different measures\nlibrary(tidyr)\n\nae_activity_locs |&gt;\n  filter(loc_name == \"Raigmore Hospital\") |&gt;\n  select(date, n_in_4:n_12) |&gt;\n  pivot_longer(-date) |&gt;\n  group_by(date = floor_date(date, \"month\"), name) |&gt;\n  summarise(value = mean(value)) |&gt;\n  ggplot(aes(x = date, y = value, colour = name)) +\n  geom_line() +\n  geom_smooth(se = F)"
   }
 ]

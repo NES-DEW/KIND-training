@@ -1,14 +1,16 @@
 ---
 execute:
     echo: true
-    freeze: auto
+    cache: true
 categories: [R, overview]
 params:
-  sl_date: 2025-12-04
+  sl_date: 2025-12-09
   fn: Scope of the possible with R
   id: KR25
 date: "`r params$sl_date`"
 title: "`r params$fn`"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -223,9 +225,10 @@ ae_activity |>
 ## Removing data
 
 ```{r}
+library(dplyr)
+
 ae_activity <- ae_activity |>
     select(!c(country, contains("perc_")))
-
 ```
 
 ```{r}
@@ -239,9 +242,10 @@ ae_activity |>
 ## Tidying data
 
 ```{r}
-ae_activity <- ae_activity |>
-    mutate(date = lubridate::ymd(date))
+library(lubridate)
 
+ae_activity <- ae_activity |>
+    mutate(date = ymd(date))
 ```
 
 ```{r}
@@ -254,28 +258,86 @@ ae_activity |>
 
 ## Subset data
 
--   we'll take a random selection of 5 health boards to keep things tidy
+We'll take a selection of 5 health boards to keep things tidy:
 
 ```{r}
-#| echo: false
-boards <- ae_activity |>
-    distinct(hb) |>
-    slice_sample(n = 5) |>
-    pull()
-
+boards_sample <- c("NHS Borders", "NHS Fife", "NHS Grampian", "NHS Highland", "NHS Lanarkshire")
 ```
 
-```{r}
-ae_activity <- ae_activity |>
-    filter(hb %in% boards)
+## Joining data
 
+Those board codes (like S08000020) aren't very easy to read. Luckily, we can add the proper "NHS Thing & Thing" board names from [another data source]("https://www.opendata.nhs.scot/dataset/9f942fdb-e59e-44f5-b534-d6e17229cc7b/resource/652ff726-e676-4a20-abda-435b98dd7bdc/download/hb14_hb19.csv").
+
+```{r}
+boards <- read_csv("https://www.opendata.nhs.scot/dataset/9f942fdb-e59e-44f5-b534-d6e17229cc7b/resource/652ff726-e676-4a20-abda-435b98dd7bdc/download/hb14_hb19.csv")
 ```
 
 ```{r}
 #| echo: false
-ae_activity |>
+boards |>
     slice_sample(n = 5) |>
-    knitr::kable(caption = "Preview of data")
+    knitr::kable(caption = "NHS boards")
+
+```
+
+We can do something very similar with the A&E locations:
+
+```{r}
+locs <- read_csv("https://www.opendata.nhs.scot/dataset/a877470a-06a9-492f-b9e8-992f758894d0/resource/1a4e3f48-3d9b-4769-80e9-3ef6d27852fe/download/ae_hospital_site_list_09_09_2025.csv") |>
+  select(2:4)
+
+names(locs) <- c("loc_name", "loc", "postcode") # a bit of renaming to make the names easier
+```
+
+And we can add the postcodes:
+
+```{r}
+#| eval: false
+locs <- locs |>
+  rowwise() |>
+  mutate(long = PostcodesioR::postcode_lookup(postcode)$longitude,
+         lat = PostcodesioR::postcode_lookup(postcode)$latitude) # adding in some location information
+```
+
+
+```{r}
+#| echo: false
+
+if(file.exists("data/locs.rds")){
+  
+  locs <- readr::read_rds("data/locs.rds")
+  
+} else {
+  
+  locs <- locs |>
+    rowwise() |>
+    mutate(long = PostcodesioR::postcode_lookup(postcode)$longitude,
+           lat = PostcodesioR::postcode_lookup(postcode)$latitude) # adding in some location information
+  
+  locs |>
+    readr::write_rds("data/locs.rds")
+}
+```
+
+We can then join our three datasets together to give us data with the NHS Board names, A&E names, and locations:
+
+```{r}
+ae_activity_locs <- ae_activity |>
+  filter(attend == "All") |>
+  left_join(boards, by = join_by(hb == HB)) |>
+  filter(HBName %in% boards_sample) |>
+  select(date, HBName, loc, type, n, contains("n_")) |>
+  mutate(date = ymd(date)) |>
+  left_join(locs) 
+```
+
+
+
+```{r}
+#| echo: false
+ae_activity_locs |>
+    slice_sample(n = 5) |>
+    knitr::kable(caption = "Data with NHS board, location, and location names")
 
 ```
 
@@ -283,90 +345,102 @@ ae_activity |>
 
 ```{r}
 library(ggplot2)
-ae_activity |>
-    ggplot() +
-    geom_line(aes(x = date, y = attend, colour = hb, group = loc)) 
+
+ae_activity_locs |>
+  filter(HBName == "NHS Highland") |>
+  ggplot() +
+  geom_line(aes(x = date, y = n, colour = loc_name))
 
 ```
 
-## Joining data
+## Looking across different measures
 
 ```{r}
-ae_activity |>
-    left_join(read_csv("data/boards_data.csv"), by = c("hb" = "HB")) |>
-    select(!any_of(c("_id", "HB", "HBDateEnacted", "HBDateArchived", "Country"))) |>
-    ggplot() +
-    geom_line(aes(x = date, y = attend, colour = HBName, group = loc))
+library(tidyr)
+
+ae_activity_locs |>
+  filter(loc_name == "Raigmore Hospital") |>
+  select(date, n_in_4:n_12) |>
+  pivot_longer(-date) |>
+  group_by(date = floor_date(date, "month"), name) |>
+  summarise(value = mean(value)) |>
+  ggplot(aes(x = date, y = value, colour = name)) +
+  geom_line() +
+  geom_smooth(se = F)
+
 ```
 
-## and again...
+
+
+## Making that re-usable
 
 ```{r}
-#| include: false
-#| eval: false
-loc_dat <- read_csv("data/postcodes.csv")
 
-postcodes <- loc_dat |>
-    pull(Postcode) |>
-    unique() 
+graphmo <- function(hbname = "NHS Highland"){
+  
+  ae_activity_locs |>
+    filter(HBName %in% hbname) |>
+    ggplot() +
+    geom_line(aes(x = date, y = n, colour = loc_name)) +
+    theme(legend.position = "bottom") +
+    xlab("Location") +
+    labs(colour = "") # hide the label
 
-loc_dat_long <- map(postcodes, PostcodesioR::postcode_lookup) |>
-    purrr::list_rbind() |>
-    select(postcode, longitude, latitude)
+}
 
-ae_activity_loc <- loc_dat_long |>
-    left_join(loc_dat, by = c("postcode" = "Postcode")) |>
-    filter(!is.na(HospitalName)) |>
-    select(!c(`_id`, contains("address"), HealthBoard, HSCP, CouncilArea, IntermediateZone, DataZone)) |>
-    left_join(ae_activity, by = c("HospitalCode" = "loc")) |>
-    filter(!is.na(date))
-
-ae_activity_loc |>
-    write_rds("data/ae_activity_loc.rds")
-
+graphmo(c("NHS Grampian", "NHS Fife"))
 ```
+
+
+## A rubbish map
+
+We've got latitude and longitude information for our A&E sites, which means we can plot them on a map:
+
+```{r}
+ae_activity_locs |>
+  ggplot(aes(x = long, y = lat, label = loc_name, colour = HBName)) +
+  geom_point() +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+That's not the most useful map I've ever seen. Luckily, there's a package to help us:
 
 ## Add to a map
 
 ```{r}
-#| eval: false
-ae_activity_loc |>
+ae_activity_locs |>
     leaflet::leaflet() |>
     leaflet::addTiles() |>
-    leaflet::addMarkers(~longitude, ~latitude, label = ~HospitalName)
-
+    leaflet::addMarkers(~long, ~lat, label = ~loc_name)
 ```
 
-![](../src/images/clipboard-4119151148.png)
+<!-- ![](../src/images/clipboard-4119151148.png) -->
 
 ## Then make that map more useful
 
 ```{r}
-#| eval: false
-ae_activity_loc |>
-    group_by(HospitalName) |>
-    summarise(attend = sum(attend), n_within = sum(n_within), longitude = min(longitude), latitude = min(latitude)) |>
-    mutate(rate = paste(HospitalName, "averages", scales::percent(round(n_within / attend, 1)))) |>
+
+ae_activity_locs |>
+    group_by(loc_name) |>
+    summarise(n = sum(n), long = min(long), lat = min(lat)) |>
+    mutate(rate = paste(loc_name, "averages", n, "attendees")) |>
     leaflet::leaflet() |>
     leaflet::addTiles() |>
-    leaflet::addMarkers(~longitude, ~latitude, label = ~rate)
+    leaflet::addMarkers(~long, ~lat, label = ~rate)
 ```
 
 
-![](../src/images/clipboard-4119151148.png)
-
 ## Strengths
 
--   enormous scope and flexibility
--   a force-multiplier for fancier data work
-    -   helps collaboration within teams, between teams, between orgs
-    -   reproducible analytics
-    -   modular approaches to large projects
--   decreasing pain curve: the fancier the project, the better
+R offers enormous scope and flexibility, largely because of two features. First, R is based on the idea of packages, where you're encouraged to outsource specialist functions to your R installation in a repeatable and standard way. There's basically a package for everything - something over 20000 at present. Second, R encourages reproducible analytics: the idea being you write your script once, and then run it many times as your data changes, producing standardised outputs by design.
+
+Together, that design makes R a force-multiplier for fancier data work: use packages to replicate your existing work in a reproducible way, then use the time saved in your routine reporting to improve and extend the work. There are other features of code-based analytics which make collaborating and developing more complex projects typically much smoother than they would be in non-code tools like Excel. 
 
 ## Weaknesses
 
--   harder to learn than competitors
--   very patchy expertise across H+SC Scotland
--   complex IG landscape
--   messy skills development journey
+- it's code, and it takes some time (months to years) to achieve real fluency
+- potentially harder to learn than some competitor languages and tools (Power BI, Python)
+- very patchy expertise across H+SC Scotland
+- complex IG landscape
+- messy skills development journey
