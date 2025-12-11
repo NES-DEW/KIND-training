@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.22">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-09-16">
-<title>R training – KIND training pages</title>
+
+<meta name="dcterms.date" content="2025-12-10">
+
+<title>Version control for beginners – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +23,27 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a5cd134f9b40a21b85be3e62cd27a8fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b4406b7675125bc2ba204020e191172.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dark-67e0afcc5eab4b3aa9d10cc8bf721eae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-bb5f9278568ae542f8467bdb635b70ac.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-a5cd134f9b40a21b85be3e62cd27a8fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b4406b7675125bc2ba204020e191172.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-dark-67e0afcc5eab4b3aa9d10cc8bf721eae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-bb5f9278568ae542f8467bdb635b70ac.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -66,76 +69,23 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script>
+}</script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script><link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
-<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script><script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
-<script src="site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
-<script src="site_libs/selectize-0.12.0/selectize.min.js"></script><link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
-<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script><link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
+
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo"></a>
-    <a class="navbar-brand" href="./index.html">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">KIND training pages</span>
     </a>
   </div>
@@ -145,45 +95,45 @@ window.Quarto = {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./excel_main.html"> 
+    <a class="nav-link" href="../excel_main.html"> 
 <span class="menu-text">Excel</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./r_main.html" aria-current="page"> 
+    <a class="nav-link" href="../r_main.html"> 
 <span class="menu-text">R</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./BI_main.html"> 
+    <a class="nav-link" href="../BI_main.html"> 
 <span class="menu-text">Power Platform</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./tableau_main.html"> 
+    <a class="nav-link" href="../tableau_main.html"> 
 <span class="menu-text">Tableau</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./skills_main.html"> 
+    <a class="nav-link" href="../skills_main.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./schedule.html"> 
+    <a class="nav-link" href="../schedule.html"> 
 <span class="menu-text">📅 Training schedule</span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
     <div class="dropdown">
       <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-<li>
+          <li>
             <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training">
             Source Code
             </a>
@@ -194,20 +144,40 @@ window.Quarto = {
             </a>
           </li>
       </ul>
-</div>
+    </div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#r-session-materials" id="toc-r-session-materials" class="nav-link active" data-scroll-target="#r-session-materials">R session materials</a></li>
-  </ul></nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(22)</span></div><div class="category" data-category="YmVnaW5uZXI=">beginner <span class="quarto-category-count">(7)</span></div><div class="category" data-category="ZGF0YSUyMHN0cnVjdHVyZXM=">data structures <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVidWdnaW5n">debugging <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZnVuY3Rpb25z">functions <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW50ZXJtZWRpYXRl">intermediate <span class="quarto-category-count">(14)</span></div><div class="category" data-category="bGlzdHM=">lists <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TkxQ">NLP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="b3ZlcnZpZXc=">overview <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJlLWJlZ2lubmVy">pre-beginner <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(22)</span></div><div class="category" data-category="U2hpbnk=">Shiny <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dHJvdWJsZXNob290aW5n">troubleshooting <span class="quarto-category-count">(1)</span></div></div><div class="quarto-margin-footer"><div class="margin-footer-item">
+  <li><a href="#what-is-version-control" id="toc-what-is-version-control" class="nav-link active" data-scroll-target="#what-is-version-control">What is version control?</a></li>
+  <li><a href="#why-do-version-control" id="toc-why-do-version-control" class="nav-link" data-scroll-target="#why-do-version-control">Why do version control</a></li>
+  <li><a href="#github" id="toc-github" class="nav-link" data-scroll-target="#github">GitHub</a></li>
+  <li><a href="#gitea" id="toc-gitea" class="nav-link" data-scroll-target="#gitea">Gitea</a></li>
+  <li><a href="#practical" id="toc-practical" class="nav-link" data-scroll-target="#practical">Practical</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#starting-git" id="toc-starting-git" class="nav-link" data-scroll-target="#starting-git">Starting Git</a></li>
+  <li><a href="#adding-files-to-our-repo" id="toc-adding-files-to-our-repo" class="nav-link" data-scroll-target="#adding-files-to-our-repo">Adding files to our repo</a></li>
+  <li><a href="#committing-files-to-our-repo" id="toc-committing-files-to-our-repo" class="nav-link" data-scroll-target="#committing-files-to-our-repo">Committing files to our repo</a></li>
+  <li><a href="#change-your-r-script" id="toc-change-your-r-script" class="nav-link" data-scroll-target="#change-your-r-script">Change your R script</a></li>
+  <li><a href="#history" id="toc-history" class="nav-link" data-scroll-target="#history">History</a></li>
+  <li><a href="#branching" id="toc-branching" class="nav-link" data-scroll-target="#branching">Branching</a></li>
+  <li><a href="#git-bash" id="toc-git-bash" class="nav-link" data-scroll-target="#git-bash">Git bash</a></li>
+  </ul></li>
+  <li><a href="#tools-and-resources" id="toc-tools-and-resources" class="nav-link" data-scroll-target="#tools-and-resources">Tools and resources</a></li>
+  </ul>
+</nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
 </p>
@@ -216,7 +186,8 @@ window.Quarto = {
 </div>
 </div></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><script id="quarto-html-before-body" type="application/javascript">
+<main class="content" id="quarto-document-content">
+<script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -374,9 +345,16 @@ window.Quarto = {
     } else {
       toggleColorMode(false);
     }
-  </script><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">R training</h1>
-</div>
+  </script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Version control for beginners</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Git</div>
+    <div class="quarto-category">version control</div>
+  </div>
+  </div>
 
 
 
@@ -386,7 +364,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 16, 2025</p>
+      <p class="date">December 10, 2025</p>
     </div>
   </div>
   
@@ -395,241 +373,154 @@ window.Quarto = {
   
 
 
-</header><div class="datatables html-widget html-fill-item" id="htmlwidget-7c0185c325356af42e7b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7c0185c325356af42e7b">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["<a href='https://events.teams.microsoft.com/event/36d0f17d-117c-48dd-800a-ed8b9356c2c4@10efe0bd-a030-4bca-809c-b5e6745e499a'>Writing functions in R<\/a>","<a href='https://events.teams.microsoft.com/event/a4ffeae9-f0f3-498e-9d60-6bf300ba1200@10efe0bd-a030-4bca-809c-b5e6745e499a'>Testing R code<\/a>","<a href='https://events.teams.microsoft.com/event/c6b0c05e-d7ea-4c10-930d-b50ea21aa013@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/b8a4099c-e42e-404c-a486-881abc9ccfa2@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/20d3fcdb-6506-444d-bf6c-fd906bc17ff8@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/dd23b375-93e2-41e4-8a67-0b79c9f5d89e@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/d2277214-44d6-4456-8c1b-ae33934074b6@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/ea0d4d9c-8c37-45f1-bd80-3a7a87765c71@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 6)<\/a>"],["<a href='https://nes-dew.github.io/KIND-training/r_training/writing_functions_in_r.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/testing_r_code.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>"],["10:00-11:30 Thu 8th January 2026","14:00-15:30 Thu 8th January 2026","10:00-11:30 Thu 15th January 2026","10:00-11:30 Thu 22nd January 2026","10:00-11:30 Thu 29th January 2026","10:00-11:30 Thu 5th February 2026","10:00-11:30 Thu 12th February 2026","10:00-11:30 Thu 19th February 2026"],["R","R","R","R","R","R","R","R"],["<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Booking Link<\/th>\n      <th>Materials<\/th>\n      <th>Date<\/th>\n      <th>Area<\/th>\n      <th>Level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"name":"Booking Link","targets":0},{"name":"Materials","targets":1},{"name":"Date","targets":2},{"name":"Area","targets":3},{"name":"Level","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script><section id="r-session-materials" class="level2"><h2 class="anchored" data-anchor-id="r-session-materials">R session materials</h2>
-<p>Not all training session have training materials currently available. This is a work in progress - please get in touch if there’s something you’d particularly like to see.</p>
+</header>
 
 
+<section id="what-is-version-control" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-version-control">What is version control?</h2>
+<p>Version control refers to the use of software to track changes to the code base of a project.</p>
+<p>Word’s track changes is a simple version control system.</p>
+<p>As code grows, managing changes becomes more complicated - particularly when several developers collaborate on a project.</p>
+<p>Version control aims to overcome these problems by providing tools to assist developers in managing their code base.</p>
+<p>This helps to assure the quality of the finished code by making sure that all and only the working code is passed on to users.</p>
+</section>
+<section id="why-do-version-control" class="level2">
+<h2 class="anchored" data-anchor-id="why-do-version-control">Why do version control</h2>
+<ul>
+<li>version control is consistent with best practice <a href="https://en.wikipedia.org/wiki/Software_development_process">software development</a> techniques.</li>
+<li>industry standard for analysis in other sectors</li>
+<li>follows leading stakeholders, especially <a href="https://github.com/Public-Health-Scotland">PHS</a>, <a href="https://github.com/nhsdigital">NHS Digital</a></li>
+<li>necessary for reproducible analytics pipelines</li>
+<li>mandate for open code</li>
+<li>solves complex problems of collaboration as the scope of projects grow</li>
+</ul>
+</section>
+<section id="github" class="level2">
+<h2 class="anchored" data-anchor-id="github">GitHub</h2>
+<p><a href="https://github.com/about">GitHub</a> is based on Git, but provides a centralised location for repositories. For example, <a href="https://github.com/microsoft/PowerPlatformConnectors">Microsoft host their source code on GitHub</a>, as do <a href="https://github.com/Public-Health-Scotland">PHS</a>, <a href="https://github.com/nhsdigital">NHS Digital</a>, and many others. As well hosting the repository, and allowing users to choose to share their code, GitHub provides many other tools for software development. PHS provide an excellent quick <a href="https://github.com/Public-Health-Scotland/GitHub-guidance">introduction to GitHub workflow on their guidance page</a>.</p>
+</section>
+<section id="gitea" class="level2">
+<h2 class="anchored" data-anchor-id="gitea">Gitea</h2>
+<p><a href="https://gitea.io/en-us/">Gitea</a> is similar to GitHub, except that private servers can be created. This is useful to share confidential code securely with authorised users.</p>
+</section>
+<section id="practical" class="level2">
+<h2 class="anchored" data-anchor-id="practical">Practical</h2>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
+<p>None of this is specific to version control:</p>
+<ul>
+<li>in posit.cloud, create a new Rstudio project</li>
+<li>give it a name</li>
+<li>create an R script in that project</li>
+<li>write a simple script (<code>"hello world"</code> or <code>2 + 2</code> if you’re not an R person)</li>
+<li>save your R script in your project root</li>
+</ul>
+</section>
+<section id="starting-git" class="level3">
+<h3 class="anchored" data-anchor-id="starting-git">Starting Git</h3>
+<ul>
+<li>Tools &gt; Version Control &gt; Project Setup</li>
+<li>pick Git</li>
+<li>“do you want to initialize a new git repository for this project”
+<ul>
+<li>repo explainer while restarting
+<ul>
+<li>.git subdirectory, which contains no user servicable components</li>
+<li>gitignore, which is important to our story</li>
+</ul></li>
+</ul></li>
+<li>our new repo is where git will track the changes we make to our files</li>
+<li>one piece of setup information: in the terminal, please run
+<ul>
+<li>git config –global user.email “you@example.com”</li>
+<li>git config –global user.name “Your Name” (this is a quirk for Posit Cloud. If you’re on the desktop, you’ll probably only need to ever do that once)</li>
+</ul></li>
+</ul>
+</section>
+<section id="adding-files-to-our-repo" class="level3">
+<h3 class="anchored" data-anchor-id="adding-files-to-our-repo">Adding files to our repo</h3>
+<ul>
+<li>you need to add files to the repo to make that happen</li>
+<li>Git pane: should contain three files with yellow status blobs
+<ul>
+<li>the Git pane gives a simple GUI for interacting with our repo</li>
+</ul></li>
+<li>select all, and tick the <code>Staged</code> checkboxes, to add them to the repo
+<ul>
+<li>Add/Stage = Git is keeping an eye on these files</li>
+</ul></li>
+</ul>
+</section>
+<section id="committing-files-to-our-repo" class="level3">
+<h3 class="anchored" data-anchor-id="committing-files-to-our-repo">Committing files to our repo</h3>
+<ul>
+<li>then click <code>Commit</code> to save the current state of the files
+<ul>
+<li>write a commit message, traditionally “first commit”</li>
+<li>Commit = Git has added the current state of your files to the repo, as the commit summary should show you</li>
+</ul></li>
+<li>by default, Git adds those files to a branch, called Master
+<ul>
+<li>decolonialising point, this is more properly called Main in more recent versions of Git (including those on Github)</li>
+<li>branch explainer</li>
+<li>you will want to rename this branch as <code>main</code> otherwise Github will be a pain</li>
+</ul></li>
+<li><code>git branch -m main</code> in the terminal will do it (might need a cheeky refresh in the Git pane)</li>
+</ul>
+</section>
+<section id="change-your-r-script" class="level3">
+<h3 class="anchored" data-anchor-id="change-your-r-script">Change your R script</h3>
+<ul>
+<li>make a change to your script and save</li>
+<li>you’ll see a blue modified icon appear in the Git pane next to the file name</li>
+<li>stage and commit the file
+<ul>
+<li>you’ll see a diff (diff explainer)</li>
+<li>add a commit message and press <code>Commit</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="history" class="level3">
+<h3 class="anchored" data-anchor-id="history">History</h3>
+<ul>
+<li>look at the Git history <img src="images/clipboard-557509296.png" class="img-fluid"></li>
+<li>explore each of your two commits</li>
+</ul>
+</section>
+<section id="branching" class="level3">
+<h3 class="anchored" data-anchor-id="branching">Branching</h3>
+<p>If you’re doing something more involved to your file(s), you might consider creating a branch. For example, say you’re planning long-term improvements to the contents of <code>main</code>. You might create a branch - <code>dev</code>, say - to do that development work. That’d free you to potentially build an entirely new piece of work without needing to keep the old one working.</p>
+<ul>
+<li><code>New branch</code> <img src="images/clipboard-1272307250.png" class="img-fluid"> and name it <code>dev</code>
+<ul>
+<li>at the start, your new branch will be a copy of the current state of <code>main</code></li>
+</ul></li>
+<li>now re-write your script
+<ul>
+<li>feel free to make multiple commits on the way!</li>
+</ul></li>
+<li>now look again at the Git history: you’ll see coloured blobs telling you which branches changes were made on</li>
+<li>switch to <code>main</code>, and in the terminal <code>git merge dev</code> to bring your dev changes in
+<ul>
+<li>you can delete <code>dev</code> now with <code>git branch -d dev</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="git-bash" class="level3">
+<h3 class="anchored" data-anchor-id="git-bash">Git bash</h3>
+<p>You’ll notice that we don’t have all the tools we might ever need in the Git pane in Rstudio. Git is mainly intended to be used via the command line in the Terminal.</p>
+</section>
+</section>
+<section id="tools-and-resources" class="level2">
+<h2 class="anchored" data-anchor-id="tools-and-resources">Tools and resources</h2>
+<p><a href="https://ohshitgit.com/" class="uri">https://ohshitgit.com/</a></p>
+<p><a href="https://happygitwithr.com/https-pat" class="uri">https://happygitwithr.com/https-pat</a></p>
 
-</section><div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})"><option value="" disabled="" selected="" hidden="">Order By</option>
-<option value="index" data-direction="asc">Default</option>
-<option value="listing-title-sort" data-direction="asc">
-        Title
-      </option></select>
-</div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-</div>
-</div>
-<table class="quarto-listing-table table">
-<thead><tr>
-<th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
-</th>
 
-<th>
-Categories
-</th>
+</section>
 
-</tr></thead>
-<tbody class="list">
-<tr data-index="0" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1753225200000" data-listing-file-modified-sort="1764604393508" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="18" data-listing-title-sort="A first plot with Plotly" data-listing-filename-sort="first_plotly.qmd">
-<td>
-<a href="./r_training/first_plotly.html" class="title listing-title">A first plot with Plotly</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner</span>
-</td>
-
-</tr>
-<tr data-index="1" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1755039600000" data-listing-file-modified-sort="1764605384987" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="20" data-listing-title-sort="An introduction to data.table" data-listing-filename-sort="intro_data_table.qmd">
-<td>
-<a href="./r_training/intro_data_table.html" class="title listing-title">An introduction to data.table</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner</span>
-</td>
-
-</tr>
-<tr data-index="2" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ2Z1bmN0aW9ucyUyQ2RlYnVnZ2luZw==" data-listing-date-sort="1754348400000" data-listing-file-modified-sort="1754401305547" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1175" data-listing-title-sort="Data masking in R" data-listing-filename-sort="data_masking.qmd">
-<td>
-<a href="./r_training/data_masking.html" class="title listing-title">Data masking in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate, functions, debugging</span>
-</td>
-
-</tr>
-<tr data-index="3" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1715900400000" data-listing-file-modified-sort="1764604010535" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="422" data-listing-title-sort="Dates and times with lubridate" data-listing-filename-sort="dates_and_times_with_lubridate.qmd">
-<td>
-<a href="./r_training/dates_and_times_with_lubridate.html" class="title listing-title">Dates and times with lubridate</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner</span>
-</td>
-
-</tr>
-<tr data-index="4" data-categories="UiUyQ2JlZ2lubmVyJTJDdHJvdWJsZXNob290aW5n" data-listing-date-sort="1725490800000" data-listing-file-modified-sort="1764604031967" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2540" data-listing-title-sort="Debugging R" data-listing-filename-sort="debugging_r.qmd">
-<td>
-<a href="./r_training/debugging_r.html" class="title listing-title">Debugging R</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner, troubleshooting</span>
-</td>
-
-</tr>
-<tr data-index="5" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1747609200000" data-listing-file-modified-sort="1764604376612" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1210" data-listing-title-sort="Exploring data with dplyr" data-listing-filename-sort="exploring_data_with_dplyr.qmd">
-<td>
-<a href="./r_training/exploring_data_with_dplyr.html" class="title listing-title">Exploring data with dplyr</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="6" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1721689200000" data-listing-file-modified-sort="1764605411305" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="72" data-listing-title-sort="Iteration in R" data-listing-filename-sort="iteration_in_r.qmd">
-<td>
-<a href="./r_training/iteration_in_r.html" class="title listing-title">Iteration in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="7" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1750201200000" data-listing-file-modified-sort="1764604293555" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="87" data-listing-title-sort="Joining data with dplyr" data-listing-filename-sort="dplyr_joins.qmd">
-<td>
-<a href="./r_training/dplyr_joins.html" class="title listing-title">Joining data with dplyr</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="8" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1720998000000" data-listing-file-modified-sort="1764611561874" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1252" data-listing-title-sort="Parameterised Rmarkdown" data-listing-filename-sort="parameterised_rmarkdown.qmd">
-<td>
-<a href="./r_training/parameterised_rmarkdown.html" class="title listing-title">Parameterised Rmarkdown</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="9" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1727132400000" data-listing-file-modified-sort="1764606728836" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4230" data-listing-title-sort="R from scratch" data-listing-filename-sort="r_from_scratch.qmd">
-<td>
-<a href="./r_training/r_from_scratch.html" class="title listing-title">R from scratch</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner</span>
-</td>
-
-</tr>
-<tr data-index="10" data-categories="UiUyQ2JlZ2lubmVyJTJDbGlzdHMlMkNkYXRhJTIwc3RydWN0dXJlcw==" data-listing-date-sort="1726786800000" data-listing-file-modified-sort="1764606408629" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="664" data-listing-title-sort="R lists" data-listing-filename-sort="lists_r.qmd">
-<td>
-<a href="./r_training/lists_r.html" class="title listing-title">R lists</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner, lists, data structures</span>
-</td>
-
-</tr>
-<tr data-index="11" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ1NoaW55" data-listing-date-sort="1739404800000" data-listing-file-modified-sort="1764607214143" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="922" data-listing-title-sort="Shiny from scratch" data-listing-filename-sort="shiny_from_scratch.qmd">
-<td>
-<a href="./r_training/shiny_from_scratch.html" class="title listing-title">Shiny from scratch</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate, Shiny</span>
-</td>
-
-</tr>
-<tr data-index="12" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ05MUA==" data-listing-date-sort="1727046000000" data-listing-file-modified-sort="1764607201519" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1055" data-listing-title-sort="Stringdist" data-listing-filename-sort="stringdist.qmd">
-<td>
-<a href="./r_training/stringdist.html" class="title listing-title">Stringdist</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate, NLP</span>
-</td>
-
-</tr>
-<tr data-index="13" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1749596400000" data-listing-file-modified-sort="1764604062812" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="78" data-listing-title-sort="Summarising data with dplyr" data-listing-filename-sort="dplyr_group_summarise.qmd">
-<td>
-<a href="./r_training/dplyr_group_summarise.html" class="title listing-title">Summarising data with dplyr</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="14" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1755644400000" data-listing-file-modified-sort="1764607230682" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="20" data-listing-title-sort="Testing R code" data-listing-filename-sort="testing_r_code.qmd">
-<td>
-<a href="./r_training/testing_r_code.html" class="title listing-title">Testing R code</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="15" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1722207600000" data-listing-file-modified-sort="1764606338826" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="744" data-listing-title-sort="The purrr package in R" data-listing-filename-sort="purrr_package.qmd">
-<td>
-<a href="./r_training/purrr_package.html" class="title listing-title">The purrr package in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="16" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1751324400000" data-listing-file-modified-sort="1764607248821" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="14" data-listing-title-sort="Tidyselect" data-listing-filename-sort="tidyselect.qmd">
-<td>
-<a href="./r_training/tidyselect.html" class="title listing-title">Tidyselect</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="17" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1716505200000" data-listing-file-modified-sort="1764607264082" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="350" data-listing-title-sort="We ❤️ janitor" data-listing-filename-sort="we_heart_janitor.qmd">
-<td>
-<a href="./r_training/we_heart_janitor.html" class="title listing-title">We ❤️ janitor</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="18" data-categories="UiUyQ2JlZ2lubmVyJTJDcHJlLWJlZ2lubmVy" data-listing-date-sort="1717369200000" data-listing-file-modified-sort="1764607278194" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1088" data-listing-title-sort="Why bother with R?" data-listing-filename-sort="why_bother_with_R.qmd">
-<td>
-<a href="./r_training/why_bother_with_R.html" class="title listing-title">Why bother with R?</a>
-</td>
-<td>
-<span class="listing-categories">R, beginner, pre-beginner</span>
-</td>
-
-</tr>
-<tr data-index="19" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1754262000000" data-listing-file-modified-sort="1764611552283" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="19" data-listing-title-sort="Working with lists in purrr" data-listing-filename-sort="purrr_lists.qmd">
-<td>
-<a href="./r_training/purrr_lists.html" class="title listing-title">Working with lists in purrr</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="20" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1764607293000" data-listing-file-modified-sort="1764607293955" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="20" data-listing-title-sort="Writing functions in R" data-listing-filename-sort="writing_functions_in_r.qmd">
-<td>
-<a href="./r_training/writing_functions_in_r.html" class="title listing-title">Writing functions in R</a>
-</td>
-<td>
-<span class="listing-categories">R, intermediate</span>
-</td>
-
-</tr>
-<tr data-index="21" data-categories="UiUyQ292ZXJ2aWV3" data-listing-date-sort="NaN" data-listing-file-modified-sort="1765288167038" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1472" data-listing-title-sort="`r params$fn`" data-listing-filename-sort="scope_of_the_possible_with_r.qmd">
-<td>
-<a href="./r_training/scope_of_the_possible_with_r.html" class="title listing-title"><code>r params$fn</code></a>
-</td>
-<td>
-<span class="listing-categories">R, overview</span>
-</td>
-
-</tr>
-</tbody>
-</table>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1042,6 +933,7 @@ Categories
   });
   </script>
 </div> <!-- /content -->
+
 
 
 

@@ -1,0 +1,121 @@
+---
+execute: 
+  echo: false
+  eval: true
+  draft: true
+categories: [Git, version control]
+params:
+  sl_date: 2025-12-10
+  fn: Version control for beginners
+  id: KS12
+date: 2025-12-10
+title: Version control for beginners
+---
+
+## What is version control?
+
+Version control refers to the use of software to track changes to the code base of a project.
+
+Word's track changes is a simple version control system.
+
+As code grows, managing changes becomes more complicated - particularly when several developers collaborate on a project.
+
+Version control aims to overcome these problems by providing tools to assist developers in managing their code base.
+
+This helps to assure the quality of the finished code by making sure that all and only the working code is passed on to users.
+
+## Why do version control
+
+-   version control is consistent with best practice [software development](https://en.wikipedia.org/wiki/Software_development_process) techniques.
+-   industry standard for analysis in other sectors
+-   follows leading stakeholders, especially [PHS](https://github.com/Public-Health-Scotland), [NHS Digital](https://github.com/nhsdigital)
+-   necessary for reproducible analytics pipelines
+-   mandate for open code
+-   solves complex problems of collaboration as the scope of projects grow
+
+## GitHub
+
+[GitHub](https://github.com/about) is based on Git, but provides a centralised location for repositories. For example, [Microsoft host their source code on GitHub](https://github.com/microsoft/PowerPlatformConnectors), as do [PHS](https://github.com/Public-Health-Scotland), [NHS Digital](https://github.com/nhsdigital), and many others. As well hosting the repository, and allowing users to choose to share their code, GitHub provides many other tools for software development. PHS provide an excellent quick [introduction to GitHub workflow on their guidance page](https://github.com/Public-Health-Scotland/GitHub-guidance).
+
+## Gitea
+
+[Gitea](https://gitea.io/en-us/) is similar to GitHub, except that private servers can be created. This is useful to share confidential code securely with authorised users.
+
+## Practical
+
+### Setup
+
+None of this is specific to version control:
+
+-   in posit.cloud, create a new Rstudio project
+-   give it a name
+-   create an R script in that project
+-   write a simple script (`"hello world"` or `2 + 2` if you're not an R person)
+-   save your R script in your project root
+
+### Starting Git
+
+-   Tools \> Version Control \> Project Setup
+-   pick Git
+-   "do you want to initialize a new git repository for this project"
+    -   repo explainer while restarting
+        -   .git subdirectory, which contains no user servicable components
+        -   gitignore, which is important to our story
+-   our new repo is where git will track the changes we make to our files
+-   one piece of setup information: in the terminal, please run
+    -   git config --global user.email "you\@example.com"
+    -   git config --global user.name "Your Name" (this is a quirk for Posit Cloud. If you're on the desktop, you'll probably only need to ever do that once)
+
+### Adding files to our repo
+
+-   you need to add files to the repo to make that happen
+-   Git pane: should contain three files with yellow status blobs
+    -   the Git pane gives a simple GUI for interacting with our repo
+-   select all, and tick the `Staged` checkboxes, to add them to the repo
+    -   Add/Stage = Git is keeping an eye on these files
+
+### Committing files to our repo
+
+-   then click `Commit` to save the current state of the files
+    -   write a commit message, traditionally "first commit"
+    -   Commit = Git has added the current state of your files to the repo, as the commit summary should show you
+-   by default, Git adds those files to a branch, called Master
+    -   decolonialising point, this is more properly called Main in more recent versions of Git (including those on Github)
+    -   branch explainer
+    -   you will want to rename this branch as `main` otherwise Github will be a pain
+-   `git branch -m main` in the terminal will do it (might need a cheeky refresh in the Git pane)
+
+### Change your R script
+
+-   make a change to your script and save
+-   you'll see a blue modified icon appear in the Git pane next to the file name
+-   stage and commit the file
+    -   you'll see a diff (diff explainer)
+    -   add a commit message and press `Commit`
+
+### History
+
+-   look at the Git history ![](images/clipboard-557509296.png)
+-   explore each of your two commits
+
+### Branching
+
+If you're doing something more involved to your file(s), you might consider creating a branch. For example, say you're planning long-term improvements to the contents of `main`. You might create a branch - `dev`, say - to do that development work. That'd free you to potentially build an entirely new piece of work without needing to keep the old one working.
+
+-   `New branch` ![](images/clipboard-1272307250.png) and name it `dev`
+    -   at the start, your new branch will be a copy of the current state of `main`
+-   now re-write your script
+    -   feel free to make multiple commits on the way!
+-   now look again at the Git history: you'll see coloured blobs telling you which branches changes were made on
+-   switch to `main`, and in the terminal `git merge dev` to bring your dev changes in
+    -   you can delete `dev` now with `git branch -d dev`
+
+### Git bash
+
+You'll notice that we don't have all the tools we might ever need in the Git pane in Rstudio. Git is mainly intended to be used via the command line in the Terminal.
+
+## Tools and resources
+
+<https://ohshitgit.com/>
+
+<https://happygitwithr.com/https-pat>
