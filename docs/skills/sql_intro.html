@@ -182,10 +182,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
   <li><a href="#playing-with-that-query" id="toc-playing-with-that-query" class="nav-link" data-scroll-target="#playing-with-that-query">Playing with that query</a></li>
-  <li><a href="#sql-dialects" id="toc-sql-dialects" class="nav-link" data-scroll-target="#sql-dialects">SQL dialects</a></li>
   <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a></li>
   <li><a href="#columns" id="toc-columns" class="nav-link" data-scroll-target="#columns">Columns</a></li>
   <li><a href="#distinct-values" id="toc-distinct-values" class="nav-link" data-scroll-target="#distinct-values">Distinct values</a></li>
+  <li><a href="#dislcaimer---sql-dialects" id="toc-dislcaimer---sql-dialects" class="nav-link" data-scroll-target="#dislcaimer---sql-dialects">Dislcaimer - SQL dialects</a></li>
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -733,29 +733,6 @@ Exercise
 </div>
 </div>
 </div>
-</section><section id="sql-dialects" class="level2"><h2 class="anchored" data-anchor-id="sql-dialects">SQL dialects</h2>
-<ul>
-<li>SQL has been around for a <a href="https://en.wikipedia.org/wiki/SQL">very long time</a>, and has been used in lots of different ways</li>
-<li>That means there are several slightly different dialects of SQL which are (unfortunately) incompatible</li>
-<li>We’ll largely ignore those differences in this beginner’s training</li>
-<li>But, just to illustrate, the <code>LIMIT</code> keyword is one that only works in some types of SQL</li>
-<li>If you were using Microsoft’s dialect of SQL (which they refer to <a href="https://learn.microsoft.com/en-us/sql/t-sql/language-reference?view=sql-server-ver17">as Transact-SQL, or T-SQL</a>), you’d need to write something slightly different (and reordered, thanks to John Mackintosh for the correction):</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> TOP <span class="dv">5</span> <span class="op">*</span> <span class="kw">from</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>Or if you were using Oracle’s newest dialect of SQL, you’d write either:</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins FETCH <span class="fu">FIRST</span> <span class="dv">5</span> <span class="kw">ROWS</span> <span class="kw">ONLY</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>Or, an older - but possibly neater - way of writing Oracle SQL:</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> <span class="kw">ROWNUM</span> <span class="op">&lt;=</span> <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section><section id="comments" class="level2"><h2 class="anchored" data-anchor-id="comments">Comments</h2>
 <ul>
 <li>If you want to turn off some of your SQL, or add notes, you can include comments</li>
@@ -765,12 +742,11 @@ Exercise
 <code>/*</code> and then <code>*/</code> slash-star to comment a multi-line chunk</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">LIMIT</span> <span class="dv">5</span>; <span class="co">-- comment in the line</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* or a longer chunk</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">  古池や蛙飛び込む水の音</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">  ふるいけやかわずとびこむみずのおと</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">LIMIT</span> <span class="dv">5</span>; <span class="co">-- comment in the line</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* or a longer chunk</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">This code is so I can see the top 5 lines of the penguins table </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
@@ -859,7 +835,7 @@ Exercise
 <li>add column name(s) to retrieve just parts of your data</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
@@ -917,8 +893,8 @@ Exercise
 <li>you can also rename selected columns using <code>AS</code>:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">AS</span> landmass</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">AS</span> landmass</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
@@ -976,7 +952,7 @@ Exercise
 <li>an alternative strategy (if you’re brave) is to use implicit renaming:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island landmass <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island landmass <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Displaying records 1 - 10</caption>
@@ -1038,7 +1014,7 @@ Exercise
 </div>
 </section><section id="distinct-values" class="level2"><h2 class="anchored" data-anchor-id="distinct-values">Distinct values</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> species <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> species <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>3 records</caption>
@@ -1065,7 +1041,7 @@ Exercise
 <li>this second query gives you all the combinations of penguins and islands that exist in our data:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>5 records</caption>
@@ -1097,6 +1073,30 @@ Exercise
 </tbody>
 </table>
 </div>
+</div>
+</section><section id="dislcaimer---sql-dialects" class="level2"><h2 class="anchored" data-anchor-id="dislcaimer---sql-dialects">Dislcaimer - SQL dialects</h2>
+<p>If you’re planning to use some of the SQL we’ve covered in this course so far, it’s worth being aware of a few caveats before querying different database types.</p>
+<ul>
+<li>SQL has been around for a <a href="https://en.wikipedia.org/wiki/SQL">very long time</a>, and has been used in lots of different ways</li>
+<li>That means there are several slightly different dialects of SQL which are (unfortunately) incompatible</li>
+<li>We’ll largely ignore those differences in this beginner’s training</li>
+<li>But, just to illustrate, the <code>LIMIT</code> keyword is one that only works in some types of SQL</li>
+<li>If you were using Microsoft’s dialect of SQL (which they refer to <a href="https://learn.microsoft.com/en-us/sql/t-sql/language-reference?view=sql-server-ver17">as Transact-SQL, or T-SQL</a>), you’d need to write something slightly different (and reordered, thanks to John Mackintosh for the correction):</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> TOP <span class="dv">5</span> <span class="op">*</span> <span class="kw">from</span> penguins;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Or if you were using Oracle’s newest dialect of SQL, you’d write either:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins FETCH <span class="fu">FIRST</span> <span class="dv">5</span> <span class="kw">ROWS</span> <span class="kw">ONLY</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Or, an older - but possibly neater - way of writing Oracle SQL:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> <span class="kw">ROWNUM</span> <span class="op">&lt;=</span> <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
 <p>Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.</p>

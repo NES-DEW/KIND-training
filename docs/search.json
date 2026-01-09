@@ -11897,7 +11897,7 @@
     "href": "skills/sql_intro.html#comments",
     "title": "An introduction to SQL",
     "section": "Comments",
-    "text": "Comments\n\nIf you want to turn off some of your SQL, or add notes, you can include comments\n\n-- double-dash to comment a line, or part of a line\n\n/* and then */ slash-star to comment a multi-line chunk\n\n\nSELECT * FROM penguins LIMIT 5; -- comment in the line\n\n/* or a longer chunk\n  古池や蛙飛び込む水の音\n  ふるいけやかわずとびこむみずのおと\n*/  \n\n\n5 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007"
+    "text": "Comments\n\nIf you want to turn off some of your SQL, or add notes, you can include comments\n\n-- double-dash to comment a line, or part of a line\n\n/* and then */ slash-star to comment a multi-line chunk\n\n\nSELECT * FROM penguins LIMIT 5; -- comment in the line\n\n/* or a longer chunk\nThis code is so I can see the top 5 lines of the penguins table \n*/  \n\n\n5 records\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n2007\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n2007\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n2007\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n2007\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n2007"
   },
   {
     "objectID": "skills/sql_intro.html#columns",
@@ -12206,5 +12206,12 @@
     "title": "Power Platform training",
     "section": "Power Platform training schedule",
     "text": "Power Platform training schedule"
+  },
+  {
+    "objectID": "skills/sql_intro.html#dislcaimer---sql-dialects",
+    "href": "skills/sql_intro.html#dislcaimer---sql-dialects",
+    "title": "An introduction to SQL",
+    "section": "Dislcaimer - SQL dialects",
+    "text": "Dislcaimer - SQL dialects\nIf you’re planning to use some of the SQL we’ve covered in this course so far, it’s worth being aware of a few caveats before querying different database types.\n\nSQL has been around for a very long time, and has been used in lots of different ways\nThat means there are several slightly different dialects of SQL which are (unfortunately) incompatible\nWe’ll largely ignore those differences in this beginner’s training\nBut, just to illustrate, the LIMIT keyword is one that only works in some types of SQL\nIf you were using Microsoft’s dialect of SQL (which they refer to as Transact-SQL, or T-SQL), you’d need to write something slightly different (and reordered, thanks to John Mackintosh for the correction):\n\n\nSELECT TOP 5 * from penguins;\n\n\nOr if you were using Oracle’s newest dialect of SQL, you’d write either:\n\n\nSELECT * FROM penguins FETCH FIRST 5 ROWS ONLY;\n\n\nOr, an older - but possibly neater - way of writing Oracle SQL:\n\n\nSELECT * FROM penguins WHERE ROWNUM &lt;= 5;"
   }
 ]
