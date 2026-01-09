@@ -116,34 +116,6 @@ SELECT * FROM penguins LIMIT 5;
 + please could you modify your SQL statement to preview the first 10 rows of the data
 :::
 
-
-## SQL dialects
-
-* SQL has been around for a [very long time](https://en.wikipedia.org/wiki/SQL), and has been used in lots of different ways
-* That means there are several slightly different dialects of SQL which are (unfortunately) incompatible
-* We'll largely ignore those differences in this beginner's training
-* But, just to illustrate, the `LIMIT` keyword is one that only works in some types of SQL
-* If you were using Microsoft's dialect of SQL (which they refer to [as Transact-SQL, or T-SQL](https://learn.microsoft.com/en-us/sql/t-sql/language-reference?view=sql-server-ver17)), you'd need to write something slightly different (and reordered, thanks to John Mackintosh for the correction):
-
-```{sql}
-#| eval: false
-SELECT TOP 5 * from penguins;
-```
-
-* Or if you were using Oracle's newest dialect of SQL, you'd write either:
-
-```{sql}
-#| eval: false
-SELECT * FROM penguins FETCH FIRST 5 ROWS ONLY;
-```
-
-* Or, an older - but possibly neater - way of writing Oracle SQL:
-
-```{sql}
-#| eval: false
-SELECT * FROM penguins WHERE ROWNUM <= 5;
-```
-
 ## Comments
 
 * If you want to turn off some of your SQL, or add notes, you can include comments
@@ -154,8 +126,7 @@ SELECT * FROM penguins WHERE ROWNUM <= 5;
 SELECT * FROM penguins LIMIT 5; -- comment in the line
 
 /* or a longer chunk
-  古池や蛙飛び込む水の音
-  ふるいけやかわずとびこむみずのおと
+This code is so I can see the top 5 lines of the penguins table 
 */  
 ```
 
@@ -203,6 +174,33 @@ SELECT DISTINCT species FROM penguins;
 SELECT DISTINCT island, species FROM penguins;
 ```
 
+## Dislcaimer - SQL dialects
+If you’re planning to use some of the SQL we’ve covered in this course so far, it’s worth being aware of a few caveats before querying different database types.
+
+* SQL has been around for a [very long time](https://en.wikipedia.org/wiki/SQL), and has been used in lots of different ways
+* That means there are several slightly different dialects of SQL which are (unfortunately) incompatible
+* We'll largely ignore those differences in this beginner's training
+* But, just to illustrate, the `LIMIT` keyword is one that only works in some types of SQL
+* If you were using Microsoft's dialect of SQL (which they refer to [as Transact-SQL, or T-SQL](https://learn.microsoft.com/en-us/sql/t-sql/language-reference?view=sql-server-ver17)), you'd need to write something slightly different (and reordered, thanks to John Mackintosh for the correction):
+
+```{sql}
+#| eval: false
+SELECT TOP 5 * from penguins;
+```
+
+* Or if you were using Oracle's newest dialect of SQL, you'd write either:
+
+```{sql}
+#| eval: false
+SELECT * FROM penguins FETCH FIRST 5 ROWS ONLY;
+```
+
+* Or, an older - but possibly neater - way of writing Oracle SQL:
+
+```{sql}
+#| eval: false
+SELECT * FROM penguins WHERE ROWNUM <= 5;
+```
 
 ## Acknowledgements
 
