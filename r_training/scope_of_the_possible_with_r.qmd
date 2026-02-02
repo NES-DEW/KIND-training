@@ -114,7 +114,6 @@ ae_activity_locs |>
 
 ```
 
-
 ```{r}
 #| echo: false
 #| results: asis
@@ -160,7 +159,7 @@ feed_block(params$id)
     -   not *that* hard to learn
     -   extensible and flexible
     -   capable of enterprise-y, fancy uses
-- yet there's signficant resistant to using R in parts of Scotland's health and care sector
+-   yet there's signficant resistant to using R in parts of Scotland's health and care sector
 
 ## R demo
 
@@ -266,7 +265,7 @@ boards_sample <- c("NHS Borders", "NHS Fife", "NHS Grampian", "NHS Highland", "N
 
 ## Joining data
 
-Those board codes (like S08000020) aren't very easy to read. Luckily, we can add the proper "NHS Thing & Thing" board names from [another data source]("https://www.opendata.nhs.scot/dataset/9f942fdb-e59e-44f5-b534-d6e17229cc7b/resource/652ff726-e676-4a20-abda-435b98dd7bdc/download/hb14_hb19.csv").
+Those board codes (like S08000020) aren't very easy to read. Luckily, we can add the proper "NHS Thing & Thing" board names from [another data source](%22https://www.opendata.nhs.scot/dataset/9f942fdb-e59e-44f5-b534-d6e17229cc7b/resource/652ff726-e676-4a20-abda-435b98dd7bdc/download/hb14_hb19.csv%22).
 
 ```{r}
 boards <- read_csv("https://www.opendata.nhs.scot/dataset/9f942fdb-e59e-44f5-b534-d6e17229cc7b/resource/652ff726-e676-4a20-abda-435b98dd7bdc/download/hb14_hb19.csv")
@@ -299,7 +298,6 @@ locs <- locs |>
          lat = PostcodesioR::postcode_lookup(postcode)$latitude) # adding in some location information
 ```
 
-
 ```{r}
 #| echo: false
 
@@ -330,8 +328,6 @@ ae_activity_locs <- ae_activity |>
   mutate(date = ymd(date)) |>
   left_join(locs) 
 ```
-
-
 
 ```{r}
 #| echo: false
@@ -370,8 +366,6 @@ ae_activity_locs |>
 
 ```
 
-
-
 ## Making that re-usable
 
 ```{r}
@@ -391,7 +385,6 @@ graphmo <- function(hbname = "NHS Highland"){
 graphmo(c("NHS Grampian", "NHS Fife"))
 ```
 
-
 ## A rubbish map
 
 We've got latitude and longitude information for our A&E sites, which means we can plot them on a map:
@@ -409,17 +402,19 @@ That's not the most useful map I've ever seen. Luckily, there's a package to hel
 ## Add to a map
 
 ```{r}
+#| eval: false
 ae_activity_locs |>
     leaflet::leaflet() |>
     leaflet::addTiles() |>
     leaflet::addMarkers(~long, ~lat, label = ~loc_name)
 ```
 
-<!-- ![](../src/images/clipboard-4119151148.png) -->
+![Simple map](../src/images/clipboard-1597763797.png)
 
 ## Then make that map more useful
 
 ```{r}
+#| eval: false
 
 ae_activity_locs |>
     group_by(loc_name) |>
@@ -430,17 +425,18 @@ ae_activity_locs |>
     leaflet::addMarkers(~long, ~lat, label = ~rate)
 ```
 
+![More useful map](../src/images/clipboard-385362493.png)
 
 ## Strengths
 
 R offers enormous scope and flexibility, largely because of two features. First, R is based on the idea of packages, where you're encouraged to outsource specialist functions to your R installation in a repeatable and standard way. There's basically a package for everything - something over 20000 at present. Second, R encourages reproducible analytics: the idea being you write your script once, and then run it many times as your data changes, producing standardised outputs by design.
 
-Together, that design makes R a force-multiplier for fancier data work: use packages to replicate your existing work in a reproducible way, then use the time saved in your routine reporting to improve and extend the work. There are other features of code-based analytics which make collaborating and developing more complex projects typically much smoother than they would be in non-code tools like Excel. 
+Together, that design makes R a force-multiplier for fancier data work: use packages to replicate your existing work in a reproducible way, then use the time saved in your routine reporting to improve and extend the work. There are other features of code-based analytics which make collaborating and developing more complex projects typically much smoother than they would be in non-code tools like Excel.
 
 ## Weaknesses
 
-- it's code, and it takes some time (months to years) to achieve real fluency
-- potentially harder to learn than some competitor languages and tools (Power BI, Python)
-- very patchy expertise across H+SC Scotland
-- complex IG landscape
-- messy skills development journey
+-   it's code, and it takes some time (months to years) to achieve real fluency
+-   potentially harder to learn than some competitor languages and tools (Power BI, Python)
+-   very patchy expertise across H+SC Scotland
+-   complex IG landscape
+-   messy skills development journey
