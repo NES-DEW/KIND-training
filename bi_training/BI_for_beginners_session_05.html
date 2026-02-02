@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-08-26">
+<meta name="dcterms.date" content="2025-12-02">
 <title>BI for beginners (session 5) – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -34,14 +34,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1713c1db1ad41a796903378fc9ac7b2b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-bc1329a5d30e5fe94f050c11d12d678e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-1713c1db1ad41a796903378fc9ac7b2b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-64c611e38961a6caaced9b1829b0f356.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -320,13 +320,24 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#relationships" id="toc-relationships" class="nav-link" data-scroll-target="#relationships">Relationships</a></li>
   <li><a href="#creating-a-relationship" id="toc-creating-a-relationship" class="nav-link" data-scroll-target="#creating-a-relationship">Creating a relationship</a></li>
   <li><a href="#cardinality" id="toc-cardinality" class="nav-link" data-scroll-target="#cardinality">Cardinality</a></li>
+  <li><a href="#cross-filter-direction" id="toc-cross-filter-direction" class="nav-link" data-scroll-target="#cross-filter-direction">Cross-filter direction</a></li>
   <li><a href="#the-star-schema" id="toc-the-star-schema" class="nav-link" data-scroll-target="#the-star-schema">The star schema</a></li>
-  <li><a href="#starring-your-data" id="toc-starring-your-data" class="nav-link" data-scroll-target="#starring-your-data">Starring your data</a></li>
+  <li>
+<a href="#starring-your-data" id="toc-starring-your-data" class="nav-link" data-scroll-target="#starring-your-data">Starring your data</a>
+  <ul class="collapse">
+<li><a href="#duplicate-your-query" id="toc-duplicate-your-query" class="nav-link" data-scroll-target="#duplicate-your-query">Duplicate your query</a></li>
+  <li><a href="#selecting-columns" id="toc-selecting-columns" class="nav-link" data-scroll-target="#selecting-columns">Selecting columns</a></li>
+  <li><a href="#duplicate-rows" id="toc-duplicate-rows" class="nav-link" data-scroll-target="#duplicate-rows">Duplicate rows</a></li>
+  </ul>
+</li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
 </p>
+<div style="text-align:center;">
+<a href="https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMUpENjBJOENINDRFMUlYQTlCM1RVNzRSRy4u&amp;route=shorturl" style="display:inline-block;max-width:250px;padding:8px 16px;background:#2C3792;color:#ffffff;font-family:'Segoe UI','Helvetica Neue',sans-serif;font-weight:700;font-size:16px;text-align:center;text-decoration:none;border-radius:20px;border:2px solid #A12693;cursor:pointer;transition:all .3s ease;" onmouseover="this.style.background='#A12693';this.style.color='#fff';this.style.borderColor='#fff'" onmouseout="this.style.background='#2C3792';this.style.color='#ffffff';this.style.borderColor='#A12693'">Join the KIND network</a>
+</div>
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -345,7 +356,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-08-26</p>
+      <p class="date">December 2, 2025</p>
     </div>
   </div>
   
@@ -356,9 +367,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header><section id="previous-attendees-have-said" class="level2 cell" data-layout-align="left"><h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
 <ul>
-<li>60 previous attendees have left feedback</li>
+<li>14 previous attendees have left feedback</li>
 <li>100% would recommend this session to a colleague</li>
-<li>97% said that this session was pitched correctly</li>
+<li>100% said that this session was pitched correctly</li>
 </ul>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure"><p><img src="BI_for_beginners_session_05_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="288"></p>
@@ -375,9 +386,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Been interested in Power BI for a while and found this first session very intriguing. Keen to build on this over the next few weeks and find ways to utilise this in my workplace. I think the first session was a little slow with many people having problems with using the application (technology is not our friend). If you run this course again, it might an idea to add 15 minutes to the start to go through common issues or even have a pre-read document that discusses these with screenshots - who doesn’t love a good screenshot. Many thanks again to Brendan for another great training session!</li>
-<li>Very informative introduction to Power BI, it was easy to keep up with the session and a safe space to share any issues.</li>
-<li>A good introduction to get started with Power BI.</li>
+<li>The session helped me understand how to use modelling in Power BI to work more efficiently, and to cut down on the amount of duplicated data I use to build my reports.</li>
+<li>Good to be able to compare how data can be compressed in different ways but give the same outcome. Shows you don’t need reams of repeating data to get good quality!</li>
+<li>I think I could still use a little more regarding the data wrangling</li>
 </ul>
 </div>
 </div>
@@ -402,14 +413,24 @@ Booking link
 Date
 </th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td style="text-align:left;">
-<a href="https://events.teams.microsoft.com/event/b77cb241-0971-4d73-bfc0-0a23bccbeb8c@10efe0bd-a030-4bca-809c-b5e6745e499a">BI for beginners (session 5)</a>
+<a href="https://events.teams.microsoft.com/event/35d9a74a-9974-4771-9581-149c16bf4ed8@10efe0bd-a030-4bca-809c-b5e6745e499a">BI for beginners (session 5)</a>
 </td>
 <td style="text-align:left;">
-14:00-16:00 Tue 2nd December 2025
+14:00-16:00 Wed 18th February 2026
 </td>
-</tr></tbody>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://events.teams.microsoft.com/event/45a97f51-7545-4559-8505-f5e6c9ca9478@10efe0bd-a030-4bca-809c-b5e6745e499a">BI for beginners (session 5)</a>
+</td>
+<td style="text-align:left;">
+10:00-12:00 Thu 28th May 2026
+</td>
+</tr>
+</tbody>
 </table>
 </div>
 </div>
@@ -441,7 +462,8 @@ Date
 <li>we’ll start with a sub-set of the GP data we were working with over the past couple of sessions</li>
 <li>as we’ll see, the simplest (and most Excel-like) way of holding that data isn’t a natural fit for work in Power BI</li>
 <li>we’ll use the model to explore that data</li>
-<li>we’ll introduce the idea of a star schema as the usual way that you’ll need to organise your data for Power BI</li>
+<li>we’ll introduce the idea of a <a href="https://learn.microsoft.com/en-us/power-bi/guidance/star-schema">star schema</a> as the usual way that you’ll need to organise your data for Power BI</li>
+<li>and we’ll conclude with a practical exercise in Power Query showing how to turn flat data into star schema’d data</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
 <li>download both datasets (<a href="src/s05_full_data.xlsx">.xlsx full data</a> and <a href="src/s05_split_data.xlsx">.xlsx split data</a>) to somewhere sensible on your computer</li>
@@ -633,12 +655,40 @@ Date
 </div>
 </div>
 <p>This would give us a 1:many (which Power BI calls <code>1:*</code>) relationship, where we’d expect to get several rows from the goals table for each row in the height table.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Task">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>
+<p>add table with <code>GPPracticeName</code> and <code>Population</code></p>
+<p><img src="images/clipboard-3828125250.png" class="img-fluid"></p>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="cross-filter-direction" class="level2"><h2 class="anchored" data-anchor-id="cross-filter-direction">Cross-filter direction</h2>
+<p>Cross-filtering is the behaviour that you see when one visual filters another visual. For example, if you click on one of the practices on the map, your population table should update appropriately. Similarly, click on the population table, and your map should update too to reflect the selected areas. This type of two-way filtering behaviour is the default, and (slightly confusingly) the cross-filter direction toggle in the Properties pane of the relationship won’t change it.</p>
+<p>Cross-filtering should nearly always be one-way to avoid vagueness in your model. But there is one case where it might be useful to demonstrate a two-way cross-filter on a relationship, which is where you want two slicers to filter each other. We’ll demonstrate that using two slicers, with one using <code>GPPracticeName</code>, and the other <code>DZ</code>.</p>
 </section><section id="the-star-schema" class="level2"><h2 class="anchored" data-anchor-id="the-star-schema">The star schema</h2>
-<p>If you look at our data, we’ve got a single central table (with the practice details), and then a group of three lookup tables that contain fine-print details about each one of the practices. That’s starting to approximate a <a href="https://learn.microsoft.com/en-us/power-bi/guidance/star-schema">star schema</a>  <img src="../src/images/bfb_s05_relationships_star.png" class="img-fluid" alt="Star schema"></p>
+<p>If you look at our data, we’ve got a single central table (with the practice details), and then a group of three lookup tables that contain fine-print details about each one of the practices. That’s starting to approximate a <a href="https://learn.microsoft.com/en-us/power-bi/guidance/star-schema">star schema</a><br><br><img src="../src/images/bfb_s05_relationships_star.png" class="img-fluid" alt="Star schema"></p>
+<p>In a star schema, your data is broken into several tables which are joined by relationships. Most of the data is held in dimension tables, which contain data on a theme. For example, our population table above is effectively a dimension table, because it holds all the information about the population in some datazone. That data is organised by primary key - here, the datazone codes in the <code>DZ</code> column - which uniquely identify rows in the table.</p>
+<p>Each dimension table is then joined by a relationship to a single <a href="https://stackoverflow.com/questions/20036905/difference-between-fact-table-and-dimension-table">fact table</a>. The fact table contains only the unique combinations of the primary keys from the dimensions table. So, if we were star schema-ing our GP data, our fact table would contain the following:</p>
+<p><img src="images/clipboard-2703747982.png" class="img-fluid"></p>
+<p>That’s one row per practice, with the unique PracticeCodes in one column, their health board in the HB column - that’s boring because all our practices in this dataset are in Orkney, but would be more interesting and useful if we were dealing with practices from several NHS boards - and the non-unique datazone of each GP practice.</p>
 </section><section id="starring-your-data" class="level2"><h2 class="anchored" data-anchor-id="starring-your-data">Starring your data</h2>
 <ul>
-<li>we’ll leave this as a post-session exercise, but roughly, the steps are:  <img src="../src/images/bfb_s05_relationships_star_2.png" class="img-fluid" alt="Star schema">
-</li>
+<li><p>we’ll leave this as an optional section (either at the end of the main session, or as homework) for people who’d like to practice their Power Query</p></li>
+<li><p>we’ll work through how to transform the flat file into properly Star schema’d data  <img src="../src/images/bfb_s05_relationships_star_2.png" class="img-fluid" alt="Star schema"></p></li>
+<li>
+<p>in outline, the steps are to:</p>
+<ul>
 <li>take the full data query and duplicate five times (one per final table)</li>
 <li>rename each query (<code>main_table</code>, <code>demographics</code>, <code>boards</code>, <code>population</code>, <code>practice_details</code>)</li>
 <li>select the columns you need for each table:
@@ -646,16 +696,38 @@ Date
 <li>PracticeCode, DataZone, HB in the main table</li>
 <li>PracticeCode through to GPCluster in the practices_details table</li>
 <li>PracticeCode, age_range, n_patients, and Sex in the demographics table</li>
-<li>DataZone, Population, SIMD2020v2_Rank and URname in the population table</li>
+<li>DataZone, Population, SIMD2020v2_Rank, DZname, and URname in the population table</li>
 <li>HB, HBName, HBDateEnacted in the boards table</li>
 </ul>
 </li>
 <li>remove duplicate rows in each table</li>
-<li>then check the relationships to make sure the keys and cardinalities match up!</li>
+<li>then check the relationships to make sure the keys and cardinalities match up</li>
 </ul>
+</li>
+</ul>
+<section id="duplicate-your-query" class="level3"><h3 class="anchored" data-anchor-id="duplicate-your-query">Duplicate your query</h3>
+<p>There are a couple of ways of creating a copy of a query. We discuss these more fully in our intermediate Power BI sessions, but approximately you can:</p>
+<ul>
+<li><p>duplicate a query, which re-creates the whole process from scratch by loading the data from source again. This is slower, because you need to duplicate a lot of work, but makes for fully-independent queries. You can, for example, duplicate a query and then safely delete the original query without causing trouble</p></li>
+<li><p>or you can reference a query, which takes a snapshot of an existing query. This is faster than duplicating, but means that your daughter query depends on the original query, and if you change the original then your daughter query will potentially change/break too</p></li>
+</ul>
+<p>For this practice session, keep things simple. Create four duplicates of your <code>s05_full_data</code> query, and rename them <code>main_table</code>, <code>demographics</code>, <code>boards</code>, <code>population</code>, <code>practice_details</code>. Don’t try and leave a spare copy of your original data hanging around, because that’ll complicate building relationships later.</p>
+</section><section id="selecting-columns" class="level3"><h3 class="anchored" data-anchor-id="selecting-columns">Selecting columns</h3>
+<ul>
+<li><p>start with the main table. Here, this table will only contain keys, which are the unique values that describe our different GP practices, health board(s), and datazones</p></li>
+<li><p>the <code>Choose Columns</code> tool is definitely the most friendly way of doing this selection <img src="images/clipboard-1805989215.png" class="img-fluid"></p></li>
+</ul></section><section id="duplicate-rows" class="level3"><h3 class="anchored" data-anchor-id="duplicate-rows">Duplicate rows</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/clipboard-853901138.png" class="img-fluid figure-img"></p>
+<figcaption>The <code>Remove Duplicates</code> function is tricky, because it changes its behaviour depending on the selected columns. If you select a single column, <code>Remove Duplicates</code> will remove any duplicates <strong>in that column only</strong> and will ignore other columns, meaning that you can potentially miss combinations in your data. So given this sort of raw data, which contains no duplicated rows:</figcaption></figure>
+</div>
+<p><img src="images/clipboard-636177111.png" class="img-fluid"></p>
+<p><code>Remove Duplicates</code> on <code>var1</code> (with the formula <code>= Table.Distinct(#"Changed Type", {"var1"})</code>) will incorrectly remove some rows:</p>
+<p><img src="images/clipboard-2721525963.png" class="img-fluid"></p>
+<p>That clearly misses some unique combinations of <code>var1</code> and <code>var2</code> in the data. Make sure you select all the columns (ideally using <code>Ctrl</code> + <code>A</code>) before running <code>Remove Duplicates</code>. Note that reading the formula is useful here, because the correct formula (<code>= Table.Distinct(#"``Changed Type``")</code>) doesn’t specify any column names.</p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {

@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-09-12">
+<meta name="dcterms.date" content="2025-11-27">
 <title>Filtering and aggregating data with SQL – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -69,14 +69,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1713c1db1ad41a796903378fc9ac7b2b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-bc1329a5d30e5fe94f050c11d12d678e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-1713c1db1ad41a796903378fc9ac7b2b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-64c611e38961a6caaced9b1829b0f356.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -102,8 +102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><meta name="quarto:status" content="draft">
-<link rel="stylesheet" href="styles.css">
+}</script><link rel="stylesheet" href="styles.css">
 </head>
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
@@ -270,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo light-content"><img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo dark-content"></a>
@@ -344,8 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#this-session" id="toc-this-session" class="nav-link" data-scroll-target="#this-session">This session</a></li>
+<li><a href="#about-this-session" id="toc-about-this-session" class="nav-link active" data-scroll-target="#about-this-session">About this session</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#finding-matching-rows" id="toc-finding-matching-rows" class="nav-link" data-scroll-target="#finding-matching-rows">Finding matching rows</a></li>
   <li><a href="#where-helpers" id="toc-where-helpers" class="nav-link" data-scroll-target="#where-helpers"><code>WHERE</code> helpers</a></li>
@@ -357,6 +355,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
 </p>
+<div style="text-align:center;">
+<a href="https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMUpENjBJOENINDRFMUlYQTlCM1RVNzRSRy4u&amp;route=shorturl" style="display:inline-block;max-width:250px;padding:8px 16px;background:#2C3792;color:#ffffff;font-family:'Segoe UI','Helvetica Neue',sans-serif;font-weight:700;font-size:16px;text-align:center;text-decoration:none;border-radius:20px;border:2px solid #A12693;cursor:pointer;transition:all .3s ease;" onmouseover="this.style.background='#A12693';this.style.color='#fff';this.style.borderColor='#fff'" onmouseout="this.style.background='#2C3792';this.style.color='#ffffff';this.style.borderColor='#A12693'">Join the KIND network</a>
+</div>
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -375,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 12, 2025</p>
+      <p class="date">November 27, 2025</p>
     </div>
   </div>
   
@@ -386,8 +387,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><div class="cell" data-layout-align="left">
 <p>No feedback found for this session</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Forthcoming session(s)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<table>
+<thead><tr>
+<th style="text-align:left;">
+Booking link
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:left;">
+<a href="https://events.teams.microsoft.com/event/3c507219-b49c-465e-9528-a2a2933be448@10efe0bd-a030-4bca-809c-b5e6745e499a">Filtering and aggregating data with SQL</a>
+</td>
+<td style="text-align:left;">
+10:00-11:30 Tue 3rd February 2026
+</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>About this course
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <ul>
 <li>This course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams</li>
 <li>It’s intended as a light introduction for users with good general digital skills (broadly level 2 in the <a href="https://learn.nes.nhs.scot/76134">Digital and Data Capability Framework</a>)</li>
@@ -398,10 +443,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </li>
 <li>we use <a href="https://posit.cloud/">posit.cloud</a> for this course. Although that platform is mainly meant for analysts writing R code, we can trick it to allow us to practice our SQL skills</li>
-</ul></section><section id="this-session" class="level2"><h2 class="anchored" data-anchor-id="this-session">This session</h2>
+</ul>
+</div>
+</div>
+</div>
+<section id="about-this-session" class="level2"><h2 class="anchored" data-anchor-id="about-this-session">About this session</h2>
+<p>This session is all about using two key patterns in SQL:</p>
 <ul>
-<li>all about finding matching data</li>
-<li>and then summarising that data into fewer rows</li>
+<li>filtering to find matching rows of data in a table</li>
+<li>then aggregating that data to produce useful summaries</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
 <li><p>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</p></li>
@@ -409,7 +459,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu"></p></li>
 <li><p>Copy and paste the following R code into that script:</p></li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## install and attach R packages</span></span>
 <span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dbplyr"</span>, <span class="st">"RSQLite"</span>, <span class="st">"palmerpenguins"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  </span>
@@ -419,7 +468,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/memdb_frame.html">src_memdb</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create an sqlite db in memory</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">penguins</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co"># populate that db from R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 <ul>
 <li>save your script and click the <code>Source</code> button
 <ul>
@@ -431,19 +479,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>to connect with our SQL db in memory, add the following line to the head of your SQL script:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 <ul>
 <li>finally, save your SQL script (any file name is fine)</li>
 </ul></section><section id="finding-matching-rows" class="level2"><h2 class="anchored" data-anchor-id="finding-matching-rows">Finding matching rows</h2>
 <ul>
 <li>we can filter rows by values with the <code>WHERE</code> keyword. For example:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> flipper_length_mm<span class="op">=</span><span class="dv">181</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>7 records</caption>
 <colgroup>
 <col style="width: 10%">
@@ -539,14 +584,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>or:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> species<span class="op">=</span><span class="st">'Adelie'</span>; <span class="co">-- single quotes for preference</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <colgroup>
 <col style="width: 8%">
@@ -672,14 +715,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>these filters are combinable. So we can find combinations where several conditions are all true using the <code>AND</code> keyword:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> species <span class="op">=</span> <span class="st">'Adelie'</span> <span class="kw">AND</span> sex <span class="op">=</span> <span class="st">'male'</span> <span class="kw">AND</span> island <span class="op">=</span> <span class="st">'Biscoe'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <colgroup>
 <col style="width: 9%">
@@ -805,14 +846,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>or combinations where either are true using <code>OR</code>:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span>; <span class="co">-- &lt;&gt; = not equal</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <colgroup>
 <col style="width: 8%">
@@ -938,9 +977,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -949,7 +987,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>are there any Adelie penguins not from Torgersen Island that weight less than 3500g with flippers that are at least 190mm long?<br>
@@ -963,10 +1001,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>there are several keywords to sweeten the job of building a <code>WHERE</code> query. First, there’s a <code>BETWEEN</code> keyword to help find values in ranges:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_length_mm <span class="kw">BETWEEN</span> <span class="fl">37.8</span> <span class="kw">AND</span> <span class="dv">38</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>7 records</caption>
 <colgroup>
 <col style="width: 8%">
@@ -1062,14 +1099,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>for text columns, you might find <code>LIKE</code> with wildcards helpful. <code>%</code> stands for one or more character, while <code>_</code> stands for exactly one character:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">LIKE</span> <span class="st">'Tor%'</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <colgroup>
 <col style="width: 8%">
@@ -1195,14 +1230,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>or, possibly, you could select from a group of values using <code>IN</code>:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">IN</span> (<span class="st">'Dream'</span>, <span class="st">'Biscoe'</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <colgroup>
 <col style="width: 9%">
@@ -1328,14 +1361,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>you can also build simple expressions inside the <code>WHERE</code> statement to help capture more complex segments of your data:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> (flipper_length_mm <span class="op">*</span> bill_depth_mm) <span class="op">=</span> <span class="fl">3628.4</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>1 records</caption>
 <colgroup>
 <col style="width: 9%">
@@ -1369,15 +1400,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr></tbody>
 </table>
 </div>
-</div>
 </section><section id="keyword-order" class="level2"><h2 class="anchored" data-anchor-id="keyword-order">Keyword order</h2>
 <ul>
 <li>we’ve already looked at several examples where we’ve combined together keywords. For example, we can use <code>SELECT</code>, <code>FROM</code>, <code>WHERE</code> and <code>OR</code> together to retrieve all the flipper lengths for all the non-male penguins and/or all the penguins that live on Biscoe island:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <thead><tr class="header">
 <th style="text-align: right;">flipper_length_mm</th>
@@ -1416,7 +1445,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li><p>this order is important: SQL keywords have an order in which they <strong>must</strong> be written</p></li>
 <li><p>for our purposes, we’ll need to build each of our queries in the following order:</p></li>
@@ -1429,10 +1457,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>for example, <code>ORDER BY</code> is written at the end of the query:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <thead><tr class="header">
 <th style="text-align: left;">species</th>
@@ -1482,14 +1509,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>it’s good practice to be explicit about order direction, so you might add the <code>ASC</code> keyword to specify that you want to order your data in ascending order:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm <span class="kw">ASC</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <colgroup>
 <col style="width: 10%">
@@ -1615,14 +1640,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>or we could reverse-order using <code>DESC</code>:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> bill_depth_mm <span class="kw">DESC</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <colgroup>
 <col style="width: 10%">
@@ -1748,14 +1771,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>or order by multiple columns in different directions:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> island <span class="kw">ASC</span>, bill_depth_mm <span class="kw">DESC</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <colgroup>
 <col style="width: 11%">
@@ -1881,9 +1902,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1892,7 +1912,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>as an experiment, try re-ordering the previous SQL query so that the <code>WHERE</code> and <code>ORDER BY</code> sections occur in reverse order</li>
@@ -1906,10 +1926,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>effectively, we apply a keyword to the columns specified in the <code>SELECT</code> to aggregate:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MIN</span>(bill_depth_mm) <span class="kw">FROM</span> penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>1 records</caption>
 <thead><tr class="header">
 <th style="text-align: right;">MIN(bill_depth_mm)</th>
@@ -1919,14 +1938,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr></tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>rename your summary columns using <code>AS</code>:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(bill_depth_mm) <span class="kw">AS</span> big_bill <span class="kw">FROM</span> penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>1 records</caption>
 <thead><tr class="header">
 <th style="text-align: right;">big_bill</th>
@@ -1936,14 +1953,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr></tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>you can specify a column to group your data by - just beware of the keyword order!</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>3 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">species</th>
@@ -1965,14 +1980,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>and you can group by multiple variables at once:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, sex, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species, sex;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>8 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">species</th>
@@ -2022,15 +2035,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 <ul>
 <li>it’s possible (but confusing) to group by an implicit group. If we remove <code>sex</code> from the <code>SELECT</code> part of the above query, for example, we end up with (apparently) multiple rows per group:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, sex, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species, sex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>8 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">species</th>
@@ -2081,14 +2092,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>you can chain together multiple aggregation keywords to produce more complex results:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">ROUND</span>(<span class="fu">AVG</span>(bill_depth_mm), <span class="dv">1</span>) <span class="kw">AS</span> average_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>3 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">species</th>
@@ -2110,17 +2119,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>
 <code>COUNT</code> is especially useful to count the number of rows in a filtered dataset</li>
 <li>do note there can be dialect issues here, with several possible approaches to counting rows that may (or may not) work in your dialect of SQL</li>
 <li>for example, the lovely concise <code>DISTINCT</code> shorthand is great, but unfortunately won’t work everywhere:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">FROM</span> penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>1 records</caption>
 <thead><tr class="header">
 <th style="text-align: right;">COUNT(DISTINCT island)</th>
@@ -2130,14 +2137,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr></tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>this could also be used with a rename in place:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>1 records</caption>
 <thead><tr class="header">
 <th style="text-align: right;">peng_count</th>
@@ -2147,14 +2152,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr></tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>as a longer, but probably safer, alternative, and permitting several categories to be counted together:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> (<span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>1 records</caption>
 <thead><tr class="header">
 <th style="text-align: right;">peng_count</th>
@@ -2164,14 +2167,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr></tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>or, failing that:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island <span class="kw">AS</span> landmass, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> [male n] <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">=</span> <span class="st">'male'</span> <span class="kw">GROUP</span> <span class="kw">BY</span> island </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>3 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">landmass</th>
@@ -2193,14 +2194,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>if you’re trying to understand missing data, you should use the <code>NULL</code> keyword:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_length_mm <span class="kw">IS</span> <span class="kw">NULL</span> <span class="co">-- really important if you're aggregating</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>2 records</caption>
 <colgroup>
 <col style="width: 9%">
@@ -2246,15 +2245,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</div>
 <ul>
 <li>and there are some shortcuts for concatenating multiple columns together:</li>
 </ul>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">CONCAT</span>(species,<span class="st">', '</span>, island) <span class="kw">AS</span> species_land <span class="kw">from</span> penguins </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- but be aware this can be very quirky across different SQL dialects</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
 <thead><tr class="header">
 <th style="text-align: left;">species_land</th>
@@ -2292,7 +2289,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 
 
