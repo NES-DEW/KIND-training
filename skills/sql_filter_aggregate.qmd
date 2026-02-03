@@ -40,6 +40,17 @@ This session is all about using two key patterns in SQL:
 ## Setup
 
 * You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project from Github Repository </br>![New Rstudio project](src/images/sql_new_from_repo.png)
+* Supply the following URL when prompted: [https://github.com/NES-DEW/KIND_sql_intro/](https://github.com/NES-DEW/KIND_sql_intro/)
+* Once the project is deployed, open the `s3_setup.R` script by from the bottom-right hand files pane
+* Click the `Source` button at the top right-hand corner of the source pane ![Source button](src/images/sql_source_script.png)
+* Then open the `s3_filter.sql` script from the files pane, and `Ctrl` + `Shift` + `Enter` twice to preview your data for this session
+
+
+:::{.callout-note collapse=true appearance='default' icon=true}
+## Manual setup instructions
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
 * Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
 * In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png)
 
@@ -70,7 +81,7 @@ conn <- src_memdb() # create an sqlite db in memory
 copy_to(conn, penguins) # populate that db from R
 ```
 
-* save your script and click the `Source` button
+* save your script and click the `Source` button ![Source button](src/images/sql_source_script.png)
     * that will create a simple SQL database in memory
 * now create a new SQL script (again, from the `File` menu)
 * delete all the pre-populated lines of code, as follows: </br>![Pre-populated code in new SQL script](src/images/new_sql.png)
@@ -82,6 +93,8 @@ copy_to(conn, penguins) # populate that db from R
 ```
 
 * finally, save your SQL script (any file name is fine)
+
+:::
 
 
 ## Finding matching rows
@@ -126,19 +139,24 @@ SELECT * FROM penguins WHERE bill_length_mm BETWEEN 37.8 AND 38;
 * for text columns, you might find `LIKE` with wildcards helpful. `%` stands for one or more character, while `_` stands for exactly one character:
 
 ```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE island LIKE 'Tor%' 
+SELECT * FROM penguins WHERE island LIKE 'Tor%';
+```
+
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM penguins WHERE species LIKE 'Ad_lie';
 ```
 
 * or, possibly, you could select from a group of values using `IN`:
 
 ```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE island IN ('Dream', 'Biscoe') 
+SELECT * FROM penguins WHERE island IN ('Dream', 'Biscoe');
 ```
 
 * you can also build simple expressions inside the `WHERE` statement to help capture more complex segments of your data:
 
 ```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE (flipper_length_mm * bill_depth_mm) = 3628.4 
+SELECT * FROM penguins WHERE (flipper_length_mm * bill_depth_mm) = 3628.4;
 ```
 
 ## Keyword order
@@ -146,7 +164,7 @@ SELECT * FROM penguins WHERE (flipper_length_mm * bill_depth_mm) = 3628.4
 * we've already looked at several examples where we've combined together keywords. For example, we can use `SELECT`, `FROM`, `WHERE` and `OR` together to retrieve all the flipper lengths for all the non-male penguins and/or all the penguins that live on Biscoe island:
 
 ```{sql connection=src_memdb()$con}
-SELECT flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe'
+SELECT flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe';
 ```
 
 * this order is important: SQL keywords have an order in which they **must** be written
@@ -163,25 +181,25 @@ SELECT flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe'
 * for example, `ORDER BY` is written at the end of the query:
 
 ```{sql connection=src_memdb()$con}
-SELECT species, flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' ORDER BY flipper_length_mm
+SELECT species, flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' ORDER BY flipper_length_mm;
 ```
 
 * it's good practice to be explicit about order direction, so you might add the `ASC` keyword to specify that you want to order your data in ascending order:
 
 ```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE sex <> 'male' ORDER BY flipper_length_mm ASC
+SELECT * FROM penguins WHERE sex <> 'male' ORDER BY flipper_length_mm ASC;
 ```
 
 * or we could reverse-order using `DESC`:
 
 ```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY bill_depth_mm DESC
+SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY bill_depth_mm DESC;
 ```
 
 * or order by multiple columns in different directions:
 
 ```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY island ASC, bill_depth_mm DESC
+SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY island ASC, bill_depth_mm DESC;
 ```
 
 :::{.callout-note collapse=false appearance='default' icon=true}
@@ -195,13 +213,13 @@ SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY island ASC, bill_depth_
 * effectively, we apply a keyword to the columns specified in the `SELECT` to aggregate:
 
 ```{sql connection=src_memdb()$con}
-SELECT MIN(bill_depth_mm) FROM penguins
+SELECT MIN(bill_depth_mm) FROM penguins;
 ```
 
 * rename your summary columns using `AS`:
 
 ```{sql connection=src_memdb()$con}
-SELECT MAX(bill_depth_mm) AS big_bill FROM penguins
+SELECT MAX(bill_depth_mm) AS big_bill FROM penguins;
 ```
 
 * you can specify a column to group your data by - just beware of the keyword order!
@@ -218,12 +236,12 @@ SELECT species, sex, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP 
 * it's possible (but confusing) to group by an implicit group. If we remove `sex` from the `SELECT` part of the above query, for example, we end up with (apparently) multiple rows per group:
 
 ```{sql connection=src_memdb()$con}
-SELECT species, sex, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species, sex
+SELECT species, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species, sex;
 ```
 
 * you can chain together multiple aggregation keywords to produce more complex results:
 ```{sql connection=src_memdb()$con}
-SELECT species, ROUND(AVG(bill_depth_mm), 1) AS average_bill_depth FROM penguins GROUP BY species
+SELECT species, ROUND(AVG(bill_depth_mm), 1) AS average_bill_depth FROM penguins GROUP BY species;
 ```
 
 * `COUNT` is especially useful to count the number of rows in a filtered dataset
@@ -231,35 +249,88 @@ SELECT species, ROUND(AVG(bill_depth_mm), 1) AS average_bill_depth FROM penguins
 * for example, the lovely concise `DISTINCT` shorthand is great, but unfortunately won't work everywhere:
 
 ```{sql connection=src_memdb()$con}
-SELECT COUNT(DISTINCT island) FROM penguins
+SELECT COUNT(DISTINCT island) FROM penguins;
 
 ```
 
 * this could also be used with a rename in place:
 
 ```{sql connection=src_memdb()$con}
-SELECT COUNT(DISTINCT island) AS peng_count FROM penguins
+SELECT COUNT(DISTINCT island) AS peng_count FROM penguins;
 ```
 
 * as a longer, but probably safer, alternative, and permitting several categories to be counted together:
 
 ```{sql connection=src_memdb()$con}
-SELECT COUNT(*) AS peng_count FROM (SELECT DISTINCT island, species FROM penguins)
+SELECT COUNT(*) AS peng_count FROM (SELECT DISTINCT island, species FROM penguins);
 ```
 
 * or, failing that:
 ```{sql connection=src_memdb()$con}
-SELECT island AS landmass, COUNT(*) AS [male n] FROM penguins WHERE sex = 'male' GROUP BY island 
+SELECT island AS landmass, COUNT(*) AS [male n] FROM penguins WHERE sex = 'male' GROUP BY island ;
 ```
 
 * if you're trying to understand missing data, you should use the `NULL` keyword:
 ```{sql connection=src_memdb()$con}
-SELECT * FROM penguins WHERE bill_length_mm IS NULL -- really important if you're aggregating
+SELECT * FROM penguins WHERE bill_length_mm IS NULL; -- really important if you're aggregating
 ```
 
 * and there are some shortcuts for concatenating multiple columns together:
 ```{sql connection=src_memdb()$con}
-SELECT CONCAT(species,', ', island) AS species_land from penguins 
+SELECT CONCAT(species,', ', island) AS species_land from penguins ;
 -- but be aware this can be very quirky across different SQL dialects
 ```
+
+## SQL query summary
+```{sql connection=src_memdb()$con}
+#| code-fold: true
+#| eval: false
+
+-- Setup
+SELECT * FROM penguins; -- to check everything is working by calling up the whole penguins table
+
+-- WHERE
+SELECT * FROM penguins WHERE flipper_length_mm=181; -- filtering rows by numeric value, where flipper_length_mm is 181
+SELECT * FROM penguins WHERE species='Adelie'; -- filtering rows by character value, using single quotes for preference
+SELECT * FROM penguins WHERE species = 'Adelie' AND sex = 'male' AND island = 'Biscoe'; -- combining multiple filters with AND
+SELECT * FROM penguins WHERE sex <> 'male' OR island = 'Biscoe'; -- <> = not equal, combining filters with OR
+
+-- EXERCISE - are there any Adelie penguins not from Torgersen Island that weight less than 3500g with flippers that are at least 190mm long?
+SELECT * from penguins WHERE species = 'Adelie' AND island <> 'Torgersen' AND body_mass_g < 3500 AND flipper_length_mm >= 190;
+- (that should be 11 rows)
+
+-- WHERE helpers
+SELECT * FROM penguins WHERE bill_length_mm BETWEEN 37.8 AND 38; -- finding values in range with BETWEEN
+SELECT * FROM penguins WHERE island LIKE 'Tor%' -- wildcard matching
+SELECT * FROM penguins WHERE species LIKE 'Ad_lie' -- wildcard matching single character
+SELECT * FROM penguins WHERE island IN ('Dream', 'Biscoe')  -- select from a group of values
+SELECT * FROM penguins WHERE (flipper_length_mm * bill_depth_mm) = 3628.4 -- select with an expression
+
+-- Keyword ordering
+SELECT flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' -- reminder about keyword order
+SELECT species, flipper_length_mm FROM penguins WHERE sex <> 'male' OR island = 'Biscoe' ORDER BY flipper_length_mm -- ORDER BY at end of query
+
+-- Column ordering
+SELECT * FROM penguins WHERE sex <> 'male' ORDER BY flipper_length_mm ASC -- implicit ordering can be troublesome. Default is ASC
+SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY bill_depth_mm DESC -- descending ordering with DESC
+SELECT * FROM penguins WHERE bill_depth_mm > 20 ORDER BY island ASC, bill_depth_mm DESC -- hierarchical ordering
+
+-- Aggregation
+SELECT MIN(bill_depth_mm) FROM penguins; -- to find the minimum value from bill_depth_mm
+SELECT MAX(bill_depth_mm) AS big_bill FROM penguins; -- rename summary columns
+SELECT species, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species; -- specify a column to group your data by
+SELECT species, sex, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species, sex; -- specify several columns to group by
+SELECT species, sex, SUM(bill_depth_mm) AS total_bill_depth FROM penguins GROUP BY species, sex; -- you can also use implicit groups, but this is confusing in that we end up with several rows per group 
+SELECT species, ROUND(AVG(bill_depth_mm), 1) AS average_bill_depth FROM penguins GROUP BY species; -- multiple aggregation keywords, like a rounded average
+SELECT COUNT(DISTINCT island) FROM penguins; -- find distinct rows
+SELECT COUNT(DISTINCT island) AS peng_count FROM penguins; -- distinct with rename
+SELECT COUNT(*) AS peng_count FROM (SELECT DISTINCT island, species FROM penguins); -- variant syntax to count several categories at once
+SELECT island AS landmass, COUNT(*) AS [male n] FROM penguins WHERE sex = 'male' GROUP BY island; -- variant with rename
+SELECT * FROM penguins WHERE bill_length_mm IS NULL; -- really important to know about null values if you're aggregatingSELECT CONCAT(species,', ', island) AS species_land from penguins; -- merge columns
+```
+
+## Acknowledgements
+
+Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Ben Harley (PHS), Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.
+
 

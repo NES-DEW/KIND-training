@@ -47,7 +47,18 @@ This is a session about joins in SQL:
 + then we'll do lots of practice of basic joins
 + and finish with a couple of helpful points for simplifying your work with joins
 
-## Setup 
+## Setup
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project from Github Repository </br>![New Rstudio project](src/images/sql_new_from_repo.png)
+* Supply the following URL when prompted: [https://github.com/NES-DEW/KIND_sql_intro/](https://github.com/NES-DEW/KIND_sql_intro/)
+* Once the project is deployed, open the `s4_setup.R` script by from the bottom-right hand files pane
+* Click the `Source` button at the top right-hand corner of the source pane ![Source button](src/images/sql_source_script.png)
+* Then open the `s4_joins.sql` script from the files pane, and `Ctrl` + `Shift` + `Enter` twice to preview your data for this session
+
+
+:::{.callout-note collapse=true appearance='default' icon=true}
+## Manual setup instructions
 
 * You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
 * Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
@@ -103,6 +114,7 @@ copy_to(conn, practice_names, overwrite = T)
 copy_to(conn, practice_lists, overwrite = T)
 ```
 
+:::
 
 ## Creating our SQL database
 
@@ -303,7 +315,41 @@ list(ab_city_presc = ab_city_presc, bnf_data = bnf_data, gp_practices = gp_pract
   write_rds("data/prescribing_data.rds")
 ```
 
+## SQL query summary
 
+```{sql connection=src_memdb()$con}
+#| code-fold: true
+#| eval: false
 
+SELECT * FROM practice_names; -- to preview practice names
+
+SELECT * FROM practice_lists; -- and list sizes
+
+SELECT * FROM practice_names 
+  JOIN practice_lists 
+  ON practice_names.PracticeCode = practice_lists.PracticeCode -- to join list size to practice info
+
+SELECT * FROM ab_city_presc JOIN bnf_data ON ab_city_presc.BNFItemCode = bnf_data.bnf_presentation_code; -- to join drug information into Aberdeen City prescribing data
+
+SELECT GPPractice, PaidDateMonth, PaidQuantity, bnf_presentation 
+  FROM ab_city_presc 
+  JOIN bnf_data 
+  ON ab_city_presc.BNFItemCode = bnf_data.bnf_presentation_code; -- join then subset
+  
+SELECT GPPractice, PaidDateMonth, PaidQuantity, bnf_presentation 
+  FROM ab_city_presc AS ab
+  JOIN bnf_data AS bnf
+  ON ab.BNFItemCode = bnf.bnf_presentation_code; -- join with temporary renaming via AS
+  
+SELECT GPPracticeName, PaidDateMonth, PaidQuantity, bnf_presentation 
+  FROM ab_city_presc AS ab
+  JOIN bnf_data AS bnf
+  ON ab.BNFItemCode = bnf.bnf_presentation_code
+  JOIN gp_practices AS gp ON ab.GPPractice = gp.PracticeCode -- multiple joins  
+```
+
+## Acknowledgements
+
+Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Ben Harley (PHS), Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.
 
 

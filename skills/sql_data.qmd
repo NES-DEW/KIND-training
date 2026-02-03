@@ -37,7 +37,18 @@ This session is all about getting data into, and out of SQL. We'll look at:
 * discussing how to update data, including adding, removing, and renaming columns
 * and showing how to create new tables
 
-## Setup 
+## Setup
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project from Github Repository </br>![New Rstudio project](src/images/sql_new_from_repo.png)
+* Supply the following URL when prompted: [https://github.com/NES-DEW/KIND_sql_intro/](https://github.com/NES-DEW/KIND_sql_intro/)
+* Once the project is deployed, open the `s2_setup.R` script by from the bottom-right hand files pane
+* Click the `Source` button at the top right-hand corner of the source pane ![Source button](src/images/sql_source_script.png)
+* Then open the `s2_data.sql` script from the files pane, and `Ctrl` + `Shift` + `Enter` twice to preview your data for this session
+
+
+:::{.callout-note collapse=true appearance='default' icon=true}
+## Manual setup instructions
 
 * You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
 * Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
@@ -81,6 +92,8 @@ conn <- src_memdb() # create an sqlite db in memory
 ```
 
 * finally, save your SQL script (any file name is fine)
+
+:::
 
 ## Getting started
 
@@ -167,7 +180,7 @@ SELECT * FROM clients;
 ```{sql connection=src_memdb()$con}
 UPDATE clients
   SET name = "David Lemon"
-  WHERE chi = "0701720842"
+  WHERE chi = "0701720842";
 ```
 
 ```{sql connection=src_memdb()$con}
@@ -185,7 +198,7 @@ ALTER TABLE clients ADD length INT(2);
 + we can set a single value for this new column
 ```{sql connection=src_memdb()$con}
 UPDATE clients
-  SET length = (10)
+  SET length = (10);
   
 ```
 
@@ -199,7 +212,7 @@ SELECT * FROM clients;
 ```{sql connection=src_memdb()$con}
 UPDATE clients
   SET length = 12
-  WHERE name = "Mr Odds" OR name = "Dr Stamps"
+  WHERE name = "Mr Odds" OR name = "Dr Stamps";
 ```
 
 
@@ -251,7 +264,57 @@ INSERT INTO gps VALUES
 SELECT * FROM gps;
 ```
 
+## SQL query summary
+
+```{sql connection=src_memdb()$con}
+#| code-fold: true
+#| eval: false
+
+CREATE TABLE clients (chi varchar(10) NOT NULL,
+                      name varchar(255),
+                      birthdate date,
+                      PRIMARY KEY (chi)); -- creating a clients table
+                      
+SELECT * FROM clients; -- checking the clients table exists
+
+INSERT INTO clients VALUES ("1204851425", "Mr Odds", "1985-04-12"); -- add a row to clients
+
+INSERT INTO clients (chi, birthdate) VALUES ("0701720842", "1972-01-07"); -- insert values by name
+
+INSERT INTO clients VALUES 
+  ("0411016548", "The Moog", "2001-11-04"),
+  ("3003627534", "One McIrey", "1962-03-30"),
+  ("2407864568", "Dr Stamps", "1986-07-24"); -- adding multiple rows of data
+  
+UPDATE clients
+  SET name = "David Lemon"
+  WHERE chi = "0701720842"; -- updating a row with no name
+  
+ALTER TABLE clients ADD length INT(2); -- adding a column
+
+UPDATE clients SET length = (10); -- set a single fixed value for each row in that new column
+
+UPDATE clients
+  SET length = 12
+  WHERE name = "Mr Odds" OR name = "Dr Stamps"; -- setting new values based on existing values
+  
+ALTER TABLE clients DROP length; -- remove a column
+
+CREATE TABLE gps (chi varchar(10) NOT NULL,
+                      gp varchar(255),
+                      PRIMARY KEY (chi)); -- create a new empty table
+                      
+INSERT INTO gps VALUES 
+  ("1204851425", "Dr Smith"),
+  ("0701720842", "Dr Patel"),
+  ("0411016548", "Dr Hamoda"),
+  ("3003627534", "Dr Clarke"),
+  ("2407864568", "Dr Johal"); -- insert some values
+  
+SELECT * FROM gps; -- preview those values
+```
+
 
 ## Acknowledgements
 
-Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.
+Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Ben Harley (PHS), Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.

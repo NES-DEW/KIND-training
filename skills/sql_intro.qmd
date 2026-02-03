@@ -43,6 +43,17 @@ This introductory session aims to give you a quick and easy introduction to SQL.
 ## Setup
 
 * You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project from Github Repository </br>![New Rstudio project](src/images/sql_new_from_repo.png)
+* Supply the following URL when prompted: [https://github.com/NES-DEW/KIND_sql_intro/](https://github.com/NES-DEW/KIND_sql_intro/)
+* Once the project is deployed, open the `s1_setup.R` script by from the bottom-right hand files pane
+* Click the `Source` button at the top right-hand corner of the source pane ![Source button](src/images/sql_source_script.png)
+* Then open the `s1_intro.sql` script from the files pane, and `Ctrl` + `Shift` + `Enter` twice to preview your data for this session
+
+
+:::{.callout-note collapse=true appearance='default' icon=true}
+## Manual setup instructions
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
 * Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
 * In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png)
 * Copy and paste the following R code into that script:
@@ -84,6 +95,8 @@ copy_to(conn, penguins) # populate that db from R
 ```
 
 * finally, save your SQL script (any file name is fine)
+
+:::
 
 ## Getting started
 
@@ -202,6 +215,26 @@ SELECT * FROM penguins FETCH FIRST 5 ROWS ONLY;
 SELECT * FROM penguins WHERE ROWNUM <= 5;
 ```
 
+## SQL query summary
+
+```{sql connection=src_memdb()$con}
+#| code-fold: true
+#| eval: false
+
+SELECT * FROM penguins; -- show all your data
+
+SELECT * FROM penguins LIMIT 5; -- showing the first five rows of your data
+
+SELECT species, island FROM penguins; -- showing just the species and island columns
+
+SELECT species, island AS landmass FROM penguins; -- selecting and re-naming columns
+
+SELECT island landmass FROM penguins; -- you can also implicitly rename, if you're brave...
+
+SELECT DISTINCT species FROM penguins; -- selecting distinct values from the species column
+
+SELECT DISTINCT island, species FROM penguins; -- selecting distinct combinations of island and species
+```
 ## Acknowledgements
 
 Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.
