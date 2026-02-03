@@ -351,6 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#columns" id="toc-columns" class="nav-link" data-scroll-target="#columns">Columns</a></li>
   <li><a href="#distinct-values" id="toc-distinct-values" class="nav-link" data-scroll-target="#distinct-values">Distinct values</a></li>
   <li><a href="#dislcaimer---sql-dialects" id="toc-dislcaimer---sql-dialects" class="nav-link" data-scroll-target="#dislcaimer---sql-dialects">Dislcaimer - SQL dialects</a></li>
+  <li><a href="#sql-query-summary" id="toc-sql-query-summary" class="nav-link" data-scroll-target="#sql-query-summary">SQL query summary</a></li>
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -425,6 +426,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
 <li>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</li>
+<li>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project from Github Repository <img src="src/images/sql_new_from_repo.png" class="img-fluid" alt="New Rstudio project">
+</li>
+<li>Supply the following URL when prompted: <a href="https://github.com/NES-DEW/KIND_sql_intro/">https://github.com/NES-DEW/KIND_sql_intro/</a>
+</li>
+<li>Once the project is deployed, open the <code>s1_setup.R</code> script by from the bottom-right hand files pane</li>
+<li>Click the <code>Source</code> button at the top right-hand corner of the source pane <img src="src/images/sql_source_script.png" class="img-fluid" alt="Source button">
+</li>
+<li>Then open the <code>s1_intro.sql</code> script from the files pane, and <code>Ctrl</code> + <code>Shift</code> + <code>Enter</code> twice to preview your data for this session</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Manual setup instructions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</li>
 <li>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project">
 </li>
 <li>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu">
@@ -458,7 +482,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <ul>
 <li>finally, save your SQL script (any file name is fine)</li>
-</ul></section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <p>Our db has one table, named <code>penguins</code>. A table is similar to an Excel sheet - a rectangular set of rows and columns containing our data. To preview our data, we’ll need to write a first line of SQL. Please add the following to the bottom of your SQL script:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -690,7 +718,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>SQL is case insensitive - including for column names etc - but it’s customary to use capitals for the keywords. It makes your SQL easier to read, too.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -699,7 +727,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>please could you modify your SQL statement to preview the first 10 rows of the data</li>
@@ -969,7 +997,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -978,7 +1006,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>please select the <code>species</code> and <code>flipper_length_mm</code> columns with new names of your choice</li>
@@ -1071,6 +1099,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> <span class="kw">ROWNUM</span> <span class="op">&lt;=</span> <span class="dv">5</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="sql-query-summary" class="level2"><h2 class="anchored" data-anchor-id="sql-query-summary">SQL query summary</h2>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins; <span class="co">-- show all your data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">LIMIT</span> <span class="dv">5</span>; <span class="co">-- showing the first five rows of your data</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">FROM</span> penguins; <span class="co">-- showing just the species and island columns</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, island <span class="kw">AS</span> landmass <span class="kw">FROM</span> penguins; <span class="co">-- selecting and re-naming columns</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island landmass <span class="kw">FROM</span> penguins; <span class="co">-- you can also implicitly rename, if you're brave...</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> species <span class="kw">FROM</span> penguins; <span class="co">-- selecting distinct values from the species column</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins; <span class="co">-- selecting distinct combinations of island and species</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 </section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
 <p>Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.</p>

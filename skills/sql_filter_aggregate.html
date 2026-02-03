@@ -350,6 +350,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#keyword-order" id="toc-keyword-order" class="nav-link" data-scroll-target="#keyword-order">Keyword order</a></li>
   <li><a href="#ordering" id="toc-ordering" class="nav-link" data-scroll-target="#ordering">Ordering</a></li>
   <li><a href="#aggregation" id="toc-aggregation" class="nav-link" data-scroll-target="#aggregation">Aggregation</a></li>
+  <li><a href="#sql-query-summary" id="toc-sql-query-summary" class="nav-link" data-scroll-target="#sql-query-summary">SQL query summary</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -387,42 +389,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><div class="cell" data-layout-align="left">
 <p>No feedback found for this session</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Forthcoming session(s)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<table>
-<thead><tr>
-<th style="text-align:left;">
-Booking link
-</th>
-<th style="text-align:left;">
-Date
-</th>
-</tr></thead>
-<tbody><tr>
-<td style="text-align:left;">
-<a href="https://events.teams.microsoft.com/event/3c507219-b49c-465e-9528-a2a2933be448@10efe0bd-a030-4bca-809c-b5e6745e499a">Filtering and aggregating data with SQL</a>
-</td>
-<td style="text-align:left;">
-10:00-11:30 Tue 3rd February 2026
-</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-</div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -431,7 +400,7 @@ Date
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>This course is designed as a basic introduction to SQL delivered as live interactive sessions on Teams</li>
@@ -454,6 +423,29 @@ Date
 <li>then aggregating that data to produce useful summaries</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
+<li>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</li>
+<li>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project from Github Repository <img src="src/images/sql_new_from_repo.png" class="img-fluid" alt="New Rstudio project">
+</li>
+<li>Supply the following URL when prompted: <a href="https://github.com/NES-DEW/KIND_sql_intro/">https://github.com/NES-DEW/KIND_sql_intro/</a>
+</li>
+<li>Once the project is deployed, open the <code>s3_setup.R</code> script by from the bottom-right hand files pane</li>
+<li>Click the <code>Source</code> button at the top right-hand corner of the source pane <img src="src/images/sql_source_script.png" class="img-fluid" alt="Source button">
+</li>
+<li>Then open the <code>s3_filter.sql</code> script from the files pane, and <code>Ctrl</code> + <code>Shift</code> + <code>Enter</code> twice to preview your data for this session</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Manual setup instructions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
 <li><p>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</p></li>
 <li><p>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project"></p></li>
 <li><p>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu"></p></li>
@@ -469,8 +461,7 @@ Date
 <span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/memdb_frame.html">src_memdb</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create an sqlite db in memory</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">conn</span>, <span class="va">penguins</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co"># populate that db from R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>save your script and click the <code>Source</code> button
-<ul>
+<li>save your script and click the <code>Source</code> button <img src="src/images/sql_source_script.png" class="img-fluid" alt="Source button"><ul>
 <li>that will create a simple SQL database in memory</li>
 </ul>
 </li>
@@ -482,7 +473,11 @@ Date
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>finally, save your SQL script (any file name is fine)</li>
-</ul></section><section id="finding-matching-rows" class="level2"><h2 class="anchored" data-anchor-id="finding-matching-rows">Finding matching rows</h2>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="finding-matching-rows" class="level2"><h2 class="anchored" data-anchor-id="finding-matching-rows">Finding matching rows</h2>
 <ul>
 <li>we can filter rows by values with the <code>WHERE</code> keyword. For example:</li>
 </ul>
@@ -1102,7 +1097,135 @@ Date
 <ul>
 <li>for text columns, you might find <code>LIKE</code> with wildcards helpful. <code>%</code> stands for one or more character, while <code>_</code> stands for exactly one character:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">LIKE</span> <span class="st">'Tor%'</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">LIKE</span> <span class="st">'Tor%'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table">
+<caption>Displaying records 1 - 10</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 5%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">island</th>
+<th style="text-align: right;">bill_length_mm</th>
+<th style="text-align: right;">bill_depth_mm</th>
+<th style="text-align: right;">flipper_length_mm</th>
+<th style="text-align: right;">body_mass_g</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: right;">year</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.1</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3750</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">17.4</td>
+<td style="text-align: right;">186</td>
+<td style="text-align: right;">3800</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">40.3</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">3250</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">36.7</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3450</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.3</td>
+<td style="text-align: right;">20.6</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">3650</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">38.9</td>
+<td style="text-align: right;">17.8</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3625</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.2</td>
+<td style="text-align: right;">19.6</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">4675</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">34.1</td>
+<td style="text-align: right;">18.1</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3475</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">42.0</td>
+<td style="text-align: right;">20.2</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">4250</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2007</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> species <span class="kw">LIKE</span> <span class="st">'Ad_lie'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
@@ -1233,7 +1356,7 @@ Date
 <ul>
 <li>or, possibly, you could select from a group of values using <code>IN</code>:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">IN</span> (<span class="st">'Dream'</span>, <span class="st">'Biscoe'</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">IN</span> (<span class="st">'Dream'</span>, <span class="st">'Biscoe'</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
@@ -1364,7 +1487,7 @@ Date
 <ul>
 <li>you can also build simple expressions inside the <code>WHERE</code> statement to help capture more complex segments of your data:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> (flipper_length_mm <span class="op">*</span> bill_depth_mm) <span class="op">=</span> <span class="fl">3628.4</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> (flipper_length_mm <span class="op">*</span> bill_depth_mm) <span class="op">=</span> <span class="fl">3628.4</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>1 records</caption>
@@ -1404,7 +1527,7 @@ Date
 <ul>
 <li>we’ve already looked at several examples where we’ve combined together keywords. For example, we can use <code>SELECT</code>, <code>FROM</code>, <code>WHERE</code> and <code>OR</code> together to retrieve all the flipper lengths for all the non-male penguins and/or all the penguins that live on Biscoe island:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
@@ -1457,7 +1580,7 @@ Date
 <ul>
 <li>for example, <code>ORDER BY</code> is written at the end of the query:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
@@ -1512,7 +1635,7 @@ Date
 <ul>
 <li>it’s good practice to be explicit about order direction, so you might add the <code>ASC</code> keyword to specify that you want to order your data in ascending order:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm <span class="kw">ASC</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm <span class="kw">ASC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
@@ -1643,7 +1766,7 @@ Date
 <ul>
 <li>or we could reverse-order using <code>DESC</code>:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> bill_depth_mm <span class="kw">DESC</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> bill_depth_mm <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
@@ -1774,7 +1897,7 @@ Date
 <ul>
 <li>or order by multiple columns in different directions:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> island <span class="kw">ASC</span>, bill_depth_mm <span class="kw">DESC</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> island <span class="kw">ASC</span>, bill_depth_mm <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
@@ -1926,7 +2049,7 @@ Date
 <ul>
 <li>effectively, we apply a keyword to the columns specified in the <code>SELECT</code> to aggregate:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MIN</span>(bill_depth_mm) <span class="kw">FROM</span> penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MIN</span>(bill_depth_mm) <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>1 records</caption>
@@ -1941,7 +2064,7 @@ Date
 <ul>
 <li>rename your summary columns using <code>AS</code>:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(bill_depth_mm) <span class="kw">AS</span> big_bill <span class="kw">FROM</span> penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(bill_depth_mm) <span class="kw">AS</span> big_bill <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>1 records</caption>
@@ -1956,7 +2079,7 @@ Date
 <ul>
 <li>you can specify a column to group your data by - just beware of the keyword order!</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>3 records</caption>
@@ -1983,7 +2106,7 @@ Date
 <ul>
 <li>and you can group by multiple variables at once:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, sex, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species, sex;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, sex, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species, sex;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>8 records</caption>
@@ -2039,54 +2162,45 @@ Date
 <ul>
 <li>it’s possible (but confusing) to group by an implicit group. If we remove <code>sex</code> from the <code>SELECT</code> part of the above query, for example, we end up with (apparently) multiple rows per group:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, sex, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species, sex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species, sex;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>8 records</caption>
 <thead><tr class="header">
 <th style="text-align: left;">species</th>
-<th style="text-align: left;">sex</th>
 <th style="text-align: right;">total_bill_depth</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: right;">91.6</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">female</td>
 <td style="text-align: right;">1286.4</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">male</td>
 <td style="text-align: right;">1392.3</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">female</td>
 <td style="text-align: right;">598.0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">male</td>
 <td style="text-align: right;">654.6</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Gentoo</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: right;">58.2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Gentoo</td>
-<td style="text-align: left;">female</td>
 <td style="text-align: right;">825.8</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Gentoo</td>
-<td style="text-align: left;">male</td>
 <td style="text-align: right;">958.8</td>
 </tr>
 </tbody>
@@ -2095,7 +2209,7 @@ Date
 <ul>
 <li>you can chain together multiple aggregation keywords to produce more complex results:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">ROUND</span>(<span class="fu">AVG</span>(bill_depth_mm), <span class="dv">1</span>) <span class="kw">AS</span> average_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">ROUND</span>(<span class="fu">AVG</span>(bill_depth_mm), <span class="dv">1</span>) <span class="kw">AS</span> average_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>3 records</caption>
@@ -2125,7 +2239,7 @@ Date
 <li>do note there can be dialect issues here, with several possible approaches to counting rows that may (or may not) work in your dialect of SQL</li>
 <li>for example, the lovely concise <code>DISTINCT</code> shorthand is great, but unfortunately won’t work everywhere:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">FROM</span> penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>1 records</caption>
@@ -2140,7 +2254,7 @@ Date
 <ul>
 <li>this could also be used with a rename in place:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> penguins;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>1 records</caption>
@@ -2155,7 +2269,7 @@ Date
 <ul>
 <li>as a longer, but probably safer, alternative, and permitting several categories to be counted together:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> (<span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> (<span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>1 records</caption>
@@ -2170,7 +2284,7 @@ Date
 <ul>
 <li>or, failing that:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island <span class="kw">AS</span> landmass, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> [male n] <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">=</span> <span class="st">'male'</span> <span class="kw">GROUP</span> <span class="kw">BY</span> island </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island <span class="kw">AS</span> landmass, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> [male n] <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">=</span> <span class="st">'male'</span> <span class="kw">GROUP</span> <span class="kw">BY</span> island ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>3 records</caption>
@@ -2197,7 +2311,7 @@ Date
 <ul>
 <li>if you’re trying to understand missing data, you should use the <code>NULL</code> keyword:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_length_mm <span class="kw">IS</span> <span class="kw">NULL</span> <span class="co">-- really important if you're aggregating</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_length_mm <span class="kw">IS</span> <span class="kw">NULL</span>; <span class="co">-- really important if you're aggregating</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>2 records</caption>
@@ -2248,8 +2362,8 @@ Date
 <ul>
 <li>and there are some shortcuts for concatenating multiple columns together:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">CONCAT</span>(species,<span class="st">', '</span>, island) <span class="kw">AS</span> species_land <span class="kw">from</span> penguins </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- but be aware this can be very quirky across different SQL dialects</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">CONCAT</span>(species,<span class="st">', '</span>, island) <span class="kw">AS</span> species_land <span class="kw">from</span> penguins ;</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- but be aware this can be very quirky across different SQL dialects</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>Displaying records 1 - 10</caption>
@@ -2290,6 +2404,50 @@ Date
 </tbody>
 </table>
 </div>
+</section><section id="sql-query-summary" class="level2"><h2 class="anchored" data-anchor-id="sql-query-summary">SQL query summary</h2>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Setup</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins; <span class="co">-- to check everything is working by calling up the whole penguins table</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- WHERE</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> flipper_length_mm<span class="op">=</span><span class="dv">181</span>; <span class="co">-- filtering rows by numeric value, where flipper_length_mm is 181</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> species<span class="op">=</span><span class="st">'Adelie'</span>; <span class="co">-- filtering rows by character value, using single quotes for preference</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> species <span class="op">=</span> <span class="st">'Adelie'</span> <span class="kw">AND</span> sex <span class="op">=</span> <span class="st">'male'</span> <span class="kw">AND</span> island <span class="op">=</span> <span class="st">'Biscoe'</span>; <span class="co">-- combining multiple filters with AND</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span>; <span class="co">-- &lt;&gt; = not equal, combining filters with OR</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- EXERCISE - are there any Adelie penguins not from Torgersen Island that weight less than 3500g with flippers that are at least 190mm long?</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">from</span> penguins <span class="kw">WHERE</span> species <span class="op">=</span> <span class="st">'Adelie'</span> <span class="kw">AND</span> island <span class="op">&lt;&gt;</span> <span class="st">'Torgersen'</span> <span class="kw">AND</span> body_mass_g <span class="op">&lt;</span> <span class="dv">3500</span> <span class="kw">AND</span> flipper_length_mm <span class="op">&gt;=</span> <span class="dv">190</span>;</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> (that should be <span class="dv">11</span> <span class="kw">rows</span>)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">-- WHERE helpers</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_length_mm <span class="kw">BETWEEN</span> <span class="fl">37.8</span> <span class="kw">AND</span> <span class="dv">38</span>; <span class="co">-- finding values in range with BETWEEN</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">LIKE</span> <span class="st">'Tor%'</span> <span class="co">-- wildcard matching</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> species <span class="kw">LIKE</span> <span class="st">'Ad_lie'</span> <span class="co">-- wildcard matching single character</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> island <span class="kw">IN</span> (<span class="st">'Dream'</span>, <span class="st">'Biscoe'</span>)  <span class="co">-- select from a group of values</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> (flipper_length_mm <span class="op">*</span> bill_depth_mm) <span class="op">=</span> <span class="fl">3628.4</span> <span class="co">-- select with an expression</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co">-- Keyword ordering</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span> <span class="co">-- reminder about keyword order</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, flipper_length_mm <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">OR</span> island <span class="op">=</span> <span class="st">'Biscoe'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm <span class="co">-- ORDER BY at end of query</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="co">-- Column ordering</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">&lt;&gt;</span> <span class="st">'male'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> flipper_length_mm <span class="kw">ASC</span> <span class="co">-- implicit ordering can be troublesome. Default is ASC</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> bill_depth_mm <span class="kw">DESC</span> <span class="co">-- descending ordering with DESC</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_depth_mm <span class="op">&gt;</span> <span class="dv">20</span> <span class="kw">ORDER</span> <span class="kw">BY</span> island <span class="kw">ASC</span>, bill_depth_mm <span class="kw">DESC</span> <span class="co">-- hierarchical ordering</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="co">-- Aggregation</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MIN</span>(bill_depth_mm) <span class="kw">FROM</span> penguins; <span class="co">-- to find the minimum value from bill_depth_mm</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(bill_depth_mm) <span class="kw">AS</span> big_bill <span class="kw">FROM</span> penguins; <span class="co">-- rename summary columns</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species; <span class="co">-- specify a column to group your data by</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, sex, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species, sex; <span class="co">-- specify several columns to group by</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, sex, <span class="fu">SUM</span>(bill_depth_mm) <span class="kw">AS</span> total_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species, sex; <span class="co">-- you can also use implicit groups, but this is confusing in that we end up with several rows per group </span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> species, <span class="fu">ROUND</span>(<span class="fu">AVG</span>(bill_depth_mm), <span class="dv">1</span>) <span class="kw">AS</span> average_bill_depth <span class="kw">FROM</span> penguins <span class="kw">GROUP</span> <span class="kw">BY</span> species; <span class="co">-- multiple aggregation keywords, like a rounded average</span></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">FROM</span> penguins; <span class="co">-- find distinct rows</span></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> island) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> penguins; <span class="co">-- distinct with rename</span></span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> peng_count <span class="kw">FROM</span> (<span class="kw">SELECT</span> <span class="kw">DISTINCT</span> island, species <span class="kw">FROM</span> penguins); <span class="co">-- variant syntax to count several categories at once</span></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> island <span class="kw">AS</span> landmass, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> [male n] <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> sex <span class="op">=</span> <span class="st">'male'</span> <span class="kw">GROUP</span> <span class="kw">BY</span> island; <span class="co">-- variant with rename</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> penguins <span class="kw">WHERE</span> bill_length_mm <span class="kw">IS</span> <span class="kw">NULL</span>; <span class="co">-- really important to know about null values if you're aggregatingSELECT CONCAT(species,', ', island) AS species_land from penguins; -- merge columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details></section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Ben Harley (PHS), Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

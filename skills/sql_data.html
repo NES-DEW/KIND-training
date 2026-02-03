@@ -355,6 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#renaming-cols" id="toc-renaming-cols" class="nav-link" data-scroll-target="#renaming-cols">Renaming cols</a></li>
   <li><a href="#note-about-uploading" id="toc-note-about-uploading" class="nav-link" data-scroll-target="#note-about-uploading">Note about uploading</a></li>
   <li><a href="#create-tables" id="toc-create-tables" class="nav-link" data-scroll-target="#create-tables">Create tables</a></li>
+  <li><a href="#sql-query-summary" id="toc-sql-query-summary" class="nav-link" data-scroll-target="#sql-query-summary">SQL query summary</a></li>
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -428,6 +429,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>and showing how to create new tables</li>
 </ul></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <ul>
+<li>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</li>
+<li>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project from Github Repository <img src="src/images/sql_new_from_repo.png" class="img-fluid" alt="New Rstudio project">
+</li>
+<li>Supply the following URL when prompted: <a href="https://github.com/NES-DEW/KIND_sql_intro/">https://github.com/NES-DEW/KIND_sql_intro/</a>
+</li>
+<li>Once the project is deployed, open the <code>s2_setup.R</code> script by from the bottom-right hand files pane</li>
+<li>Click the <code>Source</code> button at the top right-hand corner of the source pane <img src="src/images/sql_source_script.png" class="img-fluid" alt="Source button">
+</li>
+<li>Then open the <code>s2_data.sql</code> script from the files pane, and <code>Ctrl</code> + <code>Shift</code> + <code>Enter</code> twice to preview your data for this session</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Manual setup instructions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
 <li><p>You will need a free <a href="https://posit.cloud/">posit.cloud</a> account. Please set this up and check that you have access before the session begins</p></li>
 <li><p>Once you’ve logged-in to <a href="https://posit.cloud/">posit.cloud</a>, please create a new Rstudio project <img src="src/images/sql_intro_create_project.png" class="img-fluid" alt="New Rstudio project"></p></li>
 <li><p>In that project, create a new R script: <img src="src/images/sql_intro_create_script.png" class="img-fluid" alt="Create a new R script from the file menu"></p></li>
@@ -456,7 +480,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- !preview conn=src_memdb()$con</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>finally, save your SQL script (any file name is fine)</li>
-</ul></section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
 <li>in this session, unlike the previous one, we’ll start with an empty SQL database</li>
 <li>we’ll create a table in that db, and add some data to it</li>
@@ -619,7 +647,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> name <span class="op">=</span> <span class="ot">"David Lemon"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> chi <span class="op">=</span> <span class="ot">"0701720842"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> chi <span class="op">=</span> <span class="ot">"0701720842"</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
@@ -667,7 +695,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>we can set a single value for this new column</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> <span class="fu">length</span> <span class="op">=</span> (<span class="dv">10</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> <span class="fu">length</span> <span class="op">=</span> (<span class="dv">10</span>);</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
@@ -717,7 +745,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> <span class="fu">length</span> <span class="op">=</span> <span class="dv">12</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> name <span class="op">=</span> <span class="ot">"Mr Odds"</span> <span class="kw">OR</span> name <span class="op">=</span> <span class="ot">"Dr Stamps"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> name <span class="op">=</span> <span class="ot">"Mr Odds"</span> <span class="kw">OR</span> name <span class="op">=</span> <span class="ot">"Dr Stamps"</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table">
 <caption>5 records</caption>
@@ -826,8 +854,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"2407864568"</span>, <span class="ot">"Dr Johal"</span>);</span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> gps;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.</p>
+</section><section id="sql-query-summary" class="level2"><h2 class="anchored" data-anchor-id="sql-query-summary">SQL query summary</h2>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> clients (chi <span class="dt">varchar</span>(<span class="dv">10</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                      name <span class="dt">varchar</span>(<span class="dv">255</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                      birthdate <span class="dt">date</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                      <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (chi)); <span class="co">-- creating a clients table</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                      </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> clients; <span class="co">-- checking the clients table exists</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> clients <span class="kw">VALUES</span> (<span class="ot">"1204851425"</span>, <span class="ot">"Mr Odds"</span>, <span class="ot">"1985-04-12"</span>); <span class="co">-- add a row to clients</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> clients (chi, birthdate) <span class="kw">VALUES</span> (<span class="ot">"0701720842"</span>, <span class="ot">"1972-01-07"</span>); <span class="co">-- insert values by name</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> clients <span class="kw">VALUES</span> </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"0411016548"</span>, <span class="ot">"The Moog"</span>, <span class="ot">"2001-11-04"</span>),</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"3003627534"</span>, <span class="ot">"One McIrey"</span>, <span class="ot">"1962-03-30"</span>),</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"2407864568"</span>, <span class="ot">"Dr Stamps"</span>, <span class="ot">"1986-07-24"</span>); <span class="co">-- adding multiple rows of data</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> name <span class="op">=</span> <span class="ot">"David Lemon"</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> chi <span class="op">=</span> <span class="ot">"0701720842"</span>; <span class="co">-- updating a row with no name</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> clients <span class="kw">ADD</span> <span class="fu">length</span> <span class="dt">INT</span>(<span class="dv">2</span>); <span class="co">-- adding a column</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients <span class="kw">SET</span> <span class="fu">length</span> <span class="op">=</span> (<span class="dv">10</span>); <span class="co">-- set a single fixed value for each row in that new column</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> clients</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SET</span> <span class="fu">length</span> <span class="op">=</span> <span class="dv">12</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> name <span class="op">=</span> <span class="ot">"Mr Odds"</span> <span class="kw">OR</span> name <span class="op">=</span> <span class="ot">"Dr Stamps"</span>; <span class="co">-- setting new values based on existing values</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> clients <span class="kw">DROP</span> <span class="fu">length</span>; <span class="co">-- remove a column</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> gps (chi <span class="dt">varchar</span>(<span class="dv">10</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>                      gp <span class="dt">varchar</span>(<span class="dv">255</span>),</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>                      <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (chi)); <span class="co">-- create a new empty table</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>                      </span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> gps <span class="kw">VALUES</span> </span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"1204851425"</span>, <span class="ot">"Dr Smith"</span>),</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"0701720842"</span>, <span class="ot">"Dr Patel"</span>),</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"0411016548"</span>, <span class="ot">"Dr Hamoda"</span>),</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"3003627534"</span>, <span class="ot">"Dr Clarke"</span>),</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>  (<span class="ot">"2407864568"</span>, <span class="ot">"Dr Johal"</span>); <span class="co">-- insert some values</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> gps; <span class="co">-- preview those values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details></section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Ben Harley (PHS), Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
