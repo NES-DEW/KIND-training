@@ -328,9 +328,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#about-this-session" id="toc-about-this-session" class="nav-link active" data-scroll-target="#about-this-session">About this session</a></li>
   <li><a href="#version-control-in-two-minutes" id="toc-version-control-in-two-minutes" class="nav-link" data-scroll-target="#version-control-in-two-minutes">Version control in two minutes</a></li>
   <li><a href="#why-do-version-control" id="toc-why-do-version-control" class="nav-link" data-scroll-target="#why-do-version-control">Why do version control</a></li>
-  <li><a href="#git-version-control-for-the-individual" id="toc-git-version-control-for-the-individual" class="nav-link" data-scroll-target="#git-version-control-for-the-individual">Git = version control for the individual</a></li>
-  <li><a href="#github-a-key-tool-for-distributed-version-control" id="toc-github-a-key-tool-for-distributed-version-control" class="nav-link" data-scroll-target="#github-a-key-tool-for-distributed-version-control">GitHub = a key tool for distributed version control</a></li>
-  <li><a href="#gitea" id="toc-gitea" class="nav-link" data-scroll-target="#gitea">Gitea</a></li>
   <li><a href="#practical" id="toc-practical" class="nav-link" data-scroll-target="#practical">Practical</a>
   <ul class="collapse">
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
@@ -339,9 +336,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#committing-files-to-our-repo" id="toc-committing-files-to-our-repo" class="nav-link" data-scroll-target="#committing-files-to-our-repo">Committing files to our repo</a></li>
   <li><a href="#change-your-r-script" id="toc-change-your-r-script" class="nav-link" data-scroll-target="#change-your-r-script">Change your R script</a></li>
   <li><a href="#history" id="toc-history" class="nav-link" data-scroll-target="#history">History</a></li>
+  <li><a href="#gitignore-practical" id="toc-gitignore-practical" class="nav-link" data-scroll-target="#gitignore-practical">.gitignore practical</a></li>
   <li><a href="#branching" id="toc-branching" class="nav-link" data-scroll-target="#branching">Branching</a></li>
   <li><a href="#git-bash" id="toc-git-bash" class="nav-link" data-scroll-target="#git-bash">Git bash</a></li>
   </ul></li>
+  <li><a href="#github-a-key-tool-for-distributed-version-control" id="toc-github-a-key-tool-for-distributed-version-control" class="nav-link" data-scroll-target="#github-a-key-tool-for-distributed-version-control">GitHub = a key tool for distributed version control</a></li>
   <li><a href="#tools-and-resources" id="toc-tools-and-resources" class="nav-link" data-scroll-target="#tools-and-resources">Tools and resources</a></li>
   </ul>
 </nav>
@@ -398,6 +397,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="version-control-in-two-minutes" class="level2">
 <h2 class="anchored" data-anchor-id="version-control-in-two-minutes">Version control in two minutes</h2>
 <p>Version control refers to the use of software to track changes to the code base of a project. Word’s track changes is a simple version control system, because it allows you to a) see how a document has developed, and b) control that development by e.g.&nbsp;accepting or rejecting changes. Version control is extremely important for code-driven project. As code grows, managing changes becomes more complicated - particularly when several developers collaborate on a project. Version control aims to overcome these problems by providing tools to assist developers in managing their code base. This helps to assure the quality of the finished code by making sure that all and only the working code is passed on to users.</p>
+<p>[Word demo of track changes]</p>
 </section>
 <section id="why-do-version-control" class="level2">
 <h2 class="anchored" data-anchor-id="why-do-version-control">Why do version control</h2>
@@ -410,27 +410,16 @@ ul.task-list li input[type="checkbox"] {
 <li>solves complex problems of collaboration as the scope of projects grow</li>
 </ul>
 </section>
-<section id="git-version-control-for-the-individual" class="level2">
-<h2 class="anchored" data-anchor-id="git-version-control-for-the-individual">Git = version control for the individual</h2>
-</section>
-<section id="github-a-key-tool-for-distributed-version-control" class="level2">
-<h2 class="anchored" data-anchor-id="github-a-key-tool-for-distributed-version-control">GitHub = a key tool for distributed version control</h2>
-<p><a href="https://github.com/about">GitHub</a> is based on Git, but provides a centralised location for repositories. For example, <a href="https://github.com/microsoft/PowerPlatformConnectors">Microsoft host their source code on GitHub</a>, as do <a href="https://github.com/Public-Health-Scotland">PHS</a>, <a href="https://github.com/nhsdigital">NHS Digital</a>, and many others. As well hosting the repository, and allowing users to choose to share their code, GitHub provides many other tools for software development. PHS provide an excellent quick <a href="https://github.com/Public-Health-Scotland/GitHub-guidance">introduction to GitHub workflow on their guidance page</a>.</p>
-</section>
-<section id="gitea" class="level2">
-<h2 class="anchored" data-anchor-id="gitea">Gitea</h2>
-<p><a href="https://gitea.io/en-us/">Gitea</a> is similar to GitHub, except that private servers can be created. This is useful to share confidential code securely with authorised users.</p>
-</section>
 <section id="practical" class="level2">
 <h2 class="anchored" data-anchor-id="practical">Practical</h2>
+<p>In this section, we’ll use Git to demonstrate how version control can be used to manage code- and text-based projects. This uses <a href="https://posit.cloud">posit.cloud</a>, which is mainly meant for writing R code. It includes several version control tools, including Git. We use this platform because it makes providing infrastructure to users across different organisations really easy. You definitely don’t need to know anything about R to follow this session.</p>
 <section id="setup" class="level3">
 <h3 class="anchored" data-anchor-id="setup">Setup</h3>
-<p>None of this is specific to version control:</p>
 <ul>
-<li>in posit.cloud, create a new Rstudio project</li>
+<li>in <a href="https://posit.cloud">posit.cloud</a>, create a new Rstudio project</li>
 <li>give it a name</li>
 <li>create an R script in that project</li>
-<li>write a simple script (<code>"hello world"</code> or <code>2 + 2</code> if you’re not an R person)</li>
+<li>write a simple script or line of text (<code>"hello world"</code> or <code>2 + 2</code> if you’re not an R person)</li>
 <li>save your R script in your project root</li>
 </ul>
 </section>
@@ -438,27 +427,36 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="starting-git">Starting Git</h3>
 <ul>
 <li><code>Tools</code> &gt; <code>Version Control</code> &gt; <code>Project Setup</code></li>
-<li>pick Git</li>
-<li>“do you want to initialize a new git repository for this project”
-<ul>
-<li>repo explainer while restarting
+<li>pick Git, and confirm that “do you want to initialize a new git repository for this project”</li>
+<li><strong>Repository</strong> = the container where Git stores version control information about this project</li>
+<li>our repo contains:
 <ul>
 <li>.git subdirectory, which contains no user servicable components</li>
 <li>gitignore, which is important to our story</li>
 </ul></li>
-</ul></li>
-<li>our new repo is where git will track the changes we make to our files</li>
-<li>one piece of setup information: in the terminal, please run
-<ul>
-<li>git config –global user.email “you@example.com”</li>
-<li>git config –global user.name “Your Name” (this is a quirk for Posit Cloud. If you’re on the desktop, you’ll probably only need to ever do that once)</li>
-</ul></li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Important bit of Posit-specific fiddling
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>In the terminal, please run: - <code>git config --global user.email "you@example.com"</code> - <code>git config --global user.name "Your Name"</code></p>
+<p>Git repositories record the name and email of the person making changes. This is one way of setting that information, but your own platform may well use a different method. You should only need to do that once per Git setup on a computer.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="adding-files-to-our-repo" class="level3">
 <h3 class="anchored" data-anchor-id="adding-files-to-our-repo">Adding files to our repo</h3>
 <ul>
-<li>you need to add files to the repo to make that happen</li>
+<li>before Git can version control files, they need to be added to the repo</li>
 <li>Git pane: should contain three files with yellow status blobs
 <ul>
 <li>the Git pane gives a simple GUI for interacting with our repo</li>
@@ -480,7 +478,7 @@ ul.task-list li input[type="checkbox"] {
 <li>by default, Git adds those files to a branch, called Master
 <ul>
 <li>decolonialising point, this is more properly called Main in more recent versions of Git (including those on Github)</li>
-<li>branch explainer</li>
+<li>we’ll talk about what branches are, and why they’re important, later</li>
 <li>you will want to rename this branch as <code>main</code> otherwise Github will be a pain</li>
 </ul></li>
 <li><code>git branch -m main</code> in the terminal will do it (might need a cheeky refresh in the Git pane)</li>
@@ -493,17 +491,55 @@ ul.task-list li input[type="checkbox"] {
 <li>you’ll see a blue modified icon appear in the Git pane next to the file name</li>
 <li>stage and commit the file
 <ul>
-<li>you’ll see a diff (diff explainer)</li>
-<li>add a commit message and press <code>Commit</code></li>
+<li>you’ll see a diff: a summarised view of the differences between the old and new version of the file</li>
+<li>Git basically thinks in diffs, and the non-user-servicable files in <code>.git</code> are records of those differences</li>
 </ul></li>
+<li>add a commit message and press <code>Commit</code></li>
 </ul>
 </section>
 <section id="history" class="level3">
 <h3 class="anchored" data-anchor-id="history">History</h3>
 <ul>
 <li>look at the Git history <img src="images/clipboard-557509296.png" class="img-fluid" alt="Git history"></li>
-<li>explore each of your two commits</li>
+<li>explore each of your two commits, paying particular attention to the diffs</li>
 </ul>
+</section>
+<section id="gitignore-practical" class="level3">
+<h3 class="anchored" data-anchor-id="gitignore-practical">.gitignore practical</h3>
+<ul>
+<li>so far, we’ve added individual files to our repo</li>
+<li>we can also instruct Git to ignore files and folders by editing the <code>.gitignore</code> file that was created when we initialised our repo</li>
+<li>open <code>.gitignore</code> from the files pane</li>
+<li>naming files and folders here will cause Git to ignore them</li>
+<li>see <a href="https://git-scm.com/docs/gitignore">the docs for more information</a>, but roughly
+<ul>
+<li>add a filename (with its relative path using <code>/</code>) to prevent it being monitored by Git</li>
+<li>use <code>dir_name/*</code> to ignore everything in a directory</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>commit any outstanding changes to your repo</li>
+<li>create a new R script in the project root directory called “secret.R”</li>
+<li>create a new folder called “also_secret”, and add a couple of empty R scripts inside it</li>
+<li>review what happens in the Git pane</li>
+<li>now edit .gitignore to ignore all the new stuff you’ve just made</li>
+<li>again, review the Git pane</li>
+</ul>
+</div>
+</div>
+</div>
 </section>
 <section id="branching" class="level3">
 <h3 class="anchored" data-anchor-id="branching">Branching</h3>
@@ -540,6 +576,11 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
+</section>
+<section id="github-a-key-tool-for-distributed-version-control" class="level2">
+<h2 class="anchored" data-anchor-id="github-a-key-tool-for-distributed-version-control">GitHub = a key tool for distributed version control</h2>
+<p><a href="https://github.com/about">GitHub</a> is based on Git, but provides a centralised location for repositories. For example, <a href="https://github.com/microsoft/PowerPlatformConnectors">Microsoft host their source code on GitHub</a>, as do <a href="https://github.com/Public-Health-Scotland">PHS</a>, <a href="https://github.com/nhsdigital">NHS Digital</a>, and many others. As well hosting the repository, and allowing users to choose to share their code, GitHub provides many other tools for software development. PHS provide an excellent quick <a href="https://github.com/Public-Health-Scotland/GitHub-guidance">introduction to GitHub workflow on their guidance page</a>.</p>
+<p>Some organisations use <a href="https://gitea.io/en-us/">Gitea</a>, which is similar to GitHub, except that private servers can be created. This is useful to share confidential code securely with authorised users.</p>
 </section>
 <section id="tools-and-resources" class="level2">
 <h2 class="anchored" data-anchor-id="tools-and-resources">Tools and resources</h2>
