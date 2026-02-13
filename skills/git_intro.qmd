@@ -24,6 +24,8 @@ This is an introduction to version control using git. In this session, we'll:
 
 Version control refers to the use of software to track changes to the code base of a project. Word's track changes is a simple version control system, because it allows you to a) see how a document has developed, and b) control that development by e.g. accepting or rejecting changes. Version control is extremely important for code-driven project. As code grows, managing changes becomes more complicated - particularly when several developers collaborate on a project. Version control aims to overcome these problems by providing tools to assist developers in managing their code base. This helps to assure the quality of the finished code by making sure that all and only the working code is passed on to users.
 
+[Word demo of track changes]
+
 ## Why do version control
 
 -   version control is consistent with best practice [software development](https://en.wikipedia.org/wiki/Software_development_process) techniques.
@@ -33,45 +35,41 @@ Version control refers to the use of software to track changes to the code base 
 -   mandate for open code
 -   solves complex problems of collaboration as the scope of projects grow
 
-## Git = version control for the individual
-
-
-## GitHub = a key tool for distributed version control
-
-[GitHub](https://github.com/about) is based on Git, but provides a centralised location for repositories. For example, [Microsoft host their source code on GitHub](https://github.com/microsoft/PowerPlatformConnectors), as do [PHS](https://github.com/Public-Health-Scotland), [NHS Digital](https://github.com/nhsdigital), and many others. As well hosting the repository, and allowing users to choose to share their code, GitHub provides many other tools for software development. PHS provide an excellent quick [introduction to GitHub workflow on their guidance page](https://github.com/Public-Health-Scotland/GitHub-guidance).
-
-## Gitea
-
-[Gitea](https://gitea.io/en-us/) is similar to GitHub, except that private servers can be created. This is useful to share confidential code securely with authorised users.
-
 ## Practical
+
+In this section, we'll use Git to demonstrate how version control can be used to manage code- and text-based projects. This uses [posit.cloud](https://posit.cloud), which is mainly meant for writing R code. It includes several version control tools, including Git. We use this platform because it makes providing infrastructure to users across different organisations really easy. You definitely don't need to know anything about R to follow this session.
 
 ### Setup
 
-None of this is specific to version control:
-
--   in posit.cloud, create a new Rstudio project
+-   in [posit.cloud](https://posit.cloud), create a new Rstudio project
 -   give it a name
 -   create an R script in that project
--   write a simple script (`"hello world"` or `2 + 2` if you're not an R person)
+-   write a simple script or line of text (`"hello world"` or `2 + 2` if you're not an R person)
 -   save your R script in your project root
 
 ### Starting Git
 
 -   `Tools` > `Version Control` > `Project Setup`
--   pick Git
--   "do you want to initialize a new git repository for this project"
-    -   repo explainer while restarting
-        -   .git subdirectory, which contains no user servicable components
-        -   gitignore, which is important to our story
--   our new repo is where git will track the changes we make to our files
--   one piece of setup information: in the terminal, please run
-    -   git config --global user.email "you\@example.com"
-    -   git config --global user.name "Your Name" (this is a quirk for Posit Cloud. If you're on the desktop, you'll probably only need to ever do that once)
+-   pick Git, and confirm that "do you want to initialize a new git repository for this project"
+- **Repository** = the container where Git stores version control information about this project
+- our repo contains: 
+  -   .git subdirectory, which contains no user servicable components
+  -   gitignore, which is important to our story
+  
+:::{.callout-important collapse=false appearance='default' icon=true}
+## Important bit of Posit-specific fiddling
+
+In the terminal, please run:
+-   `git config --global user.email "you@example.com"`
+-   `git config --global user.name "Your Name"`
+
+Git repositories record the name and email of the person making changes. This is one way of setting that information, but your own platform may well use a different method. You should only need to do that once per Git setup on a computer.
+    
+:::
 
 ### Adding files to our repo
 
--   you need to add files to the repo to make that happen
+- before Git can version control files, they need to be added to the repo
 -   Git pane: should contain three files with yellow status blobs
     -   the Git pane gives a simple GUI for interacting with our repo
 -   select all, and tick the `Staged` checkboxes, to add them to the repo
@@ -84,7 +82,7 @@ None of this is specific to version control:
     -   Commit = Git has added the current state of your files to the repo, as the commit summary should show you
 -   by default, Git adds those files to a branch, called Master
     -   decolonialising point, this is more properly called Main in more recent versions of Git (including those on Github)
-    -   branch explainer
+    -   we'll talk about what branches are, and why they're important, later
     -   you will want to rename this branch as `main` otherwise Github will be a pain
 -   `git branch -m main` in the terminal will do it (might need a cheeky refresh in the Git pane)
 
@@ -93,13 +91,37 @@ None of this is specific to version control:
 -   make a change to your script and save
 -   you'll see a blue modified icon appear in the Git pane next to the file name
 -   stage and commit the file
-    -   you'll see a diff (diff explainer)
-    -   add a commit message and press `Commit`
+    -   you'll see a diff: a summarised view of the differences between the old and new version of the file
+    - Git basically thinks in diffs, and the non-user-servicable files in `.git` are records of those differences
+-   add a commit message and press `Commit`
 
 ### History
 
 -   look at the Git history ![Git history](images/clipboard-557509296.png)
--   explore each of your two commits
+-   explore each of your two commits, paying particular attention to the diffs
+
+### .gitignore practical
+
+- so far, we've added individual files to our repo
+- we can also instruct Git to ignore files and folders by editing the `.gitignore` file that was created when we initialised our repo
+- open `.gitignore` from the files pane
+- naming files and folders here will cause Git to ignore them
+- see [the docs for more information](https://git-scm.com/docs/gitignore), but roughly
+  - add a filename (with its relative path using `/`) to prevent it being monitored by Git
+  - use `dir_name/*` to ignore everything in a directory
+  
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task
+- commit any outstanding changes to your repo
+- create a new R script in the project root directory called "secret.R"
+- create a new folder called "also_secret", and add a couple of empty R scripts inside it
+- review what happens in the Git pane
+- now edit .gitignore to ignore all the new stuff you've just made
+- again, review the Git pane
+:::
+
+
+
 
 ### Branching
 
@@ -127,6 +149,12 @@ You'll notice that we don't have all the tools we might ever need in the Git pan
 * `git branch -m steve` = rename current branch to "steve"
 * `git checkout main` = switch back to the main branch
 
+
+## GitHub = a key tool for distributed version control
+
+[GitHub](https://github.com/about) is based on Git, but provides a centralised location for repositories. For example, [Microsoft host their source code on GitHub](https://github.com/microsoft/PowerPlatformConnectors), as do [PHS](https://github.com/Public-Health-Scotland), [NHS Digital](https://github.com/nhsdigital), and many others. As well hosting the repository, and allowing users to choose to share their code, GitHub provides many other tools for software development. PHS provide an excellent quick [introduction to GitHub workflow on their guidance page](https://github.com/Public-Health-Scotland/GitHub-guidance).
+
+Some organisations use [Gitea](https://gitea.io/en-us/), which is similar to GitHub, except that private servers can be created. This is useful to share confidential code securely with authorised users.
 
 ## Tools and resources
 
