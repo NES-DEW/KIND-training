@@ -1,0 +1,332 @@
+---
+title: R and SQL
+params:
+  sl_date: 2026-02-16
+  fn: R and SQL
+  id: KS18
+date: 2026-02-16
+execute: 
+  echo: true
+  freeze: auto
+  results: asis
+draft: false
+categories: [SQL, beginner]
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r}
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+#| echo: false
+
+source(here::here("R/feed_block.R"))
+feed_block(params[["id"]])
+
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh(params[["fn"]])
+```
+
+{{< include src/sql_about.qmd >}}
+
+## About this session
+
+This session is about using SQL in R. It's especially designed to help cover three main use-cases:
+
+1. Creating SQL databases from R to help when working with big data
+1. Connect your R project to a (remote) SQL server to access data
+1. To pre-filter data to streamline later analysis with standard R tools (like dplyr)
+
+The session is an optional extension to our Introduction to SQL course. Unlike the other parts of that course, this session assumes that you have a fair working knowledge of R, and would be capable of reading and writing simple R scripts.
+
+## Setup
+
+The setup for this session differs from the other session in the course:
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), if you have an existing project from an earlier session of this course, please return to it and clear the environment
+* Otherwise, please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
+* In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png) and save it
+
+## Package loading
+
+We'll use two main package, and two helpers. Our main packages are:
+
++ [DBI](https://cran.r-project.org/web/packages/DBI/index.html), which provides several ways of creating and accessing databases from R
++ [RSQLite](https://cran.r-project.org/web/packages/RSQLite/vignettes/RSQLite.html), which contains the  [SQLite](https://www.sqlite.org/index.html) engine that (behind the scenes) has been powering our databases in the earlier sessions of this course
++ [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) to give us some play data:
++ [glue](https://glue.tidyverse.org/) to help us build up more complex queries
+
+```{r}
+# install.packages("DBI")
+# install.packages("RSQLite")
+# install.packages("palmerpenguins")
+library(DBI)
+library(RSQLite)
+library(palmerpenguins)
+library(glue)
+```
+
+As a beginner, it can be hard to understand what DBI is doing, and what RSQLite is doing. To help explain, we'll namespace functions in this introductory part, using the `package::function` notation to help keep clear what's doing what. In ordinary practice I probably wouldn't bother to do that because it makes the code a bit harder to read, but here I think the clarity it's worth the extra lexical effort. 
+
+## Create a database
+
+```{r}
+pengs_db <- DBI::dbConnect(RSQLite::SQLite(), "pengs.sqlite")
+```
+
+That does a couple of things:
+
++ the side-effect of that expression is to create a database called `pengs.sqlite` in your project root directory, which you should be able to see in your `Files` pane
++ the return value of that expression is connection information for that database, which you should be able to see by inspecting the `pengs_db` object you've just created
+
+You can also create a temporary in-memory db by naming your connect `:memory:` which is worth knowing if you're just doing a bit of play or practice.
+
+Connecting to an SQLite database is very straightforward. If you were connecting to another SQL source, you might also do your authentication etc inside `DBI::dbConnect`.
+
+## Add some tables to that database
+
+```{r}
+#| eval: false
+pengs_db |>
+  DBI::dbWriteTable("pengs_tbl", penguins) # table name, then R object name
+```
+
+```{r}
+#| echo: false
+pengs_db |>
+  DBI::dbWriteTable("pengs_tbl", penguins, overwrite = T) # table name, then R object name
+```
+
+As we'll see below, writing SQL queries in R can make for some very complicated lines of code. I'll use the base-R pipe `|>` to join lines of code here to cut down on that complexity. There's nothing wrong with writing bracketed code though if you're doing something simple - just make sure your connection is the first argument supplied to the DBI function:
+
+```{r}
+# non-pipe
+DBI::dbWriteTable(pengs_db, "pengs_tbl", penguins, overwrite = T) # without the overwrite this would fail as DBI has sensible default way of preventing you overwriting your tables
+```
+
+
+## Write a query and try it
+
+The most basic way of writing a query is to put the whole SQL query into the body of `dbGetQuery`:
+
+```{r}
+#| eval: false
+pengs_db |> 
+  DBI::dbGetQuery('SELECT species, island FROM pengs_tbl WHERE bill_depth_mm > 21')
+```
+
+```{r}
+#| echo: false
+pengs_db |> 
+  DBI::dbGetQuery('SELECT species, island FROM pengs_tbl WHERE bill_depth_mm > 21') |>
+  knitr::kable()
+```
+
+That's assignable, so you should be able to easily capture that data once you're satisfied your query works properly:
+
+```{r}
+pengs_from_sql <- pengs_db |> 
+  DBI::dbGetQuery('SELECT species, island FROM pengs_tbl WHERE bill_depth_mm > 21')
+```
+
+```{r}
+#| eval: false
+pengs_from_sql # from the R object
+```
+
+```{r}
+#| echo: false
+pengs_from_sql |>
+  knitr::kable()
+
+```
+
+You'd use single quotes to build your query, because SQL column names might require escaping in R, and you'd use double quotes for that escaping. Building up a complex query as a single line of R code can be a challenge, and we'll look at two ways of simplifying the process of writing more complex queries later in the session.
+
+Objects that don't fit (as R objects) in memory can be fetched in pieces. There's a neat method in the [RSQLite vignette](https://cran.r-project.org/web/packages/RSQLite/vignettes/RSQLite.html):
+
+```{r}
+#| eval: false
+rs <- pengs_db |>
+  dbSendQuery('SELECT * FROM pengs_tbl')
+
+while (!dbHasCompleted(rs)) {
+  df <- rs |>
+    dbFetch(n = 100)  # n = number of rows/records per batch
+  
+  print(paste("That's grabbed", nrow(df), "rows of data this time round  \n")) # or whatever operation you actually want to do on the data
+}
+```
+
+```{r}
+#| echo: false
+
+rs <- pengs_db |>
+  dbSendQuery('SELECT * FROM pengs_tbl')
+
+while (!dbHasCompleted(rs)) {
+  df <- rs |>
+    dbFetch(n = 100) # n = number of rows/records per batch
+  
+    cat(paste("That's grabbed", nrow(df), "rows of data this time round  \n"))
+}
+
+```
+
+## Disconnect from your database
+
+```{r}
+#| eval: false
+
+pengs_db |>
+  DBI::dbDisconnect()
+```
+
+You should then re-connect:
+
+```{r}
+#| eval: false
+
+pengs_db |>
+  DBI::dbConnect()  |>
+  knitr::kable()
+```
+
+
+## Getting more fancy with queries: parameters
+
+
+```{r}
+#| eval: false
+
+pengs_db |>
+  DBI::dbGetQuery('SELECT * FROM pengs_tbl WHERE year < :x LIMIT :y',
+  params = list(x = 2008, y = 5))
+```
+
+```{r}
+#| echo: false
+
+pengs_db |>
+  DBI::dbGetQuery('SELECT * FROM pengs_tbl WHERE year < :x LIMIT :y',
+  params = list(x = 2008, y = 5)) |>
+  knitr::kable()
+```
+
+There's a lot of clockwork to explore here (e.g. the `dbBind` function) - but for my money most of this would be better done with [purrr](https://purrr.tidyverse.org/reference/index.html) or similar.
+
+## Getting more fancy with queries: glue
+
+We mentioned before that SQL queries often need some kind of escaping from R. `glue::glue_sql` is a safe and easy way of doing that. Imagine that you've got a couple of R variables:
+
+```{r}
+year <- 2008
+
+group <- "island"
+
+species <- "Adelie"
+```
+
+Rather than trying to paste those together, use `glue::glue_sql`, with each variable inside `{}`:
+
+```{r}
+query <- glue::glue_sql("SELECT * from pengs_tbl WHERE species = {species} LIMIT 10", .con = pengs_db)
+```
+
+```{r}
+#| eval: false
+DBI::dbGetQuery(pengs_db, query)
+```
+
+```{r}
+#| echo: false
+DBI::dbGetQuery(pengs_db, query) |>
+  knitr::kable()
+```
+
+Note (by inspecting that query object in your environment) that glue will as a default escape character values it receives from R. If you want to use those values as e.g. column names, unescape them with backticks - like `{\``x ``}`:
+
+
+```{r}
+query <- glue::glue_sql("SELECT {`group`}, AVG(bill_length_mm) AS bill_length_{year} FROM pengs_tbl WHERE year == {year} GROUP BY {`group`}", .con = pengs_db)
+```
+
+```{r}
+#| eval: false
+DBI::dbGetQuery(pengs_db, query)
+
+```
+
+```{r}
+#| echo: false
+DBI::dbGetQuery(pengs_db, query) |>
+  knitr::kable()
+
+```
+
+That opens the way to lots of areas of fun and interest, like building functions to pull data from an SQL query:
+
+```{r}
+
+grab_pengs <- function(group = "species", year = 2007){
+  query <- glue::glue_sql("SELECT {`group`}, AVG(bill_length_mm) AS bill_length_{year} FROM pengs_tbl WHERE year == {year} GROUP BY {`group`}", .con = pengs_db)
+
+DBI::dbGetQuery(pengs_db, query)
+}
+```
+
+```{r}
+#| eval: false
+grab_pengs()
+```
+
+```{r}
+#| echo: false
+grab_pengs() |>
+  knitr::kable()
+```
+
+```{r}
+#| eval: false
+grab_pengs(group = "island")
+```
+
+```{r}
+#| echo: false
+grab_pengs(group = "island") |>
+  knitr::kable()
+```
+
+There's an odd `*` shorthand to vectorise:
+
+```{r}
+grpp <- c("island", "species")
+
+qq <- glue::glue_sql("SELECT {`grpp`*}, AVG(bill_length_mm) AS bill_length FROM pengs_tbl GROUP BY {`grpp`*}", .con = pengs_db)
+```
+
+
+```{r}
+#| eval: false
+DBI::dbGetQuery(pengs_db, qq)
+```
+
+```{r}
+#| echo: false
+
+DBI::dbGetQuery(pengs_db, qq) |>
+  knitr::kable()
+```
+
+```{r}
+#| echo: false
+DBI::dbDisconnect(pengs_db)
+# unlink("skills/pengs.sqlite")
+unlink("pengs.sqlite")
+```
+
+
