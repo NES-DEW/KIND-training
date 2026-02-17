@@ -64,6 +64,7 @@ We'll use two main package, and two helpers. Our main packages are:
 # install.packages("DBI")
 # install.packages("RSQLite")
 # install.packages("palmerpenguins")
+# install.packages("glue")
 library(DBI)
 library(RSQLite)
 library(palmerpenguins)
@@ -80,12 +81,15 @@ pengs_db <- DBI::dbConnect(RSQLite::SQLite(), "pengs.sqlite")
 
 That does a couple of things:
 
-+ the side-effect of that expression is to create a database called `pengs.sqlite` in your project root directory, which you should be able to see in your `Files` pane
++ the side-effect of that expression is to:
+  + check for the existence, and then create, a database file called `pengs.sqlite` in your project root directory (check to see it exists)
+  + then sets up the SQLite driver - think of this as the infrastructure to present that new database file as an SQL database
+  + finally, via `DBI::dbConnect`, to create a connection to that SQLite database
 + the return value of that expression is connection information for that database, which you should be able to see by inspecting the `pengs_db` object you've just created
 
 You can also create a temporary in-memory db by naming your connect `:memory:` which is worth knowing if you're just doing a bit of play or practice.
 
-Connecting to an SQLite database is very straightforward. If you were connecting to another SQL source, you might also do your authentication etc inside `DBI::dbConnect`.
+Connecting to an existing SQLite database is very straightforward. If you're working from a local file, just supply the path of the database file. If you were connecting to another SQL source, you would do your authentication etc inside `DBI::dbConnect`.
 
 ## Add some tables to that database
 
@@ -147,14 +151,14 @@ pengs_from_sql |>
 
 You'd use single quotes to build your query, because SQL column names might require escaping in R, and you'd use double quotes for that escaping. Building up a complex query as a single line of R code can be a challenge, and we'll look at two ways of simplifying the process of writing more complex queries later in the session.
 
-Objects that don't fit (as R objects) in memory can be fetched in pieces. There's a neat method in the [RSQLite vignette](https://cran.r-project.org/web/packages/RSQLite/vignettes/RSQLite.html):
+It's also worth thinking a bit about what DBI::dbGetQuery is doing, which is to first run the query on our database, and then return the results as a data frame. Those steps can be taken independently too using DBI::dbSendQuery() to run the query, and DBI::dbFetch() to return any results. Being able to access these functions is especially helpful when you're trying to modify a database in place, although note that's a bit beyond the scope of this session. It's also helpful when dealing with objects where the return values are uncomfortably large, especially when they wouldn't fit as R objects in memory. There's a neat method in the [RSQLite vignette](https://cran.r-project.org/web/packages/RSQLite/vignettes/RSQLite.html) which shows how large objects can be fetched in pieces:
 
 ```{r}
 #| eval: false
 rs <- pengs_db |>
-  dbSendQuery('SELECT * FROM pengs_tbl')
+  dbSendQuery('SELECT * FROM pengs_tbl') # also worth showing that you can save a query as an R object
 
-while (!dbHasCompleted(rs)) {
+while (!dbHasCompleted(rs)) { 
   df <- rs |>
     dbFetch(n = 100)  # n = number of rows/records per batch
   
@@ -248,7 +252,7 @@ DBI::dbGetQuery(pengs_db, query) |>
   knitr::kable()
 ```
 
-Note (by inspecting that query object in your environment) that glue will as a default escape character values it receives from R. If you want to use those values as e.g. column names, unescape them with backticks - like `{\``x ``}`:
+Note (by inspecting that query object in your environment) that glue will as a default escape character values it receives from R. If you want to use those values as e.g. column names, unescape them with backticks - like {``x``}:
 
 
 ```{r}
