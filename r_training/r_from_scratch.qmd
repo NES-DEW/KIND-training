@@ -659,7 +659,7 @@ penguins |>
   ggplot()
 ```
 
-To make our plot more interesting, we can add layers. We'll add a geom layer now to build a simple [histogram](https://en.wikipedia.org/wiki/Histogram). Geoms describe the type of plot we want to add in a layer. So `geom_line()` adds a line-graph layer, `geom_point()` an XY scatter layer, `geom_col()` a column graph etc etc. Inside that `geom_histogram()` function, we'll use a new function: `aes()`. `aes()` describes hthe relationship between our data and our graph. If we want to produce a histogram of flipper length, for example, we'd put our `geom_histogram()` and our `aes()` together like this:
+To make our plot more interesting, we can add layers. We'll add a geom layer now to build a simple [histogram](https://en.wikipedia.org/wiki/Histogram). Geoms describe the type of plot we want to add in a layer. So `geom_line()` adds a line-graph layer, `geom_point()` an XY scatter layer, `geom_col()` a column graph etc etc. Inside that `geom_histogram()` function, we'll use a new function: `aes()`. `aes()` describes the relationship between our data and our graph. If we want to produce a histogram of flipper length, for example, we'd put our `geom_histogram()` and our `aes()` together like this:
 
 ```{r}
 penguins |>
@@ -752,31 +752,13 @@ peng_plot <- penguins |>
 peng_plot
 ```
 
-ggplot objects are lists:
-
-```{r}
-class(peng_plot)
-typeof(peng_plot)
-```
-
-Interestingly, the plot object contains the full data used to build the plot:
+ggplot objects are pretty inscrutable. In earlier versions, they were lists, and it was easily possible to poke about inside the object to see what it contained. After a [recent update](https://tidyverse.org/blog/2025/09/ggplot2-4-0-0/) that's no longer possible. However, you can still pick apart some parts of the contents. Most importantly for us, plot objects contain the full data used to build the plot:
 
 ```{r}
 peng_plot$data # your original data
 ```
 
-It's possible, although highly non-advisible, to fiddle with the ggplot object by assigning into it:
-
-```{r}
-peng_plot$labels$x <- "huley booley" 
-peng_plot
-```
-
-```{r}
-peng_plot$labels$x <- "bill_length_mm" # restoring order
-```
-
-The reason this is interesting and useful is that you can take a saved ggplot, and add extra layers to it:
+The reason this is interesting and useful is that you can take a saved ggplot, and add extra layers to it, as if you were continuing to add extra layers to the original ggplot code:
 
 ```{r}
 peng_plot +
