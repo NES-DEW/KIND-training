@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-02-19">
+<meta name="dcterms.date" content="2026-02-20">
 <title>Non-equi joins with dplyr – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -39,9 +39,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-afa37c5c79185640b9c231024f4fe5ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-65d1093586cbabf37991027e2806ae75.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-afa37c5c79185640b9c231024f4fe5ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-64c611e38961a6caaced9b1829b0f356.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -332,7 +332,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 19, 2026</p>
+      <p class="date">February 20, 2026</p>
     </div>
   </div>
   
@@ -350,10 +350,10 @@ ul.task-list li input[type="checkbox"] {
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
 1     1       1       2
-2     2       3       3
-3     3       8       9
+2     2       1       9
+3     3       7       4
 4     4       6       4
-5     5       1       4</code></pre>
+5     5       8       8</code></pre>
 </div>
 </div>
 <p>We could convert this into a non-equi join by adding an inequality:</p>
@@ -363,28 +363,30 @@ ul.task-list li input[type="checkbox"] {
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
 1     1       1      NA
-2     2       3      NA
-3     3       8      NA
+2     2       1      NA
+3     3       7       4
 4     4       6       4
-5     5       1      NA</code></pre>
+5     5       8      NA</code></pre>
 </div>
 </div>
 <p>Here, we’ve added a condition that restricts the join to cases where <code>score_a</code> is larger than <code>score_b</code>. That’s all a non-equi join is: a join based on a non-equality. Usually, we’d use this with an inner join that will drop the <code>NA</code>s for us:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
+<pre><code># A tibble: 2 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     4       6       4</code></pre>
+1     3       7       4
+2     4       6       4</code></pre>
 </div>
 </div>
 <p>Effectively this is equivalent to a <code>filter</code> then a join:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
+<pre><code># A tibble: 2 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     4       6       4</code></pre>
+1     3       7       4
+2     4       6       4</code></pre>
 </div>
 </div>
 <p>But faster and more elegant, especially if you’re matching a small range of values in the non-equi part of the join.</p>
@@ -395,25 +397,21 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 30 × 3
       id  year score
    &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
- 1  7121  2026     1
- 2  8052  2026     6
- 3  1363  2023     3
- 4  1697  2026    10
- 5  7304  2025     8
- 6  1462  2026    10
- 7  6763  2026     4
- 8  7988  2025     2
- 9  3364  2025     1
-10  6977  2023     2
+ 1  4995  2026     4
+ 2  9116  2025     1
+ 3  3111  2023     6
+ 4  6135  2025     6
+ 5  1987  2025     4
+ 6  8607  2026     2
+ 7  2092  2023     9
+ 8  7577  2022     3
+ 9  6994  2025     2
+10  5846  2026    10
 # ℹ 20 more rows</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 3
-     id  year score
-  &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
-1  3957  2027     4
-2  9648  2027     9
-3  6267  2027     1</code></pre>
+<pre><code># A tibble: 0 × 3
+# ℹ 3 variables: id &lt;int&gt;, year &lt;dbl&gt;, score &lt;int&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
