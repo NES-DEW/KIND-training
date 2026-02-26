@@ -24,4 +24,8 @@ render_slides <- function(file_path, session_date){
 # render_slides("excel/tidy_data_in_excel.qmd", "2026-01-20")
 # render_slides("excel/references_and_names_in_excel.qmd", "2026-01-27")
 
-render_slides("excel/excel_formulas.qmd", "2026-02-17")
+render_slides("excel/excel_practical_review.qmd", "2026-02-24")
+render_slides("bi_training/power_automate_for_health_care.qmd", "2026-02-24")
+
+
+

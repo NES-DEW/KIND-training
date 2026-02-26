@@ -1,24 +1,21 @@
 ---
 categories: [Power BI, intermediate, Intermediate Power BI course, PQM]
 params:
-  sl_date: 2025-12-04
+  sl_date: 2026-02-26
   fn: Intermediate Power BI (session 5)
   id: KP27
 title: Intermediate Power BI (session 5)
-date: 2025-12-04
+date: 2026-02-26
 ---
 
 
+This session is part of our intermediate-level Power BI desktop course. The course structure is as follows:
 
-
-
-This is part of our intermediate-level Power BI desktop course. The course structure is as follows:
-
--   session 1 (this session): [a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices](BI_intermediate_session_01.qmd)
+-   session 1: [a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices](BI_intermediate_session_01.qmd)
 -   session 2: [DAX language foundations, including FILTER and CALCULATE](BI_intermediate_session_02.qmd)
 -   session 3: [core PowerQuery functions](BI_intermediate_session_03.qmd) to manage sources, join data sets, pivot, and tidy values
 -   session 4 (this session): [PowerQuery M language foundations](BI_intermediate_session_04.qmd), including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility
--   session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
+-   session 5 (this session): a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice
 
 ```{r}
 #| echo: false
@@ -37,7 +34,15 @@ next_sesh(params$fn)
 ## Session aim
 
 -   we've had four content-heavy training sessions so far
--   session five = about putting your new skills into practice
+-   session five is about putting your new skills into practice in a collaborative environment
+
+:::{.callout-important collapse=false appearance='default' icon=true}
+## Note!
+
+This is a collaborative session. You'll be working in small groups to develop a dashboard. That means that you should expect to be an active contributor to that group throughout the session. 
+
+:::
+
 
 ## Session outline
 
@@ -46,19 +51,37 @@ next_sesh(params$fn)
 -   you'll be putting your Power BI skills to the test on this data: what can you show us?
 -   you'll be working in small groups, doing [team programming](https://en.wikipedia.org/wiki/Pair_programming)
 
-## Setup
+:::{.callout-note collapse=true appearance='default' icon=true}
 
+## Data loading tips
 -   Select `Get data from web` and supply the link: <https://github.com/NES-DEW/KIND-training/raw/refs/heads/main/bi_training/data/MDSF_data_30%20November%202024.xlsx>
 -   load the `data` table and the `Field Definitions List` worksheet</br>![Load data and the Field Definitions List](images/clipboard-2485149392.png)
-
-## Setup
-
 -   then use `Transform data` to fix the `Field Definitions List`
     -   remove the top 4 rows
     -   promote the headers
     -   Fill down the category column
+    
+:::
+
+
+## Setup
+
++ the dataset is available at [https://github.com/NES-DEW/KIND-training/raw/refs/heads/main/bi_training/data/MDSF_data_30%20November%202024.xlsx](https://github.com/NES-DEW/KIND-training/raw/refs/heads/main/bi_training/data/MDSF_data_30%20November%202024.xlsx) - the core information is in a named range called `data` in the `MDSF_data_301124` worksheet
++ download that data and inspect it in Excel 
++ have a think about which Power BI skills you'd most like to practice in this session
+
+## Personae
+
+We'll be working collaboratively to design a dashboard. More specifically, we'll ask you to group programme. This means that every member of the group has an identified role and responsibility. These are:
+
++ **the author**, who is the person who actually writes the dashboard in Power BI. They'll share their screen, they'll make all the changes in Power BI, and everyone else will tell them what to do
++ **the presenter**, someone who keeps an overall eye on the work, and takes charge of presenting your work-in-progress dashboard to the whole group when we catch-up. That would ideally be someone with some subject-matter expertise
++ **some data engineers** to think about the raw data, understand what it means, and how to make it behave for your dashboard via e.g. PowerQuery
++ **some front-end engineers** - again, a couple of people to think about how the dashboard page itself should look, any DAX formulas etc you might need, and how the report page helps tell the story you want to tell
 
 ## Schedule
+
+We'll work through a series of small- and whole-group sessions to develop the dashboard. The 
 
 -   15 minutes: initial exploration of the data, and idea generation
 -   5-10 minutes: re-join for troubleshoot and chat
@@ -69,11 +92,13 @@ next_sesh(params$fn)
 -   10 minute: polish and refine
 -   until session end: showing off and suggestions
 
-## Ideas
+## Telling a story
 
--   national, regional, local?
--   snapshot, or showing change over time?
--   self-contained, or linking to other open data?
+Good dashboards tell a specific story about the data. That usually means making some clear decisions about only exploring parts of the available data. In the first small-group session, you'll have a look at the data, and try to develop a clear objective for your eventual dashboard. Some suggestions to help you do that:
+
+- do you want to talk about data that is national, regional, or local?
+- do you want to show a snapshot of something, or show change over time (e.g. inspection ratings)?
+- do you want this dashboard to be self-contained from the provided data, or would it help to bring in [other sources](https://opendata.scot/) of [open data](https://www.opendata.nhs.scot/)?
 -   about care in general, or something more specific?
 -   about inspections, service organisers, service users?
 
