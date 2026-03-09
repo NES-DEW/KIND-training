@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="dcterms.date" content="2026-02-25">
+<title>Regular Expressions – KIND training pages</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-afa37c5c79185640b9c231024f4fe5ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-65d1093586cbabf37991027e2806ae75.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-afa37c5c79185640b9c231024f4fe5ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><meta name="quarto:status" content="draft">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo light-content"><img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo dark-content"></a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">KIND training pages</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../excel_main.html"> 
+<span class="menu-text">Excel</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r_main.html"> 
+<span class="menu-text">R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../BI_main.html"> 
+<span class="menu-text">Power Platform</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tableau_main.html"> 
+<span class="menu-text">Tableau</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../skills_main.html"> 
+<span class="menu-text">Skills</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">📅 Training schedule</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training/issues">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">Structure</a></li>
+  <li><a href="#whats-the-problem-with-ggc" id="toc-whats-the-problem-with-ggc" class="nav-link" data-scroll-target="#whats-the-problem-with-ggc">What’s the problem with GGC?</a></li>
+  <li><a href="#regex101.com" id="toc-regex101.com" class="nav-link" data-scroll-target="#regex101.com">regex101.com</a></li>
+  <li><a href="#ggc-regex-example" id="toc-ggc-regex-example" class="nav-link" data-scroll-target="#ggc-regex-example">GGC regex example</a></li>
+  <li><a href="#meta-sequences" id="toc-meta-sequences" class="nav-link" data-scroll-target="#meta-sequences">Meta sequences</a></li>
+  <li><a href="#quantification" id="toc-quantification" class="nav-link" data-scroll-target="#quantification">Quantification</a></li>
+  <li><a href="#ranges" id="toc-ranges" class="nav-link" data-scroll-target="#ranges">Ranges</a></li>
+  <li><a href="#anchors" id="toc-anchors" class="nav-link" data-scroll-target="#anchors">Anchors</a></li>
+  <li>
+<a href="#groups" id="toc-groups" class="nav-link" data-scroll-target="#groups">Groups</a>
+  <ul class="collapse">
+<li><a href="#excel-version" id="toc-excel-version" class="nav-link" data-scroll-target="#excel-version">Excel version</a></li>
+  <li><a href="#r-version" id="toc-r-version" class="nav-link" data-scroll-target="#r-version">R version</a></li>
+  </ul>
+</li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul></nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
+</p>
+<div style="text-align:center;">
+<a href="https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMUpENjBJOENINDRFMUlYQTlCM1RVNzRSRy4u&amp;route=shorturl" style="display:inline-block;max-width:250px;padding:8px 16px;background:#2C3792;color:#ffffff;font-family:'Segoe UI','Helvetica Neue',sans-serif;font-weight:700;font-size:16px;text-align:center;text-decoration:none;border-radius:20px;border:2px solid #A12693;cursor:pointer;transition:all .3s ease;" onmouseover="this.style.background='#A12693';this.style.color='#fff';this.style.borderColor='#fff'" onmouseout="this.style.background='#2C3792';this.style.color='#ffffff';this.style.borderColor='#A12693'">Join the KIND network</a>
+</div>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Regular Expressions</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 25, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This session is intended as a beginner’s introduction to regular expressions. You should have some prior experience of trying to match and parse free-text data to enjoy this session, and you’ll definitely need to have past experience of reading and writing code. That doesn’t need to be very advanced - if you’re broadly happy with a lookup formula in Excel, for example, you’ll be fine. But this session is code-based and likely to be unsuitable as a first introduction to programming.</p>
+</section><section id="structure" class="level2"><h2 class="anchored" data-anchor-id="structure">Structure</h2>
+<ul>
+<li>What’s the problem with GGC?</li>
+<li>string literals</li>
+<li>meta-sequence for matching digits, words, and white-space</li>
+<li>quantification and ranges</li>
+<li>anchors and capturing groups</li>
+<li>practical</li>
+</ul></section><section id="whats-the-problem-with-ggc" class="level2"><h2 class="anchored" data-anchor-id="whats-the-problem-with-ggc">What’s the problem with GGC?</h2>
+<p>In the KIND network, we have hundreds of members employed by NHS Greater Glasgow &amp; Clyde (NHS GG&amp;C). When people <a href="https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMUpENjBJOENINDRFMUlYQTlCM1RVNzRSRy4u&amp;route=shorturl">join the network</a>, we ask them to fill in a free-text field asking for their organisational affiliation. That gives rise to an interesting problem, because there are many different variants of NHS GG&amp;C that people might use. To pull some examples from our submissions, someone could call it <strong>BWOSCC (NHS GG&amp;C)</strong>, or <strong>Catering Management GG&amp;C</strong>, or <strong>GG&amp;C</strong>. In fact, that form has received over a hundred different permutations and versions of NHS GG&amp;C over the years.</p>
+<p>It’s also received a lot of other, non-NHS GG&amp;C, organisation details too. For example, we have members who record their affiliation as <strong>Baillieston Community Care</strong> or <strong>NHS D&amp;G</strong>. Ideally, we’d like to be able to find a way of recognising text with some kind of allowable variations. This is what regular expressions (regex) do: they a way of matching variations in text.</p>
+</section><section id="regex101.com" class="level2"><h2 class="anchored" data-anchor-id="regex101.com">regex101.com</h2>
+<p>Regular expressions are implemented in many coding languages, and in the more recent versions of Excel. For this session though we’ll use a free-to-access regex writing tool: <a href="regex101.com">regex101</a>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/clipboard-3475536804.png" class="img-fluid figure-img"></p>
+<figcaption>Regex101.com interface</figcaption></figure>
+</div>
+<p>Do note that <a href="regex101.com">regex101</a> isn’t suitable for any real data at all, and should only be used with synthetic examples. But it’s a great training tool, not least because it gives explanations of how your regular expression is working.</p>
+<p>To setup, please copy the five names in the GG&amp;C list:</p>
+<ul>
+<li>BWOSCC (NHS GG&amp;C)<br>
+</li>
+<li>Catering Management GG&amp;C<br>
+</li>
+<li>GG&amp;C<br>
+</li>
+<li>GG&amp;C acute services<br>
+</li>
+<li>GG&amp;C General Surgery</li>
+</ul>
+<p>Now paste them into the <code>Test String</code> area of regex101.com.</p>
+</section><section id="ggc-regex-example" class="level2"><h2 class="anchored" data-anchor-id="ggc-regex-example">GGC regex example</h2>
+<p>All of these starter examples contain the string “GG&amp;C”, which makes detecting these five easy. Our first lesson about regular expressions is that regular expressions can detect <strong>string literals</strong>, which are snippets of text that you want to match exactly.</p>
+<p>Try adding the regular expression <code>GG&amp;C</code> to the <code>Regular expression</code> area of <a href="regex101.com">regex101</a>, and seeing what happens:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/string_lit.png" class="img-fluid figure-img"></p>
+<figcaption>Matching a string literal in regex101.com</figcaption></figure>
+</div>
+<p>You should see that each line of test text now has a highlighted region, showing that our regex corresponds to at least part of each one of these GGC permutations.</p>
+<p>Using a character, number, most punctuation marks, or string as our regex will match that character, number, or whatever, wherever it appears. This sort of literal matching is case-sensitive. For example, add the following text to your test strings:</p>
+<p>NHS gg&amp;c</p>
+<p>Our <code>GG&amp;C</code> regex won’t match that one:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/string_lit_case.png" class="img-fluid figure-img"></p>
+<figcaption>String literal matching is case sensitive</figcaption></figure>
+</div>
+<p>We could also have tried to match single letters/words, numbers, or (most) punctuation marks:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/string_lit_punct.png" class="img-fluid figure-img"></p>
+<figcaption>Matching most punctuation as a string literal</figcaption></figure>
+</div>
+<p>Now please add the following points to your pool of Test Strings:</p>
+<ul>
+<li>ggc south sector pharmacy (fl 1)<br>
+</li>
+<li>NHSGGC.</li>
+</ul>
+<p>One of these points contains a full stop, so as a final task for this section, please try to find that full stop using a string literal…</p>
+</section><section id="meta-sequences" class="level2"><h2 class="anchored" data-anchor-id="meta-sequences">Meta sequences</h2>
+<p>If we try to find a <code>.</code> character in our text, we get an unexpected result:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/string_lit_stop.png" class="img-fluid figure-img"></p>
+<figcaption>Full stop as a universal meta sequence</figcaption></figure>
+</div>
+<p>If you really want to match <code>.</code>, your regex will need to be <code>\.</code>. That’s because <code>.</code> on its own is a meta-sequence. That means that it matches many characters, rather than just one. <code>.</code> is the broadest of these - it matches <strong>any</strong> character. There are lots of these, but the most common meta-sequences are:</p>
+<p><code>\d</code> to match a digit:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/string_lit_dee.png" class="img-fluid figure-img"></p>
+<figcaption>ill match any digit</figcaption></figure>
+</div>
+<p>Switching the case of the meta-sequence reverses the meaning. As <code>\d</code> matches digits, so <code>\D</code> will match non-digits:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/string_lit_no-dee.png" class="img-fluid figure-img"></p>
+<figcaption>will match any non-digit</figcaption></figure>
+</div>
+<p>That matches everything that isn’t a digit - spaces, letters, punctuation, the lot. If we wanted to match just word characters, we’d use <code>\w</code>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/string_lit_dubya.png" class="img-fluid figure-img"></p>
+<figcaption>will match any word characters</figcaption></figure>
+</div>
+<p>(do just note that word characters include numbers, letters, and underscores, but no other punctuation)</p>
+<p><code>\s</code> will find the white-space, and <code>\S</code> the non-white-space - i.e.&nbsp;the printing characters:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/string_lit_ess.png" class="img-fluid figure-img"></p>
+<figcaption>will match white space</figcaption></figure>
+</div>
+</section><section id="quantification" class="level2"><h2 class="anchored" data-anchor-id="quantification">Quantification</h2>
+<p>Regex has several ways of counting letters. For your regex, start with a single, capital, <code>G</code>. Immediately afterwards, please try the following three shorthand ways of counting:</p>
+<ul>
+<li>
+<code>G+</code> finds at least one G in a row (so <code>G</code>, <code>GGG</code>, etc)</li>
+<li>
+<code>G*</code> finds 0 or more Gs in a row (so will match any string length of repeating Gs, including none - making it optional)</li>
+<li>
+<code>G?</code> makes G optional in a string</li>
+</ul>
+<p>I find those confusing, so if I ever do really need counting precision, there’s a more explicit way of doing the same thing with curly brackets. The general format is <code>{smallest, largest}</code>. So <code>G{,2}</code> matches 0-2 Gs in a row, for instance.</p>
+</section><section id="ranges" class="level2"><h2 class="anchored" data-anchor-id="ranges">Ranges</h2>
+<p>Being able to count letters is useful enough, especially since we can effectively make letters optional by asking for 0 occurrences. There’s a more powerful way of getting regexs to deal with optional characters. Try the regex <code>t[eho]</code> in regex101.com:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/meta_square.png" class="img-fluid figure-img"></p>
+<figcaption>Using square brackets to allow one of a group of letters to be matched</figcaption></figure>
+</div>
+<p>If we put some letters into those square brackets, our regex will match any of one letters. So this regex matches a <code>t</code>, and then either an <code>e</code>, and <code>h</code>, or an <code>o</code>.</p>
+<p>We could also use a <code>-</code> to indicate a range of letters that we’d like to match. So <code>t[e-t]</code> will match a <code>t</code> followed by any single letter from <code>e</code> to <code>t</code>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/meta_square-range.png" class="img-fluid figure-img"></p>
+<figcaption>A dash between letters indicates a continuous range</figcaption></figure>
+</div>
+<p>We could add several ranges inside one set of brackets - if you look at regexes in the wild, you’ll often see <code>[a-zA-Z]</code> as a way of matching any letter character, because that’s not readily possible using the standard word/whitespace/digit meta-sequences.</p>
+</section><section id="anchors" class="level2"><h2 class="anchored" data-anchor-id="anchors">Anchors</h2>
+<p>So far, our regexes have just matched small chunks of strings. How would we match an entire word (or line) containing a match? The answer depends on understanding anchors.</p>
+<p>Try a new regex <code>^</code>. That should show a line at the left-most margin of your test strings:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/anchor_start.png" class="img-fluid figure-img"></p>
+<figcaption>^ indicates the start of a string</figcaption></figure>
+</div>
+<p>Similarly, the regex <code>$</code> should show a line at the right-hand margin:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/anchor_stop.png" class="img-fluid figure-img"></p>
+<figcaption>$ indicates the end of a string</figcaption></figure>
+</div>
+<p>The <code>^</code> and <code>$</code> characters are anchors, indicating the start and end of a line of text respectively. We could match every line - including blank ones - with <code>^.*$</code>:</p>
+<p>Or any line containing <code>NHS</code> with <code>^.*NHS.*$</code>, read as “start the line, then any number of characters, then NHS, then anything you like, then the end of the line:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/anchor_nhs.png" class="img-fluid figure-img"></p>
+<figcaption>Matching any line containing NHS</figcaption></figure>
+</div>
+<p>As well as line anchors, you can also specify word boundaries using <code>\b</code>. So <code>NHS\b</code> should find <code>NHS</code> at the end of a word, where no word character follows it:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/anchor_nhs_word.png" class="img-fluid figure-img"></p>
+<figcaption>Matching any occurrence of NHS at the end of a word</figcaption></figure>
+</div>
+<p>Note that - again - we’re just matching those few characters with this example. How would you re-work the regex to select the entire line that matched <code>NHS\b</code>?</p>
+</section><section id="groups" class="level2"><h2 class="anchored" data-anchor-id="groups">Groups</h2>
+<p>If you need more precision about what a regex should select beyond the whole word/line methods we’ve been looking at, try groups. You formulate a group with round brackets - <code>()</code>. As an introduction, try the regex <code>NHS (GG&amp;C)</code>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/groups_nhs.png" class="img-fluid figure-img"></p>
+<figcaption>Groups example to match GG&amp;C only when it follows NHS</figcaption></figure>
+</div>
+<p>That should select only <code>GG&amp;C</code> when it follows NHS with a space. We could tweak that to also pick up the final string in our test pool with a bit of quantification:</p>
+<p><img src="src/images/groups_quant.png" class="img-fluid" alt="Adding quantification to match GGC with and without spaces"> ## Excel exercise</p>
+<p>For the final few minutes of the session, we’ll do an exercise in Excel or R depending on your preference. The task is simple: please accurately classify some sample responses into NHS GG&amp;C/non-NHS GG&amp;C these responses. I believe there are 10 responses from GGC, and 13 not from GGC in the sample data.</p>
+<section id="excel-version" class="level3"><h3 class="anchored" data-anchor-id="excel-version">Excel version</h3>
+<p>This requires M365 Excel - either the web version or the desktop version are fine. Create a new workbook, and then copy and paste the following names into Excel:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">names</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NHS Greater Glasgow &amp; Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS GG&amp;C, Glasgow, Scotland</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GG&amp;C General Surgery</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NH Greater Glasgow and Clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GG&amp;C acute services</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Glasgow</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHSGGC HSCP North East</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Greater Glasgwo and clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Greater Glasgow &amp; Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS/GGC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Aberdeenshire County Council</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Argyll and Bute HSCP</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Baillieston Community Care</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Centre for Sustainable Delivery / NHS Golden Jubilee</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GCU</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hanover Housing Association</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS D&amp;G</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Healthcare Improvement Scotland</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nhs Lothian</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North Lanarkshire</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCVO (Scottish Council for Voluntary Organisations)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scottish care</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The State Hospital</td>
+</tr>
+</tbody>
+</table>
+<p>There are three regular expression functions in Excel.</p>
+<p><code>REGEXTEST</code> is the easiest to use. The syntax is <code>REGEXTEST(string, regex)</code>, and you should be able to supply any of the regex examples from this session directly. As the name suggests, this function returns TRUE/FALSE.</p>
+<p><code>REGEXEXTRACT</code> - an Everest of a name for those of us with dyslexia - will extract just the matching text from the regex using similar syntax.</p>
+<p><code>REGEXREPLACE</code> - probably not directly useful for this task, but allows regex-based find and replace</p>
+</section><section id="r-version" class="level3"><h3 class="anchored" data-anchor-id="r-version">R version</h3>
+<p>Please <a href="src/r_regex.rds">download the rds file</a> and import into R. While there are several ways of working with regular expressions in R, I’d heartily recommend having the stringr package installed and attached for this exercise.</p>
+<p>One R-specific gotcha: any regex that contains a <code>\</code> needs doubling in R - so <code>\w</code> becomes <code>\\w</code> etc.</p>
+<p><code><a href="https://stringr.tidyverse.org/reference/str_detect.html">stringr::str_detect</a></code> is an excellent way to discover if a regex appears in some text.</p>
+</section></section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>I’m especially grateful to Ben Harley, Kirsty Mangin, Brian Orpin, and Donna McLean for helping to prototype this session</p>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/NES-DEW\.github\.io\/KIND-training\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+</body></html>
