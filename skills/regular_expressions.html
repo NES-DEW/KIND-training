@@ -354,6 +354,7 @@ ul.task-list li input[type="checkbox"] {
 
 </header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>This session is intended as a beginner’s introduction to regular expressions. You should have some prior experience of trying to match and parse free-text data to enjoy this session, and you’ll definitely need to have past experience of reading and writing code. That doesn’t need to be very advanced - if you’re broadly happy with a lookup formula in Excel, for example, you’ll be fine. But this session is code-based and likely to be unsuitable as a first introduction to programming.</p>
+<p>A note on jargon: to keep the technical talk to a minimum, we’ll usually use the word <strong>string</strong> to refer to arbitrary bits of text in this session. Any ordinary-language descriptions, such as word/sentence/line of text just have their ordinary meaning.</p>
 </section><section id="structure" class="level2"><h2 class="anchored" data-anchor-id="structure">Structure</h2>
 <ul>
 <li>What’s the problem with GGC?</li>
@@ -372,46 +373,144 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>regex101.com interface</figcaption></figure>
 </div>
 <p>Do note that <a href="https://regex101.com">regex101</a> isn’t suitable for any real data at all, and should only be used with synthetic examples. But it’s a great training tool, not least because it gives explanations of how your regular expression is working.</p>
-<p>To setup, please copy the five names in the GG&amp;C list:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <ul>
-<li>BWOSCC (NHS GG&amp;C)<br>
+<li>open <a href="https://regex101.com">regex101</a>
 </li>
-<li>Catering Management GG&amp;C<br>
-</li>
-<li>GG&amp;C<br>
-</li>
-<li>GG&amp;C acute services<br>
-</li>
-<li>GG&amp;C General Surgery</li>
+<li>familiarise yourself with the interface</li>
+<li>copy and paste the following GG&amp;C variations into the <code>Test String</code> area</li>
 </ul>
-<p>Now paste them into the <code>Test String</code> area of <a href="https://regex101.com">regex101</a>.</p>
+<blockquote class="blockquote">
+<p>BWOSCC (NHS GG&amp;C)<br>
+Catering Management GG&amp;C<br>
+GG&amp;C<br>
+GG&amp;C acute services<br>
+GG&amp;C General Surgery</p>
+</blockquote>
+</div>
+</div>
+</div>
 </section><section id="ggc-regex-example" class="level2"><h2 class="anchored" data-anchor-id="ggc-regex-example">GGC regex example</h2>
 <p>All of these starter examples contain the string “GG&amp;C”, which makes detecting these five easy. Our first lesson about regular expressions is that regular expressions can detect <strong>string literals</strong>, which are snippets of text that you want to match exactly.</p>
-<p>Try adding the regular expression <code>GG&amp;C</code> to the <code>Regular expression</code> area of <a href="https://regex101.com">regex101</a>, and seeing what happens:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>add the regular expression <code>GG&amp;C</code> to the <code>Regular expression</code> area of <a href="https://regex101.com">regex101</a>
+</li>
+<li>what happens?</li>
+</ul>
+</div>
+</div>
+</div>
+<p>You should see that the letters <code>GG&amp;C</code> are matched (highlighted in blue) wherever they appear in our test strings:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/string_lit.png" class="img-fluid figure-img"></p>
 <figcaption>Matching a string literal in regex101.com</figcaption></figure>
 </div>
 <p>You should see that each line of test text now has a highlighted region, showing that our regex corresponds to at least part of each one of these GGC permutations.</p>
-<p>Using a character, number, most punctuation marks, or string as our regex will match that character, number, or whatever, wherever it appears. This sort of literal matching is case-sensitive. For example, add the following text to your test strings:</p>
+<p>Using a character, number, most punctuation marks, or string as our regex will match that character, number, or whatever, wherever it appears. This sort of literal matching is case-sensitive.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>to show that matching is case-sensitive, please add the following line of text to your pool of test strings:</li>
+</ul>
+<blockquote class="blockquote">
 <p>NHS gg&amp;c</p>
+</blockquote>
+<ul>
+<li>now see if the <code>GG&amp;C</code> regex matches that new line of text</li>
+</ul>
+</div>
+</div>
+</div>
 <p>Our <code>GG&amp;C</code> regex won’t match that one:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/string_lit_case.png" class="img-fluid figure-img"></p>
 <figcaption>String literal matching is case sensitive</figcaption></figure>
 </div>
-<p>We could also have tried to match single letters/words, numbers, or (most) punctuation marks:</p>
+<p>We could also have tried to match single letters/words, numbers, or (most) punctuation marks.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>try matching the string literal <code>&amp;</code>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<p>That should work as expected.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/string_lit_punct.png" class="img-fluid figure-img"></p>
 <figcaption>Matching most punctuation as a string literal</figcaption></figure>
 </div>
-<p>Now please add the following points to your pool of Test Strings:</p>
+<p>Not all punctuation will behave quite so nicely:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <ul>
-<li>ggc south sector pharmacy (fl 1)<br>
-</li>
-<li>NHSGGC.</li>
+<li>now add the following points to your pool of Test Strings</li>
 </ul>
-<p>One of these points contains a full stop, so as a final task for this section, please try to find that full stop using a string literal…</p>
+<blockquote class="blockquote">
+<p>ggc south sector pharmacy (fl 1)<br>
+NHSGGC.</p>
+</blockquote>
+<ul>
+<li>now try to find that full stop using a string literal…</li>
+</ul>
+</div>
+</div>
+</div>
+<p>That should behave in an unexpected way, and that’s our cue to move on to a new topic.</p>
 </section><section id="meta-sequences" class="level2"><h2 class="anchored" data-anchor-id="meta-sequences">Meta sequences</h2>
 <p>If we try to find a <code>.</code> character in our text, we get an unexpected result:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -452,7 +551,26 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>I find those confusing, so if I ever do really need counting precision, there’s a more explicit way of doing the same thing with curly brackets. The general format is <code>{smallest, largest}</code>. So <code>G{,2}</code> matches 0-2 Gs in a row, for instance.</p>
 </section><section id="ranges" class="level2"><h2 class="anchored" data-anchor-id="ranges">Ranges</h2>
-<p>Being able to count letters is useful enough, especially since we can effectively make letters optional by asking for 0 occurrences. There’s a more powerful way of getting regexs to deal with optional characters. Try the regex <code>t[eho]</code> in regex101.com:</p>
+<p>Being able to count letters is useful enough, especially since we can effectively make letters optional by asking for 0 occurrences. There’s a more powerful way of getting regexs to deal with optional characters.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>try the regex <code>t[eho]</code>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/meta_square.png" class="img-fluid figure-img"></p>
 <figcaption>Using square brackets to allow one of a group of letters to be matched</figcaption></figure>
@@ -476,8 +594,29 @@ ul.task-list li input[type="checkbox"] {
 <figure class="figure"><p><img src="src/images/anchor_stop.png" class="img-fluid figure-img"></p>
 <figcaption>$ indicates the end of a string</figcaption></figure>
 </div>
-<p>The <code>^</code> and <code>$</code> characters are anchors, indicating the start and end of a line of text respectively. We could match every line - including blank ones - with <code>^.*$</code>:</p>
-<p>Or any line containing <code>NHS</code> with <code>^.*NHS.*$</code>, read as “start the line, then any number of characters, then NHS, then anything you like, then the end of the line:</p>
+<p>The <code>^</code> and <code>$</code> characters are anchors, indicating the start and end of a line of text respectively. We could match every line - including blank ones - with <code>^.*$</code>, or we could match any line containing <code>NHS</code> with <code>^.*NHS.*$</code>, read as “start the line, then any number of characters, then NHS, then anything you like, then the end of the line.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>try the regex <code>^.*$</code>
+</li>
+<li>now try the regex <code>^.*NHS.*$</code>
+</li>
+<li>what’s the difference?</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/anchor_nhs.png" class="img-fluid figure-img"></p>
 <figcaption>Matching any line containing NHS</figcaption></figure>
@@ -489,12 +628,50 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>Note that - again - we’re just matching those few characters with this example. How would you re-work the regex to select the entire line that matched <code>NHS\b</code>?</p>
 </section><section id="groups" class="level2"><h2 class="anchored" data-anchor-id="groups">Groups</h2>
-<p>So far, our regular expressions have just matched a piece of text, and then selected either that piece of text (as the early examples in this session) or selected an entire word/line containing that match. Regular expression can also work in a more sophisticated way, where we can specify a piece of text to match, and also (independently) specify a piece of text to select. To do that selection, we’ll use the idea of groups. Groups are formulated using round brackets - so anything contained within <code>()</code> will be selected, assuming any of the regex outwith those brackets is matched. As an introduction, try the regex <code>NHS (GG&amp;C)</code>:</p>
+<p>So far, our regular expressions have just matched a piece of text, and then selected either that piece of text (as the early examples in this session) or selected an entire word/line containing that match. Regular expression can also work in a more sophisticated way, where we can specify a piece of text to match, and also (independently) specify a piece of text to select. To do that selection, we’ll use the idea of groups. Groups are formulated using round brackets - so anything contained within <code>()</code> will be selected, assuming any of the regex outwith those brackets is matched.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>try the regex <code>NHS (GG&amp;C)</code>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/groups_nhs.png" class="img-fluid figure-img"></p>
 <figcaption>Groups example to match GG&amp;C only when it follows NHS</figcaption></figure>
 </div>
 <p>That should select only <code>GG&amp;C</code> when it follows NHS with a space. In other words, <code>NHS (GG&amp;C)</code> is matched, but only the <code>GG&amp;C</code> part is selected. We could tweak that to also pick up the final string in our test pool with a bit of quantification:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>try the regex <code>NHS *(GG&amp;*C)</code>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/groups_quant.png" class="img-fluid figure-img"></p>
 <figcaption>Adding quantification to match GGC with and without spaces</figcaption></figure>
@@ -515,34 +692,34 @@ ul.task-list li input[type="checkbox"] {
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">NHS GG&amp;C (QEUH)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NHS Scotland- Greater Glasgow &amp; Clyde</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Glasgow Caledonian University &amp; NHS GG&amp;C</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">GGC NHS</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Greater Glasgow and Clyde</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NHCGGC</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NHS Greater and Glasgow and Clyde</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NHS Scotland/NHS GG&amp;C</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">GG&amp;C General Surgery</td>
+<td style="text-align: left;">GGC R&amp;I</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">NHSGGC.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS greater galsgow and Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS gg&amp;c</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHSGGC - North East Health Improvement Team</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BWOSCC (NHS GG&amp;C)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS Scotland- Greater Glasgow &amp; Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Greater Glasgow and Clyde Health Board</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS Greater Glasgow&amp; Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Greater and Glasgow and Clyde</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Aberdeenshire County Council</td>
