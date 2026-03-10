@@ -56,11 +56,11 @@ It's also received a lot of other, non-NHS GG&C, organisation details too. For e
 
 ## regex101.com
 
-Regular expressions are implemented in many coding languages, and in the more recent versions of Excel. For this session though we'll use a free-to-access regex writing tool: [regex101](regex101.com):
+Regular expressions are implemented in many coding languages, and in the more recent versions of Excel. For this session though we'll use a free-to-access regex writing tool: [regex101](https://regex101.com):
 
-![Regex101.com interface](src/images/clipboard-3475536804.png)
+![regex101.com interface](src/images/clipboard-3475536804.png)
 
-Do note that [regex101](regex101.com) isn't suitable for any real data at all, and should only be used with synthetic examples. But it's a great training tool, not least because it gives explanations of how your regular expression is working.
+Do note that [regex101](https://regex101.com) isn't suitable for any real data at all, and should only be used with synthetic examples. But it's a great training tool, not least because it gives explanations of how your regular expression is working.
 
 To setup, please copy the five names in the GG&C list:
 
@@ -70,13 +70,13 @@ paste("  \n+", ggc_full$ggc_names[1:5], collapse = "") |>
 
 ```
 
-Now paste them into the `Test String` area of regex101.com.
+Now paste them into the `Test String` area of [regex101](https://regex101.com).
 
 ## GGC regex example
 
 All of these starter examples contain the string "GG&C", which makes detecting these five easy. Our first lesson about regular expressions is that regular expressions can detect **string literals**, which are snippets of text that you want to match exactly.
 
-Try adding the regular expression `GG&C` to the `Regular expression` area of [regex101](regex101.com), and seeing what happens:
+Try adding the regular expression `GG&C` to the `Regular expression` area of [regex101](https://regex101.com), and seeing what happens:
 
 ![Matching a string literal in regex101.com](src/images/string_lit.png)
 
@@ -149,7 +149,7 @@ Being able to count letters is useful enough, especially since we can effectivel
 
 ![Using square brackets to allow one of a group of letters to be matched](src/images/meta_square.png)
 
-If we put some letters into those square brackets, our regex will match any of one letters. So this regex matches a `t`, and then either an `e`, and `h`, or an `o`.
+If we put some letters into those square brackets, our regex will match any one letter. In this example, our regex matches a `t`, and then a choice of either `e`, `h`, or `o`.
 
 We could also use a `-` to indicate a range of letters that we'd like to match. So `t[e-t]` will match a `t` followed by any single letter from `e` to `t`:
 
@@ -183,11 +183,11 @@ Note that - again - we're just matching those few characters with this example. 
 
 ## Groups
 
-If you need more precision about what a regex should select beyond the whole word/line methods we've been looking at, try groups. You formulate a group with round brackets - `()`. As an introduction, try the regex `NHS (GG&C)`:
+So far, our regular expressions have just matched a piece of text, and then selected either that piece of text (as the early examples in this session) or selected an entire word/line containing that match. Regular expression can also work in a more sophisticated way, where we can specify a piece of text to match, and also (independently) specify a piece of text to select. To do that selection, we'll use the idea of groups. Groups are formulated using round brackets - so anything contained within `()` will be selected, assuming any of the regex outwith those brackets is matched. As an introduction, try the regex `NHS (GG&C)`:
 
 ![Groups example to match GG&C only when it follows NHS](src/images/groups_nhs.png)
 
-That should select only `GG&C` when it follows NHS with a space. We could tweak that to also pick up the final string in our test pool with a bit of quantification:
+That should select only `GG&C` when it follows NHS with a space. In other words, `NHS (GG&C)` is matched, but only the `GG&C` part is selected. We could tweak that to also pick up the final string in our test pool with a bit of quantification:
 
 ![Adding quantification to match GGC with and without spaces](src/images/groups_quant.png)
 ## Excel exercise
@@ -196,7 +196,7 @@ For the final few minutes of the session, we'll do an exercise in Excel or R dep
 
 ### Excel version
 
-This requires M365 Excel - either the web version or the desktop version are fine. Create a new workbook, and then copy and paste the following names into Excel:
+This requires M365 Excel - either [the web version](https://excel.cloud.microsoft/) or the desktop version are fine. Create a new workbook, and then copy and paste the following names into Excel:
 
 ```{r}
 trial_names <- ggc_full |>
