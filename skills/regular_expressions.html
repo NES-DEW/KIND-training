@@ -371,12 +371,12 @@ ul.task-list li input[type="checkbox"] {
 <p>In the KIND network, we have hundreds of members employed by NHS Greater Glasgow &amp; Clyde (NHS GG&amp;C). When people <a href="https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMUpENjBJOENINDRFMUlYQTlCM1RVNzRSRy4u&amp;route=shorturl">join the network</a>, we ask them to fill in a free-text field asking for their organisational affiliation. That gives rise to an interesting problem, because there are many different variants of NHS GG&amp;C that people might use. To pull some examples from our submissions, someone could call it <strong>BWOSCC (NHS GG&amp;C)</strong>, or <strong>Catering Management GG&amp;C</strong>, or <strong>GG&amp;C</strong>. In fact, that form has received over a hundred different permutations and versions of NHS GG&amp;C over the years.</p>
 <p>It’s also received a lot of other, non-NHS GG&amp;C, organisation details too. For example, we have members who record their affiliation as <strong>Baillieston Community Care</strong> or <strong>NHS D&amp;G</strong>. Ideally, we’d like to be able to find a way of recognising text with some kind of allowable variations. This is what regular expressions (regex) do: they a way of matching variations in text.</p>
 </section><section id="regex101.com" class="level2"><h2 class="anchored" data-anchor-id="regex101.com">regex101.com</h2>
-<p>Regular expressions are implemented in many coding languages, and in the more recent versions of Excel. For this session though we’ll use a free-to-access regex writing tool: <a href="regex101.com">regex101</a>:</p>
+<p>Regular expressions are implemented in many coding languages, and in the more recent versions of Excel. For this session though we’ll use a free-to-access regex writing tool: <a href="https://regex101.com">regex101</a>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/clipboard-3475536804.png" class="img-fluid figure-img"></p>
-<figcaption>Regex101.com interface</figcaption></figure>
+<figcaption>regex101.com interface</figcaption></figure>
 </div>
-<p>Do note that <a href="regex101.com">regex101</a> isn’t suitable for any real data at all, and should only be used with synthetic examples. But it’s a great training tool, not least because it gives explanations of how your regular expression is working.</p>
+<p>Do note that <a href="https://regex101.com">regex101</a> isn’t suitable for any real data at all, and should only be used with synthetic examples. But it’s a great training tool, not least because it gives explanations of how your regular expression is working.</p>
 <p>To setup, please copy the five names in the GG&amp;C list:</p>
 <ul>
 <li>BWOSCC (NHS GG&amp;C)<br>
@@ -389,10 +389,10 @@ ul.task-list li input[type="checkbox"] {
 </li>
 <li>GG&amp;C General Surgery</li>
 </ul>
-<p>Now paste them into the <code>Test String</code> area of regex101.com.</p>
+<p>Now paste them into the <code>Test String</code> area of <a href="https://regex101.com">regex101</a>.</p>
 </section><section id="ggc-regex-example" class="level2"><h2 class="anchored" data-anchor-id="ggc-regex-example">GGC regex example</h2>
 <p>All of these starter examples contain the string “GG&amp;C”, which makes detecting these five easy. Our first lesson about regular expressions is that regular expressions can detect <strong>string literals</strong>, which are snippets of text that you want to match exactly.</p>
-<p>Try adding the regular expression <code>GG&amp;C</code> to the <code>Regular expression</code> area of <a href="regex101.com">regex101</a>, and seeing what happens:</p>
+<p>Try adding the regular expression <code>GG&amp;C</code> to the <code>Regular expression</code> area of <a href="https://regex101.com">regex101</a>, and seeing what happens:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/string_lit.png" class="img-fluid figure-img"></p>
 <figcaption>Matching a string literal in regex101.com</figcaption></figure>
@@ -462,7 +462,7 @@ ul.task-list li input[type="checkbox"] {
 <figure class="figure"><p><img src="src/images/meta_square.png" class="img-fluid figure-img"></p>
 <figcaption>Using square brackets to allow one of a group of letters to be matched</figcaption></figure>
 </div>
-<p>If we put some letters into those square brackets, our regex will match any of one letters. So this regex matches a <code>t</code>, and then either an <code>e</code>, and <code>h</code>, or an <code>o</code>.</p>
+<p>If we put some letters into those square brackets, our regex will match any one letter. In this example, our regex matches a <code>t</code>, and then a choice of either <code>e</code>, <code>h</code>, or <code>o</code>.</p>
 <p>We could also use a <code>-</code> to indicate a range of letters that we’d like to match. So <code>t[e-t]</code> will match a <code>t</code> followed by any single letter from <code>e</code> to <code>t</code>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/meta_square-range.png" class="img-fluid figure-img"></p>
@@ -494,50 +494,50 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>Note that - again - we’re just matching those few characters with this example. How would you re-work the regex to select the entire line that matched <code>NHS\b</code>?</p>
 </section><section id="groups" class="level2"><h2 class="anchored" data-anchor-id="groups">Groups</h2>
-<p>If you need more precision about what a regex should select beyond the whole word/line methods we’ve been looking at, try groups. You formulate a group with round brackets - <code>()</code>. As an introduction, try the regex <code>NHS (GG&amp;C)</code>:</p>
+<p>So far, our regular expressions have just matched a piece of text, and then selected either that piece of text (as the early examples in this session) or selected an entire word/line containing that match. Regular expression can also work in a more sophisticated way, where we can specify a piece of text to match, and also (independently) specify a piece of text to select. To do that selection, we’ll use the idea of groups. Groups are formulated using round brackets - so anything contained within <code>()</code> will be selected, assuming any of the regex outwith those brackets is matched. As an introduction, try the regex <code>NHS (GG&amp;C)</code>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="src/images/groups_nhs.png" class="img-fluid figure-img"></p>
 <figcaption>Groups example to match GG&amp;C only when it follows NHS</figcaption></figure>
 </div>
-<p>That should select only <code>GG&amp;C</code> when it follows NHS with a space. We could tweak that to also pick up the final string in our test pool with a bit of quantification:</p>
+<p>That should select only <code>GG&amp;C</code> when it follows NHS with a space. In other words, <code>NHS (GG&amp;C)</code> is matched, but only the <code>GG&amp;C</code> part is selected. We could tweak that to also pick up the final string in our test pool with a bit of quantification:</p>
 <p><img src="src/images/groups_quant.png" class="img-fluid" alt="Adding quantification to match GGC with and without spaces"> ## Excel exercise</p>
 <p>For the final few minutes of the session, we’ll do an exercise in Excel or R depending on your preference. The task is simple: please accurately classify some sample responses into NHS GG&amp;C/non-NHS GG&amp;C these responses. I believe there are 10 responses from GGC, and 13 not from GGC in the sample data.</p>
 <section id="excel-version" class="level3"><h3 class="anchored" data-anchor-id="excel-version">Excel version</h3>
-<p>This requires M365 Excel - either the web version or the desktop version are fine. Create a new workbook, and then copy and paste the following names into Excel:</p>
+<p>This requires M365 Excel - either <a href="https://excel.cloud.microsoft/">the web version</a> or the desktop version are fine. Create a new workbook, and then copy and paste the following names into Excel:</p>
 <table class="caption-top table">
 <thead><tr class="header">
 <th style="text-align: left;">names</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">NHS Greater Glasgow &amp; Clyde</td>
+<td style="text-align: left;">GGC R&amp;I</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">NHS GG&amp;C, Glasgow, Scotland</td>
+<td style="text-align: left;">GG&amp;C acute services</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">GG&amp;C General Surgery</td>
+<td style="text-align: left;">GGC NHS</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Glasgow Caledonian University &amp; NHS GG&amp;C</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHSGGC.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHCGGC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS Glasgow</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">NH Greater Glasgow and Clyde</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">GG&amp;C acute services</td>
+<td style="text-align: left;">GG&amp;C</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">NHS Glasgow</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NHSGGC HSCP North East</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NHS Greater Glasgwo and clyde</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Greater Glasgow &amp; Clyde</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NHS/GGC</td>
+<td style="text-align: left;">BWOSCC (NHS GG&amp;C)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Aberdeenshire County Council</td>
