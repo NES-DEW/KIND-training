@@ -318,13 +318,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#quantification" id="toc-quantification" class="nav-link" data-scroll-target="#quantification">Quantification</a></li>
   <li><a href="#ranges" id="toc-ranges" class="nav-link" data-scroll-target="#ranges">Ranges</a></li>
   <li><a href="#anchors" id="toc-anchors" class="nav-link" data-scroll-target="#anchors">Anchors</a></li>
-  <li>
-<a href="#groups" id="toc-groups" class="nav-link" data-scroll-target="#groups">Groups</a>
-  <ul class="collapse">
-<li><a href="#excel-version" id="toc-excel-version" class="nav-link" data-scroll-target="#excel-version">Excel version</a></li>
-  <li><a href="#r-version" id="toc-r-version" class="nav-link" data-scroll-target="#r-version">R version</a></li>
-  </ul>
-</li>
+  <li><a href="#groups" id="toc-groups" class="nav-link" data-scroll-target="#groups">Groups</a></li>
+  <li><a href="#practical-exercise" id="toc-practical-exercise" class="nav-link" data-scroll-target="#practical-exercise">Practical exercise</a></li>
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
@@ -500,9 +495,19 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Groups example to match GG&amp;C only when it follows NHS</figcaption></figure>
 </div>
 <p>That should select only <code>GG&amp;C</code> when it follows NHS with a space. In other words, <code>NHS (GG&amp;C)</code> is matched, but only the <code>GG&amp;C</code> part is selected. We could tweak that to also pick up the final string in our test pool with a bit of quantification:</p>
-<p><img src="src/images/groups_quant.png" class="img-fluid" alt="Adding quantification to match GGC with and without spaces"> ## Excel exercise</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/groups_quant.png" class="img-fluid figure-img"></p>
+<figcaption>Adding quantification to match GGC with and without spaces</figcaption></figure>
+</div>
+</section><section id="practical-exercise" class="level2"><h2 class="anchored" data-anchor-id="practical-exercise">Practical exercise</h2>
 <p>For the final few minutes of the session, we’ll do an exercise in Excel or R depending on your preference. The task is simple: please accurately classify some sample responses into NHS GG&amp;C/non-NHS GG&amp;C these responses. I believe there are 10 responses from GGC, and 13 not from GGC in the sample data.</p>
-<section id="excel-version" class="level3"><h3 class="anchored" data-anchor-id="excel-version">Excel version</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Excel version</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">R version</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>This requires M365 Excel - either <a href="https://excel.cloud.microsoft/">the web version</a> or the desktop version are fine. Create a new workbook, and then copy and paste the following names into Excel:</p>
 <table class="caption-top table">
 <thead><tr class="header">
@@ -510,34 +515,34 @@ ul.task-list li input[type="checkbox"] {
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">GGC R&amp;I</td>
+<td style="text-align: left;">NHS GG&amp;C (QEUH)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">GG&amp;C acute services</td>
+<td style="text-align: left;">NHS Scotland- Greater Glasgow &amp; Clyde</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">GGC NHS</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">Glasgow Caledonian University &amp; NHS GG&amp;C</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">GGC NHS</td>
+</tr>
 <tr class="odd">
-<td style="text-align: left;">NHSGGC.</td>
+<td style="text-align: left;">Greater Glasgow and Clyde</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">NHCGGC</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">NHS Glasgow</td>
+<td style="text-align: left;">NHS Greater and Glasgow and Clyde</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">NH Greater Glasgow and Clyde</td>
+<td style="text-align: left;">NHS Scotland/NHS GG&amp;C</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">GG&amp;C</td>
+<td style="text-align: left;">GG&amp;C General Surgery</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">BWOSCC (NHS GG&amp;C)</td>
+<td style="text-align: left;">NHSGGC.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Aberdeenshire County Council</td>
@@ -584,11 +589,15 @@ ul.task-list li input[type="checkbox"] {
 <p><code>REGEXTEST</code> is the easiest to use. The syntax is <code>REGEXTEST(string, regex)</code>, and you should be able to supply any of the regex examples from this session directly. As the name suggests, this function returns TRUE/FALSE.</p>
 <p><code>REGEXEXTRACT</code> - an Everest of a name for those of us with dyslexia - will extract just the matching text from the regex using similar syntax.</p>
 <p><code>REGEXREPLACE</code> - probably not directly useful for this task, but allows regex-based find and replace</p>
-</section><section id="r-version" class="level3"><h3 class="anchored" data-anchor-id="r-version">R version</h3>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Please <a href="src/r_regex.rds">download the rds file</a> and import into R. While there are several ways of working with regular expressions in R, I’d heartily recommend having the stringr package installed and attached for this exercise.</p>
 <p>One R-specific gotcha: any regex that contains a <code>\</code> needs doubling in R - so <code>\w</code> becomes <code>\\w</code> etc.</p>
 <p><code><a href="https://stringr.tidyverse.org/reference/str_detect.html">stringr::str_detect</a></code> is an excellent way to discover if a regex appears in some text.</p>
-</section></section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+</div>
+</div>
+</div>
+</section><section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
 <p>I’m especially grateful to Ben Harley, Kirsty Mangin, Brian Orpin, and Donna McLean for helping to prototype this session</p>
 
 
