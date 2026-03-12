@@ -34,9 +34,9 @@ The course focuses on using data to answer real questions about the services and
 
 At the same time, data literacy is also about confidence: the confidence to ask questions, to notice when numbers do not add up, and to avoid having the wool pulled over your eyes by statistics used without context.
 
-Across these sessions, we will cover how data is collected, how to organise it using tools like Excel, how simple statistics help us summarise and compare information, understand how graphs and other data visualisations might be useful, and think about the best ways that data might be communicated.
+Across these sessions, we will cover how data is collected, how to organise it using tools like Excel, how simple statistics help us summarise and compare information, understand how graphs and other data visualisations might be useful, and think about the best ways that data might be communicated. We aim to be as non-technical as possible, so don't expect to find lots of coding content, material about data architecture, or detailed statistical work here. We know that there are lots of different stages of data maturity in different organisations, so that aim for this introductory course is to keep the specific technical content to a minimum. I **think** that means everything here could be done with paper and pencil if needed, so hopefully you'll be able to take this content and apply it to your work no matter where you are.
 
-This course is oriented towards our health and social care audience. We will work with real-world questions such as:
+This course is oriented towards our health and social care audience, which means that we'll try to work with real-looking data to answer real-looking questions. For example, we might want to answer such questions as:
 
 – Is our hospital busier than it was last year?
 – Do we have proportionally more children than average in our town?
@@ -80,31 +80,7 @@ Together, we'll describe this linked set of skills as **data literacy**, which d
 * understanding some effective strategies for using this data (and statistics) as a basis for the explanation/prediction/control of systems, including how to communicate your findings to others
 * finally, figuring out how to use that knowledge of what you want to do with your data to simplify and streamline other aspects of the data journey
 
-
-# Data-fying systems
-
-Or, an introduction to measurement
-
-# Collecting data
-
-Five-ish questions 
-1. Where did this data come from?
-1. What sort of data is it?
-1. How is it relevant to what I'm doing?
-1. Do we need to do this work anew, or is it already done?
-1. What's wrong with this data
-    1. Where are the gaps we can fill
-    1. Where are the non-fillable gaps
-    1. How might it need re-engineering?
-1. How can I save someone time in future
-
-Ignore storing data: that's too tech-dependent
-
-Warnings about data collection
-
-# Statistics
-
-We've talked a lot about how to collect data from a system. In this session, we'll talk about some statistical tools for understanding what that data might mean. 
+# First session: the whole game (if we really are just stealing R4DS's approach)
 
 ### Introduction
 
@@ -124,7 +100,8 @@ Here's the question: is that *good*?
 
 Without some kind of context for that number, we can't really make sense of what it means. So let's compare Susan's shoe size with all the other shoe sizes that we find in our organisation. Put together, and counted in groups, we might end up with a graph that looks like this:^[It's worth noting that this first example about shoe sizes uses deeply unrealistic data about how shoe sizes vary across the population. We'll look at some more true-to-life data later]
 
-```{r}
+```{r fig-shoe-range}
+
 # this code here is a little bit too advanced for this course, so hidden for now
 
 uniform_data <- function(n, dof, range, val, name, varname) {
@@ -150,7 +127,68 @@ uniform_data(400, 1, 6, 7, "Susan", "shoe size")
 
 ```
 
-This suggests that Susan's shoe size might be unusual and interesting, as it's higher than any of the other shoe sizes in our comparison group. For us, the gathering together of other shoe size data also build a really important statistical tool here (although it might not feel like it!). This graph showing how a value varies in a population is called the **empirical frequency distribution**. We'll explore this in the next section.
+This suggests that Susan's shoe size might be unusual and interesting, as it's higher than any of the other shoe sizes in our comparison group. 
+
+
+
+# Data-fying systems
+
+Or, an introduction to measurement.
+
+This isn't about collecting data (which we cover later). Most data that we collect isn't entirely obvious. That might sound controversial, but even when we want to gather some really simple-looking data from our system, we potentially need to think hard about how precisely we should do this.
+
+For example, say we're working in a service with pre-booked scheduled appointments, and we're interested in measuring how many people use our service in a week. We'd need to refine that desire to make sure we're measuring what we think we're measuring. We might need to decide:
+
+* what counts as a person, for our purposes? If someone visits us for an appointment, and brings a relative with them, should that count as one user or two?
+* what counts as a use, for us? Does the postie dropping off letters count as a use? How about people who arrive, but leave before their planned appointment?
+* what about a week? Is that working week, or a 7-day week? Which day of the week does that start on?
+
+All of these questions have several possible good answers. The point of this session though is to try and underline that - even before getting to the point of collecting data - we need some precision about what the data we collect is about.
+
+Data work is usually plural: most datafied services have lots of people involved, and making sure that we do things in a collaborative and consistent way is essential if our data is ever to be useful in answering questions about our service.
+
+Some pointers:
+
+* turning what happens in a system into data is mainly about throwing away information
+* you need rules for that: it's a principled throwing away of information
+* those rules should be written down and available to anyone who might potentially collect or use your data
+
+
+
+
+# Collecting data
+
+# Interpreting data
+
+Say you find some interesting-looking data that you fancy using it in a project. This session is about how you'd interpret that data to help find out with high confidence that it'll do a good job in your project.
+
+Five-ish questions about interpreting data:
+
+1. Where did this data come from?
+1. What sort of data is it?
+1. How is it relevant to what I'm doing?
+1. Will this data do to answer our question, or will we need to combine it with other sources?
+1. What's wrong with this data
+    1. Where are the gaps we can fill
+    1. Where are the non-fillable gaps
+    1. How might it need re-engineering?
+1. How can I save someone time in future if they're using this data?
+
+Ignore storing data: that's too tech-dependent
+
+Warnings about data collection
+
+# Statistics
+
+We've talked a lot about how to collect data from a system. In this session, we'll talk about some statistical tools for understanding what that data might mean. 
+
+## descriptive
+## ranges and samples
+
+```{r fig-shoe-range}
+```
+
+For us, the gathering together of other shoe size data also build a really important statistical tool here (although it might not feel like it!). This graph showing how a value varies in a population is called the **empirical frequency distribution**. We'll explore this in the next section.
 
 # Effective strategies
 

@@ -1,11 +1,13 @@
 ---
 title: "Scope of the possible with Power BI"
-date: 2025-11-13
+date: 2026-03-12
 execute: 
   echo: false
 categories: [Power BI, overview]
 params:
   id: KP15
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -21,35 +23,27 @@ feed_block(params$id)
 
 ```
 
+## Why this session?
+
+- Power BI is genuinely useful for health and care work
+- but (like always) that recommendation comes with quibbles and qualifiers
+- this session = non-technical, unvarnished advice about what Power BI does, where it shines, how it might help your service, and ways of putting it into action
+
+
 ## Session outline
 
--   this session is a **non-technical overview** designed for service leads
--   Why Power BI, and why this session?
--   Power BI demo - build a simple dashboard
--   Strengths and weaknesses
-    -   obvious
-    -   less obvious
--   Alternatives
--   Skill development
+- what's Power BI
+- build-a-dashboard demo
+- strengths and weaknesses
+- alternatives
+- skill development
 
 ## Power BI?
 
--   newish (c.2015)
--   based on Microsoft's SQL reporting products
-    -   proprietary, closed-source, paid-for
--   integrates functions from several other Microsoft data products (bits of Excel, PowerPivot, PowerQuery…)
--   produces interactive dashboards
-
-## Why this session?
-
--   there is a lot of fluff talked about Power BI
-    -   e.g. elaborate visualisations, fancy real-time data products...
--   Power BI in general is promoted as a no-code tool
-    -   that's just not true, as we'll see
--   Power BI has a sales-y focus
-    -   that conceals some of its most useful properties
--   so Power BI, as a platform, requires some translation to the complicated reality of health and social care data
-    -   and Power BI offers real strengths in managing and exploiting our data, even when the pain-points are taken into account
+- tool to build interactive dashboards
+- newish (c.2015), proprietary, paid-for
+-   integrates functions from several Microsoft data products (bits of Excel, PowerPivot, PowerQuery..., SQL reporting products)
+- a terminal analysis product: designed to make dashboards that users can use, rather that wrangle data/do statistical analysis
 
 ## Power BI demo
 
@@ -115,17 +109,41 @@ readxl::read_xlsx("data/apr_2024_clean.xlsx") |>
 
 ## Strengths
 
--   by far the easiest way of producing interactive data products
--   great tools for tidying data
--   good for iterative projects
--   data hubbing / self-service data
--   scaling
+-   by far the easiest way of producing simple interactive data products
+-   great tools for tidying data and wranging data sources
+  - shines as a way of data hubbing / self-service data
+  - happy with bigger data than Excel can handle
+-   nice iterative workflow
+-   scales well, especially if you're working for a very large number of users
 -   potential to manage complex and sensitive data on existing infrastructure
 
 ## Weaknesses
 
--   really needs clean and tidy data
--   publication can be complicated and expensive
--   steepening pain curve. Easy to start projects, but more involved analysis is messy
--   complex IG landscape
--   messy skills development journey
+- terminal analysis product. Don't expect/try to get data out of Power BI, it's absolutely not designed to be used for that
+- [users need to be licenced](https://learn.microsoft.com/en-us/power-bi/fundamentals/media/end-user-license/power-bi-dedicated.jpg)
+- cross-organisation use is really messy
+- adding extra features (real-time data, e.g.) can be complicated and expensive
+- steepening pain curve. Easy to start projects, but more involved analysis is messy
+- complex IG landscape - reminder for NHS colleagues about [national guidance on Power BI](https://scottish.sharepoint.com/sites/NHSSNationalM365ServiceHub/SitePages/TT_Home.aspx?xsdata=MDV8MDJ8fDE1Zjk0YTRkMjYwZjQwYTExZjI4MDhkZTRkMDY0ZDRhfDEwZWZlMGJkYTAzMDRiY2E4MDljYjVlNjc0NWU0OTlhfDB8MHw2MzkwMzI4ODY1OTUwMzQ5MjB8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T2pFNFlURmtNVE15TFdFMllUY3ROR014TUMxaU1tTXlMVE13WVRNM1lUTXhNekZpWkY4MVpEa3labVEzWlMwMU5tSTVMVFE0T1RJdFlXSTNOeTA0TkdGa056VmpNall3WVRCQWRXNXhMbWRpYkM1emNHRmpaWE12YldWemMyRm5aWE12TVRjMk56WTVNVGcxTnpRME53PT18YTViYjEyZmZkMzNkNGM2MGQwYWMwOGRlNGQwNjRkNDl8OTdiY2FjOGQ5M2UwNGM4Mjk3Mjk0YjdkMDMyZmMwMDQ%3D&sdata=TVVxaS9WVHh2MG41UzhFT3hlTXk5aWRocC90RGt5RVRkZHlnb0hyeWc1ND0%3D&ovuser=10efe0bd-a030-4bca-809c-b5e6745e499a%2Cbrendan.clarke2%40nes.scot.nhs.uk&OR=Teams-HL&CT=1767692202959&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNTExMzAwMTMxMiIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D)
+- low-code, rather than no-code
+
+
+## Alternatives
+
+* R/Shiny - potentially free, flexible, code-based, requires infrastructure, unclear governance landscape
+* Tableau - non-free, non-code-based, no infrastructure
+
+## Training
+
+```{r}
+KINDR::training_sessions("Power BI", session_level = "beginner")
+```
+
+## Training
+
+
+```{r}
+KINDR::training_sessions("Power BI", session_level = "intermediate")
+```
+
+
