@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-03-12">
+<meta name="dcterms.date" content="2026-03-16">
 <title>Non-equi joins with dplyr – KIND training pages</title>
 <style>
 code{white-space: pre-wrap;}
@@ -332,7 +332,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 12, 2026</p>
+      <p class="date">March 16, 2026</p>
     </div>
   </div>
   
@@ -349,11 +349,11 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 5 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1      10       5
-2     2      10       4
-3     3       7       7
-4     4       5       9
-5     5       3       6</code></pre>
+1     1       4       3
+2     2       6       2
+3     3       1      10
+4     4       5       3
+5     5       4       6</code></pre>
 </div>
 </div>
 <p>We could convert this into a non-equi join by adding an inequality:</p>
@@ -362,31 +362,33 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 5 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1      10       5
-2     2      10       4
-3     3       7      NA
-4     4       5      NA
-5     5       3      NA</code></pre>
+1     1       4       3
+2     2       6       2
+3     3       1      NA
+4     4       5       3
+5     5       4      NA</code></pre>
 </div>
 </div>
 <p>Here, we’ve added a condition that restricts the join to cases where <code>score_a</code> is larger than <code>score_b</code>. That’s all a non-equi join is: a join based on a non-equality. Usually, we’d use this with an inner join that will drop the <code>NA</code>s for us:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
+<pre><code># A tibble: 3 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1      10       5
-2     2      10       4</code></pre>
+1     1       4       3
+2     2       6       2
+3     4       5       3</code></pre>
 </div>
 </div>
 <p>Effectively this is equivalent to a <code>filter</code> then a join:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
+<pre><code># A tibble: 3 × 3
      id score_a score_b
   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1      10       5
-2     2      10       4</code></pre>
+1     1       4       3
+2     2       6       2
+3     4       5       3</code></pre>
 </div>
 </div>
 <p>But faster and more elegant, especially if you’re matching a small range of values in the non-equi part of the join.</p>
@@ -397,28 +399,21 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 30 × 3
       id  year score
    &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
- 1  5278  2027     1
- 2  8495  2024     5
- 3  8632  2025     1
- 4  1527  2027     5
- 5  8917  2022     8
- 6  2009  2023     6
- 7  7168  2023     4
- 8  5744  2026     6
- 9  2450  2023     8
-10  7077  2023     8
+ 1  3881  2026     8
+ 2  8007  2026    10
+ 3  4873  2022     6
+ 4  8409  2025     6
+ 5  3328  2026     9
+ 6  5472  2022     4
+ 7  3434  2026     8
+ 8  6410  2025     4
+ 9  9587  2022     9
+10  6505  2024     8
 # ℹ 20 more rows</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-     id  year score
-  &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
-1  5278  2027     1
-2  1527  2027     5
-3  5662  2027     9
-4  6629  2027     3
-5  1085  2027    10
-6  9879  2027     8</code></pre>
+<pre><code># A tibble: 0 × 3
+# ℹ 3 variables: id &lt;int&gt;, year &lt;dbl&gt;, score &lt;int&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6

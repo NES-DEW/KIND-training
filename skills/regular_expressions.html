@@ -352,7 +352,17 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+</header><script>
+<!-- for the copying blocks -->
+function textCopy(copyText) {
+
+   // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText);
+
+  // Alert the copied text
+  alert("Copied the text: " + copyText);
+}
+</script><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>This session is intended as a beginner’s introduction to regular expressions. You should have some prior experience of trying to match and parse free-text data to enjoy this session, and you’ll definitely need to have past experience of reading and writing code. That doesn’t need to be very advanced - if you’re broadly happy with a lookup formula in Excel, for example, you’ll be fine. But this session is code-based and likely to be unsuitable as a first introduction to programming.</p>
 <p>A note on jargon: to keep the technical talk to a minimum, we’ll usually use the word <strong>string</strong> to refer to arbitrary bits of text in this session. Any ordinary-language descriptions, such as word/sentence/line of text just have their ordinary meaning.</p>
 </section><section id="structure" class="level2"><h2 class="anchored" data-anchor-id="structure">Structure</h2>
@@ -398,6 +408,9 @@ GG&amp;C<br>
 GG&amp;C acute services<br>
 GG&amp;C General Surgery</p>
 </blockquote>
+<button onclick="textCopy(&quot;BWOSCC (NHS GG&amp;C)\nCatering Management GG&amp;C\nGG&amp;C\nGG&amp;C acute services\nGG&amp;C General Surgery&quot;)">
+Copy text
+</button>
 </div>
 </div>
 </div>
@@ -504,13 +517,16 @@ Tip
 <p>ggc south sector pharmacy (fl 1)<br>
 NHSGGC.</p>
 </blockquote>
+<button onclick="textCopy(&quot;ggc south sector pharmacy (fl 1)\nNHSGGC.&quot;)">
+Copy text
+</button>
 <ul>
 <li>now try to find that full stop using a string literal…</li>
 </ul>
 </div>
 </div>
 </div>
-<p>That should behave in an unexpected way, and that’s our cue to move on to a new topic.</p>
+<p>That should behave in an unexpected way, which we should interpret as a cue to move on to a new aspect of regex: meta sequences.</p>
 </section><section id="meta-sequences" class="level2"><h2 class="anchored" data-anchor-id="meta-sequences">Meta sequences</h2>
 <p>If we try to find a <code>.</code> character in our text, we get an unexpected result:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -692,34 +708,34 @@ NHSGGC.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">GGC R&amp;I</td>
+<td style="text-align: left;">NHS Glasgow</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">GGC NHS</td>
+<td style="text-align: left;">NHSGGC HSCP North East</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">NH Greater Glasgow and Clyde</td>
+<td style="text-align: left;">Greater Glasgow &amp; Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Greater and Glasgow and Clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS Greater Glasgwo and clyde</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">GGC NHS Health Improvement - Sexual Health</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">NHSGG&amp;C</td>
+<td style="text-align: left;">NHSGG&amp;C/University of Glasgow</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">BWOSCC (NHS GG&amp;C)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NHS Greater Glasgow &amp; Clyde</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Greater Glasgow &amp; Clyde</td>
+<td style="text-align: left;">GG&amp;C</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">NHCGGC</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">NHS Greater Glasgow</td>
+<td style="text-align: left;">Glasgow Caledonian University &amp; NHS GG&amp;C</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Aberdeenshire County Council</td>
