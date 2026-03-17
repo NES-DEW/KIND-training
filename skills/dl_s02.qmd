@@ -1,0 +1,102 @@
+---
+format: html
+---
+
+# Distributions (session 2)
+
+:::{.callout-important collapse=true appearance='default' icon=true}
+## Outline blob
+
+### Sentence aim
+
+### Exercises
+
+### Data
+
+### Key concepts
+
+:::
+
+Imagine that we are measuring some numeric health or care value in an individual This could be, just for example:
+
++ height
++ blood pressure
++ number of years since retirement
+
+Without knowing what's generally expected, the number by itself doesn't tell us anything very interesting. We need some context to make sense of an individual number. For values like blood pressure, we often have reference ranges that tell us what a normal blood pressure might be. For other values (like height, or number of years since retirement) we generally have some clear idea of what a normal number might be from our daily experience. 
+
+Broadly, these ways of making sense of a value are about comparing a number to the normal expected range of that number. To illustrate that point, let's look at a simple example of data-fying a system. Imagine that we're interested in measuring how skilled a large group of four hundred of our colleagues are at Excel. We could do that by asking them to rate their Excel skills between 1 (not skilled) and 10 (very skilled). Susan rates her skills at 8, so well towards the more confident end of the range. Here's a question for you: is that *good*? 
+
+Without some kind of context for that number, we can't really make sense of what it means. So, to provide that context, let's compare Susan's Excel score with all the other scores that we find in our organisation. Put those scores together, and counted how many individuals reported each skill score, and we might end up with a graph that looks like this:
+
+```{r fig-confidence-range}
+#| fig-cap: graph showing that Sarah's Excel skills of 8 is an outlier
+
+library(dplyr)
+library(ggplot2)
+
+uniform_data <- function(n, dof, lower, upper, val_input, name, varname) {
+  data <- tibble(patient = 1:n,
+                 val = sample(lower:upper, n, replace = T))
+  
+  if (dof > 1) {
+    for (i in 1:(dof - 1)) {
+      data <- data %>% mutate(val = (val_input + sample(lower:upper, n, replace =
+                                                          T)))
+    }
+    data <- data %>% mutate(val = (val / dof))
+  }
+  
+  data |>
+    ggplot() +
+    geom_bar(aes(val), fill = "#2C3792") +
+    geom_vline(xintercept = val_input, color = "#AB2493") +
+    xlim(min(lower, val_input), max(upper, val_input + (0.2))) +
+    annotate(
+      "text",
+      x = (val_input + (0.2)),
+      y = 0.5 * (max(data %>% count(val))),
+      label = paste0(name, "'s ", varname, " = ", val_input),
+      angle = 90,
+      color = "#AB2493"
+    ) +
+    xlab(paste0("Value of ", varname)) +
+    ylab(paste0("Count of ", varname)) +
+    theme_minimal() +
+    theme(
+      axis.text = element_text(colour = "#AB2493"),
+      axis.title = element_text(colour = "#AB2493")
+    )
+}
+
+uniform_data(400, 1, 1, 6, 8, "Susan", "Excel skills")
+
+uniform_data(400, 1, 4, 10, 8, "Susan", "Excel skills")
+
+```
+
+This suggests that Susan's assessment of her skills might might be unusual and interesting: it's higher than any of the other skills across the entire comparison group. We'd call this sort of thing an outlier, because no-one else in our entire organisation was as confident as Susan.
+
+## Distribution
+
+Back in the introduction, we talked about this graph, showing that we had once exceptionally skilled colleague:
+
+```{r}
+#| fig-cap: Frequency distribution of Excel skill with one outlier, labelled "Susan"
+# uniform_data(400, 1, 1, 6, 8, "Susan", "Excel skill")
+```
+
+To briefly re-iterate, this graph plotted all the values that people reported from a survey of their Excel skills. Technically, this is a histogram: we've grouped our data together by the different skill levels, and counted how many responses we received in each group. We'll talk more later about the technical properties of histograms, but for now we'll think about this graph in a more general way. To a statistician, this graph would be the **empirical frequency distribution** of Excel skills.
+
++ empirical = made by measuring
++ frequency = how often some value occurs in those measurements
++ distribution = how those measurements are spread out
+
+The reason the empirical frequency distribution is important is that it gives us a way of understanding how our (Susan's) Excel score compares to those in other people. At its most simple, just seeing the graph of how frequencies are distributed tells us a lot about how to understand our one case. For example, imagine how we might have felt about Susan's score of 8 if our distribution had looked like this:
+
+
+```{r}
+#| fig-cap: Frequency distribution of Excel skill with one outlier, labelled "Susan"
+# uniform_data(400, 1, 1, 6, 7, "Susan", "Excel skill")
+```
+

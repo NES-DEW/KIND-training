@@ -1,0 +1,147 @@
+---
+format: html
+execute: 
+  output: markup
+---
+  
+# An introduction via a simple data journey (session 1)
+  
+:::{.callout-important collapse=true appearance='default' icon=true}
+## Outline blob
+
+In this session, we'll work through a simple data task. We'll use a small dataset about beds in care homes. We'll talk about how to approach the task, demonstrate how that data should be tidied, show some examples of summarising data to help understand and communicate key findings, draw some graphs to represent our data, and talk about how this dataset might be useful for explanation, prediction, and control.
+
+### Sentence aim
+
+To introduce the core aspects of data work to engage participants, and to set up later sessions in this course.
+
+### Exercises
+
++ E1: take an imperfect dataset and tidy it
++ E2: think about how you might have made this data, and how that might change how you use it
++ E3: practical about summarising the data in different ways
++ E4: thinking about different ways of visualising this data
++ E5: thinking about purposes: how might different summaries and visuals be useful to you
++ E6: homework - take an extended dataset
+
+### Data
+
+Care inspectorate data. Take a subset of c.20 care homes, include name, bed count, postcode, health board, urban/rural
+
+### Key concepts
+
++ understanding the different steps in data tasks
++ thinking about explanation, prediction, and control
+:::
+
+
+## Introduction
+
+What is data, how does it help us do good work in health and care, and what do we need to know about data to do that work?
+
+In this session, we'll explore the idea that data is an especially powerful way of understanding how systems in health and care, because data is an excellent way of answering some of the most important questions about our work, such as:
+
++ "is our hospital busier than it was last year?"
++ "do we have proportionally more children than average in our town?"
++ "how many people are currently homeless in Scotland"
+
+This course will give an introduction to answering these questions using data. For the purposes of this course, we'll think about data as **structured information, usually numerical, that tells us about part of a system**. Specific examples of datasets that might help us answer our three questions above:
+
++ a month-by-month count of patients visiting our hospital for the last two years
++ census data, showing demographics of different towns in Scotland
++ survey data estimating how many people are currently homeless nationally
+
+In future sessions, we'll talk about the technical aspects of these datasets - roughly, to explain what your data should look like, and how to begin collecting useful data from your system. Those aspects can be very complex, but needn't be - so we could potentially collect data for our three example questions by:
+
+* adding up all the inpatient and outpatient appointments each month
+* asking everyone in Scotland to complete a census return every few years
+* requesting services supporting the homeless to estimate how many service users they see each week
+
+Once we've got some useful data, we'll then think about how to understand, summarise, visualise, and compare data that we've collected. Finally, we'll talk about how to take those statistics, and use them to do things. As we'll see, statistical summaries of data are especially helpful in helping us understand the systems we're working on. We'll look specifically at three areas where understanding is especially important: **explaining** how systems work, **predicting** what will happen as our system changes, and **controlling** the behaviour of that system.
+
+Together, we'll describe this linked set of practices and skills as **data literacy**, which describes a set of knowledge and skills across the data journey from raw data to finished project. In this course, we'll think about data literacy as being made up of a a combination of:
+
+* understanding how systems can be data-fied
+* having some awareness of the tools and rules that we should use when gathering data
+* knowing a bit about some statistical tools used to understand, summarise, and compare that data
+* understanding some effective strategies for using this data (and statistics) as a basis for the explanation/prediction/control of systems, including how to communicate your findings to others
+* finally, figuring out how to use that knowledge of what you want to do with your data to simplify and streamline other aspects of the data journey
+
+## This session
+
+In this session, we'll do a miniature data journey. To do that, we'll work through a series of practical exercises, with discussion-based interludes on the way.
+
+## Data for this session
+
+This session uses some publicly-available data from the [Care Inspectorate datastore link](https://www.careinspectorate.com/index.php/statistics-and-analysis/data-and-analysis). Specifically, we'll use a little bit from their main [2025 end-of-year data](https://www.careinspectorate.com/images/Statistics_and_Analysis/Datastore/250331DatastoreExternal.csv) concentrating on care homes for older adults in Inverness and Nairn. We'll have a chance to look at that data more thoroughly later, but here's a short preview to help you get acquainted:
+
+```{r}
+#| eval: false
+
+library(readr)
+library(dplyr)
+library(stringr)
+
+# data wrangling code retained for interest
+read_csv("https://www.careinspectorate.com/images/Statistics_and_Analysis/Datastore/250331DatastoreExternal.csv") |>
+  filter(CareService == "Care Home Service") |>
+  filter(Subtype == "Older People") |>
+  filter(Service_town %in% c("Inverness", "Nairn")) |>
+  select(ServiceType, ServiceName, CareHome_Main_Area_of_Care, Service_Postcode, Service_town, Service_Postcode, TotalBeds) |>
+  rename_with(\(x) str_remove(x, "Service_*")) |>
+  rename(Main_area_of_care = CareHome_Main_Area_of_Care,
+         Town = town) |>
+  arrange(desc(Name)) |>
+  write_rds("data/care_inspectorate.rds") |>
+  writexl::write_xlsx("data/care_inspectorate.xlsx")
+```
+
+```{r}
+readr::read_rds("data/care_inspectorate.rds") |>
+  slice_head(n = 5) |>
+  knitr::kable()
+
+```
+
+A reminder: this course is all about using data to answer questions about health and care systems. We're using the definition of data as **structured information, usually numerical, that tells us about part of a system**. This is probably a good time to try and develop that definition a bit. Last thing first, this is data about a system. Specifically, it's all about care homes in Inverness and Nairn. It doesn't contain any other information - instead, it's a collection of information about one single thing. Next, that information is structured, meaning that we've organised it in a standard way. Each row (running horizontally) is about one care home. Each column (running vertically) describes one aspect of our system. So the `TotalBeds` column, for example, only contains information about the number of beds in each home, and nothing else. That column is numerical, but none of the others are in this sample data. That probably makes it unusual for health and care work.
+
+Now that we've done a short introduction, it's time to have a better look at the data.
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task one: tidy some data
+
++ download the [dataset as an Excel file](data/care_inspectorate.xlsx) to your computer
++ open it in Excel (or whichever tool you're planning to use for this session)
++ familiarise yourself with the data: you should see that we've got 
+
+:::
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task two: think about how you might have made this data, and how that might change how you use it
+
+
+:::
+
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task three: practical about summarising the data in different ways
+
+
+:::
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task four: thinking about different ways of visualising this data
+
+
+:::
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task five: thinking about purposes: how might different summaries and visuals be useful to you
+
+
+:::
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task six: homework - take an extended dataset
+
+:::
