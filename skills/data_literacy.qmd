@@ -32,7 +32,7 @@ library(ggplot2)
 :::
 
 
-# Current session outline
+# Current session overview
 
 1. An introduction via a simple data journey
 1. Distributions
@@ -70,3 +70,19 @@ library(ggplot2)
 # Acknowledgements
 
 Ian Douglas (NHS Highland) for basically summing up the whole course in an email. Maria McAllister (HIS) and Kristi Long (NES) for changing the way we defined data in this course. Kenneth Mack (HIS) for probing on the difference between data and information. Gail Gibbs (NHS Lanarkshire) for starting off the five questions about data line of work. Judi Evans (PHS) for overall feedback. Catherine McGrenera (NHS 24) for pressing the importance of storytelling with data. Zoe Turner (Strategy Unit) for showing why we need to start with data-fying. Ailsa King (NHS GGC) and John Rankin (PHS) for thinking about communication.
+
+# Glossary
+
+```{r}
+#| echo: false
+#| output: asis
+
+glossary <- yaml::read_yaml("../glossary.yml")
+
+glossary <- glossary[order(names(setNames(glossary, glossary)))] # order entries alphabetically
+
+for (term in names(glossary)) {
+  cat("### ", term, "\n\n", glossary[[term]], "\n\n", sep = "")
+}
+```
+

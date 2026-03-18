@@ -2,6 +2,8 @@
 format: html
 execute: 
   output: markup
+editor_options: 
+  chunk_output_type: console
 ---
   
 # An introduction via a simple data journey (session 1)
@@ -51,13 +53,18 @@ This course will give an introduction to answering these questions using data. F
 + census data, showing demographics of different towns in Scotland
 + survey data estimating how many people are currently homeless nationally
 
-In future sessions, we'll talk about the technical aspects of these datasets - roughly, to explain what your data should look like, and how to begin collecting useful data from your system. Those aspects can be very complex, but needn't be - so we could potentially collect data for our three example questions by:
+One of the most important ideas in this whole course is the **data journey**. This is the idea that - if we want to answer a question about our system using data - we have to take several linked steps, in some kind of order, that let us travel from an initial hunch or query to a finished answer. Very roughly, the steps in the data journey are:
 
-* adding up all the inpatient and outpatient appointments each month
-* asking everyone in Scotland to complete a census return every few years
-* requesting services supporting the homeless to estimate how many service users they see each week
++ to try and data-fy our system, and to collect data from it
++ to take that data, and tidy it into the most helpful shape for our project
++ to summarise and visualise that data
++ to communicate those findings to others
 
-Once we've got some useful data, we'll then think about how to understand, summarise, visualise, and compare data that we've collected. Finally, we'll talk about how to take those statistics, and use them to do things. As we'll see, statistical summaries of data are especially helpful in helping us understand the systems we're working on. We'll look specifically at three areas where understanding is especially important: **explaining** how systems work, **predicting** what will happen as our system changes, and **controlling** the behaviour of that system.
+The sessions of this course are based on steps in the data journey in more detail. But the plan for today is simpler: we'll try and complete a whole data journey, a simple one, in this session. The idea here is to give you a high-level map of what we're going to talk about later in this course. Because some of these steps can be quite technical and detailed, it's really important to keep an eye on the prize - being able to put your data to work - and the best way to do that is to work through everything once quickly.
+
+To make today's data journey possible, we'll do a bit of cheating by starting with a carefully-chosen (and polished) dataset. Don't worry too much about what we're missing by taking this shortcut, because in the next couple of sessions we'll spend a lot of time on the ins-and-outs of building lovely datasets from real systems. 
+
+With our data in hand, we'll then think about how to understand, summarise, visualise, and compare data that we've collected. Finally, we'll talk about how to take those statistics, and use them to do things. As we'll see, statistical summaries of data are especially helpful in helping us understand the systems we're working on. We'll look specifically at three areas where understanding is especially important: **explaining** how systems work, **predicting** what will happen as our system changes, and **controlling** the behaviour of that system.
 
 Together, we'll describe this linked set of practices and skills as **data literacy**, which describes a set of knowledge and skills across the data journey from raw data to finished project. In this course, we'll think about data literacy as being made up of a a combination of:
 
@@ -66,6 +73,8 @@ Together, we'll describe this linked set of practices and skills as **data liter
 * knowing a bit about some statistical tools used to understand, summarise, and compare that data
 * understanding some effective strategies for using this data (and statistics) as a basis for the explanation/prediction/control of systems, including how to communicate your findings to others
 * finally, figuring out how to use that knowledge of what you want to do with your data to simplify and streamline other aspects of the data journey
+
+
 
 ## This session
 
@@ -98,23 +107,29 @@ read_csv("https://www.careinspectorate.com/images/Statistics_and_Analysis/Datast
 
 ```{r}
 readr::read_rds("data/care_inspectorate.rds") |>
-  slice_head(n = 5) |>
+  dplyr::slice_head(n = 5) |>
   knitr::kable()
 
 ```
 
-A reminder: this course is all about using data to answer questions about health and care systems. We're using the definition of data as **structured information, usually numerical, that tells us about part of a system**. This is probably a good time to try and develop that definition a bit. Last thing first, this is data about a system. Specifically, it's all about care homes in Inverness and Nairn. It doesn't contain any other information - instead, it's a collection of information about one single thing. Next, that information is structured, meaning that we've organised it in a standard way. Each row (running horizontally) is about one care home. Each column (running vertically) describes one aspect of our system. So the `TotalBeds` column, for example, only contains information about the number of beds in each home, and nothing else. That column is numerical, but none of the others are in this sample data. That probably makes it unusual for health and care work.
-
-Now that we've done a short introduction, it's time to have a better look at the data.
+Enough chat. Let's look at some data:
 
 :::{.callout-note collapse=false appearance='default' icon=true}
-## Task one: tidy some data
+## Task one: inspect your data
 
 + download the [dataset as an Excel file](data/care_inspectorate.xlsx) to your computer
 + open it in Excel (or whichever tool you're planning to use for this session)
-+ familiarise yourself with the data: you should see that we've got 
++ familiarise yourself with the data: you should see that we have about a dozen rows of data
++ see if there are any areas that you might want to tidy up
 
 :::
+
+A reminder: this course is all about using data to answer questions about health and care systems. We're using the definition of data as **structured information, usually numerical, that tells us about part of a system**. This is probably a good time to try and develop that definition a bit. Last thing first, this is data about a system. Specifically, it's care homes in Inverness and Nairn. It's narrowly focused on that topic - there's not much other information here other than the names, locations, and types of those care homes. That's typical of good data - it's not just a collection of everything that you can think of vaguely on topic, but instead should be a lean collection of the core information about one single thing. Next, that information is structured, meaning that we've organised it in a standard way. Each row (running horizontally) is about one care home. Each column (running vertically) describes one aspect of our system. So the `TotalBeds` column, for example, only contains information about the number of beds in each home, and nothing else. That column is numerical, but none of the others are in this sample data. That probably makes it a bit unusual for health and care work, but not completely exceptional.
+
+Because this session is intended to be a quick introduction to a data journey, this dataset is lovely and tidy. That's unfortunately quite rare in the real world. Just to note a few things that we'll discuss further along our journey:
+
+* the data is {{< glossary "tidy data" display="tidy" >}}. That means something very specific about the way that rows and columns are used, which we'll develop more in a later session.
+* 
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Task two: think about how you might have made this data, and how that might change how you use it
@@ -145,3 +160,8 @@ Now that we've done a short introduction, it's time to have a better look at the
 ## Task six: homework - take an extended dataset
 
 :::
+
+
+
+
+
