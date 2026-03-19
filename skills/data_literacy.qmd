@@ -3,6 +3,8 @@ date: today
 execute: 
   echo: false
 format:
+  # typst: 
+  #   papersize: a4
   html:
     fig-height: 3
     fig-width: 7
@@ -10,10 +12,10 @@ draft: true
 output: markup
 categories: [data literacy, beginner]
 params:
-  sl_date: 2026-01-19
+  sl_date: 2026-03-19
   fn: Data literacy
   id: KS29
-title: Data literacy
+title: Data literacy or skills or something
 editor_options: 
   chunk_output_type: console
 ---
@@ -29,10 +31,13 @@ library(ggplot2)
 - This is an early-stage draft of a complex session
 - Structure matters for this sort of course, and the structure is as yet unsettled
 - Please treat this material as completely fallible and potentially misleading
+- Not even sure what we should call it...
 :::
 
 
-# Current session overview
+# Current sessions overview
+
+This is shaping up to be a seven-session beginners course in data work.
 
 1. An introduction via a simple data journey
 1. Distributions
@@ -80,7 +85,7 @@ Ian Douglas (NHS Highland) for basically summing up the whole course in an email
 glossary <- yaml::read_yaml("../glossary.yml")
 
 glossary <- glossary[order(names(setNames(glossary, glossary)))] # order entries alphabetically
-      
+
 for (term in names(glossary)) {
   cat("### ", term, "\n\n", glossary[[term]], "\n\n", sep = "")
 }
