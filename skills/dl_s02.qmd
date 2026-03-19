@@ -77,6 +77,22 @@ uniform_data(400, 1, 4, 10, 8, "Susan", "Excel skills")
 
 This suggests that Susan's assessment of her skills might might be unusual and interesting: it's higher than any of the other skills across the entire comparison group. We'd call this sort of thing an outlier, because no-one else in our entire organisation was as confident as Susan.
 
+## Some better data
+
+This dataset contains six columns. One (called **ID**) is a system generated unique number. The remaining five are real responses from KIND network members to the following fatuous queries:
+
+* **prefer**, which are responses to the question **Do you prefer chips or soup?** (choice)
++ **pet**, detailing answers to **What is your ideal pet?** (free text)
++ **excel**, scoring **How confident are you at using Excel?** 1 = not at all confident, 10 = very confident
++ **score**, from **What is your highest ever score at Scrabble, Bowling, or anything else where a really good score is about 300** (free number)
++ **holiday** - **Where did you last go on holiday?** (choice between UK, Europe (except UK), North America, South America, Asia, Africa, Oceania, Other)
+
+```{r}
+readxl::read_xlsx(here("skills/data/distributions_data.xlsx"))
+```
+
+
+
 ## Distribution
 
 Back in the introduction, we talked about this graph, showing that we had once exceptionally skilled colleague:
