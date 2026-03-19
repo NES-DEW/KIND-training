@@ -5,7 +5,18 @@ execute:
 editor_options: 
   chunk_output_type: console
 ---
-  
+
+```{r}
+here::i_am("skills/dl_s01.qmd")
+
+library(readr)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+library(here)
+```
+
+
 # An introduction via a simple data journey (session 1)
   
 :::{.callout-important collapse=true appearance='default' icon=true}
@@ -68,11 +79,11 @@ With our data in hand, we'll then think about how to understand, summarise, visu
 
 Together, we'll describe this linked set of practices and skills as **data literacy**, which describes a set of knowledge and skills across the data journey from raw data to finished project. In this course, we'll think about data literacy as being made up of a a combination of:
 
-* understanding how systems can be data-fied
-* having some awareness of the tools and rules that we should use when gathering data
-* knowing a bit about some statistical tools used to understand, summarise, and compare that data
-* understanding some effective strategies for using this data (and statistics) as a basis for the explanation/prediction/control of systems, including how to communicate your findings to others
-* finally, figuring out how to use that knowledge of what you want to do with your data to simplify and streamline other aspects of the data journey
++ understanding how systems can be data-fied
++ having some awareness of the tools and rules that we should use when gathering data
++ knowing a bit about some statistical tools used to understand, summarise, and compare that data
++ understanding some effective strategies for using this data (and statistics) as a basis for the explanation/prediction/control of systems, including how to communicate your findings to others
++ finally, figuring out how to use that knowledge of what you want to do with your data to simplify and streamline other aspects of the data journey
 
 
 
@@ -82,37 +93,58 @@ In this session, we'll do a miniature data journey. To do that, we'll work throu
 
 ## Data for this session
 
-This session uses some publicly-available data from the [Care Inspectorate datastore link](https://www.careinspectorate.com/index.php/statistics-and-analysis/data-and-analysis). Specifically, we'll use a little bit from their main [2025 end-of-year data](https://www.careinspectorate.com/images/Statistics_and_Analysis/Datastore/250331DatastoreExternal.csv) concentrating on care homes for older adults in Inverness and Nairn. We'll have a chance to look at that data more thoroughly later, but here's a short preview to help you get acquainted:
+This session uses some publicly-available data from the [Care Inspectorate datastore](https://www.careinspectorate.com/index.php/statistics-and-analysis/data-and-analysis). Specifically, we'll use a small extract from their main [2025 end-of-year data](https://www.careinspectorate.com/images/Statistics_and_Analysis/Datastore/250331DatastoreExternal.csv) concentrating on care homes for older adults in Inverness and Nairn. We'll have a chance to look at that data more thoroughly later, but here's a short preview to help you get acquainted:
 
 ```{r}
-#| eval: false
-
-library(readr)
-library(dplyr)
-library(stringr)
-
 # data wrangling code retained for interest
-read_csv("https://www.careinspectorate.com/images/Statistics_and_Analysis/Datastore/250331DatastoreExternal.csv") |>
-  filter(CareService == "Care Home Service") |>
-  filter(Subtype == "Older People") |>
-  filter(Service_town %in% c("Inverness", "Nairn")) |>
-  select(ServiceType, ServiceName, CareHome_Main_Area_of_Care, Service_Postcode, Service_town, Service_Postcode, TotalBeds) |>
-  rename_with(\(x) str_remove(x, "Service_*")) |>
-  rename(Main_area_of_care = CareHome_Main_Area_of_Care,
-         Town = town) |>
-  arrange(desc(Name)) |>
-  write_rds("data/care_inspectorate.rds") |>
-  writexl::write_xlsx("data/care_inspectorate.xlsx")
+
+# full_ci_data <- read_csv("https://www.careinspectorate.com/images/Statistics_and_Analysis/Datastore/250331DatastoreExternal.csv") |>
+#   filter(CareService == "Care Home Service") |>
+#   filter(Subtype == "Older People") |> 
+#   select(ServiceType, ServiceName, CareHome_Main_Area_of_Care, Service_Postcode, Service_town, Service_Postcode, TotalBeds) |>
+#   rename_with(\(x) str_remove(x, "Service_*")) |>
+#   rename(Main_area_of_care = CareHome_Main_Area_of_Care,
+#          Town = town) |>
+#   arrange(desc(Name))
+# 
+# full_ci_data |>
+#   write_rds(here("skills/data/care_inspectorate_full.rds")) |>
+#   writexl::write_xlsx(here("skills/data/care_inspectorate_full.xlsx"))
+
+full_ci_data <- 
+  read_rds(here("skills/data/care_inspectorate_full.rds"))
+
+ci_towns <- function(towns = c("Inverness", "Nairn")){
+  full_ci_data |>
+    filter(Town %in% towns)
+}
+
+# ci_towns() |>
+#   write_rds(here("skills/data/care_inspectorate.rds")) |>
+#   writexl::write_xlsx(here("skills/data/care_inspectorate.xlsx"))
 ```
 
 ```{r}
-readr::read_rds("data/care_inspectorate.rds") |>
-  dplyr::slice_head(n = 5) |>
+ci <- ci_towns()
+
+ci |>
+  slice_head(n = 5) |>
   knitr::kable()
-
 ```
+Hopefully that's fairly self-explanatory: we've got one row per care home, with columns for the type of home, the name, the main area for which the home provides care, the postcode and location of the home, and the total number of beds. In this session, we'll try to use this data to answer a couple of questions about the provision of care in this area. Specifically, over this session we'll see:
 
-Enough chat. Let's look at some data:
+:::{.callout-note collapse=false appearance='default' icon=true}
+
+## Questions for this session
+
++ How many care home beds are there in total in Inverness and Nairn together?
++ How do the beds available for different main areas of care compare?
++ Does Inverness or Nairn have more care home beds? What's the right way of comparing the two?
++ Is there some kind of relationship between the size of care home, and their town?
+
+:::
+
+The next step is to open this yourself, and have a look at the full data set.
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Task one: inspect your data
@@ -128,27 +160,165 @@ A reminder: this course is all about using data to answer questions about health
 
 Because this session is intended to be a quick introduction to a data journey, this dataset is lovely and tidy. That's unfortunately quite rare in the real world. Just to note a few things that we'll discuss further along our journey:
 
-* the data is {{< glossary "tidy data" display="tidy" >}}. That means something very specific about the way that rows and columns are used, which we'll develop more in a later session.
-* 
++ the data is {{< glossary "tidy data" display="tidy" >}}. That means something very specific about the way that rows and columns are used, which we'll develop more in a later session.
++ there's no missing data
++ the values in each column are consistent (so one column is all postcodes, another all numbers, etc)
++ and we seem to have standard {{< glossary coding >}} for each value
++ and the text and postcodes seem to be nice and clean, with no weird spellings, formatting, cases, etc
+
+As we'll see, collecting data like this can be complicated. My understanding is this actual data comes from annual returns submitted to the Care Inspectorate. Just as an introduction, we'll now do a short exercise to think about how you might go about collecting data like this:
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Task two: think about how you might have made this data, and how that might change how you use it
 
+This is a group discussion. We'll spend a couple of minutes thinking about ways that this data might be collected. Issues to consider:
+
++ how would you identify individual care homes?
++ how could you be sure that you hadn't missed any care homes in the area?
++ how would you decide which establishments were in which towns?
++ how might you find out what the main area of care provided is?
 
 :::
 
+As that discussion (hopefully) revealed, there are lots of practical and conceptual issues underlying this sort of simple data. Those issues, and the ways we approach them, are the basis for sessions 3 and 4 of this course. They're important, even for people who aren't planning to do any data collection themselves. For example, one of the exercises that we're going to try later in this session brings in a tiny bit of new data from the [2022 census](https://www.scotlandscensus.gov.uk/), which gives us the following estimates for the population of our two towns:
+
+| Town | Population (2022 census) |
+|----|----|
+| Inverness and Culloden | 65053 |
+| Nairn | 9582 |
+
+Here's one reason why understanding the route by which data was collected matters. Our care home data talks about "Inverness". But the census data talks about "Inverness and Culloden". Are they the same thing? If not, how might you need to change your population estimates to make sure we're talking about the same places in the same way as the Care Inspectorate? 
+
+We'll leave the discussion about that issue for another session. Now though, let's introduce one of the big ideas in data literacy: summarising.
+
+We've got data about `r nrow(ci)` different care homes in our dataset. One of the standard approaches would now be to try and boil that down to a smaller number of values - ideally one! - that tells us about these care homes. Probably the most commonly-used way of summarising would be to add all the values together, to give us a sum. Let's try that now.
 
 :::{.callout-note collapse=false appearance='default' icon=true}
-## Task three: practical about summarising the data in different ways
+## Task three-a: sum
 
++ add all the values in the `TotalBeds` column
++ report your value in the chat. What does it tell you?
 
 :::
+
+Even though it's simple, summing values together is really important. If we're interested in comparing Inverness and Nairn together with another part of the local area, we'd have a much easier job of comparing places. The national Care Inspectorate dataset, which I'll give you to play with at the end of the session, has data for Aberdeen too, which has `r sum(ci_towns("Aberdeen")$TotalBeds, na.rm = T)` total beds - so almost exactly twice as many care home beds as Nairn and Inverness combined, which I estimated as `r sum(ci$TotalBeds, na.rm = T)`.
+
+In miniature, this example shows probably the most important single theme in data literacy: summarising data helps us understand how things are by allowing comparisons.
+
+Adding things up isn't the only way we can summarise. Say we wanted to try and understand how many beds a typical care home has. We could try to eyeball a typical value from our data. If we only had two or three values (say `r paste(ci$TotalBeds[1:3], collapse = ", ")`), perhaps we could do that quite effectively. I'd think that an estimate of about 40 would probably be about right for a typical value of those three figures. But even by the time we get to the dozen or so values in our dataset, that's looking more difficult:
+
+```{r}
+paste(ci$TotalBeds, collapse = ", ")
+```
+
+I'd struggle to effectively come up with a typical/average value without making a quick note somewhere and/or counting on my fingers.  Luckily, we don't need to do that, because we can take an average. There are a few different ways of taking an average, but the underlying idea is similar - tell me what a typical result in our data looks like. One way of calculating an average is to take our sum total, and divide it by the number of homes in our data. That gives us a type of average called a {{< glossary mean >}}:
+
+$$Mean = {Sum \over n} = {621 \over 15} = 41$$
+
+Let's check that now:
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task three-b: practical about summarising the data in different ways
+
++ take a mean of the values in the `TotalBeds` column
++ In Excel, you can use `AVERAGE()` - or you can divide your total by a `COUNTA()` of your values
+
+:::
+
+There are lots of other ways of summarising data, which we'll explore in later sessions, but before we move on we should talk about a refinement of summarising our data. We could, before we summarise, form the data into groups. For instance, our care homes data has a column about the main area of care that the home provides. We could sum (or mean) each of those groups separately:
+
+```{r}
+ci |>
+  group_by(Main_area_of_care) |>
+  summarise(Total = sum(TotalBeds),
+            Mean = mean(TotalBeds)) |>
+  knitr::kable()
+```
+
+That's interesting, because these sorts of grouped summaries are a mainstay when it comes to comparing different groups in our data. For our next step, let's look at a completely different way of representing our data.
+
+```{r}
+#| eval: false
+
+# Postcodes generated using PostcodesioR - not installed in this training project, code included for interest only
+purrr::map(ci$Postcode, PostcodesioR::postcode_lookup) |>
+  purrr::list_rbind() |>
+  dplyr::select(postcode, latitude, longitude) |>
+  dplyr::distinct() |>
+  readr::write_rds(here("skills/data/postcodes.rds"))
+
+shape <- rnaturalearth::ne_countries(returnclass = "sf",scale = 10, country = "United Kingdom") |>
+  sf::st_crop(xmin = -5, xmax = -3, ymin = 57, ymax =58) |>
+  sf::st_transform(crs=3857)
+
+pc <- readr::read_rds(here("skills/data/postcodes.rds")) |>
+  sf::st_as_sf(coords = c("longitude","latitude"),crs=4326) |>
+  sf::st_transform(crs=3857) |>
+  right_join(dat, by = join_by(postcode == Postcode))
+
+list(shape = shape, pc = pc) |>
+  write_rds(here("skills/data/carehome_map.rds"))
+```
+
+```{r}
+ci_post <- ci |>
+  left_join(read_rds(here("skills/data/postcodes.rds")), join_by(Postcode == postcode)) 
+
+read_rds(here("skills/data/carehome_map.rds"))$shape |>
+  ggplot() +
+  geom_sf() +
+  theme_void() +
+  geom_sf(data = read_rds(here("skills/data/carehome_map.rds"))$pc, aes(colour = Town, size = TotalBeds))
+  
+```
+
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Task four: thinking about different ways of visualising this data
 
 
+
 :::
+
+```{r}
+# perhaps add a percentage 
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  group_by(Main_area_of_care) |>
+  summarise(TotalBeds = sum(TotalBeds)) |>
+  mutate(percentage = scales::percent(TotalBeds / sum(TotalBeds)))
+
+# Does Inverness or Nairn have more care home beds? What's the right way of comparing the two?
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  group_by(Town) |>
+  summarise(TotalBeds = sum(TotalBeds))
+
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  group_by(Town) |>
+  summarise(TotalBeds = sum(TotalBeds)) |>
+  mutate(Population = c(65053,9582)) 
+
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  group_by(Town) |>
+  summarise(TotalBeds = sum(TotalBeds)) |>
+  mutate(Population = c(65053,9582)) |>
+  mutate(Beds_per_10000_residents = TotalBeds + 10000 / Population)
+
+# Is there some kind of relationship between the size of care home, and their town?
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  ggplot(aes(x = Town, y = TotalBeds)) +
+  geom_point() +
+  geom_label(aes(label = Name), nudge_x = 0.3) +
+  ylim(0,NA)
+
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  group_by(Town) |>
+  summarise(Average_beds = mean(TotalBeds))
+```
+
+
+
+
+
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Task five: thinking about purposes: how might different summaries and visuals be useful to you
@@ -158,6 +328,22 @@ Because this session is intended to be a quick introduction to a data journey, t
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Task six: homework - take an extended dataset
+
+Here is an [Excel file](data/care_inspectorate_full.xlsx) (or an [.rds](data/care_inspectorate_full.rds)) of the full national Care Inspectorate data in the same format as we've been using in this session. Please use it to answer some questions:
+
+
+
++ Is there some kind of relationship between the size of care home, and their type (private, health board, etc)?
+
+```{r}
+read_rds(here("skills/data/care_inspectorate_full.rds")) |>
+  ggplot(aes(x = Type, y = TotalBeds)) +
+  geom_boxplot() +
+  # geom_label(aes(label = Name), nudge_x = 0.3) +
+  ylim(0,NA)
+```
+
+
 
 :::
 
