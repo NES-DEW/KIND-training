@@ -285,8 +285,6 @@ For the final few minutes of the session, we'll do an exercise in Excel or R dep
 
 ### Excel version
 
-This requires M365 Excel - either [the web version](https://excel.cloud.microsoft/) or the desktop version are fine. Create a new workbook, and then copy and paste the following names into Excel:
-
 ```{r}
 trial_names <- ggc_full |>
   dplyr::slice_sample(n = 10) |>
@@ -295,11 +293,19 @@ trial_names <- ggc_full |>
   dplyr::arrange() |>
   dplyr::select(names = non_ggc_names) 
 
-trial_names |>
-  knitr::kable()
+# trial_names |>
+  # writexl::write_xlsx(here::here("skills/src/excel_regex.xlsx"))
 
 # trial_names |>
 #   readr::write_rds("skills/src/r_regex.rds")
+```
+
+
+This requires M365 Excel - either [the web version](https://excel.cloud.microsoft/) or the desktop version are fine. You can either [download the sample workbook](src/excel_regex.xlsx), or create a new workbook, and then copy and paste the following names into Excel:
+
+```{r}
+trial_names |>
+  knitr::kable()
 ```
 
 There are three regular expression functions in Excel.
