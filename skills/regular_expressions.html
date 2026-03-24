@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -695,7 +730,7 @@ Copy text
 <figcaption>Adding quantification to match GGC with and without spaces</figcaption></figure>
 </div>
 </section><section id="practical-exercise" class="level2"><h2 class="anchored" data-anchor-id="practical-exercise">Practical exercise</h2>
-<p>For the final few minutes of the session, we’ll do an exercise in Excel or R depending on your preference. The task is simple: please accurately classify some sample responses into NHS GG&amp;C/non-NHS GG&amp;C these responses. I believe there are 10 responses from GGC, and 13 not from GGC in the sample data.</p>
+<p>For the final few minutes of the session, we’ll do an exercise in Excel or R depending on your preference. The task is simple: please accurately classify a small dataset into NHS GG&amp;C/non-NHS GG&amp;C. I believe there are 10 responses from GGC, and 13 not from GGC in the sample data.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Excel version</a></li>
@@ -710,34 +745,34 @@ Copy text
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Greater Glasgow and Clyde Health Board</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Greater Glasgow and Clyde NHS</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">GGC R&amp;I</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Glasgow Caledonian University &amp; NHS GG&amp;C</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NHSGG&amp;C/University of Glasgow</td>
+<td style="text-align: left;">NHS GG&amp;C (QEUH)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">GGC</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Greater Glasgow and Clyde</td>
+<td style="text-align: left;">NHS Greater Glasgow &amp; Clyde</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">KHCC (NHS GGC)</td>
+<td style="text-align: left;">GGC NHS Health Improvement - Sexual Health</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">NH Greater Glasgow and Clyde</td>
+<td style="text-align: left;">Greater Glasgow and Clyde NHS</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">NHS Greater Glasgow &amp; Clyde</td>
+<td style="text-align: left;">Glasgow Caledonian University &amp; NHS GG&amp;C</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS Greater and Glasgow and Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GG&amp;C acute services</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Greater Glasgow and Clyde Health Board</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Catering Management GG&amp;C</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Aberdeenshire County Council</td>
@@ -780,15 +815,142 @@ Copy text
 </tr>
 </tbody>
 </table>
+<button onclick="textCopy(&quot;NHS GG&amp;C (QEUH)\nGGC\nNHS Greater Glasgow &amp; Clyde\nGGC NHS Health Improvement - Sexual Health\nGreater Glasgow and Clyde NHS\nGlasgow Caledonian University &amp; NHS GG&amp;C\nNHS Greater and Glasgow and Clyde\nGG&amp;C acute services\nGreater Glasgow and Clyde Health Board\nCatering Management GG&amp;C\nAberdeenshire County Council\nArgyll and Bute HSCP\nBaillieston Community Care\nCentre for Sustainable Delivery / NHS Golden Jubilee\nGCU\nHanover Housing Association\nNHS D&amp;G\nNHS Healthcare Improvement Scotland\nNhs Lothian\nNorth Lanarkshire\nSCVO (Scottish Council for Voluntary Organisations)\nscottish care\nThe State Hospital&quot;)">
+Copy text
+</button>
 <p>There are three regular expression functions in Excel.</p>
 <p><code>REGEXTEST</code> is the easiest to use. The syntax is <code>REGEXTEST(string, regex)</code>, and you should be able to supply any of the regex examples from this session directly. As the name suggests, this function returns TRUE/FALSE.</p>
 <p><code>REGEXEXTRACT</code> - an Everest of a name for those of us with dyslexia - will extract just the matching text from the regex using similar syntax.</p>
 <p><code>REGEXREPLACE</code> - probably not directly useful for this task, but allows regex-based find and replace</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Please <a href="src/r_regex.rds">download the rds file</a> and import into R. While there are several ways of working with regular expressions in R, I’d heartily recommend having the stringr package installed and attached for this exercise.</p>
+<p>Please <a href="src/r_regex.rds">download the rds file</a> and import into R. While there are several ways of doing that, but a base-R solution would be something like the following:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="st">"https://nes-dew.github.io/KIND-training/skills/src/r_regex.rds"</span>, destfile <span class="op">=</span> <span class="st">"r_regex.rds"</span><span class="op">)</span></span>
+<span><span class="va">trial_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"r_regex.rds"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There are several ways of using regular expressions in R. The standard/classic/base-R way would be to use something like <code>grep</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span><span class="op">(</span><span class="st">"NHS"</span>, <span class="va">trial_names</span><span class="op">$</span><span class="va">names</span><span class="op">)</span> <span class="co"># indexes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1  3  4  5  6  7 14 17 18</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"NHS"</span>, <span class="va">trial_names</span><span class="op">$</span><span class="va">names</span><span class="op">)</span> <span class="co"># logical</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+<p><code>grepl</code> and co are a bit messy to use, because they don’t pipe nicely (their first argument isn’t the data). You can use them directly inside some tidyverse functions as-is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trial_names</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"NHS"</span>, <span class="va">names</span><span class="op">)</span><span class="op">)</span> <span class="co"># with dplyr::filter</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">names</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NHS GG&amp;C (QEUH)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Greater Glasgow &amp; Clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GGC NHS Health Improvement - Sexual Health</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Greater Glasgow and Clyde NHS</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Glasgow Caledonian University &amp; NHS GG&amp;C</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Greater and Glasgow and Clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Centre for Sustainable Delivery / NHS Golden Jubilee</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS D&amp;G</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS Healthcare Improvement Scotland</td>
+</tr>
+</tbody>
+</table>
+<p>But trying to use them in a pipe means using some kind of anonymous function:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trial_names</span><span class="op">$</span><span class="va">names</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"NHS"</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE
+[13] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+<p>A neater alternative is to use the <code>stringr</code> package:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">trial_names</span><span class="op">$</span><span class="va">names</span>, <span class="st">"NHS"</span><span class="op">)</span> <span class="co"># effectively grepl but pipe-able</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trial_names</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">names</span>, <span class="st">"NHS"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">names</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NHS GG&amp;C (QEUH)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Greater Glasgow &amp; Clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GGC NHS Health Improvement - Sexual Health</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Greater Glasgow and Clyde NHS</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Glasgow Caledonian University &amp; NHS GG&amp;C</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Greater and Glasgow and Clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Centre for Sustainable Delivery / NHS Golden Jubilee</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS D&amp;G</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS Healthcare Improvement Scotland</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">trial_names</span><span class="op">$</span><span class="va">names</span>, <span class="st">"NHS"</span><span class="op">)</span> <span class="co"># as vector</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "NHS" NA    "NHS" "NHS" "NHS" "NHS" "NHS" NA    NA    NA    NA    NA   
+[13] NA    "NHS" NA    NA    "NHS" "NHS" NA    NA    NA    NA    NA   </code></pre>
+</div>
+</div>
 <p>One R-specific gotcha: any regex that contains a <code>\</code> needs doubling in R - so <code>\w</code> becomes <code>\\w</code> etc.</p>
-<p><code><a href="https://stringr.tidyverse.org/reference/str_detect.html">stringr::str_detect</a></code> is an excellent way to discover if a regex appears in some text.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">trial_names</span><span class="op">$</span><span class="va">names</span>, <span class="st">"^\\w*"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "NHS"           "GGC"           "NHS"           "GGC"          
+ [5] "Greater"       "Glasgow"       "NHS"           "GG"           
+ [9] "Greater"       "Catering"      "Aberdeenshire" "Argyll"       
+[13] "Baillieston"   "Centre"        "GCU"           "Hanover"      
+[17] "NHS"           "NHS"           "Nhs"           "North"        
+[21] "SCVO"          "scottish"      "The"          </code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
