@@ -276,7 +276,7 @@ That should select only `GG&C` when it follows NHS with a space. In other words,
 
 ## Practical exercise
 
-For the final few minutes of the session, we'll do an exercise in Excel or R depending on your preference. The task is simple: please accurately classify some sample responses into NHS GG&C/non-NHS GG&C these responses. I believe there are 10 responses from GGC, and 13 not from GGC in the sample data.
+For the final few minutes of the session, we'll do an exercise in Excel or R depending on your preference. The task is simple: please accurately classify a small dataset into NHS GG&C/non-NHS GG&C. I believe there are 10 responses from GGC, and 13 not from GGC in the sample data.
 
 ::: {.panel-tabset}
 
@@ -306,7 +306,11 @@ This requires M365 Excel - either [the web version](https://excel.cloud.microsof
 ```{r}
 trial_names |>
   knitr::kable()
+
+ggc_names <- paste(trial_names$names, collapse = "\\n")
 ```
+
+<button onclick='textCopy("`r ggc_names`")'>Copy text</button>
 
 There are three regular expression functions in Excel.
 
@@ -319,11 +323,115 @@ There are three regular expression functions in Excel.
 
 ### R version
 
-Please [download the rds file](src/r_regex.rds) and import into R. While there are several ways of working with regular expressions in R, I'd heartily recommend having the stringr package installed and attached for this exercise.
+Please [download the rds file](src/r_regex.rds) and import into R. While there are several ways of doing that, but a base-R solution would be something like the following:
+
+```{r}
+#| eval: false
+#| echo: true
+
+utils::download.file("https://nes-dew.github.io/KIND-training/skills/src/r_regex.rds", destfile = "r_regex.rds")
+trial_names <- readRDS("r_regex.rds")
+```
+
+```{r}
+#| eval: false
+#| echo: false
+
+trial_names |>
+  knitr::kable()
+```
+
+
+There are several ways of using regular expressions in R. The standard/classic/base-R way would be to use something like `grep`:
+
+```{r}
+#| eval: true
+#| echo: true
+#| results: markup
+
+grep("NHS", trial_names$names) # indexes
+grepl("NHS", trial_names$names) # logical
+```
+
+`grepl` and co are a bit messy to use, because they don't pipe nicely (their first argument isn't the data). You can use them directly inside some tidyverse functions as-is:
+
+```{r}
+#| eval: false
+#| echo: true
+
+trial_names |>
+  dplyr::filter(grepl("NHS", names)) # with dplyr::filter
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| results: asis
+
+trial_names |>
+  dplyr::filter(grepl("NHS", names))  |> # with dplyr::filter
+  knitr::kable()
+```
+
+But trying to use them in a pipe means using some kind of anonymous function:
+
+```{r}
+#| eval: true
+#| echo: true
+#| results: markup
+
+trial_names$names |>
+  sort() |>
+  (\(x) grepl("NHS", x))()
+```
+
+A neater alternative is to use the `stringr` package:
+
+```{r}
+#| eval: true
+#| echo: true
+#| results: markup
+
+library(stringr)
+
+stringr::str_detect(trial_names$names, "NHS") # effectively grepl but pipe-able
+```
+
+```{r}
+#| eval: false
+#| echo: true
+
+trial_names |>
+  dplyr::filter(str_detect(names, "NHS"))
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| results: asis
+trial_names |>
+  dplyr::filter(str_detect(names, "NHS")) |>
+  knitr::kable()
+```
+
+```{r}
+#| eval: true
+#| echo: true
+#| results: markup
+
+stringr::str_extract(trial_names$names, "NHS") # as vector
+```
 
 One R-specific gotcha: any regex that contains a `\` needs doubling in R - so `\w` becomes `\\w` etc.
 
-`stringr::str_detect` is an excellent way to discover if a regex appears in some text.
+```{r}
+#| eval: true
+#| echo: true
+#| results: markup
+
+stringr::str_extract(trial_names$names, "^\\w*")
+```
+
 
 :::
 
