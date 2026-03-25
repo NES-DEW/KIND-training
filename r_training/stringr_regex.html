@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2024-09-12">
-<title>BI for Beginners (service version) Session 1 – KIND training pages</title>
+<meta name="dcterms.date" content="2026-03-25">
+<title>Regular expressions in stringr – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -43,8 +78,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-dea667461a5c81afc9ba75ce94cd63f3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-d92fcb82786098e3c716e1df5b4414ef.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-dea667461a5c81afc9ba75ce94cd63f3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-dea667461a5c81afc9ba75ce94cd63f3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -70,7 +104,8 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><link rel="stylesheet" href="styles.css">
+}</script><meta name="quarto:status" content="draft">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
@@ -237,7 +272,7 @@ ul.task-list li input[type="checkbox"] {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo light-content"><img src="../src/images/KLN_banner_v07_short_200.png" alt="" class="navbar-logo dark-content"></a>
@@ -311,26 +346,11 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#two-words-of-warning" id="toc-two-words-of-warning" class="nav-link" data-scroll-target="#two-words-of-warning">Two words of warning…</a></li>
-  <li><a href="#hospital-occupancy-data" id="toc-hospital-occupancy-data" class="nav-link" data-scroll-target="#hospital-occupancy-data">Hospital occupancy data</a></li>
-  <li><a href="#open-power-bi-service" id="toc-open-power-bi-service" class="nav-link" data-scroll-target="#open-power-bi-service">Open Power BI service</a></li>
-  <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data">Loading data</a></li>
-  <li><a href="#hospital-occupancy-data-1" id="toc-hospital-occupancy-data-1" class="nav-link" data-scroll-target="#hospital-occupancy-data-1">Hospital occupancy data</a></li>
-  <li><a href="#the-report-view" id="toc-the-report-view" class="nav-link" data-scroll-target="#the-report-view">The Report View</a></li>
-  <li><a href="#a-note-on-data-loading" id="toc-a-note-on-data-loading" class="nav-link" data-scroll-target="#a-note-on-data-loading">A note on data loading</a></li>
-  <li><a href="#a-first-visual" id="toc-a-first-visual" class="nav-link" data-scroll-target="#a-first-visual">A first visual</a></li>
-  <li><a href="#making-our-chart-more-useful" id="toc-making-our-chart-more-useful" class="nav-link" data-scroll-target="#making-our-chart-more-useful">Making our chart more useful</a></li>
-  <li><a href="#formatting" id="toc-formatting" class="nav-link" data-scroll-target="#formatting">Formatting</a></li>
-  <li><a href="#changing-our-chart-type" id="toc-changing-our-chart-type" class="nav-link" data-scroll-target="#changing-our-chart-type">Changing our chart type</a></li>
-  <li><a href="#whats-happening-behind-the-scenes" id="toc-whats-happening-behind-the-scenes" class="nav-link" data-scroll-target="#whats-happening-behind-the-scenes">What’s happening behind the scenes?</a></li>
-  <li><a href="#the-data-model" id="toc-the-data-model" class="nav-link" data-scroll-target="#the-data-model">The data model</a></li>
-  <li><a href="#calculated-columns" id="toc-calculated-columns" class="nav-link" data-scroll-target="#calculated-columns">Calculated columns</a></li>
-  <li><a href="#what-is-dax" id="toc-what-is-dax" class="nav-link" data-scroll-target="#what-is-dax">What is DAX?</a></li>
-  <li><a href="#what-is-power-bi-for" id="toc-what-is-power-bi-for" class="nav-link" data-scroll-target="#what-is-power-bi-for">What is Power BI for?</a></li>
-  <li><a href="#power-bi-has-attractive-features" id="toc-power-bi-has-attractive-features" class="nav-link" data-scroll-target="#power-bi-has-attractive-features">Power BI has attractive features</a></li>
-  <li><a href="#homework-tasks" id="toc-homework-tasks" class="nav-link" data-scroll-target="#homework-tasks">Homework tasks</a></li>
+<li><a href="#a-reminder-about-regular-expressions" id="toc-a-reminder-about-regular-expressions" class="nav-link active" data-scroll-target="#a-reminder-about-regular-expressions">A reminder about regular expressions</a></li>
+  <li><a href="#stringr" id="toc-stringr" class="nav-link" data-scroll-target="#stringr">Stringr</a></li>
+  <li><a href="#validate-some-chis" id="toc-validate-some-chis" class="nav-link" data-scroll-target="#validate-some-chis">Validate some CHIs</a></li>
+  <li><a href="#groups" id="toc-groups" class="nav-link" data-scroll-target="#groups">Groups</a></li>
+  <li><a href="#ack" id="toc-ack" class="nav-link" data-scroll-target="#ack">Ack</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -342,12 +362,8 @@ ul.task-list li input[type="checkbox"] {
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">BI for Beginners (service version) Session 1</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">Power BI</div>
-    <div class="quarto-category">beginner</div>
-  </div>
-  </div>
+<h1 class="title">Regular expressions in stringr</h1>
+</div>
 
 
 
@@ -357,7 +373,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 12, 2024</p>
+      <p class="date">March 25, 2026</p>
     </div>
   </div>
   
@@ -366,317 +382,271 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><div class="callout callout-style-default callout-note callout-titled">
+</header><section id="a-reminder-about-regular-expressions" class="level2"><h2 class="anchored" data-anchor-id="a-reminder-about-regular-expressions">A reminder about regular expressions</h2>
+<p>Here’s some sample data for this session:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">names</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NHS gg&amp;c</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Catering Management GG&amp;C</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS Greater Glasgwo and clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS GG&amp;C (QEUH)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GG&amp;C General Surgery</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHSGGC.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS GGC</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Scotland/NHS GG&amp;C</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Greater Glasgow and Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS greater galsgow and Clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Aberdeenshire County Council</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Argyll and Bute HSCP</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Baillieston Community Care</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Centre for Sustainable Delivery / NHS Golden Jubilee</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GCU</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hanover Housing Association</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS D&amp;G</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Healthcare Improvement Scotland</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nhs Lothian</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North Lanarkshire</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCVO (Scottish Council for Voluntary Organisations)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scottish care</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The State Hospital</td>
+</tr>
+</tbody>
+</table>
+<p>It contains a number of different health and care organisation names. In this session, we’ll use regular expressions to find, extract, and replace pieces of text.</p>
+<p>Please <a href="src/r_regex.rds">download the rds file</a> and import into R. While there are several ways of doing that, a base-R solution would be something like the following:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="st">"https://nes-dew.github.io/KIND-training/r_training/src/r_regex.rds"</span>, destfile <span class="op">=</span> <span class="st">"r_regex.rds"</span><span class="op">)</span></span>
+<span><span class="va">trial_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"r_regex.rds"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There are several ways of using regular expressions in R. The standard/classic/base-R way would be to use something like <code>grep</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span><span class="op">(</span><span class="st">"NHS"</span>, <span class="va">trial_names</span><span class="op">$</span><span class="va">names</span><span class="op">)</span> <span class="co"># indexes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  3  4  6  7  8 10 14 17 18</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"NHS"</span>, <span class="va">trial_names</span><span class="op">$</span><span class="va">names</span><span class="op">)</span> <span class="co"># logical</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE
+[13] FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+<p><code>grepl</code> and co are a bit messy to use, because they don’t pipe nicely (their first argument isn’t the data). You can use them directly inside some tidyverse functions as-is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trial_names</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"NHS"</span>, <span class="va">names</span><span class="op">)</span><span class="op">)</span> <span class="co"># with dplyr::filter</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">names</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NHS gg&amp;c</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Greater Glasgwo and clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS GG&amp;C (QEUH)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHSGGC.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS GGC</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Scotland/NHS GG&amp;C</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS greater galsgow and Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Centre for Sustainable Delivery / NHS Golden Jubilee</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS D&amp;G</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Healthcare Improvement Scotland</td>
+</tr>
+</tbody>
+</table>
+<p>But trying to use them in a pipe means using some kind of anonymous function:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trial_names</span><span class="op">$</span><span class="va">names</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"NHS"</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+[13]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+</section><section id="stringr" class="level2"><h2 class="anchored" data-anchor-id="stringr">Stringr</h2>
+<p>A neater alternative (and the focus of this session) is to use the <code>stringr</code> package:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">trial_names</span><span class="op">$</span><span class="va">names</span>, <span class="st">"NHS"</span><span class="op">)</span> <span class="co"># effectively grepl but pipe-able</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE
+[13] FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trial_names</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">names</span>, <span class="st">"NHS"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">names</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NHS gg&amp;c</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Greater Glasgwo and clyde</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS GG&amp;C (QEUH)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHSGGC.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS GGC</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Scotland/NHS GG&amp;C</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS greater galsgow and Clyde</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Centre for Sustainable Delivery / NHS Golden Jubilee</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NHS D&amp;G</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NHS Healthcare Improvement Scotland</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">trial_names</span><span class="op">$</span><span class="va">names</span>, <span class="st">"NHS"</span><span class="op">)</span> <span class="co"># as vector</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "NHS" NA    "NHS" "NHS" NA    "NHS" "NHS" "NHS" NA    "NHS" NA    NA   
+[13] NA    "NHS" NA    NA    "NHS" "NHS" NA    NA    NA    NA    NA   </code></pre>
+</div>
+</div>
+<p>One R-specific gotcha: any regex that contains a <code>\</code> needs doubling in R - so <code>\w</code> becomes <code>\\w</code> etc.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">trial_names</span><span class="op">$</span><span class="va">names</span>, <span class="st">"^\\w*"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "NHS"           "Catering"      "NHS"           "NHS"          
+ [5] "GG"            "NHSGGC"        "NHS"           "NHS"          
+ [9] "Greater"       "NHS"           "Aberdeenshire" "Argyll"       
+[13] "Baillieston"   "Centre"        "GCU"           "Hanover"      
+[17] "NHS"           "NHS"           "Nhs"           "North"        
+[21] "SCVO"          "scottish"      "The"          </code></pre>
+</div>
+</div>
+</section><section id="validate-some-chis" class="level2"><h2 class="anchored" data-anchor-id="validate-some-chis">Validate some CHIs</h2>
+</section><section id="groups" class="level2"><h2 class="anchored" data-anchor-id="groups">Groups</h2>
+<p>So far, our regular expressions have just matched a piece of text, and then selected either that piece of text (as the early examples in this session) or selected an entire word/line containing that match. Regular expression can also work in a more sophisticated way, where we can specify a piece of text to match, and also (independently) specify a piece of text to select. To do that selection, we’ll use the idea of groups. Groups are formulated using round brackets - so anything contained within <code>()</code> will be selected, assuming any of the regex outwith those brackets is matched.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session materials
+<span class="screen-reader-only">Tip</span>Task
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
-<li><a href="src/s01_data.xlsx"><iconify-icon inline="" icon="ph:file-xls" style="font-size: 2em;" aria-label="Icon file-xls from ph Iconify.design set." title="Icon file-xls from ph Iconify.design set."></iconify-icon>.xlsx session data</a></li>
+<li>try the regex <code>NHS (GG&amp;C)</code>
+</li>
 </ul>
 </div>
 </div>
 </div>
-<section id="previous-attendees-have-said" class="level2 cell" data-layout-align="left"><h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
-<ul>
-<li>58 previous attendees have left feedback</li>
-<li>100% would recommend this session to a colleague</li>
-<li>97% said that this session was pitched correctly</li>
-</ul>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure"><p><img src="BI_for_beginners_service_session_01_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="288"></p>
-</figure>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Three random comments from previous attendees
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Great to learn the available tools and it have awareness of the restriction faced in various boards and general training on this software attempted from external sources became useless with NHS IT restrictions etc</li>
-<li>Supportive session, well explained and demonstrated, and great to have the materials to hand for future reference too. Thank you!</li>
-<li>Thought it was a really good initial session - I did get a bit lost after the data modelling but generating the graphs along side Brendan was really helpful. Would be good if sessions were recorded as not going to be able to join the next one and would like to. Thank you</li>
-</ul>
-</div>
-</div>
-</section><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
-<ul>
-<li>practical first
-<ul>
-<li>loading data</li>
-<li>making visualizations</li>
-<li>manipulating data</li>
-</ul>
-</li>
-<li>then some explanation and examples
-<ul>
-<li>what is it for?</li>
-<li>how does it work?</li>
-</ul>
-</li>
-</ul></section><section id="two-words-of-warning" class="level2"><h2 class="anchored" data-anchor-id="two-words-of-warning">Two words of warning…</h2>
-<ol type="1">
-<li>This course uses <a href="https://app.powerbi.com/">Power BI Service</a>. Most of the skills here are transferable to other versions of Power BI, but you’ll need Service to follow the examples</li>
-<li>Licencing and publication can be complicated in Power BI. We don’t discuss that much here, but it’s important to understand the implications if you’re planning to use it in practice. The <a href="https://teams.microsoft.com/l/team/19%3aQZ7-PbFVcziG2piHLt1_ifey3I2cwFL0yBuTSS8vVao1%40thread.tacv2/conversations?groupId=106d08f3-9026-40e2-b3c7-87cd87304d58&amp;tenantId=10efe0bd-a030-4bca-809c-b5e6745e499a">KIND Network</a> is a good resource for those kinds of questions.</li>
-</ol></section><section id="hospital-occupancy-data" class="level2"><h2 class="anchored" data-anchor-id="hospital-occupancy-data">Hospital occupancy data</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>download, and open the sample <a href="src/s01_data.xlsx">s01_data.xlsx</a> workbook in Excel</li>
-<li>have a look at the two sheets, called <code>occupancy_sh</code> and <code>wards_sh</code>
-</li>
-<li>each contains a table, which are named <code>occupancy</code> and <code>wards</code>
-</li>
-<li>close the Excel file</li>
-</ol>
-</div>
-</div>
-</section><section id="open-power-bi-service" class="level2"><h2 class="anchored" data-anchor-id="open-power-bi-service">Open Power BI service</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Navigate to <a href="https://app.powerbi.com/" class="uri">https://app.powerbi.com/</a>
-</li>
-<li>Select <code>New Report</code><img src="../src/images/clipboard-3571025835.png" height="150">
-</li>
-</ol>
-</div>
-</div>
-</section><section id="loading-data" class="level2"><h2 class="anchored" data-anchor-id="loading-data">Loading data</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>select <code>Excel (preview)</code> <img src="../src/images/clipboard-4053349010.png" height="150" alt="select Excel (preview)">
-</li>
-<li>select <code>Upload file</code> <img src="../src/images/clipboard-916950338.png" class="img-fluid">
-</li>
-<li>now drag your Excel workbook into the Power BI window<img src="../src/images/clipboard-357030995.png" class="img-fluid" alt="drag your Excel workbook into the Power BI window">
-</li>
-</ol>
-</div>
-</div>
-</section><section id="hospital-occupancy-data-1" class="level2"><h2 class="anchored" data-anchor-id="hospital-occupancy-data-1">Hospital occupancy data</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>we can either load the worksheets or the tables from the Excel file
-<ol type="1">
-<li>if you’re planning to work with data from Excel, we’d strongly advise you to work with tables rather than worksheets</li>
-</ol>
-</li>
-<li>select the two tables in the preview and select <code>Create</code>  <img src="../src/images/clipboard-815799949.png" class="img-fluid" alt="select the two tables in the preview and select Create">
-</li>
-</ol>
-</div>
-</div>
-</section><section id="the-report-view" class="level2"><h2 class="anchored" data-anchor-id="the-report-view">The Report View</h2>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="../src/images/clipboard-3761155047.png" class="img-fluid figure-img"></p>
-<figcaption>Report view</figcaption></figure>
+<figure class="figure"><p><img src="src/images/groups_nhs.png" class="img-fluid figure-img"></p>
+<figcaption>Groups example to match GG&amp;C only when it follows NHS</figcaption></figure>
 </div>
-<ul>
-<li>this is where we’ll build our dashboard</li>
-<li>take a minute to look round - particularly noting the three panes (<code>Filters</code>, <code>Visualizations</code>, and <code>Data</code>) on the right of the screen</li>
-<li>you should also save your report at this point<img src="../src/images/clipboard-435366504.png" class="img-fluid" alt="Save your report">
-</li>
-</ul></section><section id="a-note-on-data-loading" class="level2"><h2 class="anchored" data-anchor-id="a-note-on-data-loading">A note on data loading</h2>
-<ul>
-<li>data loading is one-way
-<ul>
-<li>what we do in Power BI won’t change the underlying files</li>
-<li>but if our files change, our dashboard will change
-<ul>
-<li>we’ll usually need to refresh our data to see that</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul></section><section id="a-first-visual" class="level2"><h2 class="anchored" data-anchor-id="a-first-visual">A first visual</h2>
-<ul>
-<li>for now, let’s use this data to build a simple visualization</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
+<p>That should select only <code>GG&amp;C</code> when it follows NHS with a space. In other words, <code>NHS (GG&amp;C)</code> is matched, but only the <code>GG&amp;C</code> part is selected. We could tweak that to also pick up the final string in our test pool with a bit of quantification:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Tip</span>Task
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li>make sure you select <code>Edit</code> from the menu  <img src="../src/images/clipboard-1317552922.png" class="img-fluid" alt="select Edit">
-</li>
-<li>Select <code>Line chart</code> from the visualizations pane  <img src="../src/images/clipboard-812342158.png" height="300" alt="Select Line chart from the visualizations pane">
-</li>
-<li>Enlarge the visualisation to fill the page by dragging the corners of the new line chart to fill the report area</li>
-<li>Add some data:
-<ol type="a">
-<li>Drag the <code>OccupiedBeds</code> column from the occupancy table to the <code>Y-axis</code> field</li>
-<li>Drag the <code>date</code> column from the occupancy table to the <strong>X-axis field</strong> <img src="../src/images/clipboard-2429031845.png" class="img-fluid" alt="date in x axis, occupiedbeds in the y axis">
-</li>
-</ol>
-</li>
-</ol>
-</div>
-</div>
 <ul>
-<li>you should have a nice, craggy, time series graph of bed occupancy  <img src="../src/images/aggchart.png" class="img-fluid" alt="Bed occupancy time series">
+<li>try the regex <code>NHS *(GG&amp;*C)</code>
 </li>
-<li>don’t panic if you have a straight-line graph<img src="../src/images/clipboard-1010441889.png" class="img-fluid" alt="Straight line graph">
-</li>
-<li>Power BI will usually aggregate your data. This straight line graph comes from Power BI adding all the values for the years 2022 and 2023 together, and plotting a graph between those two points</li>
-<li>you control aggregation from the drop-down menu on the data in your field <img src="../src/images/clipboard-1180337001.png" class="img-fluid" alt="drop-down menu on the date data">
-</li>
-<li>we can do similar aggregations on our other data too. Swap <code>Sum</code> for <code>Average</code> in your <code>OccupiedBeds</code> field <img src="../src/images/clipboard-909269035.png" class="img-fluid" alt="drop-down menu on the occupied beds data">
-</li>
-</ul></section><section id="making-our-chart-more-useful" class="level2"><h2 class="anchored" data-anchor-id="making-our-chart-more-useful">Making our chart more useful</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Try dragging the <strong>WardName</strong> column to the <strong>Legend</strong> field  <img src="../src/images/legend.png" height="400">
-</li>
-</ol>
-</div>
-</div>
-<p>or to the <code>Small multiples</code> field:</p>
-<p><img src="../src/images/clipboard-2313058786.png" class="img-fluid"></p>
-</section><section id="formatting" class="level2"><h2 class="anchored" data-anchor-id="formatting">Formatting</h2>
-<p><img src="../src/images/clipboard-3526313208.png" class="img-fluid"></p>
-<ul>
-<li>formatting options live in the paintbrush tab above the grid of visualisations</li>
-<li>there are <strong>lots</strong> of options there</li>
-<li>a good homework project would be to experiment with re-styling your graph</li>
-</ul></section><section id="changing-our-chart-type" class="level2"><h2 class="anchored" data-anchor-id="changing-our-chart-type">Changing our chart type</h2>
-<ul>
-<li>this is easy: just make sure your chart is selected (look for the tiny grey corners <img src="../src/images/clipboard-58530006.png" class="img-fluid" alt="graph corners">), and click a new graph icon (liked stacked columns <img src="../src/images/clipboard-1162591482.png" class="img-fluid" alt="new graph icon">)</li>
-<li>that will change the type of graph you’re building - in this case, to a stacked column chart <img src="../src/images/clipboard-3312791348.png" class="img-fluid" alt="stacked column chart">
-</li>
-</ul></section><section id="whats-happening-behind-the-scenes" class="level2"><h2 class="anchored" data-anchor-id="whats-happening-behind-the-scenes">What’s happening behind the scenes?</h2>
-<ul>
-<li><p>to to your workspace <img src="../src/images/clipboard-3750165785.png" class="img-fluid"></p></li>
-<li><p>you should see a graph for your dashboard <img src="../src/images/clipboard-1712134014.png" class="img-fluid"></p></li>
-<li><p>now follow the <code>...</code> menu from the <code>Semantic model</code> to <code>Open data model</code> <img src="../src/images/clipboard-3886944991.png" class="img-fluid" alt="Open data model"></p></li>
-</ul></section><section id="the-data-model" class="level2"><h2 class="anchored" data-anchor-id="the-data-model">The data model</h2>
-<ul>
-<li>the data model gives you an overview of your data <img src="../src/images/clipboard-4151043456.png" class="img-fluid" alt="Data model">
-</li>
-<li>we can also modify aspects of the data from here (data types, relationships, …)</li>
-</ul></section><section id="calculated-columns" class="level2"><h2 class="anchored" data-anchor-id="calculated-columns">Calculated columns</h2>
-<ul>
-<li>
-<strong>Calculated columns</strong> are how we describe columns calculated from other values</li>
-<li>Here, we could calculate something simple for each ward - how about the number of non-closed beds available?</li>
 </ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>select <strong>New column</strong> from the ribbon  <img src="../src/images/clipboard-171542657.png" class="img-fluid" alt="select New column from the ribbon">
-</li>
-<li>now we write a formula in the formula bar: <code>AvailableBeds = [BedComp] - [ClosedBed]</code>  <img src="../src/images/formula.png" height="100" alt="add a formula to the formula bar">
-</li>
-<li>AvailableBeds = our new column name</li>
-<li>
-<code>[BedComp]</code> and <code>[ClosedBed]</code> are the existing column names that we’re subtracting</li>
-<li>now return to your report. You should see your new calculated column available for use</li>
-</ol>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="src/images/groups_quant.png" class="img-fluid figure-img"></p>
+<figcaption>Adding quantification to match GGC with and without spaces</figcaption></figure>
 </div>
-<ul>
-<li>Congratulations! You’ve just written your first <a href="https://learn.microsoft.com/en-us/dax/dax-overview">DAX</a> formula.</li>
-</ul></section><section id="what-is-dax" class="level2"><h2 class="anchored" data-anchor-id="what-is-dax">What is DAX?</h2>
-<p><strong>DAX</strong> (Data Analysis eXpressions) is the formula language used in Power BI, Power Pivot, and across various MS SQL tools…</p>
-<ul>
-<li>similar to Excel formulas
-<ul>
-<li>functions have similar names and similar behaviours</li>
-<li>DAX is more ‘fussy’ than Excel</li>
-</ul>
-</li>
-<li>we’ll talk about DAX more in session 4</li>
-</ul></section><section id="what-is-power-bi-for" class="level2"><h2 class="anchored" data-anchor-id="what-is-power-bi-for">What is Power BI for?</h2>
-<ul>
-<li><a href="https://turasdata.nes.nhs.scot/">NHS Scotland TURAS intelligence</a></li>
-<li>
-<a href="https://app.powerbi.com/view?r=eyJrIjoiODMwNjRjMGMtZDhhZC00ZjQzLTgzYWItZTA3ZWM0ZDcyOGY2IiwidCI6IjUwZjYwNzFmLWJiZmUtNDAxYS04ODAzLTY3Mzc0OGU2MjllMiIsImMiOjh9">NHS Digital Adult Social Care dashboard</a> - particularly great for showing how Power BI can be used as a hub for data. I imagine how many Excel files on shared network drives this might have required before…</li>
-<li>
-<a href="https://app.powerbi.com/view?r=eyJrIjoiODJjOGE3ZDUtM2ViNy00YjBlLTllMjktOTNjZjlkODJhODU4IiwidCI6ImU3YTEzYWVhLTk0MzctNGRiNy1hMjJiLWNmYWE0Y2UzM2I2ZSJ9">Northern Ireland Department of Health COVID dashboard</a> - an object lesson in scale, and I’d be keen to use Power BI if a service potentially was going to be very busy, or experience highly variable load</li>
-<li>
-<a href="https://qi.elft.nhs.uk/leveraging-microsoft-powerbi/">QI project dashboard from NHS England’s East London NHS Foundation Trust</a> - some useful thoughts about implementing a project in Power BI</li>
-</ul></section><section id="power-bi-has-attractive-features" class="level2"><h2 class="anchored" data-anchor-id="power-bi-has-attractive-features">Power BI has attractive features</h2>
-<ul>
-<li>Interactive</li>
-<li>Dynamic</li>
-<li>Presenting data from many sources</li>
-<li>Scalable</li>
-<li>Separates data from analysis/presentation</li>
-</ul></section><section id="homework-tasks" class="level2"><h2 class="anchored" data-anchor-id="homework-tasks">Homework tasks</h2>
-<ol type="1">
-<li>Try using the filters pane to play with your dashboard. How do filters change your visual?</li>
-<li>Could you use the data from this session to find out how often a ward is overcrowded?</li>
-<li>Can you plot the AvailableBeds column?</li>
-</ol>
+</section><section id="ack" class="level2"><h2 class="anchored" data-anchor-id="ack">Ack</h2>
+<p>Participants in the earlier regex session for suggestions about parsing/validating numbers</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
