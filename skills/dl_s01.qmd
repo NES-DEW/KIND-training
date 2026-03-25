@@ -33,8 +33,8 @@ To introduce the core aspects of data work to engage participants, and to set up
 + E1: take an imperfect dataset and tidy it
 + E2: think about how you might have made this data, and how that might change how you use it
 + E3: practical about summarising the data in different ways
-+ E4: thinking about different ways of visualising this data
-+ E5: thinking about purposes: how might different summaries and visuals be useful to you
++ E4: thinking about purposes: how might different summaries change how you think about the data
++ E5: thinking about different ways of visualising this data
 + E6: homework - take an extended dataset
 
 ### Data
@@ -131,6 +131,7 @@ ci |>
   slice_head(n = 5) |>
   knitr::kable()
 ```
+
 Hopefully that's fairly self-explanatory: we've got one row per care home, with columns for the type of home, the name, the main area for which the home provides care, the postcode and location of the home, and the total number of beds. In this session, we'll try to use this data to answer a couple of questions about the provision of care in this area. Specifically, over this session we'll see:
 
 :::{.callout-note collapse=false appearance='default' icon=true}
@@ -156,6 +157,8 @@ The next step is to open this yourself, and have a look at the full data set.
 
 :::
 
+## Tidying data
+
 A reminder: this course is all about using data to answer questions about health and care systems. We're using the definition of data as **structured information, usually numerical, that tells us about part of a system**. This is probably a good time to try and develop that definition a bit. Last thing first, this is data about a system. Specifically, it's care homes in Inverness and Nairn. It's narrowly focused on that topic - there's not much other information here other than the names, locations, and types of those care homes. That's typical of good data - it's not just a collection of everything that you can think of vaguely on topic, but instead should be a lean collection of the core information about one single thing. Next, that information is structured, meaning that we've organised it in a standard way. Each row (running horizontally) is about one care home. Each column (running vertically) describes one aspect of our system. So the `TotalBeds` column, for example, only contains information about the number of beds in each home, and nothing else. That column is numerical, but none of the others are in this sample data. That probably makes it a bit unusual for health and care work, but not completely exceptional.
 
 Because this session is intended to be a quick introduction to a data journey, this dataset is lovely and tidy. That's unfortunately quite rare in the real world. Just to note a few things that we'll discuss further along our journey:
@@ -165,6 +168,8 @@ Because this session is intended to be a quick introduction to a data journey, t
 + the values in each column are consistent (so one column is all postcodes, another all numbers, etc)
 + and we seem to have standard {{< glossary coding >}} for each value
 + and the text and postcodes seem to be nice and clean, with no weird spellings, formatting, cases, etc
+
+## Collecting data
 
 As we'll see, collecting data like this can be complicated. My understanding is this actual data comes from annual returns submitted to the Care Inspectorate. Just as an introduction, we'll now do a short exercise to think about how you might go about collecting data like this:
 
@@ -190,6 +195,8 @@ As that discussion (hopefully) revealed, there are lots of practical and concept
 Here's one reason why understanding the route by which data was collected matters. Our care home data talks about "Inverness". But the census data talks about "Inverness and Culloden". Are they the same thing? If not, how might you need to change your population estimates to make sure we're talking about the same places in the same way as the Care Inspectorate? 
 
 We'll leave the discussion about that issue for another session. Now though, let's introduce one of the big ideas in data literacy: summarising.
+
+## Summarising data
 
 We've got data about `r nrow(ci)` different care homes in our dataset. One of the standard approaches would now be to try and boil that down to a smaller number of values - ideally one! - that tells us about these care homes. Probably the most commonly-used way of summarising would be to add all the values together, to give us a sum. Let's try that now.
 
@@ -231,11 +238,62 @@ There are lots of other ways of summarising data, which we'll explore in later s
 ci |>
   group_by(Main_area_of_care) |>
   summarise(Total = sum(TotalBeds),
-            Mean = mean(TotalBeds)) |>
+            Mean = round(mean(TotalBeds), 1)) |>
   knitr::kable()
 ```
 
-That's interesting, because these sorts of grouped summaries are a mainstay when it comes to comparing different groups in our data. For our next step, let's look at a completely different way of representing our data.
+That's interesting, because these sorts of grouped summaries are a mainstay when it comes to comparing different groups in our data. The idea here is that putting data into groups can be useful for finding and understanding different parts of our data. We discuss groups, and how they can be used together, in more detail during session five of the course. 
+
+## Comparing data
+
+Once we've summarised our data, we can make some comparisons. For example, we've already had a look at the total number of different beds and how it varies across the two towns. Here's one helpful tool for making that comparison - looking at percentage constitution:
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task four: thinking about purposes: how might different summaries and visuals be useful to you
+
+Here is a slightly differently at our groups using a percentage:
+
+```{r}
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  group_by(Main_area_of_care) |>
+  summarise(TotalBeds = sum(TotalBeds)) |>
+  mutate(`TotalBeds (%)` = scales::percent(TotalBeds / sum(TotalBeds))) |>
+  knitr::kable()
+```
+
+Question: how might that change what you think about the total beds in different areas of care?
+
+Does Inverness or Nairn have more care home beds? What's the right way of comparing the two?
+
+```{r}
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  group_by(Town) |>
+  summarise(TotalBeds = sum(TotalBeds)) |>
+  knitr::kable()
+```
+
+```{r}
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  group_by(Town) |>
+  summarise(TotalBeds = sum(TotalBeds)) |>
+  mutate(Population = c(65053,9582)) |>
+  knitr::kable()
+```
+
+```{r}
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  group_by(Town) |>
+  summarise(TotalBeds = sum(TotalBeds)) |>
+  mutate(Population = c(65053,9582)) |>
+  mutate(Beds_per_10000_residents = TotalBeds + 10000 / Population) |>
+  knitr::kable()
+```
+:::
+
+## Visualising data
+
+We can also use those groups to help us understand our data by visualising it. For example, we could plot the number of beds available in each town:
+
 
 ```{r}
 #| eval: false
@@ -260,6 +318,17 @@ list(shape = shape, pc = pc) |>
   write_rds(here("skills/data/carehome_map.rds"))
 ```
 
+Or we could visualise the care homes in size order using a column graph:
+
+```{r}
+read_rds(here("skills/data/care_inspectorate.rds")) |>
+  ggplot(aes(x = Town, y = TotalBeds, fill = Town)) +
+  geom_col() +
+  ylab("")
+```
+
+Or we could plot our different care home locations on a map:
+
 ```{r}
 ci_post <- ci |>
   left_join(read_rds(here("skills/data/postcodes.rds")), join_by(Postcode == postcode)) 
@@ -273,68 +342,28 @@ read_rds(here("skills/data/carehome_map.rds"))$shape |>
 ```
 
 
-```{r}
-# perhaps add a percentage
-read_rds(here("skills/data/care_inspectorate.rds")) |>
-  group_by(Main_area_of_care) |>
-  summarise(TotalBeds = sum(TotalBeds)) |>
-  mutate(percentage = scales::percent(TotalBeds / sum(TotalBeds)))
-
-# Does Inverness or Nairn have more care home beds? What's the right way of comparing the two?
-read_rds(here("skills/data/care_inspectorate.rds")) |>
-  group_by(Town) |>
-  summarise(TotalBeds = sum(TotalBeds))
-
-read_rds(here("skills/data/care_inspectorate.rds")) |>
-  group_by(Town) |>
-  summarise(TotalBeds = sum(TotalBeds)) |>
-  mutate(Population = c(65053,9582))
-
-read_rds(here("skills/data/care_inspectorate.rds")) |>
-  group_by(Town) |>
-  summarise(TotalBeds = sum(TotalBeds)) |>
-  mutate(Population = c(65053,9582)) |>
-  mutate(Beds_per_10000_residents = TotalBeds + 10000 / Population)
-
-# Is there some kind of relationship between the size of care home, and their town?
-read_rds(here("skills/data/care_inspectorate.rds")) |>
-  ggplot(aes(x = Town, y = TotalBeds)) +
-  geom_point() +
-  geom_label(aes(label = Name), nudge_x = 0.3) +
-  ylim(0,NA)
-
-read_rds(here("skills/data/care_inspectorate.rds")) |>
-  group_by(Town) |>
-  summarise(Average_beds = mean(TotalBeds))
-```
-
-
-
-
-
-
 :::{.callout-note collapse=false appearance='default' icon=true}
-## Task five: thinking about purposes: how might different summaries and visuals be useful to you
+
+## Task five: thinking about different ways of visualising this data
+
++ What types of graph do you use (or see) at work?
 
 
 :::
+
+## Homework
+
+Something between sessions!
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Task six: homework - take an extended dataset
 
 Here is an [Excel file](data/care_inspectorate_full.xlsx) (or an [.rds](data/care_inspectorate_full.rds)) of the full national Care Inspectorate data in the same format as we've been using in this session. Please use it to answer some questions:
 
-
-
 + Is there some kind of relationship between the size of care home, and their type (private, health board, etc)?
++ We know there's a difference in average size between Inverness and Nairn. How might you visualise that, and what might a visual show you that the numeric average doesn't?
 
-```{r}
-read_rds(here("skills/data/care_inspectorate_full.rds")) |>
-  ggplot(aes(x = Type, y = TotalBeds)) +
-  geom_boxplot() +
-  # geom_label(aes(label = Name), nudge_x = 0.3) +
-  ylim(0,NA)
-```
+
 
 
 
