@@ -1,13 +1,34 @@
 ---
-title: Regular Expressions
-date: 2026-02-25
-draft: true
+title: Regular expressions
+date: 2026-03-25
 execute:
   output: asis
   echo: false
+categories: [Excel, NLP, regular expressions, intermediate]
+params:
+  sl_date: 2026-03-25
+  fn: Regular expressions
+  id: KS29
 editor_options: 
   chunk_output_type: console
 ---
+
+
+```{r}
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+#| echo: false
+
+source(here::here("R/feed_block.R"))
+feed_block(params[["id"]])
+
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh(params[["fn"]])
+```
+
+
 
 <script>
 <!-- for the copying blocks -->
@@ -21,26 +42,8 @@ function textCopy(copyText) {
 }
 </script>
 
-```{r}
-library(stringr)
-
-hl <- function(text, regex){
-  # function to highlight regex-matched text in light green
-  # not useful here, but will be great for the regex in R session
-  
-  result_string <- stringr::str_replace_all(text, paste0("(", regex, ")"), paste0("<span style='background-color:lightgreen'>", "\\1", "</span>"))
-  
-  regex_string = paste0("`", gsub("\\\\", "\\", regex, fixed = T), "`")
-  
-  tibble::tibble(regex = c("input", "result"),
-                !!regex_string := c(text, result_string))  |>
-  knitr::kable()
-  
-}
-```
-
 ## Introduction
-This session is intended as a beginner's introduction to regular expressions. You should have some prior experience of trying to match and parse free-text data to enjoy this session, and you'll definitely need to have past experience of reading and writing code. That doesn't need to be very advanced - if you're broadly happy with a lookup formula in Excel, for example, you'll be fine. But this session is code-based and likely to be unsuitable as a first introduction to programming.
+This session is intended as a introduction to regular expressions. You should have some prior experience of trying to match and parse free-text data to enjoy this session, and you'll definitely need to have past experience of reading and writing code. That doesn't need to be very advanced - if you're broadly happy with a lookup formula in Excel, for example, you'll be fine. But this session is code-based and likely to be unsuitable as a first introduction to programming. In the final part of the session, we'll also run an optional practical exercise, and you'll need M365 Excel (either web or desktop) for that.
 
 A note on jargon: to keep the technical talk to a minimum, we'll usually use the word **string** to refer to arbitrary bits of text in this session. Any ordinary-language descriptions, such as word/sentence/line of text just have their ordinary meaning.
 
@@ -49,8 +52,9 @@ A note on jargon: to keep the technical talk to a minimum, we'll usually use the
 - What's the problem with GGC?
 - string literals
 - meta-sequence for matching digits, words, and white-space
-- quantification and ranges
-- anchors and capturing groups
+- quantification
+- ranges
+- anchors
 - practical
 
 ## What's the problem with GGC?
@@ -154,10 +158,10 @@ Not all punctuation will behave quite so nicely:
 + now add the following points to your pool of Test Strings
 
 ```{r}
-paste(">", paste(ggc_full$ggc_names[str_which(ggc_full$ggc_names, "\\.|\\d")], collapse = "  \n")) |>
+paste(">", paste(ggc_full$ggc_names[stringr::str_which(ggc_full$ggc_names, "\\.|\\d")], collapse = "  \n")) |>
   cat()
 
-ggc_start <- paste(ggc_full$ggc_names[str_which(ggc_full$ggc_names, "\\.|\\d")], collapse = "\\n")
+ggc_start <- paste(ggc_full$ggc_names[stringr::str_which(ggc_full$ggc_names, "\\.|\\d")], collapse = "\\n")
 
 ```
 
@@ -196,13 +200,22 @@ That matches everything that isn't a digit - spaces, letters, punctuation, the l
 
 ## Quantification
 
-Regex has several ways of counting letters. For your regex, start with a single, capital, `G`. Immediately afterwards, please try the following three shorthand ways of counting:
+Regex has several ways of counting letters. I think the best way of quantifying is to use curly brackets `{}`. The simplest case, where you're counting an exact number of characters, is just to use a single number inside the brackets. `\d{5}` finds five digits in a row, for example. 
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## Task
+- using curly brackets, write a regular expression to find all the pairs of capital Gs in the test area
+:::
+
+You can also use this way of counting to count ranges of values, with the general syntax of `{smallest, largest}`. So `G{1,3}` matches 1-3 Gs in a row, for instance. Usefully, both the smallest and largest are optional, so you can also do something like `G{2,}` to find all two-or-more-Gs in the text, or `G{,4}` to find G, GG, GGG, and GGGG. Do note that the last example will also match empty lines, because it includes cases with zero Gs.
+
+There are also three shorthand ways of quantifying that you might find useful:
 
 * `G+` finds at least one G in a row (so `G`, `GGG`, etc)
 * `G*` finds 0 or more Gs in a row (so will match any string length of repeating Gs, including none - making it optional)
 * `G?` makes G optional in a string
 
-I find those confusing, so if I ever do really need counting precision, there's a more explicit way of doing the same thing with curly brackets. The general format is `{smallest, largest}`. So `G{,2}` matches 0-2 Gs in a row, for instance.
+Personally, I find those exceptionally confusing, so tend to stick with the curly brackets. 
 
 ## Ranges
 
@@ -254,36 +267,12 @@ As well as line anchors, you can also specify word boundaries using `\b`. So `NH
 
 Note that - again - we're just matching those few characters with this example. How would you re-work the regex to select the entire line that matched `NHS\b`?
 
-## Groups
 
-So far, our regular expressions have just matched a piece of text, and then selected either that piece of text (as the early examples in this session) or selected an entire word/line containing that match. Regular expression can also work in a more sophisticated way, where we can specify a piece of text to match, and also (independently) specify a piece of text to select. To do that selection, we'll use the idea of groups. Groups are formulated using round brackets - so anything contained within `()` will be selected, assuming any of the regex outwith those brackets is matched. 
-
-:::{.callout-tip collapse=false appearance='default' icon=true}
-## Task
-- try the regex `NHS (GG&C)`
-:::
-
-![Groups example to match GG&C only when it follows NHS](src/images/groups_nhs.png)
-
-That should select only `GG&C` when it follows NHS with a space. In other words, `NHS (GG&C)` is matched, but only the `GG&C` part is selected. We could tweak that to also pick up the final string in our test pool with a bit of quantification:
-
-:::{.callout-tip collapse=false appearance='default' icon=true}
-## Task
-- try the regex `NHS *(GG&*C)`
-:::
-
-![Adding quantification to match GGC with and without spaces](src/images/groups_quant.png)
 
 ## Practical exercise
 
-For the final few minutes of the session, we'll do an exercise in Excel or R depending on your preference. The task is simple: please accurately classify a small dataset into NHS GG&C/non-NHS GG&C. I believe there are 10 responses from GGC, and 13 not from GGC in the sample data.
+For the final few minutes of the session, we'll do an exercise in Excel. Regular expressions are new in Excel, and so this exercise requires the newest version of Excel: either installed on your computer, or [the web version](https://excel.cloud.microsoft/). The task is simple: please accurately classify a small dataset into NHS GG&C/non-NHS GG&C. I believe there are 10 responses from GGC, and 13 not from GGC in the sample data. You can either [download the sample workbook](src/excel_regex.xlsx), or create a new workbook, and then copy and paste the following names into Excel:
 
-::: {.panel-tabset}
-
-
-
-
-### Excel version
 
 ```{r}
 trial_names <- ggc_full |>
@@ -296,12 +285,8 @@ trial_names <- ggc_full |>
 # trial_names |>
   # writexl::write_xlsx(here::here("skills/src/excel_regex.xlsx"))
 
-# trial_names |>
-#   readr::write_rds("skills/src/r_regex.rds")
 ```
 
-
-This requires M365 Excel - either [the web version](https://excel.cloud.microsoft/) or the desktop version are fine. You can either [download the sample workbook](src/excel_regex.xlsx), or create a new workbook, and then copy and paste the following names into Excel:
 
 ```{r}
 trial_names |>
@@ -321,119 +306,5 @@ There are three regular expression functions in Excel.
 `REGEXREPLACE` - probably not directly useful for this task, but allows regex-based find and replace
 
 
-### R version
-
-Please [download the rds file](src/r_regex.rds) and import into R. While there are several ways of doing that, but a base-R solution would be something like the following:
-
-```{r}
-#| eval: false
-#| echo: true
-
-utils::download.file("https://nes-dew.github.io/KIND-training/skills/src/r_regex.rds", destfile = "r_regex.rds")
-trial_names <- readRDS("r_regex.rds")
-```
-
-```{r}
-#| eval: false
-#| echo: false
-
-trial_names |>
-  knitr::kable()
-```
-
-
-There are several ways of using regular expressions in R. The standard/classic/base-R way would be to use something like `grep`:
-
-```{r}
-#| eval: true
-#| echo: true
-#| results: markup
-
-grep("NHS", trial_names$names) # indexes
-grepl("NHS", trial_names$names) # logical
-```
-
-`grepl` and co are a bit messy to use, because they don't pipe nicely (their first argument isn't the data). You can use them directly inside some tidyverse functions as-is:
-
-```{r}
-#| eval: false
-#| echo: true
-
-trial_names |>
-  dplyr::filter(grepl("NHS", names)) # with dplyr::filter
-```
-
-```{r}
-#| eval: true
-#| echo: false
-#| results: asis
-
-trial_names |>
-  dplyr::filter(grepl("NHS", names))  |> # with dplyr::filter
-  knitr::kable()
-```
-
-But trying to use them in a pipe means using some kind of anonymous function:
-
-```{r}
-#| eval: true
-#| echo: true
-#| results: markup
-
-trial_names$names |>
-  sort() |>
-  (\(x) grepl("NHS", x))()
-```
-
-A neater alternative is to use the `stringr` package:
-
-```{r}
-#| eval: true
-#| echo: true
-#| results: markup
-
-library(stringr)
-
-stringr::str_detect(trial_names$names, "NHS") # effectively grepl but pipe-able
-```
-
-```{r}
-#| eval: false
-#| echo: true
-
-trial_names |>
-  dplyr::filter(str_detect(names, "NHS"))
-```
-
-```{r}
-#| eval: true
-#| echo: false
-#| results: asis
-trial_names |>
-  dplyr::filter(str_detect(names, "NHS")) |>
-  knitr::kable()
-```
-
-```{r}
-#| eval: true
-#| echo: true
-#| results: markup
-
-stringr::str_extract(trial_names$names, "NHS") # as vector
-```
-
-One R-specific gotcha: any regex that contains a `\` needs doubling in R - so `\w` becomes `\\w` etc.
-
-```{r}
-#| eval: true
-#| echo: true
-#| results: markup
-
-stringr::str_extract(trial_names$names, "^\\w*")
-```
-
-
-:::
-
 ## Acknowledgements
-I'm especially grateful to Ben Harley, Kirsty Mangin, Brian Orpin, and Donna McLean for helping to prototype this session
+I'm especially grateful to Ben Harley, Kirsty Mangin, Brian Orpin, and Donna McLean for helping to prototype this session, and to  Elizabeth Richardson, Zoe Turner, Callie Lorimer, Geraldine Kelly, Julian Augley, Clare Brown, Daniel Kovocses, Debs Calvin, Abram McCormick, and Fatima Davila Acosta for suggestions made during the session pilot.

@@ -1,0 +1,173 @@
+---
+title: Regular expressions in stringr
+date: 2026-03-25
+draft: true
+editor_options: 
+  chunk_output_type: console
+execute: 
+  echo: true
+  eval: true
+---
+
+
+```{r}
+#| echo: false
+here::i_am("r_training/stringr_regex.qmd")
+library(here)
+
+hl <- function(text, regex){
+  # function to highlight regex-matched text in light green
+  # not useful here, but will be great for the regex in R session
+  
+  result_string <- stringr::str_replace_all(text, paste0("(", regex, ")"), paste0("<span style='background-color:lightgreen'>", "\\1", "</span>"))
+  
+  regex_string = paste0("`", gsub("\\\\", "\\", regex, fixed = T), "`")
+  
+  tibble::tibble(regex = c("input", "result"),
+                !!regex_string := c(text, result_string))  |>
+  knitr::kable()
+  
+}
+```
+
+
+## A reminder about regular expressions
+
+Here's some sample data for this session:
+
+```{r}
+#| echo: false
+trial_names <- readr::read_rds(here::here("r_training/src/r_regex.rds"))
+
+trial_names |>
+  knitr::kable()
+```
+
+It contains a number of different health and care organisation names. In this session, we'll use regular expressions to find, extract, and replace pieces of text.
+
+Please [download the rds file](src/r_regex.rds) and import into R. While there are several ways of doing that, a base-R solution would be something like the following:
+
+```{r}
+#| eval: false
+
+utils::download.file("https://nes-dew.github.io/KIND-training/r_training/src/r_regex.rds", destfile = "r_regex.rds")
+trial_names <- readRDS("r_regex.rds")
+
+```
+
+
+There are several ways of using regular expressions in R. The standard/classic/base-R way would be to use something like `grep`:
+
+```{r}
+#| echo: true
+#| results: markup
+
+grep("NHS", trial_names$names) # indexes
+grepl("NHS", trial_names$names) # logical
+```
+
+`grepl` and co are a bit messy to use, because they don't pipe nicely (their first argument isn't the data). You can use them directly inside some tidyverse functions as-is:
+
+```{r}
+#| eval: false
+#| echo: true
+
+trial_names |>
+  dplyr::filter(grepl("NHS", names)) # with dplyr::filter
+```
+
+```{r}
+#| echo: false
+#| results: asis
+
+trial_names |>
+  dplyr::filter(grepl("NHS", names))  |> # with dplyr::filter
+  knitr::kable()
+```
+
+But trying to use them in a pipe means using some kind of anonymous function:
+
+```{r}
+#| eval: true
+#| echo: true
+#| results: markup
+
+trial_names$names |>
+  sort() |>
+  (\(x) grepl("NHS", x))()
+```
+
+
+## Stringr
+
+A neater alternative (and the focus of this session) is to use the `stringr` package:
+
+```{r}
+#| echo: true
+#| results: markup
+
+library(stringr)
+
+stringr::str_detect(trial_names$names, "NHS") # effectively grepl but pipe-able
+```
+
+```{r}
+#| eval: false
+#| echo: true
+
+trial_names |>
+  dplyr::filter(str_detect(names, "NHS"))
+```
+
+```{r}
+#| echo: false
+#| results: asis
+trial_names |>
+  dplyr::filter(str_detect(names, "NHS")) |>
+  knitr::kable()
+```
+
+```{r}
+#| echo: true
+#| results: markup
+
+stringr::str_extract(trial_names$names, "NHS") # as vector
+```
+
+One R-specific gotcha: any regex that contains a `\` needs doubling in R - so `\w` becomes `\\w` etc.
+
+```{r}
+#| echo: true
+#| results: markup
+
+stringr::str_extract(trial_names$names, "^\\w*")
+```
+
+## Validate some CHIs
+
+
+
+## Groups
+
+So far, our regular expressions have just matched a piece of text, and then selected either that piece of text (as the early examples in this session) or selected an entire word/line containing that match. Regular expression can also work in a more sophisticated way, where we can specify a piece of text to match, and also (independently) specify a piece of text to select. To do that selection, we'll use the idea of groups. Groups are formulated using round brackets - so anything contained within `()` will be selected, assuming any of the regex outwith those brackets is matched. 
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## Task
+- try the regex `NHS (GG&C)`
+:::
+
+![Groups example to match GG&C only when it follows NHS](src/images/groups_nhs.png)
+
+That should select only `GG&C` when it follows NHS with a space. In other words, `NHS (GG&C)` is matched, but only the `GG&C` part is selected. We could tweak that to also pick up the final string in our test pool with a bit of quantification:
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## Task
+- try the regex `NHS *(GG&*C)`
+:::
+
+![Adding quantification to match GGC with and without spaces](src/images/groups_quant.png)
+
+
+
+## Ack
+Participants in the earlier regex session for suggestions about parsing/validating numbers
