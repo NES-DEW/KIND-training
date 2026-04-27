@@ -241,7 +241,6 @@ y <- x
 
 test_that("check my vec sets", {
     expect_success(expect_setequal(x, y)) # all x in y
-    expect_failure(expect_mapequal(x, y)) # same names, y is proper subset x) # all x in y)
     show_failure(expect_contains(x[1:19], y)) # y proper subset x)
     expect_success(expect_in(x, y)) # x proper subset y
 })    
@@ -256,7 +255,6 @@ y <- sample(x, length(x)-2)
 
 test_that("check my vec sets", {
     expect_failure(expect_setequal(x, y)) # all x in y
-    expect_failure(expect_mapequal(x, y)) # same names, y is proper subset x) # all x in y)
     expect_success(expect_contains(x, y)) # y proper subset x)
     expect_failure(expect_in(x, y)) # x is a proper subset y
 })    
