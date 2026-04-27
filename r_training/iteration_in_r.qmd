@@ -331,21 +331,7 @@ As R is vectorised, though, we usually don't need to do this:
 1:10 * 2
 ```
 
-The main exceptions are when you encounter one of the occasional *scalar* functions in R. `if`/`else` is the more notorious of these. If you want to apply an `if`/`else` to several objects, one option is to write a loop:
-
-```{r}
-for(i in 1:15){
-  out <- ""
-  if(i %% 3 == 0) out <- c(out, "fizz")
-  if(i %% 5 == 0) out <- c(out, "buzz")
-  out <- paste(out, collapse = "")
-  if(nchar(out) == 0) out <- i
-  print(out)
-}
-
-```
-
-There's also a completely different family of solutions to problems such as these that we'll explore in the session about [purrr](https://nes-dew.github.io/KIND-training/r_training/purrr_package.html)
+The main exceptions are when you encounter one of the occasional *scalar* functions in R. `if`/`else` is the more notorious of these. If you want to apply an `if`/`else` to several objects, one option is to write a loop. Alternatively, there's also a completely different family of solutions to problems such as these that we'll explore in the session about [purrr](https://nes-dew.github.io/KIND-training/r_training/purrr_package.html).
 
 
 
