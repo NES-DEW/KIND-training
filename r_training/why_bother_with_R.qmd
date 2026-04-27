@@ -175,14 +175,17 @@ Sentiment analysis with wordcloud using tidytext [@tidytext], [lexicon](https://
 
 ```{r}
 #| echo: true
+#| eval: false
 #| cache: true
 library(NHSRplotthedots)
 
-readr::read_csv("data/spc/spc2.csv") |>
+readr::read_csv(here::here("r_training/data/spc/spc2.csv")) |>
     mutate(date = lubridate::dmy(date)) |>
     ptd_spc(members, date, target=50, fix_after_n_points=20) 
 
 ```
+
+![Example SPC chart](src/images/spc.png)
 
 ## R and not-R
 
