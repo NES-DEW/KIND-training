@@ -207,21 +207,26 @@ SMR_SIMD |>
 A recent change in dplyr 1.1.0 is that `summarise()` now will only return one row per group. A new function, `reframe()`, has been developed to produce multiple-row summaries. It works exactly like `summarise()` except, rather than removing one grouping layer per operation, it always returns an ungrouped tibble. The syntax is the same as `summarise()`:
 
 ```{r results='markup'}
-sum <- ae_attendances |>
-  group_by(year = lubridate::floor_date(period, unit = "year")) |>
-  summarise(
-    year = lubridate::year(year),
-    non_admissions = sum(attendances - admissions)
-  )
 
-ref <- ae_attendances |>
+
+# in dplyr 1.2 and up, this code now will fail, and reframe has become obligatory
+
+# sum <- ae_attendances |>
+#   group_by(year = lubridate::floor_date(period, unit = "year")) |>
+#   summarise(
+#     year = lubridate::year(year),
+#     non_admissions = sum(attendances - admissions)
+#   )
+
+ae_attendances |>
   group_by(year = lubridate::floor_date(period, unit = "year")) |>
   reframe(
     year = lubridate::year(year),
     non_admissions = sum(attendances - admissions)
-  )
+  ) |>
+  slice(1:5)
 
-waldo::compare(sum, ref)
+
 ```
 
 
