@@ -26,11 +26,7 @@ jobs:
         run: |
           install.packages("renv")
           renv::activate()
-          renv::restore()
         shell: Rscript {0}
-
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
         
       - name: Get R and OS version
         id: get-version
@@ -38,7 +34,7 @@ jobs:
           cat("##[set-output name=os-version;]", sessionInfo()$running, "\n", sep = "")
           cat("##[set-output name=r-version;]", R.Version()$version.string, sep = "")
         shell: Rscript {0}
-        
+      
       - name: Restore Renv package cache
         uses: actions/cache@v5
         with:
@@ -46,11 +42,13 @@ jobs:
           key: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{ inputs.cache-version }}-${{ hashFiles('renv.lock') }}
           restore-keys: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{inputs.cache-version }}-
 
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
-        continue-on-error: true
         
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
