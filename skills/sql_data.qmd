@@ -87,7 +87,8 @@ conn <- src_memdb() # create an sqlite db in memory
 * to connect with our SQL db in memory, add the following line to the head of your SQL script:
 
 ```{sql connection=src_memdb()$con}
-#| eval: false
+--| eval: false
+
 -- !preview conn=src_memdb()$con
 ```
 
@@ -203,7 +204,8 @@ UPDATE clients
 ```
 
 ```{sql connection=src_memdb()$con}
-#| echo: false
+--| echo: false
+
 SELECT * FROM clients;
 ```
 
@@ -217,7 +219,8 @@ UPDATE clients
 
 
 ```{sql connection=src_memdb()$con}
-#| echo: false
+--| echo: false
+
 SELECT * FROM clients;
 ```
 
@@ -229,7 +232,8 @@ ALTER TABLE clients DROP length;
 
 
 ```{sql connection=src_memdb()$con}
-#| echo: false
+--| echo: false
+
 SELECT * FROM clients;
 ```
 
@@ -267,8 +271,8 @@ SELECT * FROM gps;
 ## SQL query summary
 
 ```{sql connection=src_memdb()$con}
-#| code-fold: true
-#| eval: false
+--| code-fold: true
+--| eval: false
 
 CREATE TABLE clients (chi varchar(10) NOT NULL,
                       name varchar(255),

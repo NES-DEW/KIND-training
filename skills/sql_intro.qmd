@@ -89,7 +89,7 @@ copy_to(conn, penguins) # populate that db from R
 * to connect with our SQL db in memory, add the following line to the head of your SQL script:
 
 ```{sql connection=src_memdb()$con}
-#| eval: false
+--| eval: false
 -- !preview conn=src_memdb()$con
 ```
 
@@ -196,29 +196,29 @@ If you’re planning to use some of the SQL we’ve covered in this course so fa
 * If you were using Microsoft's dialect of SQL (which they refer to [as Transact-SQL, or T-SQL](https://learn.microsoft.com/en-us/sql/t-sql/language-reference?view=sql-server-ver17)), you'd need to write something slightly different (and reordered, thanks to John Mackintosh for the correction):
 
 ```{sql}
-#| eval: false
+--| eval: false
 SELECT TOP 5 * from penguins;
 ```
 
 * Or if you were using Oracle's newest dialect of SQL, you'd write either:
 
 ```{sql}
-#| eval: false
+--| eval: false
 SELECT * FROM penguins FETCH FIRST 5 ROWS ONLY;
 ```
 
 * Or, an older - but possibly neater - way of writing Oracle SQL:
 
 ```{sql}
-#| eval: false
+--| eval: false
 SELECT * FROM penguins WHERE ROWNUM <= 5;
 ```
 
 ## SQL query summary
 
 ```{sql connection=src_memdb()$con}
-#| code-fold: true
-#| eval: false
+--| code-fold: true
+--| eval: false
 
 SELECT * FROM penguins; -- show all your data
 
