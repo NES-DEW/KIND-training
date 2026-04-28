@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-04-08">
+<meta name="dcterms.date" content="2026-04-28">
 <title>Non-equi joins with dplyr – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
@@ -71,14 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-be3771519f21acc1c5b6733774c6dcd8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-5c749e21671b6c677776fcb6ccb348a3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-be3771519f21acc1c5b6733774c6dcd8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ac109a896601569c1359cd92191d8563.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -348,7 +348,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
 <li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#a-more-plausible-example" id="toc-a-more-plausible-example" class="nav-link" data-scroll-target="#a-more-plausible-example">A more plausible example</a></li>
+  <li><a href="#a-tibble-5-3" id="toc-a-tibble-5-3" class="nav-link" data-scroll-target="#a-tibble-5-3">A tibble: 5 × 3</a></li>
+  <li><a href="#a-tibble-5-3-1" id="toc-a-tibble-5-3-1" class="nav-link" data-scroll-target="#a-tibble-5-3-1">A tibble: 5 × 3</a></li>
+  <li><a href="#a-tibble-4-3" id="toc-a-tibble-4-3" class="nav-link" data-scroll-target="#a-tibble-4-3">A tibble: 4 × 3</a></li>
+  <li>
+<a href="#a-tibble-4-3-1" id="toc-a-tibble-4-3-1" class="nav-link" data-scroll-target="#a-tibble-4-3-1">A tibble: 4 × 3</a>
+  <ul class="collapse">
+<li><a href="#a-more-plausible-example" id="toc-a-more-plausible-example" class="nav-link" data-scroll-target="#a-more-plausible-example">A more plausible example</a></li>
+  </ul>
+</li>
+  <li><a href="#a-tibble-30-3" id="toc-a-tibble-30-3" class="nav-link" data-scroll-target="#a-tibble-30-3">A tibble: 30 × 3</a></li>
+  <li><a href="#a-tibble-0-3" id="toc-a-tibble-0-3" class="nav-link" data-scroll-target="#a-tibble-0-3">A tibble: 0 × 3</a></li>
+  <li><a href="#%E2%84%B9-3-variables-id-year-score" id="toc-ℹ-3-variables-id-year-score" class="nav-link" data-scroll-target="#%E2%84%B9-3-variables-id-year-score">ℹ 3 variables: id <int>, year <dbl>, score <int></int></dbl></int></a></li>
+  <li><a href="#a-tibble-1-6" id="toc-a-tibble-1-6" class="nav-link" data-scroll-target="#a-tibble-1-6">A tibble: 1 × 6</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -375,7 +387,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 8, 2026</p>
+      <p class="date">April 28, 2026</p>
     </div>
   </div>
   
@@ -394,7 +406,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You should have a good understanding of standardard joins (and binds) using dplyr before this session: <a href="../r_training/dplyr_joins.html">dplyr joins</a></p>
 </section><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>simple data sets:</p>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, </span>
@@ -402,68 +413,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, </span>
 <span>       score_b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 <p>Standard joins relate rows from datasets by identity. For example, we can join by shared values in the <code>id</code> column:</p>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
-     id score_a score_b
-  &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       2       1
-2     2       7       7
-3     3       3       2
-4     4       4       2
-5     5       1       5</code></pre>
-</div>
-</div>
+</section><section id="a-tibble-5-3" class="level1"><h1>A tibble: 5 × 3</h1>
+<pre><code> id score_a score_b</code></pre>
+<p><int><int><int> 1 1 6 2 2 2 8 8 3 3 8 1 4 4 9 4 5 5 5 4</int></int></int></p>
 <p>We could convert this into a non-equi join by adding an inequality:</p>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">score_a</span> <span class="op">&gt;</span> <span class="va">score_b</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
-     id score_a score_b
-  &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       2       1
-2     2       7      NA
-3     3       3       2
-4     4       4       2
-5     5       1      NA</code></pre>
-</div>
-</div>
+</section><section id="a-tibble-5-3-1" class="level1"><h1>A tibble: 5 × 3</h1>
+<pre><code> id score_a score_b</code></pre>
+<p><int><int><int> 1 1 6 2 2 2 8 NA 3 3 8 1 4 4 9 4 5 5 5 4</int></int></int></p>
 <p>Here, we’ve added a condition that restricts the join to cases where <code>score_a</code> is larger than <code>score_b</code>. That’s all a non-equi join is: a join based on a non-equality. Usually, we’d use this with an inner join that will drop the <code>NA</code>s for us:</p>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">score_a</span> <span class="op">&gt;</span> <span class="va">score_b</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 3
-     id score_a score_b
-  &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       2       1
-2     3       3       2
-3     4       4       2</code></pre>
-</div>
-</div>
+</section><section id="a-tibble-4-3" class="level1"><h1>A tibble: 4 × 3</h1>
+<pre><code> id score_a score_b</code></pre>
+<p><int><int><int> 1 1 6 2 2 3 8 1 3 4 9 4 4 5 5 4</int></int></int></p>
 <p>Effectively this is equivalent to a <code>filter</code> then a join:</p>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">score_a</span> <span class="op">&gt;</span> <span class="va">score_b</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 3
-     id score_a score_b
-  &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     1       2       1
-2     3       3       2
-3     4       4       2</code></pre>
-</div>
-</div>
+</section><section id="a-tibble-4-3-1" class="level1"><h1>A tibble: 4 × 3</h1>
+<pre><code> id score_a score_b</code></pre>
+<p><int><int><int> 1 1 6 2 2 3 8 1 3 4 9 4 4 5 5 4</int></int></int></p>
 <p>But faster and more elegant, especially if you’re matching a small range of values in the non-equi part of the join.</p>
-</section><section id="a-more-plausible-example" class="level2"><h2 class="anchored" data-anchor-id="a-more-plausible-example">A more plausible example</h2>
+<section id="a-more-plausible-example" class="level2"><h2 class="anchored" data-anchor-id="a-more-plausible-example">A more plausible example</h2>
 <p>Joining based on date range</p>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">:</span><span class="fl">9999</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
@@ -476,34 +453,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">y</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">z</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 30 × 3
-      id  year score
-   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
- 1  8491  2024     7
- 2  2198  2023     6
- 3  3903  2023     3
- 4  8286  2026     8
- 5  5789  2022     2
- 6  2327  2024     1
- 7  1995  2023     6
- 8  6712  2025     6
- 9  3464  2026     3
-10  3728  2023     6
-# ℹ 20 more rows</code></pre>
-</div>
+</section></section><section id="a-tibble-30-3" class="level1"><h1>A tibble: 30 × 3</h1>
+<pre><code>  id  year score</code></pre>
+<p><int><dbl><int> 1 5957 2026 3 2 4370 2026 3 3 1571 2025 10 4 6877 2026 5 5 4501 2026 4 6 4916 2026 6 7 3338 2026 2 8 1846 2024 7 9 6681 2025 6 10 1891 2022 2 # ℹ 20 more rows</int></dbl></int></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">2026</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">z</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 3
-     id  year score
-  &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
-1  6570  2027     5
-2  6961  2027     1
-3  7074  2027     6</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># z |&gt;</span></span>
+</section><section id="a-tibble-0-3" class="level1"><h1>A tibble: 0 × 3</h1>
+</section><section id="ℹ-3-variables-id-year-score" class="level1"><h1>ℹ 3 variables: id <int>, year <dbl>, score <int></int></dbl></int>
+</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># z |&gt;</span></span>
 <span><span class="co">#   inner_join(y, by = join_by(id, between(year, 2025, 2027)))</span></span>
 <span></span>
 <span><span class="va">patients</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
@@ -527,13 +486,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html">between</a></span><span class="op">(</span><span class="va">admission_date</span>, <span class="va">start_date</span>, <span class="va">end_date</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 6
-  patient_id patient_name admission_date medication_name start_date end_date  
-       &lt;dbl&gt; &lt;chr&gt;        &lt;date&gt;         &lt;chr&gt;           &lt;date&gt;     &lt;date&gt;    
-1          1 Alice        2022-01-01     Aspirin         2021-12-01 2022-01-31</code></pre>
-</div>
-</div>
+</section><section id="a-tibble-1-6" class="level1"><h1>A tibble: 1 × 6</h1>
+<p>patient_id patient_name admission_date medication_name start_date end_date<br><dbl><chr><date><chr><date><date><br>
+1 1 Alice 2022-01-01 Aspirin 2021-12-01 2022-01-31</date></date></chr></date></chr></dbl></p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

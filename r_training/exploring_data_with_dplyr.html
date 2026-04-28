@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2025-05-19">
 <title>Exploring data with dplyr – KIND training pages</title>
@@ -71,14 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-be3771519f21acc1c5b6733774c6dcd8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-5c749e21671b6c677776fcb6ccb348a3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-be3771519f21acc1c5b6733774c6dcd8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ac109a896601569c1359cd92191d8563.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -419,7 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, to make new columns from existing columns</li>
 </ul></section><section id="investigating-data" class="level2"><h2 class="anchored" data-anchor-id="investigating-data">Investigating data</h2>
-<p>Dplyr is usually used as a toolkit for manipulating tidy data. This session concentrates on some lesser-used functions in the dplyr package that are especially useful earlier in the analysis lifecycle when exploring new data: <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice()</a></code>, <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/rename.html">rename()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code>/<code><a href="https://dplyr.tidyverse.org/reference/case_match.html">case_match()</a></code>, and <code><a href="https://dplyr.tidyverse.org/reference/consecutive_id.html">consecutive_id()</a></code></p>
+<p>Dplyr is usually used as a toolkit for manipulating tidy data. This session concentrates on some lesser-used functions in the dplyr package that are especially useful earlier in the analysis lifecycle when exploring new data: <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice()</a></code>, <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/rename.html">rename()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when()</a></code>/<code><a href="https://dplyr.tidyverse.org/reference/case_match.html">case_match()</a></code>, and <code><a href="https://dplyr.tidyverse.org/reference/consecutive_id.html">consecutive_id()</a></code></p>
 <p>Package loading as follows:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nhs-r-community/NHSRdatasets">NHSRdatasets</a></span><span class="op">)</span></span>
@@ -539,12 +539,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 6 × 6
   period     org_code type  attendances breaches admissions
   &lt;date&gt;     &lt;fct&gt;    &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
-1 2017-01-01 NNF28    other          78        0          0
-2 2017-03-01 RX1      1           15446     3187       4076
-3 2018-07-01 RBK      1            6769     2014       2009
-4 2018-08-01 RD1      other         892        6         26
-5 2017-01-01 Y00058   other        2222       39          0
-6 2018-06-01 RLN      1            8300     1262       2736</code></pre>
+1 2018-01-01 RC9      1            8798      267       2662
+2 2017-11-01 RKB      1           11896     2837       4109
+3 2018-10-01 RVV      1           15212     3593       3980
+4 2016-12-01 RKE      1            8238     1169       1307
+5 2018-07-01 RJ1      other        3464        5          0
+6 2018-02-01 RXK      other        2976        0          0</code></pre>
 </div>
 </div>
 <p>There are also <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_tail()</a></code> functions which work in the same way.</p>
@@ -836,7 +836,7 @@ $ pulse_pres &lt;int&gt; 61, 47, 76, 47, 52, 50, 46, 48, 36, 59, 51</code></pre>
 9 &lt;NA&gt;                                                                        52</code></pre>
 </div>
 </div>
-<p>Winter (metrological winter, for clarity) runs from the start of December to the end of February. Can we class the total deaths into winter, and non-winter categories? In practice, I’d be tempted to use <code><a href="https://lubridate.tidyverse.org/reference/quarter.html">lubridate::quarter()</a></code> with an appropriate starting offset for this kind of work if possible, especially if I was grouping into regular groups. Winter/non-winter isn’t regular though, so <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> is the better option. Here, we’ll work in stages. First, as we’ll need the months, we’ll extract those using <code><a href="https://lubridate.tidyverse.org/reference/month.html">lubridate::month()</a></code>:</p>
+<p>Winter (metrological winter, for clarity) runs from the start of December to the end of February. Can we class the total deaths into winter, and non-winter categories? In practice, I’d be tempted to use <code><a href="https://lubridate.tidyverse.org/reference/quarter.html">lubridate::quarter()</a></code> with an appropriate starting offset for this kind of work if possible, especially if I was grouping into regular groups. Winter/non-winter isn’t regular though, so <code><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when()</a></code> is the better option. Here, we’ll work in stages. First, as we’ll need the months, we’ll extract those using <code><a href="https://lubridate.tidyverse.org/reference/month.html">lubridate::month()</a></code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ons_mortality</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">category_1</span> <span class="op">==</span> <span class="st">"Total deaths"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -858,12 +858,12 @@ $ pulse_pres &lt;int&gt; 61, 47, 76, 47, 52, 50, 46, 48, 36, 59, 51</code></pre>
 # ℹ 1,046 more rows</code></pre>
 </div>
 </div>
-<p>Our definition of winter is any case where that month is 1, 2, or 12. So use <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> to catch Jan and Feb:</p>
+<p>Our definition of winter is any case where that month is 1, 2, or 12. So use <code><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when()</a></code> to catch Jan and Feb:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ons_mortality</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">category_1</span> <span class="op">==</span> <span class="st">"Total deaths"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>month <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>thing <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">month</span> <span class="op">&lt;</span> <span class="fl">3</span> <span class="op">~</span> <span class="st">"Winter"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>thing <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">month</span> <span class="op">&lt;</span> <span class="fl">3</span> <span class="op">~</span> <span class="st">"Winter"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,056 × 7
    category_1   category_2 counts date       week_no month thing 
@@ -886,7 +886,7 @@ $ pulse_pres &lt;int&gt; 61, 47, 76, 47, 52, 50, 46, 48, 36, 59, 51</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ons_mortality</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">category_1</span> <span class="op">==</span> <span class="st">"Total deaths"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>month <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">month</span> <span class="op">&lt;</span> <span class="fl">3</span> <span class="op">~</span> <span class="st">"Winter"</span>,</span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">month</span> <span class="op">&lt;</span> <span class="fl">3</span> <span class="op">~</span> <span class="st">"Winter"</span>,</span>
 <span>                           <span class="va">month</span> <span class="op">==</span> <span class="fl">12</span> <span class="op">~</span> <span class="st">"Winter"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,056 × 7
@@ -910,7 +910,7 @@ $ pulse_pres &lt;int&gt; 61, 47, 76, 47, 52, 50, 46, 48, 36, 59, 51</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seasonal_ons_mortality</span> <span class="op">&lt;-</span> <span class="va">ons_mortality</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">category_1</span> <span class="op">==</span> <span class="st">"Total deaths"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>month <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">month</span> <span class="op">&lt;</span> <span class="fl">3</span> <span class="op">~</span> <span class="st">"Winter"</span>,</span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span><span class="va">month</span> <span class="op">&lt;</span> <span class="fl">3</span> <span class="op">~</span> <span class="st">"Winter"</span>,</span>
 <span>                           <span class="va">month</span> <span class="op">==</span> <span class="fl">12</span> <span class="op">~</span> <span class="st">"Winter"</span>,</span>
 <span>                           <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"Not winter"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">seasonal_ons_mortality</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

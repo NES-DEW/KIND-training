@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2024-07-23">
 <title>Iteration in R – KIND training pages</title>
@@ -71,14 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-be3771519f21acc1c5b6733774c6dcd8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-5c749e21671b6c677776fcb6ccb348a3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-be3771519f21acc1c5b6733774c6dcd8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ac109a896601569c1359cd92191d8563.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -420,9 +420,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Excellent introduction to iteration - easy to follow along during the session</li>
-<li>A great into to iteration!</li>
 <li>more than enough to spark interest in trying this but some of it clearly melted my brain</li>
+<li>Great session on For Loops and how to use them, also discussed why they potentially are not used as much as in i.e.&nbsp;Python</li>
+<li>Great to reinforce knowledge and always pick up a few tips and tricks along the way.</li>
 </ul>
 </div>
 </div>
@@ -624,16 +624,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
 <span><span class="op">}</span> <span class="co"># the basic loop includes values over the threshold</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 244
-[1] 328
-[1] 82
-[1] 59
-[1] 296
-[1] 283
-[1] 242
-[1] 122
-[1] 177
-[1] 158</code></pre>
+<pre><code>[1] 181
+[1] 311
+[1] 91
+[1] 41
+[1] 121
+[1] 51
+[1] 131
+[1] 251
+[1] 21
+[1] 31</code></pre>
 </div>
 </div>
 <p>We can use a <code><a href="https://rdrr.io/r/base/Control.html">break</a></code>, which will stop the loop completely when an <code>if()</code> condition is met:</p>
@@ -823,35 +823,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code> [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
 </div>
 </div>
-<p>The main exceptions are when you encounter one of the occasional <em>scalar</em> functions in R. <code>if</code>/<code>else</code> is the more notorious of these. If you want to apply an <code>if</code>/<code>else</code> to several objects, one option is to write a loop:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">15</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="st">""</span></span>
-<span>  <span class="kw">if</span><span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">3</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"fizz"</span><span class="op">)</span></span>
-<span>  <span class="kw">if</span><span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">5</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"buzz"</span><span class="op">)</span></span>
-<span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">out</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
-<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="va">out</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1
-[1] 2
-[1] "fizz"
-[1] 4
-[1] "buzz"
-[1] "fizz"
-[1] 7
-[1] 8
-[1] "fizz"
-[1] "buzz"
-[1] 11
-[1] "fizz"
-[1] 13
-[1] 14
-[1] "fizzbuzz"</code></pre>
-</div>
-</div>
-<p>There’s also a completely different family of solutions to problems such as these that we’ll explore in the session about <a href="https://nes-dew.github.io/KIND-training/r_training/purrr_package.html">purrr</a></p>
+<p>The main exceptions are when you encounter one of the occasional <em>scalar</em> functions in R. <code>if</code>/<code>else</code> is the more notorious of these. If you want to apply an <code>if</code>/<code>else</code> to several objects, one option is to write a loop. Alternatively, there’s also a completely different family of solutions to problems such as these that we’ll explore in the session about <a href="https://nes-dew.github.io/KIND-training/r_training/purrr_package.html">purrr</a>.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
