@@ -8,7 +8,7 @@ render_slides <- function(file_path, session_date){
                    as.character(session_date), 
                    ".html")
   
-  site_fn <- paste0("docs/", stringr::str_extract(file_path, ".*\\/"), out_fn)
+  site_fn <- paste0("_site/", stringr::str_extract(file_path, ".*\\/"), out_fn)
   
   quarto::quarto_render(file_path,
                         output_format = "revealjs",
@@ -17,15 +17,19 @@ render_slides <- function(file_path, session_date){
                         metadata_file = "slides/slide_render.yml")
   
   file.copy(site_fn, paste0("slides/", out_fn), overwrite = T)
+  
   unlink(site_fn)
 }
 
-# render_slides("excel/excel_first_steps.qmd", "2026-01-13")
-# render_slides("excel/tidy_data_in_excel.qmd", "2026-01-20")
-# render_slides("excel/references_and_names_in_excel.qmd", "2026-01-27")
-
+render_slides("excel/excel_first_steps.qmd", "2026-04-29")
+render_slides("excel/tidy_data_in_excel.qmd", "2026-05-06")
+render_slides("excel/references_and_names_in_excel.qmd", "2026-05-13")
+render_slides("excel/excel_formatting.qmd", "2026-05-20")
+render_slides("excel/excel_tables.qmd", "2026-05-27")
+render_slides("excel/excel_formulas.qmd", "2026-06-03")
+render_slides("excel/excel_practical_review.qmd", "2026-06-10")
 # render_slides("excel/excel_practical_review.qmd", "2026-02-24")
-render_slides("bi_training/scope_of_the_possible_with_power_bi.qmd", "2026-03-12")
+# render_slides("skills/ebm_01.qmd", "2026-04-29")
 
 
 
