@@ -21,15 +21,15 @@ render_slides <- function(file_path, session_date){
   unlink(site_fn)
 }
 
-render_slides("excel/excel_first_steps.qmd", "2026-04-29")
-render_slides("excel/tidy_data_in_excel.qmd", "2026-05-06")
-render_slides("excel/references_and_names_in_excel.qmd", "2026-05-13")
-render_slides("excel/excel_formatting.qmd", "2026-05-20")
-render_slides("excel/excel_tables.qmd", "2026-05-27")
-render_slides("excel/excel_formulas.qmd", "2026-06-03")
-render_slides("excel/excel_practical_review.qmd", "2026-06-10")
+# render_slides("excel/excel_first_steps.qmd", "2026-04-29")
+# render_slides("excel/tidy_data_in_excel.qmd", "2026-05-06")
+# render_slides("excel/references_and_names_in_excel.qmd", "2026-05-13")
+# render_slides("excel/excel_formatting.qmd", "2026-05-20")
+# render_slides("excel/excel_tables.qmd", "2026-05-27")
+# render_slides("excel/excel_formulas.qmd", "2026-06-03")
+# render_slides("excel/excel_practical_review.qmd", "2026-06-10")
 # render_slides("excel/excel_practical_review.qmd", "2026-02-24")
-# render_slides("skills/ebm_01.qmd", "2026-04-29")
+render_slides("skills/ebm_02.qmd", "2026-05-06")
 
 
 
