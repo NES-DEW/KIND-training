@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.37">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-05-06">
+<meta name="dcterms.date" content="2026-05-08">
 <title>Non-equi joins with dplyr – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
@@ -350,9 +350,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#a-tibble-5-3" id="toc-a-tibble-5-3" class="nav-link" data-scroll-target="#a-tibble-5-3">A tibble: 5 × 3</a></li>
   <li><a href="#a-tibble-5-3-1" id="toc-a-tibble-5-3-1" class="nav-link" data-scroll-target="#a-tibble-5-3-1">A tibble: 5 × 3</a></li>
-  <li><a href="#a-tibble-2-3" id="toc-a-tibble-2-3" class="nav-link" data-scroll-target="#a-tibble-2-3">A tibble: 2 × 3</a></li>
+  <li><a href="#a-tibble-3-3" id="toc-a-tibble-3-3" class="nav-link" data-scroll-target="#a-tibble-3-3">A tibble: 3 × 3</a></li>
   <li>
-<a href="#a-tibble-2-3-1" id="toc-a-tibble-2-3-1" class="nav-link" data-scroll-target="#a-tibble-2-3-1">A tibble: 2 × 3</a>
+<a href="#a-tibble-3-3-1" id="toc-a-tibble-3-3-1" class="nav-link" data-scroll-target="#a-tibble-3-3-1">A tibble: 3 × 3</a>
   <ul class="collapse">
 <li><a href="#a-more-plausible-example" id="toc-a-more-plausible-example" class="nav-link" data-scroll-target="#a-more-plausible-example">A more plausible example</a></li>
   </ul>
@@ -386,7 +386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 6, 2026</p>
+      <p class="date">May 8, 2026</p>
     </div>
   </div>
   
@@ -417,26 +417,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section><section id="a-tibble-5-3" class="level1"><h1>A tibble: 5 × 3</h1>
 <pre><code> id score_a score_b</code></pre>
-<p><int><int><int> 1 1 5 5 2 2 9 8 3 3 4 8 4 4 4 10 5 5 7 2</int></int></int></p>
+<p><int><int><int> 1 1 2 3 2 2 10 8 3 3 10 5 4 4 8 6 5 5 5 6</int></int></int></p>
 <p>We could convert this into a non-equi join by adding an inequality:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">score_a</span> <span class="op">&gt;</span> <span class="va">score_b</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section><section id="a-tibble-5-3-1" class="level1"><h1>A tibble: 5 × 3</h1>
 <pre><code> id score_a score_b</code></pre>
-<p><int><int><int> 1 1 5 NA 2 2 9 8 3 3 4 NA 4 4 4 NA 5 5 7 2</int></int></int></p>
+<p><int><int><int> 1 1 2 NA 2 2 10 8 3 3 10 5 4 4 8 6 5 5 5 NA</int></int></int></p>
 <p>Here, we’ve added a condition that restricts the join to cases where <code>score_a</code> is larger than <code>score_b</code>. That’s all a non-equi join is: a join based on a non-equality. Usually, we’d use this with an inner join that will drop the <code>NA</code>s for us:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">score_a</span> <span class="op">&gt;</span> <span class="va">score_b</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section><section id="a-tibble-2-3" class="level1"><h1>A tibble: 2 × 3</h1>
+</section><section id="a-tibble-3-3" class="level1"><h1>A tibble: 3 × 3</h1>
 <pre><code> id score_a score_b</code></pre>
-<p><int><int><int> 1 2 9 8 2 5 7 2</int></int></int></p>
+<p><int><int><int> 1 2 10 8 2 3 10 5 3 4 8 6</int></int></int></p>
 <p>Effectively this is equivalent to a <code>filter</code> then a join:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">b</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">score_a</span> <span class="op">&gt;</span> <span class="va">score_b</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section><section id="a-tibble-2-3-1" class="level1"><h1>A tibble: 2 × 3</h1>
+</section><section id="a-tibble-3-3-1" class="level1"><h1>A tibble: 3 × 3</h1>
 <pre><code> id score_a score_b</code></pre>
-<p><int><int><int> 1 2 9 8 2 5 7 2</int></int></int></p>
+<p><int><int><int> 1 2 10 8 2 3 10 5 3 4 8 6</int></int></int></p>
 <p>But faster and more elegant, especially if you’re matching a small range of values in the non-equi part of the join.</p>
 <section id="a-more-plausible-example" class="level2"><h2 class="anchored" data-anchor-id="a-more-plausible-example">A more plausible example</h2>
 <p>Joining based on date range</p>
@@ -454,13 +454,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">z</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section><section id="a-tibble-30-3" class="level1"><h1>A tibble: 30 × 3</h1>
 <pre><code>  id  year score</code></pre>
-<p><int><dbl><int> 1 1093 2026 7 2 8632 2026 7 3 5113 2023 1 4 3949 2025 8 5 2905 2025 10 6 7478 2024 3 7 2776 2022 3 8 2958 2026 2 9 2072 2024 2 10 7964 2026 7 # ℹ 20 more rows</int></dbl></int></p>
+<p><int><dbl><int> 1 9158 2025 1 2 2219 2026 7 3 1579 2025 2 4 4230 2025 9 5 7860 2027 2 6 2173 2025 6 7 8320 2025 4 8 5188 2023 1 9 5257 2022 4 10 5901 2022 4 # ℹ 20 more rows</int></dbl></int></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">2026</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">z</span>, by <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section><section id="a-tibble-5-3-2" class="level1"><h1>A tibble: 5 × 3</h1>
 <pre><code> id  year score</code></pre>
-<p><int><dbl><int> 1 1559 2027 2 2 6339 2027 5 3 1442 2027 8 4 5409 2027 3 5 8335 2027 10</int></dbl></int></p>
+<p><int><dbl><int> 1 7860 2027 2 2 4900 2027 3 3 5345 2027 8 4 4939 2027 8 5 7316 2027 10</int></dbl></int></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># z |&gt;</span></span>
 <span><span class="co">#   inner_join(y, by = join_by(id, between(year, 2025, 2027)))</span></span>
 <span></span>
