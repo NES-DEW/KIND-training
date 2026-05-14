@@ -380,14 +380,16 @@ ul.task-list li input[type="checkbox"] {
 
 </header><p>This is part of our intermediate-level Power BI desktop course. The course structure is as follows:</p>
 <ul>
-<li>session 1 (this session): <a href="../bi_training/BI_intermediate_session_01.html">a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices</a>
+<li>session 1: <a href="../bi_training/BI_intermediate_session_01.html">a simple build-a-dashboard session as a warmup, reminder about core Power BI techniques, and sharing some suggestions for good workflow practices</a>
 </li>
 <li>session 2: <a href="../bi_training/BI_intermediate_session_02.html">DAX language foundations, including FILTER and CALCULATE</a>
 </li>
 <li>session 3 (this session): <a href="../bi_training/BI_intermediate_session_03.html">core PowerQuery functions</a> to manage sources, join data sets, pivot, and tidy values</li>
 <li>session 4: <a href="../bi_training/BI_intermediate_session_04.html">PowerQuery M language foundations</a>, including a basic overview of syntax, a core function toolkit, advanced mode, and reproducibility</li>
-<li>session 5: a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice</li>
+<li>session 5: <a href="../bi_training/BI_intermediate_session_05.html">a second, more ambitious, build-a-dashboard session to put all that PowerQuery and DAX knowledge into practice</a>
+</li>
 </ul>
+<p>We usually expect participants to take the five sessions together in order. This course broadly follows-on from our BI for Beginner course, and assumes that you’re happy and confident applying all that material. We’d usually expect participants in the intermediate course to be capable of independently building a simple dashboard in Power BI. You’ll also need Power BI <strong>Desktop</strong> to complete the live sessions - the web/Teams versions of Power BI won’t work.</p>
 <section id="previous-attendees-have-said" class="level2 cell" data-layout-align="left"><h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
 <ul>
 <li>15 previous attendees have left feedback</li>
@@ -409,43 +411,10 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>excellent - very useful and well presented</li>
-<li>Really helpful to understand Power Query functions and techniques including Key Value pairs, unpivoting columns and tips such as how to clean and tidy data.</li>
-<li>Very informative and helpful Pace of the session was really good - not too fast and enough time to ask for help if required.</li>
+<li>This was just at the right level for me, new material just beyond my abilities that I need to follow closely during the session to keep up with, but not too advanced. Having practice in-between is crucial and has really helped build confidence and follow the sessions more easily. The key point is the pacing and how well they are delivered. Really excellent.</li>
+<li>Enjoed the content and the pace was good</li>
+<li>I thought the session was extremely useful and definitely intermediate level. I’m keen to start using the skills I’ve learned today. The break was a little longer today which was helpful.</li>
 </ul>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Forthcoming session(s)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<table>
-<thead><tr>
-<th style="text-align:left;">
-Booking link
-</th>
-<th style="text-align:left;">
-Date
-</th>
-</tr></thead>
-<tbody><tr>
-<td style="text-align:left;">
-<a href="https://events.teams.microsoft.com/event/3fdee239-68d9-4866-a6c3-43c9e5862578@10efe0bd-a030-4bca-809c-b5e6745e499a">Intermediate Power BI (session 3)</a>
-</td>
-<td style="text-align:left;">
-10:00-12:00 Tue 12th May 2026
-</td>
-</tr></tbody>
-</table>
-</div>
 </div>
 </div>
 </section><section id="session-aim" class="level2"><h2 class="anchored" data-anchor-id="session-aim">Session aim</h2>
@@ -458,10 +427,13 @@ Date
 <li>normalising and the star schema</li>
 </ul></section><section id="data-for-this-session" class="level2"><h2 class="anchored" data-anchor-id="data-for-this-session">Data for this session</h2>
 <ul>
-<li>we’ll use the <a href="https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx">NRS vital events data for Q3 2024</a>
-</li>
+<li>we’ll use the <a href="https://www.nrscotland.gov.uk/media/arkfqyyr/q3-2024-data.xlsx">NRS vital events data for Q3 2024</a> as our main source
+<ul>
 <li>that’s a complex Excel spreadsheet containing national birth, death, and marriage information</li>
+</ul>
+</li>
 <li>we’ll talk about how to load it during the first few minutes of the session</li>
+<li>we’ll also do a demo about data structures in Excel. You’re <a href="src/Inter_bi_s03.xlsx">welcome to download that too</a> and open it in Excel</li>
 </ul></section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <ul>
 <li>open Power BI</li>
@@ -484,8 +456,8 @@ Date
 </li>
 </ul></section><section id="revision" class="level2"><h2 class="anchored" data-anchor-id="revision">Revision</h2>
 <section id="names" class="level3"><h3 class="anchored" data-anchor-id="names">Names</h3>
-<p>PQ query names matter, because they’ll produce your table name in Power BI - fix the query name to <code>cause_death</code> <img src="../src/images/clipboard-1287398295.png" class="img-fluid" alt="Rename to cause_death"></p>
-<p>Column names are also important in PQ, because most functions work by referencing column names. Single-word strongly preferred to keep things simple. - rename <code>ICD 10 Summary List</code> to <code>ICD10</code> - rename <code>Cause of death</code> to <code>cause_death</code></p>
+<p>PQ <strong>query names</strong> matter, because they’ll produce your table name in Power BI - fix the query name to <code>cause_death</code> <img src="../src/images/clipboard-1287398295.png" class="img-fluid" alt="Rename to cause_death"></p>
+<p><strong>Column names</strong> are also important in PQ, because most functions work by referencing column names. Single-word strongly preferred to keep things simple. - rename <code>ICD 10 Summary List</code> to <code>ICD10</code> - rename <code>Cause of death</code> to <code>cause_death</code></p>
 </section><section id="data-types" class="level3"><h3 class="anchored" data-anchor-id="data-types">Data types</h3>
 <p><a href="https://learn.microsoft.com/en-us/power-query/data-types">Data types</a> matter in PQ: functions often need the correct data types. PQ will generally correctly infer data types, but it pays to manually double-check the data types in the column headers</p>
 </section><section id="filtering" class="level3"><h3 class="anchored" data-anchor-id="filtering">Filtering</h3>
