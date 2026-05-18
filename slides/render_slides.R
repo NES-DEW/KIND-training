@@ -29,7 +29,7 @@ render_slides <- function(file_path, session_date){
 # render_slides("excel/excel_formulas.qmd", "2026-06-03")
 # render_slides("excel/excel_practical_review.qmd", "2026-06-10")
 # render_slides("excel/excel_practical_review.qmd", "2026-02-24")
-render_slides("skills/ebm_02.qmd", "2026-05-06")
+render_slides("skills/ebm_03.qmd", "2026-05-13")
 
 
 
