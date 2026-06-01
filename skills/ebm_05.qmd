@@ -4,51 +4,43 @@ execute:
   eval: true
 categories: [skills, beginner, evidence-based medicine, critical appraisal, clinical trials]
 bibliography: src/references.bib
+date: 2026-05-27
 params:
-  sl_date: 2025-12-05
+  sl_date: 2026-05-27
   fn: An introduction to EBM (session 5)
   id: KS28
-date: 2025-12-05
 title: An introduction to EBM (session 5)
 ---
 
 ## Session outline
 
-+ this session is all about what happens **beyond the RCT**?
-+ we'll recap some of the issues we discussed last time as motivation
-+ then we'll introduce and discuss a pair of ways of summarising multiple RCTs
-+ we'll relate these two methods back to our earlier discussions about bias
-+ and we'll look at a totally different way of solving some of the problems of RCTs
+- this session is all about what happens **beyond the RCT**?
+- we'll recap some of the issues we discussed last time as motivation
+- then we'll introduce and discuss a pair of ways of summarising multiple RCTs
+- we'll relate these two methods back to our earlier discussions about bias
+- and we'll look at a totally different way of solving some of the problems of RCTs
 
 ## Recap
 
-+ detecting treatment effects is hard
-    + effects are subtle
-    + trials have practical problems (like recruitment)
-+ studies are often underpowered
-    + so they fail to find a real treatment effect
-+ that causes harm
-    + some valuable treatments get ignored
-    + some harmful treatments remain in use
+- detecting treatment effects is hard
+  - effects are subtle
+  - trials have practical problems (like recruitment)
+- studies are often underpowered
+  - so they fail to find a real treatment effect
+- that causes harm
+  - some valuable treatments get ignored
+  - some harmful treatments remain in use
 
-# systematic review
-
-
-
-## E1: the logo
+## E1: the Cochrane logo
 
 ::: {.callout-tip title="Task"}
-
-1. Please visit [https://www.cochrane.org/](https://www.cochrane.org/)
-1. Two questions for the chat:
-    1. What does Cochrane do?
-    1. What does their logo show?
-
+1.  Please visit <https://www.cochrane.org/>
+2.  Two questions for the chat:
+    1.  What does Cochrane do?
+    2.  What does their logo show?
 :::
 
-
 ## Cochrane story
-
 
 ```{r}
 cochrane <- tibble::tribble(
@@ -68,10 +60,8 @@ cochrane |>
 
 ## Forest plots
 
-::: columns
-
-:::: {.column width="50%"}
-
+:::::: columns
+::: {.column width="50%"}
 ```{r}
 #| echo: false
 #| eval: true
@@ -82,58 +72,48 @@ steroid <- rmeta::meta.MH(n.trt, n.ctrl, ev.trt, ev.ctrl,
 plot(steroid, col = rmeta::meta.colors("RoyalBlue"))
 
 ```
-::::
+:::
 
 :::: {.column width="50%"}
+- [useful intro](https://uk.cochrane.org/news/how-read-forest-plot)
+- one row per study
+- box size corresponds with study size (weight)
+- box location corresponds with odds ratio (OR)
+- whiskers (horizonal lines) showing the confidence interval of that OR
+- pooled effect show by the diamond
+  - size = total weight
+  - horizontal limits = confidence interval
 
-+ [useful intro](https://uk.cochrane.org/news/how-read-forest-plot)
-+ one row per study
-+ box size corresponds with study size (weight)
-+ box location corresponds with odds ratio (OR)
-+ whiskers (horizonal lines) showing the confidence interval of that OR
-+ pooled effect show by the diamond
-    + size = total weight
-    + horizontal limits = confidence interval
-
-
-::: {.notes}
-
-1. how would you interpret the line representing a study crossing 1?
-1. how can individual lines cross 1, but the pooled diamond not cross 1?
-
+::: notes
+1.  how would you interpret the line representing a study crossing 1?
+2.  how can individual lines cross 1, but the pooled diamond not cross 1?
 :::
-
 ::::
-
-:::
-
+::::::
 
 ## E2: from 1982 to 2020
 
 ::: {.callout-tip title="Task"}
-
-1. Find the [current version of this Cochrane review](https://www.cochrane.org/news/featured-review-antenatal-corticosteroids-accelerating-fetal-lung-maturation-women-risk-preterm)
-1. What are the main current recommendations?
-
-
+1.  Find the [current version of this Cochrane review](https://www.cochrane.org/news/featured-review-antenatal-corticosteroids-accelerating-fetal-lung-maturation-women-risk-preterm)
+2.  What are the main current recommendations?
 :::
 
-## Current recommendations
+## Cochrane reviews are systematic reviews
 
 ```{r}
 #| echo: false
 #| eval: true
 
-knitr::include_graphics("https://www.cochrane.org/sites/default/files/public/uploads/cd004454_antenatal_corticosteroids1.png")
+knitr::include_graphics("https://www.cochrane.org/themes/custom/cochrane_hs/img/logo.png")
 
 ```
-## Cochrane reviews are systematic reviews
 
 > A systematic review attempts to identify, appraise and synthesize all the empirical evidence that meets pre-specified eligibility criteria to answer a specific research question ([Cochrane library](https://www.cochranelibrary.com/about/about-cochrane-reviews))
 
 ## Explicit strategies
-+ like EBM itself
-+ e.g. Preferred Reporting Items for Systematic Reviews and Meta-Analyses ([PRISMA](http://www.prisma-statement.org/))
+
+- like EBM itself
+- e.g. Preferred Reporting Items for Systematic Reviews and Meta-Analyses ([PRISMA](http://www.prisma-statement.org/))
 
 ```{r}
 #| echo: false
@@ -147,66 +127,54 @@ knitr::include_graphics("https://raw.githubusercontent.com/nealhaddaway/PRISMA20
 
 ## What's the difference?
 
-+ systematic reviews attempt to include **all** the relevant studies
-+ meta-analyses include **some** relevant studies
-+ that might give rise to biases...
+- systematic reviews attempt to include **all** the relevant studies
+- meta-analyses include **some** relevant studies
+- that might give rise to biases...
 
 ### E3: bias and MA/SR
 
 ::: {.callout-tip title="Task"}
-
-1. [Some authors](https://training.cochrane.org/handbook/current/chapter-07) argue that systematic reviews should generally be preferred to meta-analyses on the ground of bias. Can you think of biases that might affect MA, but not SR?
-1. Can you think of different reasons why you might prefer a MA, rather than a SR?
-
+1.  [Some authors](https://training.cochrane.org/handbook/current/chapter-07) argue that systematic reviews should generally be preferred to meta-analyses on the ground of bias. Can you think of biases that might affect MA, but not SR?
+2.  Can you think of different reasons why you might prefer a MA, rather than a SR?
 :::
-
 
 ## Bad pharma
 
-::: columns
-
-:::: {.column width="30%"}
-```{r}
-#| echo: false
-#| eval: true
-
-knitr::include_graphics("https://upload.wikimedia.org/wikipedia/en/7/7a/Bad_Pharma.jpg")
-
-```
-::::
-
-:::: {.column width="70%"}
-+ undue influence of industry on drug research
-+ **plus**
-+ excessive emphasis on the methods of trials, rather than their conduct
-+ **plus**
-+ pressure to perform larger, cleaner, RCTs 
-+ **produces**
-+ a "murderous disaster" [@goldacre2012]
-
-::::
-
+::::: columns
+::: {.column width="30%"}
+![Ben Goldacre's Bad Pharma](images/clipboard-3419611808.png)
 :::
 
+::: {.column width="70%"}
+- undue influence of industry on drug research
+- **plus**
+- excessive emphasis on the methods of trials, rather than their conduct
+- **plus**
+- pressure to perform larger, cleaner, RCTs
+- **produces**
+- a "murderous disaster" [@goldacre2012]
+:::
+:::::
 
 # Two kinds of validity
 
 ## Internal and external validity
-+ MA/SR can improve **internal validity**
-    + e.g. aggregating improves power, so more likely to detect true effects
-+ but they might do this at the expense of reducing **external validity**
-    + e.g. our trial population might be more and more unlike our treatment population
-+ and reducing external validity might mean that an intervention might fail in ways that are hard to understand [@cartwright2012]
 
-![](../src/images/05_exval.png){height=250}
+- MA/SR can improve **internal validity**
+  - e.g. aggregating improves power, so more likely to detect true effects
+- but they might do this at the expense of reducing **external validity**
+  - e.g. our trial population might be more and more unlike our treatment population
+- and reducing external validity might mean that an intervention might fail in ways that are hard to understand [@cartwright2012]
+
+![Internal vs external validity](../src/images/05_exval.png){height="250"}
 
 ## Trial and treatment populations
 
-+ *wildly* dis-similar [@fortin2006]
-+ co-morbidity example
-    + a database of 980 general-practice patients were assessed against inclusion critera from 5 blood pressure RCTs
-    + of eligible patients "89% to 100% had multiple chronic conditions"
-        + mean numbers ranged from 5.5 ± 3.3 to 11.7 ± 5.3
+- *wildly* dis-similar [@fortin2006]
+- co-morbidity example
+  - a database of 980 general-practice patients were assessed against inclusion critera from 5 blood pressure RCTs
+  - of eligible patients "89% to 100% had multiple chronic conditions"
+    - mean numbers ranged from 5.5 ± 3.3 to 11.7 ± 5.3
 
 ## Pragmatic trials
 
@@ -214,12 +182,11 @@ knitr::include_graphics("https://upload.wikimedia.org/wikipedia/en/7/7a/Bad_Phar
 
 ## Final thought
 
-+ so there isn't going to be a simple answer about where on the precise / pragmatic spectrum we should end up
-    + it's an optimisation problem
-+ as EBM started by stressing the importance of explicit/judicious/conscientious use of evidence, we should probably adopt similar standards for our decision making in general
-    + explicit about the kind of q we're answering
-    + judicious about the way we use evidence to answer it
-    + conscientious in updating, revising, and checking our answers, and our methods
-
+- so there isn't going to be a simple answer about where on the precise / pragmatic spectrum we should end up
+  - it's an optimisation problem
+- as EBM started by stressing the importance of explicit/judicious/conscientious use of evidence, we should probably adopt similar standards for our decision making in general
+  - explicit about the kind of q we're answering
+  - judicious about the way we use evidence to answer it
+  - conscientious in updating, revising, and checking our answers, and our methods
 
 ## References
