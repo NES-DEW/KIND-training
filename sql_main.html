@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.38">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2024-09-26">
-<title>BI for Beginners (service version) Session 3 – KIND training pages</title>
+<meta name="dcterms.date" content="2026-06-01">
+<title>SQL training – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,27 +23,29 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-5895e00f40c44536432e67bfd6cd4591.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-5895e00f40c44536432e67bfd6cd4591.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -69,7 +71,67 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><link rel="stylesheet" href="styles.css">
+}</script><script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script><link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script><script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="site_libs/selectize-0.12.0/selectize.min.js"></script><link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="styles.css">
 </head>
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
@@ -238,9 +300,9 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo light-content"><img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo dark-content"></a>
-    <a class="navbar-brand" href="../index.html">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo light-content"><img src="./src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo dark-content"></a>
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">KIND training pages</span>
     </a>
   </div>
@@ -251,39 +313,39 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../excel_main.html"> 
+    <a class="nav-link" href="./excel_main.html"> 
 <span class="menu-text">Excel</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../r_main.html"> 
+    <a class="nav-link" href="./r_main.html"> 
 <span class="menu-text">R</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../BI_main.html"> 
+    <a class="nav-link" href="./BI_main.html"> 
 <span class="menu-text">Power Platform</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../sql_main.html"> 
+    <a class="nav-link active" href="./sql_main.html" aria-current="page"> 
 <span class="menu-text">SQL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tableau_main.html"> 
+    <a class="nav-link" href="./tableau_main.html"> 
 <span class="menu-text">Tableau</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../skills_main.html"> 
+    <a class="nav-link" href="./skills_main.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html"> 
+    <a class="nav-link" href="./schedule.html"> 
 <span class="menu-text">📅 Training schedule</span></a>
   </li>  
 </ul>
@@ -314,29 +376,10 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#session-outline" id="toc-session-outline" class="nav-link active" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#a-word-of-warning" id="toc-a-word-of-warning" class="nav-link" data-scroll-target="#a-word-of-warning">A word of warning</a></li>
-  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">Data wrangling</a></li>
-  <li><a href="#load-our-data" id="toc-load-our-data" class="nav-link" data-scroll-target="#load-our-data">Load our data</a></li>
-  <li><a href="#inspect-our-data" id="toc-inspect-our-data" class="nav-link" data-scroll-target="#inspect-our-data">Inspect our data</a></li>
-  <li><a href="#powerquery" id="toc-powerquery" class="nav-link" data-scroll-target="#powerquery">PowerQuery</a></li>
-  <li><a href="#navigating-powerquery" id="toc-navigating-powerquery" class="nav-link" data-scroll-target="#navigating-powerquery">Navigating PowerQuery</a></li>
-  <li><a href="#renaming-our-data" id="toc-renaming-our-data" class="nav-link" data-scroll-target="#renaming-our-data">Renaming our data</a></li>
-  <li><a href="#task-list" id="toc-task-list" class="nav-link" data-scroll-target="#task-list">Task list</a></li>
-  <li><a href="#first-steps-in-powerquery" id="toc-first-steps-in-powerquery" class="nav-link" data-scroll-target="#first-steps-in-powerquery">First steps in PowerQuery</a></li>
-  <li><a href="#the-big-idea" id="toc-the-big-idea" class="nav-link" data-scroll-target="#the-big-idea">The big idea</a></li>
-  <li><a href="#steps" id="toc-steps" class="nav-link" data-scroll-target="#steps">Steps</a></li>
-  <li><a href="#powerquery---excel" id="toc-powerquery---excel" class="nav-link" data-scroll-target="#powerquery---excel">PowerQuery -&gt; Excel</a></li>
-  <li><a href="#excel---power-bi" id="toc-excel---power-bi" class="nav-link" data-scroll-target="#excel---power-bi">Excel -&gt; Power BI</a></li>
-  <li><a href="#service-vs-desktop" id="toc-service-vs-desktop" class="nav-link" data-scroll-target="#service-vs-desktop">Service vs Desktop</a></li>
-  <li><a href="#joining-data" id="toc-joining-data" class="nav-link" data-scroll-target="#joining-data">Joining data</a></li>
-  <li><a href="#re-shaping-data" id="toc-re-shaping-data" class="nav-link" data-scroll-target="#re-shaping-data">Re-shaping data</a></li>
-  <li><a href="#transforming-values" id="toc-transforming-values" class="nav-link" data-scroll-target="#transforming-values">Transforming values</a></li>
-  <li><a href="#tidying-up" id="toc-tidying-up" class="nav-link" data-scroll-target="#tidying-up">Tidying up</a></li>
-  <li><a href="#re-making-our-visualisation" id="toc-re-making-our-visualisation" class="nav-link" data-scroll-target="#re-making-our-visualisation">Re-making our visualisation</a></li>
-  <li><a href="#finishing-up" id="toc-finishing-up" class="nav-link" data-scroll-target="#finishing-up">Finishing up</a></li>
+<li><a href="#sql-training-schedule" id="toc-sql-training-schedule" class="nav-link active" data-scroll-target="#sql-training-schedule">SQL training schedule</a></li>
+  <li><a href="#sql-session-materials" id="toc-sql-session-materials" class="nav-link" data-scroll-target="#sql-session-materials">SQL session materials</a></li>
   </ul></nav>
-    <div class="quarto-margin-footer"><div class="margin-footer-item">
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="YmVnaW5uZXI=">beginner <span class="quarto-category-count">(5)</span></div><div class="category" data-category="U1FM">SQL <span class="quarto-category-count">(5)</span></div></div><div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 <a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
 </p>
@@ -346,12 +389,8 @@ ul.task-list li input[type="checkbox"] {
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">BI for Beginners (service version) Session 3</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">Power BI</div>
-    <div class="quarto-category">beginner</div>
-  </div>
-  </div>
+<h1 class="title">SQL training</h1>
+</div>
 
 
 
@@ -361,7 +400,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 26, 2024</p>
+      <p class="date">June 1, 2026</p>
     </div>
   </div>
   
@@ -370,373 +409,88 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><div class="cell" data-layout-align="left">
-<p>No feedback found for this session</p>
-</div>
-<section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
-<ul>
-<li>In this session, we’re going to build part of the GP practice size dashboard from last time</li>
-<li>But we’ll do this from raw data, rather than the play data we used last time</li>
-<li>We’ll bring that data in directly from the web</li>
-<li>We’ll need to wrangle that data to get it to behave</li>
-</ul></section><section id="a-word-of-warning" class="level2"><h2 class="anchored" data-anchor-id="a-word-of-warning">A word of warning</h2>
-<ul>
-<li>data wrangling is one area where the web version of Power BI is <strong>much less capable</strong> than the desktop version</li>
-<li>that means that we’re going to use Excel/PowerQuery to do most of the heavy lifing for us here</li>
-<li>if the desktop version of Power BI is any guide, I’d hope that these tools will eventually be integrated into the web version of Power BI before too long</li>
-</ul></section><section id="data-wrangling" class="level2"><h2 class="anchored" data-anchor-id="data-wrangling">Data wrangling</h2>
-<ul>
-<li>several different sources needed
-<ul>
-<li>some real <a href="https://www.opendata.nhs.scot/dataset/f23655c3-6e23-4103-a511-a80d998adb90/resource/a160fa97-8a3c-429a-9683-3835cafe1701/download/practice_contactdetails_jul2023-open-data.csv">open data about GP practices 🔗</a>
-</li>
-<li><a href="https://www.opendata.nhs.scot/datastore/dump/652ff726-e676-4a20-abda-435b98dd7bdc?bom=True">Health board names 🔗</a></li>
-<li><a href="https://www.opendata.nhs.scot/datastore/dump/d7f423dd-9611-4ae9-a9c8-4dcc532ece22?bom=True">Demographic data for GP practices 🔗</a></li>
-</ul>
-</li>
-</ul></section><section id="load-our-data" class="level2"><h2 class="anchored" data-anchor-id="load-our-data">Load our data</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Open Excel and create a blank workbook<img src="../src/images/clipboard-3287158368.png" height="200" alt="create a blank workbook">
-</li>
-<li>In the <code>Data</code> tab of the ribbon menu, select the <code>From Web</code> option  <img src="../src/images/clipboard-563180817.png" height="100" alt="select the From Web option">
-</li>
-<li>Supply the first URL <img src="../src/images/clipboard-1386370273.png" height="100" alt="Supply the first URL">
-</li>
-<li>Select <code>Load</code> <img src="../src/images/clipboard-1784687147.png" height="200">
-</li>
-<li>Repeat with the remaining URLs</li>
-<li>Save your workbook</li>
-</ol>
-</div>
-</div>
-</section><section id="inspect-our-data" class="level2"><h2 class="anchored" data-anchor-id="inspect-our-data">Inspect our data</h2>
-<ul>
-<li>You should be able to see each of your datasets in Excel as separate worksheets (with pretty horrible names) <img src="../src/images/clipboard-1507354050.png" class="img-fluid" alt="new worksheets in Excel">
-</li>
-</ul></section><section id="powerquery" class="level2"><h2 class="anchored" data-anchor-id="powerquery">PowerQuery</h2>
-<p>Next, we’ll open these three sets of data in PowerQuery by selecting <code>Launch Power Query Editor...</code> from the <code>Get Data</code> menu: <img src="../src/images/clipboard-468826289.png" height="300" alt="Launch Power Query Editor…"></p>
-</section><section id="navigating-powerquery" class="level2"><h2 class="anchored" data-anchor-id="navigating-powerquery">Navigating PowerQuery</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="../src/images/clipboard-3570519607.png" class="img-fluid figure-img"></p>
-<figcaption>PowerQuery interface</figcaption></figure>
-</div>
-<ul>
-<li>on the left, you’ll see three queries, corresponding to the three datasets you loaded from the web</li>
-<li>in the centre of the page, you’ll see an Excel-like preview of your data</li>
-<li>above the data, you’ll see an Excel-like ribbon menu and formula area</li>
-<li>on the right, you’ll see the details of your query</li>
-</ul></section><section id="renaming-our-data" class="level2"><h2 class="anchored" data-anchor-id="renaming-our-data">Renaming our data</h2>
-<ul>
-<li>To make life easier, we’ll rename each query by right-clicking the query title on the left-hand side of the screen <img src="../src/images/clipboard-4147252052.png" class="img-fluid" alt="rename each query">:
-<ul>
-<li>call the GP practice details <code>practices</code>
-</li>
-<li>call the NHS boards data <code>practices</code>
-</li>
-<li>call the demographic data <code>demographics</code>
-</li>
-</ul>
-</li>
-</ul></section><section id="task-list" class="level2"><h2 class="anchored" data-anchor-id="task-list">Task list</h2>
-<ul>
-<li>we can discard some of the <strong>practices</strong> data</li>
-<li>we’ll need to join <strong>boards</strong> and <strong>practices</strong> to get nice health board names in our dashboard</li>
-<li>we’ll need to re-shape <strong>demographics</strong>
-</li>
-<li>and we’ll need to send our wrangled data to Power BI</li>
-</ul></section><section id="first-steps-in-powerquery" class="level2"><h2 class="anchored" data-anchor-id="first-steps-in-powerquery">First steps in PowerQuery</h2>
-<ul>
-<li>find your <code>boards</code> data</li>
-<li>(reminder about the <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/data-minimisation/">duty of data minimization</a>)</li>
-<li>we can safely lose several columns:
-<ul>
-<li>
-<code>_id</code>, <code>HBDateEnacted</code>, <code>HBDateArchived</code> and <code>Country</code> are all spare</li>
-<li>right click the column header to <code>Remove</code> <img src="../src/images/clipboard-1367785018.png" class="img-fluid" alt="remove columns">
-</li>
-</ul>
-</li>
-</ul></section><section id="the-big-idea" class="level2"><h2 class="anchored" data-anchor-id="the-big-idea">The big idea</h2>
-<ul>
-<li>once you’ve removed a column, you’ll see a change to the <code>Applied Steps</code> area:  <img src="../src/images/clipboard-1786703847.png" class="img-fluid" alt="Applied steps are">
-</li>
-<li>we’ve gained an extra step, showing that we’ve removed a column</li>
-</ul></section><section id="steps" class="level2"><h2 class="anchored" data-anchor-id="steps">Steps</h2>
-<ul>
-<li>if you click an earlier step, you can see the state of your data at that point</li>
-<li>if you click the <code>X</code> to the left of the step, you can delete (effectively undo) that step</li>
-<li>if you click the gearwheel to the right of the step name, you can alter the way that step worked
-<ul>
-<li>if you’re code-confident, you can also tweak the PowerQuery M formula that appears in the formula bar</li>
-</ul>
-</li>
-</ul></section><section id="powerquery---excel" class="level2"><h2 class="anchored" data-anchor-id="powerquery---excel">PowerQuery -&gt; Excel</h2>
-<ul>
-<li>Once you’ve removed the unnecessary columns, click <code>Close &amp; Load</code> to commit your changes <img src="../src/images/clipboard-3018844657.png" class="img-fluid" alt="Commit your changes">
-</li>
-<li>that will return your data to Excel</li>
-</ul></section><section id="excel---power-bi" class="level2"><h2 class="anchored" data-anchor-id="excel---power-bi">Excel -&gt; Power BI</h2>
-<ul>
-<li>from Excel, rename your tables
-<ul>
-<li>call the GP practice details <code>practices</code>
-</li>
-<li>call the NHS boards data <code>practices</code>
-</li>
-<li>call the demographic data <code>demographics</code>
-</li>
-</ul>
-</li>
-<li>ensure the .xlsx is saved</li>
-<li>connect to Power BI as before</li>
-</ul></section><section id="service-vs-desktop" class="level2"><h2 class="anchored" data-anchor-id="service-vs-desktop">Service vs Desktop</h2>
-<ul>
-<li>we’ll need to do this slighly ungainly Excel -&gt; PowerQuery -&gt; Excel -&gt; PowerBI route whenever we tweak our data</li>
-<li>on the desktop, PowerQuery is integrated into Power BI, which makes things much smoother</li>
-<li>this might be a good point to explore setting up a connection between your OneDrive and Power BI service as it’ll reduce the messiness of re-re-uploading data as you tweak it</li>
-</ul></section><section id="joining-data" class="level2"><h2 class="anchored" data-anchor-id="joining-data">Joining data</h2>
-<ul>
-<li>there’s an <strong>HB</strong> column in both the <strong>boards</strong> and <strong>practices</strong> data</li>
-<li>we can link these up so that we can use the actual proper health board names in our dashboard</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>select the HB column and select <strong>Merge Queries</strong>  <img src="../src/images/merge.png" class="img-fluid" alt="select Merge Queries">
-</li>
-<li>fill in the options in the merge pop-up  <img src="../src/images/merge2.png" height="300" alt="merge pop-up">
-</li>
-<li>note that this gives us lots of information about how the join is likely to work</li>
-</ol>
-</div>
-</div>
-<ul>
-<li>a slight puzzle: the join initially looks pretty unpromising <img src="../src/images/merge3.png" class="img-fluid" alt="nested columns">
-</li>
-<li>here, Power Query is effectively telling you that there are several columns packed into this new column</li>
-<li>we can unpack all or some of the columns from each row using the menu in the column header.</li>
-<li>I think we only want <strong>HBName</strong> - but feel free to experiment as you can always backtrack from the query settings pane</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>select the column(s) you want to keep from the column header  <img src="../src/images/merge4.png" height="150" alt="Select your columns from the expand button">
-</li>
-</ol>
-</div>
-</div>
-<ul>
-<li>you can also access lots of other Excel-ish options by right-clicking the column</li>
-<li>something we can do there is to rename this column to give a nicer name (which we’ll need to use later while building our visualisation)</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>please rename your new column to <strong>“HBName”</strong>
-</li>
-<li>note that you can also do this inside the formula bar at the top of the screen  <img src="../src/images/merge5.png" class="img-fluid" alt="Formula bar"> This formula is written in <strong>Power Query M</strong>, which we’ll discuss later</li>
-<li>check that you now have nice board names in the practices data</li>
-<li>remember to <strong>close &amp; apply</strong>
-</li>
-</ol>
-</div>
-</div>
-</section><section id="re-shaping-data" class="level2"><h2 class="anchored" data-anchor-id="re-shaping-data">Re-shaping data</h2>
-<ul>
-<li>our demographics data is going to be hard to plot</li>
-<li>Power BI generally expects data with one variable per column</li>
-<li>in this data, our useful variables (like the count of patients in particular age or sex brackets) are spread across several columns</li>
-<li>we’ll reshape it using Power Query to make our life easier</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>As before, please <strong>Transform Data</strong>
-</li>
-<li>Use the <strong>Select columns</strong> tool (or delete as before) to remove the <strong>id</strong>, <strong>Date</strong>, <strong>HSPC</strong>, <strong>HB</strong>, and <strong>SexQF</strong> columns</li>
-<li>You can do this in Power Query directly with <code>= Table.RemoveColumns(#"Changed Type",{"_id", "Date", "HB", "HSCP", "SexQF"})</code>
-</li>
-<li>Select the <strong>PracticeCode</strong> and <strong>Sex</strong> columns, then select <strong>Unpivot Other Columns</strong><img src="../src/images/pivot_1.png" height="350" alt="Unpivot Other Columns">
-</li>
-</ol>
-</div>
-</div>
-<ul>
-<li>That should give us our data in long form, so that it looks like this:  <img src="../src/images/pivot_2.png" class="img-fluid" alt="long form data">
-</li>
-<li>this will make it easier to plot in Power BI as we usually need to have one variable (like number of patients in an age/sex bracket) in a single column</li>
-<li>we can now remove unwanted values by filtering <img src="../src/images/pivot_3.png" height="300" alt="remove unwanted values by filtering">
-</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>From the <strong>Attribute</strong> column, please remove the <strong>QF</strong> rows,</li>
-<li>From the <strong>Attribute</strong> column, please remove the <strong>AllAges</strong> rows</li>
-<li>From the <strong>Sex</strong> column, please remove the <strong>All</strong> rows</li>
-</ol>
-</div>
-</div>
-</section><section id="transforming-values" class="level2"><h2 class="anchored" data-anchor-id="transforming-values">Transforming values</h2>
-<ul>
-<li>the last type of reshaping to show off is about transforming values</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Split the <strong>Attribute</strong> column by <strong>Digit to Non-digit</strong><img src="../src/images/pivot_4.png" height="150" alt="Digit to non-digit">
-</li>
-<li>replace values in the new <strong>Attribute.1</strong> column to remove the “Ages”</li>
-<li>then in <strong>Attribute.2</strong>, two replacements to remove the “to”s and replace the “plus” with <strong>99</strong>
-</li>
-<li>then rename the columns to <strong>age_upper</strong> and <strong>age_lower</strong>
-</li>
-<li>finally, change the data type to <strong>whole number</strong> for each of those new columns</li>
-</ol>
-</div>
-</div>
-</section><section id="tidying-up" class="level2"><h2 class="anchored" data-anchor-id="tidying-up">Tidying up</h2>
-<ul>
-<li>we should now be able to use this data to re-make our GP bubble map from last time.</li>
-<li>there are some minor bits of tidying up that need to happen first</li>
-<li>there are a few duplicate practice names, which might cause us problems <img src="../src/images/barclay.png" class="img-fluid" alt="Duplicate practice names">
-</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>select <strong>Transform data</strong>
-</li>
-<li>add a <strong>Custom column</strong> called Practice Name <img src="../src/images/cust_col.png" height="200" alt="Add a custom column">
-</li>
-<li>use <code>&amp;</code> to concatenate values: <code>[GPPracticeName] &amp; " (" &amp; [Postcode] &amp; ")"</code>
-</li>
-<li>close and apply</li>
-</ol>
-</div>
-</div>
-<ul>
-<li>Power BI likes to summarize data wherever possible</li>
-<li>this can cause problems (although I don’t think there’s anything in this example that suffers from it)</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Go to the data view</li>
-<li>In the <strong>practices</strong> table, note that you can change the summary options for the <strong>PracticeListSize</strong> column <img src="../src/images/summ_list.png" height="200" alt="Summary defaults">
-</li>
-</ol>
-</div>
-</div>
-</section><section id="re-making-our-visualisation" class="level2"><h2 class="anchored" data-anchor-id="re-making-our-visualisation">Re-making our visualisation</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Add a map, and set the <strong>Postcode</strong> to Location, <strong>boards.HBName</strong> to Legend, <strong>PracticeListSize</strong> to Bubble Size</li>
-<li>Format the map to greyscale</li>
-<li>Rename for this visual to suit</li>
-<li>add a slicer for Health board</li>
-<li>add cards for the list size and practice name</li>
-<li>add a stacked column chart for practice sizes</li>
-</ol>
-</div>
-</div>
-</section><section id="finishing-up" class="level2"><h2 class="anchored" data-anchor-id="finishing-up">Finishing up</h2>
-<ul>
-<li>next time, we’ll use some of that data we wrangled today to extend our GP dashboard</li>
-<li><strong>please save your files from today somewhere safe</strong></li>
-<li>if you have time during the week, come back to the visualizations that we sketched today, and play. What would you like to add to the dashboard?
-<ul>
-<li>there’s a lot of demographic data to play with</li>
-</ul>
-</li>
-<li>Let me know, and we’ll try adding those things next time</li>
-</ul>
+</header><section id="sql-training-schedule" class="level2"><h2 class="anchored" data-anchor-id="sql-training-schedule">SQL training schedule</h2>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-c05a75b43d8b008ced01" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c05a75b43d8b008ced01">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["<a href='https://events.teams.microsoft.com/event/612a8a61-d755-40cf-8012-bd4f4a9c3a88@10efe0bd-a030-4bca-809c-b5e6745e499a'>Scope of the possible with SQL<\/a>","<a href='https://events.teams.microsoft.com/event/bb4d2c81-60c8-4f8e-a5f6-cf1365c4ced7@10efe0bd-a030-4bca-809c-b5e6745e499a'>An introduction to SQL<\/a>","<a href='https://events.teams.microsoft.com/event/7ae27ce2-00b5-40a7-a71b-c2bf2f55b782@10efe0bd-a030-4bca-809c-b5e6745e499a'>Getting data into SQL<\/a>","<a href='https://events.teams.microsoft.com/event/089043ca-3517-4a29-a404-29215d2d80d2@10efe0bd-a030-4bca-809c-b5e6745e499a'>Filtering and aggregating data with SQL<\/a>","<a href='https://events.teams.microsoft.com/event/65e18fa8-7cc6-48ee-8a8f-dad101e029f5@10efe0bd-a030-4bca-809c-b5e6745e499a'>SQL joins<\/a>","<a href='https://events.teams.microsoft.com/event/db86fe70-cefd-4a54-809c-de2221668285@10efe0bd-a030-4bca-809c-b5e6745e499a'>R and SQL<\/a>"],["","<a href='https://nes-dew.github.io/KIND-training/skills/sql_intro.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/skills/sql_data.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/skills/sql_filter_aggregate.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/skills/sql_joins.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/skills/sql_r.html'>Session materials<\/a>"],["11:00-12:00 Wed 24th June 2026","10:00-11:30 Tue 30th June 2026","10:00-11:30 Tue 7th July 2026","10:00-11:30 Tue 14th July 2026","10:00-11:30 Tue 28th July 2026","10:00-11:30 Tue 4th August 2026"],["SQL","SQL","SQL","SQL","SQL","SQL"],["🥬: <b>pre-beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Booking Link<\/th>\n      <th>Materials<\/th>\n      <th>Date<\/th>\n      <th>Area<\/th>\n      <th>Level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"name":"Booking Link","targets":0},{"name":"Materials","targets":1},{"name":"Date","targets":2},{"name":"Area","targets":3},{"name":"Level","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script></section><section id="sql-session-materials" class="level2"><h2 class="anchored" data-anchor-id="sql-session-materials">SQL session materials</h2>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+
+</section><div class="quarto-listing quarto-listing-container-table" id="listing-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})"><option value="" disabled="" selected="" hidden="">Order By</option>
+<option value="index" data-direction="asc">Default</option>
+<option value="listing-title-sort" data-direction="asc">
+        Title
+      </option></select>
+</div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+</div>
+</div>
+<table class="quarto-listing-table table">
+<thead><tr>
+<th>
+<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
+</th>
+
+<th>
+Categories
+</th>
+
+</tr></thead>
+<tbody class="list">
+<tr data-index="0" data-categories="U1FMJTJDYmVnaW5uZXI=" data-listing-date-sort="1764201600000" data-listing-file-modified-sort="1780306750842" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1171" data-listing-title-sort="An introduction to SQL" data-listing-filename-sort="sql_intro.qmd">
+<td>
+<a href="./sql/sql_intro.html" class="title listing-title">An introduction to SQL</a>
+</td>
+<td>
+<span class="listing-categories">SQL, beginner</span>
+</td>
+
+</tr>
+<tr data-index="1" data-categories="U1FMJTJDYmVnaW5uZXI=" data-listing-date-sort="1764201600000" data-listing-file-modified-sort="1780306750842" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1741" data-listing-title-sort="Filtering and aggregating data with SQL" data-listing-filename-sort="sql_filter_aggregate.qmd">
+<td>
+<a href="./sql/sql_filter_aggregate.html" class="title listing-title">Filtering and aggregating data with SQL</a>
+</td>
+<td>
+<span class="listing-categories">SQL, beginner</span>
+</td>
+
+</tr>
+<tr data-index="2" data-categories="U1FMJTJDYmVnaW5uZXI=" data-listing-date-sort="1764201600000" data-listing-file-modified-sort="1780306750842" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1516" data-listing-title-sort="Getting data into SQL" data-listing-filename-sort="sql_data.qmd">
+<td>
+<a href="./sql/sql_data.html" class="title listing-title">Getting data into SQL</a>
+</td>
+<td>
+<span class="listing-categories">SQL, beginner</span>
+</td>
+
+</tr>
+<tr data-index="3" data-categories="U1FMJTJDYmVnaW5uZXI=" data-listing-date-sort="1771200000000" data-listing-file-modified-sort="1780306750842" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1384" data-listing-title-sort="R and SQL" data-listing-filename-sort="sql_r.qmd">
+<td>
+<a href="./sql/sql_r.html" class="title listing-title">R and SQL</a>
+</td>
+<td>
+<span class="listing-categories">SQL, beginner</span>
+</td>
+
+</tr>
+<tr data-index="4" data-categories="U1FMJTJDYmVnaW5uZXI=" data-listing-date-sort="1764201600000" data-listing-file-modified-sort="1780306750842" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1603" data-listing-title-sort="SQL joins" data-listing-filename-sort="sql_joins.qmd">
+<td>
+<a href="./sql/sql_joins.html" class="title listing-title">SQL joins</a>
+</td>
+<td>
+<span class="listing-categories">SQL, beginner</span>
+</td>
+
+</tr>
+</tbody>
+</table>
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
