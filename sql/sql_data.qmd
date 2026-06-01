@@ -1,0 +1,324 @@
+---
+title: Getting data into SQL
+params:
+  sl_date: 2025-11-27
+  fn: Getting data into SQL
+  id: KS15
+execute: 
+  echo: true
+date: 2025-11-27
+categories: [SQL, beginner]
+---
+
+
+```{r}
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+#| echo: false
+
+source(here::here("R/feed_block.R"))
+feed_block(params[["id"]])
+
+source(here::here("R/next_sesh.R"), local = T)
+next_sesh(params[["fn"]])
+```
+
+
+{{< include src/sql_about.qmd >}}
+
+## About this session
+
+This session is all about getting data into, and out of SQL. We'll look at:
+
+* adding data to an existing table, either row-by-row, or at larger scale
+* discussing how to update data, including adding, removing, and renaming columns
+* and showing how to create new tables
+
+## Setup
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project from Github Repository </br>![New Rstudio project](src/images/sql_new_from_repo.png)
+* Supply the following URL when prompted: [https://github.com/NES-DEW/KIND_sql_intro/](https://github.com/NES-DEW/KIND_sql_intro/)
+* Once the project is deployed, clear your Environment (broom icon in the environment pane)
+* Then open the `s2_setup.R` script by from the bottom-right hand files pane
+* Click the `Source` button at the top right-hand corner of the source pane ![Source button](src/images/sql_source_script.png)
+* Then open the `s2_data.sql` script from the files pane, and `Ctrl` + `Shift` + `Enter` twice to preview your data for this session
+
+
+:::{.callout-note collapse=true appearance='default' icon=true}
+## Manual setup instructions
+
+* You will need a free [posit.cloud](https://posit.cloud/) account. Please set this up and check that you have access before the session begins
+* Once you've logged-in to [posit.cloud](https://posit.cloud/), please create a new Rstudio project </br>![New Rstudio project](src/images/sql_intro_create_project.png)
+* In that project, create a new R script: </br>![Create a new R script from the file menu](src/images/sql_intro_create_script.png)
+
+* Copy and paste the following R code into that script:
+
+```{r r-script}
+#| eval: false
+
+## install and attach R packages
+pkg <- c("dbplyr", "RSQLite", "palmerpenguins")
+install.packages(setdiff(pkg, rownames(installed.packages())))  
+
+library(dbplyr)
+library(dplyr)
+library(palmerpenguins)
+
+conn <- src_memdb() # create an sqlite db in memory
+```
+
+
+```{r}
+#| echo: false
+library(dbplyr)
+library(dplyr)
+library(palmerpenguins)
+
+conn <- src_memdb() # create an sqlite db in memory
+```
+
+* save your script and click the `Source` button
+    * that will create a simple SQL database in memory
+* now create a new SQL script (again, from the `File` menu)
+* delete all the pre-populated lines of code, as follows: </br>![Pre-populated code in new SQL script](src/images/new_sql.png)
+* to connect with our SQL db in memory, add the following line to the head of your SQL script:
+
+```{sql connection=src_memdb()$con}
+--| eval: false
+
+-- !preview conn=src_memdb()$con
+```
+
+* finally, save your SQL script (any file name is fine)
+
+:::
+
+## Getting started
+
++ in this session, unlike the previous one, we'll start with an empty SQL database
++ we'll create a table in that db, and add some data to it
+
+```{sql connection=src_memdb()$con}
+CREATE TABLE clients (chi varchar(10) NOT NULL,
+                      name varchar(255),
+                      birthdate date,
+                      PRIMARY KEY (chi));
+```
+
+* you can think of a SQL table as a container for the four empty columns of data we've created
+* note that we have told SQL what kind of data our columns will contain. Some of the most common examples include: 
+
+| type    | what                |
+| ----    | ----                |
+| CHAR    | fixed length char   |
+| VARCHAR | variable length char|
+| INT     | whole number        |
+| DOUBLE  | decimal number      |
+| DATE    | date                |
+| DATETIME| date-time           | 
+
+* now test that your `clients` table has been created:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+This table will be empty at first. Our next step is to  add some data to that table to make it more useful:
+
+
+## Adding data
+
+insert data into your table using the `INSERT INTO` keyword:
+
+```{sql connection=src_memdb()$con}
+INSERT INTO clients VALUES ("1204851425", "Mr Odds", "1985-04-12");
+```
+
+and then check:
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+It's good practice to specify the columns by name, especially if you need to include partial data:
+```{sql connection=src_memdb()$con}
+INSERT INTO clients (chi, birthdate) VALUES ("0701720842", "1972-01-07");
+```
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+## Primary keys
+
++ when we wrote `PRIMARY KEY (chi)` while creating our table, we made the chi column special: this is the primary key of the table lives
++ primary keys are unique: they identify the distinct rows of the table
++ your SQL will fall over if you try and repeat chi values
+
+
+## Adding multiple rows of data
+
++ largely just a matter of chaining to gether multiple sets of values
+```{sql connection=src_memdb()$con}
+INSERT INTO clients VALUES 
+  ("0411016548", "The Moog", "2001-11-04"),
+  ("3003627534", "One McIrey", "1962-03-30"),
+  ("2407864568", "Dr Stamps", "1986-07-24");
+```
+
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+## Updating
+
++ one of our clients has no name...
+
+```{sql connection=src_memdb()$con}
+UPDATE clients
+  SET name = "David Lemon"
+  WHERE chi = "0701720842";
+```
+
+```{sql connection=src_memdb()$con}
+SELECT * FROM clients;
+```
+
+## Adding cols
+
++ let's add some extra columns:
+
+```{sql connection=src_memdb()$con}
+ALTER TABLE clients ADD length INT(2);
+```
+
++ we can set a single value for this new column
+```{sql connection=src_memdb()$con}
+UPDATE clients
+  SET length = (10);
+  
+```
+
+```{sql connection=src_memdb()$con}
+--| echo: false
+
+SELECT * FROM clients;
+```
+
++ setting individual values is much more messy:
+
+```{sql connection=src_memdb()$con}
+UPDATE clients
+  SET length = 12
+  WHERE name = "Mr Odds" OR name = "Dr Stamps";
+```
+
+
+```{sql connection=src_memdb()$con}
+--| echo: false
+
+SELECT * FROM clients;
+```
+
+## Remove a column
+
+```{sql connection=src_memdb()$con}
+ALTER TABLE clients DROP length;
+```
+
+
+```{sql connection=src_memdb()$con}
+--| echo: false
+
+SELECT * FROM clients;
+```
+
+## Renaming cols
+
++ not as easy as might be liked, and highly dialect-y
+
+## Note about uploading
+
++ depends on your local system, no generic SQL advice
++ refer to the R and SQL session
+
+## Create tables
+
++ most real-life SQL projects are multi-table
++ we'll explore this in more detail in the joins session
++ but as an introduction, creating additional tables is exactly the same as creating a first table
+
+```{sql connection=src_memdb()$con}
+
+CREATE TABLE gps (chi varchar(10) NOT NULL,
+                      gp varchar(255),
+                      PRIMARY KEY (chi));
+                      
+INSERT INTO gps VALUES 
+  ("1204851425", "Dr Smith"),
+  ("0701720842", "Dr Patel"),
+  ("0411016548", "Dr Hamoda"),
+  ("3003627534", "Dr Clarke"),
+  ("2407864568", "Dr Johal");
+  
+SELECT * FROM gps;
+```
+
+## SQL query summary
+
+```{sql connection=src_memdb()$con}
+--| code-fold: true
+--| eval: false
+
+CREATE TABLE clients (chi varchar(10) NOT NULL,
+                      name varchar(255),
+                      birthdate date,
+                      PRIMARY KEY (chi)); -- creating a clients table
+                      
+SELECT * FROM clients; -- checking the clients table exists
+
+INSERT INTO clients VALUES ("1204851425", "Mr Odds", "1985-04-12"); -- add a row to clients
+
+INSERT INTO clients (chi, birthdate) VALUES ("0701720842", "1972-01-07"); -- insert values by name
+
+INSERT INTO clients VALUES 
+  ("0411016548", "The Moog", "2001-11-04"),
+  ("3003627534", "One McIrey", "1962-03-30"),
+  ("2407864568", "Dr Stamps", "1986-07-24"); -- adding multiple rows of data
+  
+UPDATE clients
+  SET name = "David Lemon"
+  WHERE chi = "0701720842"; -- updating a row with no name
+  
+ALTER TABLE clients ADD length INT(2); -- adding a column
+
+UPDATE clients SET length = (10); -- set a single fixed value for each row in that new column
+
+UPDATE clients
+  SET length = 12
+  WHERE name = "Mr Odds" OR name = "Dr Stamps"; -- setting new values based on existing values
+  
+ALTER TABLE clients DROP length; -- remove a column
+
+CREATE TABLE gps (chi varchar(10) NOT NULL,
+                      gp varchar(255),
+                      PRIMARY KEY (chi)); -- create a new empty table
+                      
+INSERT INTO gps VALUES 
+  ("1204851425", "Dr Smith"),
+  ("0701720842", "Dr Patel"),
+  ("0411016548", "Dr Hamoda"),
+  ("3003627534", "Dr Clarke"),
+  ("2407864568", "Dr Johal"); -- insert some values
+  
+SELECT * FROM gps; -- preview those values
+```
+
+
+## Acknowledgements
+
+Like all our courses and sessions, this is a team effort, and I thank the network as a whole for their encouragements and contributions. Specific thanks in this case go to Ben Harley (PHS), Amanda King (NHS GGC), Steven Knapman (NHS Fife), and James McMahon (Public Health Scotland), and to the members of the pilot cohort for this session.
