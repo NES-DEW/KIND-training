@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.38">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-06-01">
-<title>Scope of the possible with SQL – KIND training pages</title>
+<meta name="dcterms.date" content="2026-06-02">
+<title>Measure your system, then collect your structured data (session 4) – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -78,7 +43,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-5895e00f40c44536432e67bfd6cd4591.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -350,17 +316,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#about-this-session" id="toc-about-this-session" class="nav-link active" data-scroll-target="#about-this-session">About this session</a></li>
-  <li><a href="#whats-sql" id="toc-whats-sql" class="nav-link" data-scroll-target="#whats-sql">What’s SQL?</a></li>
-  <li><a href="#databases" id="toc-databases" class="nav-link" data-scroll-target="#databases">Databases</a></li>
-  <li><a href="#the-excel-way" id="toc-the-excel-way" class="nav-link" data-scroll-target="#the-excel-way">The Excel way</a></li>
-  <li><a href="#the-relational-data-way" id="toc-the-relational-data-way" class="nav-link" data-scroll-target="#the-relational-data-way">The relational data way</a></li>
-  <li><a href="#why-do-that" id="toc-why-do-that" class="nav-link" data-scroll-target="#why-do-that">Why do that?</a></li>
-  <li><a href="#what-does-sql-look-like" id="toc-what-does-sql-look-like" class="nav-link" data-scroll-target="#what-does-sql-look-like">What does SQL look like?</a></li>
-  <li><a href="#compared-to-other-languages" id="toc-compared-to-other-languages" class="nav-link" data-scroll-target="#compared-to-other-languages">Compared to other languages</a></li>
-  <li><a href="#small" id="toc-small" class="nav-link" data-scroll-target="#small">Small</a></li>
-  <li><a href="#dialects" id="toc-dialects" class="nav-link" data-scroll-target="#dialects">Dialects</a></li>
-  <li><a href="#murder" id="toc-murder" class="nav-link" data-scroll-target="#murder">Murder!</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#measuring-things" id="toc-measuring-things" class="nav-link" data-scroll-target="#measuring-things">Measuring things</a></li>
+  <li>
+<a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data">Tidy data</a>
+  <ul class="collapse">
+<li><a href="#values" id="toc-values" class="nav-link" data-scroll-target="#values">Values</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
+  </ul>
+</li>
+  <li><a href="#precision-and-accuracy" id="toc-precision-and-accuracy" class="nav-link" data-scroll-target="#precision-and-accuracy">Precision and accuracy</a></li>
+  <li><a href="#collecting-numerical-data" id="toc-collecting-numerical-data" class="nav-link" data-scroll-target="#collecting-numerical-data">Collecting numerical data</a></li>
+  <li><a href="#be-more-selective" id="toc-be-more-selective" class="nav-link" data-scroll-target="#be-more-selective">Be more selective</a></li>
+  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data">Missing data</a></li>
+  <li><a href="#coding" id="toc-coding" class="nav-link" data-scroll-target="#coding">Coding</a></li>
+  <li><a href="#communicating-what-youve-done" id="toc-communicating-what-youve-done" class="nav-link" data-scroll-target="#communicating-what-youve-done">Communicating what you’ve done</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -372,12 +343,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Scope of the possible with SQL</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">SQL</div>
-    <div class="quarto-category">pre-beginner</div>
-  </div>
-  </div>
+<h1 class="title">Measure your system, then collect your structured data (session 4)</h1>
+</div>
 
 
 
@@ -387,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 1, 2026</p>
+      <p class="date">June 2, 2026</p>
     </div>
   </div>
   
@@ -396,148 +363,244 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><div class="cell" data-layout-align="left">
-<p>No feedback found for this session</p>
+</header><div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<section id="about-this-session" class="level2"><h2 class="anchored" data-anchor-id="about-this-session">About this session</h2>
-<p>This session is a standalone introduction to SQL.</p>
-<p>SQL, which is a query language that is widely used to manage data. In this session, we’ll introduce the language, discuss where it’s used, introduce some learning resources, and answer any queries. No specific experience or resources needed for this session, although do be aware that this is a code-based session and will assume you have some past familiarity with reading/writing code.</p>
-</section><section id="whats-sql" class="level2"><h2 class="anchored" data-anchor-id="whats-sql">What’s SQL?</h2>
-<ul>
-<li>SQL = Structured Query Language</li>
-<li>Coding language to create and manage databases</li>
-<li>The most widely-used language for data work</li>
-<li>First developed 1973</li>
-<li>Found <em>everywhere</em> - web, lots of EPR systems, in the back-end of lots of data products</li>
-</ul></section><section id="databases" class="level2"><h2 class="anchored" data-anchor-id="databases">Databases</h2>
-<ul>
-<li><p>specifically, <strong>relational</strong> databases</p></li>
-<li><p>Excel: put your related data together on a sheet</p></li>
-<li><p>Databases: put your data in tables, and connect them with relationships</p></li>
-</ul></section><section id="the-excel-way" class="level2"><h2 class="anchored" data-anchor-id="the-excel-way">The Excel way</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/clipboard-3179038731.png" class="img-fluid figure-img"></p>
-<figcaption>The demographics of Orkney’s GP practices</figcaption></figure>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Outline blob
 </div>
-</section><section id="the-relational-data-way" class="level2"><h2 class="anchored" data-anchor-id="the-relational-data-way">The relational data way</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/sql_relations.png" class="img-fluid figure-img"></p>
-<figcaption>That data now split into two related tables</figcaption></figure>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-</section><section id="why-do-that" class="level2"><h2 class="anchored" data-anchor-id="why-do-that">Why do that?</h2>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="sentence-aim" class="level3"><h3 class="anchored" data-anchor-id="sentence-aim">Sentence aim</h3>
+<p>This session is about how to collect data once you’ve thought about how to data-fy your system. We’ll introduce a big idea about how to structure data - which we’ll call <strong>tidy data</strong>. We’ll also do some reminders about types of data, and give some simple hints about how to best collect data to ensure that it’s safe and useful for your work.</p>
+</section><section id="exercises" class="level3"><h3 class="anchored" data-anchor-id="exercises">Exercises</h3>
+<p>Task one: splitting things up Task two: values, variables, and observations Task three: precision and accuracy</p>
+</section><section id="data" class="level3"><h3 class="anchored" data-anchor-id="data">Data</h3>
+<p><a href="skills/data/distributions_data.xlsx">Download dataset as .xlsx</a> (or <a href="skills/data/distributions_data.rds">as .rds</a>).</p>
+</section><section id="key-concepts" class="level3"><h3 class="anchored" data-anchor-id="key-concepts">Key concepts</h3>
+<p>Precision Accuracy</p>
+</section>
+</div>
+</div>
+</div>
+<section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Three sessions ago, we talked about some example datasets:</p>
 <ul>
-<li>it’s much more efficient:
-<ul>
-<li>Excel’s way of doing things needs just over 1000 data points</li>
-<li>our relational data needs just under 500 data points</li>
+<li>a month-by-month count of patients visiting our hospital for the last two years</li>
+<li>census data, showing demographics of different towns in Scotland</li>
+<li>survey data estimating how many people are currently homeless nationally</li>
 </ul>
+<p>In that first session, we mainly talked about how data sets such as these might be used. In the previous session, we began talking about how to go about making such datasets. In that session, we introduced the idea of <button class="glossary" title="The process of making decisions about how to record the activities of a system as data. For example, if we’re looking to collect data about the number of phone calls our service receives a week, we’d need to decide how to define a week (midnight Monday to Monday? Any rolling 168 hour period?) and how to count phone calls (Do we include missed calls? Calls of less than 1 minute?)">datafying</button> our system as a way of talking about making clear (to ourselves, and to others) some of the more important assumptions about that system.</p>
+<p>In this session, we’re going to start by assuming that you have a datafied system ready to go: you’ve thought about why you’re collecting the data, you’ve selected the most salient aspects of your system to collect data about, and you’ve begun thinking about a data dictionary to set down your most important assumptions about how that data will work. That’s a lot of work already done, especially at the conceptual end of things. If we’re thinking about the three example datasets above, we might have decided to collect data from the following aspects of our systems:</p>
+<ul>
+<li>adding up all the attended inpatient and outpatient appointments each calendar month for our hospital site</li>
+<li>asking everyone in Scotland to complete a census return every few years, and asking questions about employment, housing, and so on</li>
+<li>requesting services supporting the homeless to estimate how many service users they saw during one specified week last year</li>
+</ul>
+<p>Most of the content in this session concentrates on the technical aspects of collecting and structuring data so that its most useful across different data journeys. We’ll start with a few words about measuring, and then move on by introducing the idea of tidy data, do a quick reminder about different types of data you’re likely to encounter, go on to talk about tips and tricks that might be useful when collecting different kinds of data, and then finish by talking about how you can effectively communicate what you’ve done when collecting data.</p>
+</section><section id="measuring-things" class="level2"><h2 class="anchored" data-anchor-id="measuring-things">Measuring things</h2>
+<p>Understanding measurement is a life’s work in its own right, so we’ll be brief here. Data comes from measurements. For most of us in health and care, when we’re collecting data, we’re effectively re-using measurements that are made for other purposes. For example, we (as analysts) don’t usually have to collect service users names and addresses from them personally, or stand there with a clip-board counting people that phone our service, or go round measuring people’s blood pressures ourselves. Nearly always, we’re collecting data opportunistically, effectively re-using measurements that are mainly made for other reasons.</p>
+</section><section id="tidy-data" class="level2"><h2 class="anchored" data-anchor-id="tidy-data">Tidy data</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="../src/images/clipboard-3584154739.png" class="img-fluid figure-img"></p>
+<figcaption>R4DS Figure 5.1: The following three rules make a dataset tidy: separate individual values, put variables in columns, and observations as rows, via CC BY-NC-ND 3.0 US</figcaption></figure>
+</div>
+<p>In this section, we’ll introduce the term <button class="glossary" title="A simple method for standardising the structure of data. This was initially developed to help analysts working in R, but is generally applicable to most systems. See our beginner-level Excel session about tidy data.">tidy data</button> as one way of thinking about how to organise data in a safe and effective way. The term tidy data is <a href="https://r4ds.hadley.nz/data-tidy">generally associated with data work in R</a>, but the principles of tidy data apply beautifully to other areas of data work. One reason that tidy data is so useful is that it provides a minimal set of standards for organising our data that are easy to apply, easy to check, and that each directly contribute to safe and effective analysis. In fact, there are only three rules that we need to know and understand to make our data tidy.</p>
+<p>In brief, these rules are:</p>
+<ol type="1">
+<li>separate your values</li>
+<li>put your <button class="glossary" title="A collection of measurements of one specific characteristic of our system. For example, if we collected daily counts of the number of new patients and discharged patients for several hospital sites, that data set would have four variables: the date, the hospital site, the number of new patients, and the number of discharged patients">variables</button> in columns</li>
+<li>make each row a separate <button class="glossary" title="A collection of measurements of different variables for one item in our dataset. For example, if we collected daily counts of the number of new patients and discharged patients for a hospital site, each day would be a separate observation">observation</button>
 </li>
-</ul></section><section id="what-does-sql-look-like" class="level2"><h2 class="anchored" data-anchor-id="what-does-sql-look-like">What does SQL look like?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> gps;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
+</ol>
+<section id="values" class="level3"><h3 class="anchored" data-anchor-id="values">Values</h3>
+<p>Value just refers to a single piece of information in our dataset, like a date, a number, a name, etc. To make our data tidy, just make sure each value is separate. That sounds too obvious to be worth saying, but it’s common to see spreadsheets with multiple values per cell. Don’t do this!</p>
 <table class="caption-top table">
-<caption>7 records</caption>
-<colgroup>
-<col style="width: 12%">
-<col style="width: 19%">
-<col style="width: 15%">
-<col style="width: 19%">
-<col style="width: 25%">
-<col style="width: 8%">
-</colgroup>
 <thead><tr class="header">
-<th style="text-align: right;">PracticeCode</th>
-<th style="text-align: left;">GPPracticeName</th>
-<th style="text-align: right;">PracticeListSize</th>
-<th style="text-align: left;">AddressLine1</th>
-<th style="text-align: left;">AddressLine2</th>
-<th style="text-align: left;">Postcode</th>
+<th style="text-align: left;">value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">38012</td>
-<td style="text-align: left;">Skerryvore Practice</td>
-<td style="text-align: right;">8648</td>
-<td style="text-align: left;">Skerryvore Practice</td>
-<td style="text-align: left;">The Balfour, Foreland Road</td>
-<td style="text-align: left;">KW15 1NZ</td>
+<td style="text-align: left;">77 (2.1%)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">38027</td>
-<td style="text-align: left;">Stromness Surgery</td>
-<td style="text-align: right;">3075</td>
-<td style="text-align: left;">Stromness Surgery</td>
-<td style="text-align: left;">John Street</td>
-<td style="text-align: left;">KW16 3AD</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">38051</td>
-<td style="text-align: left;">Daisy Villa</td>
-<td style="text-align: right;">1545</td>
-<td style="text-align: left;">Daisy Villa</td>
-<td style="text-align: left;">St.&nbsp;Margaret’s Hope</td>
-<td style="text-align: left;">KW17 2SN</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">38084</td>
-<td style="text-align: left;">Islands View Surgery</td>
-<td style="text-align: right;">258</td>
-<td style="text-align: left;">Islands View Surgery</td>
-<td style="text-align: left;">Rousay</td>
-<td style="text-align: left;">KW17 2PU</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">38205</td>
-<td style="text-align: left;">Heilendi Practice</td>
-<td style="text-align: right;">3919</td>
-<td style="text-align: left;">Heilendi Practice</td>
-<td style="text-align: left;">The Balfour, Foreland Road</td>
-<td style="text-align: left;">KW15 1NZ</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">38210</td>
-<td style="text-align: left;">Dounby Surgery</td>
-<td style="text-align: right;">2860</td>
-<td style="text-align: left;">Dounby Surgery</td>
-<td style="text-align: left;">Dounby</td>
-<td style="text-align: left;">KW17 2HH</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">38239</td>
-<td style="text-align: left;">Orcades Practice</td>
-<td style="text-align: right;">1981</td>
-<td style="text-align: left;">Orcades Practice</td>
-<td style="text-align: left;">Primary Care Department</td>
-<td style="text-align: left;">KW15 1NZ</td>
+<td style="text-align: left;">88 (2.4%)</td>
 </tr>
 </tbody>
 </table>
+<p>Those values should be split into separate columns:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">value</th>
+<th style="text-align: left;">percent</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">77</td>
+<td style="text-align: left;">2.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">88</td>
+<td style="text-align: left;">2.4%</td>
+</tr>
+</tbody>
+</table>
+<p>This sort of case is fairly simple to deal with, but do be aware that like most data work, there’s judgement involved in most cases, and often data can potentially be separated out in several different ways. Let’s explore that now:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task one: splitting things up
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Here are several pieces of data that might be split up in different ways. How would you choose to record them?</p>
 <ul>
-<li>Keywords (like <code>SELECT</code>)</li>
-<li>table names (like <code>gps</code>)</li>
-</ul></section><section id="compared-to-other-languages" class="level2"><h2 class="anchored" data-anchor-id="compared-to-other-languages">Compared to other languages</h2>
-<ul>
-<li>small</li>
-<li>strict</li>
-<li>variable</li>
-</ul></section><section id="small" class="level2"><h2 class="anchored" data-anchor-id="small">Small</h2>
-<p>[1] TRUE</p>
-<ul>
-<li>comparatively few keywords:
-<ul>
-<li>SQL has <a href="https://www.w3schools.com/sql/sql_ref_keywords.asp">c.160 keywords</a>
-</li>
-<li>Excel has <a href="https://support.microsoft.com/en-us/office/excel-functions-alphabetical-b3944572-255d-4efb-bb96-c6d90033e188">c.530 functions</a>
-</li>
-<li>R has <a href="https://stackoverflow.com/questions/58476696/list-of-all-functions-in-base-r">2735 functions</a> in the default packages</li>
+<li>Alan M. Bates</li>
+<li>318 Bank Street, Plockton, Ross-shire, IV52 8TP</li>
+<li>the 104 phone calls we received yesterday</li>
+<li>a blood pressure of 141/82 mmHg</li>
 </ul>
-</li>
-</ul></section><section id="dialects" class="level2"><h2 class="anchored" data-anchor-id="dialects">Dialects</h2>
+<p>Suggestions in the chat, please! Likely context will make a difference here, so do please make suggestions if one way of doing things seems especially suited to one purpose.</p>
+</div>
+</div>
+</div>
+<p>In general, you should try and think about your purposes when deciding what counts as a value. Names are a good example, where they might be recorded as a full name, or as first/middle/surname trio, or first + initial and surname. Having the surname independently is important, because that’s often used for alphabetising names. In this case, I’d probably try to think about the purposes. If we wanted to use the surnames and first names independently (writing a letter from the data, for instance), having that data pre-separated would probably be helpful.</p>
+<p>Whichever separation you use for your data, remember to keep a note, because describing your data carefully is the basis of your data dictionary.</p>
+</section><section id="variables" class="level3"><h3 class="anchored" data-anchor-id="variables">Variables</h3>
+<p>Your dataset should be arranged into <button class="glossary" title="A collection of measurements of one specific characteristic of our system. For example, if we collected daily counts of the number of new patients and discharged patients for several hospital sites, that data set would have four variables: the date, the hospital site, the number of new patients, and the number of discharged patients">variables</button>. We define a variable as a collection of measurements of one specific characteristic of our system. For example, if we collected daily counts of the number of new patients and discharged patients for several hospital sites, that data set would have four variables: the date, the hospital site, the number of new patients, and the number of discharged patients. The important idea is that each value in that column is similar: they’re all dates, or hospital sites, or numbers of new patients, or whatever.</p>
+<p>Conventionally, each variable occupies a column. Most statistical software (including Excel) is designed to work with columns as variables. For example, there are usually short-hand ways of referring to all the values in a column which make it easy to (for example) find the average of that column (=variable). That makes it important to ensure that each value in our variable is the same <button class="glossary" title="A way of referring to the sort of data we’re dealing with. While there are several different possible classifications, for this course we discuss numerical, ordinal, and categorical data as being the most important types.">type</button> of data, because we’re usually only able to summarise a group of values when they’re all the same type:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>A reminder about types of data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>From session two, we introduced three main types of data that we’d commonly encounter:</p>
 <ul>
-<li>Lots of different standards</li>
-</ul></section><section id="murder" class="level2"><h2 class="anchored" data-anchor-id="murder">Murder!</h2>
-<p>https://mystery.knightlab.com/</p>
+<li>
+<button class="glossary" title="Data that consists of ordinary (cardinal) numbers that can be manipulated mathematically. Can be either discrete (one from a defined range of values, like school year), or continuous (like weight, any possible value).">numerical</button> data</li>
+<li>
+<button class="glossary" title="Orderable data. Most numerical data can be considered ordinal because it can be sensibly ranked. Would also include values with a natural ranking, such as month, or day of the week, but beware the local extent of some ranking practices.">ordinal</button> data</li>
+<li>
+<button class="glossary" title="Non-orderable data, such as names or addresses">categorical</button> data</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="observations" class="level3"><h3 class="anchored" data-anchor-id="observations">Observations</h3>
+<p>Finally, each row in our dataset will contain one <button class="glossary" title="A collection of measurements of different variables for one item in our dataset. For example, if we collected daily counts of the number of new patients and discharged patients for a hospital site, each day would be a separate observation">observation</button>. I think an observation is best understood as a single measurement of all our variables. It might be helpful to illustrate that with an example. Here is some sample data from a survey generously provided by KIND members:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: right;">ID</th>
+<th style="text-align: left;">prefer</th>
+<th style="text-align: left;">pet</th>
+<th style="text-align: right;">excel</th>
+<th style="text-align: right;">score</th>
+<th style="text-align: left;">holiday</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Chips</td>
+<td style="text-align: left;">Cat</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">272</td>
+<td style="text-align: left;">UK</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Chips</td>
+<td style="text-align: left;">Dog</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">150</td>
+<td style="text-align: left;">Europe (except UK)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Chips</td>
+<td style="text-align: left;">dog</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: left;">Europe (except UK)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Soup</td>
+<td style="text-align: left;">Dog</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">345</td>
+<td style="text-align: left;">Europe (except UK)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Soup</td>
+<td style="text-align: left;">baby donkey</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">South America</td>
+</tr>
+</tbody>
+</table>
+<p><a href="skills/data/distributions_data.xlsx">Download dataset as .xlsx</a> (or <a href="skills/data/distributions_data.rds">as .rds</a>).</p>
+<p>Here, each row in our data is one set of survey responses from a single respondent. They belong together: even though they’re several different values, because they come from one individual they belong together as a group. We’ll call these groups <button class="glossary" title="A collection of measurements of different variables for one item in our dataset. For example, if we collected daily counts of the number of new patients and discharged patients for a hospital site, each day would be a separate observation">observations</button>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task two: values, variables, and observations
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Here’s some data about a care service presented in a narrative way:</p>
+<blockquote class="blockquote">
+<p>On the first of November, we had three new referrals, and discharged four clients from the service. The next day, we had no new referrals, and only discharged one client. For each of the next three days, we had one referral a day, and no discharges.</p>
+</blockquote>
+<p>Please decide how best to record this data. You’ll need to decide:</p>
+<ul>
+<li>what your variables are, and what you might call them</li>
+<li>what might be the most sensible way of structuring observations</li>
+<li>how you record your values</li>
+</ul>
+<p>Please sketch that data out. You can use paper, Excel, whatever’s convenient.</p>
+</div>
+</div>
+</div>
+</section></section><section id="precision-and-accuracy" class="level2"><h2 class="anchored" data-anchor-id="precision-and-accuracy">Precision and accuracy</h2>
+<p>In the above example, we didn’t really think about how our data came about. In the next section, we’ll introduce two ideas that are important when we’re thinking about how to collect our own data.</p>
+<p>Even simple data can be misleading. For example, I could record a date wrongly, or mis-count the number of</p>
+</section><section id="collecting-numerical-data" class="level2"><h2 class="anchored" data-anchor-id="collecting-numerical-data">Collecting numerical data</h2>
+<p>Don’t be too precise</p>
+</section><section id="be-more-selective" class="level2"><h2 class="anchored" data-anchor-id="be-more-selective">Be more selective</h2>
+<p>Most of datafying is about finding out how to be selective</p>
+<ul>
+<li>What do you need to report on? What’s a nice-to-have? What’s not needed?</li>
+<li>Data quality comes from engagement</li>
+<li>Compromising between quality and comprehensiveness</li>
+</ul></section><section id="missing-data" class="level2"><h2 class="anchored" data-anchor-id="missing-data">Missing data</h2>
+<p>Mention here and trail main explanation in session 7</p>
+</section><section id="coding" class="level2"><h2 class="anchored" data-anchor-id="coding">Coding</h2>
+<p>based on the satisfaction example from s2 - where we had “high”, “medium”, and “low”. Could potentially code those as 1/2/3 or something and treat them more like a numeric value</p>
+</section><section id="communicating-what-youve-done" class="level2"><h2 class="anchored" data-anchor-id="communicating-what-youve-done">Communicating what you’ve done</h2>
+<p>Back to the data dictionary idea from the previous session</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

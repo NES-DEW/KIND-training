@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="dcterms.date" content="2026-06-02">
+<title>The data journey – KIND training pages</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5895e00f40c44536432e67bfd6cd4591.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo light-content"><img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo dark-content"></a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">KIND training pages</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../excel_main.html"> 
+<span class="menu-text">Excel</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r_main.html"> 
+<span class="menu-text">R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../BI_main.html"> 
+<span class="menu-text">Power Platform</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sql_main.html"> 
+<span class="menu-text">SQL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tableau_main.html"> 
+<span class="menu-text">Tableau</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../skills_main.html"> 
+<span class="menu-text">Skills</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">📅 Training schedule</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training/issues">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#the-data-journey" id="toc-the-data-journey" class="nav-link" data-scroll-target="#the-data-journey">The data journey</a></li>
+  <li><a href="#data-for-this-session" id="toc-data-for-this-session" class="nav-link" data-scroll-target="#data-for-this-session">Data for this session</a></li>
+  <li><a href="#tidying-data" id="toc-tidying-data" class="nav-link" data-scroll-target="#tidying-data">Tidying data</a></li>
+  <li><a href="#collecting-data" id="toc-collecting-data" class="nav-link" data-scroll-target="#collecting-data">Collecting data</a></li>
+  <li><a href="#summarising-data" id="toc-summarising-data" class="nav-link" data-scroll-target="#summarising-data">Summarising data</a></li>
+  <li><a href="#comparing-data" id="toc-comparing-data" class="nav-link" data-scroll-target="#comparing-data">Comparing data</a></li>
+  <li><a href="#visualising-data" id="toc-visualising-data" class="nav-link" data-scroll-target="#visualising-data">Visualising data</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  </ul></nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
+</p>
+<div style="text-align:center;">
+<a href="https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMUpENjBJOENINDRFMUlYQTlCM1RVNzRSRy4u&amp;route=shorturl" style="display:inline-block;max-width:250px;padding:8px 16px;background:#2C3792;color:#ffffff;font-family:'Segoe UI','Helvetica Neue',sans-serif;font-weight:700;font-size:16px;text-align:center;text-decoration:none;border-radius:20px;border:2px solid #A12693;cursor:pointer;transition:all .3s ease;" onmouseover="this.style.background='#A12693';this.style.color='#fff';this.style.borderColor='#fff'" onmouseout="this.style.background='#2C3792';this.style.color='#ffffff';this.style.borderColor='#A12693'">Join the KIND network</a>
+</div>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">The data journey</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">data skills</div>
+    <div class="quarto-category">beginner</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 2, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session outline
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>In this session, we’ll work through a simple data task. We’ll use a small dataset about beds in care homes. We’ll talk about how to approach the task, demonstrate how that data should be tidied, show some examples of summarising data to help understand and communicate key findings, draw some graphs to represent our data, and talk about how this dataset might be useful for explanation, prediction, and control.</p>
+<section id="sentence-aim" class="level3"><h3 class="anchored" data-anchor-id="sentence-aim">Sentence aim</h3>
+<p>To introduce the core aspects of data work to engage participants, and to set up later sessions in this course.</p>
+</section><section id="exercises" class="level3"><h3 class="anchored" data-anchor-id="exercises">Exercises</h3>
+<ul>
+<li>E1: take an imperfect dataset and tidy it</li>
+<li>E2: think about how you might have made this data, and how that might change how you use it</li>
+<li>E3: practical about summarising the data in different ways</li>
+<li>E4: thinking about purposes: how might different summaries change how you think about the data</li>
+<li>E5: thinking about different ways of visualising this data</li>
+<li>E6: homework - take an extended dataset</li>
+</ul></section><section id="data" class="level3"><h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>This session uses some publicly-available data from the <a href="https://www.careinspectorate.com/index.php/statistics-and-analysis/data-and-analysis">Care Inspectorate datastore</a>. Specifically, we’ll use a small extract from their main <a href="https://www.careinspectorate.com/images/Statistics_and_Analysis/Datastore/250331DatastoreExternal.csv">2025 end-of-year data</a> concentrating on care homes for older adults in Inverness and Nairn.</p>
+</section><section id="key-concepts" class="level3"><h3 class="anchored" data-anchor-id="key-concepts">Key concepts</h3>
+<ul>
+<li>understanding the different steps in data tasks</li>
+<li>thinking about explanation, prediction, and control</li>
+<li>to introduce the idea of the data journey, and talk about why that’s a helpful idea when thinking about data work</li>
+</ul></section>
+</div>
+</div>
+</div>
+<section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This session aims to help you understand what data is, how data helps us do good work in health and care, and what we need to know about data to achieve that. Here, we’ll explore the idea that data is an especially powerful way of understanding how systems in health and care. That’s because data is an excellent way of answering some of the most important questions about our work, such as:</p>
+<ul>
+<li>“is our hospital busier than it was last year?”</li>
+<li>“do we have proportionally more children than average in our town?”</li>
+<li>“how many people are currently homeless in Scotland?”</li>
+</ul>
+<p>This course will give an introduction to answering these questions using data. For the purposes of this course, we’ll think about data as <strong>structured information, usually numerical, that tells us about part of a system</strong>. Specific examples of datasets that might help us answer our three questions above:</p>
+<ul>
+<li>a month-by-month count of patients visiting our hospital for the last two years</li>
+<li>census data, showing demographics of different towns in Scotland</li>
+<li>survey data estimating how many people are currently homeless nationally</li>
+</ul></section><section id="the-data-journey" class="level2"><h2 class="anchored" data-anchor-id="the-data-journey">The data journey</h2>
+<p>One of the most important ideas in this whole course is the <strong>data journey</strong>. If we want to answer a question about our system using data, we need to complete several linked steps in order, so that we can travel from an initial hunch or query to a finished answer. We call those steps the data journey. Very roughly, the steps in the data journey are:</p>
+<ul>
+<li>to try and data-fy our system</li>
+<li>to collect data from that data-fied system</li>
+<li>to tidy our data</li>
+<li>to summarise that data</li>
+<li>to visualise that data</li>
+<li>to communicate those findings to others</li>
+</ul>
+<p>The later sessions of this course are based on exploring the individual steps in the data journey in more detail. But the plan for today is simpler: we’ll try and complete a whole data journey, a simple one, in one go. The aim here is to give you a high-level map of what we’re going to talk about later in this course to help you navigate why we’re talking about specific issues. Because some of these steps can be quite technical and detailed, it’s really important to keep an eye on the prize - being able to put your data to work - and the best way to do that is to work through everything once quickly without being too detailed.</p>
+<p>To make today’s data journey possible, we’ll do a bit of cheating by starting with a carefully-chosen (and polished) dataset. For now, don’t worry too much about what we’re missing by taking this shortcut, because in the next couple of sessions we’ll spend a lot of time on the ins-and-outs of building lovely datasets from real systems.</p>
+<p>With our data in hand, we’ll then think about how to understand, summarise, visualise, and compare data that we’ve collected. Finally, we’ll talk about how to take those statistics, and use them to do things. As we’ll see, statistical summaries of data are especially helpful in helping us understand the systems we’re working on. We’ll look specifically at three areas where understanding is especially important: <strong>explaining</strong> how systems work, <strong>predicting</strong> what will happen as our system changes, and <strong>controlling</strong> the behaviour of that system.</p>
+<p>Together, we’ll describe this linked set of practices and skills as <strong>data skills</strong>, which describes a set of knowledge and practical skills across the data journey from raw data to finished project. In this course, we’ll think about data skills as being made up of a a combination of:</p>
+<ul>
+<li>understanding how systems can be data-fied</li>
+<li>having some awareness of the tools and rules that we should use when gathering data</li>
+<li>knowing a bit about some statistical tools used to understand, summarise, and compare that data</li>
+<li>understanding some effective strategies for using this data (and statistics) as a basis for the explanation/prediction/control of systems, including how to communicate your findings to others</li>
+<li>finally, figuring out how to use that knowledge of what you want to do with your data to simplify and streamline other aspects of the data journey</li>
+</ul></section><section id="data-for-this-session" class="level2"><h2 class="anchored" data-anchor-id="data-for-this-session">Data for this session</h2>
+<p>This session uses some publicly-available data from the <a href="https://www.careinspectorate.com/index.php/statistics-and-analysis/data-and-analysis">Care Inspectorate datastore</a>. Specifically, we’ll use a small extract from their main <a href="https://www.careinspectorate.com/images/Statistics_and_Analysis/Datastore/250331DatastoreExternal.csv">2025 end-of-year data</a> concentrating on care homes for older adults in Inverness and Nairn. We’ll have a chance to look at that data more thoroughly later, but here’s a short preview to help you get acquainted:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 23%">
+<col style="width: 22%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Main_area_of_care</th>
+<th style="text-align: left;">Postcode</th>
+<th style="text-align: left;">Town</th>
+<th style="text-align: right;">TotalBeds</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Voluntary or Not for Profit</td>
+<td style="text-align: left;">Whinnieknowe (Care Home)</td>
+<td style="text-align: left;">Older people - frailty</td>
+<td style="text-align: left;">IV12 5EN</td>
+<td style="text-align: left;">Nairn</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Private</td>
+<td style="text-align: left;">Southside Care Home</td>
+<td style="text-align: left;">Older people - frailty</td>
+<td style="text-align: left;">IV2 4XA</td>
+<td style="text-align: left;">Inverness</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Private</td>
+<td style="text-align: left;">Kingsmills Care Home</td>
+<td style="text-align: left;">Older people - dementia</td>
+<td style="text-align: left;">IV2 3RE</td>
+<td style="text-align: left;">Inverness</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Voluntary or Not for Profit</td>
+<td style="text-align: left;">Isobel Fraser Home</td>
+<td style="text-align: left;">Older people - frailty</td>
+<td style="text-align: left;">IV2 4AE</td>
+<td style="text-align: left;">Inverness</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Private</td>
+<td style="text-align: left;">Highview Care Home</td>
+<td style="text-align: left;">Older people - frailty</td>
+<td style="text-align: left;">IV3 8SD</td>
+<td style="text-align: left;">Inverness</td>
+<td style="text-align: right;">77</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Hopefully that’s fairly self-explanatory: we’ve got one row per care home, with columns for the type of home, the name, the main area for which the home provides care, the postcode and location of the home, and the total number of beds. In this session, we’ll try to use this data to answer a couple of questions about the provision of care in this area. Specifically, over this session we’ll try to answer the following questions:</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Questions for this session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>How many care home beds are there in total in Inverness and Nairn together?</li>
+<li>How do the beds available for different main areas of care compare?</li>
+<li>Does Inverness or Nairn have more care home beds? What’s the right way of comparing the two?</li>
+<li>Is there some kind of relationship between the size of care home, and their town?</li>
+</ul>
+</div>
+</div>
+</div>
+<p>The next step is to open this data yourself, and have a look at the full data set.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task one: inspect your data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>download the <a href="data/care_inspectorate.xlsx">dataset as an Excel file</a> to your computer</li>
+<li>open it in Excel (or whichever tool you’re planning to use for this session)</li>
+<li>familiarise yourself with the data: you should see that we have about a dozen rows of data</li>
+<li>see if there are any areas that you might want to tidy up</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="tidying-data" class="level2"><h2 class="anchored" data-anchor-id="tidying-data">Tidying data</h2>
+<p>A reminder: this course is all about using data to answer questions about health and care systems. We’re using the definition of data as <strong>structured information, usually numerical, that tells us about part of a system</strong>. This is probably a good time to try and develop that definition a bit. Last thing first, this is data about a system. Specifically, it’s care homes in Inverness and Nairn. It’s narrowly focused on that topic - there’s not much other information here other than the names, locations, and types of those care homes. That’s typical of good data - it’s not just a collection of everything that you can think of vaguely on topic, but instead should be a lean collection of the core information about one single thing. Next, that information is structured, meaning that we’ve organised it in a standard way. Each row (running horizontally) is about one care home. Each column (running vertically) describes one aspect of our system. So the <code>TotalBeds</code> column, for example, only contains information about the number of beds in each home, and nothing else. That column is numerical, but none of the others are in this sample data. That probably makes it a bit unusual for health and care work, but not completely exceptional.</p>
+<p>Because this session is intended to be a quick introduction to a data journey, this dataset is lovely and tidy. That’s unfortunately quite rare in the real world. Just to note a few things that we’ll discuss further along our journey:</p>
+<ul>
+<li>the data is <button class="glossary" title="A simple method for standardising the structure of data. This was initially developed to help analysts working in R, but is generally applicable to most systems. See our beginner-level Excel session about tidy data.">tidy</button>. That means something very specific about the way that rows and columns are used, which we’ll develop more in a later session.</li>
+<li>there’s no missing data</li>
+<li>the values in each column are consistent (so one column is all postcodes, another all numbers, etc)</li>
+<li>and we seem to have standard <button class="glossary" title="The method used to translate observations into data. For example, we could use a pain scale to translate individual reports of discomfort into a standard ten-point score.">coding</button> for each value</li>
+<li>and the text and postcodes seem to be nice and clean, with no weird spellings, formatting, cases, etc</li>
+</ul></section><section id="collecting-data" class="level2"><h2 class="anchored" data-anchor-id="collecting-data">Collecting data</h2>
+<p>As we’ll see, collecting data like this can be complicated. My understanding is this actual data comes from annual returns submitted to the Care Inspectorate. Just as an introduction, we’ll now do a short exercise to think about how you might go about collecting data like this:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task two: think about how you might have made this data, and how that might change how you use it
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>This is a group discussion. We’ll spend a couple of minutes thinking about ways that this data might be collected. Issues to consider:</p>
+<ul>
+<li>how would you identify individual care homes?</li>
+<li>how could you be sure that you hadn’t missed any care homes in the area?</li>
+<li>how would you decide which establishments were in which towns?</li>
+<li>how might you find out what the main area of care provided is?</li>
+</ul>
+</div>
+</div>
+</div>
+<p>As that discussion (hopefully) revealed, there are lots of practical and conceptual issues underlying this sort of simple data. Those issues, and the ways we approach them, are the basis for sessions 3 and 4 of this course. They’re important, even for people who aren’t planning to do any data collection themselves. For example, one of the exercises that we’re going to try later in this session brings in a tiny bit of new data from the <a href="https://www.scotlandscensus.gov.uk/">2022 census</a>, which gives us the following estimates for the population of our two towns:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Town</th>
+<th>Population (2022 census)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Inverness and Culloden</td>
+<td>65053</td>
+</tr>
+<tr class="even">
+<td>Nairn</td>
+<td>9582</td>
+</tr>
+</tbody>
+</table>
+<p>Here’s one reason why understanding the route by which data was collected matters. Our care home data talks about “Inverness”. But the census data talks about “Inverness and Culloden”. Are they the same thing? If not, how might you need to change your population estimates to make sure we’re talking about the same places in the same way as the Care Inspectorate?</p>
+<p>We’ll leave the discussion about that issue for another session. Now though, let’s introduce one of the big ideas in data literacy: summarising.</p>
+</section><section id="summarising-data" class="level2"><h2 class="anchored" data-anchor-id="summarising-data">Summarising data</h2>
+<p>We’ve got data about 15 different care homes in our dataset. One of the standard approaches would now be to try and boil that down to a smaller number of values - ideally one! - that tells us about these care homes. Probably the most commonly-used way of summarising would be to add all the values together, to give us a sum. Let’s try that now.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task three-a: sum
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>add all the values in the <code>TotalBeds</code> column</li>
+<li>report your value in the chat. What does it tell you?</li>
+</ul>
+</div>
+</div>
+</div>
+<p>Even though it’s simple, summing values together is really important. If we’re interested in comparing Inverness and Nairn together with another part of the local area, we’d have a much easier job of comparing places. The national Care Inspectorate dataset, which I’ll give you to play with at the end of the session, has data for Aberdeen too, which has 1261 total beds - so almost exactly twice as many care home beds as Nairn and Inverness combined, which I estimated as 621.</p>
+<p>In miniature, this example shows probably the most important single theme in data literacy: summarising data helps us understand how things are by allowing comparisons.</p>
+<p>Adding things up isn’t the only way we can summarise. Say we wanted to try and understand how many beds a typical care home has. We could try to eyeball a typical value from our data. If we only had two or three values (say 24, 27, 60), perhaps we could do that quite effectively. I’d think that an estimate of about 40 would probably be about right for a typical value of those three figures. But even by the time we get to the dozen or so values in our dataset, that’s looking more difficult:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "24, 27, 60, 30, 77, 22, 90, 65, 88, 19, 30, 21, 24, 21, 23"</code></pre>
+</div>
+</div>
+<p>I’d struggle to effectively come up with a typical/average value without making a quick note somewhere and/or counting on my fingers. Luckily, we don’t need to do that, because we can take an average. There are a few different ways of taking an average, but the underlying idea is similar - tell me what a typical result in our data looks like. One way of calculating an average is to take our sum total, and divide it by the number of homes in our data. That gives us a type of average called a <button class="glossary" title="A way of calculating an average by dividing the total of a variable by the total number of observations">mean</button>:</p>
+<p><span class="math display">\[Mean = {Sum \over n} = {621 \over 15} = 41\]</span></p>
+<p>Let’s check that now:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task three-b: practical about summarising the data in different ways
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>take a mean of the values in the <code>TotalBeds</code> column</li>
+<li>In Excel, you can use <code>AVERAGE()</code> - or you can divide your total by a <code>COUNTA()</code> of your values</li>
+</ul>
+</div>
+</div>
+</div>
+<p>There are lots of other ways of summarising data, which we’ll explore in later sessions, but before we move on we should talk about a refinement of summarising our data. We could, before we summarise, form the data into groups. For instance, our care homes data has a column about the main area of care that the home provides. We could sum (or mean) each of those groups separately:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Main_area_of_care</th>
+<th style="text-align: right;">Total</th>
+<th style="text-align: right;">Mean</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Older people - dementia</td>
+<td style="text-align: right;">242</td>
+<td style="text-align: right;">40.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Older people - frailty</td>
+<td style="text-align: right;">379</td>
+<td style="text-align: right;">42.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>That’s interesting, because these sorts of grouped summaries are a mainstay when it comes to comparing different groups in our data. The idea here is that putting data into groups can be useful for finding and understanding different parts of our data. We discuss groups, and how they can be used together, in more detail during session five of the course.</p>
+</section><section id="comparing-data" class="level2"><h2 class="anchored" data-anchor-id="comparing-data">Comparing data</h2>
+<p>Once we’ve summarised our data, we can make some comparisons. For example, we’ve already had a look at the total number of different beds and how it varies across the two towns. Here’s one helpful tool for making that comparison - looking at percentage constitution:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task four: thinking about purposes: how might different summaries and visuals be useful to you
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Here is a slightly differently at our groups using a percentage:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Main_area_of_care</th>
+<th style="text-align: right;">TotalBeds</th>
+<th style="text-align: left;">TotalBeds (%)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Older people - dementia</td>
+<td style="text-align: right;">242</td>
+<td style="text-align: left;">39%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Older people - frailty</td>
+<td style="text-align: right;">379</td>
+<td style="text-align: left;">61%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Question: how might that change what you think about the total beds in different areas of care?</p>
+<p>Does Inverness or Nairn have more care home beds? What’s the right way of comparing the two?</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Town</th>
+<th style="text-align: right;">TotalBeds</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Inverness</td>
+<td style="text-align: right;">535</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nairn</td>
+<td style="text-align: right;">86</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Town</th>
+<th style="text-align: right;">TotalBeds</th>
+<th style="text-align: right;">Population</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Inverness</td>
+<td style="text-align: right;">535</td>
+<td style="text-align: right;">65053</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nairn</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">9582</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Town</th>
+<th style="text-align: right;">TotalBeds</th>
+<th style="text-align: right;">Population</th>
+<th style="text-align: right;">Beds_per_10000_residents</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Inverness</td>
+<td style="text-align: right;">535</td>
+<td style="text-align: right;">65053</td>
+<td style="text-align: right;">535.15372</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nairn</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">9582</td>
+<td style="text-align: right;">87.04362</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="visualising-data" class="level2"><h2 class="anchored" data-anchor-id="visualising-data">Visualising data</h2>
+<p>We can also use those groups to help us understand our data by visualising it. For example, we could plot the number of beds available in each town:</p>
+<p>Or we could visualise the care homes in size order using a column graph:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ds_s01_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Or we could plot our different care home locations on a map:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="ds_s01_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Personally, I’m not sure the map tells us very much other than showing the locations of Inverness and Nairn, and very broadly showing there are more (and larger) care homes in Inverness than in Nairn. That’s not a huge surprise: Inverness is larger than Nairn, so all being equal we’d expect it to have more care home places.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task five: thinking about different ways of visualising this data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>There are many kinds of graphs in use. In the meeting chat, please could you tell us what kind(s) of graphs you use or see at work. If you can screenshot those into the chat without disclosing any sensitive information, that’d be a huge bonus!</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="homework" class="level2"><h2 class="anchored" data-anchor-id="homework">Homework</h2>
+<p>Practicing new skills is essential to make them stick. This course sets up little bits of homework: short and flexible tasks to allow you to put what you’ve learned in a session into practice.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task six: homework - take an extended dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Here is an <a href="data/care_inspectorate_full.xlsx">Excel file</a> (or an <a href="data/care_inspectorate_full.rds">.rds</a>) of the full national Care Inspectorate data in the same format as we’ve been using in this session. Please use it to answer some questions:</p>
+<ul>
+<li>Is there some kind of relationship between the size of care home, and their type (private, health board, etc)?</li>
+<li>We know there’s a difference in average size of care home between Inverness and Nairn. How might you visualise that, and what might a visual show you that the numeric average doesn’t?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Glossary
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="categorical" class="level3"><h3 class="anchored" data-anchor-id="categorical">categorical</h3>
+<p>Non-orderable data, such as names or addresses</p>
+</section><section id="coding" class="level3"><h3 class="anchored" data-anchor-id="coding">coding</h3>
+<p>The method used to translate observations into data. For example, we could use a pain scale to translate individual reports of discomfort into a standard ten-point score.</p>
+</section><section id="data-dictionary" class="level3"><h3 class="anchored" data-anchor-id="data-dictionary">data dictionary</h3>
+<p>A metadata description of the variables our dataset contains that describes any key assumptions necessary to safely create and use that data</p>
+</section><section id="datafying" class="level3"><h3 class="anchored" data-anchor-id="datafying">datafying</h3>
+<p>The process of making decisions about how to record the activities of a system as data. For example, if we’re looking to collect data about the number of phone calls our service receives a week, we’d need to decide how to define a week (midnight Monday to Monday? Any rolling 168 hour period?) and how to count phone calls (Do we include missed calls? Calls of less than 1 minute?)</p>
+</section><section id="empirical" class="level3"><h3 class="anchored" data-anchor-id="empirical">empirical</h3>
+<p>Made by measuring, and often used as the opposite of theoretical</p>
+</section><section id="empirical-frequency-distribution" class="level3"><h3 class="anchored" data-anchor-id="empirical-frequency-distribution">empirical frequency distribution</h3>
+<p>The frequency with which each observation in our dataset occurs</p>
+</section><section id="frequency" class="level3"><h3 class="anchored" data-anchor-id="frequency">frequency</h3>
+<p>How often some value occurs in a group of measurements. This can either be an absolute frequency (expressed as a count of the number of values) or a relative frequency, usually expressed as a percentage</p>
+</section><section id="histogram" class="level3"><h3 class="anchored" data-anchor-id="histogram">histogram</h3>
+<p>Type of graph produced by grouping values into ranges (usually known as bins), then counting the number of values in each bin, then plotting the counts for each range</p>
+</section><section id="mean" class="level3"><h3 class="anchored" data-anchor-id="mean">mean</h3>
+<p>A way of calculating an average by dividing the total of a variable by the total number of observations</p>
+</section><section id="metadata" class="level3"><h3 class="anchored" data-anchor-id="metadata">metadata</h3>
+<p>Data about data. For example, the file size of a csv file, the number of rows in an Excel spreadsheet, or a note that the ISO8601 definition of a week was used in our data collection are all varieties of metadata</p>
+</section><section id="n" class="level3"><h3 class="anchored" data-anchor-id="n">n</h3>
+<p>The total number of observations in a dataset</p>
+</section><section id="numerical" class="level3"><h3 class="anchored" data-anchor-id="numerical">numerical</h3>
+<p>Data that consists of ordinary (cardinal) numbers that can be manipulated mathematically. Can be either discrete (one from a defined range of values, like school year), or continuous (like weight, any possible value).</p>
+</section><section id="observation" class="level3"><h3 class="anchored" data-anchor-id="observation">observation</h3>
+<p>A collection of measurements of different variables for one item in our dataset. For example, if we collected daily counts of the number of new patients and discharged patients for a hospital site, each day would be a separate observation</p>
+</section><section id="ordinal" class="level3"><h3 class="anchored" data-anchor-id="ordinal">ordinal</h3>
+<p>Orderable data. Most numerical data can be considered ordinal because it can be sensibly ranked. Would also include values with a natural ranking, such as month, or day of the week, but beware the local extent of some ranking practices.</p>
+</section><section id="outlier" class="level3"><h3 class="anchored" data-anchor-id="outlier">outlier</h3>
+<p>Values of a variable that appear to not fit in with the main body of the data. They might represent genuinely exceptional cases, or might be the result of errors during data collection or tidying</p>
+</section><section id="range" class="level3"><h3 class="anchored" data-anchor-id="range">range</h3>
+<p>The difference between the smallest and the largest value of a variable</p>
+</section><section id="skew" class="level3"><h3 class="anchored" data-anchor-id="skew">skew</h3>
+<p>A term describing where the majority of observations in an empirical frequency distribution lie. Skew describes data where the data is broadly non-symmetrical about the mean. If observations are clustered to the left of the mean, the data should be described as right-skewed, whereas if observations are closely clustered to the right of the mean then it should be described as left-skewed</p>
+</section><section id="tidy-data" class="level3"><h3 class="anchored" data-anchor-id="tidy-data">tidy data</h3>
+<p>A simple method for <a href="https://r4ds.hadley.nz/data-tidy.html">standardising the structure of data</a>. This was initially developed to help analysts working in R, but is generally applicable to most systems. See our <a href="excel/tidy_data_in_excel.html">beginner-level Excel session about tidy data</a>.</p>
+</section><section id="type" class="level3"><h3 class="anchored" data-anchor-id="type">type</h3>
+<p>A way of referring to the sort of data we’re dealing with. While there are several different possible classifications, for this course we discuss numerical, ordinal, and categorical data as being the most important types.</p>
+</section><section id="variable" class="level3"><h3 class="anchored" data-anchor-id="variable">variable</h3>
+<p>A collection of measurements of one specific characteristic of our system. For example, if we collected daily counts of the number of new patients and discharged patients for several hospital sites, that data set would have four variables: the date, the hospital site, the number of new patients, and the number of discharged patients</p>
+</section>
+</div>
+</div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/NES-DEW\.github\.io\/KIND-training\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.38">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-06-01">
-<title>Scope of the possible with SQL – KIND training pages</title>
+<meta name="dcterms.date" content="2026-06-02">
+<title>Types of data, and distributions (session 2) – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -78,7 +43,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-5895e00f40c44536432e67bfd6cd4591.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/glossary/glossary.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -350,17 +316,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#about-this-session" id="toc-about-this-session" class="nav-link active" data-scroll-target="#about-this-session">About this session</a></li>
-  <li><a href="#whats-sql" id="toc-whats-sql" class="nav-link" data-scroll-target="#whats-sql">What’s SQL?</a></li>
-  <li><a href="#databases" id="toc-databases" class="nav-link" data-scroll-target="#databases">Databases</a></li>
-  <li><a href="#the-excel-way" id="toc-the-excel-way" class="nav-link" data-scroll-target="#the-excel-way">The Excel way</a></li>
-  <li><a href="#the-relational-data-way" id="toc-the-relational-data-way" class="nav-link" data-scroll-target="#the-relational-data-way">The relational data way</a></li>
-  <li><a href="#why-do-that" id="toc-why-do-that" class="nav-link" data-scroll-target="#why-do-that">Why do that?</a></li>
-  <li><a href="#what-does-sql-look-like" id="toc-what-does-sql-look-like" class="nav-link" data-scroll-target="#what-does-sql-look-like">What does SQL look like?</a></li>
-  <li><a href="#compared-to-other-languages" id="toc-compared-to-other-languages" class="nav-link" data-scroll-target="#compared-to-other-languages">Compared to other languages</a></li>
-  <li><a href="#small" id="toc-small" class="nav-link" data-scroll-target="#small">Small</a></li>
-  <li><a href="#dialects" id="toc-dialects" class="nav-link" data-scroll-target="#dialects">Dialects</a></li>
-  <li><a href="#murder" id="toc-murder" class="nav-link" data-scroll-target="#murder">Murder!</a></li>
+<li><a href="#introduction-to-types-of-data" id="toc-introduction-to-types-of-data" class="nav-link active" data-scroll-target="#introduction-to-types-of-data">Introduction to types of data</a></li>
+  <li><a href="#the-histogram" id="toc-the-histogram" class="nav-link" data-scroll-target="#the-histogram">The histogram</a></li>
+  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions">Distributions</a></li>
+  <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers">Outliers</a></li>
+  <li><a href="#skew" id="toc-skew" class="nav-link" data-scroll-target="#skew">Skew</a></li>
+  <li><a href="#theoretical-distributions" id="toc-theoretical-distributions" class="nav-link" data-scroll-target="#theoretical-distributions">Theoretical distributions</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -372,12 +333,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Scope of the possible with SQL</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">SQL</div>
-    <div class="quarto-category">pre-beginner</div>
-  </div>
-  </div>
+<h1 class="title">Types of data, and distributions (session 2)</h1>
+</div>
 
 
 
@@ -387,7 +344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 1, 2026</p>
+      <p class="date">June 2, 2026</p>
     </div>
   </div>
   
@@ -396,148 +353,290 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><div class="cell" data-layout-align="left">
-<p>No feedback found for this session</p>
+</header><div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<section id="about-this-session" class="level2"><h2 class="anchored" data-anchor-id="about-this-session">About this session</h2>
-<p>This session is a standalone introduction to SQL.</p>
-<p>SQL, which is a query language that is widely used to manage data. In this session, we’ll introduce the language, discuss where it’s used, introduce some learning resources, and answer any queries. No specific experience or resources needed for this session, although do be aware that this is a code-based session and will assume you have some past familiarity with reading/writing code.</p>
-</section><section id="whats-sql" class="level2"><h2 class="anchored" data-anchor-id="whats-sql">What’s SQL?</h2>
-<ul>
-<li>SQL = Structured Query Language</li>
-<li>Coding language to create and manage databases</li>
-<li>The most widely-used language for data work</li>
-<li>First developed 1973</li>
-<li>Found <em>everywhere</em> - web, lots of EPR systems, in the back-end of lots of data products</li>
-</ul></section><section id="databases" class="level2"><h2 class="anchored" data-anchor-id="databases">Databases</h2>
-<ul>
-<li><p>specifically, <strong>relational</strong> databases</p></li>
-<li><p>Excel: put your related data together on a sheet</p></li>
-<li><p>Databases: put your data in tables, and connect them with relationships</p></li>
-</ul></section><section id="the-excel-way" class="level2"><h2 class="anchored" data-anchor-id="the-excel-way">The Excel way</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/clipboard-3179038731.png" class="img-fluid figure-img"></p>
-<figcaption>The demographics of Orkney’s GP practices</figcaption></figure>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Outline blob
 </div>
-</section><section id="the-relational-data-way" class="level2"><h2 class="anchored" data-anchor-id="the-relational-data-way">The relational data way</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/sql_relations.png" class="img-fluid figure-img"></p>
-<figcaption>That data now split into two related tables</figcaption></figure>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-</section><section id="why-do-that" class="level2"><h2 class="anchored" data-anchor-id="why-do-that">Why do that?</h2>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In this session, we’ll talk first about some of the types of data that you’ll encounter in health and care. We’ll then move on to introduce the idea of a distribution, which describes how a value varies in our data. We’ll use a small dataset generated by the members of the KIND network to help show how distributions appear in datasets. We’ll then show how understanding those distributions helps us interpret data, and discuss some of the key tools that we’ll use to safely and effectively work with distributions.</p>
+<section id="sentence-aim" class="level3"><h3 class="anchored" data-anchor-id="sentence-aim">Sentence aim</h3>
+<p>To introduce the idea of the distribution, show some examples from data, and relate those examples to some simple theory describing how distributions work in order to help participants make sense of their data.</p>
+</section><section id="exercises" class="level3"><h3 class="anchored" data-anchor-id="exercises">Exercises</h3>
 <ul>
-<li>it’s much more efficient:
+<li>E1: looking at types of data</li>
+<li>E2: the histogram</li>
+<li>E3: an example distribution</li>
+<li>E4: looking more closely at our distribution</li>
+<li>E5: homework - take an extended dataset</li>
+</ul></section><section id="data" class="level3"><h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>322 data points generated by the KIND network during March 2026. <a href="skills/data/distributions_data.xlsx">Download dataset as .xlsx</a> (or <a href="skills/data/distributions_data.rds">as .rds</a>).</p>
+</section><section id="key-concepts" class="level3"><h3 class="anchored" data-anchor-id="key-concepts">Key concepts</h3>
 <ul>
-<li>Excel’s way of doing things needs just over 1000 data points</li>
-<li>our relational data needs just under 500 data points</li>
+<li>types of data - numerical, ordinal (orderable), and categorical (non-orderable)</li>
+<li>the empirical distribution</li>
+<li>an introduction to histograms</li>
+<li>n, range, skew, outliers</li>
+<li>a normal distribution and bimodal distribution, as examples of theoretical distributions</li>
+</ul></section>
+</div>
+</div>
+</div>
+<section id="introduction-to-types-of-data" class="level2"><h2 class="anchored" data-anchor-id="introduction-to-types-of-data">Introduction to types of data</h2>
+<p>Imagine that we are measuring some numeric health or care value in an individual. This could be, just for example:</p>
+<ul>
+<li>their height in cm</li>
+<li>scoring their level of satisfaction with our service as either high, medium, or low</li>
+<li>their previous illnesses</li>
 </ul>
-</li>
-</ul></section><section id="what-does-sql-look-like" class="level2"><h2 class="anchored" data-anchor-id="what-does-sql-look-like">What does SQL look like?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> gps;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
+<p>Each of those types of data are different, and are recorded in different ways.</p>
+<ul>
+<li>we record height with an ordinary number, and an individual value can (theoretically) fall anywhere</li>
+<li>satisfaction can be only be “high”, “medium”, or “low”, and nothing else</li>
+<li>and past medical history is a list of any past diagnoses (or none)</li>
+</ul>
+<p>Those three examples are the three most important types of data that we ordinarily encounter. We’ll introduce three important bits of jargon to describe these types of data.</p>
+<ul>
+<li>we describe data like height as <button class="glossary" title="Data that consists of ordinary (cardinal) numbers that can be manipulated mathematically. Can be either discrete (one from a defined range of values, like school year), or continuous (like weight, any possible value).">numerical</button> data. This is probably the commonest type of data we work with, and is made of ordinary numbers. That means that we can do lots of mathematical work with numerical data, and expect to get sensible answers</li>
+<li>satisfaction is an example of <button class="glossary" title="Orderable data. Most numerical data can be considered ordinal because it can be sensibly ranked. Would also include values with a natural ranking, such as month, or day of the week, but beware the local extent of some ranking practices.">ordinal</button> data. In this case, we can rank our data (high is better than medium), but we can’t do maths to it and get sensible answers</li>
+<li>past medical history is <button class="glossary" title="Non-orderable data, such as names or addresses">categorical</button> data. Here, the categories don’t have a natural ordering</li>
+</ul>
+<p>The jargon is important, because the type of data matters for us when we want to interpret and summarise that data. Let’s look at some data to practice that new idea about types of data. Here’s some real data, very generously donated by members of the KIND network. It contains six columns. One (called <strong>ID</strong>) is a system generated unique number. The remaining five are real responses from KIND network members to the following fatuous queries:</p>
+<ul>
+<li>
+<strong>prefer</strong>, which are responses to the question <strong>Do you prefer chips or soup?</strong> (choice)</li>
+<li>
+<strong>pet</strong>, detailing answers to <strong>What is your ideal pet?</strong> (free text)</li>
+<li>
+<strong>excel</strong>, scoring <strong>How confident are you at using Excel?</strong> 1 = not at all confident, 10 = very confident</li>
+<li>
+<strong>score</strong>, from <strong>What is your highest ever score at Scrabble, Bowling, or anything else where a really good score is about 300</strong> (free number)</li>
+<li>
+<strong>holiday</strong> - <strong>Where did you last go on holiday?</strong> (choice between UK, Europe (except UK), North America, South America, Asia, Africa, Oceania, Other)</li>
+</ul>
+<p>Here are a few sample responses:</p>
 <table class="caption-top table">
-<caption>7 records</caption>
-<colgroup>
-<col style="width: 12%">
-<col style="width: 19%">
-<col style="width: 15%">
-<col style="width: 19%">
-<col style="width: 25%">
-<col style="width: 8%">
-</colgroup>
 <thead><tr class="header">
-<th style="text-align: right;">PracticeCode</th>
-<th style="text-align: left;">GPPracticeName</th>
-<th style="text-align: right;">PracticeListSize</th>
-<th style="text-align: left;">AddressLine1</th>
-<th style="text-align: left;">AddressLine2</th>
-<th style="text-align: left;">Postcode</th>
+<th style="text-align: right;">ID</th>
+<th style="text-align: left;">prefer</th>
+<th style="text-align: left;">pet</th>
+<th style="text-align: right;">excel</th>
+<th style="text-align: right;">score</th>
+<th style="text-align: left;">holiday</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">38012</td>
-<td style="text-align: left;">Skerryvore Practice</td>
-<td style="text-align: right;">8648</td>
-<td style="text-align: left;">Skerryvore Practice</td>
-<td style="text-align: left;">The Balfour, Foreland Road</td>
-<td style="text-align: left;">KW15 1NZ</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">Chips</td>
+<td style="text-align: left;">Dog</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">231</td>
+<td style="text-align: left;">UK</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">38027</td>
-<td style="text-align: left;">Stromness Surgery</td>
-<td style="text-align: right;">3075</td>
-<td style="text-align: left;">Stromness Surgery</td>
-<td style="text-align: left;">John Street</td>
-<td style="text-align: left;">KW16 3AD</td>
+<td style="text-align: right;">213</td>
+<td style="text-align: left;">Soup</td>
+<td style="text-align: left;">cat</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">197</td>
+<td style="text-align: left;">North America</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">38051</td>
-<td style="text-align: left;">Daisy Villa</td>
-<td style="text-align: right;">1545</td>
-<td style="text-align: left;">Daisy Villa</td>
-<td style="text-align: left;">St.&nbsp;Margaret’s Hope</td>
-<td style="text-align: left;">KW17 2SN</td>
+<td style="text-align: right;">308</td>
+<td style="text-align: left;">Chips</td>
+<td style="text-align: left;">Cat</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: left;">Europe (except UK)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">38084</td>
-<td style="text-align: left;">Islands View Surgery</td>
-<td style="text-align: right;">258</td>
-<td style="text-align: left;">Islands View Surgery</td>
-<td style="text-align: left;">Rousay</td>
-<td style="text-align: left;">KW17 2PU</td>
+<td style="text-align: right;">194</td>
+<td style="text-align: left;">Chips</td>
+<td style="text-align: left;">Snake</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">301</td>
+<td style="text-align: left;">Other (the pole? the moon??)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">38205</td>
-<td style="text-align: left;">Heilendi Practice</td>
-<td style="text-align: right;">3919</td>
-<td style="text-align: left;">Heilendi Practice</td>
-<td style="text-align: left;">The Balfour, Foreland Road</td>
-<td style="text-align: left;">KW15 1NZ</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">38210</td>
-<td style="text-align: left;">Dounby Surgery</td>
-<td style="text-align: right;">2860</td>
-<td style="text-align: left;">Dounby Surgery</td>
-<td style="text-align: left;">Dounby</td>
-<td style="text-align: left;">KW17 2HH</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">38239</td>
-<td style="text-align: left;">Orcades Practice</td>
-<td style="text-align: right;">1981</td>
-<td style="text-align: left;">Orcades Practice</td>
-<td style="text-align: left;">Primary Care Department</td>
-<td style="text-align: left;">KW15 1NZ</td>
+<td style="text-align: right;">196</td>
+<td style="text-align: left;">Chips</td>
+<td style="text-align: left;">Tiger</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">275</td>
+<td style="text-align: left;">UK</td>
 </tr>
 </tbody>
 </table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task one: types of data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <ul>
-<li>Keywords (like <code>SELECT</code>)</li>
-<li>table names (like <code>gps</code>)</li>
-</ul></section><section id="compared-to-other-languages" class="level2"><h2 class="anchored" data-anchor-id="compared-to-other-languages">Compared to other languages</h2>
-<ul>
-<li>small</li>
-<li>strict</li>
-<li>variable</li>
-</ul></section><section id="small" class="level2"><h2 class="anchored" data-anchor-id="small">Small</h2>
-<p>[1] TRUE</p>
-<ul>
-<li>comparatively few keywords:
-<ul>
-<li>SQL has <a href="https://www.w3schools.com/sql/sql_ref_keywords.asp">c.160 keywords</a>
+<li>download and open <a href="skills/data/distributions_data.xlsx">the dataset</a>
 </li>
-<li>Excel has <a href="https://support.microsoft.com/en-us/office/excel-functions-alphabetical-b3944572-255d-4efb-bb96-c6d90033e188">c.530 functions</a>
-</li>
-<li>R has <a href="https://stackoverflow.com/questions/58476696/list-of-all-functions-in-base-r">2735 functions</a> in the default packages</li>
+<li>look at the values in the different columns. Can you classify the five non-ID columns as either numerical, ordinal, or categorical data?</li>
+<li>are there any columns which could fit into more than one category?</li>
+<li>could we translate any columns to a different type of data?</li>
 </ul>
-</li>
-</ul></section><section id="dialects" class="level2"><h2 class="anchored" data-anchor-id="dialects">Dialects</h2>
+</div>
+</div>
+</div>
+</section><section id="the-histogram" class="level2"><h2 class="anchored" data-anchor-id="the-histogram">The histogram</h2>
+<p>Look at the Excel responses in the dataset. It’s quite hard to get a sense from the numbers themselves about what a typical value might be. Are people in the KIND network generally pretty confident with Excel, or not?</p>
+<p>There are several ways we could approach answering that question, but most of their details will have to wait for later sessions. However, in a rare bit of jumping ahead, we’ll now introduce a type of graph that’s exceptionally useful for answering those questions: the <button class="glossary" title="Type of graph produced by grouping values into ranges (usually known as bins), then counting the number of values in each bin, then plotting the counts for each range">histogram</button>.</p>
+<p>Here’s a recipe for producing a histogram:</p>
+<ol type="1">
+<li>Divide your data into ranked groups. Here, we’re dealing with ordinal data, with confidence scores as whole numbers between one and ten, so we have a neat ready-made grouping structure already in place</li>
+<li>Then count how many values occur in each group</li>
+<li>Finally, draw a graph with bars for each group where the height of the bar is proportional to the number of values in each group</li>
+</ol>
+<p>Here’s an example for our score data. First, we divide the data into sensible groups. The biggest value here is about 1000, so I think a sensible group would be about 100. That gives us groups of 0-99, 100-199, and so on, giving us about a dozen <button class="glossary" title="Type of graph produced by grouping values into ranges (usually known as bins), then counting the number of values in each bin, then plotting the counts for each range">bins</button>. Then we count how many values fall into each bin, and plot the result:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="ds_s02_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Histogram of responses to score question</figcaption></figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task two: a simple histogram
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <ul>
-<li>Lots of different standards</li>
-</ul></section><section id="murder" class="level2"><h2 class="anchored" data-anchor-id="murder">Murder!</h2>
-<p>https://mystery.knightlab.com/</p>
+<li>please could you try to build a histogram of the Excel data. This can be a paper sketch, an Excel graph, or whatever method you’re technically comfortable with.</li>
+<li>what would be a sensible bin size?</li>
+<li>approximately how many people responded to this question (which we’d usually call <button class="glossary" title="The total number of observations in a dataset">n</button>)</li>
+<li>can you estimate the minimum and maximum confidence scores in our dataset from your histogram? Together, those values let us calculate the <button class="glossary" title="The difference between the smallest and the largest value of a variable">range</button> of Excel confidence responses in our survey</li>
+</ul>
+</div>
+</div>
+</div>
+<p>Histograms are a brilliant tool for understanding how values vary. But note that they don’t work with everything. As our groups (bins) are ordered, there’s no sensible way of plotting categorical data using a histogram. We’ll come back and talk more about how to plot categorical data in a later session. But for numerical and ordinal data, histograms are exceptionally useful because they allow us to understand the <button class="glossary" title="The frequency with which each observation in our dataset occurs">distribution</button> of our values.</p>
+<p>A note about histograms: they don’t work for categorical data. We’ll talk about that more later in the course when we introduce bar graphs properly, but to give an overview. Imagine that we’ve got some categorical data, like the column in our sample data asking people if they preferred chips or soup. We could plot those using a bar graph, like the following:</p>
+<p><img src="ds_s02_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p>That’s different from the Excel or score histograms because that preference data is categorical. That makes our two categories of responses separate, which we indicate in a simple way with gaps between the bars, rather than the continuous distribution that we see in the histogram.</p>
+</section><section id="distributions" class="level2"><h2 class="anchored" data-anchor-id="distributions">Distributions</h2>
+<p>Without knowing what’s generally expected, a single value in our dataset doesn’t tell us anything very interesting. We need some context to make sense of an individual number. For values like blood pressure, we often have reference ranges that tell us what a normal blood pressure might be. For other values (like height, or number of years since retirement) we generally have some clear idea of what a normal number might be from our daily experience. But for other values (like Excel confidence) most of us don’t have a top-of-the-head idea about what a normal expected range of that number might be. Say Susan (one of our colleagues) rates her confidence with Excel at 8. If we compare that to the KIND network’s distribution of Excel confidence:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="ds_s02_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Frequency distribution of Excel confidence with Susan’s score</figcaption></figure>
+</div>
+<p>That tells us that Susan is one of the most confident Excel users in our data. That’s the power of a distribution: it shows you how the other values that you’ve measured are, and lets you compare and understanding those values quickly and easily. In fact, this sort of way of looking across all the values we have is so important that we should introduce a key piece of jargon to help us understand it more fully. To a statistician, what we’ve drawn is the <strong>empirical frequency distribution</strong> of Excel confidence in the network.</p>
+<ul>
+<li>empirical = made by measuring</li>
+<li>frequency = how often some value occurs in those measurements</li>
+<li>distribution = how those measurements are spread out</li>
+</ul>
+<p>The reason the empirical frequency distribution is important is that it gives us a way of understanding how our (Susan’s) Excel score compares to those in other people. At its most simple, just seeing the graph of how frequencies are distributed tells us a lot about how to understand our one case. For example, how does Susan compare to the group?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task three: an example distribution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>remind yourself about the range and the n of the dataset which you estimated in the previous exercise</li>
+<li>can you estimate, from your histogram, how many people in the dataset had a level of Excel confidence as good (or better) than Susan? How many were less confident?</li>
+<li>what would be a typical estimate of how confident are most people in the network about Excel?</li>
+</ul>
+</div>
+</div>
+</div>
+<p>We’ve now calculated quite a lot of information about our Excel confidence scores:</p>
+<ul>
+<li>we estimated <button class="glossary" title="The total number of observations in a dataset">n</button> to be about 320 responses in total</li>
+<li>we thought respondents had used the full <button class="glossary" title="The difference between the smallest and the largest value of a variable">range</button> of 1-10</li>
+<li>we estimated that about 120 people had a score of 8 or more, matching or exceeding Susan’s confidence</li>
+<li>we thought that about 200 poeple had a score of less than 8</li>
+</ul>
+<p>Together, that tells us a lot about Susan’s score in the context of our data.</p>
+</section><section id="outliers" class="level2"><h2 class="anchored" data-anchor-id="outliers">Outliers</h2>
+<p>Imagine how we might have felt about Susan’s score of 8 if our distribution had looked like this, for instance:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="ds_s02_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Frequency distribution of Excel confidence with one outlier, labelled “Susan”</figcaption></figure>
+</div>
+<p>Impressive, obviously, but also possibly something to worry about as Susan is a real <button class="glossary" title="Values of a variable that appear to not fit in with the main body of the data. They might represent genuinely exceptional cases, or might be the result of errors during data collection or tidying">outlier</button> from the main group, and that might cause us to go off and investigate if something has gone wrong with our measurements somewhere. The aim of this section is just to introduce the word outlier at piece of terminology, and to talk very briefly about what might/should be done about outliers. Outliers are a fact of life, and most datasets have them. For instance, in our score data, we’ve got a couple of outliers:</p>
+<p><img src="ds_s02_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p>Most of our values are less than 500, but we’ve got three values over 800. These three are outliers too. For this session, the most important advice about outliers is to make sure you check your data for them, ideally by plotting the values. I’ve mentioned before how useful histograms are for helping us understand our values, but they also allow us to screen for odd values very efficiently. That’s why I’ll almost always make a quick histogram of some data before analysing it, just to make sure that I know what I’m dealing with. We’ll talk more about ways of handling outliers in the exercise below.</p>
+</section><section id="skew" class="level2"><h2 class="anchored" data-anchor-id="skew">Skew</h2>
+<p>One other feature of our distribution: it’s <button class="glossary" title="A term describing where the majority of observations in an empirical frequency distribution lie. Skew describes data where the data is broadly non-symmetrical about the mean. If observations are clustered to the left of the mean, the data should be described as right-skewed, whereas if observations are closely clustered to the right of the mean then it should be described as left-skewed">skewed</button>. That means that the shape of our histogram isn’t symmetrical. We’ve got a ‘lump’ towards the right-hand side of the distribution, with a long tail of comparatively few observations at lower confidence scores. For now though we’ll just introduce the term, and mention that it can be important to know that your data is skewed. Again, another great reason to make a quick histogram when you’re looking at some new data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise four: looking more closely at our distribution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>what might explain outliers in a dataset? List as many reasons as you can think of.</li>
+<li>what might you do about outliers?</li>
+<li>our Excel data is left-skewed, and our scores data is right-skewed. Some authors claim that right-skewed data is very common in health contexts (e.g.&nbsp;“Such data are common in medical research” <span class="citation" data-cites="petrie2000">(<a href="#ref-petrie2000" role="doc-biblioref"><strong>petrie2000?</strong></a>)</span>). Why might right-skewed data be more common in health than left-skewed?</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="theoretical-distributions" class="level2"><h2 class="anchored" data-anchor-id="theoretical-distributions">Theoretical distributions</h2>
+<p>A final thought for this session: there are ways of understanding distributions mathematically. One very well-known example is the normal distribution:</p>
+<p><img src="ds_s02_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p>That’s different from the distributions that we were looking at earlier, because it’s not made by sticking together lots of data, but instead made using an equation. We won’t go into the details of that here, but instead will concentrate on why that matters. Because it’s a mathematical model, we can very precisely understand the characteristics of that normal distribution. For example, we know that about 95% of the area under that curve sits between those numbers <code>-2</code> and <code>2</code> on the x-axis for mathematical reasons we won’t get into here.</p>
+<p>If we take some data that has a similar shape, we can make similar claims about our data. For example, take this histogram:</p>
+<p>That’s <em>incredibly</em> close to a normal distribution. In fact, if we overlay one over the top, we’ll see that our data fits almost perfectly.</p>
+<p><img src="ds_s02_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p>That means we can now say something about our data too: 95% of our data points lie between <code>-2</code> and <code>2</code>. That’s very useful, as we’ll see.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise five: extended data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>From the previous session, we had <a href="data/care_inspectorate_full.xlsx">some data about care home sizes</a>. Here’s a group of four histograms, by different type of care home:</p>
+<p><img src="ds_s02_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p>And a consolidated version for all the care homes in Scotland:</p>
+<p><img src="ds_s02_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<ul>
+<li>how do the histograms vary? Apart from the aggregation, are they set up in the same way?</li>
+<li>what does this tell you?</li>
+</ul>
+</div>
+</div>
+</div>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
