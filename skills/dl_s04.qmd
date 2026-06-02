@@ -1,0 +1,183 @@
+---
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+# Measure your system, then collect your structured data (session 4)
+
+:::{.callout-important collapse=true appearance='default' icon=true}
+## Outline blob
+
+### Sentence aim
+This session is about how to collect data once you've thought about how to data-fy your system. We'll introduce a big idea about how to structure data - which we'll call **tidy data**. We'll also do some reminders about types of data, and give some simple hints about how to best collect data to ensure that it's safe and useful for your work.
+
+### Exercises
+
+Task one: splitting things up
+Task two: values, variables, and observations
+Task three: precision and accuracy
+
+### Data
+
+[Download dataset as .xlsx](skills/data/distributions_data.xlsx) (or [as .rds](skills/data/distributions_data.rds)).
+
+### Key concepts
+Precision 
+Accuracy
+
+:::
+
+
+
+## Introduction
+
+Three sessions ago, we talked about some example datasets:
+
++ a month-by-month count of patients visiting our hospital for the last two years
++ census data, showing demographics of different towns in Scotland
++ survey data estimating how many people are currently homeless nationally
+
+In that first session, we mainly talked about how data sets such as these might be used. In the previous session, we began talking about how to go about making such datasets. In that session, we introduced the idea of {{< glossary datafying >}} our system as a way of talking about making clear (to ourselves, and to others) some of the more important assumptions about that system.
+
+In this session, we're going to start by assuming that you have a datafied system ready to go: you've thought about why you're collecting the data, you've selected the most salient aspects of your system to collect data about, and you've begun thinking about a data dictionary to set down your most important assumptions about how that data will work. That's a lot of work already done, especially at the conceptual end of things.  If we're thinking about the three example datasets above, we might have decided to collect data from the following aspects of our systems:
+
+* adding up all the attended inpatient and outpatient appointments each calendar month for our hospital site
+* asking everyone in Scotland to complete a census return every few years, and asking questions about employment, housing, and so on
+* requesting services supporting the homeless to estimate how many service users they saw during one specified week last year
+
+Most of the content in this session concentrates on the technical aspects of collecting and structuring data so that its most useful across different data journeys. We'll start with a few words about measuring, and then move on by introducing the idea of tidy data, do a quick reminder about different types of data you're likely to encounter, go on to talk about tips and tricks that might be useful when collecting different kinds of data, and then finish by talking about how you can effectively communicate what you've done when collecting data.
+
+## Measuring things
+
+Understanding measurement is a life's work in its own right, so we'll be brief here. Data comes from measurements. For most of us in health and care, when we're collecting data, we're effectively re-using measurements that are made for other purposes. For example, we (as analysts) don't usually have to collect service users names and addresses from them personally, or stand there with a clip-board counting people that phone our service, or go round measuring people's blood pressures ourselves. Nearly always, we're collecting data opportunistically, effectively re-using measurements that are mainly made for other reasons. 
+
+## Tidy data
+
+![R4DS Figure 5.1: The following three rules make a dataset tidy: separate individual values, put variables in columns, and observations as rows, via CC BY-NC-ND 3.0 US](../src/images/clipboard-3584154739.png)
+
+In this section, we'll introduce the term {{< glossary "tidy data" >}} as one way of thinking about how to organise data in a safe and effective way. The term tidy data is [generally associated with data work in R](https://r4ds.hadley.nz/data-tidy), but the principles of tidy data apply beautifully to other areas of data work. One reason that tidy data is so useful is that it provides a minimal set of standards for organising our data that are easy to apply, easy to check, and that each directly contribute to safe and effective analysis. In fact, there are only three rules that we need to know and understand to make our data tidy.
+
+In brief, these rules are:
+
+1. separate your values
+1. put your {{< glossary variable display = "variables" >}} in columns
+1. make each row a separate {{<glossary observation>}}
+
+### Values
+
+Value just refers to a single piece of information in our dataset, like a date, a number, a name, etc. To make our data tidy, just make sure each value is separate. That sounds too obvious to be worth saying, but it's common to see spreadsheets with multiple values per cell. Don't do this!
+
+```{r}
+tibble::tibble(value = c("77 (2.1%)", "88 (2.4%)")) |>
+  knitr::kable()
+```
+
+Those values should be split into separate columns:
+
+```{r}
+tibble::tibble(value = c("77 (2.1%)", "88 (2.4%)")) |>
+  tidyr::separate_wider_delim(cols = value, names = c("value", "percent"), delim = "(") |>
+  dplyr::mutate(percent = stringr::str_remove(percent, "\\)")) |>
+  knitr::kable()
+```
+
+This sort of case is fairly simple to deal with, but do be aware that like most data work, there's judgement involved in most cases, and often data can potentially be separated out in several different ways. Let's explore that now:
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task one: splitting things up
+
+Here are several pieces of data that might be split up in different ways. How would you choose to record them?
+
++ Alan M. Bates
++ 318 Bank Street, Plockton, Ross-shire, IV52 8TP
++ the 104 phone calls we received yesterday
++ a blood pressure of 141/82 mmHg
+
+Suggestions in the chat, please! Likely context will make a difference here, so do please make suggestions if one way of doing things seems especially suited to one purpose.
+
+:::
+
+In general, you should try and think about your purposes when deciding what counts as a value. Names are a good example, where they might be recorded as a full name, or as first/middle/surname trio, or first + initial and surname. Having the surname independently is important, because that's often used for alphabetising names. In this case, I'd probably try to think about the purposes. If we wanted to use the surnames and first names independently (writing a letter from the data, for instance), having that data pre-separated would probably be helpful.
+
+Whichever separation you use for your data, remember to keep a note, because describing your data carefully is the basis of your data dictionary. 
+
+### Variables
+
+Your dataset should be arranged into {{< glossary variable display="variables" >}}. We define a variable as a collection of measurements of one specific characteristic of our system. For example, if we collected daily counts of the number of new patients and discharged patients for several hospital sites, that data set would have four variables: the date, the hospital site, the number of new patients, and the number of discharged patients. The important idea is that each value in that column is similar: they're all dates, or hospital sites, or numbers of new patients, or whatever.
+
+Conventionally, each variable occupies a column. Most statistical software (including Excel) is designed to work with columns as variables. For example, there are usually short-hand ways of referring to all the values in a column which make it easy to (for example) find the average of that column (=variable). That makes it important to ensure that each value in our variable is the same {{< glossary type >}} of data, because we're usually only able to summarise a group of values when they're all the same type:
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## A reminder about types of data
+
+From session two, we introduced three main types of data that we'd commonly encounter:
+
++ {{< glossary numerical >}} data
++ {{< glossary ordinal >}} data
++ {{< glossary categorical >}} data
+:::
+
+### Observations
+
+Finally, each row in our dataset will contain one {{< glossary observation >}}. I think an observation is best understood as a single measurement of all our variables. It might be helpful to illustrate that with an example. Here is some sample data from a survey generously provided by KIND members:
+
+```{r}
+library(dplyr)
+
+readr::read_rds(here::here("skills/data/distributions_data.rds")) |>
+  slice(1:5) |>
+  knitr::kable()
+```
+
+[Download dataset as .xlsx](skills/data/distributions_data.xlsx) (or [as .rds](skills/data/distributions_data.rds)).
+
+Here, each row in our data is one set of survey responses from a single respondent. They belong together: even though they're several different values, because they come from one individual they belong together as a group. We'll call these groups {{< glossary observation display="observations" >}}. 
+
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Task two: values, variables, and observations
+
+Here's some data about a care service presented in a narrative way:
+
+> On the first of November, we had three new referrals, and discharged four clients from the service. The next day, we had no new referrals, and only discharged one client. For each of the next three days, we had one referral a day, and no discharges.
+
+Please decide how best to record this data. You'll need to decide:
+
++ what your variables are, and what you might call them
++ what might be the most sensible way of structuring observations
++ how you record your values
+
+Please sketch that data out. You can use paper, Excel, whatever's convenient.
+
+:::
+
+## Precision and accuracy
+
+In the above example, we didn't really think about how our data came about. In the next section, we'll introduce two ideas that are important when we're thinking about how to collect our own data. 
+
+Even simple data can be misleading. For example, I could record a date wrongly, or mis-count the number of 
+
+## Collecting numerical data
+
+Don't be too precise
+
+## Be more selective
+
+Most of datafying is about finding out how to be selective
+
++ What do you need to report on? What's a nice-to-have? What's not needed?
++ Data quality comes from engagement
++ Compromising between quality and comprehensiveness
+
+
+## Missing data
+Mention here and trail main explanation in session 7
+
+## Coding
+based on the satisfaction example from s2 - where we had "high", "medium", and "low". Could potentially code those as 1/2/3 or something and treat them more like a numeric value
+
+## Communicating what you've done
+
+Back to the data dictionary idea from the previous session
+
