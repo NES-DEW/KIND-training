@@ -1,26 +1,31 @@
 ---
+date: 2026-06-02
+title: The data journey
+params:
+  sl_date: 2026-06-02
+  fn: The data journey
+  id: KS34
 format: html
 execute: 
   output: markup
-editor_options: 
-  chunk_output_type: console
+categories: [data skills, beginner]
 ---
 
 ```{r}
-here::i_am("skills/dl_s01.qmd")
+here::i_am("skills/ds_s01.qmd")
 
 library(readr)
 library(dplyr)
 library(stringr)
 library(ggplot2)
 library(here)
+
+glossary::glossary_path(here::here("glossary.yml"))
 ```
 
 
-# An introduction via a simple data journey (session 1)
-  
-:::{.callout-important collapse=true appearance='default' icon=true}
-## Outline blob
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Session outline
 
 In this session, we'll work through a simple data task. We'll use a small dataset about beds in care homes. We'll talk about how to approach the task, demonstrate how that data should be tidied, show some examples of summarising data to help understand and communicate key findings, draw some graphs to represent our data, and talk about how this dataset might be useful for explanation, prediction, and control.
 
@@ -39,7 +44,7 @@ To introduce the core aspects of data work to engage participants, and to set up
 
 ### Data
 
-Care inspectorate data. Take a subset of c.20 care homes, include name, bed count, postcode, health board, urban/rural
+This session uses some publicly-available data from the [Care Inspectorate datastore](https://www.careinspectorate.com/index.php/statistics-and-analysis/data-and-analysis). Specifically, we'll use a small extract from their main [2025 end-of-year data](https://www.careinspectorate.com/images/Statistics_and_Analysis/Datastore/250331DatastoreExternal.csv) concentrating on care homes for older adults in Inverness and Nairn.
 
 ### Key concepts
 
@@ -51,13 +56,11 @@ Care inspectorate data. Take a subset of c.20 care homes, include name, bed coun
 
 ## Introduction
 
-What is data, how does it help us do good work in health and care, and what do we need to know about data to do that work?
-
-In this session, we'll explore the idea that data is an especially powerful way of understanding how systems in health and care, because data is an excellent way of answering some of the most important questions about our work, such as:
+This session aims to help you understand what data is, how data helps us do good work in health and care, and what we need to know about data to achieve that. Here, we'll explore the idea that data is an especially powerful way of understanding how systems in health and care. That's because data is an excellent way of answering some of the most important questions about our work, such as:
 
 + "is our hospital busier than it was last year?"
 + "do we have proportionally more children than average in our town?"
-+ "how many people are currently homeless in Scotland"
++ "how many people are currently homeless in Scotland?"
 
 This course will give an introduction to answering these questions using data. For the purposes of this course, we'll think about data as **structured information, usually numerical, that tells us about part of a system**. Specific examples of datasets that might help us answer our three questions above:
 
@@ -67,16 +70,18 @@ This course will give an introduction to answering these questions using data. F
 
 ## The data journey
 
-One of the most important ideas in this whole course is the **data journey**. This is the idea that - if we want to answer a question about our system using data - we have to take several linked steps, in some kind of order, that let us travel from an initial hunch or query to a finished answer. Very roughly, the steps in the data journey are:
+One of the most important ideas in this whole course is the **data journey**. If we want to answer a question about our system using data, we need to complete several linked steps in order, so that we can travel from an initial hunch or query to a finished answer. We call those steps the data journey. Very roughly, the steps in the data journey are:
 
-+ to try and data-fy our system, and to collect data from it
-+ to take that data, and tidy it into the most helpful shape for our project
-+ to summarise and visualise that data
++ to try and data-fy our system
++ to collect data from that data-fied system
++ to tidy our data
++ to summarise that data
++ to visualise that data
 + to communicate those findings to others
 
-The sessions of this course are based on steps in the data journey in more detail. But the plan for today is simpler: we'll try and complete a whole data journey, a simple one, in this session. The idea here is to give you a high-level map of what we're going to talk about later in this course. Because some of these steps can be quite technical and detailed, it's really important to keep an eye on the prize - being able to put your data to work - and the best way to do that is to work through everything once quickly.
+The later sessions of this course are based on exploring the individual steps in the data journey in more detail. But the plan for today is simpler: we'll try and complete a whole data journey, a simple one, in one go. The aim here is to give you a high-level map of what we're going to talk about later in this course to help you navigate why we're talking about specific issues. Because some of these steps can be quite technical and detailed, it's really important to keep an eye on the prize - being able to put your data to work - and the best way to do that is to work through everything once quickly without being too detailed.
 
-To make today's data journey possible, we'll do a bit of cheating by starting with a carefully-chosen (and polished) dataset. Don't worry too much about what we're missing by taking this shortcut, because in the next couple of sessions we'll spend a lot of time on the ins-and-outs of building lovely datasets from real systems. 
+To make today's data journey possible, we'll do a bit of cheating by starting with a carefully-chosen (and polished) dataset. For now, don't worry too much about what we're missing by taking this shortcut, because in the next couple of sessions we'll spend a lot of time on the ins-and-outs of building lovely datasets from real systems. 
 
 With our data in hand, we'll then think about how to understand, summarise, visualise, and compare data that we've collected. Finally, we'll talk about how to take those statistics, and use them to do things. As we'll see, statistical summaries of data are especially helpful in helping us understand the systems we're working on. We'll look specifically at three areas where understanding is especially important: **explaining** how systems work, **predicting** what will happen as our system changes, and **controlling** the behaviour of that system.
 
@@ -87,11 +92,6 @@ Together, we'll describe this linked set of practices and skills as **data skill
 + knowing a bit about some statistical tools used to understand, summarise, and compare that data
 + understanding some effective strategies for using this data (and statistics) as a basis for the explanation/prediction/control of systems, including how to communicate your findings to others
 + finally, figuring out how to use that knowledge of what you want to do with your data to simplify and streamline other aspects of the data journey
-
-
-## This session
-
-In this session, we'll do a miniature data journey. To do that, we'll work through a series of practical exercises, with discussion-based interludes on the way.
 
 ## Data for this session
 
@@ -134,9 +134,9 @@ ci |>
   knitr::kable()
 ```
 
-Hopefully that's fairly self-explanatory: we've got one row per care home, with columns for the type of home, the name, the main area for which the home provides care, the postcode and location of the home, and the total number of beds. In this session, we'll try to use this data to answer a couple of questions about the provision of care in this area. Specifically, over this session we'll see:
+Hopefully that's fairly self-explanatory: we've got one row per care home, with columns for the type of home, the name, the main area for which the home provides care, the postcode and location of the home, and the total number of beds. In this session, we'll try to use this data to answer a couple of questions about the provision of care in this area. Specifically, over this session we'll try to answer the following questions:
 
-:::{.callout-note collapse=false appearance='default' icon=true}
+:::{.callout-important collapse=false appearance='default' icon=true}
 
 ## Questions for this session
 
@@ -147,7 +147,7 @@ Hopefully that's fairly self-explanatory: we've got one row per care home, with 
 
 :::
 
-The next step is to open this yourself, and have a look at the full data set.
+The next step is to open this data yourself, and have a look at the full data set.
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Task one: inspect your data
@@ -343,19 +343,19 @@ read_rds(here("skills/data/carehome_map.rds"))$shape |>
   
 ```
 
+Personally, I'm not sure the map tells us very much other than showing the locations of Inverness and Nairn, and very broadly showing there are more (and larger) care homes in Inverness than in Nairn. That's not a huge surprise: Inverness is larger than Nairn, so all being equal we'd expect it to have more care home places.
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 
 ## Task five: thinking about different ways of visualising this data
 
-+ What types of graph do you use (or see) at work?
-
++ There are many kinds of graphs in use. In the meeting chat, please could you tell us what kind(s) of graphs you use or see at work. If you can screenshot those into the chat without disclosing any sensitive information, that'd be a huge bonus!
 
 :::
 
 ## Homework
 
-Something between sessions!
+Practicing new skills is essential to make them stick. This course sets up little bits of homework: short and flexible tasks to allow you to put what you've learned in a session into practice.
 
 :::{.callout-note collapse=false appearance='default' icon=true}
 ## Task six: homework - take an extended dataset
@@ -363,14 +363,30 @@ Something between sessions!
 Here is an [Excel file](data/care_inspectorate_full.xlsx) (or an [.rds](data/care_inspectorate_full.rds)) of the full national Care Inspectorate data in the same format as we've been using in this session. Please use it to answer some questions:
 
 + Is there some kind of relationship between the size of care home, and their type (private, health board, etc)?
-+ We know there's a difference in average size between Inverness and Nairn. How might you visualise that, and what might a visual show you that the numeric average doesn't?
-
-
-
++ We know there's a difference in average size of care home between Inverness and Nairn. How might you visualise that, and what might a visual show you that the numeric average doesn't?
 
 
 :::
 
+
+:::{.callout-note collapse=true appearance='default' icon=true}
+
+## Glossary
+
+```{r}
+#| echo: false
+#| output: asis
+
+glossary <- yaml::read_yaml(here::here("glossary.yml"))
+
+glossary <- glossary[order(names(glossary))]
+
+for (term in names(glossary)) {
+  cat("### ", term, "\n\n", glossary[[term]], "\n\n", sep = "")
+
+}
+```
+:::
 
 
 
