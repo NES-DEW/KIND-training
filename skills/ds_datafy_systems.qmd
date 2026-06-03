@@ -1,14 +1,25 @@
 ---
-format: html
-draft: true
-title: Datafy your system (session 3)
+title: Datafy your system
+date: 2026-06-03
+params:
+  sl_date: 2026-06-03
+  fn: Datafy your system
+  id: KS36
+execute: 
+  output: markup
+categories: [data skills, beginner]
+bibliography: src/references.bib
 ---
+
 ```{r}
-here::i_am("skills/ds_s03.qmd")
+here::i_am("skills/ds_datafy_systems.qmd")
 ```
 
-:::{.callout-important collapse=true appearance='default' icon=true}
-## Outline blob
+{{< include src/ds_about_mini.qmd >}}
+
+:::{.callout-note appearance='default' icon=true}
+
+## Session outline
 
 In this session, we'll talk about some of the decisions that we need to make when we want to collect some data about our system. Most systems are more complicated than they at first appear. That means we'll need to make some decisions about how we understand our system before we can start measuring it. We'll describe this process, and the decisions that we take during it as data-fying our system. This is the most high-concept session in this course, because what we're really talking about here is the data worldview: how do we need to treat our system differently if we're going to try to understand (and improve) it using data?
 
@@ -197,6 +208,8 @@ For example, for the dataset we used previously (with added ISO 8601 week classi
 
 ## An example data dictionary
 
+Here's a very simple example of a data dictionary.
+
 ### Description
 
 30 rows and 4 columns of data describing the number of appointments per day for parts of December 2025 and January 2026 seen across our care service's three sites.
@@ -235,6 +248,24 @@ For the second part, think about each of your variables. Are there any areas whe
 
 We can (and probably should) write our data dictionary before we start collecting data. Data projects have a habit of expanding beyond their initial boundaries, and an itemised list is an excellent preventative against projects senselessly growing arms and legs. In the next session, we'll use this idea of a data dictionary as a starting point for thinking about how to actually collect data from a system.
 
-**To add** will revisit data dictionaries briefly later in the course. Adding data summaries to dd can be dead useful - but we'll need to explore how summaries work before we do that.
+We'll revisit data dictionaries briefly later in the course once we've had a chance to think a bit more about how we summarise data.
 
 
+:::{.callout-note collapse=true appearance='default' icon=true}
+
+## Glossary
+
+```{r}
+#| echo: false
+#| output: asis
+
+glossary <- yaml::read_yaml(here::here("glossary.yml"))
+
+glossary <- glossary[order(names(glossary))]
+
+for (term in names(glossary)) {
+  cat("### ", term, "\n\n", glossary[[term]], "\n\n", sep = "")
+
+}
+```
+:::
