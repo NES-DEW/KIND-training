@@ -1,0 +1,161 @@
+---
+date: 2026-06-16
+title: An introduction to health and care data tools
+categories: [taster sessions, pre-beginner]
+---
+
+## Introduction
+
+This session is a quickfire, non-technical introduction to the main tools used to manage, analyse, and visualise data in current use in health and social care. Over the session, we'll introduce and demonstrate tools including Excel, Power BI, R, SQL, Tableau, and a selection of M365/Power Platform tools.
+
+::: {.callout-important collapse="false" appearance="default" icon="true"}
+## A word of warning
+
+This is a very quick run-through of these tools. It's not intended to give you detailed instructions about how to use any individual tool. It also comes with a proviso about **governance**. Many of the tools demonstrated here will need proper governance, and most organisations will have restrictions on which tools are used, and for what. Don't take any of this demonstration as an endorsement that a tool is suitable for use in your organisation.
+:::
+
+## Microsoft Forms
+
+|                      |                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **What**                 | A tool for collecting data                                                                  |
+| **Strengths**            | Easy to use, does basic analysis with no extra work, plays nicely with Excel and friends    |
+| **Weaknesses**           | Complicated governance, probably not right for sensitive data, limitations on design        |
+| **Availability/cost**    | Free and available for most M365 users - check [https://forms.office.com/](https://forms.office.com/)   |
+| **Example uses**        | Simple surveys, feedback, building a request process   |
+| **Demo**                 | We'll add some questions to the sample form at [https://forms.office.com/e/qDU9ee7pSS](https://forms.office.com/e/qDU9ee7pSS), and collect some data for later parts of this session |
+
+
+
+## Power Automate
+
+|                      |                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **What**                 | A tool for process automation                              |
+| **Strengths**            | Very flexible and powerful                               |
+| **Weaknesses**          | Lots of governance issues! ☠️ automation is risky! ☠️ M365-centric, complicated free vs paid decisions   |
+| **Availability/cost**    | Available to most M365 users - check [https://make.powerautomate.com/](https://make.powerautomate.com/e) |
+| **Example uses**         | Email/Teams message when a form is completed, approvals, mailing lists, daily data collection |
+| **Demo**                 | Post messages into this meeting chat when a Form is completed                               |
+
+
+## Excel
+
+|                      |                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **What**                 | The standard entry-level data storage and analysis tool                               |
+| **Strengths**            | Available everywhere, massive user base, easy to use and share                              |
+| **Weaknesses**           | Projects become messy and complicated. Very few guardrails, and tends to require lots of manual management of data   |
+| **Availability/cost**    | Available to most M365 users, and many different versions |
+| **Example uses**         | Almost anything you can think of, but best with simple and short data with few users |
+| **Demo**                 | Summarising data from the form                             |
+
+
+
+
+## PowerQuery
+
+
+|                      |                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **What**                 |  A specialist data-wrangling tool bundled with some versions of Excel and Power BI          |
+| **Strengths**            |  Reproducibility! Helps lessen the amount of manual work required in Excel. Great for bring data together from lots of sources, and plenty of advanced analytics on offer |
+| **Weaknesses**           |  More complicated than Excel, and harder to learn. Unfamiliar to many, meaning careful explanation/engagement needed.                             |
+| **Availability/cost**    |  Built-in to newer versions of Excel (and Power BI) |
+| **Example uses**         |  Linking datasets, doing monthly returns, producing statistical reports                     |
+| **Demo**                 |  Summarise the forms data, and then refresh it                             |
+
+
+
+## Power BI
+
+|                      |                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **What**                 |  A tool for building and publishing interactive dashboards                             |
+| **Strengths**            |  Easiest dashboard tool, comes with Power Query so brilliant for pulling data together and serving it to users, looks nice too |
+| **Weaknesses**          |  ☠️ Publishing and governance is really complicated and potentially expensive, especially if you want to share with users outwith your organisation ☠️. Hard to do "proper" stats, and lots of limitations about types of graphs available. |
+| **Availability/cost**    |  M365 E5 licence required                             |
+| **Example uses**         |  Data hub, KPI dashboard                             |
+| **Demo**                |  Visualise and publish the Forms data                             |
+
+
+## Tableau
+
+|                      |                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **What**                 | Like Power BI, a tool for building dashboards |
+| **Strengths**            | Publishing is easier, and visuals have more flexibility than Power BI        |
+| **Weaknesses**           | Less capable data wrangling than Power BI, almost certainly will require paid-for licences  |
+| **Availability/cost**    |  Likely to need IG and procurement: not cheap                             |
+| **Example uses**         |  As Power BI                             |
+| **Demo**                 |  Replicating Power BI demo using https://public.tableau.com/app/discover                             |
+
+
+## R
+
+
+|                      |                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **What**                 |  Open-source and code-based tool for statistical work                             |
+| **Strengths**            | Powerful, fast, and flexible                              |
+| **Weaknesses**           |  Code-based, much harder to get started compared to Excel/Power BI etc                             |
+| **Availability/cost**    |  Free, open-source, with commercial options for the fancy stuff. Likely to need governance advice for most orgs |
+| **Example uses**         |  Proper statistical work, big data, reproducible analytics. Can also be used in Power BI/Power Query                          |
+| **Demo**                 |                               |
+
+
+```{r}
+#| eval: false
+library(readr)
+library(readxl)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+
+
+here::i_am("skills/intro_health_care_data_tools.qmd")
+
+dat <- here::here("skills/data/intro_health_care_data_tools.xlsx") |>
+  read_xlsx() |>
+  select(6:11)
+
+dat |>
+  dplyr::group_by(Town = stringr::str_to_title(Town)) |>
+  summarise(Rating = round(mean(Rating), 1)) |>
+  arrange(desc(Rating)) |>
+  knitr::kable()
+```
+
+## Python
+
+|                      |                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **What**                 | General-purpose programming language                              |
+| **Strengths**            |  Massive user-base, faster than R with better options for niche work                             |
+| **Weaknesses**           |  Like R, hard to learn. Less support/infrastructure on the NHSS side than R                             |
+| **Availability/cost**    |  Free and open-source                             |
+| **Example uses**         | As R, but note also available in Excel                              |
+| **Demo**                 |  Mini-demo in Excel                             |
+
+
+## SQL
+
+|                      |                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **What**                 | Specialist tool for managing complex databases                              |
+| **Strengths**            | Great for building reproducible ways of querying data |
+| **Weaknesses**           | Code-based, lots of different dialects                              |
+| **Availability/cost**    | Various free and paid options. Also underpins many clinical/specialist systems                              |
+| **Example uses**         | Standard tool for managing large datasets                              |
+| **Demo**                 | Mini-demo based on the Forms dataset                               |
+
+
+```{r}
+#| eval: false
+library(dbplyr)
+
+conn <- src_memdb() # create an sqlite db in memory
+copy_to(conn, dat, overwrite = T) # populate that db from R
+```
+
+
