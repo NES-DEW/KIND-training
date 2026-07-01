@@ -1,0 +1,108 @@
+---
+title: "GP practices"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    theme: 
+        version: 5
+        bootswatch: minty
+date: "2026-07-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+library(flexdashboard)
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(crosstalk)
+library(plotly)
+library(PostcodesioR)
+library(leaflet)
+library(viridis)
+
+options(scipen=8) # to stop scientific notation kicking in
+
+thematic::thematic_rmd()
+
+boards <- read_rds("data/boards.rds")
+
+gps <- read_csv("data/practice_contact_details_20260401_opendata.csv") |>
+        select(PracticeCode, 
+               GPPracticeName, 
+               PracticeListSize, 
+               Postcode, 
+               PracticeType, 
+               HB) |>
+         left_join(boards) |>
+         select(-HB)
+
+
+## create a crosstalk data object with the practice code as the key
+shared_gps <- SharedData$new(gps, 
+                            key = ~PracticeCode, 
+                            group = "gp_practices_subset")
+
+## make a filter
+board_filter = filter_select(id = "board", label = "Pick a Health Board", ~HBName, sharedData = shared_gps)
+```
+
+Row {data-height=200}
+-----------------
+
+### Summary text
+
++ Scotland has `r nrow(gps)` practices
++ The largest (the `r gps[which(gps$PracticeListSize == max(gps$PracticeListSize)),]$GPPracticeName`) has `r max(gps$PracticeListSize)` patients
++ The smallest (the `r gps[which(gps$PracticeListSize == min(gps$PracticeListSize)),]$GPPracticeName`) has `r min(gps$PracticeListSize)` patients
++ The average practice size is `r round(mean(gps$PracticeListSize))`
+
+### Filter
+```{r}
+board_filter
+```
+
+Row {data-height=800}
+-----------------
+
+### Summary plot
+
+```{r}
+my_plot <- shared_gps |>
+  ggplot() +
+  geom_density(aes(x = PracticeListSize, fill = HBName), alpha = 2/5) +
+  scale_x_log10() +
+  xlab("Total list size (log10)") +
+  ylab("Total number of practices") +
+  labs(fill="Health board name") 
+
+ggplotly(my_plot)
+```
+
+
+### Fancy map
+
+```{r message=FALSE, warning=FALSE}
+gps_sm <- gps |>
+  slice_sample(n = 100) |>
+  rowwise() |>
+  mutate(postcode_look = postcode_lookup(Postcode)) |>
+  tidyr::unnest(postcode_look) |>
+  select(PracticeCode, GPPracticeName, PracticeListSize, longitude, latitude, HBName) # making a small subset to keep things quick
+
+shared_gps_sm <- SharedData$new(gps_sm, 
+                            key = ~PracticeCode, 
+                            group = "gp_practices_subset") # new, linked, shareddata
+
+pal <- colorFactor(palette = viridis(length(unique(gps_sm$HBName))), domain = gps_sm$HBName)
+
+shared_gps_sm |>
+  leaflet() |>
+  addTiles() |>
+  addCircleMarkers(radius = ~PracticeListSize / 1000, 
+                   color = ~pal(HBName))
+```
+
+
+
+
