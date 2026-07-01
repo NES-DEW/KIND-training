@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.9.38">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2026-07-01">
-<title>Tableau for Beginners (session 2) – KIND training pages</title>
+<title>Flexdashboard – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -43,8 +78,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-bba5ebae505b5c03f3f0d8040a416a6b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-433a492b5eafe404801d6596cf3f52a2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-bba5ebae505b5c03f3f0d8040a416a6b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-bba5ebae505b5c03f3f0d8040a416a6b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -315,23 +349,16 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#session-files" id="toc-session-files" class="nav-link" data-scroll-target="#session-files">Session files</a></li>
-  <li><a href="#todays-visualisations" id="toc-todays-visualisations" class="nav-link" data-scroll-target="#todays-visualisations">Today’s visualisations</a></li>
-  <li><a href="#the-goal-for-this-week" id="toc-the-goal-for-this-week" class="nav-link" data-scroll-target="#the-goal-for-this-week">The goal for this week</a></li>
-  <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data loading</a></li>
-  <li><a href="#service-use-data-weekend_sh" id="toc-service-use-data-weekend_sh" class="nav-link" data-scroll-target="#service-use-data-weekend_sh">Service use data (weekend_sh)</a></li>
-  <li><a href="#measure-value" id="toc-measure-value" class="nav-link" data-scroll-target="#measure-value"><code>Measure Value</code></a></li>
-  <li><a href="#add-a-filter" id="toc-add-a-filter" class="nav-link" data-scroll-target="#add-a-filter">Add a filter</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
-  <li><a href="#a-digression-icons-dimensions-and-measures" id="toc-a-digression-icons-dimensions-and-measures" class="nav-link" data-scroll-target="#a-digression-icons-dimensions-and-measures">A digression: icons, dimensions and measures</a></li>
-  <li><a href="#numeric-summaries" id="toc-numeric-summaries" class="nav-link" data-scroll-target="#numeric-summaries">Numeric summaries</a></li>
-  <li><a href="#putting-everything-together" id="toc-putting-everything-together" class="nav-link" data-scroll-target="#putting-everything-together">Putting everything together</a></li>
-  <li><a href="#gp-practice-size" id="toc-gp-practice-size" class="nav-link" data-scroll-target="#gp-practice-size">GP practice size</a></li>
-  <li><a href="#why-not-add-both-datasets-at-once" id="toc-why-not-add-both-datasets-at-once" class="nav-link" data-scroll-target="#why-not-add-both-datasets-at-once">Why not add both datasets at once?</a></li>
-  <li><a href="#adding-a-column-graph-of-practice-sizes" id="toc-adding-a-column-graph-of-practice-sizes" class="nav-link" data-scroll-target="#adding-a-column-graph-of-practice-sizes">Adding a column graph of practice sizes</a></li>
-  <li><a href="#homework-tasks" id="toc-homework-tasks" class="nav-link" data-scroll-target="#homework-tasks">Homework tasks</a></li>
+<li><a href="#session-resources" id="toc-session-resources" class="nav-link active" data-scroll-target="#session-resources">Session resources</a></li>
+  <li><a href="#why-flexdashboard" id="toc-why-flexdashboard" class="nav-link" data-scroll-target="#why-flexdashboard">Why flexdashboard?</a></li>
+  <li><a href="#adding-flexdashboard" id="toc-adding-flexdashboard" class="nav-link" data-scroll-target="#adding-flexdashboard">Adding flexdashboard</a></li>
+  <li><a href="#rows-and-columns" id="toc-rows-and-columns" class="nav-link" data-scroll-target="#rows-and-columns">Rows and columns</a></li>
+  <li><a href="#tweaking-column-widths" id="toc-tweaking-column-widths" class="nav-link" data-scroll-target="#tweaking-column-widths">Tweaking column widths</a></li>
+  <li><a href="#rows-first" id="toc-rows-first" class="nav-link" data-scroll-target="#rows-first">Rows first?</a></li>
+  <li><a href="#theme-your-dashboards" id="toc-theme-your-dashboards" class="nav-link" data-scroll-target="#theme-your-dashboards">Theme your dashboards</a></li>
+  <li><a href="#in-built-themes" id="toc-in-built-themes" class="nav-link" data-scroll-target="#in-built-themes">In-built themes</a></li>
+  <li><a href="#thematic" id="toc-thematic" class="nav-link" data-scroll-target="#thematic">Thematic</a></li>
+  <li><a href="#a-bunch-of-bells-and-whistles" id="toc-a-bunch-of-bells-and-whistles" class="nav-link" data-scroll-target="#a-bunch-of-bells-and-whistles">A bunch of bells and whistles</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -343,10 +370,10 @@ ul.task-list li input[type="checkbox"] {
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Tableau for Beginners (session 2)</h1>
+<h1 class="title">Flexdashboard</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Tableau</div>
-    <div class="quarto-category">beginner</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">intermediate</div>
   </div>
   </div>
 
@@ -367,19 +394,40 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
+</header><section id="session-resources" class="level2"><h2 class="anchored" data-anchor-id="session-resources">Session resources</h2>
+<ul>
+<li>you don’t need any of this sample data to complete the session, but if you’d like to replicate the demonstrations, we’re using two datasets:</li>
+<li>
+<a href="data/practice_contact_details_20260401_opendata.csv">April 2026 GP practice list sizes</a>, from <a href="https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes">Scottish Health and Social Care Open Data</a>
+</li>
+<li>
+<a href="data/boards.rds">NHS board names and codes</a>, again from <a href="https://www.opendata.nhs.scot/dataset/geography-codes-and-labels">Scottish Health and Social Care Open Data</a>
+</li>
+</ul></section><section id="why-flexdashboard" class="level2"><h2 class="anchored" data-anchor-id="why-flexdashboard">Why flexdashboard?</h2>
+<ul>
+<li>Shiny can be a pain (messy syntax, potentially hard to style, needs a server, complicated governance)</li>
+<li>most dashboards don’t need all the fancy stuff that Shiny can do</li>
+<li>flexdashboard (possibly with the addition of crosstalk) is a tool for less-interactive Rmarkdown-powered dashboards</li>
+<li>avoids the messy syntax, easy to style, no server needed, governance as other Rmarkdown-generated documents</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Warning
+<span class="screen-reader-only">Important</span>Previewing your rmarkdown
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>This is currently a <strong>draft</strong> version of the materials for this training session, and so may contain minor errors and inaccuracies.</p>
+<ul>
+<li>Note the built-in viewer in Rstudio doesn’t really display flexdashboard properly</li>
+<li>You should use your web browser for previewing your work</li>
+<li>
+<img src="images/clipboard-1313687372.png" class="img-fluid"> will show you the preview in a browser</li>
+</ul>
 </div>
 </div>
 </div>
@@ -389,320 +437,319 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session materials
+<span class="screen-reader-only">Note</span>Exercise 1: build an ordinary Rmarkdown
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
-<li>service use dataset <a href="data/s02_service_data.xlsx"><iconify-icon inline="" icon="ph:file-xls" style="font-size: 2em;" aria-label="Icon file-xls from ph Iconify.design set." title="Icon file-xls from ph Iconify.design set."></iconify-icon>.xlsx</a>
+<li>in a new project, create a new .Rmd</li>
+<li>nothing fancy needed here, but you’ll want <strong>at least</strong> three sections, and ideally a bit of text, a table, and a graph or two</li>
+<li>the boilerplate dashboard you get when creating a new <code>.Rmd</code> is perfectly fine <img src="src/images/clipboard-2520887156.png" class="img-fluid" alt="Boilerplate dashboard">
 </li>
-<li>GP practice dataset <a href="data/s02_gp_data.xlsx"><iconify-icon inline="" icon="ph:file-xls" style="font-size: 2em;" aria-label="Icon file-xls from ph Iconify.design set." title="Icon file-xls from ph Iconify.design set."></iconify-icon>.xlsx</a>
-</li>
+<li>we’ll use a very slightly fancier Rmarkdown using GP practice details for Scotland <img src="src/images/clipboard-1521033644.png" class="img-fluid" alt="GP practice details dashboard"> for this session (<a href="fdb_examples/ex1_standard_rmd.Rmd">demo code</a>)</li>
+<li>⚠️ make sure your main sections use level-3 headers (so <code>###</code>) ⚠️</li>
+<li>test that it knits properly</li>
 </ul>
-<!-- -   [all materials ](src/testing.zip) --><!-- -   slides [ html](src/testing.html) / [ pdf](src/testing.pdf) -->
 </div>
 </div>
 </div>
-<section id="previous-attendees-have-said" class="level2 cell" data-layout-align="left"><h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
-<ul>
-<li>1 previous attendees have left feedback</li>
-<li>100% would recommend this session to a colleague</li>
-<li>100% said that this session was pitched correctly</li>
-</ul>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure"><p><img src="KIND_TfB_s02_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="288"></p>
-</figure>
-</div>
+</section><section id="adding-flexdashboard" class="level2"><h2 class="anchored" data-anchor-id="adding-flexdashboard">Adding flexdashboard</h2>
+<p>We’ll now install flexdashboard, and add it to our Rmd:</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Three random comments from previous attendees
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Really helpful to have the data files and use them in parallel with what Brendan is showing on screen, so you can always see if you’re on the right track. Useful tips shared by Brendan and other users too!</li>
-</ul>
-</div>
-</div>
-</section><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
-<p><strong>Visualisation overload!</strong></p>
-<ul>
-<li>we’re going to build several visualisations</li>
-<li>we’ll use some tidied data for this - today is all about using data to do interesting things</li>
-<li>next time, we’ll get into the data wrangling needed to sort that data out</li>
-</ul></section><section id="session-files" class="level2"><h2 class="anchored" data-anchor-id="session-files">Session files</h2>
-<ul>
-<li>two Excel workbooks
-<ul>
-<li><a href="data/s02_service_data.xlsx"><code>s02_service_data.xlsx</code> - a service use dataset</a></li>
-<li><a href="data/s02_gp_data.xlsx"><code>s02_gp_data.xlsx</code> - a GP practice size dataset</a></li>
-</ul>
-</li>
-<li><a href="https://public.tableau.com/app/profile/brendan.clarke4139/viz/KIND_Tableau_for_beginners_s02/Dashboard2">link to completed dashboard</a></li>
-</ul></section><section id="todays-visualisations" class="level2"><h2 class="anchored" data-anchor-id="todays-visualisations">Today’s visualisations</h2>
-<ul>
-<li>line graphs</li>
-<li>filtering tools</li>
-<li>numeric summaries of data</li>
-<li>maps</li>
-<li>column charts</li>
-</ul></section><section id="the-goal-for-this-week" class="level2"><h2 class="anchored" data-anchor-id="the-goal-for-this-week">The goal for this week</h2>
-<p><img src="../src/images/clipboard-677538538.png" height="400" alt="Filterable time-series dashboard"><img src="../src/images/clipboard-241969368.png" height="400" alt="Interactive map plus column graph"></p>
-</section><section id="data-loading" class="level2"><h2 class="anchored" data-anchor-id="data-loading">Data loading</h2>
-<ul>
-<li>this is a repeat of last week</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>go to https://public.tableau.com/app/</li>
-<li>select <code>Web Authoring</code> from the <code>Create</code> menu  <img src="../src/images/clipboard-2012383762.png" class="img-fluid" alt="Web Authoring">
-</li>
-<li>from the <code>Data</code> menu, select <code>New Data Source</code> <img src="../src/images/clipboard-2895623694.png" class="img-fluid" alt="Select `New Data Source">
-</li>
-<li>drag and drop (or use the upload button) to add the <code>s02_service_data.xlsx</code> file</li>
-<li>drag the <code>weekend_sh</code> sheet into the data model</li>
-</ol>
-</div>
-</div>
-</section><section id="service-use-data-weekend_sh" class="level2"><h2 class="anchored" data-anchor-id="service-use-data-weekend_sh">Service use data (weekend_sh)</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>add a worksheet  <img src="../src/images/clipboard-146543695.png" class="img-fluid" alt="add a worksheet">
-</li>
-<li>go to that worksheet, and make a time-series graph from our data by dragging the <code>Date</code> and the <code>Measure values</code> fields to the shelf, and ensuring that data is set to <code>Exact date</code>: <img src="../src/images/clipboard-3683763482.png" class="img-fluid" alt="make a time-series graph">
-</li>
-<li>you might also switch off the values to avoid clutter <img src="../src/images/clipboard-1426303361.png" class="img-fluid" alt="switch off the values">
-</li>
-</ul>
-</div>
-</div>
-</section><section id="measure-value" class="level2"><h2 class="anchored" data-anchor-id="measure-value"><code>Measure Value</code></h2>
-<ul>
-<li>
-<code>Measure Values</code> are a default calculated field derived from your data. You can think of it as containing all your numeric values
-<ul>
-<li>you’ll see that you can edit what appears in your graph - and do please remove the <code>CNT(weekend_sh)</code>, which is just counting values  <img src="../src/images/clipboard-1265910281.png" class="img-fluid" alt="Remove the CNT(weekend_sh) field">
-</li>
-</ul>
-</li>
-<li>there’s also a <code>Measure Names</code> field which collects together all your measure names (like Excel column names)
-<ul>
-<li>when we add <code>Measure Values</code> to our graph, the <code>Measure Names</code> appear in the <code>Filters</code> area</li>
-</ul>
-</li>
-</ul></section><section id="add-a-filter" class="level2"><h2 class="anchored" data-anchor-id="add-a-filter">Add a filter</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>drag the <code>Date</code> table into the <code>Filters</code> area. You’ll be asked to choose a way of filtering that data: select <code>Range of Dates</code>  <img src="../src/images/clipboard-3399177496.png" class="img-fluid" alt="select Range of Dates in the filter">
-</li>
-<li>that will produce a filter preview:  <img src="../src/images/clipboard-465195638.png" class="img-fluid" alt="filter preview">
-</li>
-<li>add it to your graph by selecting <code>Show filter</code>  <img src="../src/images/clipboard-3877947789.png" class="img-fluid" alt="Select Show filter">
-</li>
-<li>now repeat for the <code>Weekend</code> table</li>
-</ol>
-</div>
-</div>
-</section><section id="section" class="level2"><h2 class="anchored" data-anchor-id="section"></h2>
-</section><section id="a-digression-icons-dimensions-and-measures" class="level2"><h2 class="anchored" data-anchor-id="a-digression-icons-dimensions-and-measures">A digression: icons, dimensions and measures</h2>
-<ul>
-<li>you might have noticed that your fields have coloured icons:  <img src="../src/images/clipboard-2119629222.png" class="img-fluid" alt="Field icons"><ul>
-<li>
-<a href="https://howto.mt.gov/_docs/Visual-Cues-and-Icons-in-Tableau-Desktop.pdf">each type of icon represents a data type</a> (like text, numeric, etc)</li>
-<li>the colours group those types into <a href="https://en.wikipedia.org/wiki/Continuous_or_discrete_variable">continuous/discrete</a>: <a href="https://help.tableau.com/current/pro/desktop/en-us/datafields_typesandroles.htm">blue = discrete data, green = continuous data</a>
-</li>
-</ul>
-</li>
-<li>But there’s also a Tableau-specific pair of terms in play here: <code>Dimensions</code> and <code>Measures</code>
-<ul>
-<li>Dimensions are (usually) qualitative categories used to control the level of detail shown - like our <code>Measure Names</code>
-</li>
-<li>Measures are quantitative values, which make up the values shown on our visualisations - like our <code>Site B</code>
-</li>
-</ul>
-</li>
-</ul></section><section id="numeric-summaries" class="level2"><h2 class="anchored" data-anchor-id="numeric-summaries">Numeric summaries</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>start a new worksheet  <img src="../src/images/clipboard-1595951328.png" class="img-fluid" alt="new worksheet">
-</li>
-<li>our dimension for the summary will be <code>Weekend</code> - drag that to the <code>Columns</code> shelf</li>
-<li>our measure for the summary will be our several site columns - so (as before) add the <code>Measure Names</code> to the <code>Rows</code> shelf, and then the <code>Measure Values</code> to the <code>Text</code> mark  <img src="../src/images/clipboard-1696844195.png" class="img-fluid" alt="Add the measure to the shelf">
-</li>
-<li>do minor surgery:
-<ol type="1">
-<li>remove the count of weekend days  <img src="../src/images/clipboard-4183793738.png" height="250" alt="remove weekend days count">
-</li>
-<li>produce an average  <img src="../src/images/clipboard-1883554598.png" height="250" alt="produce an average">
-</li>
-<li>format the numbers appropriately  <img src="../src/images/clipboard-3829922989.png" height="250" alt="format numbers">
-</li>
-<li>improve the worksheet title  <img src="../src/images/clipboard-4051646655.png" height="100" alt="change the worksheet title">
-</li>
-</ol>
-</li>
-</ol>
-</div>
-</div>
-</section><section id="putting-everything-together" class="level2"><h2 class="anchored" data-anchor-id="putting-everything-together">Putting everything together</h2>
-<ul>
-<li>we’ll use a dashboard to assemble the plot, and the summary table</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>create a new dashboard from the row at the bottom of the screen</li>
-<li>double-click your Sheet 1 to add the graph  <img src="../src/images/clipboard-1099244408.png" height="300" alt="Add Sheet 1 to the dashboard">
-</li>
-<li>you can then drag your Sheet 2 into the blank space under the filters to add your summary table  <img src="../src/images/clipboard-253376484.png" class="img-fluid" alt="Add Sheet 2 to the dashboard">
-</li>
-<li>you might also take the chance to rename your graph (and the dashboard as a whole) to something less drab:  <img src="../src/images/clipboard-3731669259.png" class="img-fluid" alt="Rename as appropriate">
-</li>
-<li>finally, hit publish and check your dashboard online in your profile   <img src="../src/images/clipboard-800923394.png" height="300" alt="published dashboard">
-</li>
-</ol>
-</div>
-</div>
-</section><section id="gp-practice-size" class="level2"><h2 class="anchored" data-anchor-id="gp-practice-size">GP practice size</h2>
-<ul>
-<li>this dashboard shows Scotland’s GP practices</li>
-<li>it’s based on the <a href="https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes">GP Practice Contact Details and List Sizes</a> dataset published by Public Health Scotland</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>select <code>New Data Source</code> from the menu  <img src="../src/images/clipboard-4291647825.png" class="img-fluid" alt="Select New Data Source">
-</li>
-<li>from the <code>s02_gp_data.xlsx</code> file, add <code>gp_size_sh</code> to your data and start a new worksheet</li>
-<li>drag the <code>Latitude</code> and <code>Longitude</code> fields to the column/row shelf. Avoid the <code>Latitude (generated)</code> and <code>Longitude (generated)</code> fields - they won’t work properly</li>
-<li>now drag the size <code>List Size</code> measure to the <code>Size</code> part of <code>Marks</code> <img src="../src/images/clipboard-2984179153.png" class="img-fluid" alt="Drag list size to the size area"><ol type="1">
-<li>You might want to twiddle the <code>Mark Size</code> option to make sure your practices appear at the right scale  <img src="../src/images/clipboard-4203975396.png" class="img-fluid" alt="Adjust mark size options">
-</li>
-</ol>
-</li>
-<li>drag the <code>HB Name</code> dimension to the <code>Colour</code> part of <code>Marks</code>
-</li>
-<li>finally, drag the <code>Name</code> field to the <code>Detail</code> part of <code>Marks</code>
-</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>About postcodes
+<span class="screen-reader-only">Note</span>Exercise 2: add flexdashboard
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Note that Tableau Public doesn’t play nicely with UK postcodes. It will recognise them, but they won’t plot properly on a map. British postcodes, properly speaking, don’t describe a location at all. Instead, they’re just code numbers for different buildings. Here, we estimate the position of each postcode by taking an average of the location of each building to which it refers. That’s known as a centroid, and this data contains latitude and longitude data for each postcode centroid, which is produced using the <a href="https://cran.r-project.org/web/packages/PostcodesioR/index.html">PostcodesioR R package</a>.</p>
-</div>
-</div>
-</div>
-</section><section id="why-not-add-both-datasets-at-once" class="level2"><h2 class="anchored" data-anchor-id="why-not-add-both-datasets-at-once">Why not add both datasets at once?</h2>
 <ul>
-<li>if you add several datasets in one go, Tableau will automatically try to create relationships between them, and (in Tableau Public at least) it doesn’t seem possible to avoid this happening</li>
-<li>in this case, we definitely don’t want this to happen. Our made-up service data, and our real GP data, don’t share anything in common</li>
-<li>so adding a new data source once we’ve already done some work on the data is a hack-y way of giving you two independent data sources without pain</li>
-</ul></section><section id="adding-a-column-graph-of-practice-sizes" class="level2"><h2 class="anchored" data-anchor-id="adding-a-column-graph-of-practice-sizes">Adding a column graph of practice sizes</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Task">
-<div class="callout-header d-flex align-content-center">
+<li>in the console, run <code>install.packages("flexdashboard")</code> if needed</li>
+<li>edit the output section of your yaml header to <code>output: flexdashboard::flex_dashboard</code>
+</li>
+<li>add <code><a href="https://pkgs.rstudio.com/flexdashboard/">library(flexdashboard)</a></code> to your setup R chunk (<a href="fdb_examples/ex2_boilerplate.Rmd">demo code</a>)</li>
+<li>re-knit your dashboard</li>
+</ul>
+</div>
+</div>
+</div>
+<p>This will turn your Rmd into a flexdashboard of sorts:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/clipboard-1838363743.png" class="img-fluid figure-img"></p>
+<figcaption>Default flexdasboard</figcaption></figure>
+</div>
+<p>The default layout is for each section to occupy its own row. That’s okay for the summary data section here, but not very brilliant for the graph, which gets very squashed. We’ll play with changing the default orientation later, but first let’s look at the basics of building rows and columns.</p>
+</section><section id="rows-and-columns" class="level2"><h2 class="anchored" data-anchor-id="rows-and-columns">Rows and columns</h2>
+<p>Our dashboard uses third-level headers to mark sections, and you can see that each <code>###</code> effectively creates a new row. Let’s add another layer of separators now.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Task
+<span class="screen-reader-only">Note</span>Exercise 3: add another divider
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li>as usual, make a new sheet</li>
-<li>add:
-<ol type="1">
-<li>the <code>Name</code> field to the <code>Columns</code> shelf</li>
-<li>
-<code>List Size</code> to <code>Rows</code>
-</li>
-<li>
-<code>HB Name</code> to <code>Colour</code>  <img src="../src/images/clipboard-1178230394.png" height="250" alt="drag HB Name to Colour">
-</li>
-</ol>
-</li>
-<li>then adjust the <code>Sort</code> option in <code>Name</code> to arrange your practices in descending order of size  <img src="../src/images/clipboard-126464586.png" height="250" alt="Find the Sort option"><img src="../src/images/clipboard-839002550.png" height="250" alt="Sort by field value">
-</li>
-<li>you might also like to filter the <code>Name</code> field to just show the largest 50 practices <img src="../src/images/clipboard-1166627108.png" class="img-fluid" alt="Filter to largest 50 practices">
-</li>
-<li>Finally, add both this worksheet and your map to a new dashboard page</li>
-</ol>
+<ul>
+<li>between sections one and two sections, add the following chunk of markup:</li>
+</ul>
+<pre><code>Column
+--------------------------------------</code></pre>
+<ul>
+<li>re-knit and see if you can determine what’s changed (<a href="fdb_examples/ex3_rows_cols.Rmd">demo code</a>)</li>
+</ul>
 </div>
 </div>
-</section><section id="homework-tasks" class="level2"><h2 class="anchored" data-anchor-id="homework-tasks">Homework tasks</h2>
-<ol type="1">
-<li>Is there any relationship between practice size and SIMD2020 deprivation scores in the GP data? How could you show that relationship in a visual?</li>
-<li>Is there any month-to-month or seasonal change in the weekend service use data? How could you show that relationship in a visual?</li>
-</ol>
+</div>
+<p>That should create a new column in your dashboard, so that the second and third rows end up stacked in a new column:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/clipboard-2699529141.png" class="img-fluid figure-img"></p>
+<figcaption>New column</figcaption></figure>
+</div>
+</section><section id="tweaking-column-widths" class="level2"><h2 class="anchored" data-anchor-id="tweaking-column-widths">Tweaking column widths</h2>
+<p>That layout isn’t very brilliant, especially as our little bit of text occupies the bulk of the space on screen. Happily, we can tweak column widths by supplying a width in pixels. The rub here is that you’ll also need to explicitly define the left-hand column in your dashboard too before that will work properly:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise 4: column widths
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>add another column divider to include your first section</li>
+<li>add a <code>{data-width=xxx}</code> to each column divider, with your choice of values (maybe 300 and 900?)</li>
+</ul>
+<pre><code>Column {data-width=800}
+--------------------------------------</code></pre>
+<ul>
+<li>re-knit and see if you can determine what’s changed (<a href="fdb_examples/ex4_col_widths.Rmd">demo code</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="rows-first" class="level2"><h2 class="anchored" data-anchor-id="rows-first">Rows first?</h2>
+<p>We’re basically designing columns here, and letting the <code>###</code> section dividers create rows for us. It’d also be possible to design the other way: rows first, then columns.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise 5: rows first!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>first, tweak the yaml header to include an orientation key:</li>
+</ul>
+<pre><code>output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows</code></pre>
+<ul>
+<li>next, change your column dividers for row dividers</li>
+</ul>
+<pre><code>Row {data-height=800}
+-----------------</code></pre>
+<ul>
+<li>re-knit and check the behaviour (<a href="fdb_examples/ex5_rows_first.Rmd">demo code</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="theme-your-dashboards" class="level2"><h2 class="anchored" data-anchor-id="theme-your-dashboards">Theme your dashboards</h2>
+<p>There are several ways to theme a dashboard. We’ll add a theme to the main page.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise 6: add a theme
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>themes are set in the yaml header. There are a couple of ways of doing this. Let’s look at the more manual approach first. To start, add the following to your flexdashboard section:</li>
+</ul>
+<pre><code>  theme:
+      bg: "#101010"
+      fg: "#ED79F9" 
+      primary: "#FDF7F7"
+      base_font:
+        google: Prompt
+      code_font:
+        google: JetBrains Mono</code></pre>
+<ul>
+<li>re-knit and check the (hopefully pretty alarming) output (<a href="fdb_examples/ex6_theme.Rmd">demo code</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/clipboard-563788540.png" class="img-fluid figure-img"></p>
+<figcaption>Re-themed dashboard</figcaption></figure>
+</div>
+</section><section id="in-built-themes" class="level2"><h2 class="anchored" data-anchor-id="in-built-themes">In-built themes</h2>
+<p>As well as specifying everything about a theme piecemeal, we can also use one of the built-in themes using bslib.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise 7: bslib
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>run <code>install.packages("bslib")</code> in the console</li>
+<li>update the theme section of your yaml to use a bootswatch theme</li>
+</ul>
+<pre><code>  theme: 
+      version: 5
+      bootswatch: minty
+</code></pre>
+<ul>
+<li>re-knit, and check your output (<a href="fdb_examples/ex7_bslib.Rmd">demo code</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+<p>There’s lots to explore in bslib, but probably the neatest way is to play with their built-in demo by running <code><a href="https://rstudio.github.io/bslib/reference/bs_theme_preview.html">bslib::bs_theme_preview()</a></code></p>
+</section><section id="thematic" class="level2"><h2 class="anchored" data-anchor-id="thematic">Thematic</h2>
+<p>Note that our graph doesn’t fit our bslib theme. Luckily, there’s a tool to bring that main theme across to our ggplot: thematic.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise 8: thematic
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>in the console, run <code>install.packages("thematic")</code>
+</li>
+<li>add <code><a href="https://rstudio.github.io/thematic/reference/thematic_on.html">thematic::thematic_rmd()</a></code> to your setup chunk</li>
+<li>re-knit and check that your graph - the fonts and spacing, at least - is now re-styled to match your theme (<a href="fdb_examples/ex8_thematic.Rmd">demo code</a>)</li>
+<li>try changing the main theme (maybe to <code>cyborg</code> or <code>morph</code>) and</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="a-bunch-of-bells-and-whistles" class="level2"><h2 class="anchored" data-anchor-id="a-bunch-of-bells-and-whistles">A bunch of bells and whistles</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Tabsets</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Fancy tables</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Value boxes</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Storyboards</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">QDB</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href=""><code>crosstalk</code> and <code>leaflet</code> = interactivity</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ul>
+<li>add <code>.tabset</code> to a row/column spec</li>
+</ul>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ul>
+<li><code><a href="https://rdrr.io/pkg/DT/man/datatable.html">DT::datatable</a></code></li>
+</ul>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<ul>
+<li>with <code>valueBox()</code>
+</li>
+</ul>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<pre><code>  flexdashboard::flex_dashboard:
+    storyboard: TRUE
+    vertical_layout: fill
+    self_contained: TRUE
+    </code></pre>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<ul>
+<li>add <code>format: dashboard</code> to your yaml</li>
+<li>that’s it</li>
+</ul>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<ul>
+<li>crosstalk is a way of building simple interactions into static dashboards</li>
+<li>there’s a <a href="fdb_examples/ex9_crosstalk.Rmd">demo file for this</a>
+</li>
+<li>lots of new packages needed (<code>plotly</code>, <code>viridis</code>, <code>crosstalk</code>, <code>PostcodesioR</code> and <code>leaflet</code>)</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## create a crosstalk data object with the practice code as the key</span></span>
+<span><span class="va">shared_gps</span> <span class="op">&lt;-</span> <span class="va">SharedData</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">gps</span>, </span>
+<span>                            key <span class="op">=</span> <span class="op">~</span><span class="va">PracticeCode</span>, </span>
+<span>                            group <span class="op">=</span> <span class="st">"gp_practices_subset"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## make a filter</span></span>
+<span><span class="va">board_filter</span> <span class="op">=</span> <span class="fu">filter_select</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"board"</span>, label <span class="op">=</span> <span class="st">"Pick a Health Board"</span>, <span class="op">~</span><span class="va">HBName</span>, sharedData <span class="op">=</span> <span class="va">shared_gps</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>we then need to connect the shared objects with our graph and add a plotly wrapper:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_plot</span> <span class="op">&lt;-</span> <span class="va">shared_gps</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_density</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">PracticeListSize</span>, fill <span class="op">=</span> <span class="va">HBName</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">2</span><span class="op">/</span><span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Total list size (log10)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"Total number of practices"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>fill<span class="op">=</span><span class="st">"Health board name"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplotly</span><span class="op">(</span><span class="va">my_plot</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>that example also includes an unnecessarily fancy map with a subset of the GPs show. Again, that will show basic interactivity:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gps_sm</span> <span class="op">&lt;-</span> <span class="va">gps</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">slice_sample</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">rowwise</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>postcode_look <span class="op">=</span> <span class="fu">postcode_lookup</span><span class="op">(</span><span class="va">Postcode</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">postcode_look</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">PracticeCode</span>, <span class="va">GPPracticeName</span>, <span class="va">PracticeListSize</span>, <span class="va">longitude</span>, <span class="va">latitude</span>, <span class="va">HBName</span><span class="op">)</span> <span class="co"># making a small subset to keep things quick</span></span>
+<span></span>
+<span><span class="va">shared_gps_sm</span> <span class="op">&lt;-</span> <span class="va">SharedData</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">gps_sm</span>, </span>
+<span>                            key <span class="op">=</span> <span class="op">~</span><span class="va">PracticeCode</span>, </span>
+<span>                            group <span class="op">=</span> <span class="st">"gp_practices_subset"</span><span class="op">)</span> <span class="co"># new, linked, shareddata</span></span>
+<span></span>
+<span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu">colorFactor</span><span class="op">(</span>palette <span class="op">=</span> <span class="fu">viridis</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">gps_sm</span><span class="op">$</span><span class="va">HBName</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, domain <span class="op">=</span> <span class="va">gps_sm</span><span class="op">$</span><span class="va">HBName</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">shared_gps_sm</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addCircleMarkers</span><span class="op">(</span>radius <span class="op">=</span> <span class="op">~</span><span class="va">PracticeListSize</span> <span class="op">/</span> <span class="fl">1000</span>, </span>
+<span>                   color <span class="op">=</span> <span class="op">~</span><span class="fu">pal</span><span class="op">(</span><span class="va">HBName</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

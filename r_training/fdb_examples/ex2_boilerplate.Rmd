@@ -1,0 +1,60 @@
+---
+title: "GP practices"
+output: flexdashboard::flex_dashboard
+date: "2026-07-01"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(flexdashboard)
+
+options(scipen=8) # to stop scientific notation kicking in
+
+boards <- read_rds("data/boards.rds")
+
+gps <- read_csv("data/practice_contact_details_20260401_opendata.csv") |>
+        select(PracticeCode, 
+               GPPracticeName, 
+               PracticeListSize, 
+               Postcode, 
+               PracticeType, 
+               HB) |>
+         left_join(boards) |>
+         select(-HB)
+
+
+```
+
+### Summary text
+
++ Scotland has `r nrow(gps)` practices
++ The largest (the `r gps[which(gps$PracticeListSize == max(gps$PracticeListSize)),]$GPPracticeName`) has `r max(gps$PracticeListSize)` patients
++ The smallest (the `r gps[which(gps$PracticeListSize == min(gps$PracticeListSize)),]$GPPracticeName`) has `r min(gps$PracticeListSize)` patients
++ The average practice size is `r round(mean(gps$PracticeListSize))`
+
+### Summary data
+
+```{r}
+gps |>
+  group_by(HBName) |>
+  summarise(`Number of Practices` = n(),
+            `Mean Practice List Size` = round(mean(PracticeListSize)),
+            range = paste(min(PracticeListSize), "-", max(PracticeListSize))) |>
+  knitr::kable(align = "lccc")
+```
+
+### Summary plot
+```{r message=FALSE, warning=FALSE}
+gps |>
+  ggplot() +
+  geom_histogram(aes(x = PracticeListSize)) +
+  scale_x_log10() +
+  xlab("Total list size (log10)") +
+  ylab("Total number of practices")
+```
+
