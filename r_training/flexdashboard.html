@@ -349,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#session-resources" id="toc-session-resources" class="nav-link active" data-scroll-target="#session-resources">Session resources</a></li>
+<li><a href="#about-this-session" id="toc-about-this-session" class="nav-link active" data-scroll-target="#about-this-session">About this session</a></li>
   <li><a href="#why-flexdashboard" id="toc-why-flexdashboard" class="nav-link" data-scroll-target="#why-flexdashboard">Why flexdashboard?</a></li>
   <li><a href="#adding-flexdashboard" id="toc-adding-flexdashboard" class="nav-link" data-scroll-target="#adding-flexdashboard">Adding flexdashboard</a></li>
   <li><a href="#rows-and-columns" id="toc-rows-and-columns" class="nav-link" data-scroll-target="#rows-and-columns">Rows and columns</a></li>
@@ -394,16 +394,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="session-resources" class="level2"><h2 class="anchored" data-anchor-id="session-resources">Session resources</h2>
+</header><section id="about-this-session" class="level2"><h2 class="anchored" data-anchor-id="about-this-session">About this session</h2>
+<p>This is a quick and friendly introduction to the <a href="https://rstudio.github.io/flexdashboard/">flexdashboard</a> package, which allows you to produce static dashboard pages using Rmarkdown. We’ll give a basic introduction to the package, and talk about a few useful additions - like <a href="https://rstudio.github.io/crosstalk/">crosstalk</a> - to help you get up and running with some simple dashboards.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Session resources
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <ul>
-<li>you don’t need any of this sample data to complete the session, but if you’d like to replicate the demonstrations, we’re using two datasets:</li>
+<li>you don’t need any of this sample data to complete the session, but if you’d like to replicate the demonstrations, here are the two datasets used in the examples:
+<ul>
 <li>
 <a href="data/practice_contact_details_20260401_opendata.csv">April 2026 GP practice list sizes</a>, from <a href="https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes">Scottish Health and Social Care Open Data</a>
 </li>
 <li>
 <a href="data/boards.rds">NHS board names and codes</a>, again from <a href="https://www.opendata.nhs.scot/dataset/geography-codes-and-labels">Scottish Health and Social Care Open Data</a>
 </li>
-</ul></section><section id="why-flexdashboard" class="level2"><h2 class="anchored" data-anchor-id="why-flexdashboard">Why flexdashboard?</h2>
+</ul>
+</li>
+</ul>
+<p>You’re also welcome to have a look at the demo scripts that we’ll use during the session: <a href="fdb_examples/ex1_standard_rmd.Rmd">ex1</a> / <a href="fdb_examples/ex2_boilerplate.Rmd">ex2</a> / <a href="fdb_examples/ex3_rows_cols.Rmd">ex3</a> / <a href="fdb_examples/ex4_col_widths.Rmd">ex4</a> / <a href="fdb_examples/ex5_rows_first.Rmd">ex5</a> / <a href="fdb_examples/ex6_theme.Rmd">ex6</a> / <a href="fdb_examples/ex7_bslib.Rmd">ex7</a> / <a href="fdb_examples/ex8_thematic.Rmd">ex8</a> / <a href="fdb_examples/ex9_crosstalk.Rmd">ex9</a></p>
+</div>
+</div>
+</div>
+</section><section id="why-flexdashboard" class="level2"><h2 class="anchored" data-anchor-id="why-flexdashboard">Why flexdashboard?</h2>
 <ul>
 <li>Shiny can be a pain (messy syntax, potentially hard to style, needs a server, complicated governance)</li>
 <li>most dashboards don’t need all the fancy stuff that Shiny can do</li>
@@ -411,7 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>avoids the messy syntax, easy to style, no server needed, governance as other Rmarkdown-generated documents</li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -420,19 +441,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>Note the built-in viewer in Rstudio doesn’t really display flexdashboard properly</li>
 <li>You should use your web browser for previewing your work</li>
 <li>
-<img src="images/clipboard-1313687372.png" class="img-fluid"> will show you the preview in a browser</li>
+<img src="images/clipboard-1313687372.png" class="img-fluid" alt="Boilerplate Rmd"> will show you the preview in a browser</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -441,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>in a new project, create a new .Rmd</li>
@@ -458,7 +479,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="adding-flexdashboard" class="level2"><h2 class="anchored" data-anchor-id="adding-flexdashboard">Adding flexdashboard</h2>
 <p>We’ll now install flexdashboard, and add it to our Rmd:</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -467,7 +488,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>in the console, run <code>install.packages("flexdashboard")</code> if needed</li>
@@ -488,7 +509,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="rows-and-columns" class="level2"><h2 class="anchored" data-anchor-id="rows-and-columns">Rows and columns</h2>
 <p>Our dashboard uses third-level headers to mark sections, and you can see that each <code>###</code> effectively creates a new row. Let’s add another layer of separators now.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -497,7 +518,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>between sections one and two sections, add the following chunk of markup:</li>
@@ -518,7 +539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="tweaking-column-widths" class="level2"><h2 class="anchored" data-anchor-id="tweaking-column-widths">Tweaking column widths</h2>
 <p>That layout isn’t very brilliant, especially as our little bit of text occupies the bulk of the space on screen. Happily, we can tweak column widths by supplying a width in pixels. The rub here is that you’ll also need to explicitly define the left-hand column in your dashboard too before that will work properly:</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -527,7 +548,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>add another column divider to include your first section</li>
@@ -542,9 +563,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section><section id="rows-first" class="level2"><h2 class="anchored" data-anchor-id="rows-first">Rows first?</h2>
-<p>We’re basically designing columns here, and letting the <code>###</code> section dividers create rows for us. It’d also be possible to design the other way: rows first, then columns.</p>
+<p>We’re basically designing columns here, and letting the <code>###</code> section dividers create rows for us. It’d also be possible to design the other way: rows first, then columns. That’s achieved by playing with the orientation of the dashboard.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -553,7 +574,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>first, tweak the yaml header to include an orientation key:</li>
@@ -575,7 +596,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="theme-your-dashboards" class="level2"><h2 class="anchored" data-anchor-id="theme-your-dashboards">Theme your dashboards</h2>
 <p>There are several ways to theme a dashboard. We’ll add a theme to the main page.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -584,7 +605,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>themes are set in the yaml header. There are a couple of ways of doing this. Let’s look at the more manual approach first. To start, add the following to your flexdashboard section:</li>
@@ -610,7 +631,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="in-built-themes" class="level2"><h2 class="anchored" data-anchor-id="in-built-themes">In-built themes</h2>
 <p>As well as specifying everything about a theme piecemeal, we can also use one of the built-in themes using bslib.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -619,7 +640,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>run <code>install.packages("bslib")</code> in the console</li>
@@ -635,11 +656,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>There’s lots to explore in bslib, but probably the neatest way is to play with their built-in demo by running <code><a href="https://rstudio.github.io/bslib/reference/bs_theme_preview.html">bslib::bs_theme_preview()</a></code></p>
+<p>There’s lots to explore in bslib, but probably the neatest way is to play with their built-in demo by running <code><a href="https://rstudio.github.io/bslib/reference/bs_theme_preview.html">bslib::bs_theme_preview()</a></code> in the console.</p>
 </section><section id="thematic" class="level2"><h2 class="anchored" data-anchor-id="thematic">Thematic</h2>
 <p>Note that our graph doesn’t fit our bslib theme. Luckily, there’s a tool to bring that main theme across to our ggplot: thematic.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -648,19 +669,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li>in the console, run <code>install.packages("thematic")</code>
 </li>
 <li>add <code><a href="https://rstudio.github.io/thematic/reference/thematic_on.html">thematic::thematic_rmd()</a></code> to your setup chunk</li>
 <li>re-knit and check that your graph - the fonts and spacing, at least - is now re-styled to match your theme (<a href="fdb_examples/ex8_thematic.Rmd">demo code</a>)</li>
-<li>try changing the main theme (maybe to <code>cyborg</code> or <code>morph</code>) and</li>
+<li>try changing the main theme (maybe to <code>cyborg</code> or <code>morph</code>) and seeing what changes in your graph.</li>
 </ul>
 </div>
 </div>
 </div>
 </section><section id="a-bunch-of-bells-and-whistles" class="level2"><h2 class="anchored" data-anchor-id="a-bunch-of-bells-and-whistles">A bunch of bells and whistles</h2>
+<p>There are lots of useful add-ons to explore. We’ll look at a few basic examples, and (via crosstalk) look at a simple-ish way of adding bits of interaction to an otherwise static dashboard.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Tabsets</a></li>
