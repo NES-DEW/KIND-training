@@ -10,11 +10,27 @@ params:
   id: KR34
 ---
 
+## About this session
+
+This is a quick and friendly introduction to the [flexdashboard](https://rstudio.github.io/flexdashboard/) package, which allows you to produce static dashboard pages using Rmarkdown. We'll give a basic introduction to the package, and talk about a few useful additions - like [crosstalk](https://rstudio.github.io/crosstalk/) - to help you get up and running with some simple dashboards.
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
 ## Session resources
 
-- you don't need any of this sample data to complete the session, but if you'd like to replicate the demonstrations, we're using two datasets:
-- [April 2026 GP practice list sizes](data/practice_contact_details_20260401_opendata.csv), from [Scottish Health and Social Care Open Data](https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes)
-- [NHS board names and codes](data/boards.rds), again from [Scottish Health and Social Care Open Data](https://www.opendata.nhs.scot/dataset/geography-codes-and-labels)
+- you don't need any of this sample data to complete the session, but if you'd like to replicate the demonstrations, here are the two datasets used in the examples:
+    - [April 2026 GP practice list sizes](data/practice_contact_details_20260401_opendata.csv), from [Scottish Health and Social Care Open Data](https://www.opendata.nhs.scot/dataset/gp-practice-contact-details-and-list-sizes)
+    - [NHS board names and codes](data/boards.rds), again from [Scottish Health and Social Care Open Data](https://www.opendata.nhs.scot/dataset/geography-codes-and-labels)
+    
+You're also welcome to have a look at the demo scripts that we'll use during the session: 
+```{r}
+egs <- list.files("fdb_examples") 
+
+cat(paste0("[", substr(egs, 1, 3), "](fdb_examples/", egs, ")", collapse = " / "))
+```
+:::
+
+
+
 
 ## Why flexdashboard?
 
@@ -28,7 +44,7 @@ params:
 
 - Note the built-in viewer in Rstudio doesn't really display flexdashboard properly
 - You should use your web browser for previewing your work
-- ![](images/clipboard-1313687372.png) will show you the preview in a browser
+- ![Boilerplate Rmd](images/clipboard-1313687372.png) will show you the preview in a browser
 :::
 
 ::: {.callout-note collapse="false" appearance="default" icon="true"}
@@ -102,7 +118,7 @@ Column {data-width=800}
 
 ## Rows first?
 
-We're basically designing columns here, and letting the `###` section dividers create rows for us. It'd also be possible to design the other way: rows first, then columns.
+We're basically designing columns here, and letting the `###` section dividers create rows for us. It'd also be possible to design the other way: rows first, then columns. That's achieved by playing with the orientation of the dashboard.
 
 ::: {.callout-note collapse="false" appearance="default" icon="true"}
 ### Exercise 5: rows first!
@@ -170,7 +186,7 @@ As well as specifying everything about a theme piecemeal, we can also use one of
 + re-knit, and check your output ([demo code](fdb_examples/ex7_bslib.Rmd))
 :::
 
- There's lots to explore in bslib, but probably the neatest way is to play with their built-in demo by running `bslib::bs_theme_preview()`
+ There's lots to explore in bslib, but probably the neatest way is to play with their built-in demo by running `bslib::bs_theme_preview()` in the console.
  
 ## Thematic
 
@@ -182,17 +198,14 @@ Note that our graph doesn't fit our bslib theme. Luckily, there's a tool to brin
 + in the console, run `install.packages("thematic")`
 + add `thematic::thematic_rmd()` to your setup chunk
 + re-knit and check that your graph - the fonts and spacing, at least - is now re-styled to match your theme ([demo code](fdb_examples/ex8_thematic.Rmd))
-+ try changing the main theme (maybe to `cyborg` or `morph`) and 
++ try changing the main theme (maybe to `cyborg` or `morph`) and seeing what changes in your graph.
 :::
 
 ## A bunch of bells and whistles
 
+There are lots of useful add-ons to explore. We'll look at a few basic examples, and (via crosstalk) look at a simple-ish way of adding bits of interaction to an otherwise static dashboard.
+
 ::: {.panel-tabset}
-
-
-
-
-
 
 ## Tabsets
 - add `.tabset` to a row/column spec
