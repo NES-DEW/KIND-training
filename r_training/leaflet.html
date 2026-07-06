@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="dcterms.date" content="2026-07-06">
+<title>Leaflet – KIND training pages</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-bba5ebae505b5c03f3f0d8040a416a6b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-433a492b5eafe404801d6596cf3f52a2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-bba5ebae505b5c03f3f0d8040a416a6b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-1.3.1/leaflet.js"></script><link href="../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="../site_libs/proj4-2.6.2/proj4.min.js"></script><script src="../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-binding-2.2.3/leaflet.js"></script><script src="../site_libs/leaflet-providers-3.0.0/leaflet-providers.js"></script><script src="../site_libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script><link href="../site_libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet">
+<script src="../site_libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script><link href="../site_libs/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet">
+<link href="../site_libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet">
+<link href="../site_libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet">
+<script src="../site_libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script><script src="../site_libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script><script src="../site_libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo light-content"><img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo dark-content"></a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">KIND training pages</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../excel_main.html"> 
+<span class="menu-text">Excel</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r_main.html"> 
+<span class="menu-text">R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../BI_main.html"> 
+<span class="menu-text">Power Platform</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sql_main.html"> 
+<span class="menu-text">SQL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tableau_main.html"> 
+<span class="menu-text">Tableau</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../skills_main.html"> 
+<span class="menu-text">Skills</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">📅 Training schedule</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training/issues">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#about-this-session" id="toc-about-this-session" class="nav-link active" data-scroll-target="#about-this-session">About this session</a></li>
+  <li><a href="#why-leaflet" id="toc-why-leaflet" class="nav-link" data-scroll-target="#why-leaflet">Why leaflet?</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
+  <li><a href="#a-first-map" id="toc-a-first-map" class="nav-link" data-scroll-target="#a-first-map">A first map</a></li>
+  <li><a href="#a-more-substantial-map" id="toc-a-more-substantial-map" class="nav-link" data-scroll-target="#a-more-substantial-map">A more substantial map</a></li>
+  <li><a href="#tooltips" id="toc-tooltips" class="nav-link" data-scroll-target="#tooltips">Tooltips</a></li>
+  <li><a href="#customising-markers" id="toc-customising-markers" class="nav-link" data-scroll-target="#customising-markers">Customising markers</a></li>
+  </ul></nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
+</p>
+<div style="text-align:center;">
+<a href="https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMUpENjBJOENINDRFMUlYQTlCM1RVNzRSRy4u&amp;route=shorturl" style="display:inline-block;max-width:250px;padding:8px 16px;background:#2C3792;color:#ffffff;font-family:'Segoe UI','Helvetica Neue',sans-serif;font-weight:700;font-size:16px;text-align:center;text-decoration:none;border-radius:20px;border:2px solid #A12693;cursor:pointer;transition:all .3s ease;" onmouseover="this.style.background='#A12693';this.style.color='#fff';this.style.borderColor='#fff'" onmouseout="this.style.background='#2C3792';this.style.color='#ffffff';this.style.borderColor='#A12693'">Join the KIND network</a>
+</div>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Leaflet</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">intermediate</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 6, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><div class="cell" data-layout-align="left">
+<p>No feedback found for this session</p>
+</div>
+<section id="about-this-session" class="level2"><h2 class="anchored" data-anchor-id="about-this-session">About this session</h2>
+<ul>
+<li>this is an intermediate introduction to Leaflet in Shiny as a tool for building interactive maps</li>
+<li>you’ll need to be comfortable working in R Shiny to enjoy this session</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Session resources
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="data/locs.rds">hospitals data set</a></li>
+<li><a href="data/board_locs.csv">NHS board info</a></li>
+<li><a href="data/beds_site.csv">bed info</a></li>
+<li><a href="data/hosp_dat_boards_beds.rds">or the full joined dataset we’ll use in the Shiny example</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="why-leaflet" class="level2"><h2 class="anchored" data-anchor-id="why-leaflet">Why leaflet?</h2>
+<ul>
+<li>the easiest way of building interactive maps</li>
+<li>mainly intended for point maps, but can also produce filled maps (choropleths)</li>
+</ul></section><section id="getting-started" class="level2"><h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
+<ol type="1">
+<li>Open a new Rstudio project</li>
+<li>In the console, run <code>install.packages("pak")</code>
+</li>
+<li>Once installation has completed, create a new <code>temp.R</code> script</li>
+<li>Install packages, and create some simple data using:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html">pak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"shiny"</span>, <span class="st">"leaflet"</span>, <span class="st">"dplyr"</span>, <span class="st">"tibble"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/">leaflet</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>latitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">56</span>, <span class="fl">57</span>, <span class="fl">58</span><span class="op">)</span>,</span>
+<span>                      long <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>,</span>
+<span>                      val <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We’ll start with some standalone maps, and move on to thinking about how to add our maps to Shiny towards the end of the session.</p>
+</section><section id="a-first-map" class="level2"><h2 class="anchored" data-anchor-id="a-first-map">A first map</h2>
+<p>Like ggplot, we build leaflet maps in layers. Start with a tibble of data, attach the main <code>leaflet()</code> function with a pipe, then add a second layer by piping on <code>addMarkers()</code> - beware the camelCase:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addMarkers</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-262fd6f450b1e50182f1" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-262fd6f450b1e50182f1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addMarkers","args":[[56,57,58],[-3,-4,-5],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[56,58],"lng":[-5,-3]}},"evals":[],"jsHooks":[]}</script><p><code>addMarkers()</code> creates markers to correspond with our data. Usefully, it’ll interpret columns named lat(itude) and long(itude) as containing degrees of lat and long, so we’ve got a map of <em>something</em> here. But what’s not exactly clear. Let’s add an additional layer:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addMarkers</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-9347c3f5f4746a86bf9d" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-9347c3f5f4746a86bf9d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addMarkers","args":[[56,57,58],[-3,-4,-5],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}],"limits":{"lat":[56,58],"lng":[-5,-3]}},"evals":[],"jsHooks":[]}</script><p>It’s worth saying that, unlike ggplot, the order of layers in the code doesn’t determine the order of layers in the resulting visualisation - so your markers will still show up, even if we add tiles “over” them. That additional layer of <code>addTiles()</code> adds a background map for us, by default the <a href="https://www.openstreetmap.org/about">OSM</a>. That’s potentially change-able, using <code>addProviderTiles()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addMarkers</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addProviderTiles</span><span class="op">(</span><span class="va">providers</span><span class="op">$</span><span class="va">NASAGIBS.ViirsEarthAtNight2012</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-f3119de12a804851e6ea" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f3119de12a804851e6ea">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addMarkers","args":[[56,57,58],[-3,-4,-5],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addProviderTiles","args":["NASAGIBS.ViirsEarthAtNight2012",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]}],"limits":{"lat":[56,58],"lng":[-5,-3]}},"evals":[],"jsHooks":[]}</script><p>There’s a full list (and demo) of the different tiles at <a href="https://leaflet-extras.github.io/leaflet-providers/preview/index.html">https://leaflet-extras.github.io/leaflet-providers/preview/index.html</a> - those names get put after <code>providers$</code>.</p>
+<p>Those map objects can be saved and recalled in the usual way:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_map</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">setView</span><span class="op">(</span>lng <span class="op">=</span> <span class="op">-</span><span class="fl">5</span>, lat <span class="op">=</span> <span class="fl">57</span>, zoom <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="co"># lets you control starting location and zoom</span></span>
+<span></span>
+<span><span class="va">base_map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-bdd476103fa2870e2008" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-bdd476103fa2870e2008">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}],"setView":[[57,-5],7,[]]},"evals":[],"jsHooks":[]}</script><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_map</span> <span class="op">&lt;-</span> <span class="va">base_map</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addMarkers</span><span class="op">(</span>icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>iconUrl <span class="op">=</span> <span class="st">"src/images/icon.png"</span>, iconWidth <span class="op">=</span> <span class="fl">25</span>, iconHeight <span class="op">=</span> <span class="fl">25</span><span class="op">)</span><span class="op">)</span> <span class="co"># adding markers with a custom icon</span></span>
+<span></span>
+<span><span class="va">base_map</span> <span class="co"># re-view updated map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-e88fd673bcf1750a7e50" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-e88fd673bcf1750a7e50">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[56,57,58],[-3,-4,-5],{"iconUrl":{"data":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEUUExURf+aqv9+k/9adf8yVP8iR/8hRv8mSv9wiP9deP8uUP9kff82WP8wU/+Knf9kfv81Vv9ogf8tUP9PbP94jv+XqP+Pov9Laf8rTv9Wcv8lSf9yiv9thf8qTf9BYP81V/98kv8nS/9Rbv9FZP9/lf9CYf9xiP9JaP8jSP8kSP83WP94j/+Ro/+Lnv99kv+InP+Vp/+Tpf80Vf+Dl/+Yqf+Alf9bdv86W/9rg/+Jnf8oTP9Qbf8xU/9Xc/+Zqv9HZf95kP9ifP8uUf85Wv9GZf+EmP9cd/8zVf9he/8pTf88Xf9mgP9KaP+Fmf9eef+Wp/9EY/+Oof9rhP+Mn/+SpP87XP8vUv9ziv+Hm/9xif90i/+BlgAAAOhBfUYAAABcdFJOU/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8Ag20X4AAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAYAAAAAEAAABgAAAAAQAAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAANmnmpXJtwtfAAAB+UlEQVRIS92VWXfTMBBGA8k1BMpSSqEpTQu0kACFUihbWVr2sO9Q0P//H5yRLGlGccLhiXO4T/pGc49t2ZZa7q9plYU/84+U1r797Q5QHShnIkY52JXmSPeQnsso5bBqr5k5ontrknK0bA8cs+1CVI6HjtkTcyd9nj91upYWTL9SZLK3aOfOLHmnb6tRWQaWiynn3MpZcc7ZYq3IqtqJmvPirJpSUNaAC6aeuAgMTCUoQ+iZsqINXNKFoDQ8ZGYIrKiclAn35Zy7DCyp7JUrwLoqFswAV3P0yjVgQ/UUzNvLeGUduK56SjaBGyl55SawpXsK5MZnU0qPf0u1jCHfWwpJua06xrgD3I0hKD24p1vGALbjOCj39YWb6MBmHAflAfBQt5RU0I3j/CU/Uh1jNCjTvkuhQZFPfEe1lDQok/+xQJMia7abW0oqeBzHUZHL2J/PMIB2HCflCfA0tZQAa3GcFHlbPEvJsqr/waw8n7ICsvemkBX3AniZowYYpaAUmeiomHkFvE5JK33gjcqRt8AwR634FdC5ZgC8y9Eo2+aeazYqOWhUwSjykhm9N6UPsimbl2yVj/50qPqfwun1eSEcMgOzY1nF7dTnkCFvLp5CcV9GpTBUT+4pFee2vsq+XdP59r2cb1A8P+YW9/Z+/irLngnKNP4n5TebHu9ilAzh3wAAAABJRU5ErkJggg==","index":0},"iconWidth":25,"iconHeight":25},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[57,-5],7,[]],"limits":{"lat":[56,58],"lng":[-5,-3]}},"evals":[],"jsHooks":[]}</script><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_map</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addProviderTiles</span><span class="op">(</span><span class="va">providers</span><span class="op">$</span><span class="va">NASAGIBS.ViirsEarthAtNight2012</span><span class="op">)</span> <span class="co"># add to overwrite</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-84c357fcaa93d49ebdc6" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-84c357fcaa93d49ebdc6">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[56,57,58],[-3,-4,-5],{"iconUrl":{"data":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEUUExURf+aqv9+k/9adf8yVP8iR/8hRv8mSv9wiP9deP8uUP9kff82WP8wU/+Knf9kfv81Vv9ogf8tUP9PbP94jv+XqP+Pov9Laf8rTv9Wcv8lSf9yiv9thf8qTf9BYP81V/98kv8nS/9Rbv9FZP9/lf9CYf9xiP9JaP8jSP8kSP83WP94j/+Ro/+Lnv99kv+InP+Vp/+Tpf80Vf+Dl/+Yqf+Alf9bdv86W/9rg/+Jnf8oTP9Qbf8xU/9Xc/+Zqv9HZf95kP9ifP8uUf85Wv9GZf+EmP9cd/8zVf9he/8pTf88Xf9mgP9KaP+Fmf9eef+Wp/9EY/+Oof9rhP+Mn/+SpP87XP8vUv9ziv+Hm/9xif90i/+BlgAAAOhBfUYAAABcdFJOU/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8Ag20X4AAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAYAAAAAEAAABgAAAAAQAAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAANmnmpXJtwtfAAAB+UlEQVRIS92VWXfTMBBGA8k1BMpSSqEpTQu0kACFUihbWVr2sO9Q0P//H5yRLGlGccLhiXO4T/pGc49t2ZZa7q9plYU/84+U1r797Q5QHShnIkY52JXmSPeQnsso5bBqr5k5ontrknK0bA8cs+1CVI6HjtkTcyd9nj91upYWTL9SZLK3aOfOLHmnb6tRWQaWiynn3MpZcc7ZYq3IqtqJmvPirJpSUNaAC6aeuAgMTCUoQ+iZsqINXNKFoDQ8ZGYIrKiclAn35Zy7DCyp7JUrwLoqFswAV3P0yjVgQ/UUzNvLeGUduK56SjaBGyl55SawpXsK5MZnU0qPf0u1jCHfWwpJua06xrgD3I0hKD24p1vGALbjOCj39YWb6MBmHAflAfBQt5RU0I3j/CU/Uh1jNCjTvkuhQZFPfEe1lDQok/+xQJMia7abW0oqeBzHUZHL2J/PMIB2HCflCfA0tZQAa3GcFHlbPEvJsqr/waw8n7ICsvemkBX3AniZowYYpaAUmeiomHkFvE5JK33gjcqRt8AwR634FdC5ZgC8y9Eo2+aeazYqOWhUwSjykhm9N6UPsimbl2yVj/50qPqfwun1eSEcMgOzY1nF7dTnkCFvLp5CcV9GpTBUT+4pFee2vsq+XdP59r2cb1A8P+YW9/Z+/irLngnKNP4n5TebHu9ilAzh3wAAAABJRU5ErkJggg==","index":0},"iconWidth":25,"iconHeight":25},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addProviderTiles","args":["NASAGIBS.ViirsEarthAtNight2012",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]}],"setView":[[57,-5],7,[]],"limits":{"lat":[56,58],"lng":[-5,-3]}},"evals":[],"jsHooks":[]}</script><p>The custom icon here is just a small .png file with a transparent background: <img src="src/images/icon.png" class="img-fluid" alt="Custom icon"></p>
+</section><section id="a-more-substantial-map" class="level2"><h2 class="anchored" data-anchor-id="a-more-substantial-map">A more substantial map</h2>
+<p>Using <a href="r_training/data/locs.rds">this data set</a>, we can build a map of Scotland’s hospitals:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hosp_dat</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"r_training/data/locs.rds"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">hosp_base</span> <span class="op">&lt;-</span> <span class="va">hosp_dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addMarkers</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hosp_base</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-ba9632dc5bd4cc1dc7b8" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-ba9632dc5bd4cc1dc7b8">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[55.430332,55.613939,55.543118,55.242441,55.248308,55.761296,55.595478,55.423747,55.651475,55.603255,55.772601,55.058885,54.899221,54.939569,54.834833,55.331048,54.95109,56.125108,56.324306,56.082302,56.327485,56.025115,56.1068,55.99777,57.155764,57.645375,57.15358,57.077004,57.668967,57.469347,57.603147,57.687614,57.340875,57.277244,57.443195,56.969142,57.604078,57.502348,57.667815,57.445493,57.541791,57.536541,55.864025,55.943981,55.835208,55.862641,55.862641,null,55.993079,55.828602,55.866673,56.81941,58.441329,56.400405,57.473807,57.197883,55.422105,55.42141,57.696313,55.956935,56.515474,58.583433,57.337158,55.755779,57.972968,57.246596,57.246596,56.040348,56.040348,56.47942,57.578109,57.411275,57.594418,55.830393,55.759821,55.865878,55.773693,55.622533,55.562373,55.921125,55.921754,55.891884,55.995856,56.055441,55.961802,58.973685,60.151068,56.461679,56.396332,56.61834,56.554529,56.585885,56.733048,56.370441,56.705576,56.710077,56.701441,56.29288,56.652217,58.221085,56.953469,57.471241],[-4.595538,-4.539389,-5.115493,-4.851071,-4.846975,-4.922755,-2.741945,-2.791824,-3.197832,-2.433408,-2.341416,-3.659007,-5.021734,-3.925913,-4.049994,-3.431881,-4.49183,-3.160138,-3.017942,-3.42696,-2.805653,-3.848002,-3.935893,-3.794533,-2.134131,-3.329946,-2.135214,-2.76761,-2.524387,-3.224174,-3.62192,-2.019582,-2.612287,-2.378698,-2.790359,-2.230812,-3.591853,-1.793627,-2.98178,-3.125188,-2.954015,-2.451666,-4.235647,-4.809251,-4.43779,-4.338104,-4.338104,null,-4.591808,-4.265292,-4.29679,-5.104701,-3.095744,-5.474916,-4.19247,-3.827742,-5.60548,-5.606792,-4.15187,-4.927687,-5.947876,-3.538959,-3.604327,-6.279188,-3.987674,-5.909475,-5.909475,-5.422946,-5.422946,-5.715845,-3.87256,-6.192318,-4.417341,-5.055551,-4.221963,-3.999588,-3.941738,-3.520434,-3.829173,-3.13789,-3.13594,-3.523085,-2.537688,-2.716764,-3.234908,-2.965433,-1.155671,-2.991415,-3.452964,-3.861155,-2.596895,-3.346286,-2.6525,-3.84262,-3.726742,-2.456415,-3.737202,-3.71721,-2.871625,-6.383603,-7.497306,-7.371576],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[54.834833,60.151068],"lng":[-7.497306,-1.155671]}},"evals":[],"jsHooks":[]}</script></section><section id="tooltips" class="level2"><h2 class="anchored" data-anchor-id="tooltips">Tooltips</h2>
+<p>Our data contains hospital names, as well as long and lat values:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hosp_dat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">loc_name</th>
+<th style="text-align: left;">loc</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: right;">long</th>
+<th style="text-align: right;">lat</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">University Hospital Ayr</td>
+<td style="text-align: left;">A210H</td>
+<td style="text-align: left;">KA6 6DX</td>
+<td style="text-align: right;">-4.595538</td>
+<td style="text-align: right;">55.43033</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">University Hospital Crosshouse</td>
+<td style="text-align: left;">A111H</td>
+<td style="text-align: left;">KA2 0BE</td>
+<td style="text-align: right;">-4.539389</td>
+<td style="text-align: right;">55.61394</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Arran War Memorial Hospital</td>
+<td style="text-align: left;">A101H</td>
+<td style="text-align: left;">KA278LF</td>
+<td style="text-align: right;">-5.115493</td>
+<td style="text-align: right;">55.54312</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Davidson Cottage Hospital</td>
+<td style="text-align: left;">A207H</td>
+<td style="text-align: left;">KA269DS</td>
+<td style="text-align: right;">-4.851071</td>
+<td style="text-align: right;">55.24244</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Girvan Community Hospital</td>
+<td style="text-align: left;">A216H</td>
+<td style="text-align: left;">KA269HQ</td>
+<td style="text-align: right;">-4.846975</td>
+<td style="text-align: right;">55.24831</td>
+</tr>
+</tbody>
+</table>
+<p>Add a hospital name to the marker using a <code>~</code> to refer to the column name:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hosp_base</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addMarkers</span><span class="op">(</span>label <span class="op">=</span> <span class="op">~</span><span class="va">loc_name</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-820f1e4db300d02d7055" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-820f1e4db300d02d7055">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[55.430332,55.613939,55.543118,55.242441,55.248308,55.761296,55.595478,55.423747,55.651475,55.603255,55.772601,55.058885,54.899221,54.939569,54.834833,55.331048,54.95109,56.125108,56.324306,56.082302,56.327485,56.025115,56.1068,55.99777,57.155764,57.645375,57.15358,57.077004,57.668967,57.469347,57.603147,57.687614,57.340875,57.277244,57.443195,56.969142,57.604078,57.502348,57.667815,57.445493,57.541791,57.536541,55.864025,55.943981,55.835208,55.862641,55.862641,null,55.993079,55.828602,55.866673,56.81941,58.441329,56.400405,57.473807,57.197883,55.422105,55.42141,57.696313,55.956935,56.515474,58.583433,57.337158,55.755779,57.972968,57.246596,57.246596,56.040348,56.040348,56.47942,57.578109,57.411275,57.594418,55.830393,55.759821,55.865878,55.773693,55.622533,55.562373,55.921125,55.921754,55.891884,55.995856,56.055441,55.961802,58.973685,60.151068,56.461679,56.396332,56.61834,56.554529,56.585885,56.733048,56.370441,56.705576,56.710077,56.701441,56.29288,56.652217,58.221085,56.953469,57.471241],[-4.595538,-4.539389,-5.115493,-4.851071,-4.846975,-4.922755,-2.741945,-2.791824,-3.197832,-2.433408,-2.341416,-3.659007,-5.021734,-3.925913,-4.049994,-3.431881,-4.49183,-3.160138,-3.017942,-3.42696,-2.805653,-3.848002,-3.935893,-3.794533,-2.134131,-3.329946,-2.135214,-2.76761,-2.524387,-3.224174,-3.62192,-2.019582,-2.612287,-2.378698,-2.790359,-2.230812,-3.591853,-1.793627,-2.98178,-3.125188,-2.954015,-2.451666,-4.235647,-4.809251,-4.43779,-4.338104,-4.338104,null,-4.591808,-4.265292,-4.29679,-5.104701,-3.095744,-5.474916,-4.19247,-3.827742,-5.60548,-5.606792,-4.15187,-4.927687,-5.947876,-3.538959,-3.604327,-6.279188,-3.987674,-5.909475,-5.909475,-5.422946,-5.422946,-5.715845,-3.87256,-6.192318,-4.417341,-5.055551,-4.221963,-3.999588,-3.941738,-3.520434,-3.829173,-3.13789,-3.13594,-3.523085,-2.537688,-2.716764,-3.234908,-2.965433,-1.155671,-2.991415,-3.452964,-3.861155,-2.596895,-3.346286,-2.6525,-3.84262,-3.726742,-2.456415,-3.737202,-3.71721,-2.871625,-6.383603,-7.497306,-7.371576],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[[55.430332,55.613939,55.543118,55.242441,55.248308,55.761296,55.595478,55.423747,55.651475,55.603255,55.772601,55.058885,54.899221,54.939569,54.834833,55.331048,54.95109,56.125108,56.324306,56.082302,56.327485,56.025115,56.1068,55.99777,57.155764,57.645375,57.15358,57.077004,57.668967,57.469347,57.603147,57.687614,57.340875,57.277244,57.443195,56.969142,57.604078,57.502348,57.667815,57.445493,57.541791,57.536541,55.864025,55.943981,55.835208,55.862641,55.862641,null,55.993079,55.828602,55.866673,56.81941,58.441329,56.400405,57.473807,57.197883,55.422105,55.42141,57.696313,55.956935,56.515474,58.583433,57.337158,55.755779,57.972968,57.246596,57.246596,56.040348,56.040348,56.47942,57.578109,57.411275,57.594418,55.830393,55.759821,55.865878,55.773693,55.622533,55.562373,55.921125,55.921754,55.891884,55.995856,56.055441,55.961802,58.973685,60.151068,56.461679,56.396332,56.61834,56.554529,56.585885,56.733048,56.370441,56.705576,56.710077,56.701441,56.29288,56.652217,58.221085,56.953469,57.471241],[-4.595538,-4.539389,-5.115493,-4.851071,-4.846975,-4.922755,-2.741945,-2.791824,-3.197832,-2.433408,-2.341416,-3.659007,-5.021734,-3.925913,-4.049994,-3.431881,-4.49183,-3.160138,-3.017942,-3.42696,-2.805653,-3.848002,-3.935893,-3.794533,-2.134131,-3.329946,-2.135214,-2.76761,-2.524387,-3.224174,-3.62192,-2.019582,-2.612287,-2.378698,-2.790359,-2.230812,-3.591853,-1.793627,-2.98178,-3.125188,-2.954015,-2.451666,-4.235647,-4.809251,-4.43779,-4.338104,-4.338104,null,-4.591808,-4.265292,-4.29679,-5.104701,-3.095744,-5.474916,-4.19247,-3.827742,-5.60548,-5.606792,-4.15187,-4.927687,-5.947876,-3.538959,-3.604327,-6.279188,-3.987674,-5.909475,-5.909475,-5.422946,-5.422946,-5.715845,-3.87256,-6.192318,-4.417341,-5.055551,-4.221963,-3.999588,-3.941738,-3.520434,-3.829173,-3.13789,-3.13594,-3.523085,-2.537688,-2.716764,-3.234908,-2.965433,-1.155671,-2.991415,-3.452964,-3.861155,-2.596895,-3.346286,-2.6525,-3.84262,-3.726742,-2.456415,-3.737202,-3.71721,-2.871625,-6.383603,-7.497306,-7.371576],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["University Hospital Ayr","University Hospital Crosshouse","Arran War Memorial Hospital","Davidson Cottage Hospital","Girvan Community Hospital","Lady Margaret Hospital","Borders General Hospital","Hawick Cottage Hospital","Hay Lodge Hospital","Kelso Hospital","Knoll Hospital","Dumfries &amp; Galloway Royal Infirmary","Galloway Community Hospital","Castle Douglas Hospital","Kirkcudbright Hospital","Moffat Hospital","Newton Stewart Hospital","Victoria Hospital (NHS Fife)","Adamson Hospital","Queen Margaret Hospital","St Andrews Community Hospital","Forth Valley Royal Hospital","Stirling Health and Care Village","Falkirk Community Hospital","Aberdeen Royal Infirmary","Dr Gray's Hospital","Royal Aberdeen Children's Hospital","Aboyne Hospital","Chalmers Hospital","Fleming Cottage Hospital","Forres Health &amp; Care Centre","Fraserburgh Hospital","Insch War Memorial Hospital","Inverurie Hospital","Jubilee Hospital","Kincardine Community Hospital","Leanchoil Hospital","Peterhead Community Hospital","Seafield Hospital","Stephen Hospital","Turner Memorial Hospital","Turriff Hospital","Glasgow Royal Infirmary","Inverclyde Royal Hospital","Royal Alexandra Hospital","Royal Hospital for Children Glasgow","Queen Elizabeth University Hospital","New Stobhill Hospital","Vale of Leven District General Hospital","New Victoria Hospital","West Glasgow Ambulatory Care Hospital","Belford Hospital","Caithness General Hospital","Lorn &amp; Islands Hospital","Raigmore Hospital","Aviemore Health Centre","Campbeltown Hospital (2007-2009)","Campbeltown Hospital","County Community Hospital - Invergordon","Cowal Community Hospital","Dunaros Hospital","Dunbar Hospital","Ian Charles Community Hospital","Islay Hospital","Lawson Memorial Hospital","Dr Mackinnon Memorial Hospital","Broadford Hospital","Mid Argyll Community Hospital And Integrated Care Centre","Mid Argyll Hospital","Mull and Iona Community Hospital","Nairn Town and County Hospital","Portree Community Hospital","Ross Memorial Hospital","Victoria Hospital (NHS Highland)","University Hospital Hairmyres","University Hospital Monklands","University Hospital Wishaw","Kello Hospital","Lady Home Hospital","Royal Hospital for Children and Young People (Edinburgh)","Royal Infirmary of Edinburgh","St John's Hospital","Belhaven Hospital","Edington Cottage Hospital","Western General Hospital","Balfour Hospital","Gilbert Bain Hospital","Ninewells Hospital","Perth Royal Infirmary","Aberfeldy Community Hospital","Arbroath Infirmary","Blairgowrie Community Hospital","Brechin Infirmary","Crieff Community Hospital","Irvine Memorial Hospital","Links Health Centre - Montrose","Pitlochry Community Hospital","St Margaret's Hospital","Whitehills Health and Community Care Centre","Western Isles Hospital","St Brendan's Hospital","Uist &amp; Barra Hospital"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[54.834833,60.151068],"lng":[-7.497306,-1.155671]}},"evals":[],"jsHooks":[]}</script><p>If our data had unfriendly lat and long columns, we could also specify those in a similar way:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hosp_dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>ad <span class="op">=</span> <span class="va">long</span>, ws <span class="op">=</span> <span class="va">lat</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addMarkers</span><span class="op">(</span>label <span class="op">=</span> <span class="op">~</span><span class="va">loc_name</span>, </span>
+<span>             lng <span class="op">=</span> <span class="op">~</span><span class="va">ad</span>,</span>
+<span>             lat <span class="op">=</span> <span class="op">~</span><span class="va">ws</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-229ed87fd80d7332e71b" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-229ed87fd80d7332e71b">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[55.430332,55.613939,55.543118,55.242441,55.248308,55.761296,55.595478,55.423747,55.651475,55.603255,55.772601,55.058885,54.899221,54.939569,54.834833,55.331048,54.95109,56.125108,56.324306,56.082302,56.327485,56.025115,56.1068,55.99777,57.155764,57.645375,57.15358,57.077004,57.668967,57.469347,57.603147,57.687614,57.340875,57.277244,57.443195,56.969142,57.604078,57.502348,57.667815,57.445493,57.541791,57.536541,55.864025,55.943981,55.835208,55.862641,55.862641,null,55.993079,55.828602,55.866673,56.81941,58.441329,56.400405,57.473807,57.197883,55.422105,55.42141,57.696313,55.956935,56.515474,58.583433,57.337158,55.755779,57.972968,57.246596,57.246596,56.040348,56.040348,56.47942,57.578109,57.411275,57.594418,55.830393,55.759821,55.865878,55.773693,55.622533,55.562373,55.921125,55.921754,55.891884,55.995856,56.055441,55.961802,58.973685,60.151068,56.461679,56.396332,56.61834,56.554529,56.585885,56.733048,56.370441,56.705576,56.710077,56.701441,56.29288,56.652217,58.221085,56.953469,57.471241],[-4.595538,-4.539389,-5.115493,-4.851071,-4.846975,-4.922755,-2.741945,-2.791824,-3.197832,-2.433408,-2.341416,-3.659007,-5.021734,-3.925913,-4.049994,-3.431881,-4.49183,-3.160138,-3.017942,-3.42696,-2.805653,-3.848002,-3.935893,-3.794533,-2.134131,-3.329946,-2.135214,-2.76761,-2.524387,-3.224174,-3.62192,-2.019582,-2.612287,-2.378698,-2.790359,-2.230812,-3.591853,-1.793627,-2.98178,-3.125188,-2.954015,-2.451666,-4.235647,-4.809251,-4.43779,-4.338104,-4.338104,null,-4.591808,-4.265292,-4.29679,-5.104701,-3.095744,-5.474916,-4.19247,-3.827742,-5.60548,-5.606792,-4.15187,-4.927687,-5.947876,-3.538959,-3.604327,-6.279188,-3.987674,-5.909475,-5.909475,-5.422946,-5.422946,-5.715845,-3.87256,-6.192318,-4.417341,-5.055551,-4.221963,-3.999588,-3.941738,-3.520434,-3.829173,-3.13789,-3.13594,-3.523085,-2.537688,-2.716764,-3.234908,-2.965433,-1.155671,-2.991415,-3.452964,-3.861155,-2.596895,-3.346286,-2.6525,-3.84262,-3.726742,-2.456415,-3.737202,-3.71721,-2.871625,-6.383603,-7.497306,-7.371576],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["University Hospital Ayr","University Hospital Crosshouse","Arran War Memorial Hospital","Davidson Cottage Hospital","Girvan Community Hospital","Lady Margaret Hospital","Borders General Hospital","Hawick Cottage Hospital","Hay Lodge Hospital","Kelso Hospital","Knoll Hospital","Dumfries &amp; Galloway Royal Infirmary","Galloway Community Hospital","Castle Douglas Hospital","Kirkcudbright Hospital","Moffat Hospital","Newton Stewart Hospital","Victoria Hospital (NHS Fife)","Adamson Hospital","Queen Margaret Hospital","St Andrews Community Hospital","Forth Valley Royal Hospital","Stirling Health and Care Village","Falkirk Community Hospital","Aberdeen Royal Infirmary","Dr Gray's Hospital","Royal Aberdeen Children's Hospital","Aboyne Hospital","Chalmers Hospital","Fleming Cottage Hospital","Forres Health &amp; Care Centre","Fraserburgh Hospital","Insch War Memorial Hospital","Inverurie Hospital","Jubilee Hospital","Kincardine Community Hospital","Leanchoil Hospital","Peterhead Community Hospital","Seafield Hospital","Stephen Hospital","Turner Memorial Hospital","Turriff Hospital","Glasgow Royal Infirmary","Inverclyde Royal Hospital","Royal Alexandra Hospital","Royal Hospital for Children Glasgow","Queen Elizabeth University Hospital","New Stobhill Hospital","Vale of Leven District General Hospital","New Victoria Hospital","West Glasgow Ambulatory Care Hospital","Belford Hospital","Caithness General Hospital","Lorn &amp; Islands Hospital","Raigmore Hospital","Aviemore Health Centre","Campbeltown Hospital (2007-2009)","Campbeltown Hospital","County Community Hospital - Invergordon","Cowal Community Hospital","Dunaros Hospital","Dunbar Hospital","Ian Charles Community Hospital","Islay Hospital","Lawson Memorial Hospital","Dr Mackinnon Memorial Hospital","Broadford Hospital","Mid Argyll Community Hospital And Integrated Care Centre","Mid Argyll Hospital","Mull and Iona Community Hospital","Nairn Town and County Hospital","Portree Community Hospital","Ross Memorial Hospital","Victoria Hospital (NHS Highland)","University Hospital Hairmyres","University Hospital Monklands","University Hospital Wishaw","Kello Hospital","Lady Home Hospital","Royal Hospital for Children and Young People (Edinburgh)","Royal Infirmary of Edinburgh","St John's Hospital","Belhaven Hospital","Edington Cottage Hospital","Western General Hospital","Balfour Hospital","Gilbert Bain Hospital","Ninewells Hospital","Perth Royal Infirmary","Aberfeldy Community Hospital","Arbroath Infirmary","Blairgowrie Community Hospital","Brechin Infirmary","Crieff Community Hospital","Irvine Memorial Hospital","Links Health Centre - Montrose","Pitlochry Community Hospital","St Margaret's Hospital","Whitehills Health and Community Care Centre","Western Isles Hospital","St Brendan's Hospital","Uist &amp; Barra Hospital"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[54.834833,60.151068],"lng":[-7.497306,-1.155671]}},"evals":[],"jsHooks":[]}</script><p>Unlike ggplot, we don’t have the full data to play with in leaflet objects, so we’ve needed to remake this map from scratch.</p>
+</section><section id="customising-markers" class="level2"><h2 class="anchored" data-anchor-id="customising-markers">Customising markers</h2>
+<p>We often want to indicate group membership using marker colours. We’ll start by joining <a href="https://publichealthscotland.scot/resources-and-tools/medical-practice-and-pharmaceuticals/national-reference-files/current-nhs-hospitals-in-scotland/">some board info</a> to the hospitals data:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hosp_dat_board</span> <span class="op">&lt;-</span> <span class="va">hosp_dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"r_training/data/board_locs.csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">board</span><span class="op">)</span><span class="op">)</span> <span class="co"># there are a few missing values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Next, and a major pain-point if you’re used to dealing with ggplot doing it for you, join a tibble of hex colour values:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">board_colours</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>board <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">hosp_dat_board</span><span class="op">$</span><span class="va">board</span><span class="op">)</span>, </span>
+<span>               colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#E6DFC8"</span>, <span class="st">"#D4A373"</span>, <span class="st">"#CCD5AE"</span>, <span class="st">"#E9EDC9"</span>, <span class="st">"#FAEDCD"</span>, <span class="st">"#B7B7A4"</span>, <span class="st">"#A8DADC"</span>, <span class="st">"#457B9D"</span>, <span class="st">"#E8AEB7"</span>, <span class="st">"#B388EB"</span>, <span class="st">"#1D3557"</span>, <span class="st">"#E63946"</span>, <span class="st">"#6B705C"</span>, <span class="st">"#3F37C9"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, build a similar map again, using a variant of <code>addMarkers()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hosp_dat_board</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">board_colours</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addCircleMarkers</span><span class="op">(</span>label <span class="op">=</span> <span class="op">~</span><span class="va">loc_name</span>, </span>
+<span>             stroke <span class="op">=</span> <span class="cn">T</span>, <span class="co"># turns outline on and off</span></span>
+<span>             color <span class="op">=</span> <span class="st">"#000"</span>, <span class="co"># outline colour</span></span>
+<span>             weight <span class="op">=</span> <span class="fl">2</span>, <span class="co"># outline thickness</span></span>
+<span>             fillColor <span class="op">=</span> <span class="op">~</span><span class="va">colours</span>, <span class="co"># column to use for fill colours</span></span>
+<span>             fillOpacity <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="co"># fill opacity</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-da3f9efe9a14e95bdc46" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-da3f9efe9a14e95bdc46">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[55.430332,55.613939,55.543118,55.248308,55.761296,55.595478,55.423747,55.651475,55.603255,55.772601,55.058885,54.899221,54.939569,54.834833,55.331048,54.95109,56.125108,56.324306,56.082302,56.327485,56.025115,56.1068,55.99777,57.155764,57.645375,57.15358,57.077004,57.668967,57.687614,57.277244,57.443195,56.969142,57.604078,57.502348,57.667815,57.445493,57.541791,57.536541,55.864025,55.943981,55.835208,55.862641,55.862641,null,55.993079,55.828602,55.866673,56.81941,58.441329,56.400405,57.473807,55.42141,57.696313,55.956935,58.583433,55.755779,57.972968,57.246596,56.040348,56.47942,57.578109,57.411275,57.594418,55.830393,55.759821,55.865878,55.773693,55.622533,55.562373,55.921125,55.921754,55.891884,55.995856,56.055441,55.961802,58.973685,60.151068,56.461679,56.396332,56.554529,56.585885,56.370441,56.701441,56.29288,56.652217,58.221085,56.953469,57.471241],[-4.595538,-4.539389,-5.115493,-4.846975,-4.922755,-2.741945,-2.791824,-3.197832,-2.433408,-2.341416,-3.659007,-5.021734,-3.925913,-4.049994,-3.431881,-4.49183,-3.160138,-3.017942,-3.42696,-2.805653,-3.848002,-3.935893,-3.794533,-2.134131,-3.329946,-2.135214,-2.76761,-2.524387,-2.019582,-2.378698,-2.790359,-2.230812,-3.591853,-1.793627,-2.98178,-3.125188,-2.954015,-2.451666,-4.235647,-4.809251,-4.43779,-4.338104,-4.338104,null,-4.591808,-4.265292,-4.29679,-5.104701,-3.095744,-5.474916,-4.19247,-5.606792,-4.15187,-4.927687,-3.538959,-6.279188,-3.987674,-5.909475,-5.422946,-5.715845,-3.87256,-6.192318,-4.417341,-5.055551,-4.221963,-3.999588,-3.941738,-3.520434,-3.829173,-3.13789,-3.13594,-3.523085,-2.537688,-2.716764,-3.234908,-2.965433,-1.155671,-2.991415,-3.452964,-2.596895,-3.346286,-3.84262,-3.737202,-3.71721,-2.871625,-6.383603,-7.497306,-7.371576],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#000","weight":2,"opacity":0.5,"fill":true,"fillColor":["#E6DFC8","#E6DFC8","#E6DFC8","#E6DFC8","#E6DFC8","#D4A373","#D4A373","#D4A373","#D4A373","#D4A373","#CCD5AE","#CCD5AE","#CCD5AE","#CCD5AE","#CCD5AE","#CCD5AE","#E9EDC9","#E9EDC9","#E9EDC9","#E9EDC9","#FAEDCD","#FAEDCD","#FAEDCD","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#B7B7A4","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#457B9D","#E8AEB7","#E8AEB7","#E8AEB7","#E8AEB7","#E8AEB7","#B388EB","#B388EB","#B388EB","#B388EB","#B388EB","#B388EB","#1D3557","#E63946","#6B705C","#6B705C","#6B705C","#6B705C","#6B705C","#6B705C","#6B705C","#6B705C","#3F37C9","#3F37C9","#3F37C9"],"fillOpacity":0.8},null,null,null,null,["University Hospital Ayr","University Hospital Crosshouse","Arran War Memorial Hospital","Girvan Community Hospital","Lady Margaret Hospital","Borders General Hospital","Hawick Cottage Hospital","Hay Lodge Hospital","Kelso Hospital","Knoll Hospital","Dumfries &amp; Galloway Royal Infirmary","Galloway Community Hospital","Castle Douglas Hospital","Kirkcudbright Hospital","Moffat Hospital","Newton Stewart Hospital","Victoria Hospital (NHS Fife)","Adamson Hospital","Queen Margaret Hospital","St Andrews Community Hospital","Forth Valley Royal Hospital","Stirling Health and Care Village","Falkirk Community Hospital","Aberdeen Royal Infirmary","Dr Gray's Hospital","Royal Aberdeen Children's Hospital","Aboyne Hospital","Chalmers Hospital","Fraserburgh Hospital","Inverurie Hospital","Jubilee Hospital","Kincardine Community Hospital","Leanchoil Hospital","Peterhead Community Hospital","Seafield Hospital","Stephen Hospital","Turner Memorial Hospital","Turriff Hospital","Glasgow Royal Infirmary","Inverclyde Royal Hospital","Royal Alexandra Hospital","Royal Hospital for Children Glasgow","Queen Elizabeth University Hospital","New Stobhill Hospital","Vale of Leven District General Hospital","New Victoria Hospital","West Glasgow Ambulatory Care Hospital","Belford Hospital","Caithness General Hospital","Lorn &amp; Islands Hospital","Raigmore Hospital","Campbeltown Hospital","County Community Hospital - Invergordon","Cowal Community Hospital","Dunbar Hospital","Islay Hospital","Lawson Memorial Hospital","Broadford Hospital","Mid Argyll Community Hospital And Integrated Care Centre","Mull and Iona Community Hospital","Nairn Town and County Hospital","Portree Community Hospital","Ross Memorial Hospital","Victoria Hospital (NHS Highland)","University Hospital Hairmyres","University Hospital Monklands","University Hospital Wishaw","Kello Hospital","Lady Home Hospital","Royal Hospital for Children and Young People (Edinburgh)","Royal Infirmary of Edinburgh","St John's Hospital","Belhaven Hospital","Edington Cottage Hospital","Western General Hospital","Balfour Hospital","Gilbert Bain Hospital","Ninewells Hospital","Perth Royal Infirmary","Arbroath Infirmary","Blairgowrie Community Hospital","Crieff Community Hospital","Pitlochry Community Hospital","St Margaret's Hospital","Whitehills Health and Community Care Centre","Western Isles Hospital","St Brendan's Hospital","Uist &amp; Barra Hospital"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[54.834833,60.151068],"lng":[-7.497306,-1.155671]}},"evals":[],"jsHooks":[]}</script><p>It’s also possible to scale those <code>CircleMarkers</code>. This uses <a href="https://www.opendata.nhs.scot/dataset/hospital-beds-information">some open data about hospital beds</a>. This data is a bit fragmented, so we’ll remove the missing data and only show scaled blobs for about 30 sites in total here:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">beds</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"r_training/data/beds_site.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Quarter</span> <span class="op">==</span> <span class="st">"2025Q4"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>loc <span class="op">=</span> <span class="va">Location</span>, <span class="va">SpecialtyName</span>, beds <span class="op">=</span> <span class="va">AverageAvailableStaffedBeds</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">loc</span>, <span class="st">"S0"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">SpecialtyName</span> <span class="op">==</span> <span class="st">"All Specialties"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">hosp_dat_boards_beds</span> <span class="op">&lt;-</span> <span class="va">hosp_dat_board</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">board_colours</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">beds</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">beds</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">hosp_dat_boards_beds</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addCircleMarkers</span><span class="op">(</span>label <span class="op">=</span> <span class="op">~</span><span class="va">loc_name</span>, </span>
+<span>             stroke <span class="op">=</span> <span class="cn">T</span>, <span class="co"># turns outline on and off</span></span>
+<span>             color <span class="op">=</span> <span class="st">"#000"</span>, <span class="co"># outline colour</span></span>
+<span>             weight <span class="op">=</span> <span class="fl">2</span>, <span class="co"># outline thickness</span></span>
+<span>             fillColor <span class="op">=</span> <span class="op">~</span><span class="va">colours</span>, <span class="co"># column to use for fill colours</span></span>
+<span>             fillOpacity <span class="op">=</span> <span class="fl">0.8</span>, </span>
+<span>             radius <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">beds</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-5ae18d72efe76c217cdd" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-5ae18d72efe76c217cdd">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[55.430332,55.613939,55.543118,55.595478,55.058885,54.899221,56.125108,56.082302,56.025115,57.155764,57.645375,55.864025,55.943981,55.835208,55.862641,null,55.993079,55.828602,55.866673,56.81941,58.441329,56.400405,57.473807,55.759821,55.865878,55.773693,55.921754,55.891884,55.961802,58.973685,60.151068,56.461679,56.396332,58.221085],[-4.595538,-4.539389,-5.115493,-2.741945,-3.659007,-5.021734,-3.160138,-3.42696,-3.848002,-2.134131,-3.329946,-4.235647,-4.809251,-4.43779,-4.338104,null,-4.591808,-4.265292,-4.29679,-5.104701,-3.095744,-5.474916,-4.19247,-4.221963,-3.999588,-3.941738,-3.13594,-3.523085,-3.234908,-2.965433,-1.155671,-2.991415,-3.452964,-6.383603],[17.8748669803503,25.17266460822654,3.177707678021457,15.56996830579556,20.50424134279243,6.908564313195993,23.83024202106661,12.88283320175915,28.78745197658778,27.07337051983642,11.74548942101309,30.26369614485029,17.51210761283399,26.23016849222351,39.70420523122807,17.19264251131103,10.39178187005398,7.741755783328201,18.49236034973221,5.652048493591774,7.16498126457698,6.933692159053627,22.42378395714072,21.94632781008764,20.73460665273104,26.15152335740776,32.58984237591456,20.62949555749054,23.18709348641666,7.072604833470819,6.933692159053627,28.53982724422898,15.96088969951237,8.720914391627002],null,null,{"interactive":true,"className":"","stroke":true,"color":"#000","weight":2,"opacity":0.5,"fill":true,"fillColor":["#E6DFC8","#E6DFC8","#E6DFC8","#D4A373","#CCD5AE","#CCD5AE","#E9EDC9","#E9EDC9","#FAEDCD","#B7B7A4","#B7B7A4","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#A8DADC","#457B9D","#457B9D","#457B9D","#457B9D","#E8AEB7","#E8AEB7","#E8AEB7","#B388EB","#B388EB","#B388EB","#1D3557","#E63946","#6B705C","#6B705C","#3F37C9"],"fillOpacity":0.8},null,null,null,null,["University Hospital Ayr","University Hospital Crosshouse","Arran War Memorial Hospital","Borders General Hospital","Dumfries &amp; Galloway Royal Infirmary","Galloway Community Hospital","Victoria Hospital (NHS Fife)","Queen Margaret Hospital","Forth Valley Royal Hospital","Aberdeen Royal Infirmary","Dr Gray's Hospital","Glasgow Royal Infirmary","Inverclyde Royal Hospital","Royal Alexandra Hospital","Queen Elizabeth University Hospital","New Stobhill Hospital","Vale of Leven District General Hospital","New Victoria Hospital","West Glasgow Ambulatory Care Hospital","Belford Hospital","Caithness General Hospital","Lorn &amp; Islands Hospital","Raigmore Hospital","University Hospital Hairmyres","University Hospital Monklands","University Hospital Wishaw","Royal Infirmary of Edinburgh","St John's Hospital","Western General Hospital","Balfour Hospital","Gilbert Bain Hospital","Ninewells Hospital","Perth Royal Infirmary","Western Isles Hospital"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[54.899221,60.151068],"lng":[-6.383603,-1.155671]}},"evals":[],"jsHooks":[]}</script><p>There’s also <code>addAwesomeMarkers</code> which uses fontawesome icons. Define the icon first using <code>awesomeIcons</code>, and then apply:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">icons</span> <span class="op">&lt;-</span> <span class="fu">awesomeIcons</span><span class="op">(</span></span>
+<span>  icon <span class="op">=</span> <span class="st">'building'</span>,</span>
+<span>  library <span class="op">=</span> <span class="st">'fa'</span>,</span>
+<span>  markerColor <span class="op">=</span> <span class="st">"lightred"</span>,</span>
+<span>  iconColor <span class="op">=</span> <span class="st">"#ffffff"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hosp_dat_board</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">board_colours</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addAwesomeMarkers</span><span class="op">(</span>label <span class="op">=</span> <span class="op">~</span><span class="va">loc_name</span>, </span>
+<span>             icon <span class="op">=</span> <span class="va">icons</span><span class="op">)</span> <span class="co"># using our earlier definition</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-f876435330ac79f4e38c" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f876435330ac79f4e38c">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addAwesomeMarkers","args":[[55.430332,55.613939,55.543118,55.248308,55.761296,55.595478,55.423747,55.651475,55.603255,55.772601,55.058885,54.899221,54.939569,54.834833,55.331048,54.95109,56.125108,56.324306,56.082302,56.327485,56.025115,56.1068,55.99777,57.155764,57.645375,57.15358,57.077004,57.668967,57.687614,57.277244,57.443195,56.969142,57.604078,57.502348,57.667815,57.445493,57.541791,57.536541,55.864025,55.943981,55.835208,55.862641,55.862641,null,55.993079,55.828602,55.866673,56.81941,58.441329,56.400405,57.473807,55.42141,57.696313,55.956935,58.583433,55.755779,57.972968,57.246596,56.040348,56.47942,57.578109,57.411275,57.594418,55.830393,55.759821,55.865878,55.773693,55.622533,55.562373,55.921125,55.921754,55.891884,55.995856,56.055441,55.961802,58.973685,60.151068,56.461679,56.396332,56.554529,56.585885,56.370441,56.701441,56.29288,56.652217,58.221085,56.953469,57.471241],[-4.595538,-4.539389,-5.115493,-4.846975,-4.922755,-2.741945,-2.791824,-3.197832,-2.433408,-2.341416,-3.659007,-5.021734,-3.925913,-4.049994,-3.431881,-4.49183,-3.160138,-3.017942,-3.42696,-2.805653,-3.848002,-3.935893,-3.794533,-2.134131,-3.329946,-2.135214,-2.76761,-2.524387,-2.019582,-2.378698,-2.790359,-2.230812,-3.591853,-1.793627,-2.98178,-3.125188,-2.954015,-2.451666,-4.235647,-4.809251,-4.43779,-4.338104,-4.338104,null,-4.591808,-4.265292,-4.29679,-5.104701,-3.095744,-5.474916,-4.19247,-5.606792,-4.15187,-4.927687,-3.538959,-6.279188,-3.987674,-5.909475,-5.422946,-5.715845,-3.87256,-6.192318,-4.417341,-5.055551,-4.221963,-3.999588,-3.941738,-3.520434,-3.829173,-3.13789,-3.13594,-3.523085,-2.537688,-2.716764,-3.234908,-2.965433,-1.155671,-2.991415,-3.452964,-2.596895,-3.346286,-3.84262,-3.737202,-3.71721,-2.871625,-6.383603,-7.497306,-7.371576],{"icon":"building","markerColor":"lightred","iconColor":"#ffffff","spin":false,"squareMarker":false,"iconRotate":0,"font":"monospace","prefix":"fa"},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["University Hospital Ayr","University Hospital Crosshouse","Arran War Memorial Hospital","Girvan Community Hospital","Lady Margaret Hospital","Borders General Hospital","Hawick Cottage Hospital","Hay Lodge Hospital","Kelso Hospital","Knoll Hospital","Dumfries &amp; Galloway Royal Infirmary","Galloway Community Hospital","Castle Douglas Hospital","Kirkcudbright Hospital","Moffat Hospital","Newton Stewart Hospital","Victoria Hospital (NHS Fife)","Adamson Hospital","Queen Margaret Hospital","St Andrews Community Hospital","Forth Valley Royal Hospital","Stirling Health and Care Village","Falkirk Community Hospital","Aberdeen Royal Infirmary","Dr Gray's Hospital","Royal Aberdeen Children's Hospital","Aboyne Hospital","Chalmers Hospital","Fraserburgh Hospital","Inverurie Hospital","Jubilee Hospital","Kincardine Community Hospital","Leanchoil Hospital","Peterhead Community Hospital","Seafield Hospital","Stephen Hospital","Turner Memorial Hospital","Turriff Hospital","Glasgow Royal Infirmary","Inverclyde Royal Hospital","Royal Alexandra Hospital","Royal Hospital for Children Glasgow","Queen Elizabeth University Hospital","New Stobhill Hospital","Vale of Leven District General Hospital","New Victoria Hospital","West Glasgow Ambulatory Care Hospital","Belford Hospital","Caithness General Hospital","Lorn &amp; Islands Hospital","Raigmore Hospital","Campbeltown Hospital","County Community Hospital - Invergordon","Cowal Community Hospital","Dunbar Hospital","Islay Hospital","Lawson Memorial Hospital","Broadford Hospital","Mid Argyll Community Hospital And Integrated Care Centre","Mull and Iona Community Hospital","Nairn Town and County Hospital","Portree Community Hospital","Ross Memorial Hospital","Victoria Hospital (NHS Highland)","University Hospital Hairmyres","University Hospital Monklands","University Hospital Wishaw","Kello Hospital","Lady Home Hospital","Royal Hospital for Children and Young People (Edinburgh)","Royal Infirmary of Edinburgh","St John's Hospital","Belhaven Hospital","Edington Cottage Hospital","Western General Hospital","Balfour Hospital","Gilbert Bain Hospital","Ninewells Hospital","Perth Royal Infirmary","Arbroath Infirmary","Blairgowrie Community Hospital","Crieff Community Hospital","Pitlochry Community Hospital","St Margaret's Hospital","Whitehills Health and Community Care Centre","Western Isles Hospital","St Brendan's Hospital","Uist &amp; Barra Hospital"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[54.834833,60.151068],"lng":[-7.497306,-1.155671]}},"evals":[],"jsHooks":[]}</script><p><code>addAwesomeMarkers</code> is hard to colour with precision (or to fit series), as you can only use a group of a dozen or so basic colours for the <code>markerColor</code> aspect. That’s also a good time to demonstrate clustering:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hosp_dat_board</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">board_colours</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">leaflet</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">addAwesomeMarkers</span><span class="op">(</span>label <span class="op">=</span> <span class="op">~</span><span class="va">loc_name</span>, </span>
+<span>             group <span class="op">=</span> <span class="op">~</span><span class="va">board</span>, </span>
+<span>             clusterOptions <span class="op">=</span> <span class="fu">markerClusterOptions</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-8bbb8a8cf590cd88dcdd" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-8bbb8a8cf590cd88dcdd">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addAwesomeMarkers","args":[[55.430332,55.613939,55.543118,55.248308,55.761296,55.595478,55.423747,55.651475,55.603255,55.772601,55.058885,54.899221,54.939569,54.834833,55.331048,54.95109,56.125108,56.324306,56.082302,56.327485,56.025115,56.1068,55.99777,57.155764,57.645375,57.15358,57.077004,57.668967,57.687614,57.277244,57.443195,56.969142,57.604078,57.502348,57.667815,57.445493,57.541791,57.536541,55.864025,55.943981,55.835208,55.862641,55.862641,null,55.993079,55.828602,55.866673,56.81941,58.441329,56.400405,57.473807,55.42141,57.696313,55.956935,58.583433,55.755779,57.972968,57.246596,56.040348,56.47942,57.578109,57.411275,57.594418,55.830393,55.759821,55.865878,55.773693,55.622533,55.562373,55.921125,55.921754,55.891884,55.995856,56.055441,55.961802,58.973685,60.151068,56.461679,56.396332,56.554529,56.585885,56.370441,56.701441,56.29288,56.652217,58.221085,56.953469,57.471241],[-4.595538,-4.539389,-5.115493,-4.846975,-4.922755,-2.741945,-2.791824,-3.197832,-2.433408,-2.341416,-3.659007,-5.021734,-3.925913,-4.049994,-3.431881,-4.49183,-3.160138,-3.017942,-3.42696,-2.805653,-3.848002,-3.935893,-3.794533,-2.134131,-3.329946,-2.135214,-2.76761,-2.524387,-2.019582,-2.378698,-2.790359,-2.230812,-3.591853,-1.793627,-2.98178,-3.125188,-2.954015,-2.451666,-4.235647,-4.809251,-4.43779,-4.338104,-4.338104,null,-4.591808,-4.265292,-4.29679,-5.104701,-3.095744,-5.474916,-4.19247,-5.606792,-4.15187,-4.927687,-3.538959,-6.279188,-3.987674,-5.909475,-5.422946,-5.715845,-3.87256,-6.192318,-4.417341,-5.055551,-4.221963,-3.999588,-3.941738,-3.520434,-3.829173,-3.13789,-3.13594,-3.523085,-2.537688,-2.716764,-3.234908,-2.965433,-1.155671,-2.991415,-3.452964,-2.596895,-3.346286,-3.84262,-3.737202,-3.71721,-2.871625,-6.383603,-7.497306,-7.371576],null,null,["Ayrshire & Arran","Ayrshire & Arran","Ayrshire & Arran","Ayrshire & Arran","Ayrshire & Arran","Borders","Borders","Borders","Borders","Borders","Dumfries & Galloway","Dumfries & Galloway","Dumfries & Galloway","Dumfries & Galloway","Dumfries & Galloway","Dumfries & Galloway","Fife","Fife","Fife","Fife","Forth Valley","Forth Valley","Forth Valley","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Grampian","Greater Glasgow & Clyde","Greater Glasgow & Clyde","Greater Glasgow & Clyde","Greater Glasgow & Clyde","Greater Glasgow & Clyde","Greater Glasgow & Clyde","Greater Glasgow & Clyde","Greater Glasgow & Clyde","Greater Glasgow & Clyde","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Highland","Lanarkshire","Lanarkshire","Lanarkshire","Lanarkshire","Lanarkshire","Lothian","Lothian","Lothian","Lothian","Lothian","Lothian","Orkney","Shetland","Tayside","Tayside","Tayside","Tayside","Tayside","Tayside","Tayside","Tayside","Western Isles","Western Isles","Western Isles"],{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,{"showCoverageOnHover":true,"zoomToBoundsOnClick":true,"spiderfyOnMaxZoom":true,"removeOutsideVisibleBounds":true,"spiderLegPolylineOptions":{"weight":1.5,"color":"#222","opacity":0.5},"freezeAtZoom":false},null,["University Hospital Ayr","University Hospital Crosshouse","Arran War Memorial Hospital","Girvan Community Hospital","Lady Margaret Hospital","Borders General Hospital","Hawick Cottage Hospital","Hay Lodge Hospital","Kelso Hospital","Knoll Hospital","Dumfries &amp; Galloway Royal Infirmary","Galloway Community Hospital","Castle Douglas Hospital","Kirkcudbright Hospital","Moffat Hospital","Newton Stewart Hospital","Victoria Hospital (NHS Fife)","Adamson Hospital","Queen Margaret Hospital","St Andrews Community Hospital","Forth Valley Royal Hospital","Stirling Health and Care Village","Falkirk Community Hospital","Aberdeen Royal Infirmary","Dr Gray's Hospital","Royal Aberdeen Children's Hospital","Aboyne Hospital","Chalmers Hospital","Fraserburgh Hospital","Inverurie Hospital","Jubilee Hospital","Kincardine Community Hospital","Leanchoil Hospital","Peterhead Community Hospital","Seafield Hospital","Stephen Hospital","Turner Memorial Hospital","Turriff Hospital","Glasgow Royal Infirmary","Inverclyde Royal Hospital","Royal Alexandra Hospital","Royal Hospital for Children Glasgow","Queen Elizabeth University Hospital","New Stobhill Hospital","Vale of Leven District General Hospital","New Victoria Hospital","West Glasgow Ambulatory Care Hospital","Belford Hospital","Caithness General Hospital","Lorn &amp; Islands Hospital","Raigmore Hospital","Campbeltown Hospital","County Community Hospital - Invergordon","Cowal Community Hospital","Dunbar Hospital","Islay Hospital","Lawson Memorial Hospital","Broadford Hospital","Mid Argyll Community Hospital And Integrated Care Centre","Mull and Iona Community Hospital","Nairn Town and County Hospital","Portree Community Hospital","Ross Memorial Hospital","Victoria Hospital (NHS Highland)","University Hospital Hairmyres","University Hospital Monklands","University Hospital Wishaw","Kello Hospital","Lady Home Hospital","Royal Hospital for Children and Young People (Edinburgh)","Royal Infirmary of Edinburgh","St John's Hospital","Belhaven Hospital","Edington Cottage Hospital","Western General Hospital","Balfour Hospital","Gilbert Bain Hospital","Ninewells Hospital","Perth Royal Infirmary","Arbroath Infirmary","Blairgowrie Community Hospital","Crieff Community Hospital","Pitlochry Community Hospital","St Margaret's Hospital","Whitehills Health and Community Care Centre","Western Isles Hospital","St Brendan's Hospital","Uist &amp; Barra Hospital"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[54.834833,60.151068],"lng":[-7.497306,-1.155671]}},"evals":[],"jsHooks":[]}</script><p>Bonus: https://en.wikipedia.org/wiki/History_of_longitude</p>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/NES-DEW\.github\.io\/KIND-training\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+</body></html>
