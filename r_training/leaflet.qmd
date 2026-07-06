@@ -1,0 +1,263 @@
+---
+title: "Leaflet"
+date: 2026-07-06
+execute: 
+  echo: true
+categories: [R, intermediate]
+params:
+  sl_date: 2026-07-06
+  fn: "Leaflet"
+  id: KR63
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block(params$id)
+```
+
+
+## About this session
+
++ this is an intermediate introduction to Leaflet in Shiny as a tool for building interactive maps
++ you'll need to be comfortable working in R Shiny to enjoy this session
+  
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## Session resources
+
++ [hospitals data set](data/locs.rds)
++ [NHS board info](data/board_locs.csv)
++ [bed info](data/beds_site.csv)
++ [or the full joined dataset we'll use in the Shiny example](data/hosp_dat_boards_beds.rds)
+
+:::
+
+## Why leaflet?
+
++ the easiest way of building interactive maps
++ mainly intended for point maps, but can also produce filled maps (choropleths)
+
+## Getting started
+
+1. Open a new Rstudio project
+1. In the console, run `install.packages("pak")`
+1. Once installation has completed, create a new `temp.R` script
+1. Install packages, and create some simple data using:
+
+```{r}
+pak::pak(c("shiny", "leaflet", "dplyr", "tibble"))
+
+library(tibble)
+library(dplyr)
+library(leaflet)
+
+dat <- tibble::tibble(latitude = c(56, 57, 58),
+                      long = c(-3, -4, -5),
+                      val = c(1,2,3))
+```
+
+
+We'll start with some standalone maps, and move on to thinking about how to add our maps to Shiny towards the end of the session.
+
+## A first map
+
+Like ggplot, we build leaflet maps in layers. Start with a tibble of data, attach the main `leaflet()` function with a pipe, then add a second layer by piping on `addMarkers()` - beware the camelCase:
+
+```{r}
+dat |>
+  leaflet() |>
+  addMarkers()
+```
+
+`addMarkers()` creates markers to correspond with our data. Usefully, it'll interpret columns named lat(itude) and long(itude) as containing degrees of lat and long, so we've got a map of *something* here. But what's not exactly clear. Let's add an additional layer:
+
+```{r}
+dat |>
+  leaflet() |>
+  addMarkers() |>
+  addTiles()
+```
+
+It's worth saying that, unlike ggplot, the order of layers in the code doesn't determine the order of layers in the resulting visualisation - so your markers will still show up, even if we add tiles "over" them. That additional layer of `addTiles()` adds a background map for us, by default the [OSM](https://www.openstreetmap.org/about). That's potentially change-able, using `addProviderTiles()`:
+
+```{r}
+dat |>
+  leaflet() |>
+  addMarkers() |>
+  addProviderTiles(providers$NASAGIBS.ViirsEarthAtNight2012)
+```
+
+There's a full list (and demo) of the different tiles at [https://leaflet-extras.github.io/leaflet-providers/preview/index.html](https://leaflet-extras.github.io/leaflet-providers/preview/index.html) - those names get put after `providers$`.
+
+Those map objects can be saved and recalled in the usual way:
+
+```{r}
+base_map <- dat |>
+  leaflet() |>
+  addTiles() |>
+  setView(lng = -5, lat = 57, zoom = 7) # lets you control starting location and zoom
+
+base_map
+
+base_map <- base_map |>
+  addMarkers(icon = list(iconUrl = "src/images/icon.png", iconWidth = 25, iconHeight = 25)) # adding markers with a custom icon
+
+base_map # re-view updated map
+
+base_map |>
+  addProviderTiles(providers$NASAGIBS.ViirsEarthAtNight2012) # add to overwrite
+```
+
+The custom icon here is just a small .png file with a transparent background: ![Custom icon](src/images/icon.png)
+
+## A more substantial map
+
+Using [this data set](r_training/data/locs.rds), we can build a map of Scotland's hospitals:
+
+```{r}
+hosp_dat <- here::here("r_training/data/locs.rds") |>
+  readRDS() 
+
+hosp_base <- hosp_dat |>
+  leaflet() |>
+  addTiles() |>
+  addMarkers()
+
+hosp_base
+
+```
+
+## Tooltips
+
+Our data contains hospital names, as well as long and lat values:
+
+```{r}
+hosp_dat[1:5,] |>
+  knitr::kable()
+
+```
+
+Add a hospital name to the marker using a `~` to refer to the column name: 
+
+```{r}
+hosp_base |>
+  addMarkers(label = ~loc_name)
+```
+
+If our data had unfriendly lat and long columns, we could also specify those in a similar way:
+
+```{r}
+hosp_dat |>
+  dplyr::rename(ad = long, ws = lat) |>
+  leaflet() |>
+  addTiles() |>
+  addMarkers(label = ~loc_name, 
+             lng = ~ad,
+             lat = ~ws)
+```
+
+Unlike ggplot, we don't have the full data to play with in leaflet objects, so we've needed to remake this map from scratch.
+
+## Customising markers
+
+We often want to indicate group membership using marker colours. We'll start by joining [some board info](https://publichealthscotland.scot/resources-and-tools/medical-practice-and-pharmaceuticals/national-reference-files/current-nhs-hospitals-in-scotland/) to the hospitals data:
+
+```{r}
+hosp_dat_board <- hosp_dat |>
+  dplyr::left_join(readr::read_csv(here::here("r_training/data/board_locs.csv"))) |>
+  dplyr::filter(!is.na(board)) # there are a few missing values
+```
+
+
+Next, and a major pain-point if you're used to dealing with ggplot doing it for you, join a tibble of hex colour values:
+
+```{r}
+board_colours <- tibble::tibble(board = unique(hosp_dat_board$board), 
+               colours = c("#E6DFC8", "#D4A373", "#CCD5AE", "#E9EDC9", "#FAEDCD", "#B7B7A4", "#A8DADC", "#457B9D", "#E8AEB7", "#B388EB", "#1D3557", "#E63946", "#6B705C", "#3F37C9")
+)
+```
+
+Then, build a similar map again, using a variant of `addMarkers()`:
+```{r}
+hosp_dat_board |>
+  dplyr::left_join(board_colours) |>
+  leaflet() |>
+  addTiles() |>
+  addCircleMarkers(label = ~loc_name, 
+             stroke = T, # turns outline on and off
+             color = "#000", # outline colour
+             weight = 2, # outline thickness
+             fillColor = ~colours, # column to use for fill colours
+             fillOpacity = 0.8) # fill opacity
+```
+
+It's also possible to scale those `CircleMarkers`. This uses [some open data about hospital beds](https://www.opendata.nhs.scot/dataset/hospital-beds-information). This data is a bit fragmented, so we'll remove the missing data and only show scaled blobs for about 30 sites in total here:
+
+```{r}
+beds <- here::here("r_training/data/beds_site.csv") |>
+  readr::read_csv() |>
+  dplyr::filter(Quarter == "2025Q4") |>
+  dplyr::select(loc = Location, SpecialtyName, beds = AverageAvailableStaffedBeds) |>
+  dplyr::filter(!stringr::str_detect(loc, "S0")) |>
+  dplyr::filter(SpecialtyName == "All Specialties") 
+
+hosp_dat_boards_beds <- hosp_dat_board |>
+  dplyr::left_join(board_colours) |>
+  dplyr::left_join(beds) |>
+  dplyr::filter(!is.na(beds)) 
+
+hosp_dat_boards_beds |>
+  leaflet() |>
+  addTiles() |>
+  addCircleMarkers(label = ~loc_name, 
+             stroke = T, # turns outline on and off
+             color = "#000", # outline colour
+             weight = 2, # outline thickness
+             fillColor = ~colours, # column to use for fill colours
+             fillOpacity = 0.8, 
+             radius = ~sqrt(beds))
+
+```
+
+
+There's also `addAwesomeMarkers` which uses fontawesome icons. Define the icon first using `awesomeIcons`, and then apply:
+
+```{r}
+icons <- awesomeIcons(
+  icon = 'building',
+  library = 'fa',
+  markerColor = "lightred",
+  iconColor = "#ffffff")
+
+hosp_dat_board |>
+  dplyr::left_join(board_colours) |>
+  leaflet() |>
+  addTiles() |>
+  addAwesomeMarkers(label = ~loc_name, 
+             icon = icons) # using our earlier definition
+
+```
+
+`addAwesomeMarkers` is hard to colour with precision (or to fit series), as you can only use a group of a dozen or so basic colours for the `markerColor` aspect. That's also a good time to demonstrate clustering:
+
+
+```{r}
+hosp_dat_board |>
+  dplyr::left_join(board_colours) |>
+  leaflet() |>
+  addTiles() |>
+  addAwesomeMarkers(label = ~loc_name, 
+             group = ~board, 
+             clusterOptions = markerClusterOptions())
+```
+
+
+
+
+
+Bonus: https://en.wikipedia.org/wiki/History_of_longitude
