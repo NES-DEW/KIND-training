@@ -1,12 +1,12 @@
 ---
 title: Getting data into SQL
 params:
-  sl_date: 2025-11-27
+  sl_date: 2026-07-07
   fn: Getting data into SQL
   id: KS15
 execute: 
   echo: true
-date: 2025-11-27
+date: 2026-07-07
 categories: [SQL, beginner]
 ---
 
@@ -193,7 +193,7 @@ SELECT * FROM clients;
 + let's add some extra columns:
 
 ```{sql connection=src_memdb()$con}
-ALTER TABLE clients ADD length INT(2);
+ALTER TABLE clients ADD length INT;
 ```
 
 + we can set a single value for this new column
@@ -294,7 +294,7 @@ UPDATE clients
   SET name = "David Lemon"
   WHERE chi = "0701720842"; -- updating a row with no name
   
-ALTER TABLE clients ADD length INT(2); -- adding a column
+ALTER TABLE clients ADD length INT; -- adding a column
 
 UPDATE clients SET length = (10); -- set a single fixed value for each row in that new column
 
