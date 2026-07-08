@@ -6,7 +6,7 @@ categories: [excel, advanced]
 editor_options: 
   chunk_output_type: console
 params:
-  sl_date: 2025-09-15
+  sl_date: 2026-07-08
   fn: "Logic in Excel"
   id: KE20
 ---
@@ -14,8 +14,6 @@ params:
 ::: {.callout-note collapse="false" appearance="default" icon="true"}
 ## Session materials
 
--   [all materials {{< iconify ph:file-zip size=2x >}}](src/logic_in_excel.zip)
--   slides [{{< iconify ph:file-html size=2x >}} html](src/logic_in_excel.html) / [{{< iconify ph:file-pdf size=2x >}} pdf](src/logic_in_excel.pdf)
 + exercises [{{< iconify ph:file-xls size=2x >}}.xlsx](src/logic_in_excel.xlsx) / completed exercises [{{< iconify ph:file-xls size=2x >}}.xlsx](src/logic_in_excel_final.xlsx)
 :::
 
@@ -242,10 +240,12 @@ grid.draw(ven)
 + many other tools let you add up `TRUE`/`FALSE` values as if they were 1s and 0s
 + this can be very useful - say, to quickly count matching values
 + Excel needs a minor workaround: add `--` before a logical value to treat it as a number: `=SUM(--Table1[Hypertension?])`
++ we'll also see later uses of `*` and `+` to stand-in for `AND` and `OR` - those are just doing arithmetic on 0/1 values from logical functions
 
 ## IFS
 
 -   `IFS` allows you to check for the presence of several conditions fairly concisely
+- But `IFS` formulas are ghastly: would 100% recommend using the [Function arguments interface](https://support.microsoft.com/en-US/Excel/function-arguments) to build your formulas, rather than hand-writing them in the formula bar
 -   an example: `=IFS(B4 = TRUE,"High",C4 = "CRD","High", D4 > 20,"High", TRUE,"Low")`
     -   read this horror as pairs of arguments, like `B4 = TRUE`, `"High"`
     - each pair contains
