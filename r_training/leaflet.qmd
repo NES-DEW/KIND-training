@@ -74,7 +74,7 @@ dat |>
   addMarkers()
 ```
 
-`addMarkers()` creates markers to correspond with our data. Usefully, it'll interpret columns named lat(itude) and long(itude) as containing degrees of lat and long, so we've got a map of *something* here. But what's not exactly clear. Let's add an additional layer:
+`addMarkers()` creates markers to correspond with our data. Usefully, it'll interpret columns named lat(itude) and long(itude) as containing degrees of lat and long, so we've got a map of *something* here. But what's not exactly clear.^[If, like me, you struggle to remember which one is which, longitude is the East-West one. Earth is slightly wider than it is tall - an oblate spheroid, famously - so the longitude is slightly longer than the other one. Lots of interesting [history about longitude too](https://en.wikipedia.org/wiki/History_of_longitude) - it's probably the most-studied bit of history of science of all.] Let's add an additional layer:
 
 ```{r}
 dat |>
@@ -256,8 +256,15 @@ hosp_dat_board |>
              clusterOptions = markerClusterOptions())
 ```
 
+## Adding leaflet to Shiny
+
++ data source at `https://nes-dew.github.io/KIND-training/r_training/data/hosp_dat_boards_beds.rds`
++ `leafletOutput` and `renderLeaflet` to output and render your leaflet map
++ using `sidebarLayout` with `sidebarPanel` and `mainPanel` is highly recommended - leaflet otherwise defaults to a full-screen view
+  + or `bslib` has `page_sidebar` which is even nicer
++ `setView` is helpful if you want to constrain the zoom level of your map while filtering
 
 
 
 
-Bonus: https://en.wikipedia.org/wiki/History_of_longitude
+
