@@ -221,7 +221,22 @@ hosp_dat_boards_beds |>
              fillColor = ~colours, # column to use for fill colours
              fillOpacity = 0.8, 
              radius = ~sqrt(beds))
+```
 
+
+Again, a reminder that you can change the base tiles to change the mapping used. Here's an example of topographical mapping, showing very dramatically that people tend not to build big hospitals up mountains:
+
+```{r}
+hosp_dat_boards_beds |>
+  leaflet() |>
+  addCircleMarkers(label = ~loc_name, 
+             stroke = T, # turns outline on and off
+             color = "#000", # outline colour
+             weight = 2, # outline thickness
+             fillColor = ~colours, # column to use for fill colours
+             fillOpacity = 0.8, 
+             radius = ~sqrt(beds)) |>
+  addProviderTiles(providers$OpenTopoMap)
 ```
 
 
