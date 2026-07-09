@@ -7879,14 +7879,14 @@
     "href": "excel/excel_logic.html",
     "title": "Logic in Excel",
     "section": "",
-    "text": "NoteSession materials\n\n\n\n\n\n\nall materials \nslides  html /  pdf\n\nexercises .xlsx / completed exercises .xlsx"
+    "text": "NoteSession materials\n\n\n\n\n\n\nexercises .xlsx / completed exercises .xlsx"
   },
   {
     "objectID": "excel/excel_logic.html#previous-attendees-have-said",
     "href": "excel/excel_logic.html#previous-attendees-have-said",
     "title": "Logic in Excel",
     "section": "Previous attendees have said…",
-    "text": "Previous attendees have said…\n\n13 previous attendees have left feedback\n100% would recommend this session to a colleague\n92% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\nNoteThree random comments from previous attendees\n\n\n\n\nvery interesting in being exposed to the wide range of functions related to this subject in Excel\nGood training material with a lot of helpful formula’s embedded in the document for future use. Good clear training and opportunities for sharing issues to resolve in the moment. Highly recommend any training sessions Brendan is hosting.\nPitched at just the right level for me: I have used lots of formulas, but been annoyed and mystified by a lot more. I feel so much more confident decoding other people’s spreadsheets now."
+    "text": "Previous attendees have said…\n\n13 previous attendees have left feedback\n100% would recommend this session to a colleague\n92% said that this session was pitched correctly\n\n\n\n\n\n\n\n\n\n\n\nNoteThree random comments from previous attendees\n\n\n\n\nGood training material with a lot of helpful formula’s embedded in the document for future use. Good clear training and opportunities for sharing issues to resolve in the moment. Highly recommend any training sessions Brendan is hosting.\nvery interesting in being exposed to the wide range of functions related to this subject in Excel\nGood overview of some of the basics formulas that will be helpful for some data analysis"
   },
   {
     "objectID": "excel/excel_logic.html#welcome",
@@ -7970,14 +7970,14 @@
     "href": "excel/excel_logic.html#true-and-false-are-1-and-0",
     "title": "Logic in Excel",
     "section": "TRUE and FALSE are 1 and 0",
-    "text": "TRUE and FALSE are 1 and 0\n\nmany other tools let you add up TRUE/FALSE values as if they were 1s and 0s\nthis can be very useful - say, to quickly count matching values\nExcel needs a minor workaround: add -- before a logical value to treat it as a number: =SUM(--Table1[Hypertension?])"
+    "text": "TRUE and FALSE are 1 and 0\n\nmany other tools let you add up TRUE/FALSE values as if they were 1s and 0s\nthis can be very useful - say, to quickly count matching values\nExcel needs a minor workaround: add -- before a logical value to treat it as a number: =SUM(--Table1[Hypertension?])\n\nwe’ll also see later uses of * and + to stand-in for AND and OR - those are just doing arithmetic on 0/1 values from logical functions"
   },
   {
     "objectID": "excel/excel_logic.html#ifs",
     "href": "excel/excel_logic.html#ifs",
     "title": "Logic in Excel",
     "section": "IFS",
-    "text": "IFS\n\n\nIFS allows you to check for the presence of several conditions fairly concisely\nan example: =IFS(B4 = TRUE,\"High\",C4 = \"CRD\",\"High\", D4 &gt; 20,\"High\", TRUE,\"Low\")\n\nread this horror as pairs of arguments, like B4 = TRUE, \"High\"\n\neach pair contains\n\na logical test - like B4 = TRUE\n\na return value if that test is TRUE - like \"High\"\n\n\n\nthe final pair of arguments are a catch-all to pick up all non-matched values"
+    "text": "IFS\n\n\nIFS allows you to check for the presence of several conditions fairly concisely\nBut IFS formulas are ghastly: would 100% recommend using the Function arguments interface to build your formulas, rather than hand-writing them in the formula bar\nan example: =IFS(B4 = TRUE,\"High\",C4 = \"CRD\",\"High\", D4 &gt; 20,\"High\", TRUE,\"Low\")\n\nread this horror as pairs of arguments, like B4 = TRUE, \"High\"\n\neach pair contains\n\na logical test - like B4 = TRUE\n\na return value if that test is TRUE - like \"High\"\n\n\n\nthe final pair of arguments are a catch-all to pick up all non-matched values"
   },
   {
     "objectID": "excel/excel_logic.html#public-service-announcement",
@@ -9223,7 +9223,7 @@
     "href": "r_training/leaflet.html#why-leaflet",
     "title": "Leaflet",
     "section": "Why leaflet?",
-    "text": "Why leaflet?\n\nthe easiest way of building interactive maps\nmainly intended for point maps, but can also produce filled maps (choropleths)"
+    "text": "Why leaflet?\n\nthe easiest way of building interactive maps\nmainly intended for point maps, but can also produce filled maps (choropleths)\ncan be included in Shiny apps, or in Quarto/Rmarkdown outputs"
   },
   {
     "objectID": "r_training/leaflet.html#getting-started",
@@ -9266,6 +9266,13 @@
     "title": "Leaflet",
     "section": "Adding leaflet to Shiny",
     "text": "Adding leaflet to Shiny\n\ndata source at https://nes-dew.github.io/KIND-training/r_training/data/hosp_dat_boards_beds.rds\n\n\nleafletOutput and renderLeaflet to output and render your leaflet map\nusing sidebarLayout with sidebarPanel and mainPanel is highly recommended - leaflet otherwise defaults to a full-screen view\n\nor bslib has page_sidebar which is even nicer\n\n\n\nsetView is helpful if you want to constrain the zoom level of your map while filtering"
+  },
+  {
+    "objectID": "r_training/leaflet.html#filled-maps",
+    "href": "r_training/leaflet.html#filled-maps",
+    "title": "Leaflet",
+    "section": "Filled maps",
+    "text": "Filled maps\nThese are possible if you have a TopoJSON or geoJSON shape file of the boundaries you’d like to fill. Fuller tutorial, and some demo code based on the Local Authority boundaries:\nla &lt;- \"data/Local_Authority_Boundaries_-_Scotland.json\" |&gt; \n  sf::read_sf() |&gt; # read the sf object to an sf\n  sf::st_transform(crs = \"+proj=longlat +datum=WGS84\") |&gt; # transform the coordinates from Eastings to lat-long\n  dplyr::mutate(val = sample(100:200, 32, T)) # add a column of sample data for the fill\n\npal &lt;- colorNumeric(\"viridis\", NULL) # colour map using the viridis palette\n  \nla |&gt; # plot the lot\n  leaflet() |&gt;\n  addTiles() |&gt;\n  addPolygons(weight = 2, \n              color = \"#000\", \n              fillColor = ~pal(val), # map the values to a colour\n              fillOpacity = 0.8)\n\n\nFilled map example"
   },
   {
     "objectID": "r_training/leaflet.html#footnotes",
