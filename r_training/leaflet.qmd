@@ -21,33 +21,32 @@ source(here::here("R/feed_block.R"))
 feed_block(params$id)
 ```
 
-
 ## About this session
 
-+ this is an intermediate introduction to Leaflet in Shiny as a tool for building interactive maps
-+ you'll need to be comfortable working in R Shiny to enjoy this session
-  
-:::{.callout-tip collapse=false appearance='default' icon=true}
+- this is an intermediate introduction to Leaflet in Shiny as a tool for building interactive maps
+- you'll need to be comfortable working in R Shiny to enjoy this session
+
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
 ## Session resources
 
-+ [hospitals data set](data/locs.rds)
-+ [NHS board info](data/board_locs.csv)
-+ [bed info](data/beds_site.csv)
-+ [or the full joined dataset we'll use in the Shiny example](data/hosp_dat_boards_beds.rds)
-
+- [hospitals data set](data/locs.rds)
+- [NHS board info](data/board_locs.csv)
+- [bed info](data/beds_site.csv)
+- [or the full joined dataset we'll use in the Shiny example](data/hosp_dat_boards_beds.rds)
 :::
 
 ## Why leaflet?
 
-+ the easiest way of building interactive maps
-+ mainly intended for point maps, but can also produce filled maps (choropleths)
+- the easiest way of building interactive maps
+- mainly intended for point maps, but can also produce filled maps (choropleths)
+- can be included in Shiny apps, or in Quarto/Rmarkdown outputs
 
 ## Getting started
 
-1. Open a new Rstudio project
-1. In the console, run `install.packages("pak")`
-1. Once installation has completed, create a new `temp.R` script
-1. Install packages, and create some simple data using:
+1.  Open a new Rstudio project
+2.  In the console, run `install.packages("pak")`
+3.  Once installation has completed, create a new `temp.R` script
+4.  Install packages, and create some simple data using:
 
 ```{r}
 pak::pak(c("shiny", "leaflet", "dplyr", "tibble"))
@@ -61,7 +60,6 @@ dat <- tibble::tibble(latitude = c(56, 57, 58),
                       val = c(1,2,3))
 ```
 
-
 We'll start with some standalone maps, and move on to thinking about how to add our maps to Shiny towards the end of the session.
 
 ## A first map
@@ -74,7 +72,9 @@ dat |>
   addMarkers()
 ```
 
-`addMarkers()` creates markers to correspond with our data. Usefully, it'll interpret columns named lat(itude) and long(itude) as containing degrees of lat and long, so we've got a map of *something* here. But what's not exactly clear.^[If, like me, you struggle to remember which one is which, longitude is the East-West one. Earth is slightly wider than it is tall - an oblate spheroid, famously - so the longitude is slightly longer than the other one. Lots of interesting [history about longitude too](https://en.wikipedia.org/wiki/History_of_longitude) - it's probably the most-studied bit of history of science of all.] Let's add an additional layer:
+`addMarkers()` creates markers to correspond with our data. Usefully, it'll interpret columns named lat(itude) and long(itude) as containing degrees of lat and long, so we've got a map of *something* here. But what's not exactly clear.[^1] Let's add an additional layer:
+
+[^1]: If, like me, you struggle to remember which one is which, longitude is the East-West one. Earth is slightly wider than it is tall - an oblate spheroid, famously - so the longitude is slightly longer than the other one. Lots of interesting [history about longitude too](https://en.wikipedia.org/wiki/History_of_longitude) - it's probably the most-studied bit of history of science of all.
 
 ```{r}
 dat |>
@@ -92,7 +92,7 @@ dat |>
   addProviderTiles(providers$NASAGIBS.ViirsEarthAtNight2012)
 ```
 
-There's a full list (and demo) of the different tiles at [https://leaflet-extras.github.io/leaflet-providers/preview/index.html](https://leaflet-extras.github.io/leaflet-providers/preview/index.html) - those names get put after `providers$`.
+There's a full list (and demo) of the different tiles at <https://leaflet-extras.github.io/leaflet-providers/preview/index.html> - those names get put after `providers$`.
 
 Those map objects can be saved and recalled in the usual way:
 
@@ -117,7 +117,7 @@ The custom icon here is just a small .png file with a transparent background: ![
 
 ## A more substantial map
 
-Using [this data set](r_training/data/locs.rds), we can build a map of Scotland's hospitals:
+Using [this data set](data/locs.rds), we can build a map of Scotland's hospitals:
 
 ```{r}
 hosp_dat <- here::here("r_training/data/locs.rds") |>
@@ -142,7 +142,7 @@ hosp_dat[1:5,] |>
 
 ```
 
-Add a hospital name to the marker using a `~` to refer to the column name: 
+Add a hospital name to the marker using a `~` to refer to the column name:
 
 ```{r}
 hosp_base |>
@@ -173,7 +173,6 @@ hosp_dat_board <- hosp_dat |>
   dplyr::filter(!is.na(board)) # there are a few missing values
 ```
 
-
 Next, and a major pain-point if you're used to dealing with ggplot doing it for you, join a tibble of hex colour values:
 
 ```{r}
@@ -183,6 +182,7 @@ board_colours <- tibble::tibble(board = unique(hosp_dat_board$board),
 ```
 
 Then, build a similar map again, using a variant of `addMarkers()`:
+
 ```{r}
 hosp_dat_board |>
   dplyr::left_join(board_colours) |>
@@ -223,7 +223,6 @@ hosp_dat_boards_beds |>
              radius = ~sqrt(beds))
 ```
 
-
 Again, a reminder that you can change the base tiles to change the mapping used. Here's an example of topographical mapping, showing very dramatically that people tend not to build big hospitals up mountains:
 
 ```{r}
@@ -238,7 +237,6 @@ hosp_dat_boards_beds |>
              radius = ~sqrt(beds)) |>
   addProviderTiles(providers$OpenTopoMap)
 ```
-
 
 There's also `addAwesomeMarkers` which uses fontawesome icons. Define the icon first using `awesomeIcons`, and then apply:
 
@@ -260,7 +258,6 @@ hosp_dat_board |>
 
 `addAwesomeMarkers` is hard to colour with precision (or to fit series), as you can only use a group of a dozen or so basic colours for the `markerColor` aspect. That's also a good time to demonstrate clustering:
 
-
 ```{r}
 hosp_dat_board |>
   dplyr::left_join(board_colours) |>
@@ -273,13 +270,33 @@ hosp_dat_board |>
 
 ## Adding leaflet to Shiny
 
-+ data source at `https://nes-dew.github.io/KIND-training/r_training/data/hosp_dat_boards_beds.rds`
-+ `leafletOutput` and `renderLeaflet` to output and render your leaflet map
-+ using `sidebarLayout` with `sidebarPanel` and `mainPanel` is highly recommended - leaflet otherwise defaults to a full-screen view
-  + or `bslib` has `page_sidebar` which is even nicer
-+ `setView` is helpful if you want to constrain the zoom level of your map while filtering
+- data source at `https://nes-dew.github.io/KIND-training/r_training/data/hosp_dat_boards_beds.rds`
+- `leafletOutput` and `renderLeaflet` to output and render your leaflet map
+- using `sidebarLayout` with `sidebarPanel` and `mainPanel` is highly recommended - leaflet otherwise defaults to a full-screen view
+  - or `bslib` has `page_sidebar` which is even nicer
+- `setView` is helpful if you want to constrain the zoom level of your map while filtering
 
+## Filled maps
 
+These are possible if you have a TopoJSON or geoJSON shape file of the boundaries you'd like to fill. [Fuller tutorial](https://rstudio.github.io/leaflet/articles/json.html), and some demo code based on the [Local Authority boundaries](https://data.spatialhub.scot/dataset/local_authority_boundaries-is):
 
+```{r}
+#| eval: false
 
+la <- "data/Local_Authority_Boundaries_-_Scotland.json" |> 
+  sf::read_sf() |> # read the sf object to an sf
+  sf::st_transform(crs = "+proj=longlat +datum=WGS84") |> # transform the coordinates from Eastings to lat-long
+  dplyr::mutate(val = sample(100:200, 32, T)) # add a column of sample data for the fill
 
+pal <- colorNumeric("viridis", NULL) # colour map using the viridis palette
+  
+la |> # plot the lot
+  leaflet() |>
+  addTiles() |>
+  addPolygons(weight = 2, 
+              color = "#000", 
+              fillColor = ~pal(val), # map the values to a colour
+              fillOpacity = 0.8)
+```
+
+![Filled map example](images/clipboard-3267343086.png)
