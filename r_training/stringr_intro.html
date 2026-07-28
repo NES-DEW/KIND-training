@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2025-09-17">
-<title>Excel tables (Excel for beginners session 5) – KIND training pages</title>
+<meta name="dcterms.date" content="2026-07-28">
+<title>An introduction to stringr – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -72,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+}</script><meta name="quarto:status" content="draft">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -240,7 +275,7 @@ ul.task-list li input[type="checkbox"] {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo light-content"><img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo dark-content"></a>
@@ -318,22 +353,7 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#previous-attendees-have-said" id="toc-previous-attendees-have-said" class="nav-link active" data-scroll-target="#previous-attendees-have-said">Previous attendees have said…</a></li>
-  <li><a href="#video-overview" id="toc-video-overview" class="nav-link" data-scroll-target="#video-overview">Video overview</a></li>
-  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#a-way-of-thinking-about-tables" id="toc-a-way-of-thinking-about-tables" class="nav-link" data-scroll-target="#a-way-of-thinking-about-tables">A way of thinking about tables</a></li>
-  <li><a href="#some-data" id="toc-some-data" class="nav-link" data-scroll-target="#some-data">Some data</a></li>
-  <li><a href="#add-a-table" id="toc-add-a-table" class="nav-link" data-scroll-target="#add-a-table">Add a table</a></li>
-  <li><a href="#a-first-table" id="toc-a-first-table" class="nav-link" data-scroll-target="#a-first-table">A first table</a></li>
-  <li><a href="#removing-your-table" id="toc-removing-your-table" class="nav-link" data-scroll-target="#removing-your-table">Removing your table</a></li>
-  <li><a href="#grow-and-shrink-tables" id="toc-grow-and-shrink-tables" class="nav-link" data-scroll-target="#grow-and-shrink-tables">Grow and shrink tables</a></li>
-  <li><a href="#grow-and-shrink-tables-1" id="toc-grow-and-shrink-tables-1" class="nav-link" data-scroll-target="#grow-and-shrink-tables-1">Grow and shrink tables</a></li>
-  <li><a href="#autofill-and-friends" id="toc-autofill-and-friends" class="nav-link" data-scroll-target="#autofill-and-friends">Autofill and friends</a></li>
-  <li><a href="#filter-and-sort" id="toc-filter-and-sort" class="nav-link" data-scroll-target="#filter-and-sort">Filter and sort</a></li>
-  <li><a href="#names-and-reference" id="toc-names-and-reference" class="nav-link" data-scroll-target="#names-and-reference">Names and reference</a></li>
-  <li><a href="#passing-data-demo" id="toc-passing-data-demo" class="nav-link" data-scroll-target="#passing-data-demo">Passing data demo</a></li>
-  <li><a href="#conclusion-use-tables" id="toc-conclusion-use-tables" class="nav-link" data-scroll-target="#conclusion-use-tables">CONCLUSION: USE TABLES</a></li>
+<li><a href="#about-this-session" id="toc-about-this-session" class="nav-link active" data-scroll-target="#about-this-session">About this session</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -345,11 +365,10 @@ ul.task-list li input[type="checkbox"] {
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Excel tables (Excel for beginners session 5)</h1>
+<h1 class="title">An introduction to stringr</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">excel</div>
-    <div class="quarto-category">beginner</div>
-    <div class="quarto-category">Excel for beginners</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">intermediate</div>
   </div>
   </div>
 
@@ -361,7 +380,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 17, 2025</p>
+      <p class="date">July 28, 2026</p>
     </div>
   </div>
   
@@ -370,179 +389,89 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><p>This session is part of our Excel for beginners course. That’s a series of seven linked sessions, delivered on Teams, that give an introduction to Excel for people working in health and social care. The sessions are:</p>
-<ul>
-<li><a href="../excel/excel_first_steps.html">Excel first steps</a></li>
-<li><a href="../excel/tidy_data_in_excel.html">Tidy data in Excel</a></li>
-<li><a href="../excel/references_and_names_in_excel.html">References and names in Excel</a></li>
-<li><a href="../excel/excel_formatting.html">Excel formatting</a></li>
-<li>
-<a href="../excel/excel_tables.html">Excel tables</a> (this session)</li>
-<li>
-<a href="../excel/excel_formulas.html">Excel formulas</a><br>
-</li>
-<li>and a final <a href="../excel/excel_practical_review.html">practical review</a> session to help you put your new skills to work</li>
-</ul>
-<p>Together, they aim to help you develop an appropriate set of Excel skills to help your work. This session covers tables in Excel:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="../src/images/clipboard-3911010684.png" class="img-fluid figure-img"></p>
-<figcaption>KIND Excel beginner skill tree</figcaption></figure>
+</header><div class="cell" data-layout-align="left">
+<p>No feedback found for this session</p>
 </div>
+<section id="about-this-session" class="level2"><h2 class="anchored" data-anchor-id="about-this-session">About this session</h2>
+<p>This is a stand-alone beginner/intermediate introduction to using the stringr package in R to manipulate text. It’s pitched somewhere between a complete introduction and a more intermediate skill-builder session, so somewhere between our usual beginner (🌶) and intermediate (🌶🌶) levels. In this session:</p>
 <ul>
-<li>for this session, you’ll need to be familiar with the Excel basics (getting around in Excel, opening/saving/closing files, A1 referencing, and values)</li>
-<li>we’re going to dodge formatting and formulas as much as possible today</li>
-<li>you might find the list of <a href="../excel/excel_shortcuts.html">Excel shortcuts helpful too</a>
-</li>
+<li>we’ll introduce stringr and talk about what it’s for</li>
+<li>we’ll look at a core function toolkit</li>
+<li>and we’ll compare and contrast to some other ways of working with text in R</li>
+<li>we <strong>won’t</strong> try and spend a lot of time thinking about other aspects of text wrangling, or using regular expressions here as we offer other sessions designed to cover that ground</li>
 </ul>
-<section id="previous-attendees-have-said" class="level2 cell" data-layout-align="left"><h2 class="anchored" data-anchor-id="previous-attendees-have-said">Previous attendees have said…</h2>
-<ul>
-<li>72 previous attendees have left feedback</li>
-<li>99% would recommend this session to a colleague</li>
-<li>94% said that this session was pitched correctly</li>
-</ul>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure"><p><img src="excel_tables_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-left figure-img" width="288"></p>
-</figure>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Three random comments from previous attendees
+<span class="screen-reader-only">Tip</span>Session resources
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Always excellent even when completely within my current skill set - Brendan is a huge asset to the community.</li>
-<li>really helpful</li>
-<li>Very well presented and engaging</li>
+<li><a href="data/llm_words.xlsx">a set of words generated by blended LLM and KIND member labour</a></li>
 </ul>
 </div>
 </div>
-</section><section id="video-overview" class="level2"><h2 class="anchored" data-anchor-id="video-overview">Video overview</h2>
-<div style="padding:56.25% 0 0 0;position:relative;">
-<iframe src="https://player.vimeo.com/video/1109933408?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="KIND network - Excel Tables">
-</iframe>
 </div>
-<script src="https://player.vimeo.com/api/player.js"></script></section><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
-<ul>
-<li>introduction</li>
-<li>add and remove tables</li>
-<li>grow and shrink tables</li>
-<li>autofill and friends</li>
-<li>sort and filter</li>
-<li>names and reference</li>
-<li>pass data to other tools</li>
-</ul></section><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<ul>
-<li>this is an easy session to sum up: <strong>use tables in Excel</strong>
-</li>
-<li>most people don’t use Excel tables</li>
-<li>they’re probably the best Excel skill investment there is</li>
-<li>this is a practical session, so you’ll need some kind of Excel to follow along</li>
-</ul></section><section id="a-way-of-thinking-about-tables" class="level2"><h2 class="anchored" data-anchor-id="a-way-of-thinking-about-tables">A way of thinking about tables</h2>
-<ul>
-<li>imagine you have several columns of data</li>
-<li>you can think of a table as a container for that data: <img src="../src/images/lunchbox.jpg" class="img-fluid" alt="Table lunchbox">
-</li>
-<li>like the lunchbox, putting data in a table helps keep your data tidy</li>
-<li>tables also protect your data, and make it easier to move from place to place</li>
-</ul></section><section id="some-data" class="level2"><h2 class="anchored" data-anchor-id="some-data">Some data</h2>
-<ul>
-<li>tables are potentially useful throughout the life-cycle of an Excel file</li>
-<li>let’s start at the beginning:
-<ol type="1">
-<li>open Excel</li>
-<li>in a new worksheet, please enter today’s date
-<ol type="1">
-<li>DD/MM/YYYY format is best, but we’ll park that for the formatting session  <img src="../src/images/clipboard-3905090772.png" class="img-fluid" alt="Enter a date in a cell">
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul></section><section id="add-a-table" class="level2"><h2 class="anchored" data-anchor-id="add-a-table">Add a table</h2>
-<ol type="1">
-<li>make sure you have that date selected</li>
-<li>In the ribbon menu, go to <code>Insert</code> <code>&gt;</code> <code>Table</code>  <img src="../src/images/clipboard-112703173.png" class="img-fluid" alt="Insert > Table"><ol type="1">
-<li>or you can use <code>Ctrl</code> + <code>t</code>
-</li>
-</ol>
-</li>
-<li>you’ll be asked to create a table - you should be able just to select <code>OK</code>  <img src="../src/images/clipboard-3913166740.png" class="img-fluid" alt="Create a table">
-</li>
-</ol></section><section id="a-first-table" class="level2"><h2 class="anchored" data-anchor-id="a-first-table">A first table</h2>
-<ul>
-<li>congratulations, you should now have a 1-cell table on your worksheet <img src="../src/images/clipboard-467996436.png" class="img-fluid" alt="a 1-cell table">
-</li>
-<li>think about this as a <strong>container</strong> for your data
-<ul>
-<li>you could call it a <strong>data structure</strong> instead if you wanted to be more fancy</li>
-</ul>
-</li>
-</ul></section><section id="removing-your-table" class="level2"><h2 class="anchored" data-anchor-id="removing-your-table">Removing your table</h2>
-<ol type="1">
-<li>Tables aren’t formatting - so you can’t clear them like formatting</li>
-<li>Click inside your table, and you should see a new section of the ribbon menu - <code>Design</code> or <code>Table Design</code> depending on your version  <img src="../src/images/clipboard-903977516.png" class="img-fluid" alt="Design or Table Design menu">
-</li>
-<li>Select that <code>Table Design</code> section. The most useful parts are on the far left:  <img src="../src/images/clipboard-1056500409.png" class="img-fluid" alt="Design or Table Design menu">
-</li>
-<li>Select <code>Convert to Range</code> - your table should now return to being an ordinary cell</li>
-<li>Finally, please <strong>re-table</strong> your cell</li>
-</ol></section><section id="grow-and-shrink-tables" class="level2"><h2 class="anchored" data-anchor-id="grow-and-shrink-tables">Grow and shrink tables</h2>
-<p>Let’s add some new data:</p>
-<ol type="1">
-<li>Please add three or four more dates, going back into last week, in the rows below your date</li>
-<li>Please add a word describing your main breakfast item in the next column</li>
-<li>Please add a third column, scoring that breakfast out of ten</li>
-</ol></section><section id="grow-and-shrink-tables-1" class="level2"><h2 class="anchored" data-anchor-id="grow-and-shrink-tables-1">Grow and shrink tables</h2>
-<ol start="4" type="1">
-<li>Now expand your table to include that new data. You can drag the blue handle <img src="../src/images/clipboard-2487072995.png" class="img-fluid" alt="Expand your table with the blue handle"> or use the <code>Resize Table</code> tool in the ribbon menu  <img src="../src/images/clipboard-1207705760.png" class="img-fluid" alt="Resize Table tool in the ribbon menu">.</li>
-<li>You can use the same methods to shrink a table</li>
-</ol></section><section id="autofill-and-friends" class="level2"><h2 class="anchored" data-anchor-id="autofill-and-friends">Autofill and friends</h2>
-<ol type="1">
-<li>drag down to add two more empty rows</li>
-<li>select your three dates, and drag the <strong>green</strong> fill handle down into the empty cells <img src="../src/images/clipboard-3445425412.png" class="img-fluid" alt="drag the green fill handle down into the empty cells">
-</li>
-<li>this <em>should</em> populate the correct values - although you’ll need to check carefully that everything has worked</li>
-</ol></section><section id="filter-and-sort" class="level2"><h2 class="anchored" data-anchor-id="filter-and-sort">Filter and sort</h2>
-<p>Each of your column headers has a dropdown menu <img src="../src/images/clipboard-1297021923.png" class="img-fluid" alt="dropdown menu"> that will allow you to sort and filter your table</p>
-<ul>
-<li>sort allows you to order your table by that column</li>
-<li>filters shows and hides rows of the table</li>
-<li>you’ll have different filtering options for the different types of columns in your table</li>
-</ul></section><section id="names-and-reference" class="level2"><h2 class="anchored" data-anchor-id="names-and-reference">Names and reference</h2>
-<ul>
-<li>
-<p>you can name each column. These work best as single descriptive words - <code>date</code> rather than <code>breakfast date</code></p>
-<ul>
-<li><p>you might find it helpful to write longer names in snake case (<code>breakfast_date</code>) or camel case (<code>breakfastDate</code>)</p></li>
-<li><p>please now name your columns</p></li>
-</ul>
-</li>
-<li>
-<p>you can also name the table as a whole. Again, that’s done from the left-hand side of the <code>Table</code> menu  <img src="../src/images/clipboard-3100742867.png" class="img-fluid" alt="name tables from the left-hand side of the Table menu"></p>
-<ul>
-<li>please give your table an appropriate name</li>
-</ul>
-</li>
-</ul></section><section id="passing-data-demo" class="level2"><h2 class="anchored" data-anchor-id="passing-data-demo">Passing data demo</h2>
-<ul>
-<li>Your table can now be saved, developed further, or passed to other data tools</li>
-<li>Tables have major advantages on this front:
-<ul>
-<li>they’re portable, so you can move a table around</li>
-<li>you can use <strong>structured referencing</strong> - like <code>=data[score]</code> - to select an entire column by name, which helps make Excel more robust
-<ul>
-<li>see the intermediate Excel session on referencing</li>
-</ul>
-</li>
-<li>you can send the data easily and safely to PivotTables, PowerQuery, PowerPivot, and other fancier data tools</li>
-</ul>
-</li>
-</ul></section><section id="conclusion-use-tables" class="level2 center"><h2 class="center anchored" data-anchor-id="conclusion-use-tables">CONCLUSION: USE TABLES</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">words</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"data/llm_words.xlsx"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">words</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">LLM1</th>
+<th style="text-align: left;">LLM2</th>
+<th style="text-align: left;">Human1</th>
+<th style="text-align: left;">Human2</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">impossible</td>
+<td style="text-align: left;">ouch</td>
+<td style="text-align: left;">Moist</td>
+<td style="text-align: left;">outwith</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paradox</td>
+<td style="text-align: left;">sorry</td>
+<td style="text-align: left;">Anime</td>
+<td style="text-align: left;">balderdash</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bewilderment</td>
+<td style="text-align: left;">home</td>
+<td style="text-align: left;">Eranu</td>
+<td style="text-align: left;">outwith</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">serendipity</td>
+<td style="text-align: left;">mom</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">bubblegum</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">qualia</td>
+<td style="text-align: left;">oops</td>
+<td style="text-align: left;">chocolate</td>
+<td style="text-align: left;">I</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">effervescence</td>
+<td style="text-align: left;">dream</td>
+<td style="text-align: left;">lowkey</td>
+<td style="text-align: left;">Marmalade</td>
+</tr>
+</tbody>
+</table>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
