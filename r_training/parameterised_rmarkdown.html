@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2024-07-15">
+<meta name="dcterms.date" content="2026-07-29">
 <title>Parameterised Rmarkdown – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
@@ -352,12 +352,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#basic-framework" id="toc-basic-framework" class="nav-link" data-scroll-target="#basic-framework">Basic framework</a></li>
   <li><a href="#ways-of-knitting" id="toc-ways-of-knitting" class="nav-link" data-scroll-target="#ways-of-knitting">Ways of knitting</a></li>
+  <li><a href="#adding-options" id="toc-adding-options" class="nav-link" data-scroll-target="#adding-options">Adding options</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
   <li><a href="#interesting-things-to-do-with-params-showhide-code" id="toc-interesting-things-to-do-with-params-showhide-code" class="nav-link" data-scroll-target="#interesting-things-to-do-with-params-showhide-code">Interesting things to do with params: show/hide code</a></li>
   <li><a href="#interesting-things-to-do-with-params-choose-params-interactively" id="toc-interesting-things-to-do-with-params-choose-params-interactively" class="nav-link" data-scroll-target="#interesting-things-to-do-with-params-choose-params-interactively">Interesting things to do with params: choose params interactively</a></li>
+  <li><a href="#interesting-things-to-do-with-params-filter-data-using-a-param" id="toc-interesting-things-to-do-with-params-filter-data-using-a-param" class="nav-link" data-scroll-target="#interesting-things-to-do-with-params-filter-data-using-a-param">Interesting things to do with params: filter data using a param</a></li>
   <li><a href="#interesting-things-to-do-with-params-knit-from-a-function" id="toc-interesting-things-to-do-with-params-knit-from-a-function" class="nav-link" data-scroll-target="#interesting-things-to-do-with-params-knit-from-a-function">Interesting things to do with params: knit from a function</a></li>
   <li><a href="#interesting-things-to-do-with-params-purrr-from-that-function" id="toc-interesting-things-to-do-with-params-purrr-from-that-function" class="nav-link" data-scroll-target="#interesting-things-to-do-with-params-purrr-from-that-function">Interesting things to do with params: purrr from that function</a></li>
   <li><a href="#interesting-things-to-do-with-params-use-in-quarto" id="toc-interesting-things-to-do-with-params-use-in-quarto" class="nav-link" data-scroll-target="#interesting-things-to-do-with-params-use-in-quarto">Interesting things to do with params: use in Quarto</a></li>
@@ -387,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 15, 2024</p>
+      <p class="date">July 29, 2026</p>
     </div>
   </div>
   
@@ -396,18 +399,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="welcome" class="level2"><h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
+</header><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Parameterised Rmarkdown allows users to produce a group of similar documents from a single Rmd document. For example, you might need to produce similar reports for several organisations from one dataset. Rather than creating several near-identical Rmd for each organisation, a parameterised Rmd would let you write one document, and then render versions of it localised to each of the organisations you need to report for. The logic is similar to a function: rather than repeating similar blocks of code, you write one function, and then call that function as needed to produce your results.</p>
 <ul>
-<li>this is an 🌶🌶 intermediate-level practical session designed for those with prior R experience, but who are new to Shiny</li>
+<li>this is an 🌶🌶 intermediate-level practical session designed for those with prior R experience</li>
 <li>it’s definitely meant to be a taster session, rather than a comprehensive introduction</li>
-<li>you’ need R of some sort to follow along
-<ul>
-<li>you’ll also need Quarto for the Quarto-specific part</li>
-</ul>
-</li>
+<li>you’ll need some kind of R setup to follow along</li>
+<li>you’ll also need the <code>rmarkdown</code> and <code>quarto</code> packages installed</li>
 </ul></section><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
 <ul>
-<li>ways of knitting</li>
+<li>basic framework</li>
 <li>interesting things to try
 <ul>
 <li>show/hide code</li>
@@ -417,12 +418,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>try this with Quarto</li>
 </ul>
 </li>
-</ul></section><section id="resources" class="level2"><h2 class="anchored" data-anchor-id="resources">Resources</h2>
+</ul></section><section id="basic-framework" class="level2"><h2 class="anchored" data-anchor-id="basic-framework">Basic framework</h2>
+<p>We’ll start with an ordinary Rmd:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <ul>
-<li>you’ll need R 4.0+ and Rstudio/posit.cloud/Posit workbench/VSCode and packages</li>
-<li>you’ll also need Quarto installed, which can be a battle in the server-based flavours of Posit</li>
-</ul></section><section id="ways-of-knitting" class="level2"><h2 class="anchored" data-anchor-id="ways-of-knitting">Ways of knitting</h2>
-<p>We’ll need to start with a hello-world Rmarkdown document. That should be knit-able from the knit button <img src="../src/images/clipboard-1650697445.png" class="img-fluid" alt="knit button">. But you should also be able to knit using <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code> to produce some output. Together, those three elements look like this:</p>
+<li>create a new Rstudio project</li>
+<li>in it, create a new Rmd (the boilerplate one is fine) and save in the root directory of your project with a nice concise name (you’ll need to type it later)</li>
+<li>remove all the content, so that (apart from the yaml header) there’s a blank canvas to work on</li>
+<li>check that you can knit that Rmd (using the <img src="../src/images/clipboard-1650697445.png" class="img-fluid" alt="knit button"> in the top bar of the source code pane, or via <code>Ctrl</code> + <code>Shift</code> + <code>k</code>)</li>
+<li>add a bit of content (“hello world” would be traditional) and re-knit again to check that everything is working properly</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="ways-of-knitting" class="level2"><h2 class="anchored" data-anchor-id="ways-of-knitting">Ways of knitting</h2>
+<p>As well as knitting via the button or shortcut, you can also knit an Rmd from an R script. The key here is the function <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code>. Let’s try that now:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>now create an R script in your project root, and save</li>
+<li>add a call to <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code> with the filename of your Rmd file</li>
+<li>run that line of code - you won’t see anything in your viewer, but you should see stuff happening in the console to convince you the file has knitted</li>
+</ul>
+</div>
+</div>
+</div>
+<p>Now test what happens when you alter your Rmd:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>alter your Rmd</li>
+<li>re-run the R script</li>
+<li>refresh your viewer pane</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Rmarkdown</a></li>
@@ -448,14 +510,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>This gets more interesting when you start specifying options inside <code>render</code>. A basic example of this would be to change the output filename by adding <code>output_file</code>:</p>
+</section><section id="adding-options" class="level2"><h2 class="anchored" data-anchor-id="adding-options">Adding options</h2>
+<p>This gets more interesting when you start specifying options inside <code>render()</code>. A basic example of this would be to change the output filename by adding <code>output_file</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"Rmarkdown.Rmd"</span>, </span>
 <span>                  output_file <span class="op">=</span> <span class="st">"Rmarkdown_plain.html"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We could also change our output format. By default, rmarkdown docs get rendered to whatever is specified in the header. That’s HTML in our case, but we could fiddle that to give us .pdf output:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"Rmarkdown.Rmd"</span>, </span>
 <span>                  output_file <span class="op">=</span> <span class="st">"Rmarkdown_plain.pdf"</span>,</span>
 <span>                  output_format <span class="op">=</span> <span class="va">pdf_document</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Note that we’re still producing the same output each time, albeit with different filenames and in different formats. The next part is to add <strong>params</strong>, which will enable us to change the content. We need to make two changes to our Rmd first:</p>
+<p>Note that we’re still producing the same output each time, albeit with different filenames and in different formats.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>try those options now: change the filename and the output format (<code>pdf_document</code> or <code>word_document</code>)</li>
+<li>see what happens if you provide clashing filetype extension and output format (<code>file.docx</code> and <code>pdf_document</code>, say)</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="parameters" class="level2"><h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<p>The next part is to add <strong>params</strong>, which will enable us to change the content. We need to make two changes to our Rmd. First, we add params in the header. Those consist of a key, which can be any valid variable name, and a default value. We can then access those params in our ordinary R code in the document by referring to them by name - like (<code>params$name</code>):</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>try that now by adding a <code>name</code> param to your header</li>
+<li>then call that name param into the body of your Rmd</li>
+<li>test by knitting via a method of your choice</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Rmarkdown</a></li>
@@ -464,7 +568,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>We add params in the header, and some code (<code>params$name</code>) to access their values in the body of our Rmarkdown document:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Rmarkdown with params"</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> html_document</span></span>
@@ -484,7 +587,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We can now add some params in our render code to produce a different output. Note that, as we set defaults in the Rmarkdown header, these params are optional. But if we do include params in our render call, they will over-ride the defaults:</p>
+<p>We can now add some params in our render code to produce a different output. Note that, as we set defaults in the Rmarkdown header, these params are optional. But if we do include params in our render call, they will over-ride the defaults. That’s done by building a list of params in the <code>params</code> argument:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>add a new name to your render script</li>
+<li>then re-render your Rmd and check the output</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Rmarkdown</a></li>
@@ -514,6 +636,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>You can build several params in the one document, as we’ll now show, and use those parameters to dramatically change the state of the document:</p>
 </section><section id="interesting-things-to-do-with-params-showhide-code" class="level2"><h2 class="anchored" data-anchor-id="interesting-things-to-do-with-params-showhide-code">Interesting things to do with params: show/hide code</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -585,7 +708,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section><section id="interesting-things-to-do-with-params-knit-from-a-function" class="level2"><h2 class="anchored" data-anchor-id="interesting-things-to-do-with-params-knit-from-a-function">Interesting things to do with params: knit from a function</h2>
+</section><section id="interesting-things-to-do-with-params-filter-data-using-a-param" class="level2"><h2 class="anchored" data-anchor-id="interesting-things-to-do-with-params-filter-data-using-a-param">Interesting things to do with params: filter data using a param</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">Rmarkdown</a></li>
@@ -594,47 +717,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
-<p>We’ll use the same Rmd for this:</p>
+<p>With excuses for using the boring mtcars data, we can use a param value inside ordinary dplyr code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Rmarkdown with params"</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> html_document</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="an">params:</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">  name: "Bruce" # added a param with a default value</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">  showcode: TRUE</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=FALSE}</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> params<span class="sc">$</span>showcode) <span class="co"># setting all chunk options to the value of showcode</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, results='asis'}</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">paste</span>(<span class="st">"Hello"</span>, params<span class="sc">$</span>name)) <span class="co"># use that param in the body of the document</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">  cyl: 4</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=FALSE}</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> params<span class="sc">$</span>showcode) <span class="co"># setting all chunk options to the value of showcode</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE, echo=FALSE, results='asis'}</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cyl <span class="sc">==</span> params<span class="sc">$</span>cyl) <span class="sc">|&gt;</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="fu">paste</span>(params<span class="sc">$</span>cyl, <span class="st">"cylinder vehicle data"</span>))</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-<p>We build a function to call <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code> with the right options:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">make_mark</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input_name</span>, <span class="va">show_code</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">format</span> <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span><span class="op">{</span></span>
-<span></span>
-<span>  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"03_rmd.Rmd"</span>,</span>
-<span>                    output_file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"03_rmd_"</span>, <span class="va">input_name</span>, <span class="st">"."</span>, <span class="va">format</span><span class="op">)</span>,</span>
-<span>                    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">input_name</span>, </span>
-<span>                                  showcode <span class="op">=</span> <span class="va">show_code</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu">make_mark</span><span class="op">(</span>input_name <span class="op">=</span> <span class="st">"Nat"</span><span class="op">)</span></span>
-<span><span class="fu">make_mark</span><span class="op">(</span>input_name <span class="op">=</span> <span class="st">"Mel"</span>, format <span class="op">=</span> <span class="st">"pdf"</span><span class="op">)</span></span>
-<span><span class="fu">make_mark</span><span class="op">(</span>input_name <span class="op">=</span> <span class="st">"Sue"</span>, show_code <span class="op">=</span> <span class="cn">FALSE</span>, format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can also access this via the knit menu: <img src="../src/images/clipboard-386029477.png" class="img-fluid"></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"r_training/src/rmd/04_rmd.Rmd"</span>, params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="fl">8</span><span class="op">)</span><span class="op">)</span> <span class="co"># take care, you'll get odd results if you try and filter on values that don't exist</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
-<p><img src="../src/images/03_rmd_Nat_pdf.png" class="img-fluid"></p>
-<p>and</p>
-<p><img src="../src/images/03_rmd_Mel_pdf.png" class="img-fluid"></p>
-<p>and</p>
-<p><img src="../src/images/03_rmd_Sue_html.png" class="img-fluid"></p>
+<p><img src="../src/images/04_rmd_choose.png" class="img-fluid"></p>
 </div>
 </div>
 </div>
-</section><section id="interesting-things-to-do-with-params-purrr-from-that-function" class="level2"><h2 class="anchored" data-anchor-id="interesting-things-to-do-with-params-purrr-from-that-function">Interesting things to do with params: purrr from that function</h2>
+</section><section id="interesting-things-to-do-with-params-knit-from-a-function" class="level2"><h2 class="anchored" data-anchor-id="interesting-things-to-do-with-params-knit-from-a-function">Interesting things to do with params: knit from a function</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">Rmarkdown</a></li>
@@ -643,7 +756,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
-<p>Same Rmd again:</p>
+<p>We’ll use the previous Rmd for this example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Rmarkdown with params"</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> html_document</span></span>
@@ -661,14 +774,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<p>We build a function to call <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code> with the right options:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">make_mark</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input_name</span>, <span class="va">show_code</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">format</span> <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span><span class="op">{</span></span>
+<span></span>
+<span>  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"03_rmd.Rmd"</span>,</span>
+<span>                    output_file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"03_rmd_"</span>, <span class="va">input_name</span>, <span class="st">"."</span>, <span class="va">format</span><span class="op">)</span>,</span>
+<span>                    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">input_name</span>, </span>
+<span>                                  showcode <span class="op">=</span> <span class="va">show_code</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">make_mark</span><span class="op">(</span>input_name <span class="op">=</span> <span class="st">"Nat"</span><span class="op">)</span></span>
+<span><span class="fu">make_mark</span><span class="op">(</span>input_name <span class="op">=</span> <span class="st">"Mel"</span>, format <span class="op">=</span> <span class="st">"pdf"</span><span class="op">)</span></span>
+<span><span class="fu">make_mark</span><span class="op">(</span>input_name <span class="op">=</span> <span class="st">"Sue"</span>, show_code <span class="op">=</span> <span class="cn">FALSE</span>, format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
+<p><img src="../src/images/03_rmd_Nat_pdf.png" class="img-fluid"></p>
+<p>and</p>
+<p><img src="../src/images/03_rmd_Mel_pdf.png" class="img-fluid"></p>
+<p>and</p>
+<p><img src="../src/images/03_rmd_Sue_html.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section><section id="interesting-things-to-do-with-params-purrr-from-that-function" class="level2"><h2 class="anchored" data-anchor-id="interesting-things-to-do-with-params-purrr-from-that-function">Interesting things to do with params: purrr from that function</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">Rmarkdown</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Render code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false" href="">Output</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<p>Same Rmd again:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Rmarkdown with params"</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> html_document</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="an">params:</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">  name: "Bruce" # added a param with a default value</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">  showcode: TRUE</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=FALSE}</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> params<span class="sc">$</span>showcode) <span class="co"># setting all chunk options to the value of showcode</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, results='asis'}</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">paste</span>(<span class="st">"Hello"</span>, params<span class="sc">$</span>name)) <span class="co"># use that param in the body of the document</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
 <p>We’ll now call our <code>make_mark</code> function using purrr. <code>dplyr::expand_grid()</code> helps set all the correct combinations up for us:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">input_name</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Angela"</span>, <span class="st">"Gloria"</span>, <span class="st">"Audre"</span>, <span class="st">"bell"</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">input_name</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Angela"</span>, <span class="st">"Gloria"</span>, <span class="st">"Audre"</span>, <span class="st">"bell"</span><span class="op">)</span></span>
 <span><span class="va">format</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pdf"</span>, <span class="st">"html"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand_grid.html">expand_grid</a></span><span class="op">(</span><span class="va">input_name</span>, <span class="va">format</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/pmap.html">pwalk</a></span><span class="op">(</span><span class="va">make_mark2</span><span class="op">)</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
+<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="../src/images/03_rmd_Angela.png" class="img-fluid figure-img"></p>
 <figcaption>Angela HTML</figcaption></figure>
@@ -694,12 +856,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This parameterised approach is also applicable to Quarto.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">Quarto</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Render code</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false" href="">Output</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true" href="">Quarto</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false" href="">Render code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-3" role="tab" aria-controls="tabset-9-3" aria-selected="false" href="">Output</a></li>
 </ul>
 <div class="tab-content">
-<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <p>Basically the same as our Rmd with a different render function:</p>
 <pre class="qmd"><code>---
 title: "Quarto with params"
@@ -713,14 +875,14 @@ params:
 cat(paste("Hello", params$name)) # use that param in the body of the document
 ```</code></pre>
 </div>
-<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">quarto</span><span class="fu">::</span><span class="fu"><a href="https://quarto-dev.github.io/quarto-r/reference/quarto_render.html">quarto_render</a></span><span class="op">(</span><span class="st">"01_qmd.qmd"</span><span class="op">)</span> <span class="co"># different render function</span></span>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">quarto</span><span class="fu">::</span><span class="fu"><a href="https://quarto-dev.github.io/quarto-r/reference/quarto_render.html">quarto_render</a></span><span class="op">(</span><span class="st">"01_qmd.qmd"</span><span class="op">)</span> <span class="co"># different render function</span></span>
 <span></span>
 <span></span>
 <span><span class="fu">quarto</span><span class="fu">::</span><span class="fu"><a href="https://quarto-dev.github.io/quarto-r/reference/quarto_render.html">quarto_render</a></span><span class="op">(</span><span class="st">"01_qmd.qmd"</span>, </span>
 <span>                      execute_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Emma"</span><span class="op">)</span><span class="op">)</span> <span class="co"># same way of setting params</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
+<div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
 <p><img src="../src/images/01_qmd_plain.png" class="img-fluid"></p>
 <p>and</p>
 <p><img src="../src/images/01_qmd_emma.png" class="img-fluid"></p>
