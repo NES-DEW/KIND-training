@@ -1,0 +1,277 @@
+---
+title: Free text wrangling
+date: 2026-08-04
+categories: [R, intermediate]
+draft: true
+params:
+  sl_date: 2026-08-04
+  fn: "Free text wrangling"
+  id: KR35
+execute:
+  echo: true
+  output: "markup"
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block(params$id)
+here::i_am("r_training/free_text_wrangling.qmd")
+```
+
+## About this session
+
+This is a stand-alone introduction to free text wrangling in R using the `tidytext` package. It's heavily based on Julia Silge and David Robinson's [book about text mining](https://www.tidytextmining.com/), which is an excellent resource if you're looking for applications and extensions to this session.
+
+The aim of the session is to explore some tools and techniques for wrangling free text: basically, ways of taking wild-caught bits of text, and tidying them up so that they can be analysed. Note that we won't really talk about that analysis itself - and for details of what you can do with your tidied text, you can find lots of examples in [Silge and Robinson 2025](https://www.tidytextmining.com/).
+
+We also don't get into the non-tidy formats used in some kinds of text analysis. Again, Silge and Robinson has a lot of helpful guidance for e.g. DTM and the like.
+
+You might also find [our session on the stringr package](stringr_intro.html) handy as a primer on a modern toolkit for working with strings in R. You'll also want some decent dplyr skills too - text wrangling gets complicated very quickly!
+
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
+## Session resources
++ you don't need anything apart from an R setup for this session with a few packages installed (see the setup chunk below)
++ you'll almost certainly want the [stringr cheatsheet on hand](https://rstudio.github.io/cheatsheets/strings.pdf)
+:::
+
+## Setup
+
+Create a new project, install packages if needed, attach the stringr, tidytext, and dplyr packages, and create some simple data:
+
+```{r}
+# install.packages("dplyr")
+# install.packages("stringr")
+# install.packages("tidytext")
+# install.packages("textdata")
+# install.packages("hunspell")
+# install.packages("textstem")
+
+library(dplyr)
+library(stringr)
+library(tidytext)
+library(textdata)
+library(hunspell)
+library(textstem)
+
+ww <- "No one would have believed in the last years of the nineteenth century that this world was being watched keenly and closely by intelligences greater than man’s and yet as mortal as his own; that as men busied themselves about their various concerns they were scrutinised and studied, perhaps almost as narrowly as a man with a microscope might scrutinise the transient creatures that swarm and multiply in a drop of water. With infinite complacency men went to and fro over this globe about their little affairs, serene in their assurance of their empire over matter. It is possible that the infusoria under the microscope do the same. No one gave a thought to the older worlds of space as sources of human danger, or thought of them only to dismiss the idea of life upon them as impossible or improbable. It is curious to recall some of the mental habits of those departed days. At most terrestrial men fancied there might be other men upon Mars, perhaps inferior to themselves and ready to welcome a missionary enterprise. Yet across the gulf of space, minds that are to our minds as ours are to those of the beasts that perish, intellects vast and cool and unsympathetic, regarded this earth with envious eyes, and slowly and surely drew their plans against us. And early in the twentieth century came the great disillusionment."
+
+```
+
+## What's the problem?
+
+This chunk of text is hard to analyse! For example, there isn't a simple way of finding even how many words we're working with. Okay, so we can count characters using `nchar()` or similar, but we can't do much else with the text. In this session, we'll introduce the tidytext approach to working with text data. That's tidyverse-allied, so it'll come as no shock at all that we're going to start my turning our text into a simple tibble:
+
+```{r}
+ww <- tibble(ww)
+
+ww
+```
+
+## Tokens
+
+Let's break that long string of text into single words. Call that process tokenizing:
+
+```{r}
+ww |>
+  unnest_tokens(output = word,
+                input = ww)
+```
+
+You can see here that lots has happened: the words have been split at spaces or punctuation. All the non-word parts have been removed, and the words themselves converted to lower-case. That means, pretty rapidly, we can start doing standard tidyverse things to our words...
+
+```{r}
+ww |>
+  unnest_tokens(word, ww) |> # arguments by position
+  count(word, sort = T)
+```
+
+There are other ways of tokenizing our text too:
+
+```{r}
+ww |>
+  unnest_tokens(output = word,
+                input = ww,
+                token = "sentences")
+
+ww |>
+  unnest_tokens(output = word,
+                input = ww,
+                token = "ngrams",
+                n = 5,
+                to_lower = F)
+
+```
+
+## Stop words
+
+Go back to our count of words: 
+
+```{r}
+ww |>
+  unnest_tokens(word, ww) |> # arguments by position
+  count(word, sort = T)
+```
+
+Most of them aren't very interesting (at least, only interesting in the sense that we've shown that short joining words are common in our sample). We might remove these words to let us see what's special about our piece of text. Call these words we want to remove stop words:
+
+```{r}
+get_stopwords()
+```
+
+Tidytext contains several different stopword lexicons: try `stopwords::stopwords_getsources()`.
+
+```{r}
+stopwords::stopwords_getsources()
+get_stopwords(source = "stopwords-iso")
+```
+
+We can anti-join these stopwords to our data to remove those bits and pieces:
+
+```{r}
+ww |>
+  unnest_tokens(word, ww) |>
+  anti_join(get_stopwords()) |>
+  count(word, sort = T)
+```
+
+That's all feeling much more specific. Let's try with another piece of (famous text)...
+
+```{r}
+
+# readr::read_lines("https://www.gutenberg.org/cache/epub/1661/pg1661.txt")
+
+tibble(raw = readr::read_lines(here::here("r_training/data/pg1661.txt"))) |>
+  unnest_tokens(word, raw) |>
+  anti_join(get_stopwords()) |>
+  count(word, sort = T)
+```
+
+## Working in groups
+
+Back to H.G. Wells: let's take our original text snippet and break it into sentences again:
+
+```{r}
+ww_sent <- ww |>
+  unnest_tokens(output = sentence,
+                input = ww,
+                token = "sentences") |>
+  mutate(sentence_no = row_number())
+
+ww_sent
+```
+
+This might replicate the kind of structure you'd find in a spreadsheet of comments, or similar. We can treat those sentences individually and tokenize
+
+```{r}
+ww_sent |>
+  unnest_tokens(word, sentence) |>
+  anti_join(get_stopwords()) |>
+  count(word, sentence_no, sort = T)
+```
+
+## Sentiments
+
+It's important to note that we lose a lot of meaning when we break sentences into individual words. That said, looking at individual words can tell you about your topic. One example is by using a sentiment lexicon: a group of words that have been scored for their connotations. For example:
+
+```{r}
+get_sentiments("bing") 
+```
+
+We could join those too:
+
+```{r}
+ww |>
+  unnest_tokens(word, ww) |>
+  anti_join(get_stopwords()) |>
+  inner_join(get_sentiments("bing")) |> # this will discard any of the non-sentiment words
+  count(sentiment)
+```
+
+That's perhaps a surprise - I'd have thought the darkly portentous start of the War of the Worlds would be a bit more negative. What about Sherlock?
+
+```{r}
+# install.packages("textdata") # may be needed for the different set of sentiments
+
+tibble(raw = readr::read_lines(here::here("r_training/data/pg1661.txt"))) |>
+  unnest_tokens(word, raw) |>
+  anti_join(get_stopwords()) |>
+  inner_join(get_sentiments("afinn")) |>  # different lexicon this time
+  count(value) # afinn does positive/negative scoring, so different column name
+
+tibble(raw = readr::read_lines(here::here("r_training/data/pg1661.txt"))) |>
+  unnest_tokens(word, raw) |>
+  anti_join(get_stopwords()) |>
+  inner_join(get_sentiments("afinn")) |>
+  filter(value == 5)
+```
+
+## Frequencies
+
+We've already calculated simple counts of word occurrence from our text. If you've got several documents - like our tibble of sentences - you can also calculate frequencies and more using `bind_tf_idf()`:
+
+```{r}
+ww_sent |>
+  unnest_tokens(word, sentence) |>
+  anti_join(get_stopwords()) |>
+  count(word, sentence_no, sort = T) |>
+  bind_tf_idf(word, sentence_no, n) |>
+  arrange(desc(tf_idf))
+```
+
++ `tf` = term frequency, how common the word is within the document (in this case, our sentence)
++ `idf` = inverse document frequency, how uncommon a word is in the whole corpus (group of sentences). Larger =  rarer
++ `tf_idf` = tf * idf, basically correlating with overall-rare words at unusually high frequency in a document
+
+```{r}
+
+books <- c("A Scandal in Bohemia", "The Red-Headed League", "A Case of Identity", "The Boscombe Valley Mystery", "The Five Orange Pips", "The Man with the Twisted Lip", "The Adventure of the Blue Carbuncle", "The Adventure of the Speckled Band", "The Adventure of the Engineer’s Thumb", "The Adventure of the Noble Bachelor", "The Adventure of the Beryl Coronet", "The Adventure of the Copper Beeches") 
+
+books_col <- books |>
+  toupper() |>
+  paste0(collapse="|")
+
+tibble(raw = readr::read_lines(here::here("r_training/data/pg1661.txt"))) |>
+  mutate(book = cumsum(str_detect(raw, books_col))) |>
+  filter(book > 0) |>
+  mutate(book = (\(x) books[x])(book)) |>
+  unnest_tokens(word, raw) |>
+  filter(str_detect(word, "_", negate = T)) |> # lot of non-english words with _s in them
+  filter(str_detect(word, "\\d", negate = T)) |> # and a surprising number of numbers, which aren't removed
+  anti_join(get_stopwords()) |>
+  count(book, word) |>
+  distinct() |>
+  bind_tf_idf(book, word, n) |>
+  arrange(desc(tf_idf)) |>
+  group_by(book) |>
+  slice_max(tf_idf, n = 3, with_ties = F) # I think most of these words are unique to the book where they appear
+
+  
+```
+
+## Spelling
+
+```{r}
+hunspell::hunspell_check("word", dict = dictionary("en_GB"))
+hunspell::hunspell_check("wurd")
+hunspell::hunspell("spell checkers are not neccessairy for langauge ninjas")
+```
+
+## Stems
+
+```{r}
+hunspell::hunspell_stem(c("fix", "fixer", "fixed")) # basically following heuristics to shorten words by chopping off prefixes/suffixes
+
+hunspell::hunspell_analyze(c("happy", "unhappy", "happiness"))
+```
+
+## Lemmatize
+
+```{r}
+textstem::lemmatize_strings(c("most", "biggest", "biggest")) # using what we know about all the irrationality of English to group words under their parent
+```
