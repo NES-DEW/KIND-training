@@ -1,0 +1,208 @@
+---
+title: dbplyr and dtplyr
+date: 2026-08-04
+categories: [R, intermediate]
+draft: true
+params:
+  sl_date: 2026-08-04
+  fn: "dbplyr and dtplyr"
+  id: KR46
+execute:
+  echo: true
+  output: "markup"
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block(params$id)
+here::i_am("r_training/free_text_wrangling.qmd")
+```
+
+## About this session
+
+
+
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
+## Session resources
++ you don't need anything apart from an R setup for this session with a few packages installed (see the setup chunk below)
+:::
+
+## Setup
+
+Create a new project, install packages if needed, attach the stringr, tidytext, and dplyr packages, and create some simple data:
+
+```{r}
+# install.packages("dplyr")
+# install.packages("dtplyr")
+# install.packages("dbplyr")
+# install.packages("palmerpenguins")
+# install.packages("DBI")
+
+library(dplyr)
+library(dtplyr)
+library(dbplyr)
+library(palmerpenguins)
+
+```
+
+## What?
+
++ dplyr is great! Easy to read and write, nicely compatible with other R tools, with a chunky user-base and nice docs
++ dplyr is also a) slow and b) holds your data in memory
++ that means that when your data gets big (or complicated, or remote,...) dplyr becomes slow and annoying
++ the dream: write dplyr, but *execute something else* more capable of tackling the big stuff
++ both dtplyr and dbplyr are both flavours of *execute something else* while writing dplyr
+  + [dtplyr](https://dtplyr.tidyverse.org/articles/translation.html) = [data.table](https://r-datatable.com/)
+  + [dbplyr](https://dbplyr.tidyverse.org/) = [SQL](https://www.w3schools.com/sql/)
+
+## dtplyr
+
+Why not just write data.table directly? Largely because it's very unlike ordinary R code:
+
+```{r}
+library(data.table)
+
+peng_dt <- data.table(penguins)
+peng_dt[island == "Dream"] # filter
+peng_dt[,.(bill_length_mm)] # select
+peng_dt[,bill_length_mm] # pull or $
+peng_dt[,.N, island] # count
+```
+
+
+It's actually a great system if you have the time to spend getting comfortable with it: really a very concise way of writing SQL-ish expressions. But, it's not easy to improvise, and it really does take a bit of time to get happy working in this way, especially if you've spent lots of time writing nice literate tidyverse code.
+
+Enter dtplyr. That only really needs us to learn one new function:
+
+```{r}
+peng_dtp <- dtplyr::lazy_dt(penguins) # create a dtplyr object
+
+peng_dtp |>
+  as_tibble() # if you need to get your results back as a proper tibble
+
+peng_dtp |>
+  collect() # similarly, returns a tibble
+```
+
+Otherwise you can largely just start plugging in dplyr code:
+
+```{r}
+peng_dtp |>
+  filter(island == "Dream")
+
+peng_dtp |>
+  select(bill_length_mm)
+
+peng_dtp |>
+  pull(bill_length_mm)
+
+peng_dtp |>
+  count(island)
+```
+
+There are also some non-dplyr bits of tidyverse to play with too - check the [reference](https://dtplyr.tidyverse.org/reference/index.html):
+
+```{r}
+peng_dtp |>
+  # select() |>
+  tidyr::pivot_longer(contains("mm"))
+```
+
+
+If you want to find out what's going on in ~~Narnia~~ data.table land, you can use `show_query()`
+
+```{r}
+peng_dtp |>
+  count(island) |>
+  show_query()
+```
+
+This is pretty interesting, and a delightfully lazy way to brush up on your data.table syntax:
+
+```{r}
+peng_dtp |>
+  filter(island == "Dream") |>
+  select(island, bill_length_mm) |>
+  mutate(bill_length_rods = bill_length_mm / 5029.2) |>
+  show_query()
+
+```
+
+
+```{r}
+peng_dtp_inter_nc <- peng_dtp |>
+  mutate(bill_vol = bill_length_mm * bill_depth_mm) 
+
+peng_dtp_inter <- peng_dtp |>
+  mutate(bill_vol = bill_length_mm * bill_depth_mm) |>
+  compute() # intermediate assignment
+
+waldo::compare(peng_dtp_inter_nc, peng_dtp_inter)
+```
+
+## dbplyr
+
+dbplyr takes a similar approach to dtplyr, but has much more flexibility about source data. You can easily e.g. connect to a remote server or similar using DBI. That's largely outwith the scope of this session, so we'll create an in-memory SQLite database as a demonstration of how this might be used to manage large datasets in R:
+
+```{r}
+con <- DBI::dbConnect(RSQLite::SQLite(), dbname = ":memory:") # creates a SQLite db
+
+copy_to(con, penguins, "pengs") # adds the penguins dataset as a table called pengs
+```
+
+We could access this db directly using SQL queries:
+
+```{r}
+con |> 
+  DBI::dbGetQuery('SELECT * FROM pengs WHERE island == "Dream" LIMIT 5') # filter to keep the preview a sensible length
+
+con |> 
+  DBI::dbGetQuery('SELECT bill_length_mm FROM pengs LIMIT 5') # select
+
+con |>
+  DBI::dbGetQuery('SELECT island, count(*) as n FROM pengs GROUP BY island')
+```
+
+Again, SQL is great if you have time to learn it properly, but for occasional use (or learning) dbplyr is even better:
+
+```{r}
+tbl(con, "pengs") |>
+  filter(island == "Dream") # to return a db preview
+
+tbl(con, "pengs") |>
+  filter(island == "Dream") |>
+  collect() # to return a proper tibble
+
+tbl(con, "pengs") |>
+  filter(island == "Dream") |>
+  select(species) |>
+  show_query() # for L&D purposes
+
+tbl(con, "pengs") |>
+  filter(island == "Dream") |>
+  select(species) |>
+  explain()
+
+tbl(con, "pengs") |>
+  filter(island == "Dream") |>
+  select(species, bill_depth_mm) |>
+  compute(name = "dream_pengs")
+
+tbl(con, "dream_pengs") |>
+  collect()
+
+new_peng <- copy_inline(con, tibble(species = "Humboldt", bill_depth_mm = 31))
+
+rows_insert(tbl(con, "dream_pengs"), new_peng, conflict = "ignore") |>
+  count(species) |>
+  compute(name = "species_pengs")
+
+tbl(con, "species_pengs") |>
+  collect()
+```
