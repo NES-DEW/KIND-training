@@ -31,7 +31,7 @@ This is an intermediate-level session (🌶🌶) introducing some ways of using 
 
 The infrastructure for this session is unusually complicated, so please don't be too disappointed if not everything we demonstrate in the session works for you. As a minimum, you’ll need the following to complete the session:
 
-- Power BI Desktop or M365 Excel Desktop
+- Power BI Desktop
 - a working **desktop** R installation of some kind
 - prior experience of doing simple work in PowerQuery (and ideally a bit of experience with PQM formulas)
 - happy writing simple R code
@@ -160,4 +160,20 @@ dataset|>
 ```
 
 Source step: `= R.Execute("file <- readr::read_csv('C:\\file.csv')")`
+
+With thanks to Andrew Young (NHS Greater Glasgow and Clyde), there's an excellent way of improving the error handing using `tryCatch`:
+
+```{r}
+df1 <- tryCatch(
+  {
+    df |>
+      filter(speies == "Gentoo") |> # nb spelling
+      slice_head(n = 5)
+  },
+  error = function(e) {
+    tibble::tibble(Error = e$message,
+                   cause = conditionMessage(e$parent))
+  }
+)
+```
 
