@@ -1,15 +1,17 @@
 ---
 title: "Working with lists in purrr"
-date: 2025-08-04
+date: 2026-08-20
 execute: 
   echo: true
   output: "markup"
   draft: true
 categories: [R, intermediate]
 params:
-  sl_date: 2025-08-04
+  sl_date: 2026-08-20
   fn: "Working with lists in purrr"
-  # id: KE01
+  id: KR64
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -24,13 +26,6 @@ source(here::here("R/feed_block.R"))
 # feed_block(params$id)
 ```
 
-
-```{r}
-library(purrr)
-```
-
-
-
 ## Introduction
 
 purrr is mainly used for functional programme, especially making it easier and more consistent to apply a function over a group of items and collect the output:
@@ -41,6 +36,8 @@ more_less <- function(col) {
   else "Not much"
 }
 
+library(purrr)
+
 mtcars |>
   map(more_less)
 
@@ -48,47 +45,40 @@ mtcars |>
   map_vec(more_less)
 ```
 
-But purrr also has a set of tools for working with lists. This session is an introduction to those functions.
+But purrr also has a set of tools for working with lists. This session is an introduction to those functions. We'll use the [purrr cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf) as a starting point for this session.
 
 ## A reminder about lists
 
 Lists are a data structure in R with two very useful properties. Unlike vectors, they can contain data of different classes. Unlike data frames/tibbles, they can be ragged, containing items of different lengths:
 
 ```{r}
-test_list <- list(chars = letters[1:5],
-     nums = 1:3)
+test_list <- list(a = LETTERS, b = NA, c = 1:5, d = NULL, e =  letters)
+
 test_list
 ```
 
 * subset a list by item/index with `[]`:
 
 ```{r}
-test_list["nums"]
+test_list["c"]
 test_list[1]
 ```
 
 ** retrieve the contents of a list item with `$` or `[[]]`:
 
 ```{r}
-test_list[["nums"]]
-test_list$chars
+test_list[["c"]]
+test_list$a
 ```
 
 ** subset those list contents with chained square brackets:
 
 ```{r}
-test_list[["nums"]][1]
-test_list$chars[3]
+test_list[["a"]][2]
+test_list$c[3]
 ```
 
-** nesting lists within lists
 
-```{r}
-deep_list <- list(outer_one = list(
-  inner_one = 10:5,
-  inner_two = 6:2),
-outer_two = 20:15)
-```
 
 
 ## `modify()`
@@ -104,25 +94,124 @@ Select list items to modify with `modify_at()`/`modify_if()` / `modify_depth()`:
 
 ```{r}
 test_list |>
-  modify_at("chars", toupper) # select list item by quoted name
+  modify_at("e", toupper) # select list item by quoted name
 
 test_list |>
   modify_if(is.numeric, \(x) x + 2) # select list item by function
 
-list(list(list(deepo = c(3, 4, 5)))) |> # likely to be more trouble than it's worth, especially because many functions will do odd things to list itels
-  modify_depth(3, \(x) x * 10)
+list(list(list(list(deepo = c(3, 4, 5))))) |> # likely to be more trouble than it's worth, especially because many functions will do odd things to list items
+  modify_depth(4, \(x) x * 10)
 ```
 
 ## `reduce()`
 
+A bit like `cumsum()`! Apply a function to each element recursively.
+
 ```{r}
 1:10 |>
-  reduce(sum)
+  reduce(sum) # so think 1+2=3, then 3+3=6, then 6+4=10,...,45+10=55. That can be a bit hard to understand, so accumulate helps by showing intermediate results
 
 1:10 |>
   accumulate(sum)
 
+list(a = c("space", "star", "dragon"), "fruit") |>
+  reduce(paste0) # odd results over vectors, and beware of vector recycling
+
+```
+
+## Vectors
+
+Some purrr functions are designed for vectors:
+
+```{r}
+c(NULL, "hello", NULL, "world") |>
+  compact()
+
+c("NULL", "hello", "NULL", "world") |>
+  keep_at(c(2,4))
+
+c("NULL", "hello", "NULL", "world") |>
+  discard_at(c(1,3))
+
+c("NULL", "hello", "NULL", "world") |>
+  set_names(c("one", "two", "three", "four"))
+
+```
+
+## Predicate functions
+
+```{r}
+
 test_list |>
-  reduce(paste) # odd results over vectors, and beware of vector recycling
+  keep(is.numeric)
+
+test_list |>
+  discard(is.character)
+
+test_list |>
+  head_while(is.character)
+
+test_list |>
+  tail_while(is.character)
+
+test_list |>
+  detect(is.numeric)
+
+test_list |>
+  detect_index(is.numeric)
+
+test_list |>
+  every(is.character)
+
+test_list |>
+  some(is.character)
+
+test_list |>
+  none(is.complex)
+
+test_list |>
+  has_element(1:5)
+```
+
+
+## Pluck
+
+```{r}
+test_list |>
+  pluck("e")
+
+test_list |>
+  pluck("f")
+
+try({
+  test_list |>
+    chuck("f") # more surly than pluck
+  })
+
+test_list |>
+  pluck_depth()
+
+test_list |>
+  assign_in("d", "boo!")
+
+test_list |>
+  modify_in("c", sqrt)
+```
+
+## Reshape and concatenate
+```{r}
+test_list |>
+  list_flatten() # doesn't do anything: designed to flatten a list back to depth = 1
+
+list("hello", "world") |>
+  list_c() # strict about types, wouldn't try and combine our test_list
+
+list(list(a = letters, b = LETTERS), list(c = letters, d = LETTERS)) |>
+  transpose()
+
+list(1, list(2), list(list(3))) |>
+  list_flatten() |> # removes one level each use
+  list_flatten()
+
 ```
 
