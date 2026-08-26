@@ -1,0 +1,73 @@
+---
+title: "Quarto"
+date: 2026-08-19
+execute: 
+  echo: true
+  eval: false
+  output: "markup"
+  draft: true
+categories: [R, intermediate]
+params:
+  sl_date: 2026-08-19
+  fn: "Quarto"
+  id: KR45
+---
+
+## Intro
+
+Quarto is a superset of Rmarkdown. That means that you can take an Rmarkdown, and render it as a Quarto document:
+
++ create a new project
++ create a new Rmd and save - if you're new to this, or on posit.cloud, you'll note that this requires lots of packages
++ render via the knit button to produce an HTML file
+
+Rmarkdown depends on a couple of R packages - knitr, and rmarkdown. For example, rather than pressing the knit button, you can knit using the R expression `rmarkdown::render("my_file.rmd")`. As we'll see, while Quarto looks very like Rmarkdown, the process that turns it into some kind of output format is completely different.
+
+## Rmd to qmd
+
+Now we'll turn our file into a Quarto file:
+
++ rename it by changing the filetype extension from `.Rmd` to `.qmd`
++ close and re-open your file
+
+You should see that you've now got some different options available: render, rather than knit, as the most striking. 
+
++ now render your qmd by clicking the render button
+
+If you're very familiar with Rmd, you'll see that the mechanism by which our code gets converted to output is very different - there's a background task tab where most of the interesting stuff happens. This is because Quarto rendering depends on non-R code which is installed locally (or on your remote server). That means we don't render Quarto using the terminal, but via the console:
+
++ render your file by running `quarto render my_file.qmd` in the **console** 
++ quarto isn't a package: render on the command line
++ now create a quarto file and compare and contrast
+	+ visual editor
+	+ format: html vs output: html_document
+	+ basic markup syntax similar
+	+ no setup chunk
++ change format to typst/pdf/revealjs
++ execute key - eval/echo/output/warning/error/include/cache/freeze
++ output-file / output-ext
+
++ visual editor, citations, paste in pics
+
++ r code chunks + multi-language support
+
+- unified element syntax : 
+
+``` markdown
+::: {.notes}
+Here's my note!
+:::
+```
+
+
+
++ quartostamp via `install.packages("pak")` and then `pak::pak("matt-dray/quartostamp")`
+
++ {{{< include > }}} shortcode syntax
+
++ projects
+	+ quarto create project
+	+ {{{< var > }}} and _variables.yml - https://quarto.org/docs/authoring/variables.html - define key/val, and use main_key.sub_key shorthand
+	+ {{{< meta title>}}}
+
++ filters = changing behaviour of elements, including formatting, citations, etc https://quarto.org/docs/extensions/filters.html#var 
