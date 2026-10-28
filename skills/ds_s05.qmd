@@ -11,8 +11,6 @@ title: Group, summarise and compare your data (session five)
 
 ### Exercises
 
-average and standard deviation need to be here because we cut them from distributions session
-
 ### Data
 
 ### Key concepts
@@ -22,10 +20,119 @@ average and standard deviation need to be here because we cut them from distribu
 
 ## Session outline
 
+1. Summaries of data
+1. Being selective for pleasure and profit
+1. Putting things in groups
+
+
 1. why think about storytelling?
 1. a warning about the analyst's pitfall
 1. four principles for better data storytelling
 1. a practical run-through of those principles
+
+## On exactitude in science
+
+> ...In that Empire, the Art of Cartography attained such Perfection that the map of a single Province occupied the entirety of a City, and the map of the Empire, the entirety of a Province. In time, those Unconscionable Maps no longer satisfied, and the Cartographers Guilds struck a Map of the Empire whose size was that of the Empire, and which coincided point for point with it. The following Generations, who were not so fond of the Study of Cartography as their Forebears had been, saw that that vast Map was Useless, and not without some Pitilessness was it, that they delivered it up to the Inclemencies of Sun and Winters. In the Deserts of the West, still today, there are Tattered Ruins of that Map, inhabited by Animals and Beggars; in all the Land there is no other Relic of the Disciplines of Geography.
+
+## Be selective!
+
+We've already talked about how important it is to be selective when collecting our data. We can add a proviso here: think about your groups when gathering your data. 
+
+## Summaries
+
+We did some summaries before, by summing things up
+
+Average: measure of central tendency
+Several ways of calculating an average (MMM)
+Median for skew
+Outliers if mean
+
+## SD
+
+Average doesn't tell us everything!
+
+```{r}
+library(tidyverse)
+
+dat <- tibble(score_1 = rnorm(20000) + 4, 
+       score_2 = rnorm(20000)/5 + 4) |>
+      pivot_longer(everything())
+
+dat |>
+  group_by(name) |>
+  summarise(mean = mean(value), 
+            n = n())
+
+dat |>
+  ggplot() +
+  geom_density(aes(x = value, fill = name)) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+Something something measure of spread
+
+```{r}
+dat |>
+  group_by(name) |>
+  summarise(mean = mean(value), 
+            n = n(),
+            sd = round(sd(value), 2))
+```
+
+If you've got data that's normal, the middle 95% of your data points will be within +- 2 standard deviations of the mean. That's wildly useful, for all sorts of things. A neat healthcare example: most blood tests in completely fit and well people vary. If you collect that data, and plot it, and you're lucky, it'll fall into a normal distribution (not always though). Here's some imaginary data for a biomarker I'm calling HLDSP1 (happy, lucky, data skills participant) which I've measured in 1000 made-up people. That plots out as follows:
+
+```{r}
+hldsp1 <- tibble(hldsp1 = rnorm(20000, 20, 5))
+
+hldsp1 |>
+  ggplot() +
+  geom_histogram(aes(x = hldsp1))
+
+hldsp1_mean <- mean(hldsp1$hldsp1)
+hldsp1_sd <- sd(hldsp1$hldsp1)
+```
+That data has a mean of `r round(hldsp1_mean, 2)`standard deviation of `r round(hldsp1_sd, 2)`. That means that we'll find 95% of our values within a bit under twice the SD either side of the mean. On the graph:
+
+```{r}
+hldsp1_class <- hldsp1 |>
+  mutate(class = case_when(hldsp1 > 1.96*hldsp1_sd + hldsp1_mean ~ "bigger",
+                           hldsp1 <= hldsp1_mean - (1.96*hldsp1_sd) ~ "smaller",
+                           TRUE ~ "within")) 
+
+hldsp1_class |>
+  ggplot() +
+  geom_histogram(aes(x = hldsp1, fill = class))
+
+hldsp1_class |>
+  group_by(class) |>
+  summarise(n = n()) |>
+  mutate(sumn=sum(n)) |>
+  rowwise() |>
+  mutate(percent = 100 * n/sumn) |>
+  select(-sumn)
+
+
+  
+```
+
+
+are calibrated in this kind of way such that the middle 95%
+
+Anscombe's quartet: have a quick butchers at your data in a simple graph before doing anything
+
+## Why groups?
+
++ putting stuff in group
+## What makes a good group?
+Imagine you're looking at the care home data again
+What groups might you be interested in?
+Cut nature at its joints
+
+## Sparseness
+
+## Disjunctive sets
 
 ## Why think about storytelling?
 
@@ -74,9 +181,7 @@ average and standard deviation need to be here because we cut them from distribu
 + you need to know it all, too: the domain knowledge is important
 :::
 
-## On exactitude in science
 
-> ...In that Empire, the Art of Cartography attained such Perfection that the map of a single Province occupied the entirety of a City, and the map of the Empire, the entirety of a Province. In time, those Unconscionable Maps no longer satisfied, and the Cartographers Guilds struck a Map of the Empire whose size was that of the Empire, and which coincided point for point with it. The following Generations, who were not so fond of the Study of Cartography as their Forebears had been, saw that that vast Map was Useless, and not without some Pitilessness was it, that they delivered it up to the Inclemencies of Sun and Winters. In the Deserts of the West, still today, there are Tattered Ruins of that Map, inhabited by Animals and Beggars; in all the Land there is no other Relic of the Disciplines of Geography.
 
 
 

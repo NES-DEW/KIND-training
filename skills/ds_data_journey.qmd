@@ -9,6 +9,8 @@ format: html
 execute: 
   output: markup
 categories: [data skills, beginner]
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -79,7 +81,7 @@ One of the most important ideas in this whole course is the **data journey**. If
 + to visualise that data
 + to communicate those findings to others
 
-The later sessions of this course are based on exploring the individual steps in the data journey in more detail. But the plan for today is simpler: we'll try and complete a whole data journey, a simple one, in one go. The aim here is to give you a high-level map of what we're going to talk about later in this course to help you navigate why we're talking about specific issues. Because some of these steps can be quite technical and detailed, it's really important to keep an eye on the prize - being able to put your data to work - and the best way to do that is to work through everything once quickly without being too detailed.
+The later sessions of this course are based on exploring the individual steps in the data journey in more detail. But the plan for today is simpler: we'll try and complete a whole data journey, a simple one, in one go. The aim here is to give you a high-level map of what we're going to talk about later in this course to help you navigate why we're talking about specific issues. Because some of these steps can be quite technical and detailed, it's really important to keep an eye on the prize - being able to put your data to work - and the best way to do that is to work through everything once quickly without being too detailed at first.
 
 To make today's data journey possible, we'll do a bit of cheating by starting with a carefully-chosen (and polished) dataset. For now, don't worry too much about what we're missing by taking this shortcut, because in the next couple of sessions we'll spend a lot of time on the ins-and-outs of building lovely datasets from real systems. 
 
@@ -287,7 +289,7 @@ read_rds(here("skills/data/care_inspectorate.rds")) |>
   group_by(Town) |>
   summarise(TotalBeds = sum(TotalBeds)) |>
   mutate(Population = c(65053,9582)) |>
-  mutate(Beds_per_10000_residents = TotalBeds + 10000 / Population) |>
+  mutate(Beds_per_10000_residents = TotalBeds * 10000 / Population) |>
   knitr::kable()
 ```
 :::
