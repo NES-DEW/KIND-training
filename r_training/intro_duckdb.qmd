@@ -1,0 +1,55 @@
+---
+title: Introducing duckdb
+date: 2026-10-28
+categories: [R, intermediate]
+draft: true
+params:
+  sl_date: 2026-10-28
+  fn: "Introducing duckdb"
+  id: KR65
+execute:
+  echo: true
+  output: "markup"
+---
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-align: left
+#| fig-height: 0.6
+#| fig-width: 3
+
+source(here::here("R/feed_block.R"))
+feed_block(params$id)
+here::i_am("r_training/intro_duckdb.qmd")
+```
+
+## About this session
+
+This session is a free-standing introduction to [duckdb in R](https://duckdb.org/docs/2.0/clients/r). In this session, we'll use the `duckdb` package as a database back-end, and demonstrate how to interact with that back-end using the DBI package. You might also be interested in [our session on dbplyr](r_training/dbplyr_dtplyr.html) as an alternative means of using your duckdb database.
+
+
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
+## Session resources
++ you don't need any infrastructure apart from an R setup
++ see the setup chunk below for packages
++ you should have a reasonable working knowledge of R
+:::
+
+## Setup
+
+Create a new project, install packages if needed, attach the stringr, tidytext, and dplyr packages, and create some simple data:
+
+```{r}
+# install.packages("pak")
+# pak::pak("duckdb")
+# pak::pak("DBI")
+# pak::pak("palmerpenguins")
+
+library(duckdb)
+library(DBI)
+library(palmerpenguins)
+
+```
+
+## What?
