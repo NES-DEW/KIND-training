@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.19">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-08-04">
+<meta name="dcterms.date" content="2026-10-28">
 <title>dbplyr and dtplyr – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
@@ -384,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 4, 2026</p>
+      <p class="date">October 28, 2026</p>
     </div>
   </div>
   
@@ -410,7 +410,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
-<li>you don’t need anything apart from an R setup for this session with a few packages installed (see the setup chunk below)</li>
+<li>you don’t need any infrastructure apart from an R setup</li>
+<li>see the setup chunk below for packages</li>
+<li>you should have a reasonable working knowledge of R and, specifically, dplyr</li>
 </ul>
 </div>
 </div>
@@ -434,14 +436,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>dplyr is great! Easy to read and write, nicely compatible with other R tools, with a chunky user-base and nice docs</li>
 <li>dplyr is also a) slow and b) holds your data in memory</li>
 <li>that means that when your data gets big (or complicated, or remote,…) dplyr becomes slow and annoying</li>
-<li>the dream: write dplyr, but <em>execute something else</em> more capable of tackling the big stuff</li>
+<li>the dream: write dplyr, but <em>execute something else</em> more capable of tackling the big data stuff</li>
 <li>both dtplyr and dbplyr are both flavours of <em>execute something else</em> while writing dplyr
 <ul>
 <li>
-<a href="https://dtplyr.tidyverse.org/articles/translation.html">dtplyr</a> = <a href="https://r-datatable.com/">data.table</a>
+<a href="https://dtplyr.tidyverse.org/articles/translation.html">dtplyr</a> = write dplyr, run <a href="https://r-datatable.com/">data.table</a>
 </li>
 <li>
-<a href="https://dbplyr.tidyverse.org/">dbplyr</a> = <a href="https://www.w3schools.com/sql/">SQL</a>
+<a href="https://dbplyr.tidyverse.org/">dbplyr</a> = write dplyr, run <a href="https://www.w3schools.com/sql/">SQL</a>
 </li>
 </ul>
 </li>
@@ -531,8 +533,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3:     Dream   124</code></pre>
 </div>
 </div>
-<p>It’s actually a great system if you have the time to spend getting comfortable with it: really a very concise way of writing SQL-ish expressions. But, it’s not easy to improvise, and it really does take a bit of time to get happy working in this way, especially if you’ve spent lots of time writing nice literate tidyverse code.</p>
-<p>Enter dtplyr. That only really needs us to learn one new function:</p>
+<p>It’s actually a great system if you have the time to spend getting comfortable with it: really a very concise way of writing SQL-ish expressions as we explore in <a href="r_training/intro_data_table.html">our training session on the topic</a>. But data.table code is hard to improvise, and it does take a bit of time and practice to get comfortable working in this way, especially if you’ve spent lots of time writing nice literate tidyverse code.</p>
+<p>Enter dtplyr where we get to do things in data.table by learning three functions:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">peng_dtp</span> <span class="op">&lt;-</span> <span class="fu">dtplyr</span><span class="fu">::</span><span class="fu"><a href="https://dtplyr.tidyverse.org/reference/lazy_dt.html">lazy_dt</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="co"># create a dtplyr object</span></span>
 <span></span>
@@ -760,13 +762,13 @@ And 30 more differences ...</code></pre>
 </div>
 </div>
 </section><section id="dbplyr" class="level2"><h2 class="anchored" data-anchor-id="dbplyr">dbplyr</h2>
-<p>dbplyr takes a similar approach to dtplyr, but has much more flexibility about source data. You can easily e.g.&nbsp;connect to a remote server or similar using DBI. That’s largely outwith the scope of this session, so we’ll create an in-memory SQLite database as a demonstration of how this might be used to manage large datasets in R:</p>
+<p>dbplyr takes a similar approach to dtplyr, but has much more flexibility about source data. You can easily e.g.&nbsp;connect to a remote server or similar using DBI. To keep this session manageable, we’ll create an in-memory SQLite database as a demonstration of how dbplyr might be used to manage large datasets in R:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, dbname <span class="op">=</span> <span class="st">":memory:"</span><span class="op">)</span> <span class="co"># creates a SQLite db</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, dbname <span class="op">=</span> <span class="st">":memory:"</span><span class="op">)</span> <span class="co"># create an object containing details of how to connect to an in-memory db</span></span>
 <span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">con</span>, <span class="va">penguins</span>, <span class="st">"pengs"</span><span class="op">)</span> <span class="co"># adds the penguins dataset as a table called pengs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">con</span>, <span class="va">penguins</span>, <span class="st">"pengs"</span><span class="op">)</span> <span class="co"># connect, and add the penguins dataset as a table called pengs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>We could access this db directly using SQL queries:</p>
+<p>We could access this db directly using SQL queries with a bit of help from the DBI package:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">con</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="st">'SELECT * FROM pengs WHERE island == "Dream" LIMIT 5'</span><span class="op">)</span> <span class="co"># filter to keep the preview a sensible length</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -803,7 +805,7 @@ And 30 more differences ...</code></pre>
 3 Torgersen  52</code></pre>
 </div>
 </div>
-<p>Again, SQL is great if you have time to learn it properly, but for occasional use (or learning) dbplyr is even better:</p>
+<p>Again, SQL is great if you have time to learn it properly - although writing SQL queries nested inside brackets is pretty nasty - but for occasional use (or learning) dbplyr is even better. Confusingly, our core function comes from the dplyr package - <code><a href="https://dplyr.tidyverse.org/reference/tbl.html">dplyr::tbl()</a></code> - which grabs data from our database, and allows us to use ordinary dplyr tools to modify it:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">island</span> <span class="op">==</span> <span class="st">"Dream"</span><span class="op">)</span> <span class="co"># to return a db preview</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -825,6 +827,9 @@ And 30 more differences ...</code></pre>
 # ℹ more rows
 # ℹ 2 more variables: sex &lt;chr&gt;, year &lt;int&gt;</code></pre>
 </div>
+</div>
+<p>That’s a preview - see e.g.&nbsp;the <code>??</code> number of rows. We do need to add a <code><a href="https://dplyr.tidyverse.org/reference/compute.html">dplyr::collect()</a></code> to turn that preview back into a proper tibble:</p>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">island</span> <span class="op">==</span> <span class="st">"Dream"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># to return a proper tibble</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -845,20 +850,26 @@ And 30 more differences ...</code></pre>
 # ℹ 114 more rows
 # ℹ 2 more variables: sex &lt;chr&gt;, year &lt;int&gt;</code></pre>
 </div>
+</div>
+<p>Like <code>dtplyr::show_query</code>, we can see how dbplyr translates our code into SQL:</p>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">island</span> <span class="op">==</span> <span class="st">"Dream"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># for L&amp;D purposes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># for L&amp;D purposes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;SQL&gt;
 SELECT `species`
 FROM `pengs`
 WHERE (`island` = 'Dream')</code></pre>
 </div>
+</div>
+<p>You can also see <a href="https://www.sqlite.org/eqp.html">the query plan</a> to understand how your query is being implemented:</p>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">island</span> <span class="op">==</span> <span class="st">"Dream"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">explain</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">explain</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;SQL&gt;
 SELECT `species`
@@ -869,10 +880,13 @@ WHERE (`island` = 'Dream')
   id parent notused     detail
 1  2      0      99 SCAN pengs</code></pre>
 </div>
+</div>
+<p>While our earlier examples have returned tibbles, we can also return a new SQL table. Here, we create a new table named <code>dream_pengs</code>:</p>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">island</span> <span class="op">==</span> <span class="st">"Dream"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">bill_depth_mm</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"dream_pengs"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"dream_pengs"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A query:  ?? x 2
 # Database: sqlite 3.53.2 [:memory:]
@@ -890,6 +904,9 @@ WHERE (`island` = 'Dream')
 10 Adelie           19.1
 # ℹ more rows</code></pre>
 </div>
+</div>
+<p>We can then query that new table:</p>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"dream_pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -908,9 +925,29 @@ WHERE (`island` = 'Dream')
 10 Adelie           19.1
 # ℹ 114 more rows</code></pre>
 </div>
+</div>
+<p>In addition to the <code>copy_to</code> approach that we explored earlier, we can also build new database objects in our R environment. That’s a two-step process: create a <a href="https://dbplyr.tidyverse.org/reference/tbl_lazy.html">local lazy tibble</a> (named <code>new_peng</code>):</p>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_peng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbplyr.tidyverse.org/reference/copy_inline.html">copy_inline</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>species <span class="op">=</span> <span class="st">"Humboldt"</span>, bill_depth_mm <span class="op">=</span> <span class="fl">31</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rows.html">rows_insert</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"dream_pengs"</span><span class="op">)</span>, <span class="va">new_peng</span>, conflict <span class="op">=</span> <span class="st">"ignore"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">new_peng</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A query:  ?? x 2
+# Database: sqlite 3.53.2 [:memory:]
+  species  bill_depth_mm
+  &lt;chr&gt;            &lt;dbl&gt;
+1 Humboldt            31</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_peng</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tbl_SQLiteConnection" "tbl_dbi"              "tbl_sql"             
+[4] "tbl_lazy"             "tbl"                 </code></pre>
+</div>
+</div>
+<p>Then insert that lazy tibble into our database table. Here, we’ll use <code>compute</code> again to create a new summarised table:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rows.html">rows_insert</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"dream_pengs"</span><span class="op">)</span>, <span class="va">new_peng</span>, conflict <span class="op">=</span> <span class="st">"ignore"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"species_pengs"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -922,7 +959,9 @@ WHERE (`island` = 'Dream')
 2 Chinstrap    68
 3 Humboldt      1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"species_pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"species_pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
