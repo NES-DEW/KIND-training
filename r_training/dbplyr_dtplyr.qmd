@@ -1,6 +1,6 @@
 ---
 title: dbplyr and dtplyr
-date: 2026-08-04
+date: 2026-10-28
 categories: [R, intermediate]
 draft: true
 params:
@@ -30,7 +30,9 @@ here::i_am("r_training/free_text_wrangling.qmd")
 
 ::: {.callout-tip collapse="false" appearance="default" icon="true"}
 ## Session resources
-+ you don't need anything apart from an R setup for this session with a few packages installed (see the setup chunk below)
++ you don't need any infrastructure apart from an R setup
++ see the setup chunk below for packages
++ you should have a reasonable working knowledge of R and, specifically, dplyr
 :::
 
 ## Setup
@@ -56,10 +58,10 @@ library(palmerpenguins)
 + dplyr is great! Easy to read and write, nicely compatible with other R tools, with a chunky user-base and nice docs
 + dplyr is also a) slow and b) holds your data in memory
 + that means that when your data gets big (or complicated, or remote,...) dplyr becomes slow and annoying
-+ the dream: write dplyr, but *execute something else* more capable of tackling the big stuff
++ the dream: write dplyr, but *execute something else* more capable of tackling the big data stuff
 + both dtplyr and dbplyr are both flavours of *execute something else* while writing dplyr
-  + [dtplyr](https://dtplyr.tidyverse.org/articles/translation.html) = [data.table](https://r-datatable.com/)
-  + [dbplyr](https://dbplyr.tidyverse.org/) = [SQL](https://www.w3schools.com/sql/)
+  + [dtplyr](https://dtplyr.tidyverse.org/articles/translation.html) = write dplyr, run [data.table](https://r-datatable.com/)
+  + [dbplyr](https://dbplyr.tidyverse.org/) = write dplyr, run [SQL](https://www.w3schools.com/sql/)
 
 ## dtplyr
 
@@ -76,9 +78,9 @@ peng_dt[,.N, island] # count
 ```
 
 
-It's actually a great system if you have the time to spend getting comfortable with it: really a very concise way of writing SQL-ish expressions. But, it's not easy to improvise, and it really does take a bit of time to get happy working in this way, especially if you've spent lots of time writing nice literate tidyverse code.
+It's actually a great system if you have the time to spend getting comfortable with it: really a very concise way of writing SQL-ish expressions as we explore in [our training session on the topic](r_training/intro_data_table.html). But data.table code is hard to improvise, and it does take a bit of time and practice to get comfortable working in this way, especially if you've spent lots of time writing nice literate tidyverse code.
 
-Enter dtplyr. That only really needs us to learn one new function:
+Enter dtplyr where we get to do things in data.table by learning three functions:
 
 ```{r}
 peng_dtp <- dtplyr::lazy_dt(penguins) # create a dtplyr object
@@ -148,15 +150,15 @@ waldo::compare(peng_dtp_inter_nc, peng_dtp_inter)
 
 ## dbplyr
 
-dbplyr takes a similar approach to dtplyr, but has much more flexibility about source data. You can easily e.g. connect to a remote server or similar using DBI. That's largely outwith the scope of this session, so we'll create an in-memory SQLite database as a demonstration of how this might be used to manage large datasets in R:
+dbplyr takes a similar approach to dtplyr, but has much more flexibility about source data. You can easily e.g. connect to a remote server or similar using DBI. To keep this session manageable, we'll create an in-memory SQLite database as a demonstration of how dbplyr might be used to manage large datasets in R:
 
 ```{r}
-con <- DBI::dbConnect(RSQLite::SQLite(), dbname = ":memory:") # creates a SQLite db
+con <- DBI::dbConnect(RSQLite::SQLite(), dbname = ":memory:") # create an object containing details of how to connect to an in-memory db
 
-copy_to(con, penguins, "pengs") # adds the penguins dataset as a table called pengs
+copy_to(con, penguins, "pengs") # connect, and add the penguins dataset as a table called pengs
 ```
 
-We could access this db directly using SQL queries:
+We could access this db directly using SQL queries with a bit of help from the DBI package:
 
 ```{r}
 con |> 
@@ -169,40 +171,74 @@ con |>
   DBI::dbGetQuery('SELECT island, count(*) as n FROM pengs GROUP BY island')
 ```
 
-Again, SQL is great if you have time to learn it properly, but for occasional use (or learning) dbplyr is even better:
+Again, SQL is great if you have time to learn it properly - although writing SQL queries nested inside brackets is pretty nasty - but for occasional use (or learning) dbplyr is even better. Confusingly, our core function comes from the dplyr package - `dplyr::tbl()` - which grabs data from our database, and allows us to use ordinary dplyr tools to modify it:
 
 ```{r}
 tbl(con, "pengs") |>
   filter(island == "Dream") # to return a db preview
+```
 
+That's a preview - see e.g. the `??` number of rows. We do need to add a `dplyr::collect()` to turn that preview back into a proper tibble:
+```{r}
 tbl(con, "pengs") |>
   filter(island == "Dream") |>
   collect() # to return a proper tibble
+```
 
+Like `dtplyr::show_query`, we can see how dbplyr translates our code into SQL:
+
+```{r}
 tbl(con, "pengs") |>
   filter(island == "Dream") |>
   select(species) |>
-  show_query() # for L&D purposes
+  dplyr::show_query() # for L&D purposes
+```
 
+You can also see [the query plan](https://www.sqlite.org/eqp.html) to understand how your query is being implemented:
+
+```{r}
 tbl(con, "pengs") |>
   filter(island == "Dream") |>
   select(species) |>
-  explain()
+  dplyr::explain()
+```
 
+While our earlier examples have returned tibbles, we can also return a new SQL table. Here, we create a new table named `dream_pengs`:
+
+```{r}
 tbl(con, "pengs") |>
   filter(island == "Dream") |>
   select(species, bill_depth_mm) |>
-  compute(name = "dream_pengs")
+  dplyr::compute(name = "dream_pengs")
+```
 
+We can then query that new table:
+
+```{r}
 tbl(con, "dream_pengs") |>
   collect()
+```
 
+In addition to the `copy_to` approach that we explored earlier, we can also build new database objects in our R environment. That's a two-step process: create a [local lazy tibble](https://dbplyr.tidyverse.org/reference/tbl_lazy.html) (named `new_peng`):
+
+```{r}
 new_peng <- copy_inline(con, tibble(species = "Humboldt", bill_depth_mm = 31))
 
+new_peng
+
+new_peng |>
+  class()
+```
+
+Then insert that lazy tibble into our database table. Here, we'll use `compute` again to create a new summarised table:
+
+```{r}
 rows_insert(tbl(con, "dream_pengs"), new_peng, conflict = "ignore") |>
   count(species) |>
   compute(name = "species_pengs")
+```
 
+```{r}
 tbl(con, "species_pengs") |>
   collect()
 ```
