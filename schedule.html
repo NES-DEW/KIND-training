@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta charset="UTF-8">
+<meta name="generator" content="quarto-1.11.9">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-10-28">
+<meta name="dcterms.date" content="2026-11-04">
 <title>Schedule – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
@@ -35,18 +34,19 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-02995240f18a7089ee7c43000f9b3900.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-11dfed304549e7d9db55013033367f26.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0f2ed3cfaf89b7da18012d82a17fc79a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-11dfed304549e7d9db55013033367f26.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/selectize-0.12.0/selectize.min.js"></script><link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
 <script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script><link rel="stylesheet" href="styles.css">
 </head>
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -104,6 +104,7 @@ ul.task-list li input[type="checkbox"] {
       for (let i=0; i < toggles.length; i++) {
         const toggle = toggles[i];
         if (toggle) {
+          toggle.setAttribute("aria-checked", alternate ? "true" : "false");
           if (alternate) {
             toggle.classList.add("alternate");
           } else {
@@ -133,13 +134,19 @@ ul.task-list li input[type="checkbox"] {
       manageTransitions('#quarto-margin-sidebar .nav-link', true);
       // Switch the toggles
       setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455).
+    // Not run on load: stylesheets are set before first paint there, and
+    // scrolling would undo the scroll to a URL fragment (#14973).
+    // The one pixel nudge keeps the reader where they were.
+    const refreshSafariScrollbar = () => {
       if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
         manageTransitions("body", false);
-        window.scrollTo(0, 1);
+        const scrollY = window.scrollY;
+        window.scrollTo(0, scrollY > 0 ? scrollY - 1 : 1);
         setTimeout(() => {
-          window.scrollTo(0, 0);
+          window.scrollTo(0, scrollY);
           manageTransitions("body", true);
         }, 40);
       }
@@ -233,6 +240,7 @@ ul.task-list li input[type="checkbox"] {
       // Read the current dark / light value
       let toAlternate = !hasAlternateSentinel();
       toggleColorMode(toAlternate);
+      refreshSafariScrollbar();
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
@@ -246,7 +254,7 @@ ul.task-list li input[type="checkbox"] {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     <img src="./src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo light-content"><img src="./src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo dark-content"></a>
@@ -254,8 +262,7 @@ ul.task-list li input[type="checkbox"] {
     <span class="navbar-title">KIND training pages</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -314,14 +321,15 @@ ul.task-list li input[type="checkbox"] {
           </li>
       </ul>
 </div>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <button type="button" role="switch" aria-checked="false" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode" aria-label="Toggle dark mode"><i class="bi"></i></button>
 </div>
+            <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
 <li><a href="#current-schedule" id="toc-current-schedule" class="nav-link active" data-scroll-target="#current-schedule">Current schedule</a></li>
@@ -336,7 +344,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content" tabindex="-1"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Schedule</h1>
 </div>
 
@@ -348,7 +356,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 28, 2026</p>
+      <p class="date">November 4, 2026</p>
     </div>
   </div>
   
@@ -368,22 +376,57 @@ ul.task-list li input[type="checkbox"] {
 <li>Autumn 2026: 2nd Nov to 17th Dec 2026</li>
 </ul>
 <!-- ### Theme weeks --><!-- Theme weeks occupy a whole week with a single topic, with 10-20 events scheduled on a single topic. This year, we'll have the following theme weeks: --><!-- + week commencing 19th May 2025 - Power Query --><!-- + w/c 30th June 2025 - Debugging/Troubleshooting --><!-- + w/c 25th August 2025 - No Stupid Questions --><!-- + w/c 27th October 2025 - Open Source / copyleft --></section><section id="available-training-sessions" class="level2"><h2 class="anchored" data-anchor-id="available-training-sessions">Available training sessions:</h2>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-2c60ae4eb63feec91897" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-2c60ae4eb63feec91897">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["<a href='https://events.teams.microsoft.com/event/f76202b4-ba24-455f-b72f-4e9ecf488f4f@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel foundations 1 (intermediate Excel session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/9d000aaa-19a1-4b0c-b1e4-fff439374d2b@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/09824eda-d7fe-43aa-8449-9b79f4da2653@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel foundations 2 (intermediate Excel session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/171ea944-7298-42c6-a8e9-68998353efe9@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/1ccacd94-6b28-48c5-a959-5d2e7a15d135@10efe0bd-a030-4bca-809c-b5e6745e499a'>Lookups in Excel (intermediate Excel session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/3d5bdbb0-e68f-4acf-bd55-d11fd35a1e7e@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/a46d695a-220c-4b2d-bec1-4ec4fcb301d8@10efe0bd-a030-4bca-809c-b5e6745e499a'>Pivot tables and pivot charts (intermediate Excel session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/5d1c5d0f-4066-4f06-9b73-4f27651a5847@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/638a5104-51d4-4d55-a446-2e6d309db512@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel programming (intermediate Excel session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/e00f8733-4bd5-4e10-82b0-44b9bd37c206@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/76b52507-ab53-4660-8ade-eed122841d81@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 6)<\/a>","<a href='https://events.teams.microsoft.com/event/841d7c26-844b-45ea-864d-24e16ff10f09@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (tech check)<\/a>","<a href='https://events.teams.microsoft.com/event/d4c73f04-cdc5-4314-a242-d4e9be48fda3@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/2219e8e9-8b52-41f0-a5be-55ccb0351e97@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel first steps (Excel for beginners session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/1428fc5b-24cc-44d1-981e-f439b5d6aa03@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/46b49be1-9b18-4795-a604-05b093c6d6f6@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/bd7a8f20-f203-4b84-8761-dfc65d7f4559@10efe0bd-a030-4bca-809c-b5e6745e499a'>Tidy data in Excel (Excel for beginners session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/d1c627f2-acbc-4441-9b67-7e9ea8d625ce@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/7a163884-4bc6-431b-9038-d15050e1287b@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/7c948f25-618a-42ee-9f41-c2ac8f4845a4@10efe0bd-a030-4bca-809c-b5e6745e499a'>References and names in Excel (Excel for beginners session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/d1e246c8-0d1a-4c79-af80-74843abb2382@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/720323fb-4245-4de9-ad57-2bb1fac750dc@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/2789f26e-b5a9-4f6a-bc39-0747ab899ef6@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel formatting (Excel for beginners session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/fc460cd4-dbb6-4aef-b3fa-20ec74051b6c@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/e7555ab0-f419-43e9-9904-b6e757c85d45@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/9f5a3ef0-030e-431a-9540-e79a776a7241@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel tables (Excel for beginners session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/432d9782-d507-42cb-8881-404a465685ed@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/94adde82-ba9b-4645-89b4-4ea34eb7f757@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel formulas (Excel for beginners session 6)<\/a>","<a href='https://events.teams.microsoft.com/event/e6afcde5-ee2e-4db4-991c-920bd1f4362c@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel practical review (Excel for beginners session 7)<\/a>"],["<a href='https://nes-dew.github.io/KIND-training/excel/excel_foundations_01.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_foundations_02.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/lookups_in_excel.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/pivot_tables_and_pivot_charts.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_programming.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_01.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_first_steps.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_01.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_02.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/tidy_data_in_excel.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_02.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_03.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/references_and_names_in_excel.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_03.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_04.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_formatting.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_04.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_05.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_tables.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_05.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_formulas.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_practical_review.html'>Session materials<\/a>"],["13:00-15:00 Wed 28th October 2026","10:00-11:30 Tue 3rd November 2026","13:00-15:00 Wed 4th November 2026","10:00-11:30 Tue 10th November 2026","13:00-15:00 Wed 11th November 2026","10:00-11:30 Tue 17th November 2026","13:00-15:00 Wed 18th November 2026","10:00-11:30 Tue 24th November 2026","13:00-15:00 Wed 25th November 2026","10:00-11:30 Tue 1st December 2026","10:00-11:30 Tue 8th December 2026","10:00-10:30 Wed 13th January 2027","10:00-12:00 Thu 14th January 2027","14:00-15:30 Thu 14th January 2027","10:00-12:00 Wed 20th January 2027","10:00-12:00 Thu 21st January 2027","14:00-15:30 Thu 21st January 2027","10:00-12:00 Wed 27th January 2027","10:00-12:00 Thu 28th January 2027","14:00-15:30 Thu 28th January 2027","10:00-12:00 Wed 3rd February 2027","10:00-12:00 Thu 4th February 2027","14:00-15:30 Thu 4th February 2027","10:00-12:00 Wed 10th February 2027","10:00-12:00 Thu 11th February 2027","14:00-15:30 Thu 11th February 2027","10:00-12:00 Wed 17th February 2027","14:00-15:30 Thu 18th February 2027","14:00-15:30 Thu 25th February 2027"],["Excel","R","Excel","R","Excel","R","Excel","R","Excel","R","R","Power BI","Power BI","Excel","Power BI","Power BI","Excel","Power BI","Power BI","Excel","Power BI","Power BI","Excel","Power BI","Power BI","Excel","Power BI","Excel","Excel"],["<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Booking Link<\/th>\n      <th>Materials<\/th>\n      <th>Date<\/th>\n      <th>Area<\/th>\n      <th>Level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"name":"Booking Link","targets":0},{"name":"Materials","targets":1},{"name":"Date","targets":2},{"name":"Area","targets":3},{"name":"Level","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8d10bc6922e02d42daef" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8d10bc6922e02d42daef">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["<a href='https://events.teams.microsoft.com/event/09824eda-d7fe-43aa-8449-9b79f4da2653@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel foundations 2 (intermediate Excel session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/171ea944-7298-42c6-a8e9-68998353efe9@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/1ccacd94-6b28-48c5-a959-5d2e7a15d135@10efe0bd-a030-4bca-809c-b5e6745e499a'>Lookups in Excel (intermediate Excel session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/3d5bdbb0-e68f-4acf-bd55-d11fd35a1e7e@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/a46d695a-220c-4b2d-bec1-4ec4fcb301d8@10efe0bd-a030-4bca-809c-b5e6745e499a'>Pivot tables and pivot charts (intermediate Excel session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/5d1c5d0f-4066-4f06-9b73-4f27651a5847@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/638a5104-51d4-4d55-a446-2e6d309db512@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel programming (intermediate Excel session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/e00f8733-4bd5-4e10-82b0-44b9bd37c206@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/76b52507-ab53-4660-8ade-eed122841d81@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 6)<\/a>","<a href='https://events.teams.microsoft.com/event/841d7c26-844b-45ea-864d-24e16ff10f09@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (tech check)<\/a>","<a href='https://events.teams.microsoft.com/event/d4c73f04-cdc5-4314-a242-d4e9be48fda3@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/2219e8e9-8b52-41f0-a5be-55ccb0351e97@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel first steps (Excel for beginners session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/1428fc5b-24cc-44d1-981e-f439b5d6aa03@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/46b49be1-9b18-4795-a604-05b093c6d6f6@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/bd7a8f20-f203-4b84-8761-dfc65d7f4559@10efe0bd-a030-4bca-809c-b5e6745e499a'>Tidy data in Excel (Excel for beginners session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/d1c627f2-acbc-4441-9b67-7e9ea8d625ce@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/7a163884-4bc6-431b-9038-d15050e1287b@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/7c948f25-618a-42ee-9f41-c2ac8f4845a4@10efe0bd-a030-4bca-809c-b5e6745e499a'>References and names in Excel (Excel for beginners session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/d1e246c8-0d1a-4c79-af80-74843abb2382@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/720323fb-4245-4de9-ad57-2bb1fac750dc@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/2789f26e-b5a9-4f6a-bc39-0747ab899ef6@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel formatting (Excel for beginners session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/fc460cd4-dbb6-4aef-b3fa-20ec74051b6c@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/e7555ab0-f419-43e9-9904-b6e757c85d45@10efe0bd-a030-4bca-809c-b5e6745e499a'>Intermediate Power BI (session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/9f5a3ef0-030e-431a-9540-e79a776a7241@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel tables (Excel for beginners session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/432d9782-d507-42cb-8881-404a465685ed@10efe0bd-a030-4bca-809c-b5e6745e499a'>BI for beginners (session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/94adde82-ba9b-4645-89b4-4ea34eb7f757@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel formulas (Excel for beginners session 6)<\/a>","<a href='https://events.teams.microsoft.com/event/e6afcde5-ee2e-4db4-991c-920bd1f4362c@10efe0bd-a030-4bca-809c-b5e6745e499a'>Excel practical review (Excel for beginners session 7)<\/a>"],["<a href='https://nes-dew.github.io/KIND-training/excel/excel_foundations_02.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/lookups_in_excel.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/pivot_tables_and_pivot_charts.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_programming.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_01.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_first_steps.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_01.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_02.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/tidy_data_in_excel.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_02.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_03.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/references_and_names_in_excel.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_03.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_04.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_formatting.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_04.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_intermediate_session_05.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_tables.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/bi_training/BI_for_beginners_session_05.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_formulas.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/excel/excel_practical_review.html'>Session materials<\/a>"],["13:00-15:00 Wed 4th November 2026","10:00-11:30 Tue 10th November 2026","13:00-15:00 Wed 11th November 2026","10:00-11:30 Tue 17th November 2026","13:00-15:00 Wed 18th November 2026","10:00-11:30 Tue 24th November 2026","13:00-15:00 Wed 25th November 2026","10:00-11:30 Tue 1st December 2026","10:00-11:30 Tue 8th December 2026","10:00-10:30 Wed 13th January 2027","10:00-12:00 Thu 14th January 2027","14:00-15:30 Thu 14th January 2027","10:00-12:00 Wed 20th January 2027","10:00-12:00 Thu 21st January 2027","14:00-15:30 Thu 21st January 2027","10:00-12:00 Wed 27th January 2027","10:00-12:00 Thu 28th January 2027","14:00-15:30 Thu 28th January 2027","10:00-12:00 Wed 3rd February 2027","10:00-12:00 Thu 4th February 2027","14:00-15:30 Thu 4th February 2027","10:00-12:00 Wed 10th February 2027","10:00-12:00 Thu 11th February 2027","14:00-15:30 Thu 11th February 2027","10:00-12:00 Wed 17th February 2027","14:00-15:30 Thu 18th February 2027","14:00-15:30 Thu 25th February 2027"],["Excel","R","Excel","R","Excel","R","Excel","R","R","Power BI","Power BI","Excel","Power BI","Power BI","Excel","Power BI","Power BI","Excel","Power BI","Power BI","Excel","Power BI","Power BI","Excel","Power BI","Excel","Excel"],["<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶🌶<\/style>: <b>intermediate-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Booking Link<\/th>\n      <th>Materials<\/th>\n      <th>Date<\/th>\n      <th>Area<\/th>\n      <th>Level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"name":"Booking Link","targets":0},{"name":"Materials","targets":1},{"name":"Date","targets":2},{"name":"Area","targets":3},{"name":"Level","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script>
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const toggle = window.document.createElement('button');
+      toggle.type = "button";
+      toggle.setAttribute("role", "switch");
+      toggle.setAttribute("aria-checked", "false");
+      toggle.classList.add('top-right');
+      toggle.classList.add('quarto-color-scheme-toggle');
+      toggle.setAttribute("aria-label", "Toggle dark mode");
+      toggle.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
       const i = window.document.createElement("i");
       i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+      toggle.appendChild(i);
+      // Put the toggle in a landmark of its own, so that landmark navigation
+      // can reach it.
+      //
+      // The container is always a fresh direct child of body, and the toggle is
+      // never moved into page furniture that the theme or the author controls.
+      // The toggle is positioned against the page, so any ancestor that
+      // establishes a containing block captures it: a positioned element or a
+      // grid for position: absolute, and transform, filter, will-change or
+      // contain for position: fixed. A direct child of body has none of these
+      // to inherit, and the shift when one appears is silent and visual.
+      //
+      // ARIA says a document should have at most one banner, and axe reports a
+      // duplicate whether or not the banners carry distinct labels. So use a
+      // header when the page has no banner yet, and a named region otherwise.
+      //
+      // A header is a banner wherever it sits, unless it is inside sectioning
+      // content, so this cannot just look at the children of body: a custom
+      // page layout wraps the title block header in a plain div. An explicit
+      // role="banner" always counts.
+      const sectioning = 'article, aside, main, nav, section, [role="article"], [role="complementary"], [role="main"], [role="navigation"], [role="region"]';
+      const hasBanner = Array.from(
+        window.document.querySelectorAll('header:not([role]), [role="banner"]')
+      ).some(function(el) {
+        return el.hasAttribute("role") || el.closest(sectioning) === null;
+      });
+      const container = window.document.createElement(hasBanner ? "div" : "header");
+      if (hasBanner) {
+        container.setAttribute("role", "region");
+        container.setAttribute("aria-label", "Toggle dark mode");
+      }
+      container.classList.add('quarto-color-scheme-toggle-container');
+      container.appendChild(toggle);
+      window.document.body.appendChild(container);
     }
     setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
@@ -462,7 +505,8 @@ ul.task-list li input[type="checkbox"] {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -471,8 +515,69 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+          if (!link.classList.contains('no-external-icon')) {
+          }
         }
       }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -486,6 +591,7 @@ ul.task-list li input[type="checkbox"] {
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -648,44 +754,54 @@ ul.task-list li input[type="checkbox"] {
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          let top = null;
-          let height = null;
-          let parent = null;
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
           if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
             }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
             }
+            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -783,6 +899,8 @@ ul.task-list li input[type="checkbox"] {
       }
     }
   });
+  </script><script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
   </script>
 </div> <!-- /content -->
 

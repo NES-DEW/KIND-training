@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta charset="UTF-8">
+<meta name="generator" content="quarto-1.11.9">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-10-28">
+<meta name="dcterms.date" content="2026-11-04">
 <title>R training – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
@@ -37,18 +36,19 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-02995240f18a7089ee7c43000f9b3900.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-11dfed304549e7d9db55013033367f26.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0f2ed3cfaf89b7da18012d82a17fc79a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-11dfed304549e7d9db55013033367f26.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -96,12 +96,6 @@ ul.task-list li input[type="checkbox"] {
       window['quarto-listing-loaded']();
     }
   });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
   </script><link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 <script src="site_libs/datatables-binding-0.34.0/datatables.js"></script><script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -136,7 +130,7 @@ window.Quarto = {
 };
 </script><link rel="stylesheet" href="styles.css">
 </head>
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -159,6 +153,7 @@ window.Quarto = {
       for (let i=0; i < toggles.length; i++) {
         const toggle = toggles[i];
         if (toggle) {
+          toggle.setAttribute("aria-checked", alternate ? "true" : "false");
           if (alternate) {
             toggle.classList.add("alternate");
           } else {
@@ -188,13 +183,19 @@ window.Quarto = {
       manageTransitions('#quarto-margin-sidebar .nav-link', true);
       // Switch the toggles
       setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455).
+    // Not run on load: stylesheets are set before first paint there, and
+    // scrolling would undo the scroll to a URL fragment (#14973).
+    // The one pixel nudge keeps the reader where they were.
+    const refreshSafariScrollbar = () => {
       if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
         manageTransitions("body", false);
-        window.scrollTo(0, 1);
+        const scrollY = window.scrollY;
+        window.scrollTo(0, scrollY > 0 ? scrollY - 1 : 1);
         setTimeout(() => {
-          window.scrollTo(0, 0);
+          window.scrollTo(0, scrollY);
           manageTransitions("body", true);
         }, 40);
       }
@@ -288,6 +289,7 @@ window.Quarto = {
       // Read the current dark / light value
       let toAlternate = !hasAlternateSentinel();
       toggleColorMode(toAlternate);
+      refreshSafariScrollbar();
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
@@ -301,7 +303,7 @@ window.Quarto = {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     <img src="./src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo light-content"><img src="./src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo dark-content"></a>
@@ -309,8 +311,7 @@ window.Quarto = {
     <span class="navbar-title">KIND training pages</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -369,14 +370,15 @@ window.Quarto = {
           </li>
       </ul>
 </div>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <button type="button" role="switch" aria-checked="false" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode" aria-label="Toggle dark mode"><i class="bi"></i></button>
 </div>
+            <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
 <li><a href="#r-session-materials" id="toc-r-session-materials" class="nav-link active" data-scroll-target="#r-session-materials">R session materials</a></li>
@@ -390,7 +392,7 @@ window.Quarto = {
 </div>
 </div></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content" tabindex="-1"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">R training</h1>
 </div>
 
@@ -402,7 +404,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 28, 2026</p>
+      <p class="date">November 4, 2026</p>
     </div>
   </div>
   
@@ -411,8 +413,8 @@ window.Quarto = {
   
 
 
-</header><div class="datatables html-widget html-fill-item" id="htmlwidget-fbdc7557720f0b99365a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fbdc7557720f0b99365a">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["<a href='https://events.teams.microsoft.com/event/9d000aaa-19a1-4b0c-b1e4-fff439374d2b@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 1)<\/a>","<a href='https://events.teams.microsoft.com/event/171ea944-7298-42c6-a8e9-68998353efe9@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/3d5bdbb0-e68f-4acf-bd55-d11fd35a1e7e@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/5d1c5d0f-4066-4f06-9b73-4f27651a5847@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/e00f8733-4bd5-4e10-82b0-44b9bd37c206@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/76b52507-ab53-4660-8ade-eed122841d81@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 6)<\/a>"],["<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>"],["10:00-11:30 Tue 3rd November 2026","10:00-11:30 Tue 10th November 2026","10:00-11:30 Tue 17th November 2026","10:00-11:30 Tue 24th November 2026","10:00-11:30 Tue 1st December 2026","10:00-11:30 Tue 8th December 2026"],["R","R","R","R","R","R"],["<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Booking Link<\/th>\n      <th>Materials<\/th>\n      <th>Date<\/th>\n      <th>Area<\/th>\n      <th>Level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"name":"Booking Link","targets":0},{"name":"Materials","targets":1},{"name":"Date","targets":2},{"name":"Area","targets":3},{"name":"Level","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script><section id="r-session-materials" class="level2"><h2 class="anchored" data-anchor-id="r-session-materials">R session materials</h2>
+</header><div class="datatables html-widget html-fill-item" id="htmlwidget-cb54b9f905af48f2c3c5" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-cb54b9f905af48f2c3c5">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["<a href='https://events.teams.microsoft.com/event/171ea944-7298-42c6-a8e9-68998353efe9@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 2)<\/a>","<a href='https://events.teams.microsoft.com/event/3d5bdbb0-e68f-4acf-bd55-d11fd35a1e7e@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 3)<\/a>","<a href='https://events.teams.microsoft.com/event/5d1c5d0f-4066-4f06-9b73-4f27651a5847@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 4)<\/a>","<a href='https://events.teams.microsoft.com/event/e00f8733-4bd5-4e10-82b0-44b9bd37c206@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 5)<\/a>","<a href='https://events.teams.microsoft.com/event/76b52507-ab53-4660-8ade-eed122841d81@10efe0bd-a030-4bca-809c-b5e6745e499a'>R from scratch (session 6)<\/a>"],["<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>","<a href='https://nes-dew.github.io/KIND-training/r_training/r_from_scratch.html'>Session materials<\/a>"],["10:00-11:30 Tue 10th November 2026","10:00-11:30 Tue 17th November 2026","10:00-11:30 Tue 24th November 2026","10:00-11:30 Tue 1st December 2026","10:00-11:30 Tue 8th December 2026"],["R","R","R","R","R"],["<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>","<style='color:red'>🌶<\/style> :<b>beginner-level<\/b>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Booking Link<\/th>\n      <th>Materials<\/th>\n      <th>Date<\/th>\n      <th>Area<\/th>\n      <th>Level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"name":"Booking Link","targets":0},{"name":"Materials","targets":1},{"name":"Date","targets":2},{"name":"Area","targets":3},{"name":"Level","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script><section id="r-session-materials" class="level2"><h2 class="anchored" data-anchor-id="r-session-materials">R session materials</h2>
 <p>Not all training session have training materials currently available. This is a work in progress - please get in touch if there’s something you’d particularly like to see.</p>
 
 
@@ -444,7 +446,7 @@ Categories
 
 </tr></thead>
 <tbody class="list">
-<tr data-index="0" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1753228800000" data-listing-file-modified-sort="1793177738792" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="942" data-listing-title-sort="A first plot with Plotly" data-listing-filename-sort="first_plotly.qmd">
+<tr data-index="0" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1753228800000" data-listing-file-modified-sort="1793802602776" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="942" data-listing-title-sort="A first plot with Plotly" data-listing-filename-sort="first_plotly.qmd">
 <td>
 <a href="./r_training/first_plotly.html" class="title listing-title">A first plot with Plotly</a>
 </td>
@@ -453,7 +455,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="1" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1793145600000" data-listing-file-modified-sort="1793177738795" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1508" data-listing-title-sort="An introduction to data.table" data-listing-filename-sort="intro_data_table.qmd">
+<tr data-index="1" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1793145600000" data-listing-file-modified-sort="1793802602779" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1508" data-listing-title-sort="An introduction to data.table" data-listing-filename-sort="intro_data_table.qmd">
 <td>
 <a href="./r_training/intro_data_table.html" class="title listing-title">An introduction to data.table</a>
 </td>
@@ -462,7 +464,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="2" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1785196800000" data-listing-file-modified-sort="1793177738815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="801" data-listing-title-sort="An introduction to stringr" data-listing-filename-sort="stringr_intro.qmd">
+<tr data-index="2" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1785196800000" data-listing-file-modified-sort="1793802602799" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="801" data-listing-title-sort="An introduction to stringr" data-listing-filename-sort="stringr_intro.qmd">
 <td>
 <a href="./r_training/stringr_intro.html" class="title listing-title">An introduction to stringr</a>
 </td>
@@ -471,7 +473,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="3" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ2Z1bmN0aW9ucyUyQ2RlYnVnZ2luZw==" data-listing-date-sort="1754352000000" data-listing-file-modified-sort="1793177738791" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1175" data-listing-title-sort="Data masking in R" data-listing-filename-sort="data_masking.qmd">
+<tr data-index="3" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ2Z1bmN0aW9ucyUyQ2RlYnVnZ2luZw==" data-listing-date-sort="1754352000000" data-listing-file-modified-sort="1793802602775" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1175" data-listing-title-sort="Data masking in R" data-listing-filename-sort="data_masking.qmd">
 <td>
 <a href="./r_training/data_masking.html" class="title listing-title">Data masking in R</a>
 </td>
@@ -480,7 +482,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="4" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1783296000000" data-listing-file-modified-sort="1793177738791" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="888" data-listing-title-sort="Dates and times with lubridate" data-listing-filename-sort="dates_and_times_with_lubridate.qmd">
+<tr data-index="4" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1783296000000" data-listing-file-modified-sort="1793802602775" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="888" data-listing-title-sort="Dates and times with lubridate" data-listing-filename-sort="dates_and_times_with_lubridate.qmd">
 <td>
 <a href="./r_training/dates_and_times_with_lubridate.html" class="title listing-title">Dates and times with lubridate</a>
 </td>
@@ -489,7 +491,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="5" data-categories="UiUyQ2JlZ2lubmVyJTJDdHJvdWJsZXNob290aW5n" data-listing-date-sort="1725494400000" data-listing-file-modified-sort="1793177738791" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2540" data-listing-title-sort="Debugging R" data-listing-filename-sort="debugging_r.qmd">
+<tr data-index="5" data-categories="UiUyQ2JlZ2lubmVyJTJDdHJvdWJsZXNob290aW5n" data-listing-date-sort="1725494400000" data-listing-file-modified-sort="1793802602775" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2540" data-listing-title-sort="Debugging R" data-listing-filename-sort="debugging_r.qmd">
 <td>
 <a href="./r_training/debugging_r.html" class="title listing-title">Debugging R</a>
 </td>
@@ -498,7 +500,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="6" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1747612800000" data-listing-file-modified-sort="1793177738792" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1212" data-listing-title-sort="Exploring data with dplyr" data-listing-filename-sort="exploring_data_with_dplyr.qmd">
+<tr data-index="6" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1747612800000" data-listing-file-modified-sort="1793802602775" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1212" data-listing-title-sort="Exploring data with dplyr" data-listing-filename-sort="exploring_data_with_dplyr.qmd">
 <td>
 <a href="./r_training/exploring_data_with_dplyr.html" class="title listing-title">Exploring data with dplyr</a>
 </td>
@@ -507,7 +509,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="7" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1782864000000" data-listing-file-modified-sort="1793177738792" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1529" data-listing-title-sort="Flexdashboard" data-listing-filename-sort="flexdashboard.qmd">
+<tr data-index="7" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1782864000000" data-listing-file-modified-sort="1793802602776" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1529" data-listing-title-sort="Flexdashboard" data-listing-filename-sort="flexdashboard.qmd">
 <td>
 <a href="./r_training/flexdashboard.html" class="title listing-title">Flexdashboard</a>
 </td>
@@ -516,7 +518,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="8" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1721692800000" data-listing-file-modified-sort="1793177738795" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1297" data-listing-title-sort="Iteration in R" data-listing-filename-sort="iteration_in_r.qmd">
+<tr data-index="8" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1721692800000" data-listing-file-modified-sort="1793802602779" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1297" data-listing-title-sort="Iteration in R" data-listing-filename-sort="iteration_in_r.qmd">
 <td>
 <a href="./r_training/iteration_in_r.html" class="title listing-title">Iteration in R</a>
 </td>
@@ -525,7 +527,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="9" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1750204800000" data-listing-file-modified-sort="1793177738792" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1451" data-listing-title-sort="Joining data with dplyr" data-listing-filename-sort="dplyr_joins.qmd">
+<tr data-index="9" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1750204800000" data-listing-file-modified-sort="1793802602775" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1451" data-listing-title-sort="Joining data with dplyr" data-listing-filename-sort="dplyr_joins.qmd">
 <td>
 <a href="./r_training/dplyr_joins.html" class="title listing-title">Joining data with dplyr</a>
 </td>
@@ -534,7 +536,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="10" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1783296000000" data-listing-file-modified-sort="1793177738796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1638" data-listing-title-sort="Leaflet" data-listing-filename-sort="leaflet.qmd">
+<tr data-index="10" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1783296000000" data-listing-file-modified-sort="1793802602779" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1638" data-listing-title-sort="Leaflet" data-listing-filename-sort="leaflet.qmd">
 <td>
 <a href="./r_training/leaflet.html" class="title listing-title">Leaflet</a>
 </td>
@@ -543,7 +545,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="11" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1785283200000" data-listing-file-modified-sort="1793177738796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1750" data-listing-title-sort="Parameterised Rmarkdown" data-listing-filename-sort="parameterised_rmarkdown.qmd">
+<tr data-index="11" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1785283200000" data-listing-file-modified-sort="1793802602780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1750" data-listing-title-sort="Parameterised Rmarkdown" data-listing-filename-sort="parameterised_rmarkdown.qmd">
 <td>
 <a href="./r_training/parameterised_rmarkdown.html" class="title listing-title">Parameterised Rmarkdown</a>
 </td>
@@ -552,7 +554,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="12" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1787097600000" data-listing-file-modified-sort="1793177738796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="350" data-listing-title-sort="Quarto" data-listing-filename-sort="quarto-intro.qmd">
+<tr data-index="12" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1787097600000" data-listing-file-modified-sort="1793802602780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="350" data-listing-title-sort="Quarto" data-listing-filename-sort="quarto-intro.qmd">
 <td>
 <a href="./r_training/quarto-intro.html" class="title listing-title">Quarto</a>
 </td>
@@ -561,7 +563,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="13" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1727136000000" data-listing-file-modified-sort="1793177738796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4267" data-listing-title-sort="R from scratch" data-listing-filename-sort="r_from_scratch.qmd">
+<tr data-index="13" data-categories="UiUyQ2JlZ2lubmVy" data-listing-date-sort="1727136000000" data-listing-file-modified-sort="1793802602780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4267" data-listing-title-sort="R from scratch" data-listing-filename-sort="r_from_scratch.qmd">
 <td>
 <a href="./r_training/r_from_scratch.html" class="title listing-title">R from scratch</a>
 </td>
@@ -570,7 +572,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="14" data-categories="UiUyQ2JlZ2lubmVyJTJDbGlzdHMlMkNkYXRhJTIwc3RydWN0dXJlcw==" data-listing-date-sort="1726790400000" data-listing-file-modified-sort="1793177738796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="666" data-listing-title-sort="R lists" data-listing-filename-sort="lists_r.qmd">
+<tr data-index="14" data-categories="UiUyQ2JlZ2lubmVyJTJDbGlzdHMlMkNkYXRhJTIwc3RydWN0dXJlcw==" data-listing-date-sort="1726790400000" data-listing-file-modified-sort="1793802602780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="666" data-listing-title-sort="R lists" data-listing-filename-sort="lists_r.qmd">
 <td>
 <a href="./r_training/lists_r.html" class="title listing-title">R lists</a>
 </td>
@@ -579,7 +581,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="15" data-categories="UiUyQ292ZXJ2aWV3" data-listing-date-sort="1765238400000" data-listing-file-modified-sort="1793177738796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1488" data-listing-title-sort="Scope of the possible with R" data-listing-filename-sort="scope_of_the_possible_with_r.qmd">
+<tr data-index="15" data-categories="UiUyQ292ZXJ2aWV3" data-listing-date-sort="1765238400000" data-listing-file-modified-sort="1793802602780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1488" data-listing-title-sort="Scope of the possible with R" data-listing-filename-sort="scope_of_the_possible_with_r.qmd">
 <td>
 <a href="./r_training/scope_of_the_possible_with_r.html" class="title listing-title">Scope of the possible with R</a>
 </td>
@@ -588,7 +590,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="16" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ1NoaW55" data-listing-date-sort="1739404800000" data-listing-file-modified-sort="1793177738796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="922" data-listing-title-sort="Shiny from scratch" data-listing-filename-sort="shiny_from_scratch.qmd">
+<tr data-index="16" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ1NoaW55" data-listing-date-sort="1739404800000" data-listing-file-modified-sort="1793802602780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="922" data-listing-title-sort="Shiny from scratch" data-listing-filename-sort="shiny_from_scratch.qmd">
 <td>
 <a href="./r_training/shiny_from_scratch.html" class="title listing-title">Shiny from scratch</a>
 </td>
@@ -597,7 +599,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="17" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ05MUA==" data-listing-date-sort="1727049600000" data-listing-file-modified-sort="1793177738814" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1055" data-listing-title-sort="Stringdist" data-listing-filename-sort="stringdist.qmd">
+<tr data-index="17" data-categories="UiUyQ2ludGVybWVkaWF0ZSUyQ05MUA==" data-listing-date-sort="1727049600000" data-listing-file-modified-sort="1793802602799" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1055" data-listing-title-sort="Stringdist" data-listing-filename-sort="stringdist.qmd">
 <td>
 <a href="./r_training/stringdist.html" class="title listing-title">Stringdist</a>
 </td>
@@ -606,7 +608,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="18" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1749600000000" data-listing-file-modified-sort="1793177738792" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1435" data-listing-title-sort="Summarising data with dplyr" data-listing-filename-sort="dplyr_group_summarise.qmd">
+<tr data-index="18" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1749600000000" data-listing-file-modified-sort="1793802602775" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1435" data-listing-title-sort="Summarising data with dplyr" data-listing-filename-sort="dplyr_group_summarise.qmd">
 <td>
 <a href="./r_training/dplyr_group_summarise.html" class="title listing-title">Summarising data with dplyr</a>
 </td>
@@ -615,7 +617,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="19" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1755648000000" data-listing-file-modified-sort="1793177738815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1048" data-listing-title-sort="Testing R code" data-listing-filename-sort="testing_r_code.qmd">
+<tr data-index="19" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1755648000000" data-listing-file-modified-sort="1793802602799" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1048" data-listing-title-sort="Testing R code" data-listing-filename-sort="testing_r_code.qmd">
 <td>
 <a href="./r_training/testing_r_code.html" class="title listing-title">Testing R code</a>
 </td>
@@ -624,7 +626,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="20" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1722211200000" data-listing-file-modified-sort="1793177738796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="744" data-listing-title-sort="The purrr package in R" data-listing-filename-sort="purrr_package.qmd">
+<tr data-index="20" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1722211200000" data-listing-file-modified-sort="1793802602780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="744" data-listing-title-sort="The purrr package in R" data-listing-filename-sort="purrr_package.qmd">
 <td>
 <a href="./r_training/purrr_package.html" class="title listing-title">The purrr package in R</a>
 </td>
@@ -633,7 +635,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="21" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1751328000000" data-listing-file-modified-sort="1793177738815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1209" data-listing-title-sort="Tidyselect" data-listing-filename-sort="tidyselect.qmd">
+<tr data-index="21" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1751328000000" data-listing-file-modified-sort="1793802602799" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1209" data-listing-title-sort="Tidyselect" data-listing-filename-sort="tidyselect.qmd">
 <td>
 <a href="./r_training/tidyselect.html" class="title listing-title">Tidyselect</a>
 </td>
@@ -642,7 +644,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="22" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1716508800000" data-listing-file-modified-sort="1793177738815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="350" data-listing-title-sort="We ❤️ janitor" data-listing-filename-sort="we_heart_janitor.qmd">
+<tr data-index="22" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1716508800000" data-listing-file-modified-sort="1793802602799" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="350" data-listing-title-sort="We ❤️ janitor" data-listing-filename-sort="we_heart_janitor.qmd">
 <td>
 <a href="./r_training/we_heart_janitor.html" class="title listing-title">We ❤️ janitor</a>
 </td>
@@ -651,7 +653,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="23" data-categories="UiUyQ2JlZ2lubmVyJTJDcHJlLWJlZ2lubmVy" data-listing-date-sort="1717372800000" data-listing-file-modified-sort="1793177738815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1092" data-listing-title-sort="Why bother with R?" data-listing-filename-sort="why_bother_with_R.qmd">
+<tr data-index="23" data-categories="UiUyQ2JlZ2lubmVyJTJDcHJlLWJlZ2lubmVy" data-listing-date-sort="1717372800000" data-listing-file-modified-sort="1793802602799" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1092" data-listing-title-sort="Why bother with R?" data-listing-filename-sort="why_bother_with_R.qmd">
 <td>
 <a href="./r_training/why_bother_with_R.html" class="title listing-title">Why bother with R?</a>
 </td>
@@ -660,7 +662,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="24" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1787184000000" data-listing-file-modified-sort="1793177738796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="474" data-listing-title-sort="Working with lists in purrr" data-listing-filename-sort="purrr_lists.qmd">
+<tr data-index="24" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1787184000000" data-listing-file-modified-sort="1793802602780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="474" data-listing-title-sort="Working with lists in purrr" data-listing-filename-sort="purrr_lists.qmd">
 <td>
 <a href="./r_training/purrr_lists.html" class="title listing-title">Working with lists in purrr</a>
 </td>
@@ -669,7 +671,7 @@ Categories
 </td>
 
 </tr>
-<tr data-index="25" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1793177738000" data-listing-file-modified-sort="1793177738815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1090" data-listing-title-sort="Writing functions in R" data-listing-filename-sort="writing_functions_in_r.qmd">
+<tr data-index="25" data-categories="UiUyQ2ludGVybWVkaWF0ZQ==" data-listing-date-sort="1793802602000" data-listing-file-modified-sort="1793802602800" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1090" data-listing-title-sort="Writing functions in R" data-listing-filename-sort="writing_functions_in_r.qmd">
 <td>
 <a href="./r_training/writing_functions_in_r.html" class="title listing-title">Writing functions in R</a>
 </td>
@@ -685,15 +687,50 @@ Categories
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const toggle = window.document.createElement('button');
+      toggle.type = "button";
+      toggle.setAttribute("role", "switch");
+      toggle.setAttribute("aria-checked", "false");
+      toggle.classList.add('top-right');
+      toggle.classList.add('quarto-color-scheme-toggle');
+      toggle.setAttribute("aria-label", "Toggle dark mode");
+      toggle.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
       const i = window.document.createElement("i");
       i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+      toggle.appendChild(i);
+      // Put the toggle in a landmark of its own, so that landmark navigation
+      // can reach it.
+      //
+      // The container is always a fresh direct child of body, and the toggle is
+      // never moved into page furniture that the theme or the author controls.
+      // The toggle is positioned against the page, so any ancestor that
+      // establishes a containing block captures it: a positioned element or a
+      // grid for position: absolute, and transform, filter, will-change or
+      // contain for position: fixed. A direct child of body has none of these
+      // to inherit, and the shift when one appears is silent and visual.
+      //
+      // ARIA says a document should have at most one banner, and axe reports a
+      // duplicate whether or not the banners carry distinct labels. So use a
+      // header when the page has no banner yet, and a named region otherwise.
+      //
+      // A header is a banner wherever it sits, unless it is inside sectioning
+      // content, so this cannot just look at the children of body: a custom
+      // page layout wraps the title block header in a plain div. An explicit
+      // role="banner" always counts.
+      const sectioning = 'article, aside, main, nav, section, [role="article"], [role="complementary"], [role="main"], [role="navigation"], [role="region"]';
+      const hasBanner = Array.from(
+        window.document.querySelectorAll('header:not([role]), [role="banner"]')
+      ).some(function(el) {
+        return el.hasAttribute("role") || el.closest(sectioning) === null;
+      });
+      const container = window.document.createElement(hasBanner ? "div" : "header");
+      if (hasBanner) {
+        container.setAttribute("role", "region");
+        container.setAttribute("aria-label", "Toggle dark mode");
+      }
+      container.classList.add('quarto-color-scheme-toggle-container');
+      container.appendChild(toggle);
+      window.document.body.appendChild(container);
     }
     setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
@@ -772,7 +809,8 @@ Categories
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -781,8 +819,69 @@ Categories
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+          if (!link.classList.contains('no-external-icon')) {
+          }
         }
       }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -796,6 +895,7 @@ Categories
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -958,44 +1058,54 @@ Categories
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          let top = null;
-          let height = null;
-          let parent = null;
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
           if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
             }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
             }
+            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -1093,6 +1203,8 @@ Categories
       }
     }
   });
+  </script><script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
   </script>
 </div> <!-- /content -->
 
