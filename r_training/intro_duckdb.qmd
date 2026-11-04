@@ -38,7 +38,7 @@ This session is a free-standing introduction to [duckdb in R](https://duckdb.org
 
 ## Setup
 
-Create a new project, install packages if needed, attach the stringr, tidytext, and dplyr packages, and create some simple data:
+Create a new project, and install and attach packages:
 
 ```{r}
 # install.packages("pak")
@@ -47,9 +47,69 @@ Create a new project, install packages if needed, attach the stringr, tidytext, 
 # pak::pak("palmerpenguins")
 
 library(duckdb)
+library(dplyr) # surprisingly useful for working with databases
 library(DBI)
 library(palmerpenguins)
 
 ```
 
 ## What?
+
+Duckdb is a lightweight database backend that allows you to create comparatively high-performance databases on your local computer easily. Here's the minimal example:
+
+```{r}
+mem_con <- dbConnect(duckdb()) 
+```
+
+This connection object represents an in-memory duckdb database. To add some data to that database, we can use `duckdb::dbWriteTable`:
+
+```{r}
+duckdb::dbWriteTable(conn = mem_con, name = "pengs", value = penguins)
+
+# dplyr::copy_to(dest = mem_con,df = penguins, name = "pengs") # just beware the names (and order) of arguments differs from the otherwise-similar dplyr::copy_to function
+```
+
+There are then a range of options for retrieving data. `DBI::dbGetQuery` executes a SQL query on your database, and returns a standard R data.frame:
+
+```{r}
+DBI::dbGetQuery(mem_con, "SELECT * FROM pengs WHERE species = 'Adelie' AND year = 2007")
+```
+You can also do much the same thing in a more R-friendly way with [a bit of d(b)plyr](r_training/dbplyr_dtplyr.html):
+
+```{r}
+tbl(mem_con, "pengs") |>
+  filter(species == "Adelie" & year == 2007) |>
+  collect()
+```
+
+## On-disk databases
+
+```{r}
+disk_con <- dbConnect(duckdb(), dbdir = "data/disk_con.duckdb") # the dbdir argument in the connection object is the only change
+```
+
+```{r}
+#| eval: false
+duckdb::dbWriteTable(conn = disk_con, name = "pengs", value = penguins)
+```
+
+```{r}
+#| echo: false
+duckdb::dbWriteTable(conn = disk_con, name = "pengs", value = penguins, overwrite = T)
+```
+
+```{r}
+DBI::dbGetQuery(disk_con, "SELECT * FROM pengs WHERE species = 'Adelie' AND year = 2007")
+```
+
+
+## Referencing tibbles/data.frames
+
+Like creating a virtual table. Doesn't copy any data, good for practice and preview.
+
+```{r}
+duckdb_register(mem_con, "ref_pengs", penguins)
+
+DBI::dbGetQuery(mem_con, "SELECT * FROM ref_pengs WHERE species = 'Adelie' AND year = 2007")
+```
+
