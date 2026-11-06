@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta charset="UTF-8">
+<meta name="generator" content="quarto-1.11.9">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="dcterms.date" content="2026-11-05">
+<title>Introduction to Excel Graphs – KIND training pages</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-8d3ad9c781c51ccd60b292c95058b2c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3f6c6756e17742611d7b6553d490e4fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-8d3ad9c781c51ccd60b292c95058b2c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          toggle.setAttribute("aria-checked", alternate ? "true" : "false");
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455).
+    // Not run on load: stylesheets are set before first paint there, and
+    // scrolling would undo the scroll to a URL fragment (#14973).
+    // The one pixel nudge keeps the reader where they were.
+    const refreshSafariScrollbar = () => {
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        const scrollY = window.scrollY;
+        window.scrollTo(0, scrollY > 0 ? scrollY - 1 : 1);
+        setTimeout(() => {
+          window.scrollTo(0, scrollY);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      refreshSafariScrollbar();
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo light-content"><img src="../src/images/KLN_banner_v08b_short_200.png" alt="" class="navbar-logo dark-content"></a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">KIND training pages</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../excel_main.html"> 
+<span class="menu-text">Excel</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r_main.html"> 
+<span class="menu-text">R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../BI_main.html"> 
+<span class="menu-text">Power Platform</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sql_main.html"> 
+<span class="menu-text">SQL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tableau_main.html"> 
+<span class="menu-text">Tableau</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../skills_main.html"> 
+<span class="menu-text">Skills</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">📅 Training schedule</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/NES-DEW/KIND-training/issues">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+</div>
+  <button type="button" role="switch" aria-checked="false" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode" aria-label="Toggle dark mode"><i class="bi"></i></button>
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link active" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#session-outline" id="toc-session-outline" class="nav-link" data-scroll-target="#session-outline">Session outline</a></li>
+  <li><a href="#what-this-session-doesnt-cover" id="toc-what-this-session-doesnt-cover" class="nav-link" data-scroll-target="#what-this-session-doesnt-cover">What this session doesn’t cover</a></li>
+  <li><a href="#a-first-plot" id="toc-a-first-plot" class="nav-link" data-scroll-target="#a-first-plot">A first plot</a></li>
+  <li><a href="#building-our-own-plot" id="toc-building-our-own-plot" class="nav-link" data-scroll-target="#building-our-own-plot">Building our own plot</a></li>
+  <li><a href="#the-basics" id="toc-the-basics" class="nav-link" data-scroll-target="#the-basics">The basics</a></li>
+  <li><a href="#types-of-graph" id="toc-types-of-graph" class="nav-link" data-scroll-target="#types-of-graph">Types of graph</a></li>
+  <li><a href="#data-for-graphs" id="toc-data-for-graphs" class="nav-link" data-scroll-target="#data-for-graphs">Data for graphs</a></li>
+  <li><a href="#finding-a-most-appropriate-graph" id="toc-finding-a-most-appropriate-graph" class="nav-link" data-scroll-target="#finding-a-most-appropriate-graph">Finding a most-appropriate graph</a></li>
+  <li><a href="#labelling" id="toc-labelling" class="nav-link" data-scroll-target="#labelling">Labelling</a></li>
+  <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates">Dates</a></li>
+  <li><a href="#styling" id="toc-styling" class="nav-link" data-scroll-target="#styling">Styling</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice!</a></li>
+  </ul></nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://nes-dew.github.io/KIND-training">KIND learning network training materials</a> by <span property="cc:attributionName">KIND learning network</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:16px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>
+</p>
+<div style="text-align:center;">
+<a href="https://forms.office.com/pages/responsepage.aspx?id=veDvEDCgykuAnLXmdF5Jmn79kl25VpJIq3eErXXCYKBUMUpENjBJOENINDRFMUlYQTlCM1RVNzRSRy4u&amp;route=shorturl" style="display:inline-block;max-width:250px;padding:8px 16px;background:#2C3792;color:#ffffff;font-family:'Segoe UI','Helvetica Neue',sans-serif;font-weight:700;font-size:16px;text-align:center;text-decoration:none;border-radius:20px;border:2px solid #A12693;cursor:pointer;transition:all .3s ease;" onmouseover="this.style.background='#A12693';this.style.color='#fff';this.style.borderColor='#fff'" onmouseout="this.style.background='#2C3792';this.style.color='#ffffff';this.style.borderColor='#A12693'">Join the KIND network</a>
+</div>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Introduction to Excel Graphs</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">excel</div>
+    <div class="quarto-category">beginner</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 5, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><div class="cell" data-layout-align="left">
+<p>No feedback found for this session</p>
+</div>
+<section id="acknowledgements" class="level2"><h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>Sincere thanks to Matthew Hooks, Kristi Long, Steve Boulton, Anne Duffy, Roisin Farrell, Ellie Bates, Lynn Sproat, Catherine McLaren, Susanna Kirk, Brian Orpin, Albert Aspinall, Fatima Davila Acosta, Catherine Houston, Kevin Power, Gail Young, Elaine Adam, Sarah Downie, Katy McCalister, and other members of the KIND network for their contributions to this session.</p>
+</section><section id="session-outline" class="level2"><h2 class="anchored" data-anchor-id="session-outline">Session outline</h2>
+<p>This is a friendly overview and introduction to making graphs in Excel. You’ll need basic Excel skills to complete this session, so we would usually recommend that you’re confident with the content of our <a href="https://nes-dew.github.io/KIND-training/excel_main.html">beginner’s Excel course</a> before enrolling.</p>
+</section><section id="what-this-session-doesnt-cover" class="level2"><h2 class="anchored" data-anchor-id="what-this-session-doesnt-cover">What this session doesn’t cover</h2>
+<ul>
+<li>for basic Excel skills, see our <a href="https://nes-dew.github.io/KIND-training/excel_main.html">beginner’s Excel course</a>
+</li>
+<li>for Pivot Charts, see <a href="https://nes-dew.github.io/KIND-training/excel/pivot_tables_and_pivot_charts.html">our session on Pivot tables in our intermediate Excel course</a>
+</li>
+<li>for background on the basics of drawing graphs, and why that’s useful, please see our <a href="https://nes-dew.github.io/KIND-training/skills/data_intro.html">introductory data skills course</a>
+</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Data for this session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Later parts of this session use an extract from some real-world data about housing from <a href="https://opendata.scot/datasets/energy+saving+trust-energy+performance+certificates+%2528epc%2529+-+new+dwellings/">Open Data Scotland</a>. That describes energy performance certificates for new dwellings in Scotland until Q4 2025. <a href="https://data.spatialhub.scot/dataset/8aa8ec4c-d343-4372-b29e-2d91f03097f4/resource/548c85d2-a6b1-41b5-9a8e-f454241eef4e/download/epc_historic_dataset_q4_2025_sap_new_dwellings.csv">The full dataset</a> is very large, so we’re providing a short extract looking at dwellings in <a href="https://www.google.com/maps/place/Hawick/">Hawick</a>.</p>
+<ul>
+<li><a href="src/excel_graphs_intro_data.xlsx"><iconify-icon inline="" icon="ph:file-xls" style="font-size: 2em;" aria-label="Icon file-xls from ph Iconify.design set." title="Icon file-xls from ph Iconify.design set."></iconify-icon>data</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="a-first-plot" class="level2"><h2 class="anchored" data-anchor-id="a-first-plot">A first plot</h2>
+<p>In Excel, make sure you have the data open and editable, and then switch to the <code>first_plot</code> worksheet. That contains a tiny dataset summarising feedback for three teams:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: left;">Team</th>
+<th style="text-align: right;">Positive</th>
+<th style="text-align: right;">Negative</th>
+<th style="text-align: right;">Neutral</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">One</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Two</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Three</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+<p>The very easiest way of inserting a new plot in Excel is to add a default plot. Let’s do that now:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Put your cursor inside the <code>first_plot</code> table of data</li>
+<li>Press <code>F11</code> (if you’re working on a laptop keyboard, you might also need to hold down the <code>Fn</code> key)</li>
+</ul>
+</div>
+</div>
+</div>
+<p>That <em>should</em> insert a new, default, plot for us in a new tab named <code>Chart1</code>:</p>
+<p><img src="images/clipboard-3596424951.png" class="img-fluid"></p>
+<p>Congratulations! Update your CV, ask for a pay rise, you now know how to make a graph in Excel.</p>
+</section><section id="building-our-own-plot" class="level2"><h2 class="anchored" data-anchor-id="building-our-own-plot">Building our own plot</h2>
+<p>Alright, so there’s clearly a bit more to making great graphs than pressing a single key. To help us understand what’s what, let’s try to build a simple plot now in a slightly more hands-on way.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>With your cursor inside the <code>first_plot</code> table of data, find the <code>Charts</code> section of the <code>Insert</code> menu in the ribbon</li>
+<li>From there, select the column chart option<img src="images/clipboard-2816489720.png" class="img-fluid">
+</li>
+<li>That will open a sub-menu offering you several different column charts. Please pick the first <code>2D Column</code> option<br><img src="images/clipboard-2569567310.png" class="img-fluid">
+</li>
+</ul>
+</div>
+</div>
+</div>
+<p>That should generate a simple plot from your data:</p>
+<p><img src="images/clipboard-1920628012.png" class="img-fluid"></p>
+<p>You should see that you’ve effectively re-created the default plot from the previous task. That’s likely to look slightly different - inserted onto your worksheet, rather than occupying a whole tab of its own - but the structure of the graph should be exactly the same.</p>
+</section><section id="the-basics" class="level2"><h2 class="anchored" data-anchor-id="the-basics">The basics</h2>
+<p>When we asked Excel to make a graph for us, it looked at the way our data was held (in a table) and made some assumptions. Those assumptions are important for us to understand, and regrettably use some extremely odd (and partly Excel-specific) jargon:</p>
+<ul>
+<li>It plotted each of our value columns (Positive/Negative/Neutral) as a separate <strong>series</strong>, and the usual idea is that each series becomes a separate column in a graph</li>
+<li>Those series were then clustered into <strong>categories</strong> by the Team column, which are spread out horizontally along the X-axis</li>
+<li>The values (<code>33</code>, <code>21</code>, …) in our data then determined the heights of the bars (indicated on the vertical Y-axis), showing us at a glance how many bits of feedback each team received in each category</li>
+</ul>
+<p>If you look at your source data, you should see that Excel has applied some highlighting to show you how your data is being used:</p>
+<p><img src="images/clipboard-925323571.png" class="img-fluid"></p>
+<p>(purple outline here for the categories, red outline for the series labels, blue outline for the values)</p>
+<p>Note that grouping happened automatically, and depends on some guessing on Excel’s part. Luckily for us, we can change which bits of our data get used as a series:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>right-click your new chart, and select <code>Select Data...</code> <img src="images/clipboard-3908801056.png" class="img-fluid"></p></li>
+<li><p>That will bring up the <code>Select Data</code> interface. From it, select <code>Switch Row/Column</code> and click <code>OK</code><img src="images/clipboard-1069080565.png" class="img-fluid"></p></li>
+<li><p>Then see how your graph has changed</p></li>
+</ul>
+</div>
+</div>
+</div>
+<p>I would expect your graph to now look like this:</p>
+<p><img src="images/clipboard-3790580297.png" class="img-fluid"></p>
+<p>In Excel lingo, we’ve swapped the series and the categories, so our <strong>series</strong> are now the team names, and the <strong>categories</strong> are the types of feedback. You can get confirmation of that by inspecting your data, where the colours from the previous example will have swapped round:<br></p>
+<p><img src="images/clipboard-3583032930.png" class="img-fluid"></p>
+<p>(purple outline here for the categories, red outline for the series labels, blue outline for the values)</p>
+<p>We can do that because these groupings are a bit arbitrary for most kinds of data: there isn’t a single right way to do them, and we can ask Excel to swap them round if they don’t suit our purposes.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Please swap your series/categories back again by following the steps in the task above again</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="types-of-graph" class="level2"><h2 class="anchored" data-anchor-id="types-of-graph">Types of graph</h2>
+<p>Excel can make many different types of chart. Usefully, the process for making each type of chart (or changing between types of chart) is essentially the same.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>
+<p>With your graph selected, find the column charts button in the <code>Charts</code> area of the <code>Insert</code> menu, and select the stacked column chart type</p>
+<p><img src="images/clipboard-3998449346.png" class="img-fluid"></p>
+</li>
+<li><p>Now inspect your graph: you should see that you’ve changed the way your data is presented. You’ve now got each category within a series stacked into a single bar. This is probably a poor way to compare your three teams, but a good way of seeing overall how the three series compare to one another<img src="images/clipboard-2786390425.png" class="img-fluid"></p></li>
+<li>
+<p>In the same way, now change your graph to a 2D pie</p>
+<p><img src="images/clipboard-1827063876.png" class="img-fluid">.</p>
+<p>Note that will only show one series (Team one) at a time</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<p>There’s an alternative way of swapping between graph styles, which we’ll explore once we’ve had a chance to think more about how our data feeds into our graph.</p>
+</section><section id="data-for-graphs" class="level2"><h2 class="anchored" data-anchor-id="data-for-graphs">Data for graphs</h2>
+<p>Excel graphs are opinionated about the data you can use in them. We’ve just seen a nice example of that, where we can only show a single category in a pie chart. Over the next few examples, we’ll look at how to fit your data to suit different styles of chart.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>right-click your pie chart, and select <code>Select Data...</code> <img src="images/clipboard-3825579351.png" class="img-fluid"></p></li>
+<li><p>Now <code>Remove</code> series One and Three, click <code>OK</code> and inspect your graph<img src="images/clipboard-2414127582.png" class="img-fluid"></p></li>
+<li><p>Now <code>Switch Row/Column</code> and inspect your chart. You’ll see that you’ll have lost two of your categories, generating a less-than-ideal uniform pie-chart <img src="images/clipboard-1507022766.png" class="img-fluid"></p></li>
+<li><p>To fix this, <code>Select Data...</code> again, and re-select the <code>Chart data range</code></p></li>
+<li><p>That should generate a pie-chart with a useful breakdown of positive feedback by team</p></li>
+<li><p><img src="images/clipboard-396871713.png" class="img-fluid"></p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="finding-a-most-appropriate-graph" class="level2"><h2 class="anchored" data-anchor-id="finding-a-most-appropriate-graph">Finding a most-appropriate graph</h2>
+<p>As we mentioned above, there are constraints on what data each type of graph will show. Speaking personally, that’s not very intuitive, so I often use a tool to preview many graphs for me to see what’s going to happen to my data. Let’s do that now:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Switch over to the <code>epc</code> tab, which features a bit of real data about home energy performance certificates.</p></li>
+<li>
+<p>Add that data to a new graph (of any kind), and then select <code>Change Chart Type...</code> from the right-click menu</p>
+<p><img src="images/clipboard-3668279418.png" class="img-fluid"></p>
+</li>
+<li>
+<p>That will bring up the <code>Change Chart Type</code> interface, which shows some useful previews of charts based on your data</p>
+<ul>
+<li>
+<p>Many of these will be bilge and nonsense</p>
+<p><img src="images/clipboard-2158848647.png" class="img-fluid"></p>
+</li>
+<li>
+<p>But you’ll get many useful suggestions too</p>
+<p><img src="images/clipboard-2565624922.png" class="img-fluid" width="292"></p>
+</li>
+</ul>
+</li>
+<li><p>Find a chart type that you like, and check that it’s using the data that you want to show</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="labelling" class="level2"><h2 class="anchored" data-anchor-id="labelling">Labelling</h2>
+<p>For me, that exercise generated a useful scatter graph of energy consumption against home area, but it didn’t label the resulting chart very well at all:</p>
+<p><img src="images/clipboard-759773105.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Task!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>From your chart, select the large <code>+</code> button on the right-hand margin, and make sure <code>Axis Titles</code> and <code>Chart Title</code> are selected</li>
+</ul>
+<p><img src="images/clipboard-3039870748.png" class="img-fluid"></p>
+<ul>
+<li>You should then be able to edit the title and axis titles directly by double-clicking the text</li>
+<li>If you carefully click exactly on the bounding box (<img src="images/clipboard-23238786.png" class="img-fluid">) of the title you can also write a formula (or reference) to create a title dynamically, which might save you some typing</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="dates" class="level2"><h2 class="anchored" data-anchor-id="dates">Dates</h2>
+<p>(tba - need to do some exploring in the pilot session)</p>
+</section><section id="styling" class="level2"><h2 class="anchored" data-anchor-id="styling">Styling</h2>
+<p>There are lots of options for styling graphs in Excel, which are most conveniently accessed from the right-hand menu too:</p>
+<p><img src="images/clipboard-786384821.png" class="img-fluid"></p>
+<p>We’ll explore some of the more useful formatting options during the session.</p>
+</section><section id="practice" class="level2"><h2 class="anchored" data-anchor-id="practice">Practice!</h2>
+<p>There’s a much richer dataset in the <code>hawick_epc</code> tab which is provided for practice:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 28%">
+<col style="width: 31%">
+<col style="width: 20%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">ID</th>
+<th style="text-align: left;">HISTORIC</th>
+<th style="text-align: left;">CURRENT_ENERGY_RATING</th>
+<th style="text-align: left;">POTENTIAL_ENERGY_RATING</th>
+<th style="text-align: left;">INSPECTION_DATE</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">3544</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">2014-09-11</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17114</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">2015-11-11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17210</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">2015-11-11</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17588</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">2015-11-27</td>
+</tr>
+</tbody>
+</table>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const toggle = window.document.createElement('button');
+      toggle.type = "button";
+      toggle.setAttribute("role", "switch");
+      toggle.setAttribute("aria-checked", "false");
+      toggle.classList.add('top-right');
+      toggle.classList.add('quarto-color-scheme-toggle');
+      toggle.setAttribute("aria-label", "Toggle dark mode");
+      toggle.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      toggle.appendChild(i);
+      // Put the toggle in a landmark of its own, so that landmark navigation
+      // can reach it.
+      //
+      // The container is always a fresh direct child of body, and the toggle is
+      // never moved into page furniture that the theme or the author controls.
+      // The toggle is positioned against the page, so any ancestor that
+      // establishes a containing block captures it: a positioned element or a
+      // grid for position: absolute, and transform, filter, will-change or
+      // contain for position: fixed. A direct child of body has none of these
+      // to inherit, and the shift when one appears is silent and visual.
+      //
+      // ARIA says a document should have at most one banner, and axe reports a
+      // duplicate whether or not the banners carry distinct labels. So use a
+      // header when the page has no banner yet, and a named region otherwise.
+      //
+      // A header is a banner wherever it sits, unless it is inside sectioning
+      // content, so this cannot just look at the children of body: a custom
+      // page layout wraps the title block header in a plain div. An explicit
+      // role="banner" always counts.
+      const sectioning = 'article, aside, main, nav, section, [role="article"], [role="complementary"], [role="main"], [role="navigation"], [role="region"]';
+      const hasBanner = Array.from(
+        window.document.querySelectorAll('header:not([role]), [role="banner"]')
+      ).some(function(el) {
+        return el.hasAttribute("role") || el.closest(sectioning) === null;
+      });
+      const container = window.document.createElement(hasBanner ? "div" : "header");
+      if (hasBanner) {
+        container.setAttribute("role", "region");
+        container.setAttribute("aria-label", "Toggle dark mode");
+      }
+      container.classList.add('quarto-color-scheme-toggle-container');
+      container.appendChild(toggle);
+      window.document.body.appendChild(container);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/NES-DEW\.github\.io\/KIND-training\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+</body></html>
