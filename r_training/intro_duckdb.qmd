@@ -1,10 +1,10 @@
 ---
 title: Introducing duckdb
-date: 2026-11-11
+date: 2026-10-28
 categories: [R, intermediate]
 draft: true
 params:
-  sl_date: 2026-11-11
+  sl_date: 2026-10-28
   fn: "Introducing duckdb"
   id: KR65
 execute:
@@ -31,10 +31,9 @@ This session is a free-standing introduction to [duckdb in R](https://duckdb.org
 
 ::: {.callout-tip collapse="false" appearance="default" icon="true"}
 ## Session resources
-+ you'll need a reasonable working knowledge of R to enjoy this session
-+ no special infrastructure requirements other than a recent-ish R setup
-+ see the setup chunk below for package requirements
-
++ you don't need any infrastructure apart from an R setup
++ see the setup chunk below for packages
++ you should have a reasonable working knowledge of R
 :::
 
 ## Setup
@@ -52,20 +51,11 @@ library(dplyr) # surprisingly useful for working with databases
 library(DBI)
 library(palmerpenguins)
 
-mini_pengs <- penguins |>
-  select(species, island, sex, year, bill_length_mm) |>
-  slice_sample(n = 5) # create a mini dataset of penguins
-
 ```
 
 ## What?
 
-Duckdb is a lightweight database backend that allows you to create comparatively high-performance databases on your local computer easily. That comes with two main advantages:
-
-1. It's a neat way of porting SQL projects to R, or allowing SQL-fluent colleagues to avoid having to relearn everything in R
-1. It's a great way of managing inconveniently large data on the desktop, or in other situations where resources are scarce
-
-Here's the minimal example:
+Duckdb is a lightweight database backend that allows you to create comparatively high-performance databases on your local computer easily. Here's the minimal example:
 
 ```{r}
 mem_con <- dbConnect(duckdb()) 
@@ -74,58 +64,42 @@ mem_con <- dbConnect(duckdb())
 This connection object represents an in-memory duckdb database. To add some data to that database, we can use `duckdb::dbWriteTable`:
 
 ```{r}
-duckdb::dbWriteTable(conn = mem_con, name = "pengs", value = mini_pengs)
+duckdb::dbWriteTable(conn = mem_con, name = "pengs", value = penguins)
 
-# dplyr::copy_to(dest = mem_con,df = penguins, name = "mini_pengs") # just beware the names (and order) of arguments differs from the otherwise-similar dplyr::copy_to function
+# dplyr::copy_to(dest = mem_con,df = penguins, name = "pengs") # just beware the names (and order) of arguments differs from the otherwise-similar dplyr::copy_to function
 ```
 
 There are then a range of options for retrieving data. `DBI::dbGetQuery` executes a SQL query on your database, and returns a standard R data.frame:
 
 ```{r}
-DBI::dbGetQuery(mem_con, "SELECT * FROM pengs")
-
+DBI::dbGetQuery(mem_con, "SELECT * FROM pengs WHERE species = 'Adelie' AND year = 2007")
 ```
-
-That allows you to execute any ordinary SQL query, although we'll keep those very simple in this session:
-
-```{r}
-DBI::dbGetQuery(mem_con, "SELECT * FROM pengs WHERE species = 'Adelie'")
-```
-
-You can also do much the same thing without writing SQL with the combination of dplyr and [dbplyr](r_training/dbplyr_dtplyr.html):
+You can also do much the same thing in a more R-friendly way with [a bit of d(b)plyr](r_training/dbplyr_dtplyr.html):
 
 ```{r}
 tbl(mem_con, "pengs") |>
-  filter(species == "Adelie") |>
-  collect() # collecting data from the query and returning a tibble
+  filter(species == "Adelie" & year == 2007) |>
+  collect()
 ```
 
 ## On-disk databases
 
-Our duckDB database so far has lived in memory. Ideal for demo purposes, not great for durable production use. Luckily, we can write duckDB databases to disk. The substantive change is to supply a filepath for your database to `dbConnect`:
-
 ```{r}
-disk_con <- dbConnect(duckdb(), dbdir = "data/disk_con.duckdb") 
+disk_con <- dbConnect(duckdb(), dbdir = "data/disk_con.duckdb") # the dbdir argument in the connection object is the only change
 ```
-
-Then write a table to that on-disk database:
 
 ```{r}
 #| eval: false
-duckdb::dbWriteTable(conn = disk_con, name = "pengs", value = mini_pengs)
+duckdb::dbWriteTable(conn = disk_con, name = "pengs", value = penguins)
 ```
 
 ```{r}
 #| echo: false
-duckdb::dbWriteTable(conn = disk_con, name = "pengs", value = mini_pengs, overwrite = T)
+duckdb::dbWriteTable(conn = disk_con, name = "pengs", value = penguins, overwrite = T)
 ```
 
-Which can then be queried in the usual way:
-
 ```{r}
-DBI::dbGetQuery(disk_con, "SELECT * FROM pengs WHERE species = 'Adelie'")
-
-DBI::dbListTables(disk_con)
+DBI::dbGetQuery(disk_con, "SELECT * FROM pengs WHERE species = 'Adelie' AND year = 2007")
 ```
 
 
@@ -134,13 +108,12 @@ DBI::dbListTables(disk_con)
 Like creating a virtual table. Doesn't copy any data, good for practice and preview.
 
 ```{r}
-duckdb_register(mem_con, "ref_pengs", mini_pengs)
+duckdb_register(mem_con, "ref_pengs", penguins)
 
-DBI::dbGetQuery(mem_con, "SELECT * FROM ref_pengs WHERE species = 'Adelie'")
-
-
+DBI::dbGetQuery(mem_con, "SELECT * FROM ref_pengs WHERE species = 'Adelie' AND year = 2007")
 ```
 
+<<<<<<< HEAD
 ## Big chunky data
 
 Scotland makes available national prescribing data [aggregated by dispenser and by medication type](https://www.opendata.nhs.scot/dataset/prescriptions-in-the-community/resource/15e675c7-ac8d-4000-a690-b70a2d3d3a76). That full data-set is pretty chunky indeed - roughly a couple of million rows of data per month, which is probably a bit larger than we can comfortably deal with in a training session, so we'll use a slice of this data showing prescriptions in NHS Grampian to explore DuckDB as a tool for working with big(ish) data.
@@ -232,3 +205,5 @@ readr::read_rds(here::here("r_training/data/presc_bench.rds")) |>
 
 
 
+=======
+>>>>>>> parent of 81fc2b7c (drafted duckdb session)
