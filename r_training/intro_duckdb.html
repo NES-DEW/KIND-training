@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="quarto-1.11.9">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2026-10-28">
+<meta name="dcterms.date" content="2026-11-11">
 <title>Introducing duckdb – KIND training pages</title>
 <style>
 /* Default styles provided by pandoc.
@@ -366,6 +366,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#what" id="toc-what" class="nav-link" data-scroll-target="#what">What?</a></li>
   <li><a href="#on-disk-databases" id="toc-on-disk-databases" class="nav-link" data-scroll-target="#on-disk-databases">On-disk databases</a></li>
   <li><a href="#referencing-tibblesdata.frames" id="toc-referencing-tibblesdata.frames" class="nav-link" data-scroll-target="#referencing-tibblesdata.frames">Referencing tibbles/data.frames</a></li>
+  <li><a href="#big-chunky-data" id="toc-big-chunky-data" class="nav-link" data-scroll-target="#big-chunky-data">Big chunky data</a></li>
+  <li><a href="#simple-filter-and-summarise" id="toc-simple-filter-and-summarise" class="nav-link" data-scroll-target="#simple-filter-and-summarise">Simple filter and summarise</a></li>
+  <li><a href="#benchmarking" id="toc-benchmarking" class="nav-link" data-scroll-target="#benchmarking">Benchmarking</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -392,7 +395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 28, 2026</p>
+      <p class="date">November 11, 2026</p>
     </div>
   </div>
   
@@ -419,9 +422,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
-<li>you don’t need any infrastructure apart from an R setup</li>
-<li>see the setup chunk below for packages</li>
-<li>you should have a reasonable working knowledge of R</li>
+<li>you’ll need a reasonable working knowledge of R to enjoy this session</li>
+<li>no special infrastructure requirements other than a recent-ish R setup</li>
+<li>see the setup chunk below for package requirements</li>
 </ul>
 </div>
 </div>
@@ -437,373 +440,190 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.duckdb.org/">duckdb</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># surprisingly useful for working with databases</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbi.r-dbi.org">DBI</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mini_pengs</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span>, <span class="va">sex</span>, <span class="va">year</span>, <span class="va">bill_length_mm</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="co"># create a mini dataset of penguins</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="what" class="level2"><h2 class="anchored" data-anchor-id="what">What?</h2>
-<p>Duckdb is a lightweight database backend that allows you to create comparatively high-performance databases on your local computer easily. Here’s the minimal example:</p>
+<p>Duckdb is a lightweight database backend that allows you to create comparatively high-performance databases on your local computer easily. That comes with two main advantages:</p>
+<ol type="1">
+<li>It’s a neat way of porting SQL projects to R, or allowing SQL-fluent colleagues to avoid having to relearn everything in R</li>
+<li>It’s a great way of managing inconveniently large data on the desktop, or in other situations where resources are scarce</li>
+</ol>
+<p>Here’s the minimal example:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mem_con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This connection object represents an in-memory duckdb database. To add some data to that database, we can use <code>duckdb::dbWriteTable</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu">dbWriteTable</span><span class="op">(</span>conn <span class="op">=</span> <span class="va">mem_con</span>, name <span class="op">=</span> <span class="st">"pengs"</span>, value <span class="op">=</span> <span class="va">penguins</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu">dbWriteTable</span><span class="op">(</span>conn <span class="op">=</span> <span class="va">mem_con</span>, name <span class="op">=</span> <span class="st">"pengs"</span>, value <span class="op">=</span> <span class="va">mini_pengs</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># dplyr::copy_to(dest = mem_con,df = penguins, name = "pengs") # just beware the names (and order) of arguments differs from the otherwise-similar dplyr::copy_to function</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co"># dplyr::copy_to(dest = mem_con,df = penguins, name = "mini_pengs") # just beware the names (and order) of arguments differs from the otherwise-similar dplyr::copy_to function</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There are then a range of options for retrieving data. <code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">DBI::dbGetQuery</a></code> executes a SQL query on your database, and returns a standard R data.frame:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"SELECT * FROM pengs WHERE species = 'Adelie' AND year = 2007"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"SELECT * FROM pengs"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-1   Adelie Torgersen           39.1          18.7               181        3750
-2   Adelie Torgersen           39.5          17.4               186        3800
-3   Adelie Torgersen           40.3          18.0               195        3250
-4   Adelie Torgersen             NA            NA                NA          NA
-5   Adelie Torgersen           36.7          19.3               193        3450
-6   Adelie Torgersen           39.3          20.6               190        3650
-7   Adelie Torgersen           38.9          17.8               181        3625
-8   Adelie Torgersen           39.2          19.6               195        4675
-9   Adelie Torgersen           34.1          18.1               193        3475
-10  Adelie Torgersen           42.0          20.2               190        4250
-11  Adelie Torgersen           37.8          17.1               186        3300
-12  Adelie Torgersen           37.8          17.3               180        3700
-13  Adelie Torgersen           41.1          17.6               182        3200
-14  Adelie Torgersen           38.6          21.2               191        3800
-15  Adelie Torgersen           34.6          21.1               198        4400
-16  Adelie Torgersen           36.6          17.8               185        3700
-17  Adelie Torgersen           38.7          19.0               195        3450
-18  Adelie Torgersen           42.5          20.7               197        4500
-19  Adelie Torgersen           34.4          18.4               184        3325
-20  Adelie Torgersen           46.0          21.5               194        4200
-21  Adelie    Biscoe           37.8          18.3               174        3400
-22  Adelie    Biscoe           37.7          18.7               180        3600
-23  Adelie    Biscoe           35.9          19.2               189        3800
-24  Adelie    Biscoe           38.2          18.1               185        3950
-25  Adelie    Biscoe           38.8          17.2               180        3800
-26  Adelie    Biscoe           35.3          18.9               187        3800
-27  Adelie    Biscoe           40.6          18.6               183        3550
-28  Adelie    Biscoe           40.5          17.9               187        3200
-29  Adelie    Biscoe           37.9          18.6               172        3150
-30  Adelie    Biscoe           40.5          18.9               180        3950
-31  Adelie     Dream           39.5          16.7               178        3250
-32  Adelie     Dream           37.2          18.1               178        3900
-33  Adelie     Dream           39.5          17.8               188        3300
-34  Adelie     Dream           40.9          18.9               184        3900
-35  Adelie     Dream           36.4          17.0               195        3325
-36  Adelie     Dream           39.2          21.1               196        4150
-37  Adelie     Dream           38.8          20.0               190        3950
-38  Adelie     Dream           42.2          18.5               180        3550
-39  Adelie     Dream           37.6          19.3               181        3300
-40  Adelie     Dream           39.8          19.1               184        4650
-41  Adelie     Dream           36.5          18.0               182        3150
-42  Adelie     Dream           40.8          18.4               195        3900
-43  Adelie     Dream           36.0          18.5               186        3100
-44  Adelie     Dream           44.1          19.7               196        4400
-45  Adelie     Dream           37.0          16.9               185        3000
-46  Adelie     Dream           39.6          18.8               190        4600
-47  Adelie     Dream           41.1          19.0               182        3425
-48  Adelie     Dream           37.5          18.9               179        2975
-49  Adelie     Dream           36.0          17.9               190        3450
-50  Adelie     Dream           42.3          21.2               191        4150
-      sex year
-1    male 2007
-2  female 2007
-3  female 2007
-4    &lt;NA&gt; 2007
-5  female 2007
-6    male 2007
-7  female 2007
-8    male 2007
-9    &lt;NA&gt; 2007
-10   &lt;NA&gt; 2007
-11   &lt;NA&gt; 2007
-12   &lt;NA&gt; 2007
-13 female 2007
-14   male 2007
-15   male 2007
-16 female 2007
-17 female 2007
-18   male 2007
-19 female 2007
-20   male 2007
-21 female 2007
-22   male 2007
-23 female 2007
-24   male 2007
-25   male 2007
-26 female 2007
-27   male 2007
-28 female 2007
-29 female 2007
-30   male 2007
-31 female 2007
-32   male 2007
-33 female 2007
-34   male 2007
-35 female 2007
-36   male 2007
-37   male 2007
-38 female 2007
-39 female 2007
-40   male 2007
-41 female 2007
-42   male 2007
-43 female 2007
-44   male 2007
-45 female 2007
-46   male 2007
-47   male 2007
-48   &lt;NA&gt; 2007
-49 female 2007
-50   male 2007</code></pre>
+<pre><code>    species    island    sex year bill_length_mm
+1    Adelie Torgersen female 2008           35.9
+2    Adelie    Biscoe female 2008           36.4
+3    Gentoo    Biscoe female 2007           46.5
+4 Chinstrap     Dream female 2009           46.8
+5    Adelie    Biscoe   male 2008           41.1</code></pre>
 </div>
 </div>
-<p>You can also do much the same thing in a more R-friendly way with <a href="r_training/dbplyr_dtplyr.html">a bit of d(b)plyr</a>:</p>
+<p>That allows you to execute any ordinary SQL query, although we’ll keep those very simple in this session:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"SELECT * FROM pengs WHERE species = 'Adelie'"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 50 × 8
-   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
- 1 Adelie  Torgersen           39.1          18.7               181        3750
- 2 Adelie  Torgersen           39.5          17.4               186        3800
- 3 Adelie  Torgersen           40.3          18                 195        3250
- 4 Adelie  Torgersen           NA            NA                  NA          NA
- 5 Adelie  Torgersen           36.7          19.3               193        3450
- 6 Adelie  Torgersen           39.3          20.6               190        3650
- 7 Adelie  Torgersen           38.9          17.8               181        3625
- 8 Adelie  Torgersen           39.2          19.6               195        4675
- 9 Adelie  Torgersen           34.1          18.1               193        3475
-10 Adelie  Torgersen           42            20.2               190        4250
-# ℹ 40 more rows
-# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<pre><code>  species    island    sex year bill_length_mm
+1  Adelie Torgersen female 2008           35.9
+2  Adelie    Biscoe female 2008           36.4
+3  Adelie    Biscoe   male 2008           41.1</code></pre>
+</div>
+</div>
+<p>You can also do much the same thing without writing SQL with the combination of dplyr and <a href="r_training/dbplyr_dtplyr.html">dbplyr</a>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"pengs"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># collecting data from the query and returning a tibble</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  species island    sex     year bill_length_mm
+  &lt;fct&gt;   &lt;fct&gt;     &lt;fct&gt;  &lt;int&gt;          &lt;dbl&gt;
+1 Adelie  Torgersen female  2008           35.9
+2 Adelie  Biscoe    female  2008           36.4
+3 Adelie  Biscoe    male    2008           41.1</code></pre>
 </div>
 </div>
 </section><section id="on-disk-databases" class="level2"><h2 class="anchored" data-anchor-id="on-disk-databases">On-disk databases</h2>
+<p>Our duckDB database so far has lived in memory. Ideal for demo purposes, not great for durable production use. Luckily, we can write duckDB databases to disk. The substantive change is to supply a filepath for your database to <code>dbConnect</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">disk_con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="op">(</span><span class="op">)</span>, dbdir <span class="op">=</span> <span class="st">"data/disk_con.duckdb"</span><span class="op">)</span> <span class="co"># the dbdir argument in the connection object is the only change</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">disk_con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="op">(</span><span class="op">)</span>, dbdir <span class="op">=</span> <span class="st">"data/disk_con.duckdb"</span><span class="op">)</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Then write a table to that on-disk database:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu">dbWriteTable</span><span class="op">(</span>conn <span class="op">=</span> <span class="va">disk_con</span>, name <span class="op">=</span> <span class="st">"pengs"</span>, value <span class="op">=</span> <span class="va">penguins</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu">dbWriteTable</span><span class="op">(</span>conn <span class="op">=</span> <span class="va">disk_con</span>, name <span class="op">=</span> <span class="st">"pengs"</span>, value <span class="op">=</span> <span class="va">mini_pengs</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Which can then be queried in the usual way:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"SELECT * FROM pengs WHERE species = 'Adelie' AND year = 2007"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"SELECT * FROM pengs WHERE species = 'Adelie'"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-1   Adelie Torgersen           39.1          18.7               181        3750
-2   Adelie Torgersen           39.5          17.4               186        3800
-3   Adelie Torgersen           40.3          18.0               195        3250
-4   Adelie Torgersen             NA            NA                NA          NA
-5   Adelie Torgersen           36.7          19.3               193        3450
-6   Adelie Torgersen           39.3          20.6               190        3650
-7   Adelie Torgersen           38.9          17.8               181        3625
-8   Adelie Torgersen           39.2          19.6               195        4675
-9   Adelie Torgersen           34.1          18.1               193        3475
-10  Adelie Torgersen           42.0          20.2               190        4250
-11  Adelie Torgersen           37.8          17.1               186        3300
-12  Adelie Torgersen           37.8          17.3               180        3700
-13  Adelie Torgersen           41.1          17.6               182        3200
-14  Adelie Torgersen           38.6          21.2               191        3800
-15  Adelie Torgersen           34.6          21.1               198        4400
-16  Adelie Torgersen           36.6          17.8               185        3700
-17  Adelie Torgersen           38.7          19.0               195        3450
-18  Adelie Torgersen           42.5          20.7               197        4500
-19  Adelie Torgersen           34.4          18.4               184        3325
-20  Adelie Torgersen           46.0          21.5               194        4200
-21  Adelie    Biscoe           37.8          18.3               174        3400
-22  Adelie    Biscoe           37.7          18.7               180        3600
-23  Adelie    Biscoe           35.9          19.2               189        3800
-24  Adelie    Biscoe           38.2          18.1               185        3950
-25  Adelie    Biscoe           38.8          17.2               180        3800
-26  Adelie    Biscoe           35.3          18.9               187        3800
-27  Adelie    Biscoe           40.6          18.6               183        3550
-28  Adelie    Biscoe           40.5          17.9               187        3200
-29  Adelie    Biscoe           37.9          18.6               172        3150
-30  Adelie    Biscoe           40.5          18.9               180        3950
-31  Adelie     Dream           39.5          16.7               178        3250
-32  Adelie     Dream           37.2          18.1               178        3900
-33  Adelie     Dream           39.5          17.8               188        3300
-34  Adelie     Dream           40.9          18.9               184        3900
-35  Adelie     Dream           36.4          17.0               195        3325
-36  Adelie     Dream           39.2          21.1               196        4150
-37  Adelie     Dream           38.8          20.0               190        3950
-38  Adelie     Dream           42.2          18.5               180        3550
-39  Adelie     Dream           37.6          19.3               181        3300
-40  Adelie     Dream           39.8          19.1               184        4650
-41  Adelie     Dream           36.5          18.0               182        3150
-42  Adelie     Dream           40.8          18.4               195        3900
-43  Adelie     Dream           36.0          18.5               186        3100
-44  Adelie     Dream           44.1          19.7               196        4400
-45  Adelie     Dream           37.0          16.9               185        3000
-46  Adelie     Dream           39.6          18.8               190        4600
-47  Adelie     Dream           41.1          19.0               182        3425
-48  Adelie     Dream           37.5          18.9               179        2975
-49  Adelie     Dream           36.0          17.9               190        3450
-50  Adelie     Dream           42.3          21.2               191        4150
-      sex year
-1    male 2007
-2  female 2007
-3  female 2007
-4    &lt;NA&gt; 2007
-5  female 2007
-6    male 2007
-7  female 2007
-8    male 2007
-9    &lt;NA&gt; 2007
-10   &lt;NA&gt; 2007
-11   &lt;NA&gt; 2007
-12   &lt;NA&gt; 2007
-13 female 2007
-14   male 2007
-15   male 2007
-16 female 2007
-17 female 2007
-18   male 2007
-19 female 2007
-20   male 2007
-21 female 2007
-22   male 2007
-23 female 2007
-24   male 2007
-25   male 2007
-26 female 2007
-27   male 2007
-28 female 2007
-29 female 2007
-30   male 2007
-31 female 2007
-32   male 2007
-33 female 2007
-34   male 2007
-35 female 2007
-36   male 2007
-37   male 2007
-38 female 2007
-39 female 2007
-40   male 2007
-41 female 2007
-42   male 2007
-43 female 2007
-44   male 2007
-45 female 2007
-46   male 2007
-47   male 2007
-48   &lt;NA&gt; 2007
-49 female 2007
-50   male 2007</code></pre>
+<pre><code>  species    island    sex year bill_length_mm
+1  Adelie Torgersen female 2008           35.9
+2  Adelie    Biscoe female 2008           36.4
+3  Adelie    Biscoe   male 2008           41.1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">disk_con</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "pengs"</code></pre>
 </div>
 </div>
 </section><section id="referencing-tibblesdata.frames" class="level2"><h2 class="anchored" data-anchor-id="referencing-tibblesdata.frames">Referencing tibbles/data.frames</h2>
 <p>Like creating a virtual table. Doesn’t copy any data, good for practice and preview.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">duckdb_register</span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"ref_pengs"</span>, <span class="va">penguins</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">duckdb_register</span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"ref_pengs"</span>, <span class="va">mini_pengs</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"SELECT * FROM ref_pengs WHERE species = 'Adelie' AND year = 2007"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"SELECT * FROM ref_pengs WHERE species = 'Adelie'"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-1   Adelie Torgersen           39.1          18.7               181        3750
-2   Adelie Torgersen           39.5          17.4               186        3800
-3   Adelie Torgersen           40.3          18.0               195        3250
-4   Adelie Torgersen             NA            NA                NA          NA
-5   Adelie Torgersen           36.7          19.3               193        3450
-6   Adelie Torgersen           39.3          20.6               190        3650
-7   Adelie Torgersen           38.9          17.8               181        3625
-8   Adelie Torgersen           39.2          19.6               195        4675
-9   Adelie Torgersen           34.1          18.1               193        3475
-10  Adelie Torgersen           42.0          20.2               190        4250
-11  Adelie Torgersen           37.8          17.1               186        3300
-12  Adelie Torgersen           37.8          17.3               180        3700
-13  Adelie Torgersen           41.1          17.6               182        3200
-14  Adelie Torgersen           38.6          21.2               191        3800
-15  Adelie Torgersen           34.6          21.1               198        4400
-16  Adelie Torgersen           36.6          17.8               185        3700
-17  Adelie Torgersen           38.7          19.0               195        3450
-18  Adelie Torgersen           42.5          20.7               197        4500
-19  Adelie Torgersen           34.4          18.4               184        3325
-20  Adelie Torgersen           46.0          21.5               194        4200
-21  Adelie    Biscoe           37.8          18.3               174        3400
-22  Adelie    Biscoe           37.7          18.7               180        3600
-23  Adelie    Biscoe           35.9          19.2               189        3800
-24  Adelie    Biscoe           38.2          18.1               185        3950
-25  Adelie    Biscoe           38.8          17.2               180        3800
-26  Adelie    Biscoe           35.3          18.9               187        3800
-27  Adelie    Biscoe           40.6          18.6               183        3550
-28  Adelie    Biscoe           40.5          17.9               187        3200
-29  Adelie    Biscoe           37.9          18.6               172        3150
-30  Adelie    Biscoe           40.5          18.9               180        3950
-31  Adelie     Dream           39.5          16.7               178        3250
-32  Adelie     Dream           37.2          18.1               178        3900
-33  Adelie     Dream           39.5          17.8               188        3300
-34  Adelie     Dream           40.9          18.9               184        3900
-35  Adelie     Dream           36.4          17.0               195        3325
-36  Adelie     Dream           39.2          21.1               196        4150
-37  Adelie     Dream           38.8          20.0               190        3950
-38  Adelie     Dream           42.2          18.5               180        3550
-39  Adelie     Dream           37.6          19.3               181        3300
-40  Adelie     Dream           39.8          19.1               184        4650
-41  Adelie     Dream           36.5          18.0               182        3150
-42  Adelie     Dream           40.8          18.4               195        3900
-43  Adelie     Dream           36.0          18.5               186        3100
-44  Adelie     Dream           44.1          19.7               196        4400
-45  Adelie     Dream           37.0          16.9               185        3000
-46  Adelie     Dream           39.6          18.8               190        4600
-47  Adelie     Dream           41.1          19.0               182        3425
-48  Adelie     Dream           37.5          18.9               179        2975
-49  Adelie     Dream           36.0          17.9               190        3450
-50  Adelie     Dream           42.3          21.2               191        4150
-      sex year
-1    male 2007
-2  female 2007
-3  female 2007
-4    &lt;NA&gt; 2007
-5  female 2007
-6    male 2007
-7  female 2007
-8    male 2007
-9    &lt;NA&gt; 2007
-10   &lt;NA&gt; 2007
-11   &lt;NA&gt; 2007
-12   &lt;NA&gt; 2007
-13 female 2007
-14   male 2007
-15   male 2007
-16 female 2007
-17 female 2007
-18   male 2007
-19 female 2007
-20   male 2007
-21 female 2007
-22   male 2007
-23 female 2007
-24   male 2007
-25   male 2007
-26 female 2007
-27   male 2007
-28 female 2007
-29 female 2007
-30   male 2007
-31 female 2007
-32   male 2007
-33 female 2007
-34   male 2007
-35 female 2007
-36   male 2007
-37   male 2007
-38 female 2007
-39 female 2007
-40   male 2007
-41 female 2007
-42   male 2007
-43 female 2007
-44   male 2007
-45 female 2007
-46   male 2007
-47   male 2007
-48   &lt;NA&gt; 2007
-49 female 2007
-50   male 2007</code></pre>
+<pre><code>  species    island    sex year bill_length_mm
+1  Adelie Torgersen female 2008           35.9
+2  Adelie    Biscoe female 2008           36.4
+3  Adelie    Biscoe   male 2008           41.1</code></pre>
+</div>
+</div>
+</section><section id="big-chunky-data" class="level2"><h2 class="anchored" data-anchor-id="big-chunky-data">Big chunky data</h2>
+<p>Scotland makes available national prescribing data <a href="https://www.opendata.nhs.scot/dataset/prescriptions-in-the-community/resource/15e675c7-ac8d-4000-a690-b70a2d3d3a76">aggregated by dispenser and by medication type</a>. That full data-set is pretty chunky indeed - roughly a couple of million rows of data per month, which is probably a bit larger than we can comfortably deal with in a training session, so we’ll use a slice of this data showing prescriptions in NHS Grampian to explore DuckDB as a tool for working with big(ish) data.</p>
+<p>Here’s some data-wranging code, which probably isn’t going to be of interest:</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># dispensers_2026july &lt;- phsopendata::get_resource("15e675c7-ac8d-4000-a690-b70a2d3d3a76") |&gt;</span></span>
+<span><span class="co">#   filter(HBT == "S08000020") # grab your Grampian</span></span>
+<span></span>
+<span><span class="co"># dispensers_2026july |&gt;</span></span>
+<span><span class="co"># readr::write_rds(here::here("r_training/data/dispensers_2026july.rds"))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>You should <a href="data/dispensers_2026july.rds">download the sample data</a> - approximately 200MB - and save it somewhere sensible in your current R project. We can then read that data as a tibble, which we can then register into our on-disk DB</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_path</span> <span class="op">&lt;-</span> <span class="st">"r_training/data/dispensers_2026july.rds"</span> <span class="co"># change that to suit</span></span>
+<span></span>
+<span><span class="va">dispensers_2026july</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="va">data_path</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># disk_con &lt;- dbConnect(duckdb(), dbdir = "data/disk_con.duckdb") # if you didn't set-up an on-disk DB above</span></span>
+<span></span>
+<span><span class="fu">duckdb_register</span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"dispensers_2026july"</span>, <span class="va">dispensers_2026july</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co"># otherwise overwriting a table causes duckdb_register to fail</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="simple-filter-and-summarise" class="level2"><h2 class="anchored" data-anchor-id="simple-filter-and-summarise">Simple filter and summarise</h2>
+<p>We could do that in dplyr:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dispensers_2026july</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="st">"0209000A0AAA"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="va">BNFItemDescription</span><span class="op">)</span>, PaidQuantity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">PaidQuantity</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  BNFItemCode     BNFItemDescription                    PaidQuantity
+  &lt;chr&gt;           &lt;chr&gt;                                        &lt;dbl&gt;
+1 0209000A0AAAKAK ASPIRIN 75MG GASTRO-RESISTANT TABLETS       45647 
+2 0209000A0AAAJAJ ASPIRIN 75MG TABLETS                        30162 
+3 0209000A0AAABAB ASPIRIN 75MG DISPERSIBLE TABLETS           573612.</code></pre>
+</div>
+</div>
+<p>Here’s the SQL version:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"SELECT BNFItemCode, BNFItemDescription, SUM(PaidQuantity) AS PaidQuantity,  FROM dispensers_2026july WHERE BNFItemCode LIKE '0209000A0AAA%' GROUP BY BNFItemCode, BNFItemDescription"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      BNFItemCode                    BNFItemDescription PaidQuantity
+1 0209000A0AAABAB      ASPIRIN 75MG DISPERSIBLE TABLETS     573612.3
+2 0209000A0AAAJAJ                  ASPIRIN 75MG TABLETS      30162.0
+3 0209000A0AAAKAK ASPIRIN 75MG GASTRO-RESISTANT TABLETS      45647.0</code></pre>
+</div>
+</div>
+<p>Or a transitional form using dbplyr:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"dispensers_2026july"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="st">"0209000A0AAA"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="va">BNFItemDescription</span><span class="op">)</span>, PaidQuantity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">PaidQuantity</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  BNFItemCode     BNFItemDescription                    PaidQuantity
+  &lt;chr&gt;           &lt;chr&gt;                                        &lt;dbl&gt;
+1 0209000A0AAABAB ASPIRIN 75MG DISPERSIBLE TABLETS           573612.
+2 0209000A0AAAJAJ ASPIRIN 75MG TABLETS                        30162 
+3 0209000A0AAAKAK ASPIRIN 75MG GASTRO-RESISTANT TABLETS       45647 </code></pre>
+</div>
+</div>
+</section><section id="benchmarking" class="level2"><h2 class="anchored" data-anchor-id="benchmarking">Benchmarking</h2>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">presc_bench</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
+<span></span>
+<span>  dplyr <span class="op">=</span> <span class="va">dispensers_2026july</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="st">"0209000A0AAA"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="va">BNFItemDescription</span><span class="op">)</span>, PaidQuantity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">PaidQuantity</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  sql <span class="op">=</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"SELECT BNFItemCode, BNFItemDescription, SUM(PaidQuantity) AS PaidQuantity,  FROM dispensers_2026july WHERE BNFItemCode LIKE '0209000A0AAA%' GROUP BY BNFItemCode, BNFItemDescription"</span><span class="op">)</span>,</span>
+<span></span>
+<span>  dbplyr <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"dispensers_2026july"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="st">"0209000A0AAA"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="va">BNFItemDescription</span><span class="op">)</span>, PaidQuantity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">PaidQuantity</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">presc_bench</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="st">"r_training/data/presc_bench.rds"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">autoplot</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="intro_duckdb_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 
