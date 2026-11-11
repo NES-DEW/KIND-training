@@ -143,17 +143,19 @@ DBI::dbGetQuery(mem_con, "SELECT * FROM ref_pengs WHERE species = 'Adelie'")
 
 ## Big chunky data
 
-Scotland makes available national prescribing data [aggregated by dispenser and by medication type](https://www.opendata.nhs.scot/dataset/prescriptions-in-the-community/resource/15e675c7-ac8d-4000-a690-b70a2d3d3a76). That's pretty chunky indeed - roughly a couple of million rows of data per month. In the last part of this session, we'll use an extract from that data to explore DuckDB as a tool for working with big(ish) data.
+Scotland makes available national prescribing data [aggregated by dispenser and by medication type](https://www.opendata.nhs.scot/dataset/prescriptions-in-the-community/resource/15e675c7-ac8d-4000-a690-b70a2d3d3a76). That full data-set is pretty chunky indeed - roughly a couple of million rows of data per month, which is probably a bit larger than we can comfortably deal with in a training session, so we'll use a slice of this data showing prescriptions in NHS Grampian to explore DuckDB as a tool for working with big(ish) data.
 
 Here's some data-wranging code, which probably isn't going to be of interest:
 
 ```{r}
 #| code-fold: true
 
-# dispensers_2026july <- phsopendata::get_resource("15e675c7-ac8d-4000-a690-b70a2d3d3a76")
+# dispensers_2026july <- phsopendata::get_resource("15e675c7-ac8d-4000-a690-b70a2d3d3a76") |>
+#   filter(HBT == "S08000020") # grab your Grampian
 
 # dispensers_2026july |>
-  # readr::write_rds(here::here("r_training/data/dispensers_2026july.rds"))
+# readr::write_rds(here::here("r_training/data/dispensers_2026july.rds"))
+
 ```
 
 You should [download the sample data](data/dispensers_2026july.rds) - approximately 200MB - and save it somewhere sensible in your current R project. We can then read that data as a tibble, which we can then register into our on-disk DB
