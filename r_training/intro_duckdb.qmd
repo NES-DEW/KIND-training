@@ -126,6 +126,8 @@ Which can then be queried in the usual way:
 DBI::dbGetQuery(disk_con, "SELECT * FROM pengs WHERE species = 'Adelie'")
 
 DBI::dbListTables(disk_con)
+
+DBI::dbListFields(disk_con, "pengs")
 ```
 
 
@@ -170,6 +172,20 @@ dispensers_2026july <- readr::read_rds(here::here(data_path))
 duckdb_register(disk_con, "dispensers_2026july", dispensers_2026july, overwrite = T) # otherwise overwriting a table causes duckdb_register to fail
 ```
 
+## Pulling larger data sensibly
+
+It probably makes sense at this point to explore ways of working that don't depend on the "do it all in one" approach of `DBGetQuery`, especially the useful combo of being able to formulate (and check) a SQL expression independently of fetching the results:
+
+```{r}
+all_dispensers <- DBI::dbSendQuery(disk_con, "SELECT * FROM dispensers_2026july")
+
+DBI::dbFetch(all_dispensers, n = 12)
+
+DBI::dbGetStatement(all_dispensers)
+
+DBI::dbColumnInfo(all_dispensers)
+```
+
 
 ## Simple filter and summarise
 
@@ -193,7 +209,8 @@ Or a transitional form using dbplyr:
 tbl(disk_con, "dispensers_2026july") |>
   filter(stringr::str_detect(BNFItemCode, "0209000A0AAA")) |>
   summarise(.by = c(BNFItemCode, BNFItemDescription), PaidQuantity = sum(PaidQuantity)) |>
-  collect()
+  show_query() |> # optional but very usefl
+  collect() 
 ```
 
 ## Benchmarking
@@ -228,6 +245,15 @@ presc_bench |>
 library(microbenchmark)
 readr::read_rds(here::here("r_training/data/presc_bench.rds")) |>
   ggplot2::autoplot()
+```
+## Disconnecting
+
+It's good practice to disconnect from a database when you finish working with it. Just supply your duckDB connection object to `dbDisconnect`:
+
+```{r}
+DBI::dbDisconnect(disk_con)
+
+try(DBI::dbListTables(disk_con))
 ```
 
 
