@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8d3ad9c781c51ccd60b292c95058b2c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-3f6c6756e17742611d7b6553d490e4fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-8d3ad9c781c51ccd60b292c95058b2c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-f35a81a4717690815b2013502477d714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-b182e948423b8bbd6f49f4b0f31b652b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f35a81a4717690815b2013502477d714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -367,8 +367,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#on-disk-databases" id="toc-on-disk-databases" class="nav-link" data-scroll-target="#on-disk-databases">On-disk databases</a></li>
   <li><a href="#referencing-tibblesdata.frames" id="toc-referencing-tibblesdata.frames" class="nav-link" data-scroll-target="#referencing-tibblesdata.frames">Referencing tibbles/data.frames</a></li>
   <li><a href="#big-chunky-data" id="toc-big-chunky-data" class="nav-link" data-scroll-target="#big-chunky-data">Big chunky data</a></li>
+  <li><a href="#pulling-larger-data-sensibly" id="toc-pulling-larger-data-sensibly" class="nav-link" data-scroll-target="#pulling-larger-data-sensibly">Pulling larger data sensibly</a></li>
   <li><a href="#simple-filter-and-summarise" id="toc-simple-filter-and-summarise" class="nav-link" data-scroll-target="#simple-filter-and-summarise">Simple filter and summarise</a></li>
   <li><a href="#benchmarking" id="toc-benchmarking" class="nav-link" data-scroll-target="#benchmarking">Benchmarking</a></li>
+  <li><a href="#disconnecting" id="toc-disconnecting" class="nav-link" data-scroll-target="#disconnecting">Disconnecting</a></li>
   </ul></nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -466,22 +468,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"SELECT * FROM pengs"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>    species    island    sex year bill_length_mm
-1    Adelie Torgersen female 2008           35.9
-2    Adelie    Biscoe female 2008           36.4
-3    Gentoo    Biscoe female 2007           46.5
-4 Chinstrap     Dream female 2009           46.8
-5    Adelie    Biscoe   male 2008           41.1</code></pre>
+<pre><code>    species island    sex year bill_length_mm
+1    Gentoo Biscoe female 2008           42.6
+2    Adelie Biscoe   male 2009           38.2
+3    Adelie  Dream   male 2009           40.6
+4 Chinstrap  Dream female 2008           40.9
+5    Adelie  Dream female 2008           35.7</code></pre>
 </div>
 </div>
 <p>That allows you to execute any ordinary SQL query, although we’ll keep those very simple in this session:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"SELECT * FROM pengs WHERE species = 'Adelie'"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  species    island    sex year bill_length_mm
-1  Adelie Torgersen female 2008           35.9
-2  Adelie    Biscoe female 2008           36.4
-3  Adelie    Biscoe   male 2008           41.1</code></pre>
+<pre><code>  species island    sex year bill_length_mm
+1  Adelie Biscoe   male 2009           38.2
+2  Adelie  Dream   male 2009           40.6
+3  Adelie  Dream female 2008           35.7</code></pre>
 </div>
 </div>
 <p>You can also do much the same thing without writing SQL with the combination of dplyr and <a href="r_training/dbplyr_dtplyr.html">dbplyr</a>:</p>
@@ -491,11 +493,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># collecting data from the query and returning a tibble</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
-  species island    sex     year bill_length_mm
-  &lt;fct&gt;   &lt;fct&gt;     &lt;fct&gt;  &lt;int&gt;          &lt;dbl&gt;
-1 Adelie  Torgersen female  2008           35.9
-2 Adelie  Biscoe    female  2008           36.4
-3 Adelie  Biscoe    male    2008           41.1</code></pre>
+  species island sex     year bill_length_mm
+  &lt;fct&gt;   &lt;fct&gt;  &lt;fct&gt;  &lt;int&gt;          &lt;dbl&gt;
+1 Adelie  Biscoe male    2009           38.2
+2 Adelie  Dream  male    2009           40.6
+3 Adelie  Dream  female  2008           35.7</code></pre>
 </div>
 </div>
 </section><section id="on-disk-databases" class="level2"><h2 class="anchored" data-anchor-id="on-disk-databases">On-disk databases</h2>
@@ -511,34 +513,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"SELECT * FROM pengs WHERE species = 'Adelie'"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  species    island    sex year bill_length_mm
-1  Adelie Torgersen female 2008           35.9
-2  Adelie    Biscoe female 2008           36.4
-3  Adelie    Biscoe   male 2008           41.1</code></pre>
+<pre><code>  species island    sex year bill_length_mm
+1  Adelie Biscoe   male 2009           38.2
+2  Adelie  Dream   male 2009           40.6
+3  Adelie  Dream female 2008           35.7</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">disk_con</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "pengs"</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListFields.html">dbListFields</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"pengs"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "species"        "island"         "sex"            "year"          
+[5] "bill_length_mm"</code></pre>
+</div>
 </div>
 </section><section id="referencing-tibblesdata.frames" class="level2"><h2 class="anchored" data-anchor-id="referencing-tibblesdata.frames">Referencing tibbles/data.frames</h2>
 <p>Like creating a virtual table. Doesn’t copy any data, good for practice and preview.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">duckdb_register</span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"ref_pengs"</span>, <span class="va">mini_pengs</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">duckdb_register</span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"ref_pengs"</span>, <span class="va">mini_pengs</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">mem_con</span>, <span class="st">"SELECT * FROM ref_pengs WHERE species = 'Adelie'"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  species    island    sex year bill_length_mm
-1  Adelie Torgersen female 2008           35.9
-2  Adelie    Biscoe female 2008           36.4
-3  Adelie    Biscoe   male 2008           41.1</code></pre>
+<pre><code>  species island    sex year bill_length_mm
+1  Adelie Biscoe   male 2009           38.2
+2  Adelie  Dream   male 2009           40.6
+3  Adelie  Dream female 2008           35.7</code></pre>
 </div>
 </div>
 </section><section id="big-chunky-data" class="level2"><h2 class="anchored" data-anchor-id="big-chunky-data">Big chunky data</h2>
 <p>Scotland makes available national prescribing data <a href="https://www.opendata.nhs.scot/dataset/prescriptions-in-the-community/resource/15e675c7-ac8d-4000-a690-b70a2d3d3a76">aggregated by dispenser and by medication type</a>. That full data-set is pretty chunky indeed - roughly a couple of million rows of data per month, which is probably a bit larger than we can comfortably deal with in a training session, so we’ll use a slice of this data showing prescriptions in NHS Grampian to explore DuckDB as a tool for working with big(ish) data.</p>
 <p>Here’s some data-wranging code, which probably isn’t going to be of interest:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># dispensers_2026july &lt;- phsopendata::get_resource("15e675c7-ac8d-4000-a690-b70a2d3d3a76") |&gt;</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># dispensers_2026july &lt;- phsopendata::get_resource("15e675c7-ac8d-4000-a690-b70a2d3d3a76") |&gt;</span></span>
 <span><span class="co">#   filter(HBT == "S08000020") # grab your Grampian</span></span>
 <span></span>
 <span><span class="co"># dispensers_2026july |&gt;</span></span>
@@ -547,7 +554,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>You should <a href="data/dispensers_2026july.rds">download the sample data</a> - approximately 200MB - and save it somewhere sensible in your current R project. We can then read that data as a tibble, which we can then register into our on-disk DB</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_path</span> <span class="op">&lt;-</span> <span class="st">"r_training/data/dispensers_2026july.rds"</span> <span class="co"># change that to suit</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_path</span> <span class="op">&lt;-</span> <span class="st">"r_training/data/dispensers_2026july.rds"</span> <span class="co"># change that to suit</span></span>
 <span></span>
 <span><span class="va">dispensers_2026july</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html">here</a></span><span class="op">(</span><span class="va">data_path</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -555,10 +562,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu">duckdb_register</span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"dispensers_2026july"</span>, <span class="va">dispensers_2026july</span>, overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co"># otherwise overwriting a table causes duckdb_register to fail</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section><section id="pulling-larger-data-sensibly" class="level2"><h2 class="anchored" data-anchor-id="pulling-larger-data-sensibly">Pulling larger data sensibly</h2>
+<p>It probably makes sense at this point to explore ways of working that don’t depend on the “do it all in one” approach of <code>DBGetQuery</code>, especially the useful combo of being able to formulate (and check) a SQL expression independently of fetching the results:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">all_dispensers</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbSendQuery.html">dbSendQuery</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"SELECT * FROM dispensers_2026july"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbFetch.html">dbFetch</a></span><span class="op">(</span><span class="va">all_dispensers</span>, n <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         HBT DispLocationCode      DMDCode     BNFItemCode
+1  S08000020             4007           NA            &lt;NA&gt;
+2  S08000020             4007 1.001911e+15 1309000I0AAAAAA
+3  S08000020             4007 1.002411e+15 0501030L0AAABAB
+4  S08000020             4007 1.002511e+15 0204000R0AAAAAA
+5  S08000020             4007 1.004511e+15 0401010R0AAACAC
+6  S08000020             4007 1.004711e+15 0206020F0AAACAC
+7  S08000020             4007 1.004811e+15 0403030L0AAAAAA
+8  S08000020             4007 1.005311e+15 0209000C0AAAAAA
+9  S08000020             4007 1.005911e+15 0209000A0AAAKAK
+10 S08000020             4007 1.006911e+15 0206020F0AAADAD
+11 S08000020             4007 1.007111e+15 0202010B0AAACAC
+12 S08000020             4007 1.007211e+15 0206010K0AAACAC
+                           BNFItemDescription PrescribedType NumberOfPaidItems
+1                                        &lt;NA&gt;            VMP                 4
+2                     KETOCONAZOLE 2% SHAMPOO            VMP                 2
+3                  LYMECYCLINE 408MG CAPSULES            VMP                 6
+4  PROPRANOLOL 80MG MODIFIED-RELEASE CAPSULES            VMP                38
+5                      NITRAZEPAM 5MG TABLETS            VMP                16
+6    FELODIPINE 10MG MODIFIED-RELEASE TABLETS            VMP                12
+7                    FLUVOXAMINE 50MG TABLETS            VMP                 1
+8                    CLOPIDOGREL 75MG TABLETS            VMP                79
+9       ASPIRIN 75MG GASTRO-RESISTANT TABLETS            VMP                12
+10  FELODIPINE 2.5MG MODIFIED-RELEASE TABLETS            VMP                14
+11            BENDROFLUMETHIAZIDE 5MG TABLETS            VMP                 4
+12        ISOSORBIDE MONONITRATE 20MG TABLETS            VMP                 4
+   PaidQuantity GrossIngredientCost PaidDateMonth
+1           680              503.41        202607
+2           240               43.00        202607
+3           196               42.98        202607
+4          2107             4515.00        202607
+5           820               92.26        202607
+6           560               96.20        202607
+7            84               23.94        202607
+8          3399              184.52        202607
+9           588               42.42        202607
+10          672              136.32        202607
+11          168                5.88        202607
+12          280               20.65        202607</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetStatement.html">dbGetStatement</a></span><span class="op">(</span><span class="va">all_dispensers</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SELECT * FROM dispensers_2026july"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbColumnInfo.html">dbColumnInfo</a></span><span class="op">(</span><span class="va">all_dispensers</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  name      type
+1                  HBT character
+2     DispLocationCode   numeric
+3              DMDCode   numeric
+4          BNFItemCode character
+5   BNFItemDescription character
+6       PrescribedType character
+7    NumberOfPaidItems   numeric
+8         PaidQuantity   numeric
+9  GrossIngredientCost   numeric
+10       PaidDateMonth   numeric</code></pre>
+</div>
+</div>
 </section><section id="simple-filter-and-summarise" class="level2"><h2 class="anchored" data-anchor-id="simple-filter-and-summarise">Simple filter and summarise</h2>
 <p>We could do that in dplyr:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dispensers_2026july</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dispensers_2026july</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="st">"0209000A0AAA"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="va">BNFItemDescription</span><span class="op">)</span>, PaidQuantity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">PaidQuantity</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -572,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here’s the SQL version:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"SELECT BNFItemCode, BNFItemDescription, SUM(PaidQuantity) AS PaidQuantity,  FROM dispensers_2026july WHERE BNFItemCode LIKE '0209000A0AAA%' GROUP BY BNFItemCode, BNFItemDescription"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"SELECT BNFItemCode, BNFItemDescription, SUM(PaidQuantity) AS PaidQuantity,  FROM dispensers_2026july WHERE BNFItemCode LIKE '0209000A0AAA%' GROUP BY BNFItemCode, BNFItemDescription"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      BNFItemCode                    BNFItemDescription PaidQuantity
 1 0209000A0AAABAB      ASPIRIN 75MG DISPERSIBLE TABLETS     573612.3
@@ -582,10 +655,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Or a transitional form using dbplyr:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"dispensers_2026july"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">disk_con</span>, <span class="st">"dispensers_2026july"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="st">"0209000A0AAA"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">BNFItemCode</span>, <span class="va">BNFItemDescription</span><span class="op">)</span>, PaidQuantity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">PaidQuantity</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># optional but very usefl</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;SQL&gt;
+SELECT BNFItemCode, BNFItemDescription, SUM(PaidQuantity) AS PaidQuantity
+FROM dispensers_2026july
+WHERE (REGEXP_MATCHES(BNFItemCode, '0209000A0AAA'))
+GROUP BY BNFItemCode, BNFItemDescription</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   BNFItemCode     BNFItemDescription                    PaidQuantity
@@ -597,7 +678,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="benchmarking" class="level2"><h2 class="anchored" data-anchor-id="benchmarking">Benchmarking</h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">presc_bench</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
 <span></span>
@@ -621,9 +702,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="intro_duckdb_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="intro_duckdb_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+</section><section id="disconnecting" class="level2"><h2 class="anchored" data-anchor-id="disconnecting">Disconnecting</h2>
+<p>It’s good practice to disconnect from a database when you finish working with it. Just supply your duckDB connection object to <code>dbDisconnect</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">disk_con</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">disk_con</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in dbSendQuery(conn, statement, ...) : Invalid connection
+ℹ Context: rapi_prepare</code></pre>
 </div>
 </div>
 
